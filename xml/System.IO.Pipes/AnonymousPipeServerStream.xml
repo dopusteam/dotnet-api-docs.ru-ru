@@ -1,0 +1,999 @@
+<Type Name="AnonymousPipeServerStream" FullName="System.IO.Pipes.AnonymousPipeServerStream">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="3f79e272db701f012912103823d00ec3d830fa8c" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class AnonymousPipeServerStream : System.IO.Pipes.PipeStream" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit AnonymousPipeServerStream extends System.IO.Pipes.PipeStream" />
+  <TypeSignature Language="DocId" Value="T:System.IO.Pipes.AnonymousPipeServerStream" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class AnonymousPipeServerStream&#xA;Inherits PipeStream" />
+  <TypeSignature Language="C++ CLI" Value="public ref class AnonymousPipeServerStream sealed : System::IO::Pipes::PipeStream" />
+  <AssemblyInfo>
+    <AssemblyName>System.IO.Pipes</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Core</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.IO.Pipes.PipeStream</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="68e63-101">Предоставляет поток для анонимного канала, поддерживающий синхронные и асинхронные операции чтения и записи.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="68e63-101">Exposes a stream around an anonymous pipe, which supports both synchronous and asynchronous read and write operations.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-102">Анонимные каналы служат для обеспечения надежной и безопасной связи между дочерними и родительскими процессами.</span><span class="sxs-lookup"><span data-stu-id="68e63-102">Anonymous pipes help provide safe and secure interprocess communication between child and parent processes.</span></span> <span data-ttu-id="68e63-103"><xref:System.IO.Pipes.AnonymousPipeServerStream> Класс позволяет родительский процесс для отправки и получения информации из дочернего процесса.</span><span class="sxs-lookup"><span data-stu-id="68e63-103">The <xref:System.IO.Pipes.AnonymousPipeServerStream> class enables a parent process to send or receive information from a child process.</span></span>  
+  
+ <span data-ttu-id="68e63-104">Анонимные каналы являются каналами без имени, односторонние, которые обычно передачи данных между родительским и дочерним процессами.</span><span class="sxs-lookup"><span data-stu-id="68e63-104">Anonymous pipes are unnamed, one-way pipes that typically transfer data between parent and child processes.</span></span> <span data-ttu-id="68e63-105">Анонимные каналы всегда являются локальными. они не может использоваться в сети.</span><span class="sxs-lookup"><span data-stu-id="68e63-105">Anonymous pipes are always local; they cannot be used over a network.</span></span> <span data-ttu-id="68e63-106">Объект <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.InOut> не поддерживается, поскольку анонимные каналы определяются как односторонней.</span><span class="sxs-lookup"><span data-stu-id="68e63-106">A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.InOut> is not supported because anonymous pipes are defined to be one-way.</span></span>  
+  
+ <span data-ttu-id="68e63-107">Анонимные каналы не поддерживают <xref:System.IO.Pipes.PipeTransmissionMode.Message> чтения режимов.</span><span class="sxs-lookup"><span data-stu-id="68e63-107">Anonymous pipes do not support <xref:System.IO.Pipes.PipeTransmissionMode.Message> read modes.</span></span>  
+  
+ <span data-ttu-id="68e63-108">Анонимного канала на стороне клиента должны быть созданы из дескриптора канала, предоставляемые на серверной стороне вызова <xref:System.IO.Pipes.AnonymousPipeServerStream.GetClientHandleAsString%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="68e63-108">The client side of an anonymous pipe must be created from a pipe handle provided by the server side by calling the <xref:System.IO.Pipes.AnonymousPipeServerStream.GetClientHandleAsString%2A> method.</span></span> <span data-ttu-id="68e63-109">Строка передается как параметр при создании клиентского процесса.</span><span class="sxs-lookup"><span data-stu-id="68e63-109">The string is then passed as a parameter when creating the client process.</span></span> <span data-ttu-id="68e63-110">Клиентского процесса, он передается в <xref:System.IO.Pipes.AnonymousPipeClientStream> конструктора, как `pipeHandleAsString` параметр.</span><span class="sxs-lookup"><span data-stu-id="68e63-110">From the client process, it is then passed to the <xref:System.IO.Pipes.AnonymousPipeClientStream> constructor as the `pipeHandleAsString` parameter.</span></span>  
+  
+ <span data-ttu-id="68e63-111"><xref:System.IO.Pipes.AnonymousPipeServerStream> Объекта должна освободить дескриптор клиента с помощью <xref:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle%2A> метод, чтобы получать уведомления при выходе клиента.</span><span class="sxs-lookup"><span data-stu-id="68e63-111">The <xref:System.IO.Pipes.AnonymousPipeServerStream> object must dispose the client handle using the <xref:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle%2A> method in order to be notified when the client exits.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="68e63-112">Для [!INCLUDE[winxppro](~/includes/winxppro-md.md)] и [!INCLUDE[win2kserver](~/includes/win2kserver-md.md)], одновременно может подключаться максимум 10 каналов по сети.</span><span class="sxs-lookup"><span data-stu-id="68e63-112">For [!INCLUDE[winxppro](~/includes/winxppro-md.md)] and [!INCLUDE[win2kserver](~/includes/win2kserver-md.md)], a maximum of 10 pipes can simultaneously connect over the network.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="68e63-113">В следующем примере показано, как отправить строку из родительского процесса в дочерний процесс через анонимные каналы.</span><span class="sxs-lookup"><span data-stu-id="68e63-113">The following example demonstrates a way to send a string from a parent process to a child process using anonymous pipes.</span></span> <span data-ttu-id="68e63-114">В этом примере создается объект <xref:System.IO.Pipes.AnonymousPipeServerStream> в родительском процессе, в котором параметру <xref:System.IO.Pipes.PipeDirection> задано значение <xref:System.IO.Pipes.PipeDirection.Out>.</span><span class="sxs-lookup"><span data-stu-id="68e63-114">This example creates an <xref:System.IO.Pipes.AnonymousPipeServerStream> object in a parent process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.Out>.</span></span> <span data-ttu-id="68e63-115">Он также создает <xref:System.IO.Pipes.AnonymousPipeClientStream> объекта в дочерний процесс с <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.In>.</span><span class="sxs-lookup"><span data-stu-id="68e63-115">It also creates an <xref:System.IO.Pipes.AnonymousPipeClientStream> object in a child process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.In>.</span></span> <span data-ttu-id="68e63-116">Теперь родительский процесс отправляет предоставленную пользователем строку в дочерний процесс.</span><span class="sxs-lookup"><span data-stu-id="68e63-116">The parent process then sends a user-supplied string to the child process.</span></span> <span data-ttu-id="68e63-117">На консоль выводятся строки.</span><span class="sxs-lookup"><span data-stu-id="68e63-117">The string is displayed to the console.</span></span>  
+  
+ <span data-ttu-id="68e63-118">Этот пример предназначен для серверного процесса, который использует <xref:System.IO.Pipes.AnonymousPipeServerStream> класса.</span><span class="sxs-lookup"><span data-stu-id="68e63-118">This example is for the server process, which uses the <xref:System.IO.Pipes.AnonymousPipeServerStream> class.</span></span> <span data-ttu-id="68e63-119">В примере весь код, включая код канала клиента и сервера, в разделе [как: использование анонимных каналов для локального взаимодействия межпроцессное](~/docs/standard/io/how-to-use-anonymous-pipes-for-local-interprocess-communication.md).</span><span class="sxs-lookup"><span data-stu-id="68e63-119">For the entire code example, including the code for both the pipe client and server, see [How to: Use Anonymous Pipes for Local Interprocess Communication](~/docs/standard/io/how-to-use-anonymous-pipes-for-local-interprocess-communication.md).</span></span>  
+  
+ [!code-cpp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cpp/program.cpp#01)]
+ [!code-csharp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cs/Program.cs#01)]
+ [!code-vb[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/vb/program.vb#01)]  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="68e63-120">Инициализирует новый экземпляр класса <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-120">Initializes a new instance of the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AnonymousPipeServerStream ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AnonymousPipeServerStream();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="68e63-121">Инициализирует новый экземпляр класса <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-121">Initializes a new instance of the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-122">Для <xref:System.IO.Pipes.AnonymousPipeServerStream> конструкторов без <xref:System.IO.Pipes.PipeDirection> параметра, направление по умолчанию — <xref:System.IO.Pipes.PipeDirection.Out>.</span><span class="sxs-lookup"><span data-stu-id="68e63-122">For <xref:System.IO.Pipes.AnonymousPipeServerStream> constructors without a <xref:System.IO.Pipes.PipeDirection> parameter, the default direction is <xref:System.IO.Pipes.PipeDirection.Out>.</span></span> <span data-ttu-id="68e63-123">Объект <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.InOut> не поддерживается, поскольку анонимные каналы определяются как односторонней.</span><span class="sxs-lookup"><span data-stu-id="68e63-123">A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.InOut> is not supported because anonymous pipes are defined to be one-way.</span></span>  
+  
+ <span data-ttu-id="68e63-124">Этот конструктор создает <xref:System.IO.Pipes.AnonymousPipeServerStream> объекта, имеющего размер буфера по умолчанию не безопасности канала и <xref:System.IO.HandleInheritability> значение <xref:System.IO.HandleInheritability.None>.</span><span class="sxs-lookup"><span data-stu-id="68e63-124">This constructor creates an <xref:System.IO.Pipes.AnonymousPipeServerStream> object that has the default buffer size, no pipe security, and a <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability.None>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <permission cref="F:System.Security.Permissions.SecurityAction.Demand">
+          <span data-ttu-id="68e63-125">Для полного доверия для непосредственного вызывающего.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-125">for full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="68e63-126">Этот член не может быть использован частично доверенным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-126">This member cannot be used by partially trusted code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AnonymousPipeServerStream (System.IO.Pipes.PipeDirection direction);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype System.IO.Pipes.PipeDirection direction) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (direction As PipeDirection)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AnonymousPipeServerStream(System::IO::Pipes::PipeDirection direction);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="direction" Type="System.IO.Pipes.PipeDirection" />
+      </Parameters>
+      <Docs>
+        <param name="direction">
+          <span data-ttu-id="68e63-127">Одно из значений перечисления, определяющее направление канала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-127">One of the enumeration values that determines the direction of the pipe.</span>
+          </span>
+          <span data-ttu-id="68e63-128">Данные в анонимных каналах могут передаваться только в одном направлении, поэтому для параметра <c>direction</c> нельзя задать значение <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-128">Anonymous pipes can only be in one direction, so <c>direction</c> cannot be set to <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="68e63-129">Инициализирует новый экземпляр класса <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> с указанным направлением канала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-129">Initializes a new instance of the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> class with the specified pipe direction.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-130">Объект <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.InOut> не поддерживается, поскольку анонимные каналы определяются как односторонней.</span><span class="sxs-lookup"><span data-stu-id="68e63-130">A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.InOut> is not supported because anonymous pipes are defined to be one-way.</span></span>  
+  
+ <span data-ttu-id="68e63-131">Этот конструктор создает <xref:System.IO.Pipes.AnonymousPipeServerStream> объекта, имеющего размер буфера по умолчанию не безопасности канала и <xref:System.IO.HandleInheritability> значение <xref:System.IO.HandleInheritability.None>.</span><span class="sxs-lookup"><span data-stu-id="68e63-131">This constructor creates an <xref:System.IO.Pipes.AnonymousPipeServerStream> object that has the default buffer size, no pipe security, and a <xref:System.IO.HandleInheritability> value of <xref:System.IO.HandleInheritability.None>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="68e63-132">Параметру <paramref name="direction" /> задается значение <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-132">
+              <paramref name="direction" /> is set to <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          </span>
+        </exception>
+        <permission cref="F:System.Security.Permissions.SecurityAction.Demand">
+          <span data-ttu-id="68e63-133">Для полного доверия для непосредственного вызывающего.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-133">for full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="68e63-134">Этот член не может быть использован частично доверенным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-134">This member cannot be used by partially trusted code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AnonymousPipeServerStream (System.IO.Pipes.PipeDirection direction, System.IO.HandleInheritability inheritability);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype System.IO.Pipes.PipeDirection direction, valuetype System.IO.HandleInheritability inheritability) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (direction As PipeDirection, inheritability As HandleInheritability)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AnonymousPipeServerStream(System::IO::Pipes::PipeDirection direction, System::IO::HandleInheritability inheritability);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="direction" Type="System.IO.Pipes.PipeDirection" />
+        <Parameter Name="inheritability" Type="System.IO.HandleInheritability" />
+      </Parameters>
+      <Docs>
+        <param name="direction">
+          <span data-ttu-id="68e63-135">Одно из значений перечисления, определяющее направление канала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-135">One of the enumeration values that determines the direction of the pipe.</span>
+          </span>
+          <span data-ttu-id="68e63-136">Данные в анонимных каналах могут передаваться только в одном направлении, поэтому для параметра <c>direction</c> нельзя задать значение <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-136">Anonymous pipes can only be in one direction, so <c>direction</c> cannot be set to <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          </span>
+        </param>
+        <param name="inheritability">
+          <span data-ttu-id="68e63-137">Одно из значений перечисления, определяющее, может ли базовый дескриптор наследоваться дочерними процессами.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-137">One of the enumeration values that determines whether the underlying handle can be inherited by child processes.</span>
+          </span>
+          <span data-ttu-id="68e63-138">Возможные значения: <see cref="F:System.IO.HandleInheritability.None" /> или <see cref="F:System.IO.HandleInheritability.Inheritable" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-138">Must be set to either <see cref="F:System.IO.HandleInheritability.None" /> or <see cref="F:System.IO.HandleInheritability.Inheritable" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="68e63-139">Инициализирует новый экземпляр класса <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> с указанным направлением канала и режимом наследования.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-139">Initializes a new instance of the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> class with the specified pipe direction and inheritability mode.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-140">Объект <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.InOut> не поддерживается, поскольку анонимные каналы определяются как односторонней.</span><span class="sxs-lookup"><span data-stu-id="68e63-140">A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.InOut> is not supported because anonymous pipes are defined to be one-way.</span></span>  
+  
+ <span data-ttu-id="68e63-141">Этот конструктор создает <xref:System.IO.Pipes.AnonymousPipeServerStream> объекта, имеющего размер буфера по умолчанию и безопасности канала не задан.</span><span class="sxs-lookup"><span data-stu-id="68e63-141">This constructor creates an <xref:System.IO.Pipes.AnonymousPipeServerStream> object that has the default buffer size and no pipe security.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="68e63-142">Ниже приведен пример метода отправки строки из родительского процесса в дочерний процесс посредством анонимных каналов.</span><span class="sxs-lookup"><span data-stu-id="68e63-142">The following example demonstrates a method to send a string from a parent process to a child process using anonymous pipes.</span></span> <span data-ttu-id="68e63-143">В этом примере <xref:System.IO.Pipes.AnonymousPipeServerStream> объект создается в родительский процесс с <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.Out>.</span><span class="sxs-lookup"><span data-stu-id="68e63-143">In this example, an <xref:System.IO.Pipes.AnonymousPipeServerStream> object is created in a parent process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.Out>.</span></span>  
+  
+ [!code-cpp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cpp/program.cpp#01)]
+ [!code-csharp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cs/Program.cs#01)]
+ [!code-vb[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/vb/program.vb#01)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="68e63-144">Параметру <paramref name="inheritability" /> не присвоено значение <see cref="F:System.IO.HandleInheritability.None" /> или <see cref="F:System.IO.HandleInheritability.Inheritable" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-144">
+              <paramref name="inheritability" /> is not set to either <see cref="F:System.IO.HandleInheritability.None" /> or <see cref="F:System.IO.HandleInheritability.Inheritable" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="68e63-145">Параметру <paramref name="direction" /> задается значение <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-145">
+              <paramref name="direction" /> is set to <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          </span>
+        </exception>
+        <permission cref="F:System.Security.Permissions.SecurityAction.Demand">
+          <span data-ttu-id="68e63-146">Для полного доверия для непосредственного вызывающего.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-146">for full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="68e63-147">Этот член не может быть использован частично доверенным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-147">This member cannot be used by partially trusted code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AnonymousPipeServerStream (System.IO.Pipes.PipeDirection direction, Microsoft.Win32.SafeHandles.SafePipeHandle serverSafePipeHandle, Microsoft.Win32.SafeHandles.SafePipeHandle clientSafePipeHandle);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype System.IO.Pipes.PipeDirection direction, class Microsoft.Win32.SafeHandles.SafePipeHandle serverSafePipeHandle, class Microsoft.Win32.SafeHandles.SafePipeHandle clientSafePipeHandle) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,Microsoft.Win32.SafeHandles.SafePipeHandle,Microsoft.Win32.SafeHandles.SafePipeHandle)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (direction As PipeDirection, serverSafePipeHandle As SafePipeHandle, clientSafePipeHandle As SafePipeHandle)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AnonymousPipeServerStream(System::IO::Pipes::PipeDirection direction, Microsoft::Win32::SafeHandles::SafePipeHandle ^ serverSafePipeHandle, Microsoft::Win32::SafeHandles::SafePipeHandle ^ clientSafePipeHandle);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="direction" Type="System.IO.Pipes.PipeDirection" />
+        <Parameter Name="serverSafePipeHandle" Type="Microsoft.Win32.SafeHandles.SafePipeHandle" />
+        <Parameter Name="clientSafePipeHandle" Type="Microsoft.Win32.SafeHandles.SafePipeHandle" />
+      </Parameters>
+      <Docs>
+        <param name="direction">
+          <span data-ttu-id="68e63-148">Одно из значений перечисления, определяющее направление канала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-148">One of the enumeration values that determines the direction of the pipe.</span>
+          </span>
+          <span data-ttu-id="68e63-149">Данные в анонимных каналах могут передаваться только в одном направлении, поэтому для параметра <c>direction</c> нельзя задать значение <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-149">Anonymous pipes can only be in one direction, so <c>direction</c> cannot be set to <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          </span>
+        </param>
+        <param name="serverSafePipeHandle">
+          <span data-ttu-id="68e63-150">Безопасный дескриптор для канала, который будет инкапсулироваться данным объектом <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-150">A safe handle for the pipe that this <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> object will encapsulate.</span>
+          </span>
+        </param>
+        <param name="clientSafePipeHandle">
+          <span data-ttu-id="68e63-151">Безопасный дескриптор для объекта <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-151">A safe handle for the <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> object.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="68e63-152">Инициализирует новый экземпляр класса <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> на основе указанного дескриптора канала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-152">Initializes a new instance of the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> class from the specified pipe handles.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-153">Объект <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.InOut> не поддерживается, поскольку анонимные каналы определяются как односторонней.</span><span class="sxs-lookup"><span data-stu-id="68e63-153">A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.InOut> is not supported because anonymous pipes are defined to be one-way.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="68e63-154">
+            <paramref name="serverSafePipeHandle" /> или <paramref name="clientSafePipeHandle" /> является недопустимым дескриптором.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-154">
+              <paramref name="serverSafePipeHandle" /> or <paramref name="clientSafePipeHandle" /> is an invalid handle.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="68e63-155">Параметр <paramref name="serverSafePipeHandle" /> или <paramref name="clientSafePipeHandle" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-155">
+              <paramref name="serverSafePipeHandle" /> or <paramref name="clientSafePipeHandle" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="68e63-156">Параметру <paramref name="direction" /> задается значение <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-156">
+              <paramref name="direction" /> is set to <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="68e63-157">Произошла ошибка ввода-вывода, например ошибка диска.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-157">An I/O error, such as a disk error, has occurred.</span>
+          </span>
+          <span data-ttu-id="68e63-158">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-158">-or-</span>
+          </span>
+          <span data-ttu-id="68e63-159">Поток был закрыт.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-159">The stream has been closed.</span>
+          </span>
+        </exception>
+        <permission cref="F:System.Security.Permissions.SecurityAction.Demand">
+          <span data-ttu-id="68e63-160">Для полного доверия для непосредственного вызывающего.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-160">for full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="68e63-161">Этот член не может быть использован частично доверенным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-161">This member cannot be used by partially trusted code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AnonymousPipeServerStream (System.IO.Pipes.PipeDirection direction, System.IO.HandleInheritability inheritability, int bufferSize);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype System.IO.Pipes.PipeDirection direction, valuetype System.IO.HandleInheritability inheritability, int32 bufferSize) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (direction As PipeDirection, inheritability As HandleInheritability, bufferSize As Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AnonymousPipeServerStream(System::IO::Pipes::PipeDirection direction, System::IO::HandleInheritability inheritability, int bufferSize);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="direction" Type="System.IO.Pipes.PipeDirection" />
+        <Parameter Name="inheritability" Type="System.IO.HandleInheritability" />
+        <Parameter Name="bufferSize" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="direction">
+          <span data-ttu-id="68e63-162">Одно из значений перечисления, определяющее направление канала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-162">One of the enumeration values that determines the direction of the pipe.</span>
+          </span>
+          <span data-ttu-id="68e63-163">Данные в анонимных каналах могут передаваться только в одном направлении, поэтому для параметра <c>direction</c> нельзя задать значение <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-163">Anonymous pipes can only be in one direction, so <c>direction</c> cannot be set to <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          </span>
+        </param>
+        <param name="inheritability">
+          <span data-ttu-id="68e63-164">Одно из значений перечисления, определяющее, может ли базовый дескриптор наследоваться дочерними процессами.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-164">One of the enumeration values that determines whether the underlying handle can be inherited by child processes.</span>
+          </span>
+          <span data-ttu-id="68e63-165">Возможные значения: <see cref="F:System.IO.HandleInheritability.None" /> или <see cref="F:System.IO.HandleInheritability.Inheritable" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-165">Must be set to either <see cref="F:System.IO.HandleInheritability.None" /> or <see cref="F:System.IO.HandleInheritability.Inheritable" />.</span>
+          </span>
+        </param>
+        <param name="bufferSize">
+          <span data-ttu-id="68e63-166">Размер буфера.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-166">The size of the buffer.</span>
+          </span>
+          <span data-ttu-id="68e63-167">Это значение должно быть больше или равно 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-167">This value must be greater than or equal to 0.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="68e63-168">Инициализирует новый экземпляр класса <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> с указанным направлением канала, режимом наследования и размером буфера.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-168">Initializes a new instance of the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> class with the specified pipe direction, inheritability mode, and buffer size.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-169">Объект <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.InOut> не поддерживается, поскольку анонимные каналы определяются как односторонней.</span><span class="sxs-lookup"><span data-stu-id="68e63-169">A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.InOut> is not supported because anonymous pipes are defined to be one-way.</span></span>  
+  
+ <span data-ttu-id="68e63-170">Этот конструктор создает <xref:System.IO.Pipes.AnonymousPipeServerStream> объекта без безопасности канала.</span><span class="sxs-lookup"><span data-stu-id="68e63-170">This constructor creates an <xref:System.IO.Pipes.AnonymousPipeServerStream> object without pipe security.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="68e63-171">Параметру <paramref name="inheritability" /> не присвоено значение <see cref="F:System.IO.HandleInheritability.None" /> или <see cref="F:System.IO.HandleInheritability.Inheritable" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-171">
+              <paramref name="inheritability" /> is not set to either <see cref="F:System.IO.HandleInheritability.None" /> or <see cref="F:System.IO.HandleInheritability.Inheritable" />.</span>
+          </span>
+          <span data-ttu-id="68e63-172">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-172">-or-</span>
+          </span>
+          <span data-ttu-id="68e63-173">Значение параметра <paramref name="bufferSize" /> меньше 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-173">
+              <paramref name="bufferSize" /> is less than 0.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="68e63-174">Параметру <paramref name="direction" /> задается значение <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-174">
+              <paramref name="direction" /> is set to <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          </span>
+        </exception>
+        <permission cref="F:System.Security.Permissions.SecurityAction.Demand">
+          <span data-ttu-id="68e63-175">Для полного доверия для непосредственного вызывающего.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-175">for full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="68e63-176">Этот член не может быть использован частично доверенным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-176">This member cannot be used by partially trusted code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AnonymousPipeServerStream (System.IO.Pipes.PipeDirection direction, System.IO.HandleInheritability inheritability, int bufferSize, System.IO.Pipes.PipeSecurity pipeSecurity);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype System.IO.Pipes.PipeDirection direction, valuetype System.IO.HandleInheritability inheritability, int32 bufferSize, class System.IO.Pipes.PipeSecurity pipeSecurity) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Pipes.AnonymousPipeServerStream.#ctor(System.IO.Pipes.PipeDirection,System.IO.HandleInheritability,System.Int32,System.IO.Pipes.PipeSecurity)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AnonymousPipeServerStream(System::IO::Pipes::PipeDirection direction, System::IO::HandleInheritability inheritability, int bufferSize, System::IO::Pipes::PipeSecurity ^ pipeSecurity);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="direction" Type="System.IO.Pipes.PipeDirection" />
+        <Parameter Name="inheritability" Type="System.IO.HandleInheritability" />
+        <Parameter Name="bufferSize" Type="System.Int32" />
+        <Parameter Name="pipeSecurity" Type="System.IO.Pipes.PipeSecurity" />
+      </Parameters>
+      <Docs>
+        <param name="direction">
+          <span data-ttu-id="68e63-177">Одно из значений перечисления, определяющее направление канала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-177">One of the enumeration values that determines the direction of the pipe.</span>
+          </span>
+          <span data-ttu-id="68e63-178">Данные в анонимных каналах могут передаваться только в одном направлении, поэтому для параметра <c>direction</c> нельзя задать значение <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-178">Anonymous pipes can only be in one direction, so <c>direction</c> cannot be set to <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          </span>
+        </param>
+        <param name="inheritability">
+          <span data-ttu-id="68e63-179">Одно из значений перечисления, определяющее, может ли базовый дескриптор наследоваться дочерними процессами.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-179">One of the enumeration values that determines whether the underlying handle can be inherited by child processes.</span>
+          </span>
+        </param>
+        <param name="bufferSize">
+          <span data-ttu-id="68e63-180">Размер буфера.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-180">The size of the buffer.</span>
+          </span>
+          <span data-ttu-id="68e63-181">Это значение должно быть больше или равно 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-181">This value must be greater than or equal to 0.</span>
+          </span>
+        </param>
+        <param name="pipeSecurity">
+          <span data-ttu-id="68e63-182">Объект, определяющий правила управления доступом и аудита безопасности для канала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-182">An object that determines the access control and audit security for the pipe.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="68e63-183">Инициализирует новый экземпляр класса <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> с указанным направлением канала, режимом наследования, размером буфера и режимом безопасности канала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-183">Initializes a new instance of the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> class with the specified pipe direction, inheritability mode, buffer size, and pipe security.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-184">Объект <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.InOut> не поддерживается, поскольку анонимные каналы определяются как односторонней.</span><span class="sxs-lookup"><span data-stu-id="68e63-184">A <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.InOut> is not supported because anonymous pipes are defined to be one-way.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="68e63-185">Параметру <paramref name="inheritability" /> не присвоено значение <see cref="F:System.IO.HandleInheritability.None" /> или <see cref="F:System.IO.HandleInheritability.Inheritable" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-185">
+              <paramref name="inheritability" /> is not set to either <see cref="F:System.IO.HandleInheritability.None" /> or <see cref="F:System.IO.HandleInheritability.Inheritable" />.</span>
+          </span>
+          <span data-ttu-id="68e63-186">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-186">-or-</span>
+          </span>
+          <span data-ttu-id="68e63-187">Значение параметра <paramref name="bufferSize" /> меньше 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-187">
+              <paramref name="bufferSize" /> is less than 0.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="68e63-188">Параметру <paramref name="direction" /> задается значение <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-188">
+              <paramref name="direction" /> is set to <see cref="F:System.IO.Pipes.PipeDirection.InOut" />.</span>
+          </span>
+        </exception>
+        <permission cref="F:System.Security.Permissions.SecurityAction.Demand">
+          <span data-ttu-id="68e63-189">Для полного доверия для непосредственного вызывающего.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-189">for full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="68e63-190">Этот член не может быть использован частично доверенным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-190">This member cannot be used by partially trusted code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="ClientSafePipeHandle">
+      <MemberSignature Language="C#" Value="public Microsoft.Win32.SafeHandles.SafePipeHandle ClientSafePipeHandle { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class Microsoft.Win32.SafeHandles.SafePipeHandle ClientSafePipeHandle" />
+      <MemberSignature Language="DocId" Value="P:System.IO.Pipes.AnonymousPipeServerStream.ClientSafePipeHandle" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property ClientSafePipeHandle As SafePipeHandle" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property Microsoft::Win32::SafeHandles::SafePipeHandle ^ ClientSafePipeHandle { Microsoft::Win32::SafeHandles::SafePipeHandle ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Microsoft.Win32.SafeHandles.SafePipeHandle</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="68e63-191">Получает безопасный дескриптор для объекта <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />, который в данный момент подключен к объекту <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-191">Gets the safe handle for the <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> object that is currently connected to the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="68e63-192">Дескриптор для объекта <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />, который в данный момент подключен к объекту <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-192">A handle for the <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> object that is currently connected to the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> object.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-193"><xref:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle%2A> Метод следует вызывать после дескриптор клиента был передан клиентского процесса.</span><span class="sxs-lookup"><span data-stu-id="68e63-193">The <xref:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle%2A> method should be called after a client handle has been passed to a client process.</span></span> <span data-ttu-id="68e63-194">Если этот метод не вызван, <xref:System.IO.Pipes.AnonymousPipeServerStream> объект не получит уведомление при уничтожает клиент его <xref:System.IO.Pipes.PipeStream> объекта.</span><span class="sxs-lookup"><span data-stu-id="68e63-194">If this method is not called, the <xref:System.IO.Pipes.AnonymousPipeServerStream> object will not receive notice when the client disposes of its <xref:System.IO.Pipes.PipeStream> object.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="protected override void Dispose (bool disposing);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Dispose(bool disposing) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Pipes.AnonymousPipeServerStream.Dispose(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Sub Dispose (disposing As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override void Dispose(bool disposing);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="disposing" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="disposing">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="DisposeLocalCopyOfClientHandle">
+      <MemberSignature Language="C#" Value="public void DisposeLocalCopyOfClientHandle ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void DisposeLocalCopyOfClientHandle() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle" />
+      <MemberSignature Language="VB.NET" Value="Public Sub DisposeLocalCopyOfClientHandle ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void DisposeLocalCopyOfClientHandle();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="68e63-195">Закрывает локальную копию дескриптора объекта <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-195">Closes the local copy of the <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> object's handle.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-196"><xref:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle%2A> Метод следует вызывать после дескриптора клиента был передан клиента.</span><span class="sxs-lookup"><span data-stu-id="68e63-196">The <xref:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle%2A> method should be called after the client handle has been passed to the client.</span></span> <span data-ttu-id="68e63-197">Если этот метод не вызван, <xref:System.IO.Pipes.AnonymousPipeServerStream> объект не получит уведомление при уничтожает клиент его <xref:System.IO.Pipes.PipeStream> объекта.</span><span class="sxs-lookup"><span data-stu-id="68e63-197">If this method is not called, the <xref:System.IO.Pipes.AnonymousPipeServerStream> object will not receive notice when the client disposes of its <xref:System.IO.Pipes.PipeStream> object.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="68e63-198">Следующий пример демонстрирует способ отправки строки из родительского процесса в дочерний процесс с помощью анонимных каналов.</span><span class="sxs-lookup"><span data-stu-id="68e63-198">The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes.</span></span> <span data-ttu-id="68e63-199">В этом примере <xref:System.IO.Pipes.AnonymousPipeServerStream> объект создается в родительский процесс с <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.Out>.</span><span class="sxs-lookup"><span data-stu-id="68e63-199">In this example, an <xref:System.IO.Pipes.AnonymousPipeServerStream> object is created in a parent process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.Out>.</span></span>  
+  
+ [!code-cpp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cpp/program.cpp#01)]
+ [!code-csharp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cs/Program.cs#01)]
+ [!code-vb[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/vb/program.vb#01)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Finalize">
+      <MemberSignature Language="C#" Value="~AnonymousPipeServerStream ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Finalize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Pipes.AnonymousPipeServerStream.Finalize" />
+      <MemberSignature Language="VB.NET" Value="Finalize ()" />
+      <MemberSignature Language="C++ CLI" Value="!AnonymousPipeServerStream ()" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="68e63-200">Освобождает неуправляемые ресурсы и выполняет другие операции очистки, прежде чем память, занимаемая данным экземпляром <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />, будет освобождена в процессе сборки мусора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-200">Releases unmanaged resources and performs other cleanup operations before the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> instance is reclaimed by garbage collection.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetClientHandleAsString">
+      <MemberSignature Language="C#" Value="public string GetClientHandleAsString ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string GetClientHandleAsString() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.IO.Pipes.AnonymousPipeServerStream.GetClientHandleAsString" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetClientHandleAsString () As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::String ^ GetClientHandleAsString();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="68e63-201">Возвращает дескриптор подключенного объекта <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> в виде строки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-201">Gets the connected <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> object's handle as a string.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="68e63-202">Строка, представляющая дескриптор подключенного объекта <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-202">A string that represents the connected <see cref="T:System.IO.Pipes.AnonymousPipeClientStream" /> object's handle.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-203"><xref:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle%2A> Метод следует вызывать после дескриптор клиента был передан клиентского процесса.</span><span class="sxs-lookup"><span data-stu-id="68e63-203">The <xref:System.IO.Pipes.AnonymousPipeServerStream.DisposeLocalCopyOfClientHandle%2A> method should be called after a client handle has been passed to a client process.</span></span> <span data-ttu-id="68e63-204">Если этот метод не вызван, <xref:System.IO.Pipes.AnonymousPipeServerStream> объект не получит уведомление при уничтожает клиент его <xref:System.IO.Pipes.PipeStream> объекта.</span><span class="sxs-lookup"><span data-stu-id="68e63-204">If this method is not called, the <xref:System.IO.Pipes.AnonymousPipeServerStream> object will not receive notice when the client disposes of its <xref:System.IO.Pipes.PipeStream> object.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="68e63-205">Следующий пример демонстрирует способ отправки строки из родительского процесса в дочерний процесс с помощью анонимных каналов.</span><span class="sxs-lookup"><span data-stu-id="68e63-205">The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes.</span></span> <span data-ttu-id="68e63-206">В этом примере <xref:System.IO.Pipes.AnonymousPipeServerStream> объект создается в родительский процесс с <xref:System.IO.Pipes.PipeDirection> значение <xref:System.IO.Pipes.PipeDirection.Out>.</span><span class="sxs-lookup"><span data-stu-id="68e63-206">In this example, an <xref:System.IO.Pipes.AnonymousPipeServerStream> object is created in a parent process with a <xref:System.IO.Pipes.PipeDirection> value of <xref:System.IO.Pipes.PipeDirection.Out>.</span></span>  
+  
+ [!code-cpp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cpp/program.cpp#01)]
+ [!code-csharp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cs/Program.cs#01)]
+ [!code-vb[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/vb/program.vb#01)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ReadMode">
+      <MemberSignature Language="C#" Value="public override System.IO.Pipes.PipeTransmissionMode ReadMode { set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.IO.Pipes.PipeTransmissionMode ReadMode" />
+      <MemberSignature Language="DocId" Value="P:System.IO.Pipes.AnonymousPipeServerStream.ReadMode" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property ReadMode As PipeTransmissionMode" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::IO::Pipes::PipeTransmissionMode ReadMode {  void set(System::IO::Pipes::PipeTransmissionMode value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IO.Pipes.PipeTransmissionMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="68e63-207">Задает режим чтения для объекта <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-207">Sets the reading mode for the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> object.</span>
+          </span>
+          <span data-ttu-id="68e63-208">Для анонимных каналов режим передачи должен иметь значение <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-208">For anonymous pipes, transmission mode must be <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="68e63-209">Режим чтения для объекта <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-209">The reading mode for the <see cref="T:System.IO.Pipes.AnonymousPipeServerStream" /> object.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-210">Анонимные каналы не поддерживают <xref:System.IO.Pipes.PipeTransmissionMode.Message> в режим чтения.</span><span class="sxs-lookup"><span data-stu-id="68e63-210">Anonymous pipes do not support <xref:System.IO.Pipes.PipeTransmissionMode.Message> read mode.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="68e63-211">Следующий пример демонстрирует способ отправки строки из родительского процесса в дочерний процесс с помощью анонимных каналов.</span><span class="sxs-lookup"><span data-stu-id="68e63-211">The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes.</span></span> <span data-ttu-id="68e63-212">В этом примере <xref:System.NotSupportedException> при перехвате <xref:System.IO.Pipes.AnonymousPipeServerStream.ReadMode%2A> свойству <xref:System.IO.Pipes.PipeTransmissionMode.Message>.</span><span class="sxs-lookup"><span data-stu-id="68e63-212">In this example, the <xref:System.NotSupportedException> is caught when the <xref:System.IO.Pipes.AnonymousPipeServerStream.ReadMode%2A> property is set to <xref:System.IO.Pipes.PipeTransmissionMode.Message>.</span></span>  
+  
+ [!code-cpp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cpp/program.cpp#01)]
+ [!code-csharp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cs/Program.cs#01)]
+ [!code-vb[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/vb/program.vb#01)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="68e63-213">Недопустимый режим передачи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-213">The transmission mode is not valid.</span>
+          </span>
+          <span data-ttu-id="68e63-214">Для анонимных каналов поддерживается только <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-214">For anonymous pipes, only <see cref="F:System.IO.Pipes.PipeTransmissionMode.Byte" /> is supported.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="68e63-215">Свойство имеет значение <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />, которое не поддерживается для анонимных каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-215">The property is set to <see cref="F:System.IO.Pipes.PipeTransmissionMode.Message" />, which is not supported for anonymous pipes.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="68e63-216">Соединение прервано или возникла иная ошибка ввода-вывода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-216">The connection is broken or another I/O error occurs.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="68e63-217">Канал закрыт.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-217">The pipe is closed.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="TransmissionMode">
+      <MemberSignature Language="C#" Value="public override System.IO.Pipes.PipeTransmissionMode TransmissionMode { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.IO.Pipes.PipeTransmissionMode TransmissionMode" />
+      <MemberSignature Language="DocId" Value="P:System.IO.Pipes.AnonymousPipeServerStream.TransmissionMode" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property TransmissionMode As PipeTransmissionMode" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::IO::Pipes::PipeTransmissionMode TransmissionMode { System::IO::Pipes::PipeTransmissionMode get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.IO.Pipes</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IO.Pipes.PipeTransmissionMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="68e63-218">Возвращает режим передачи, поддерживаемый текущим каналом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-218">Gets the pipe transmission mode that is supported by the current pipe.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="68e63-219">
+            <see cref="T:System.IO.Pipes.PipeTransmissionMode" />, поддерживаемый текущим каналом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="68e63-219">The <see cref="T:System.IO.Pipes.PipeTransmissionMode" /> that is supported by the current pipe.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="68e63-220">Анонимные каналы не поддерживают <xref:System.IO.Pipes.PipeTransmissionMode.Message> в режим чтения.</span><span class="sxs-lookup"><span data-stu-id="68e63-220">Anonymous pipes do not support <xref:System.IO.Pipes.PipeTransmissionMode.Message> read mode.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="68e63-221">Следующий пример демонстрирует способ отправки строки из родительского процесса в дочерний процесс с помощью анонимных каналов.</span><span class="sxs-lookup"><span data-stu-id="68e63-221">The following example demonstrates a way to send a string from a parent process to a child process by using anonymous pipes.</span></span> <span data-ttu-id="68e63-222">В этом примере <xref:System.IO.Pipes.AnonymousPipeServerStream> объект создается в родительский процесс и <xref:System.IO.Pipes.AnonymousPipeServerStream.TransmissionMode%2A> на консоль выводятся свойства.</span><span class="sxs-lookup"><span data-stu-id="68e63-222">In this example, an <xref:System.IO.Pipes.AnonymousPipeServerStream> object is created in a parent process and the <xref:System.IO.Pipes.AnonymousPipeServerStream.TransmissionMode%2A> property is displayed to the console.</span></span>  
+  
+ [!code-cpp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cpp/program.cpp#01)]
+ [!code-csharp[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/cs/Program.cs#01)]
+ [!code-vb[System.IO.Pipes.AnonymousPipeServerStream_Sample#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.IO.Pipes.AnonymousPipeServerStream_Sample/vb/program.vb#01)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
