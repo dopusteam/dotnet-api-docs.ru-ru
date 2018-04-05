@@ -1,0 +1,168 @@
+<Type Name="FirstChanceExceptionEventArgs" FullName="System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="5b82b33fd434c2b4d5434a6080b2c61d46168149" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class FirstChanceExceptionEventArgs : EventArgs" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit FirstChanceExceptionEventArgs extends System.EventArgs" />
+  <TypeSignature Language="DocId" Value="T:System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs" />
+  <TypeSignature Language="VB.NET" Value="Public Class FirstChanceExceptionEventArgs&#xA;Inherits EventArgs" />
+  <TypeSignature Language="C++ CLI" Value="public ref class FirstChanceExceptionEventArgs : EventArgs" />
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.EventArgs</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="81cd7-101">Предоставляет данные для события уведомления, возникающего при первом появлении управляемого исключения (прежде чем среда CLR начнет поиск обработчиков событий).</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="81cd7-101">Provides data for the notification event that is raised when a managed exception first occurs, before the common language runtime begins searching for event handlers.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="81cd7-102">Этот класс предоставляет обработчик исключений для <xref:System.AppDomain.FirstChanceException?displayProperty=nameWithType> событие с доступ к исключению.</span><span class="sxs-lookup"><span data-stu-id="81cd7-102">This class provides the exception handler for the <xref:System.AppDomain.FirstChanceException?displayProperty=nameWithType> event with access to the exception.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="81cd7-103">В следующем примере создается набор доменов приложений с именем `Child_0` через `Child_3`, с `Worker` объекта в каждом домене приложения.</span><span class="sxs-lookup"><span data-stu-id="81cd7-103">The following example creates a series of application domains named `Child_0` through `Child_3`, with a `Worker` object in each application domain.</span></span> <span data-ttu-id="81cd7-104">Каждый `Worker` объект имеет ссылку на `Worker` объекта в следующий домен приложения, за исключением `Worker` в последнем домене приложения.</span><span class="sxs-lookup"><span data-stu-id="81cd7-104">Each `Worker` object has a reference to the `Worker` object in the next application domain, except for the `Worker` in the last application domain.</span></span> <span data-ttu-id="81cd7-105"><xref:System.AppDomain.FirstChanceException> Событие обрабатывается во всех доменах приложений, за исключением `Child_1`.</span><span class="sxs-lookup"><span data-stu-id="81cd7-105">The <xref:System.AppDomain.FirstChanceException> event is handled in all application domains except `Child_1`.</span></span>  
+  
+ <span data-ttu-id="81cd7-106">При создании доменов приложения домен приложения по умолчанию вызывает `TestException` метод для первого дочернего домена приложения.</span><span class="sxs-lookup"><span data-stu-id="81cd7-106">When the application domains have been created, the default application domain calls the `TestException` method for the first child application domain.</span></span> <span data-ttu-id="81cd7-107">Каждый `Worker` вызывает `TestException` метод для следующей до последнего `Worker` исключение обрабатывается или нет.</span><span class="sxs-lookup"><span data-stu-id="81cd7-107">Each `Worker` object calls the `TestException` method for the next, until the last `Worker` throws an exception that is either handled or unhandled.</span></span> <span data-ttu-id="81cd7-108">Таким образом, что текущий поток проходит через все домены приложений, и `TestException` добавляется в стек в каждом домене приложения.</span><span class="sxs-lookup"><span data-stu-id="81cd7-108">Thus, the current thread passes through all the application domains, and `TestException` is added to the stack in each application domain.</span></span>  
+  
+ <span data-ttu-id="81cd7-109">Когда последний `Worker` объект обрабатывает исключение, <xref:System.AppDomain.FirstChanceException> события только в последнем домене приложения.</span><span class="sxs-lookup"><span data-stu-id="81cd7-109">When the last `Worker` object handles the exception, the <xref:System.AppDomain.FirstChanceException> event is raised only in the last application domain.</span></span> <span data-ttu-id="81cd7-110">Домены приложений никогда не получить возможность обработки исключения, поэтому событие не происходит.</span><span class="sxs-lookup"><span data-stu-id="81cd7-110">The other application domains never get a chance to handle the exception, so the event is not raised.</span></span>  
+  
+ <span data-ttu-id="81cd7-111">Когда последний `Worker` объекта не обрабатывает исключение, <xref:System.AppDomain.FirstChanceException> события в каждом домене приложения с помощью обработчика событий.</span><span class="sxs-lookup"><span data-stu-id="81cd7-111">When the last `Worker` object does not handle the exception, the <xref:System.AppDomain.FirstChanceException> event is raised in each application domain that has an event handler.</span></span> <span data-ttu-id="81cd7-112">После завершения каждого обработчика события стека продолжается для очистки, пока не будет перехвачено исключение домена приложения по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="81cd7-112">After each event handler has finished, the stack continues to unwind until the exception is caught by the default application domain.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="81cd7-113">Чтобы видеть, как отображение стека увеличивается по мере ближе вызывается событие и чем ближе к домена приложения по умолчанию, измените `e.Exception.Message` для `e.Exception` в `FirstChanceHandler` обработчики событий.</span><span class="sxs-lookup"><span data-stu-id="81cd7-113">To see how the stack display grows as the event is raised closer and closer to the default application domain, change `e.Exception.Message` to `e.Exception` in the `FirstChanceHandler` event handlers.</span></span> <span data-ttu-id="81cd7-114">Обратите внимание, что при `TestException` вызывается через границы домена приложения, он отображается дважды: один раз для прокси-сервера и один раз для заглушки.</span><span class="sxs-lookup"><span data-stu-id="81cd7-114">Notice that when `TestException` is called across application domain boundaries, it appears twice: once for the proxy and once for the stub.</span></span>  
+  
+ [!code-csharp[System.AppDomain.FirstChanceException#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.appdomain.firstchanceexception/cs/example.cs#1)]
+ [!code-vb[System.AppDomain.FirstChanceException#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.appdomain.firstchanceexception/vb/example.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="E:System.AppDomain.FirstChanceException" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public FirstChanceExceptionEventArgs (Exception exception);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Exception exception) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs.#ctor(System.Exception)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; FirstChanceExceptionEventArgs(Exception ^ exception);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="exception" Type="System.Exception" />
+      </Parameters>
+      <Docs>
+        <param name="exception">
+          <span data-ttu-id="81cd7-115">Исключение, только что выданное управляемым кодом, которое будет анализироваться событием <see cref="E:System.AppDomain.UnhandledException" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="81cd7-115">The exception that was just thrown by managed code, and that will be examined by the <see cref="E:System.AppDomain.UnhandledException" /> event.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="81cd7-116">Инициализирует новый экземпляр класса <see cref="T:System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs" /> с указанным исключением.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="81cd7-116">Initializes a new instance of the <see cref="T:System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs" /> class with a specified exception.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="81cd7-117">Данный конструктор вызывается средой CLR, не с помощью кода приложения.</span><span class="sxs-lookup"><span data-stu-id="81cd7-117">This constructor is called by the common language runtime, not by application code.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Exception">
+      <MemberSignature Language="C#" Value="public Exception Exception { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Exception Exception" />
+      <MemberSignature Language="DocId" Value="P:System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs.Exception" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Exception As Exception" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property Exception ^ Exception { Exception ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>get: System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Exception</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="81cd7-118">Объект управляемого исключения, соответствующее исключению, создаваемому в управляемом коде.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="81cd7-118">The managed exception object that corresponds to the exception thrown in managed code.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="81cd7-119">Недавно выданное исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="81cd7-119">The newly thrown exception.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="81cd7-120">Метод, обрабатывающий <xref:System.AppDomain.UnhandledException?displayProperty=nameWithType> событий можно проверить исключение и выполнить соответствующие данные в журнал или другие службы notification services.</span><span class="sxs-lookup"><span data-stu-id="81cd7-120">The method that handles the <xref:System.AppDomain.UnhandledException?displayProperty=nameWithType> event can examine the exception and perform appropriate logging or other notification services.</span></span>  
+  
+ <span data-ttu-id="81cd7-121">Пример кода см. в разделе <xref:System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs>.</span><span class="sxs-lookup"><span data-stu-id="81cd7-121">For example code, see <xref:System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
