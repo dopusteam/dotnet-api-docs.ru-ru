@@ -1,0 +1,238 @@
+<Type Name="ObjectIDGenerator" FullName="System.Runtime.Serialization.ObjectIDGenerator">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="e1d49e0af64b9dc842de84747f0b98edcfe5e4e3" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class ObjectIDGenerator" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit ObjectIDGenerator extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Runtime.Serialization.ObjectIDGenerator" />
+  <TypeSignature Language="VB.NET" Value="Public Class ObjectIDGenerator" />
+  <TypeSignature Language="C++ CLI" Value="public ref class ObjectIDGenerator" />
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime.Serialization.Formatters</AssemblyName>
+    <AssemblyVersion>4.0.2.0</AssemblyVersion>
+    <AssemblyVersion>4.0.3.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="ad425-101">Создает идентификаторы для объектов.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="ad425-101">Generates IDs for objects.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="ad425-102"><xref:System.Runtime.Serialization.ObjectIDGenerator> Сохраняет список объектов, обнаруженных ранее.</span><span class="sxs-lookup"><span data-stu-id="ad425-102">The <xref:System.Runtime.Serialization.ObjectIDGenerator> keeps track of previously identified objects.</span></span> <span data-ttu-id="ad425-103">При обращении для Идентификации объекта, <xref:System.Runtime.Serialization.ObjectIDGenerator> знает, следует ли возвращать существующий код, или создавать и запоминать новый идентификатор.</span><span class="sxs-lookup"><span data-stu-id="ad425-103">When you ask for the ID of an object, the <xref:System.Runtime.Serialization.ObjectIDGenerator> knows whether to return the existing ID, or generate and remember a new ID.</span></span>  
+  
+ <span data-ttu-id="ad425-104">Идентификаторы уникальны в течение жизненного цикла <xref:System.Runtime.Serialization.ObjectIDGenerator> экземпляра.</span><span class="sxs-lookup"><span data-stu-id="ad425-104">The IDs are unique for the life of the <xref:System.Runtime.Serialization.ObjectIDGenerator> instance.</span></span> <span data-ttu-id="ad425-105">Как правило <xref:System.Runtime.Serialization.ObjectIDGenerator> существует столько же как <xref:System.Runtime.Serialization.Formatter> , он создан.</span><span class="sxs-lookup"><span data-stu-id="ad425-105">Generally, a <xref:System.Runtime.Serialization.ObjectIDGenerator> life lasts as long as the <xref:System.Runtime.Serialization.Formatter> that created it.</span></span> <span data-ttu-id="ad425-106">Идентификаторы объектов имеют смысл только в пределах заданного потока сериализации и используются для отслеживания объектов, имеющих ссылки на другие в графе сериализованный объект.</span><span class="sxs-lookup"><span data-stu-id="ad425-106">Object IDs have meaning only within a given serialized stream, and are used for tracking which objects have references to others within the serialized object graph.</span></span>  
+  
+ <span data-ttu-id="ad425-107">С помощью хэш-таблицы, <xref:System.Runtime.Serialization.ObjectIDGenerator> сохраняет какие идентификатор назначается какой объект.</span><span class="sxs-lookup"><span data-stu-id="ad425-107">Using a hash table, the <xref:System.Runtime.Serialization.ObjectIDGenerator> retains which ID is assigned to which object.</span></span> <span data-ttu-id="ad425-108">Ссылки на объекты, которые уникально идентифицируют каждый объект, являются адресами в куче сбора мусора среды выполнения.</span><span class="sxs-lookup"><span data-stu-id="ad425-108">The object references, which uniquely identify each object, are addresses in the runtime garbage-collected heap.</span></span> <span data-ttu-id="ad425-109">Значения ссылок на объект можно изменить во время сериализации, но таблицы автоматически обновляется, указаны правильные сведения.</span><span class="sxs-lookup"><span data-stu-id="ad425-109">Object reference values can change during serialization, but the table is updated automatically so the information is correct.</span></span>  
+  
+ <span data-ttu-id="ad425-110">Идентификаторы объектов являются 64-разрядных чисел.</span><span class="sxs-lookup"><span data-stu-id="ad425-110">Object IDs are 64-bit numbers.</span></span> <span data-ttu-id="ad425-111">Распределение начинается с единицы, поэтому ноль не является допустимым идентификатором объекта.</span><span class="sxs-lookup"><span data-stu-id="ad425-111">Allocation starts from one, so zero is never a valid object ID.</span></span> <span data-ttu-id="ad425-112">Форматер может выбрать нулевое значение для представления ссылки на объект, значение которого является `null`.</span><span class="sxs-lookup"><span data-stu-id="ad425-112">A formatter can choose a zero value to represent an object reference whose value is `null`.</span></span>  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Runtime.Serialization.Formatter" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ObjectIDGenerator ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Serialization.ObjectIDGenerator.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; ObjectIDGenerator();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Serialization.Formatters</AssemblyName>
+        <AssemblyVersion>4.0.2.0</AssemblyVersion>
+        <AssemblyVersion>4.0.3.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="ad425-113">Инициализирует новый экземпляр класса <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-113">Initializes a new instance of the <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" /> class.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetId">
+      <MemberSignature Language="C#" Value="public virtual long GetId (object obj, out bool firstTime);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int64 GetId(object obj, [out] bool&amp; firstTime) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Serialization.ObjectIDGenerator.GetId(System.Object,System.Boolean@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetId (obj As Object, ByRef firstTime As Boolean) As Long" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual long GetId(System::Object ^ obj, [Runtime::InteropServices::Out] bool % firstTime);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Serialization.Formatters</AssemblyName>
+        <AssemblyVersion>4.0.2.0</AssemblyVersion>
+        <AssemblyVersion>4.0.3.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int64</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="obj" Type="System.Object" />
+        <Parameter Name="firstTime" Type="System.Boolean&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="obj">
+          <span data-ttu-id="ad425-114">Объект, для которого необходим идентификатор.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-114">The object you want an ID for.</span>
+          </span>
+        </param>
+        <param name="firstTime">
+          <span data-ttu-id="ad425-115">Значение <see langword="true" />, если объект <c>obj</c> не был ранее известен <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" />; в противном случае значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-115">
+              <see langword="true" /> if <c>obj</c> was not previously known to the <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" />; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="ad425-116">Возвращает идентификатор для заданного объекта, создавая новый идентификатор, если заданный объект уже не был идентифицирован <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-116">Returns the ID for the specified object, generating a new ID if the specified object has not already been identified by the <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="ad425-117">Идентификатор объекта используется для сериализации.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-117">The object's ID is used for serialization.</span>
+          </span>
+          <span data-ttu-id="ad425-118">Параметру <paramref name="firstTime" /> присваивается значение <see langword="true" />, если объект идентифицируется в первый раз; в противном случае присваивается значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-118">
+              <paramref name="firstTime" /> is set to <see langword="true" /> if this is the first time the object has been identified; otherwise, it is set to <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="ad425-119">Параметр <paramref name="obj" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-119">The <paramref name="obj" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Runtime.Serialization.SerializationException">
+          <span data-ttu-id="ad425-120">Сделан запрос <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" /> для сохранения дорожек слишком большого количества объектов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-120">The <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" /> has been asked to keep track of too many objects.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="HasId">
+      <MemberSignature Language="C#" Value="public virtual long HasId (object obj, out bool firstTime);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int64 HasId(object obj, [out] bool&amp; firstTime) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.Serialization.ObjectIDGenerator.HasId(System.Object,System.Boolean@)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function HasId (obj As Object, ByRef firstTime As Boolean) As Long" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual long HasId(System::Object ^ obj, [Runtime::InteropServices::Out] bool % firstTime);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.Serialization.Formatters</AssemblyName>
+        <AssemblyVersion>4.0.2.0</AssemblyVersion>
+        <AssemblyVersion>4.0.3.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int64</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="obj" Type="System.Object" />
+        <Parameter Name="firstTime" Type="System.Boolean&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="obj">
+          <span data-ttu-id="ad425-121">Запрашиваемый объект.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-121">The object you are asking for.</span>
+          </span>
+        </param>
+        <param name="firstTime">
+          <span data-ttu-id="ad425-122">Значение <see langword="true" />, если объект <c>obj</c> не был ранее известен <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" />; в противном случае значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-122">
+              <see langword="true" /> if <c>obj</c> was not previously known to the <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" />; otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="ad425-123">Определяет, был ли объекту уже присвоен идентификатор.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-123">Determines whether an object has already been assigned an ID.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="ad425-124">Идентификатор объекта имеет значение <paramref name="obj" />, если он был ранее известен <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" />, в противном случае — ноль.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-124">The object ID of <paramref name="obj" /> if previously known to the <see cref="T:System.Runtime.Serialization.ObjectIDGenerator" />; otherwise, zero.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="ad425-125">Если объект уже был присвоен идентификатор, идентификатор возвращается и `firstTime` задано значение `false`; в противном случае возвращается ноль и `firstTime` имеет значение `true`.</span><span class="sxs-lookup"><span data-stu-id="ad425-125">If the object has already been assigned an ID, the ID is returned and `firstTime` is set to `false`; otherwise, zero is returned and `firstTime` is set to `true`.</span></span> <span data-ttu-id="ad425-126"><xref:System.Runtime.Serialization.ObjectIDGenerator.HasId%2A> отличается от <xref:System.Runtime.Serialization.ObjectIDGenerator.GetId%2A> в том, что он никогда не создает ID для объекта, который еще не встречался с <xref:System.Runtime.Serialization.ObjectIDGenerator>.</span><span class="sxs-lookup"><span data-stu-id="ad425-126"><xref:System.Runtime.Serialization.ObjectIDGenerator.HasId%2A> differs from <xref:System.Runtime.Serialization.ObjectIDGenerator.GetId%2A> in that it never creates an ID for an object that has not already been seen by the <xref:System.Runtime.Serialization.ObjectIDGenerator>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="ad425-127">Параметр <paramref name="obj" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="ad425-127">The <paramref name="obj" /> parameter is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

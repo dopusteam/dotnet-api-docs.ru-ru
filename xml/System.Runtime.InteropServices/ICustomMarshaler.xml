@@ -1,0 +1,413 @@
+<Type Name="ICustomMarshaler" FullName="System.Runtime.InteropServices.ICustomMarshaler">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="96e612f036008e38d852a9b63135ce9093ba596a" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public interface ICustomMarshaler" />
+  <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract ICustomMarshaler" />
+  <TypeSignature Language="DocId" Value="T:System.Runtime.InteropServices.ICustomMarshaler" />
+  <TypeSignature Language="VB.NET" Value="Public Interface ICustomMarshaler" />
+  <TypeSignature Language="C++ CLI" Value="public interface class ICustomMarshaler" />
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="4da16-101">Предоставляет настраиваемые оболочки, обрабатывающие вызовы методов.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="4da16-101">Provides custom wrappers for handling method calls.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4da16-102">Упаковщик обеспечивает связь между функциональными возможностями старых и новых интерфейсов.</span><span class="sxs-lookup"><span data-stu-id="4da16-102">A marshaler provides a bridge between the functionality of old and new interfaces.</span></span> <span data-ttu-id="4da16-103">Настраиваемый маршалинг обеспечивает следующие преимущества:</span><span class="sxs-lookup"><span data-stu-id="4da16-103">Custom marshaling provides the following benefits:</span></span>  
+  
+-   <span data-ttu-id="4da16-104">Он позволяет клиентским приложениям, которые были разработаны для работы со старым интерфейсом для работы с серверами, реализующими новый интерфейс.</span><span class="sxs-lookup"><span data-stu-id="4da16-104">It enables client applications that were designed to work with an old interface to also work with servers that implement a new interface.</span></span>  
+  
+-   <span data-ttu-id="4da16-105">Он позволяет клиентским приложениям, построенным для работы с новым интерфейсом для работы с серверами, реализующими старый интерфейс.</span><span class="sxs-lookup"><span data-stu-id="4da16-105">It enables client applications built to work with a new interface to work with servers that implement an old interface.</span></span>  
+  
+ <span data-ttu-id="4da16-106">Если имеется интерфейс, имеющий другие характеристики маршалинга или модели объектов компонентов (COM), предоставляется другим способом, можно разработать особого упаковщика вместо того чтобы использовать упаковщик взаимодействия.</span><span class="sxs-lookup"><span data-stu-id="4da16-106">If you have an interface that introduces different marshaling behavior or that is exposed to the Component Object Model (COM) in a different way, you can design a custom marshaler instead of using the interop marshaler.</span></span> <span data-ttu-id="4da16-107">С помощью особого упаковщика, можно свести к минимуму различие между новыми компонентами платформы .NET Framework и существующими COM-компонентами.</span><span class="sxs-lookup"><span data-stu-id="4da16-107">By using a custom marshaler, you can minimize the distinction between new .NET Framework components and existing COM components.</span></span>  
+  
+ <span data-ttu-id="4da16-108">Например, предположим, что разрабатывается управляемый интерфейс с именем `INew`.</span><span class="sxs-lookup"><span data-stu-id="4da16-108">For example, suppose that you are developing a managed interface called `INew`.</span></span> <span data-ttu-id="4da16-109">Если этот интерфейс предоставляется модели COM через стандартную вызываемую оболочку COM (CCW), он имеет те же методы, что управляемый интерфейс и использует правила маршалинга, встроенные в упаковщик взаимодействия.</span><span class="sxs-lookup"><span data-stu-id="4da16-109">When this interface is exposed to COM through a standard COM callable wrapper (CCW), it has the same methods as the managed interface and uses the marshaling rules built into the interop marshaler.</span></span> <span data-ttu-id="4da16-110">Теперь предположим, что известный интерфейс COM с именем `IOld` уже предоставляет те же функциональные возможности, как `INew` интерфейса.</span><span class="sxs-lookup"><span data-stu-id="4da16-110">Now suppose that a well-known COM interface called `IOld` already provides the same functionality as the `INew` interface.</span></span> <span data-ttu-id="4da16-111">При разработке пользовательского упаковщика, можно предоставить неуправляемую реализацию `IOld` , просто делегировать вызовы управляемой реализации `INew` интерфейса.</span><span class="sxs-lookup"><span data-stu-id="4da16-111">By designing a custom marshaler, you can provide an unmanaged implementation of `IOld` that simply delegates the calls to the managed implementation of the `INew` interface.</span></span> <span data-ttu-id="4da16-112">Таким образом особого упаковщика выступает в качестве моста между управляемым и неуправляемым интерфейсами.</span><span class="sxs-lookup"><span data-stu-id="4da16-112">Therefore, the custom marshaler acts as a bridge between the managed and unmanaged interfaces.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="4da16-113">Особые упаковщики не вызываются, когда вызов из управляемого кода в неуправляемый код для интерфейса диспетчеризации.</span><span class="sxs-lookup"><span data-stu-id="4da16-113">Custom marshalers are not invoked when calling from managed code to unmanaged code on a dispatch-only interface.</span></span>  
+  
+## <a name="defining-the-marshaling-type"></a><span data-ttu-id="4da16-114">Определение типа маршалинга</span><span class="sxs-lookup"><span data-stu-id="4da16-114">Defining the Marshaling Type</span></span>  
+ <span data-ttu-id="4da16-115">Перед созданием пользовательского упаковщика необходимо определить управляемые и неуправляемые интерфейсы, которые будут маршалированы.</span><span class="sxs-lookup"><span data-stu-id="4da16-115">Before you can build a custom marshaler, you must define the managed and unmanaged interfaces that will be marshaled.</span></span> <span data-ttu-id="4da16-116">Эти интерфейсы обычно выполняют ту же функцию, но по-разному предоставляются для управляемых и неуправляемых объектов.</span><span class="sxs-lookup"><span data-stu-id="4da16-116">These interfaces commonly perform the same function but are exposed differently to managed and unmanaged objects.</span></span>  
+  
+ <span data-ttu-id="4da16-117">Управляемый компилятор создает управляемый интерфейс на основе метаданных и результирующие интерфейс будет выглядеть управляемого интерфейса.</span><span class="sxs-lookup"><span data-stu-id="4da16-117">A managed compiler produces a managed interface from metadata, and the resulting interface looks like any other managed interface.</span></span> <span data-ttu-id="4da16-118">В примере показан типичный интерфейс.</span><span class="sxs-lookup"><span data-stu-id="4da16-118">The following example shows a typical interface.</span></span>  
+  
+ [!code-cpp[System.Runtime.InteropServices.ICustomMarshaler#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cpp/source.cpp#1)]
+ [!code-csharp[System.Runtime.InteropServices.ICustomMarshaler#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cs/source.cs#1)]
+ [!code-vb[System.Runtime.InteropServices.ICustomMarshaler#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/vb/source.vb#1)]  
+  
+ <span data-ttu-id="4da16-119">Определяет неуправляемый тип в языке определения интерфейса (IDL) и скомпилируйте его с компилятор Microsoft интерфейса определения языка MIDL.</span><span class="sxs-lookup"><span data-stu-id="4da16-119">You define the unmanaged type in Interface Definition Language (IDL) and compile it with the Microsoft Interface Definition Language (MIDL) compiler.</span></span> <span data-ttu-id="4da16-120">Интерфейс определяется в инструкции library и назначьте его идентификатор интерфейса с атрибутом универсальный уникальный идентификатор (UUID), как показано в следующем примере.</span><span class="sxs-lookup"><span data-stu-id="4da16-120">You define the interface within a library statement and assign it an interface ID with the universal unique identifier (UUID) attribute, as the following example demonstrates.</span></span>  
+  
+```  
+ [uuid(9B2BAADA-0705-11D3-A0CD-00C04FA35826)]  
+library OldLib {  
+     [uuid(9B2BAADD-0705-11D3-A0CD-00C04FA35826)]  
+     interface IOld : IUnknown  
+         HRESULT OldMethod();  
+}  
+```  
+  
+ <span data-ttu-id="4da16-121">Компилятор MIDL создает несколько выходных файлов.</span><span class="sxs-lookup"><span data-stu-id="4da16-121">The MIDL compiler produces several output files.</span></span> <span data-ttu-id="4da16-122">Если интерфейс определен в файле Old.idl, выходной файл, определяет Old_i.c `const` переменную идентификатор интерфейса (IID) интерфейса, как показано в следующем примере.</span><span class="sxs-lookup"><span data-stu-id="4da16-122">If the interface is defined in Old.idl, the output file Old_i.c defines a `const` variable with the interface identifier (IID) of the interface, as the following example demonstrates.</span></span>  
+  
+```  
+const IID IID_IOld = {0x9B2BAADD,0x0705,0x11D3,{0xA0,0xCD,0x00,0xC0,0x4F,0xA3,0x58,0x26}};  
+```  
+  
+ <span data-ttu-id="4da16-123">Также создается файл Old.h MIDL.</span><span class="sxs-lookup"><span data-stu-id="4da16-123">The Old.h file is also produced by MIDL.</span></span> <span data-ttu-id="4da16-124">Он содержит определение на языке C++ для интерфейса, который может быть включено в исходный код C++.</span><span class="sxs-lookup"><span data-stu-id="4da16-124">It contains a C++ definition of the interface that can be included in your C++ source code.</span></span>  
+  
+## <a name="implementing-the-icustommarshaler-interface"></a><span data-ttu-id="4da16-125">Реализация интерфейса ICustomMarshaler</span><span class="sxs-lookup"><span data-stu-id="4da16-125">Implementing the ICustomMarshaler Interface</span></span>  
+ <span data-ttu-id="4da16-126">Необходимо реализовать пользовательский маршалер <xref:System.Runtime.InteropServices.ICustomMarshaler> интерфейс, чтобы предоставить соответствующие оболочки среды выполнения.</span><span class="sxs-lookup"><span data-stu-id="4da16-126">Your custom marshaler must implement the <xref:System.Runtime.InteropServices.ICustomMarshaler> interface to provide the appropriate wrappers to the runtime.</span></span>  
+  
+ <span data-ttu-id="4da16-127">Следующий код C# отображает базовый интерфейс, который должны реализовывать все Особые упаковщики.</span><span class="sxs-lookup"><span data-stu-id="4da16-127">The following C# code displays the base interface that must be implemented by all custom marshalers.</span></span>  
+  
+ [!code-cpp[System.Runtime.InteropServices.ICustomMarshaler#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cpp/source.cpp#2)]
+ [!code-csharp[System.Runtime.InteropServices.ICustomMarshaler#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cs/source.cs#2)]
+ [!code-vb[System.Runtime.InteropServices.ICustomMarshaler#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/vb/source.vb#2)]  
+  
+ <span data-ttu-id="4da16-128"><xref:System.Runtime.InteropServices.ICustomMarshaler> Интерфейс содержит методы, предоставляющие поддержку преобразования, поддержку очистки и сведения о данных, который необходимо маршалировать.</span><span class="sxs-lookup"><span data-stu-id="4da16-128">The <xref:System.Runtime.InteropServices.ICustomMarshaler> interface includes methods that provide conversion support, cleanup support, and information about the data to be marshaled.</span></span>  
+  
+|<span data-ttu-id="4da16-129">Тип операции</span><span class="sxs-lookup"><span data-stu-id="4da16-129">Type of operation</span></span>|<span data-ttu-id="4da16-130">Метод ICustomMarshaler</span><span class="sxs-lookup"><span data-stu-id="4da16-130">ICustomMarshaler method</span></span>|<span data-ttu-id="4da16-131">Описание:</span><span class="sxs-lookup"><span data-stu-id="4da16-131">Description</span></span>|  
+|-----------------------|-----------------------------|-----------------|  
+|<span data-ttu-id="4da16-132">Преобразование (из машинного и управляемого кода)</span><span class="sxs-lookup"><span data-stu-id="4da16-132">Conversion (from native to managed code)</span></span>|<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A>|<span data-ttu-id="4da16-133">Маршалирует указатель на машинные данные в управляемый объект.</span><span class="sxs-lookup"><span data-stu-id="4da16-133">Marshals a pointer to native data into a managed object.</span></span> <span data-ttu-id="4da16-134">Этот метод возвращает пользовательскую вызываемую оболочку (времени выполнения RCW), можно маршалировать в неуправляемый интерфейс, передаваемый в качестве аргумента.</span><span class="sxs-lookup"><span data-stu-id="4da16-134">This method returns a custom runtime callable wrapper (RCW) that can marshal the unmanaged interface that is passed as an argument.</span></span> <span data-ttu-id="4da16-135">Маршалер должен вернуть экземпляр пользовательской вызываемой оболочки времени Выполнения для данного типа.</span><span class="sxs-lookup"><span data-stu-id="4da16-135">The marshaler should return an instance of the custom RCW for that type.</span></span>|  
+|<span data-ttu-id="4da16-136">Преобразование (из управляемого кода)</span><span class="sxs-lookup"><span data-stu-id="4da16-136">Conversion (from managed to native code)</span></span>|<xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A>|<span data-ttu-id="4da16-137">Выполняет маршалинг управляемого объекта в указатель на собственных данных.</span><span class="sxs-lookup"><span data-stu-id="4da16-137">Marshals a managed object into a pointer to native data.</span></span> <span data-ttu-id="4da16-138">Этот метод возвращает пользовательской вызываемой оболочки COM (CCW), способную маршалировать управляемый интерфейс, который передается в качестве аргумента.</span><span class="sxs-lookup"><span data-stu-id="4da16-138">This method returns a custom COM callable wrapper (CCW) that can marshal the managed interface that is passed as an argument.</span></span> <span data-ttu-id="4da16-139">Упаковщик должен вернуть экземпляр пользовательской вызываемой оболочки COM для данного типа.</span><span class="sxs-lookup"><span data-stu-id="4da16-139">The marshaler should return an instance of the custom CCW for that type.</span></span>|  
+|<span data-ttu-id="4da16-140">Очистка (машинного кода)</span><span class="sxs-lookup"><span data-stu-id="4da16-140">Cleanup (of native code)</span></span>|<xref:System.Runtime.InteropServices.ICustomMarshaler.CleanUpNativeData%2A>|<span data-ttu-id="4da16-141">Включает упаковщик для очистки данных в собственном (CCW), возвращаемый <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="4da16-141">Enables the marshaler to clean up the native data (the CCW) that is returned by the <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A> method.</span></span>|  
+|<span data-ttu-id="4da16-142">Очистка (управляемый код)</span><span class="sxs-lookup"><span data-stu-id="4da16-142">Cleanup (of managed code)</span></span>|<xref:System.Runtime.InteropServices.ICustomMarshaler.CleanUpManagedData%2A>|<span data-ttu-id="4da16-143">Включает упаковщик очистить управляемые данные (времени выполнения RCW), возвращаемый <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="4da16-143">Enables the marshaler to clean up the managed data (the RCW) that is returned by the <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A> method.</span></span>|  
+|<span data-ttu-id="4da16-144">Сведения (машинный код)</span><span class="sxs-lookup"><span data-stu-id="4da16-144">Information (about native code)</span></span>|<xref:System.Runtime.InteropServices.ICustomMarshaler.GetNativeDataSize%2A>|<span data-ttu-id="4da16-145">Возвращает размер неуправляемого данные для маршалинга.</span><span class="sxs-lookup"><span data-stu-id="4da16-145">Returns the size of the unmanaged data to be marshaled.</span></span>|  
+  
+### <a name="conversion"></a><span data-ttu-id="4da16-146">Преобразование</span><span class="sxs-lookup"><span data-stu-id="4da16-146">Conversion</span></span>  
+ <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A?displayProperty=nameWithType>  
+  
+ <span data-ttu-id="4da16-147">Маршалирует указатель на машинные данные в управляемый объект.</span><span class="sxs-lookup"><span data-stu-id="4da16-147">Marshals a pointer to native data into a managed object.</span></span> <span data-ttu-id="4da16-148">Этот метод возвращает пользовательскую вызываемую оболочку (времени выполнения RCW), можно маршалировать в неуправляемый интерфейс, передаваемый в качестве аргумента.</span><span class="sxs-lookup"><span data-stu-id="4da16-148">This method returns a custom runtime callable wrapper (RCW) that can marshal the unmanaged interface that is passed as an argument.</span></span> <span data-ttu-id="4da16-149">Маршалер должен вернуть экземпляр пользовательской вызываемой оболочки времени Выполнения для данного типа.</span><span class="sxs-lookup"><span data-stu-id="4da16-149">The marshaler should return an instance of the custom RCW for that type.</span></span>  
+  
+ <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A?displayProperty=nameWithType>  
+  
+ <span data-ttu-id="4da16-150">Выполняет маршалинг управляемого объекта в указатель на собственных данных.</span><span class="sxs-lookup"><span data-stu-id="4da16-150">Marshals a managed object into a pointer to native data.</span></span> <span data-ttu-id="4da16-151">Этот метод возвращает пользовательской вызываемой оболочки COM (CCW), способную маршалировать управляемый интерфейс, который передается в качестве аргумента.</span><span class="sxs-lookup"><span data-stu-id="4da16-151">This method returns a custom COM callable wrapper (CCW) that can marshal the managed interface that is passed as an argument.</span></span> <span data-ttu-id="4da16-152">Упаковщик должен вернуть экземпляр пользовательской вызываемой оболочки COM для данного типа.</span><span class="sxs-lookup"><span data-stu-id="4da16-152">The marshaler should return an instance of the custom CCW for that type.</span></span>  
+  
+### <a name="cleanup"></a><span data-ttu-id="4da16-153">Очистка</span><span class="sxs-lookup"><span data-stu-id="4da16-153">Cleanup</span></span>  
+ <xref:System.Runtime.InteropServices.ICustomMarshaler.CleanUpNativeData%2A?displayProperty=nameWithType>  
+  
+ <span data-ttu-id="4da16-154">Включает упаковщик для очистки данных в собственном (CCW), возвращаемый <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="4da16-154">Enables the marshaler to clean up the native data (the CCW) that is returned by the <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A> method.</span></span>  
+  
+ <xref:System.Runtime.InteropServices.ICustomMarshaler.CleanUpManagedData%2A?displayProperty=nameWithType>  
+  
+ <span data-ttu-id="4da16-155">Включает упаковщик очистить управляемые данные (времени выполнения RCW), возвращаемый <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="4da16-155">Enables the marshaler to clean up the managed data (the RCW) that is returned by the <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A> method.</span></span>  
+  
+### <a name="size-information"></a><span data-ttu-id="4da16-156">Сведения о размере</span><span class="sxs-lookup"><span data-stu-id="4da16-156">Size Information</span></span>  
+ <xref:System.Runtime.InteropServices.ICustomMarshaler.GetNativeDataSize%2A?displayProperty=nameWithType>  
+  
+ <span data-ttu-id="4da16-157">Возвращает размер неуправляемого данные для маршалинга.</span><span class="sxs-lookup"><span data-stu-id="4da16-157">Returns the size of the unmanaged data to be marshaled.</span></span>  
+  
+## <a name="implementing-the-getinstance-method"></a><span data-ttu-id="4da16-158">Метод GetInstance реализации</span><span class="sxs-lookup"><span data-stu-id="4da16-158">Implementing the GetInstance Method</span></span>  
+ <span data-ttu-id="4da16-159">Помимо реализации <xref:System.Runtime.InteropServices.ICustomMarshaler> интерфейса, необходимо реализовать Особые упаковщики `static` метод с именем `GetInstance` , принимающий <xref:System.String> как параметр с типом возвращаемого значения <xref:System.Runtime.InteropServices.ICustomMarshaler>.</span><span class="sxs-lookup"><span data-stu-id="4da16-159">In addition to implementing the <xref:System.Runtime.InteropServices.ICustomMarshaler> interface, custom marshalers must implement a `static` method called `GetInstance` that accepts a <xref:System.String> as a parameter and has a return type of <xref:System.Runtime.InteropServices.ICustomMarshaler>.</span></span> <span data-ttu-id="4da16-160">Это `static` метод вызывается методом уровень COM-взаимодействия среды CLR для создания экземпляра пользовательского упаковщика.</span><span class="sxs-lookup"><span data-stu-id="4da16-160">This `static` method is called by the common language runtime's COM interop layer to instantiate an instance of the custom marshaler.</span></span> <span data-ttu-id="4da16-161">Строка, передаваемая в `GetInstance` с метод можно использовать для настройки возвращаемого настраиваемого маршалера является.</span><span class="sxs-lookup"><span data-stu-id="4da16-161">The string that is passed to `GetInstance` is a cookie that the method can use to customize the returned custom marshaler.</span></span>  
+  
+```  
+static ICustomMarshaler *GetInstance(String *pstrCookie);  
+```  
+  
+## <a name="applying-marshalasattribute"></a><span data-ttu-id="4da16-162">Применение MarshalAsAttribute</span><span class="sxs-lookup"><span data-stu-id="4da16-162">Applying MarshalAsAttribute</span></span>  
+ <span data-ttu-id="4da16-163">Для использования особого упаковщика, необходимо применить <xref:System.Runtime.InteropServices.MarshalAsAttribute> атрибут параметра или поля, который маршалируется.</span><span class="sxs-lookup"><span data-stu-id="4da16-163">To use a custom marshaler, you must apply the <xref:System.Runtime.InteropServices.MarshalAsAttribute> attribute to the parameter or field that is being marshaled.</span></span>  
+  
+ <span data-ttu-id="4da16-164">Необходимо также передать <xref:System.Runtime.InteropServices.UnmanagedType.CustomMarshaler?displayProperty=nameWithType> значение перечисления <xref:System.Runtime.InteropServices.MarshalAsAttribute> конструктор.</span><span class="sxs-lookup"><span data-stu-id="4da16-164">You must also pass the <xref:System.Runtime.InteropServices.UnmanagedType.CustomMarshaler?displayProperty=nameWithType> enumeration value to the <xref:System.Runtime.InteropServices.MarshalAsAttribute> constructor.</span></span> <span data-ttu-id="4da16-165">Кроме того, необходимо указать <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType> поле с одним из следующих действий, именованных параметров:</span><span class="sxs-lookup"><span data-stu-id="4da16-165">In addition, you must specify the <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType> field with one of the following named parameters:</span></span>  
+  
+-   <span data-ttu-id="4da16-166"><xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType> (обязательно): имя настраиваемого упаковщика с указанием сборки.</span><span class="sxs-lookup"><span data-stu-id="4da16-166"><xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType> (required): The assembly-qualified name of the custom marshaler.</span></span> <span data-ttu-id="4da16-167">Имя должно включать пространство имен и класс пользовательского упаковщика.</span><span class="sxs-lookup"><span data-stu-id="4da16-167">The name should include the namespace and class of the custom marshaler.</span></span> <span data-ttu-id="4da16-168">Если особого упаковщика не определен в сборке, которой он используется, необходимо указать имя сборки, в которой он определен.</span><span class="sxs-lookup"><span data-stu-id="4da16-168">If the custom marshaler is not defined in the assembly it is used in, you must specify the name of the assembly in which it is defined.</span></span>  
+  
+    > [!NOTE]
+    >  <span data-ttu-id="4da16-169">Можно использовать <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef> поле вместо <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType> поля.</span><span class="sxs-lookup"><span data-stu-id="4da16-169">You can use the <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef> field instead of the <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType> field.</span></span> <span data-ttu-id="4da16-170"><xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef> принимает значение типа, который проще указать.</span><span class="sxs-lookup"><span data-stu-id="4da16-170"><xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalTypeRef> takes a type that is easier to specify.</span></span>  
+  
+-   <span data-ttu-id="4da16-171"><xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalCookie> (необязательно): файл cookie, который передается особым упаковщиком.</span><span class="sxs-lookup"><span data-stu-id="4da16-171"><xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalCookie> (optional): A cookie that is passed to the custom marshaler.</span></span> <span data-ttu-id="4da16-172">Куки-файл можно использовать для предоставления дополнительных сведений упаковщиком.</span><span class="sxs-lookup"><span data-stu-id="4da16-172">You can use the cookie to provide additional information to the marshaler.</span></span> <span data-ttu-id="4da16-173">Например если же упаковщик используется для указания номера оболочек, файл cookie идентифицирует конкретную оболочку.</span><span class="sxs-lookup"><span data-stu-id="4da16-173">For example, if the same marshaler is used to provide a number of wrappers, the cookie identifies a specific wrapper.</span></span> <span data-ttu-id="4da16-174">Файл cookie передается `GetInstance` метод упаковщика.</span><span class="sxs-lookup"><span data-stu-id="4da16-174">The cookie is passed to the `GetInstance` method of the marshaler.</span></span>  
+  
+ <span data-ttu-id="4da16-175"><xref:System.Runtime.InteropServices.MarshalAsAttribute> Атрибут определяет особого упаковщика, поэтому она может активировать соответствующую оболочку.</span><span class="sxs-lookup"><span data-stu-id="4da16-175">The <xref:System.Runtime.InteropServices.MarshalAsAttribute> attribute identifies the custom marshaler so it can activate the appropriate wrapper.</span></span> <span data-ttu-id="4da16-176">Затем служба взаимодействия среды CLR проверяет атрибут и создает времени особого упаковщика первый аргумент (параметра или поля) требуется маршалировать.</span><span class="sxs-lookup"><span data-stu-id="4da16-176">The common language runtime's interop service then examines the attribute and creates the custom marshaler the first time the argument (parameter or field) needs to be marshaled.</span></span>  
+  
+ <span data-ttu-id="4da16-177">Затем среда выполнения вызывает <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A> и <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A> методов для особого упаковщика для активации правильную оболочку для обработки вызова.</span><span class="sxs-lookup"><span data-stu-id="4da16-177">The runtime then calls the <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged%2A> and <xref:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative%2A> methods on the custom marshaler to activate the correct wrapper to handle the call.</span></span>  
+  
+## <a name="using-a-custom-marshaler"></a><span data-ttu-id="4da16-178">С помощью особого упаковщика</span><span class="sxs-lookup"><span data-stu-id="4da16-178">Using a Custom Marshaler</span></span>  
+ <span data-ttu-id="4da16-179">После завершения пользовательского упаковщика можно использовать как настраиваемую оболочку для конкретного типа.</span><span class="sxs-lookup"><span data-stu-id="4da16-179">When the custom marshaler is complete, you can use it as a custom wrapper for a particular type.</span></span> <span data-ttu-id="4da16-180">В следующем примере показано определение `IUserData` управляемого интерфейса:</span><span class="sxs-lookup"><span data-stu-id="4da16-180">The following example shows the definition of the `IUserData` managed interface:</span></span>  
+  
+ [!code-cpp[System.Runtime.InteropServices.ICustomMarshaler#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cpp/source.cpp#3)]
+ [!code-csharp[System.Runtime.InteropServices.ICustomMarshaler#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cs/source.cs#3)]
+ [!code-vb[System.Runtime.InteropServices.ICustomMarshaler#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/vb/source.vb#3)]  
+  
+ <span data-ttu-id="4da16-181">В следующем примере `IUserData` интерфейс использует `NewOldMarshaler` особого упаковщика для включения неуправляемых клиентских приложениях для передачи `IOld` интерфейс `DoSomeStuff` метод.</span><span class="sxs-lookup"><span data-stu-id="4da16-181">In the following example, the `IUserData` interface uses the `NewOldMarshaler` custom marshaler to enable unmanaged client applications to pass an `IOld` interface to the `DoSomeStuff` method.</span></span> <span data-ttu-id="4da16-182">Управляемое описание `DoSomeStuff` принимает `INew` интерфейс, как показано в предыдущем примере, в то время как неуправляемая версия `DoSomeStuff` принимает `IOld` указатель на интерфейс, как показано в следующем примере.</span><span class="sxs-lookup"><span data-stu-id="4da16-182">The managed description of the `DoSomeStuff` method takes an `INew` interface, as shown in the previous example, whereas the unmanaged version of `DoSomeStuff` takes an `IOld` interface pointer, as shown in the following example.</span></span>  
+  
+```  
+[uuid(9B2BAADA-0705-11D3-A0CD-00C04FA35826)]  
+library UserLib {  
+     [uuid(9B2BABCD-0705-11D3-A0CD-00C04FA35826)]  
+     interface IUserData : IUnknown  
+         HRESULT DoSomeStuff(IUnknown* pIOld);  
+}  
+```  
+  
+ <span data-ttu-id="4da16-183">Библиотека типов, созданная путем экспорта управляемого определения `IUserData` неуправляемое определение показано в следующем примере вместо стандартного определения.</span><span class="sxs-lookup"><span data-stu-id="4da16-183">The type library that is generated by exporting the managed definition of `IUserData` yields the unmanaged definition shown in this example instead of the standard definition.</span></span> <span data-ttu-id="4da16-184"><xref:System.Runtime.InteropServices.MarshalAsAttribute> Атрибут, примененный к `INew` аргумента в управляемое определение `DoSomeStuff` метод указывает, что аргумент использует настраиваемый упаковщик, как показано в следующем примере.</span><span class="sxs-lookup"><span data-stu-id="4da16-184">The <xref:System.Runtime.InteropServices.MarshalAsAttribute> attribute applied to the `INew` argument in the managed definition of the `DoSomeStuff` method indicates that the argument uses a custom marshaler, as the following example shows.</span></span>  
+  
+ [!code-cpp[System.Runtime.InteropServices.ICustomMarshaler#4](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cpp/source.cpp#4)]
+ [!code-csharp[System.Runtime.InteropServices.ICustomMarshaler#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cs/source.cs#4)]
+ [!code-vb[System.Runtime.InteropServices.ICustomMarshaler#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/vb/source.vb#4)]  
+  
+ [!code-cpp[System.Runtime.InteropServices.ICustomMarshaler#5](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cpp/source.cpp#5)]
+ [!code-csharp[System.Runtime.InteropServices.ICustomMarshaler#5](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/cs/source.cs#5)]
+ [!code-vb[System.Runtime.InteropServices.ICustomMarshaler#5](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.interopservices.icustommarshaler/vb/source.vb#5)]  
+  
+ <span data-ttu-id="4da16-185">В предыдущих примерах, первый параметр обеспечивает <xref:System.Runtime.InteropServices.MarshalAsAttribute> атрибут <xref:System.Runtime.InteropServices.UnmanagedType.CustomMarshaler?displayProperty=nameWithType> значение перечисления `UnmanagedType.CustomMarshaler`.</span><span class="sxs-lookup"><span data-stu-id="4da16-185">In the previous examples, the first parameter provided to the <xref:System.Runtime.InteropServices.MarshalAsAttribute> attribute is the <xref:System.Runtime.InteropServices.UnmanagedType.CustomMarshaler?displayProperty=nameWithType> enumeration value `UnmanagedType.CustomMarshaler`.</span></span>  
+  
+ <span data-ttu-id="4da16-186">Второй параметр — <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType> поле, которое предоставляет имя сборки пользовательского упаковщика.</span><span class="sxs-lookup"><span data-stu-id="4da16-186">The second parameter is the <xref:System.Runtime.InteropServices.MarshalAsAttribute.MarshalType> field, which provides the assembly-qualified name of the custom marshaler.</span></span> <span data-ttu-id="4da16-187">Это имя состоит из пространства имен и класс настраиваемого упаковщика (`MarshalType="MyCompany.NewOldMarshaler"`).</span><span class="sxs-lookup"><span data-stu-id="4da16-187">This name consists of the namespace and class of the custom marshaler (`MarshalType="MyCompany.NewOldMarshaler"`).</span></span>  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="CleanUpManagedData">
+      <MemberSignature Language="C#" Value="public void CleanUpManagedData (object ManagedObj);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void CleanUpManagedData(object ManagedObj) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.ICustomMarshaler.CleanUpManagedData(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub CleanUpManagedData (ManagedObj As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void CleanUpManagedData(System::Object ^ ManagedObj);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="ManagedObj" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="ManagedObj">
+          <span data-ttu-id="4da16-188">Управляемый объект, который необходимо уничтожить.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-188">The managed object to be destroyed.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4da16-189">Выполняет необходимую очистку управляемых данных, если они больше не нужны.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-189">Performs necessary cleanup of the managed data when it is no longer needed.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CleanUpNativeData">
+      <MemberSignature Language="C#" Value="public void CleanUpNativeData (IntPtr pNativeData);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void CleanUpNativeData(native int pNativeData) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.ICustomMarshaler.CleanUpNativeData(System.IntPtr)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub CleanUpNativeData (pNativeData As IntPtr)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void CleanUpNativeData(IntPtr pNativeData);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="pNativeData" Type="System.IntPtr" />
+      </Parameters>
+      <Docs>
+        <param name="pNativeData">
+          <span data-ttu-id="4da16-190">Указатель на неуправляемые данные, которые необходимо уничтожить.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-190">A pointer to the unmanaged data to be destroyed.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4da16-191">Выполняет необходимую очистку неуправляемых данных, если они больше не нужны.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-191">Performs necessary cleanup of the unmanaged data when it is no longer needed.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetNativeDataSize">
+      <MemberSignature Language="C#" Value="public int GetNativeDataSize ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 GetNativeDataSize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.ICustomMarshaler.GetNativeDataSize" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetNativeDataSize () As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; int GetNativeDataSize();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="4da16-192">Возвращает размер собственных данных для маршалинга.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-192">Returns the size of the native data to be marshaled.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="4da16-193">Размер собственных данных в байтах.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-193">The size, in bytes, of the native data.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="MarshalManagedToNative">
+      <MemberSignature Language="C#" Value="public IntPtr MarshalManagedToNative (object ManagedObj);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance native int MarshalManagedToNative(object ManagedObj) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.ICustomMarshaler.MarshalManagedToNative(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Function MarshalManagedToNative (ManagedObj As Object) As IntPtr" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; IntPtr MarshalManagedToNative(System::Object ^ ManagedObj);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.IntPtr</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="ManagedObj" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="ManagedObj">
+          <span data-ttu-id="4da16-194">Управляемый объект, который необходимо преобразовать.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-194">The managed object to be converted.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4da16-195">Преобразует управляемые данные в неуправляемые.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-195">Converts the managed data to unmanaged data.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="4da16-196">Указатель на COM-представление управляемого объекта.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-196">A pointer to the COM view of the managed object.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="MarshalNativeToManaged">
+      <MemberSignature Language="C#" Value="public object MarshalNativeToManaged (IntPtr pNativeData);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance object MarshalNativeToManaged(native int pNativeData) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Runtime.InteropServices.ICustomMarshaler.MarshalNativeToManaged(System.IntPtr)" />
+      <MemberSignature Language="VB.NET" Value="Public Function MarshalNativeToManaged (pNativeData As IntPtr) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ MarshalNativeToManaged(IntPtr pNativeData);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime.InteropServices</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="pNativeData" Type="System.IntPtr" />
+      </Parameters>
+      <Docs>
+        <param name="pNativeData">
+          <span data-ttu-id="4da16-197">Указатель на неуправляемые данные, которые необходимо инкапсулировать.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-197">A pointer to the unmanaged data to be wrapped.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4da16-198">Преобразует неуправляемые данные в управляемые.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-198">Converts the unmanaged data to managed data.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="4da16-199">Объект, представляющий управляемое представление данных модели COM.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4da16-199">An object that represents the managed view of the COM data.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
