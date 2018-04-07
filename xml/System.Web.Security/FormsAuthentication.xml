@@ -1,0 +1,1955 @@
+<Type Name="FormsAuthentication" FullName="System.Web.Security.FormsAuthentication">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="2973158ad3b2488ed97de294eba119acc9a47810" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class FormsAuthentication" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit FormsAuthentication extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Web.Security.FormsAuthentication" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class FormsAuthentication" />
+  <TypeSignature Language="C++ CLI" Value="public ref class FormsAuthentication sealed" />
+  <AssemblyInfo>
+    <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="5dcfc-101">Управляет службами проверки подлинности с помощью форм для веб-приложений.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="5dcfc-101">Manages forms-authentication services for Web applications.</span>
+      </span>
+      <span data-ttu-id="5dcfc-102">Этот класс не наследуется.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="5dcfc-102">This class cannot be inherited.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-103">Проверка подлинности форм разрешает проверку пользователя и пароля для веб-приложений, которые не требуют проверки подлинности Windows.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-103">Forms authentication enables user and password validation for Web applications that do not require Windows authentication.</span></span> <span data-ttu-id="5dcfc-104">С помощью форм, сведения о пользователе хранятся в внешнему источнику данных, таких как <xref:System.Web.Security.Membership> базы данных, или в файле конфигурации приложения.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-104">With forms authentication, user information is stored in an external data source, such as a <xref:System.Web.Security.Membership> database, or in the configuration file for an application.</span></span> <span data-ttu-id="5dcfc-105">После проверки подлинности пользователя, проверки подлинности форм хранит билет проверки подлинности в файле cookie или в URL-АДРЕСЕ, прошедшего проверку подлинности пользователя не требуется предоставлять учетные данные при каждом запросе.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-105">Once a user is authenticated, forms authentication maintains an authentication ticket in a cookie or in the URL so that an authenticated user does not need to supply credentials with each request.</span></span>  
+  
+ <span data-ttu-id="5dcfc-106">Проверка подлинности форм включена, задав `mode` атрибута элемента конфигурации для `Forms`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-106">Forms authentication is enabled by setting the `mode` attribute of the  configuration element to `Forms`.</span></span> <span data-ttu-id="5dcfc-107">Можно потребовать наличия билет проверки подлинности пользователя с помощью элемента конфигурации отклонить запрос любого неизвестного пользователя, как показано в следующем примере все запросы к приложению.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-107">You can require that all requests to an application contain a valid user authentication ticket by using the  configuration element to deny the request of any unknown user, as shown in the following example.</span></span>  
+  
+```  
+<system.web>  
+  <authentication mode="Forms">  
+    <forms loginUrl="login.aspx" />  
+  </authentication>  
+  <authorization>  
+    <deny users="?" />  
+  </authorization>  
+</system.web>  
+```  
+  
+ <span data-ttu-id="5dcfc-108">В предыдущем примере любой запрос к странице ASP.NET, который является частью приложения требуется допустимое имя пользователя, предоставленный для проверки подлинности форм.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-108">In the previous example, any request for an ASP.NET page that is part of the application requires a valid user name that is supplied by forms authentication.</span></span> <span data-ttu-id="5dcfc-109">Если имя пользователя не существует, а затем перенаправляется запрос для настроенного <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A>.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-109">If no user name exists, then the request is redirected to the configured <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A>.</span></span>  
+  
+ <span data-ttu-id="5dcfc-110"><xref:System.Web.Security.FormsAuthentication> Класс предоставляет доступ к методам и свойствам, которые можно использовать в приложении, которое выполняет проверку подлинности пользователей.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-110">The <xref:System.Web.Security.FormsAuthentication> class provides access to methods and properties that you can use in an application that authenticates users.</span></span> <span data-ttu-id="5dcfc-111"><xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> Метод перенаправляет браузер настроенного <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A> для пользователей для входа в приложение.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-111">The <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method redirects a browser to the configured <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A> for users to log into an application.</span></span> <span data-ttu-id="5dcfc-112"><xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> Метод перенаправляет прошедшего проверку подлинности пользователя обратно в исходный защищенный URL-адрес запрошенной или <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A>.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-112">The <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method redirects an authenticated user back to the original protected URL that was requested or to the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A>.</span></span> <span data-ttu-id="5dcfc-113">Существуют методы, которые позволяют управлять билетов проверки подлинности форм, при необходимости.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-113">There are also methods that enable you to manage forms-authentication tickets, if needed.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-114">В следующем примере кода показан файл Web.config для приложения ASP.NET, который использует поставщик членства ASP.NET для проверки подлинности форм и требует, чтобы все пользователи должны проходить проверку подлинности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-114">The following code example shows the Web.config file for an ASP.NET application that uses the ASP.NET membership provider for forms authentication and requires all users to be authenticated.</span></span>  
+  
+```  
+<configuration>  
+  <connectionStrings>  
+    <add name="SqlServices" connectionString="Data Source=MySqlServer;Integrated Security=SSPI;Initial Catalog=aspnetdb;" />  
+  </connectionStrings>  
+  <system.web>  
+    <membership defaultProvider="SqlProvider" userIsOnlineTimeWindow="20">  
+      <providers>  
+        <add name="SqlProvider"  
+          type="System.Web.Security.SqlMembershipProvider"  
+          connectionStringName="SqlServices"  
+          enablePasswordRetrieval="false"  
+          enablePasswordReset="true"  
+          requiresQuestionAndAnswer="true"  
+          passwordFormat="Hashed"  
+          applicationName="/" />  
+      </providers>  
+    </membership>  
+  </system.web>  
+</configuration>  
+```  
+  
+ <span data-ttu-id="5dcfc-115">В следующем примере кода показано, на страницу входа для приложения ASP.NET, которое использует проверку подлинности форм и членства в ASP.NET.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-115">The following code example shows the login page for an ASP.NET application that uses forms authentication and ASP.NET membership.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="5dcfc-116">Этот пример содержит текстовое поле, принимающее вводимые пользователем данные, что является потенциальной угрозой безопасности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-116">This example contains a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="5dcfc-117">По умолчанию данные, вводимые пользователем на веб-страницах ASP.NET, проверяются на наличие скриптов и HTML-элементов.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-117">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="5dcfc-118">Дополнительные сведения см. в разделе [Общие сведения об использовании сценариев](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-118">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlMembershipProvider#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlMembershipProvider/CS/logincs.aspx#1)]
+ [!code-aspx-vb[System.Web.Security.SqlMembershipProvider#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlMembershipProvider/VB/loginvb.aspx#1)]  
+  
+ ]]></format>
+    </remarks>
+    <permission cref="T:System.Web.AspNetHostingPermission">
+      <span data-ttu-id="5dcfc-119">Для использования <see cref="T:System.Web.Security.FormsAuthentication" /> класса в размещенной среде.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="5dcfc-119">To use the <see cref="T:System.Web.Security.FormsAuthentication" /> class in a hosted environment.</span>
+      </span>
+      <span data-ttu-id="5dcfc-120">Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="5dcfc-120">Demand value: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+      </span>
+      <span data-ttu-id="5dcfc-121">Значение разрешения: <see cref="F:System.Web.AspNetHostingPermissionLevel.Minimal" />.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="5dcfc-121">Permission value: <see cref="F:System.Web.AspNetHostingPermissionLevel.Minimal" />.</span>
+      </span>
+    </permission>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public FormsAuthentication ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; FormsAuthentication();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-122">Инициализирует новый экземпляр класса <see cref="T:System.Web.Security.FormsAuthentication" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-122">Initializes a new instance of the <see cref="T:System.Web.Security.FormsAuthentication" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-123">Этот конструктор не предназначен для использования в коде.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-123">This constructor is not intended to be used from your code.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Authenticate">
+      <MemberSignature Language="C#" Value="public static bool Authenticate (string name, string password);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig bool Authenticate(string name, string password) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.Authenticate(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Authenticate (name As String, password As String) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool Authenticate(System::String ^ name, System::String ^ password);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete("The recommended alternative is to use the Membership APIs, such as Membership.ValidateUser. For more information, see http://go.microsoft.com/fwlink/?LinkId=252463.")</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="password" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="5dcfc-124">Имя пользователя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-124">The user name.</span>
+          </span>
+        </param>
+        <param name="password">
+          <span data-ttu-id="5dcfc-125">Пароль для пользователя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-125">The password for the user.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-126">Проверяет имя пользователя и пароль на соответствие учетным данным, хранящимся в файле конфигурации приложения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-126">Validates a user name and password against credentials stored in the configuration file for an application.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5dcfc-127">Значение <see langword="true" />, если имя пользователя и пароль допустимы; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-127">
+              <see langword="true" /> if the user name and password are valid; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-128">Метод проверки подлинности проверяет учетные данные пользователя, которые хранятся в разделе файла конфигурации приложения.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-128">The Authenticate method verifies user credentials that are stored in the  section of the application configuration file.</span></span> <span data-ttu-id="5dcfc-129">Кроме того, можно использовать членства ASP.NET для хранения учетных данных пользователя и вызова <xref:System.Web.Security.MembershipProvider.ValidateUser%2A> проверить учетные данные.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-129">Alternatively, you can use ASP.NET membership to store user credentials and call the <xref:System.Web.Security.MembershipProvider.ValidateUser%2A> to verify the credentials.</span></span> <span data-ttu-id="5dcfc-130">Дополнительные сведения см. в разделе [Управление пользователями с помощью членства](http://msdn.microsoft.com/library/824c3a24-f0af-427c-a652-0d2d1e9397cd).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-130">For more information, see [Managing Users by Using Membership](http://msdn.microsoft.com/library/824c3a24-f0af-427c-a652-0d2d1e9397cd).</span></span>  
+  
+ <span data-ttu-id="5dcfc-131">Для повышения безопасности можно зашифровать пароли, которые хранятся в файле конфигурации приложения с помощью <xref:System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-131">For improved security, you can encrypt passwords stored in the configuration file for an application by using the <xref:System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile%2A> method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-132">В следующем примере кода показано, учетные данные пользователя в файле Web.config для приложения.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-132">The following code example shows user credentials stored in the Web.config file for an application.</span></span> <span data-ttu-id="5dcfc-133">Значения пароль был хэширован с помощью <xref:System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-133">The password values have been hashed using the <xref:System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile%2A> method.</span></span>  
+  
+ `<authentication mode="Forms">`  
+  
+ `<forms loginUrl="login.aspx">`  
+  
+ `<credentials passwordFormat="SHA1">`  
+  
+ `<user name="user1"   password="27CE4CA7FBF00685AF2F617E3F5BBCAFF7B7403C" />`  
+  
+ `<user name="user2"   password="D108F80936F78DFDD333141EBC985B0233A30C7A" />`  
+  
+ `<user name="user3" password="7BDB09781A3F23885CD43177C0508B375CB1B7E9"/>`  
+  
+ `</credentials>`  
+  
+ `</forms>`  
+  
+ `</authentication>`  
+  
+ <span data-ttu-id="5dcfc-134">В следующем примере кода показано страницы входа, которую использует <xref:System.Web.Security.FormsAuthentication.Authenticate%2A> метод для проверки учетных данных пользователя.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-134">The following code example shows a login page that uses the <xref:System.Web.Security.FormsAuthentication.Authenticate%2A> method to validate user credentials.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="5dcfc-135">Этот пример содержит текстовое поле, принимающее вводимые пользователем данные, что является потенциальной угрозой безопасности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-135">This example contains a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="5dcfc-136">По умолчанию данные, вводимые пользователем на веб-страницах ASP.NET, проверяются на наличие скриптов и HTML-элементов.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-136">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="5dcfc-137">Дополнительные сведения см. в разделе [Общие сведения об использовании сценариев](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-137">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.FormsAuthentication#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.FormsAuthentication/CS/logincs.aspx#1)]
+ [!code-aspx-vb[System.Web.Security.FormsAuthentication#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.FormsAuthentication/VB/loginvb.aspx#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CookieDomain">
+      <MemberSignature Language="C#" Value="public static string CookieDomain { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property string CookieDomain" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.CookieDomain" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property CookieDomain As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::String ^ CookieDomain { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-138">Возвращает значение домена для файла Cookie проверки подлинности с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-138">Gets the value of the domain of the forms-authentication cookie.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-139">Свойство <see cref="P:System.Web.HttpCookie.Domain" /> файла Cookie проверки подлинности с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-139">The <see cref="P:System.Web.HttpCookie.Domain" /> of the forms-authentication cookie.</span>
+          </span>
+          <span data-ttu-id="5dcfc-140">Значение по умолчанию — пустая строка ("").</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-140">The default is an empty string ("").</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-141"><xref:System.Web.Security.FormsAuthentication.CookieDomain%2A> Значение свойства задается в файле конфигурации для приложения ASP.NET с помощью `domain` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-141">The <xref:System.Web.Security.FormsAuthentication.CookieDomain%2A> property value is set in the configuration file for an ASP.NET application by using the `domain` attribute of the  configuration element.</span></span> <span data-ttu-id="5dcfc-142"><xref:System.Web.Security.FormsAuthentication.CookieDomain%2A> Определяет значение свойства <xref:System.Web.HttpCookie.Domain%2A> , файл cookie будет использоваться для.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-142">The <xref:System.Web.Security.FormsAuthentication.CookieDomain%2A> property value determines the <xref:System.Web.HttpCookie.Domain%2A> that the cookie will be used for.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-143">В следующем примере кода `domain` атрибут в файле Web.config.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-143">The following code example sets the `domain` attribute in the Web.config file.</span></span>  
+  
+```  
+<authentication mode="Forms">  
+  <forms loginUrl="member_login.aspx"  
+    cookieless="UseCookies"  
+    domain="contoso.com" />  
+</authentication>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CookieMode">
+      <MemberSignature Language="C#" Value="public static System.Web.HttpCookieMode CookieMode { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property valuetype System.Web.HttpCookieMode CookieMode" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.CookieMode" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property CookieMode As HttpCookieMode" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::Web::HttpCookieMode CookieMode { System::Web::HttpCookieMode get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.HttpCookieMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-144">Возвращает значение, позволяющее определить, настроено ли приложение для проверки подлинности с помощью форм без использования файлов cookie.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-144">Gets a value that indicates whether the application is configured for cookieless forms authentication.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-145">Одно из значений <see cref="T:System.Web.HttpCookieMode" />, позволяющее определить, настроено ли приложение для проверки подлинности с помощью форм без поддержки файлов Cookie.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-145">One of the <see cref="T:System.Web.HttpCookieMode" /> values that indicates whether the application is configured for cookieless forms authentication.</span>
+          </span>
+          <span data-ttu-id="5dcfc-146">Значение по умолчанию: <see cref="F:System.Web.HttpCookieMode.UseDeviceProfile" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-146">The default is <see cref="F:System.Web.HttpCookieMode.UseDeviceProfile" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-147"><xref:System.Web.Security.FormsAuthentication.CookieMode%2A> Свойство отражает значение `cookieless` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-147">The <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> property reflects the value for the `cookieless` attribute of the  configuration element.</span></span> <span data-ttu-id="5dcfc-148"><xref:System.Web.Security.FormsAuthentication.CookieMode%2A> Свойство определяет, является ли <xref:System.Web.Security.FormsAuthenticationTicket> значение будет сохранен в файле cookie сеанса в браузере или хранящихся в <xref:System.Web.HttpRequest.QueryString%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-148">The <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> property determines whether the <xref:System.Web.Security.FormsAuthenticationTicket> value will be stored in a session cookie in the browser or stored in the <xref:System.Web.HttpRequest.QueryString%2A> property.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="5dcfc-149">Когда <xref:System.Web.Security.FormsAuthenticationTicket> значение хранится в URI, длина сформированный URI может быть длиннее максимально допустимую длину.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-149">When the <xref:System.Web.Security.FormsAuthenticationTicket> value is stored in the URI, the length of the generated URI may be longer than the maximum length allowed.</span></span> <span data-ttu-id="5dcfc-150">Это часто случается при <xref:System.Web.Security.FormsAuthentication.FormsCookiePath%2A> свойству присвоено имя приложения, имя приложения: long (40 символов), при имен пользователей в приложении длинные или когда длинные <xref:System.Web.Security.FormsAuthenticationTicket.UserData%2A> строки хранятся в <xref:System.Web.Security.FormsAuthenticationTicket> значение.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-150">This is most likely to occur when the <xref:System.Web.Security.FormsAuthentication.FormsCookiePath%2A> property is set to the application name and the application name is long (40 or more characters), when user names in the application are long, or when long <xref:System.Web.Security.FormsAuthenticationTicket.UserData%2A> strings are stored in the <xref:System.Web.Security.FormsAuthenticationTicket> value.</span></span> <span data-ttu-id="5dcfc-151">Если сформированный URI слишком длинный, веб-сервер возвратит `400 - Bad Request` ошибки.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-151">If the generated URI is too long, the Web server will return a `400 - Bad Request` error.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-152">В следующем примере кода `cookieless` атрибут `AutoDetect` в файле Web.config.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-152">The following code example sets the `cookieless` attribute to `AutoDetect` in the Web.config file.</span></span>  
+  
+```  
+<authentication mode="Forms">  
+  <forms loginUrl="member_login.aspx"  
+    cookieless="AutoDetect" />  
+</authentication>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CookiesSupported">
+      <MemberSignature Language="C#" Value="public static bool CookiesSupported { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property bool CookiesSupported" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.CookiesSupported" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property CookiesSupported As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property bool CookiesSupported { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-153">Возвращает значение, позволяющее определить, поддерживает ли приложение проверку подлинности с помощью форм без использования файлов cookie.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-153">Gets a value that indicates whether the application is configured to support cookieless forms authentication.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-154">
+            <see langword="false" />, если приложение поддерживает проверку подлинности с помощью форм без поддержки файлов Cookie; в противном случае — <see langword="true" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-154">
+              <see langword="false" /> if the application is configured to support cookieless forms authentication; otherwise, <see langword="true" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-155"><xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> Свойство возвращает значение на основе <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> значение и возможности браузера.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-155">The <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> property returns a value based on the <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> value and the capabilities of the browser.</span></span>  
+  
+-   <span data-ttu-id="5dcfc-156">Если <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> свойству <xref:System.Web.HttpCookieMode.UseCookies>, <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> свойство будет возвращать `true`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-156">If the <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> property is set to <xref:System.Web.HttpCookieMode.UseCookies>, the <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> property will return `true`.</span></span>  
+  
+-   <span data-ttu-id="5dcfc-157">Если <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> свойству <xref:System.Web.HttpCookieMode.UseUri>, <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> свойство будет возвращать `false`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-157">If the <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> property is set to <xref:System.Web.HttpCookieMode.UseUri>, the <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> property will return `false`.</span></span>  
+  
+-   <span data-ttu-id="5dcfc-158">Если <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> свойству <xref:System.Web.HttpCookieMode.AutoDetect>, <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> свойство будет возвращать `true` Если браузер поддерживает файлы cookie и файлы cookie представляют собой включен; в противном случае — <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> свойство будет возвращать `false`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-158">If the <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> property is set to <xref:System.Web.HttpCookieMode.AutoDetect>, the <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> property will return `true` if the browser supports cookies and cookies are enabled; otherwise, the <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> property will return `false`.</span></span>  
+  
+-   <span data-ttu-id="5dcfc-159">Если <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> свойству <xref:System.Web.HttpCookieMode.UseDeviceProfile>, <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> свойство будет возвращать `true` Если <xref:System.Web.HttpRequest.Browser%2A> для текущего <xref:System.Web.HttpContext.Request%2A> поддерживает файлы cookie и перенаправление с файлы cookie; в противном случае <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> свойство будет возвращать `false`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-159">If the <xref:System.Web.Security.FormsAuthentication.CookieMode%2A> property is set to <xref:System.Web.HttpCookieMode.UseDeviceProfile>, the <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> property will return `true` if the <xref:System.Web.HttpRequest.Browser%2A> for the current <xref:System.Web.HttpContext.Request%2A> supports both cookies and redirecting with cookies; otherwise, the <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> property will return `false`.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-160">В следующем примере кода `cookieless` атрибут <xref:System.Web.HttpCookieMode.UseUri> в файле Web.config.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-160">The following code example sets the `cookieless` attribute to <xref:System.Web.HttpCookieMode.UseUri> in the Web.config file.</span></span> <span data-ttu-id="5dcfc-161">Эта конфигурация приведет к <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> свойство, возвращающее `false`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-161">This configuration will result in the <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> property returning `false`.</span></span>  
+  
+```  
+<authentication mode="Forms">  
+  <forms loginUrl="member_login.aspx"  
+    cookieless="UseUri" />  
+</authentication>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Decrypt">
+      <MemberSignature Language="C#" Value="public static System.Web.Security.FormsAuthenticationTicket Decrypt (string encryptedTicket);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Web.Security.FormsAuthenticationTicket Decrypt(string encryptedTicket) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.Decrypt(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Decrypt (encryptedTicket As String) As FormsAuthenticationTicket" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Web::Security::FormsAuthenticationTicket ^ Decrypt(System::String ^ encryptedTicket);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.Security.FormsAuthenticationTicket</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="encryptedTicket" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="encryptedTicket">
+          <span data-ttu-id="5dcfc-162">Зашифрованный билет проверки подлинности.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-162">The encrypted authentication ticket.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-163">Создает объект <see cref="T:System.Web.Security.FormsAuthenticationTicket" /> на основе шифрованного билета проверки подлинности с помощью форм, переданных методу.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-163">Creates a <see cref="T:System.Web.Security.FormsAuthenticationTicket" /> object based on the encrypted forms-authentication ticket passed to the method.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5dcfc-164">Объект <see cref="T:System.Web.Security.FormsAuthenticationTicket" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-164">A <see cref="T:System.Web.Security.FormsAuthenticationTicket" /> object.</span>
+          </span>
+          <span data-ttu-id="5dcfc-165">Если параметр <paramref name="encryptedTicket" /> не является действительным билетом, возвращается значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-165">If the <paramref name="encryptedTicket" /> parameter is not a valid ticket, <see langword="null" /> is returned.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="5dcfc-166">Свойство <paramref name="encryptedTicket" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-166">
+              <paramref name="encryptedTicket" /> is <see langword="null" />.</span>
+          </span>
+          <span data-ttu-id="5dcfc-167">\- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-167">\- or -</span>
+          </span>
+          <span data-ttu-id="5dcfc-168">Параметр <paramref name="encryptedTicket" /> является пустой строкой ("").</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-168">
+              <paramref name="encryptedTicket" /> is an empty string ("").</span>
+          </span>
+          <span data-ttu-id="5dcfc-169">\- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-169">\- or -</span>
+          </span>
+          <span data-ttu-id="5dcfc-170">Длина <paramref name="encryptedTicket" /> превышает 4096 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-170">The length of <paramref name="encryptedTicket" /> is greater than 4096 characters.</span>
+          </span>
+          <span data-ttu-id="5dcfc-171">\- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-171">\- or -</span>
+          </span>
+          <span data-ttu-id="5dcfc-172">Параметр <paramref name="encryptedTicket" /> имеет недопустимый формат.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-172">
+              <paramref name="encryptedTicket" /> is of an invalid format.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="DefaultUrl">
+      <MemberSignature Language="C#" Value="public static string DefaultUrl { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property string DefaultUrl" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.DefaultUrl" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property DefaultUrl As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::String ^ DefaultUrl { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-173">Возвращает URL-адрес, который будет перенаправлен классом <see cref="T:System.Web.Security.FormsAuthentication" />, если перенаправление URL-адреса не указано.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-173">Gets the URL that the <see cref="T:System.Web.Security.FormsAuthentication" /> class will redirect to if no redirect URL is specified.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-174">URL-адрес, который будет перенаправлен классом <see cref="T:System.Web.Security.FormsAuthentication" />, если перенаправление URL-адреса не указано.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-174">The URL that the <see cref="T:System.Web.Security.FormsAuthentication" /> class will redirect to if no redirect URL is specified.</span>
+          </span>
+          <span data-ttu-id="5dcfc-175">По умолчанию используется "default.aspx."</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-175">The default is "default.aspx."</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-176"><xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> Значение свойства задается в файле конфигурации для приложения ASP.NET с помощью `defaultUrl` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-176">The <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> property value is set in the configuration file for an ASP.NET application by using the `defaultUrl` attribute of the  configuration element.</span></span> <span data-ttu-id="5dcfc-177"><xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> Используется свойство <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод, если нет возвращаемый URL-адрес включается в запрос.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-177">The <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> property is used by the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method if no return URL is included in the request.</span></span> <span data-ttu-id="5dcfc-178">Аналогичным образом <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> метод будет возвращать <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> Если нет возвращаемый URL-адрес включается в запрос.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-178">Similarly, the <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> method will return the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> if no return URL is included in the request.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-179">В следующем примере кода `defaultUrl` атрибут в файле Web.config.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-179">The following code example sets the `defaultUrl` attribute in the Web.config file.</span></span>  
+  
+```  
+<authentication mode="Forms">  
+  <forms loginUrl="member_login.aspx"  
+    defaultUrl="index.aspx" />  
+</authentication>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="EnableCrossAppRedirects">
+      <MemberSignature Language="C#" Value="public static bool EnableCrossAppRedirects { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property bool EnableCrossAppRedirects" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property EnableCrossAppRedirects As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property bool EnableCrossAppRedirects { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-180">Возвращает значение, показывающее могут ли пользователи, прошедшие проверку подлинности перенаправляться на URL-адреса в других веб-приложениях.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-180">Gets a value indicating whether authenticated users can be redirected to URLs in other Web applications.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-181">
+            <see langword="true" />, если пользователи, прошедший проверку подлинности могут быть переадресованы на URL-адреса в других веб-приложениях, в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-181">
+              <see langword="true" /> if authenticated users can be redirected to URLs in other Web applications; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="5dcfc-182">Значение по умолчанию: <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-182">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-183"><xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> Значение свойства задается с помощью `enableCrossAppRedirects` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-183">The <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property value is set using the `enableCrossAppRedirects` attribute of the  configuration element.</span></span>  
+  
+ <span data-ttu-id="5dcfc-184"><xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> Свойство проверяется в рамках <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод, если перенаправления URL-адрес не указывает на страницу в текущем приложении.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-184">The <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property is checked within the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method when the redirect URL does not point to a page in the current application.</span></span> <span data-ttu-id="5dcfc-185">Если <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> — `true`, выполняется перенаправление; Если <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> — `false`, браузер перенаправляется на страницу, определенную в <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-185">If <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> is `true`, then the redirect is performed; if <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> is `false`, the browser is redirected to the page defined in the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> property.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="5dcfc-186">При перенаправления между приложениями, вы убедитесь, что определенные атрибуты в элементе конфигурации дублируются в приложениях, прошедших проверку подлинности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-186">When you redirect pages across applications, you must make sure that specific attributes in the  configuration element are duplicated across the authenticated applications.</span></span> <span data-ttu-id="5dcfc-187">Дополнительные сведения и пример см. в разделе [форм проверки подлинности между приложениями](http://msdn.microsoft.com/library/99e2f9e8-5b97-4a4d-a4ed-5f93276053b7).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-187">For more information and an example, see [Forms Authentication Across Applications](http://msdn.microsoft.com/library/99e2f9e8-5b97-4a4d-a4ed-5f93276053b7).</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="5dcfc-188">Если разрешены перенаправления между приложениями, веб-узла уязвим для атак, которые направляет пользователей на вредоносный веб-сайт, но используют страницу входа для веб-узла.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-188">When cross-application redirects are allowed, your site is vulnerable to an exploit that directs users to a malicious Web site but uses the login page for your site.</span></span> <span data-ttu-id="5dcfc-189">Всегда проверяйте, URL-адрес перенаправления, который возвращается <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> метод является URL-адрес, который ожидается, что можно убедиться в том, что разрешать перенаправляет только утвержденные веб-сайтов.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-189">Always verify that the redirect URL that is returned by the <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> method is a URL that you expect so that you can make sure that you allow redirects only to approved Web sites.</span></span> <span data-ttu-id="5dcfc-190">Также необходимо убедиться, что URL-адрес перенаправления использует соответствующий протокол (HTTP или HTTPS).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-190">You must also verify that the redirect URL uses the appropriate protocol (HTTP or HTTPS).</span></span> <span data-ttu-id="5dcfc-191">Для выполнения этих проверок, можно добавить обработчик события обратной передачи на страницу входа, или можно добавить обработчик для <xref:System.Web.UI.WebControls.Login.LoggedIn> событие <xref:System.Web.UI.WebControls.Login> элемента управления.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-191">To perform these verifications, you can add a postback event handler to your login page, or you can add a handler for the <xref:System.Web.UI.WebControls.Login.LoggedIn> event of the <xref:System.Web.UI.WebControls.Login> control.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-192">В следующем примере кода `enableCrossAppRedirects` атрибут `true` в файле Web.config для приложения ASP.NET.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-192">The following code example sets the `enableCrossAppRedirects` attribute to `true` in the Web.config file for an ASP.NET application.</span></span>  
+  
+```  
+<authentication mode="Forms">  
+  <forms loginUrl="member_login.aspx"  
+    cookieless="UseUri"  
+    requireSSL="true"   
+    enableCrossAppRedirects="true" />  
+</authentication>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="EnableFormsAuthentication">
+      <MemberSignature Language="C#" Value="public static void EnableFormsAuthentication (System.Collections.Specialized.NameValueCollection configurationData);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void EnableFormsAuthentication(class System.Collections.Specialized.NameValueCollection configurationData) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.EnableFormsAuthentication(System.Collections.Specialized.NameValueCollection)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub EnableFormsAuthentication (configurationData As NameValueCollection)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void EnableFormsAuthentication(System::Collections::Specialized::NameValueCollection ^ configurationData);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="configurationData" Type="System.Collections.Specialized.NameValueCollection" />
+      </Parameters>
+      <Docs>
+        <param name="configurationData">
+          <span data-ttu-id="5dcfc-193">Коллекция значений-имён, которая содержит значения для «defaultUrl» и/или «loginUrl».</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-193">A name-value collection that contains values for "defaultUrl" and/or "loginUrl".</span>
+          </span>
+          <span data-ttu-id="5dcfc-194">Параметр может иметь значение NULL, если отсутствуют значения по умолчанию URL-адреса или URL-адреса входа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-194">The parameter can be null if there are no values for the default URL or the login URL.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-195">Включает аутентификацию с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-195">Enables forms authentication.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-196">Если <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> свойство `null`, задано значение по умолчанию URL-адрес из `configurationData` параметра.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-196">If the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> property is `null`, that property is set to the default URL value from the `configurationData` parameter.</span></span> <span data-ttu-id="5dcfc-197">Если <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A> свойство `null`, свойству присвоено значение URL-адрес входа из `configurationData` параметра.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-197">If the <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A> property is `null`, that property is set to the login URL value from the `configurationData` parameter.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="5dcfc-198">Приложение не находится в состоянии инициализации перед запуском.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-198">The application is not in the pre-start initialization phase.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Encrypt">
+      <MemberSignature Language="C#" Value="public static string Encrypt (System.Web.Security.FormsAuthenticationTicket ticket);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig string Encrypt(class System.Web.Security.FormsAuthenticationTicket ticket) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.Encrypt(System.Web.Security.FormsAuthenticationTicket)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Encrypt (ticket As FormsAuthenticationTicket) As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::String ^ Encrypt(System::Web::Security::FormsAuthenticationTicket ^ ticket);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="ticket" Type="System.Web.Security.FormsAuthenticationTicket" />
+      </Parameters>
+      <Docs>
+        <param name="ticket">
+          <span data-ttu-id="5dcfc-199">Объект <see cref="T:System.Web.Security.FormsAuthenticationTicket" />, с помощью которого следует создать зашифрованный билет проверки подлинности с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-199">The <see cref="T:System.Web.Security.FormsAuthenticationTicket" /> object with which to create the encrypted forms-authentication ticket.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-200">Создает строку, содержащую зашифрованный билет проверки подлинности с помощью форм, подходящий для использования в файле Cookie HTTP.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-200">Creates a string containing an encrypted forms-authentication ticket suitable for use in an HTTP cookie.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5dcfc-201">Строка, содержащая зашифрованный билет проверки подлинности с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-201">A string containing an encrypted forms-authentication ticket.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="5dcfc-202">В следующем примере кода хранит результат <xref:System.Web.Security.FormsAuthentication.Encrypt%2A> метод в файле cookie с помощью <xref:System.Web.Security.FormsAuthentication.FormsCookieName%2A> свойство и перенаправляет пользователя на URL-адрес, возвращенные <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-202">The following code example stores the result of the <xref:System.Web.Security.FormsAuthentication.Encrypt%2A> method in a cookie by using the <xref:System.Web.Security.FormsAuthentication.FormsCookieName%2A> property and redirects the user to the URL returned from the <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> method.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="5dcfc-203">Этот пример содержит текстовое поле, принимающее вводимые пользователем данные, что является потенциальной угрозой безопасности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-203">This example contains a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="5dcfc-204">По умолчанию данные, вводимые пользователем на веб-страницах ASP.NET, проверяются на наличие скриптов и HTML-элементов.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-204">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="5dcfc-205">Дополнительные сведения см. в разделе [Общие сведения об использовании сценариев](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-205">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[FormsAuthenticationTicketClass#1](~/samples/snippets/csharp/VS_Snippets_WebNet/FormsAuthenticationTicketClass/CS/formsauthenticationticketclasscs.aspx#1)]
+ [!code-aspx-vb[FormsAuthenticationTicketClass#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/FormsAuthenticationTicketClass/VB/formsauthenticationticketclassvb.aspx#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="5dcfc-206">Свойство <paramref name="ticket" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-206">
+              <paramref name="ticket" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="FormsCookieName">
+      <MemberSignature Language="C#" Value="public static string FormsCookieName { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property string FormsCookieName" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.FormsCookieName" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property FormsCookieName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::String ^ FormsCookieName { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-207">Возвращает имя файла Cookie, который используется для сохранения билета проверки подлинности с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-207">Gets the name of the cookie used to store the forms-authentication ticket.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-208">Имя файла Cookie, который используется для сохранения билета проверки подлинности с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-208">The name of the cookie used to store the forms-authentication ticket.</span>
+          </span>
+          <span data-ttu-id="5dcfc-209">По умолчанию установлено значение ".ASPXAUTH".</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-209">The default is ".ASPXAUTH".</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-210"><xref:System.Web.Security.FormsAuthentication.FormsCookieName%2A> Значение свойства задается в файле конфигурации для приложения ASP.NET с помощью `name` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-210">The <xref:System.Web.Security.FormsAuthentication.FormsCookieName%2A> property value is set in the configuration file for an ASP.NET application by using the `name` attribute of the  configuration element.</span></span> <span data-ttu-id="5dcfc-211"><xref:System.Web.Security.FormsAuthentication.FormsCookieName%2A> Используется для ссылки на файл cookie, который хранит <xref:System.Web.Security.FormsAuthenticationTicket> сведения.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-211">The <xref:System.Web.Security.FormsAuthentication.FormsCookieName%2A> is used to reference the cookie that stores the <xref:System.Web.Security.FormsAuthenticationTicket> information.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-212">В следующем примере кода <xref:System.Web.Security.FormsAuthentication.FormsCookieName%2A> значение свойства с помощью `name` атрибут в файле Web.config.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-212">The following code example sets the <xref:System.Web.Security.FormsAuthentication.FormsCookieName%2A> property value by using the `name` attribute in the Web.config file.</span></span>  
+  
+```  
+<authentication mode="Forms">  
+  <forms loginUrl="member_login.aspx"  
+    cookieless="UseCookies"  
+    name=".ASPXFORMSAUTH" />  
+</authentication>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="FormsCookiePath">
+      <MemberSignature Language="C#" Value="public static string FormsCookiePath { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property string FormsCookiePath" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.FormsCookiePath" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property FormsCookiePath As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::String ^ FormsCookiePath { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-213">Возвращает путь к файлу Cookie для билета проверки подлинности с помощью формы.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-213">Gets the path for the forms-authentication cookie.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-214">Путь к файлу Cookie, в котором хранится билет проверки подлинности для форм проверки подлинности.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-214">The path of the cookie where the forms-authentication ticket information is stored.</span>
+          </span>
+          <span data-ttu-id="5dcfc-215">По умолчанию используется значение "/".</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-215">The default is "/".</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-216"><xref:System.Web.Security.FormsAuthentication.FormsCookiePath%2A> Значение свойства задается в файле конфигурации для приложения ASP.NET с помощью `path` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-216">The <xref:System.Web.Security.FormsAuthentication.FormsCookiePath%2A> property value is set in the configuration file for an ASP.NET application using the `path` attribute of the  configuration element.</span></span> <span data-ttu-id="5dcfc-217"><xref:System.Web.Security.FormsAuthentication.FormsCookiePath%2A> Указывает <xref:System.Web.HttpCookie.Path%2A> для файла cookie, который хранит <xref:System.Web.Security.FormsAuthenticationTicket> сведения.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-217">The <xref:System.Web.Security.FormsAuthentication.FormsCookiePath%2A> specifies the <xref:System.Web.HttpCookie.Path%2A> for the cookie that stores the <xref:System.Web.Security.FormsAuthenticationTicket> information.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-218">В следующем примере кода <xref:System.Web.Security.FormsAuthentication.FormsCookiePath%2A> значение свойства с помощью `path` атрибут в файле Web.config.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-218">The following code example sets the <xref:System.Web.Security.FormsAuthentication.FormsCookiePath%2A> property value by using the `path` attribute in the Web.config file.</span></span>  
+  
+```  
+<authentication mode="Forms">  
+  <forms loginUrl="member_login.aspx"  
+    cookieless="UseCookies"  
+    path="/MyApplication" />  
+</authentication>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="GetAuthCookie">
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-219">Создает файл Cookie проверки подлинности для полученного имени пользователя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-219">Creates an authentication cookie for a given user name.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="GetAuthCookie">
+      <MemberSignature Language="C#" Value="public static System.Web.HttpCookie GetAuthCookie (string userName, bool createPersistentCookie);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Web.HttpCookie GetAuthCookie(string userName, bool createPersistentCookie) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.GetAuthCookie(System.String,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetAuthCookie (userName As String, createPersistentCookie As Boolean) As HttpCookie" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Web::HttpCookie ^ GetAuthCookie(System::String ^ userName, bool createPersistentCookie);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.HttpCookie</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="userName" Type="System.String" />
+        <Parameter Name="createPersistentCookie" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="userName">
+          <span data-ttu-id="5dcfc-220">Имя пользователя, прошедшего проверку подлинности.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-220">The name of the authenticated user.</span>
+          </span>
+        </param>
+        <param name="createPersistentCookie">
+          <span data-ttu-id="5dcfc-221">
+            <see langword="true" />, чтобы создать долговременный файл Cookie (т.е. сохраняемый между сеансами браузера); в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-221">
+              <see langword="true" /> to create a durable cookie (one that is saved across browser sessions); otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-222">Создает файл Cookie проверки подлинности для полученного имени пользователя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-222">Creates an authentication cookie for a given user name.</span>
+          </span>
+          <span data-ttu-id="5dcfc-223">При этом файл Cookie не является частью исходящего ответного сообщения, поэтому приложение может более строго контролировать выдачу файлов Cookie.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-223">This does not set the cookie as part of the outgoing response, so that an application can have more control over how the cookie is issued.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5dcfc-224">Класс <see cref="T:System.Web.HttpCookie" />, который содержит сведения о шифрованном билете проверки подлинности с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-224">An <see cref="T:System.Web.HttpCookie" /> that contains encrypted forms-authentication ticket information.</span>
+          </span>
+          <span data-ttu-id="5dcfc-225">По умолчанию используется значение свойства <see cref="P:System.Web.Security.FormsAuthentication.FormsCookiePath" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-225">The default value for the <see cref="P:System.Web.Security.FormsAuthentication.FormsCookiePath" /> property is used.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-226">Путь файла cookie определяется <xref:System.Web.Security.FormsAuthentication.FormsCookiePath%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-226">The path of the cookie is determined by the <xref:System.Web.Security.FormsAuthentication.FormsCookiePath%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetAuthCookie">
+      <MemberSignature Language="C#" Value="public static System.Web.HttpCookie GetAuthCookie (string userName, bool createPersistentCookie, string strCookiePath);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Web.HttpCookie GetAuthCookie(string userName, bool createPersistentCookie, string strCookiePath) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.GetAuthCookie(System.String,System.Boolean,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetAuthCookie (userName As String, createPersistentCookie As Boolean, strCookiePath As String) As HttpCookie" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Web::HttpCookie ^ GetAuthCookie(System::String ^ userName, bool createPersistentCookie, System::String ^ strCookiePath);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.HttpCookie</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="userName" Type="System.String" />
+        <Parameter Name="createPersistentCookie" Type="System.Boolean" />
+        <Parameter Name="strCookiePath" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="userName">
+          <span data-ttu-id="5dcfc-227">Имя пользователя, прошедшего проверку подлинности.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-227">The name of the authenticated user.</span>
+          </span>
+        </param>
+        <param name="createPersistentCookie">
+          <span data-ttu-id="5dcfc-228">
+            <see langword="true" />, чтобы создать долговременный файл Cookie (т.е. сохраняемый между сеансами браузера); в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-228">
+              <see langword="true" /> to create a durable cookie (one that is saved across browser sessions); otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <param name="strCookiePath">
+          <span data-ttu-id="5dcfc-229">Свойство <see cref="P:System.Web.HttpCookie.Path" /> файла Cookie проверки подлинности.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-229">The <see cref="P:System.Web.HttpCookie.Path" /> of the authentication cookie.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-230">Создает файл Cookie проверки подлинности для полученного имени пользователя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-230">Creates an authentication cookie for a given user name.</span>
+          </span>
+          <span data-ttu-id="5dcfc-231">Это не устанавливает файл Cookie частью исходящего ответного сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-231">This does not set the cookie as part of the outgoing response.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5dcfc-232">Класс <see cref="T:System.Web.HttpCookie" />, который содержит сведения о шифрованном билете проверки подлинности с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-232">An <see cref="T:System.Web.HttpCookie" /> that contains encrypted forms-authentication ticket information.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetRedirectUrl">
+      <MemberSignature Language="C#" Value="public static string GetRedirectUrl (string userName, bool createPersistentCookie);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig string GetRedirectUrl(string userName, bool createPersistentCookie) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.GetRedirectUrl(System.String,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function GetRedirectUrl (userName As String, createPersistentCookie As Boolean) As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::String ^ GetRedirectUrl(System::String ^ userName, bool createPersistentCookie);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="userName" Type="System.String" />
+        <Parameter Name="createPersistentCookie" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="userName">
+          <span data-ttu-id="5dcfc-233">Имя пользователя, прошедшего проверку подлинности.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-233">The name of the authenticated user.</span>
+          </span>
+        </param>
+        <param name="createPersistentCookie">
+          <span data-ttu-id="5dcfc-234">Этот параметр не учитывается.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-234">This parameter is ignored.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-235">Возвращает URL-адрес перенаправления для первоначального запроса, вызвавший перенаправление на страницу входа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-235">Returns the redirect URL for the original request that caused the redirect to the login page.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5dcfc-236">Строка, содержащая URL-адрес перенаправления, либо NULL, если значение <paramref name="userName" /> равно NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-236">A string that contains the redirect URL, or null if <paramref name="userName" /> is null.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-237">Этот метод можно использовать, когда требуется выполнить перенаправление в коде приложения, вместо использования <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-237">You can use this method when you want to perform the redirect in your application code instead of using the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method.</span></span>  
+  
+ <span data-ttu-id="5dcfc-238"><xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> Метод возвращает URL-адрес, указанный в строку запроса с помощью `ReturnURL` имя переменной.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-238">The <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> method returns the URL specified in the query string using the `ReturnURL` variable name.</span></span> <span data-ttu-id="5dcfc-239">Например, в URL-адрес `http://www.contoso.com/login.aspx?ReturnUrl=caller.aspx`, <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> метод возвращает URL-адрес возврата `caller.aspx`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-239">For example, in the URL `http://www.contoso.com/login.aspx?ReturnUrl=caller.aspx`, the <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> method returns the return URL `caller.aspx`.</span></span> <span data-ttu-id="5dcfc-240">Если `ReturnURL` переменная не существует, <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> метод возвращает URL-адрес в <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-240">If the `ReturnURL` variable does not exist, the <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> method returns the URL in the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> property.</span></span>  
+  
+ <span data-ttu-id="5dcfc-241">ASP.NET автоматически добавляет возвращаемый URL-адрес, когда браузер перенаправляется на страницу входа.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-241">ASP.NET automatically adds the return URL when the browser is redirected to the login page.</span></span>  
+  
+ <span data-ttu-id="5dcfc-242">По умолчанию `ReturnUrl` переменные должны ссылаться на страницы в текущем приложении.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-242">By default, the `ReturnUrl` variable must refer to a page within the current application.</span></span> <span data-ttu-id="5dcfc-243">Если `ReturnUrl` ссылается на страницу в другом приложении или на другом сервере, <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> методов возвращает URL-адрес в <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-243">If `ReturnUrl` refers to a page in a different application or on a different server, the <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> methods returns the URL in the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> property.</span></span> <span data-ttu-id="5dcfc-244">Если вы хотите разрешить URL-адрес возврата для ссылки на страницы вне текущего приложения, необходимо задать <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> свойства `true` с помощью `enableCrossAppRedirects` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-244">If you want to allow the return URL to refer to a page outside the current application, you must set the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property to `true` using the `enableCrossAppRedirects` attribute of the  configuration element.</span></span>  
+
+<span data-ttu-id="5dcfc-245">Этот метод не создает файл cookie.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-245">This method does not create a cookie.</span></span>
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="5dcfc-246">Установка <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> свойства `true` разрешающее перенаправления между приложениями является потенциальной угрозой безопасности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-246">Setting the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property to `true` to allow cross-application redirects is a potential security threat.</span></span> <span data-ttu-id="5dcfc-247">Дополнительные сведения см. в описании свойства <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A>.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-247">For more information, see the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-248">В следующем примере кода примера перенаправления, прошедшим проверку пользователям URL-адреса, возвращенные <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-248">The following code example redirects authenticated users to the URL returned from the <xref:System.Web.Security.FormsAuthentication.GetRedirectUrl%2A> method.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="5dcfc-249">Этот пример содержит текстовое поле, принимающее вводимые пользователем данные, что является потенциальной угрозой безопасности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-249">This example contains a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="5dcfc-250">По умолчанию данные, вводимые пользователем на веб-страницах ASP.NET, проверяются на наличие скриптов и HTML-элементов.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-250">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="5dcfc-251">Дополнительные сведения см. в разделе [Общие сведения об использовании сценариев](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-251">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[FormsAuthenticationTicketClass#1](~/samples/snippets/csharp/VS_Snippets_WebNet/FormsAuthenticationTicketClass/CS/formsauthenticationticketclasscs.aspx#1)]
+ [!code-aspx-vb[FormsAuthenticationTicketClass#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/FormsAuthenticationTicketClass/VB/formsauthenticationticketclassvb.aspx#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="HashPasswordForStoringInConfigFile">
+      <MemberSignature Language="C#" Value="public static string HashPasswordForStoringInConfigFile (string password, string passwordFormat);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig string HashPasswordForStoringInConfigFile(string password, string passwordFormat) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function HashPasswordForStoringInConfigFile (password As String, passwordFormat As String) As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::String ^ HashPasswordForStoringInConfigFile(System::String ^ password, System::String ^ passwordFormat);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete("The recommended alternative is to use the Membership APIs, such as Membership.CreateUser. For more information, see http://go.microsoft.com/fwlink/?LinkId=252463.")</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="password" Type="System.String" />
+        <Parameter Name="passwordFormat" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="password">
+          <span data-ttu-id="5dcfc-252">Пароль для хэширования.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-252">The password to hash.</span>
+          </span>
+        </param>
+        <param name="passwordFormat">
+          <span data-ttu-id="5dcfc-253">Используемый хэш-алгоритм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-253">The hash algorithm to use.</span>
+          </span>
+          <span data-ttu-id="5dcfc-254">Параметр <c>passwordFormat</c> является значением типа <see langword="String" />, представляющим одно из значений перечисления <see cref="T:System.Web.Configuration.FormsAuthPasswordFormat" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-254">
+              <c>passwordFormat</c> is a <see langword="String" /> that represents one of the <see cref="T:System.Web.Configuration.FormsAuthPasswordFormat" /> enumeration values.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-255">Формирует хэшированный пароль, подходящий для хранения в файле конфигурации, в зависимости от указанного пароля и алгоритма хэширования.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-255">Produces a hash password suitable for storing in a configuration file based on the specified password and hash algorithm.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5dcfc-256">Хэшированный пароль.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-256">The hashed password.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-257"><xref:System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile%2A> Метод создает значение хэшированный пароль, который может использоваться при проверки подлинности форм хранение учетных данных в файле конфигурации приложения.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-257">The <xref:System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile%2A> method creates a hashed password value that can be used when storing forms-authentication credentials in the configuration file for an application.</span></span>  
+  
+ <span data-ttu-id="5dcfc-258">Используются учетные данные хранятся в файле конфигурации приложения <xref:System.Web.Security.FormsAuthentication.Authenticate%2A> метод для проверки паролей для пользователей приложения.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-258">Authentication credentials stored in the configuration file for an application are used by the <xref:System.Web.Security.FormsAuthentication.Authenticate%2A> method to verify passwords for users of an application.</span></span> <span data-ttu-id="5dcfc-259">Кроме того членства в ASP.NET можно использовать для хранения учетных данных пользователя.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-259">Alternatively, you can use ASP.NET membership to store user credentials.</span></span> <span data-ttu-id="5dcfc-260">Дополнительные сведения см. в разделе [Управление пользователями с помощью членства](http://msdn.microsoft.com/library/824c3a24-f0af-427c-a652-0d2d1e9397cd).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-260">For more information, see [Managing Users by Using Membership](http://msdn.microsoft.com/library/824c3a24-f0af-427c-a652-0d2d1e9397cd).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-261">В следующем примере кода принимает имя пользователя, пароль и тип хеширования и отображает раздел конфигурации, который содержит определение пользователя и хэшированный пароль.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-261">The following code example takes a user name, password, and hash type and displays the  section of the configuration that includes the user definition and hashed password.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="5dcfc-262">Этот пример содержит текстовое поле, принимающее вводимые пользователем данные, что является потенциальной угрозой безопасности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-262">This example contains a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="5dcfc-263">По умолчанию данные, вводимые пользователем на веб-страницах ASP.NET, проверяются на наличие скриптов и HTML-элементов.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-263">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="5dcfc-264">Дополнительные сведения см. в разделе [Общие сведения об использовании сценариев](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-264">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[FormsAuthenticationHashPassword#1](~/samples/snippets/csharp/VS_Snippets_WebNet/FormsAuthenticationHashPassword/CS/formsauthenticationhashpasswordcs.aspx#1)]
+ [!code-aspx-vb[FormsAuthenticationHashPassword#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/FormsAuthenticationHashPassword/VB/formsauthenticationhashpasswordvb.aspx#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="5dcfc-265">
+            <paramref name="password" /> равно <see langword="null" /></span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-265">
+              <paramref name="password" /> is <see langword="null" /></span>
+          </span>
+          <span data-ttu-id="5dcfc-266">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-266">-or-</span>
+          </span>
+          <span data-ttu-id="5dcfc-267">Свойство <paramref name="passwordFormat" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-267">
+              <paramref name="passwordFormat" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="5dcfc-268">
+            <paramref name="passwordFormat" /> не является допустимым значением <see cref="T:System.Web.Configuration.FormsAuthPasswordFormat" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-268">
+              <paramref name="passwordFormat" /> is not a valid <see cref="T:System.Web.Configuration.FormsAuthPasswordFormat" /> value.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Initialize">
+      <MemberSignature Language="C#" Value="public static void Initialize ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Initialize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.Initialize" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub Initialize ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Initialize();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-269">Инициализирует объект <see cref="T:System.Web.Security.FormsAuthentication" /> в зависимости от параметров конфигурации приложения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-269">Initializes the <see cref="T:System.Web.Security.FormsAuthentication" /> object based on the configuration settings for the application.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-270"><xref:System.Web.Security.FormsAuthentication.Initialize%2A> Метод вызывается, когда <xref:System.Web.Security.FormsAuthenticationModule> создает экземпляр <xref:System.Web.Security.FormsAuthentication> класса.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-270">The <xref:System.Web.Security.FormsAuthentication.Initialize%2A> method is called when the <xref:System.Web.Security.FormsAuthenticationModule> creates an instance of the <xref:System.Web.Security.FormsAuthentication> class.</span></span> <span data-ttu-id="5dcfc-271">Этот метод не предназначен для непосредственного вызова из кода.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-271">This method is not intended to be called from your code.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsEnabled">
+      <MemberSignature Language="C#" Value="public static bool IsEnabled { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property bool IsEnabled" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.IsEnabled" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property IsEnabled As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property bool IsEnabled { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-272">Получает значение, указывающее, включена ли аутентификация форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-272">Gets a value that indicates whether forms authentication is enabled.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-273">Значение <see langword="true" />, если аутентификация форм включена; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-273">
+              <see langword="true" /> if forms authentication is enabled; otherwise, <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LoginUrl">
+      <MemberSignature Language="C#" Value="public static string LoginUrl { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property string LoginUrl" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.LoginUrl" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property LoginUrl As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::String ^ LoginUrl { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-274">Получает URL-адрес страницы входа, на которую будет перенаправляться класс <see cref="T:System.Web.Security.FormsAuthentication" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-274">Gets the URL for the login page that the <see cref="T:System.Web.Security.FormsAuthentication" /> class will redirect to.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-275">URL-адрес страницы входа, на которую будет перенаправляться класс <see cref="T:System.Web.Security.FormsAuthentication" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-275">The URL for the login page that the <see cref="T:System.Web.Security.FormsAuthentication" /> class will redirect to.</span>
+          </span>
+          <span data-ttu-id="5dcfc-276">По умолчанию используется "login.aspx."</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-276">The default is "login.aspx."</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-277"><xref:System.Web.Security.FormsAuthentication.LoginUrl%2A> Значение свойства задается в файле конфигурации для приложения ASP.NET с помощью `loginUrl` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-277">The <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A> property value is set in the configuration file for an ASP.NET application by using the `loginUrl` attribute of the  configuration element.</span></span> <span data-ttu-id="5dcfc-278"><xref:System.Web.Security.FormsAuthentication.LoginUrl%2A> Используется <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-278">The <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A> is used by the <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-279">В следующем примере кода `loginUrl` атрибут в файле Web.config.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-279">The following code example sets the `loginUrl` attribute in the Web.config file.</span></span>  
+  
+```  
+<authentication mode="Forms">  
+  <forms loginUrl="member_login.aspx"  
+    defaultUrl="index.aspx" />  
+</authentication>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="RedirectFromLoginPage">
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-280">Перенаправляет прошедшего проверку подлинности пользователя по первоначально запрошенному URL-адресу или URL-адресу по умолчанию.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-280">Redirects an authenticated user back to the originally requested URL or the default URL.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="RedirectFromLoginPage">
+      <MemberSignature Language="C#" Value="public static void RedirectFromLoginPage (string userName, bool createPersistentCookie);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void RedirectFromLoginPage(string userName, bool createPersistentCookie) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.RedirectFromLoginPage(System.String,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub RedirectFromLoginPage (userName As String, createPersistentCookie As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void RedirectFromLoginPage(System::String ^ userName, bool createPersistentCookie);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="userName" Type="System.String" />
+        <Parameter Name="createPersistentCookie" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="userName">
+          <span data-ttu-id="5dcfc-281">Имя пользователя, прошедшего проверку подлинности.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-281">The authenticated user name.</span>
+          </span>
+        </param>
+        <param name="createPersistentCookie">
+          <span data-ttu-id="5dcfc-282">
+            <see langword="true" />, чтобы создать долговременный файл Cookie (т.е. сохраняемый между сеансами браузера); в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-282">
+              <see langword="true" /> to create a durable cookie (one that is saved across browser sessions); otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-283">Перенаправляет прошедшего проверку подлинности пользователя по первоначально запрошенному URL-адресу или URL-адресу по умолчанию.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-283">Redirects an authenticated user back to the originally requested URL or the default URL.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-284"><xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> Метод перенаправляет на URL-адрес, указанный в строку запроса с помощью `ReturnURL` имя переменной.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-284">The <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method redirects to the URL specified in the query string using the `ReturnURL` variable name.</span></span> <span data-ttu-id="5dcfc-285">Например, в URL-адрес `http://www.contoso.com/login.aspx?ReturnUrl=caller.aspx`, <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод перенаправляет на URL-адрес возврата `caller.aspx`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-285">For example, in the URL `http://www.contoso.com/login.aspx?ReturnUrl=caller.aspx`, the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method redirects tothe return URL `caller.aspx`.</span></span> <span data-ttu-id="5dcfc-286">Если `ReturnURL` переменная не существует, <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод перенаправляет на URL-адрес в <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-286">If the `ReturnURL` variable does not exist, the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method redirects to the URL in the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> property.</span></span>  
+  
+ <span data-ttu-id="5dcfc-287">ASP.NET автоматически добавляет возвращаемый URL-адрес, когда браузер перенаправляется на страницу входа.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-287">ASP.NET automatically adds the return URL when the browser is redirected to the login page.</span></span>  
+  
+ <span data-ttu-id="5dcfc-288">По умолчанию `ReturnUrl` переменные должны ссылаться на страницы в текущем приложении.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-288">By default, the `ReturnUrl` variable must refer to a page within the current application.</span></span> <span data-ttu-id="5dcfc-289">Если `ReturnUrl` ссылается на страницу в другом приложении или на другом сервере, <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> методы перенаправляет на URL-адрес в <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-289">If `ReturnUrl` refers to a page in a different application or on a different server, the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> methods redirects to the URL in the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> property.</span></span> <span data-ttu-id="5dcfc-290">Если вы хотите разрешить перенаправление на страницу за пределами текущего приложения, необходимо задать <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> свойства `true` с помощью `enableCrossAppRedirects` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-290">If you want to allow redirects to a page outside the current application, you must set the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property to `true` using the `enableCrossAppRedirects` attribute of the  configuration element.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="5dcfc-291">Установка <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> свойства `true` разрешающее перенаправления между приложениями является потенциальной угрозой безопасности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-291">Setting the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property to `true` to allow cross-application redirects is a potential security threat.</span></span> <span data-ttu-id="5dcfc-292">Дополнительные сведения см. в описании свойства <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A>.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-292">For more information, see the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property.</span></span>  
+  
+ <span data-ttu-id="5dcfc-293">Если <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> свойство `true`и либо `ReturnUrl` переменная находится в пределах текущего приложения или <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> свойство `true`, то <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод выдает билет проверки подлинности и помещает его в по умолчанию, используя файл cookie <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-293">If the <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> property is `true`, and either the `ReturnUrl` variable is within the current application or the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property is `true`, then the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method issues an authentication ticket and places it in the default cookie using the <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> method.</span></span>  
+  
+ <span data-ttu-id="5dcfc-294">Если <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> — `false` и пути перенаправления на URL-адрес в текущем приложении, билет выдается как часть URL-адрес перенаправления.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-294">If <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> is `false` and the redirect path is to a URL in the current application, the ticket is issued as part of the redirect URL.</span></span> <span data-ttu-id="5dcfc-295">Если <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> — `false`, <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> — `true`и перенаправления URL-адрес не ссылается на страницу в текущем приложении <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод выдает билет проверки подлинности и помещает его в <xref:System.Web.HttpRequest.QueryString%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-295">If <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> is `false`, <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> is `true`, and the redirect URL does not refer to a page within the current application, the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method issues an authentication ticket and places it in the <xref:System.Web.HttpRequest.QueryString%2A> property.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-296">В следующем примере кода перенаправляет пользователей проверяется на первоначально запрошенный URL или <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A>.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-296">The following code example redirects validated users to either the originally requested URL or the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A>.</span></span> <span data-ttu-id="5dcfc-297">В примере кода используется членства ASP.NET для проверки пользователей.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-297">The code example uses ASP.NET membership to validate users.</span></span> <span data-ttu-id="5dcfc-298">Дополнительные сведения о членстве ASP.NET см. в разделе [Управление пользователями с помощью членства](http://msdn.microsoft.com/library/824c3a24-f0af-427c-a652-0d2d1e9397cd).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-298">For more information about ASP.NET membership, see [Managing Users by Using Membership](http://msdn.microsoft.com/library/824c3a24-f0af-427c-a652-0d2d1e9397cd).</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="5dcfc-299">Этот пример содержит текстовое поле, принимающее вводимые пользователем данные, что является потенциальной угрозой безопасности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-299">This example contains a text box that accepts user input, which is a potential security threat.</span></span> <span data-ttu-id="5dcfc-300">По умолчанию данные, вводимые пользователем на веб-страницах ASP.NET, проверяются на наличие скриптов и HTML-элементов.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-300">By default, ASP.NET Web pages validate that user input does not include script or HTML elements.</span></span> <span data-ttu-id="5dcfc-301">Дополнительные сведения см. в разделе [Общие сведения об использовании сценариев](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span><span class="sxs-lookup"><span data-stu-id="5dcfc-301">For more information, see [Script Exploits Overview](http://msdn.microsoft.com/library/772c7312-211a-4eb3-8d6e-eec0aa1dcc07).</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.SqlMembershipProvider#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.SqlMembershipProvider/CS/logincs.aspx#1)]
+ [!code-aspx-vb[System.Web.Security.SqlMembershipProvider#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.SqlMembershipProvider/VB/loginvb.aspx#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="5dcfc-302">Возвращаемый URL-адрес, указанный в строке запроса содержит протокол отличный от HTTP: или HTTPS:.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-302">The return URL specified in the query string contains a protocol other than HTTP: or HTTPS:.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="RedirectFromLoginPage">
+      <MemberSignature Language="C#" Value="public static void RedirectFromLoginPage (string userName, bool createPersistentCookie, string strCookiePath);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void RedirectFromLoginPage(string userName, bool createPersistentCookie, string strCookiePath) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.RedirectFromLoginPage(System.String,System.Boolean,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub RedirectFromLoginPage (userName As String, createPersistentCookie As Boolean, strCookiePath As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void RedirectFromLoginPage(System::String ^ userName, bool createPersistentCookie, System::String ^ strCookiePath);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="userName" Type="System.String" />
+        <Parameter Name="createPersistentCookie" Type="System.Boolean" />
+        <Parameter Name="strCookiePath" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="userName">
+          <span data-ttu-id="5dcfc-303">Имя пользователя, прошедшего проверку подлинности.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-303">The authenticated user name.</span>
+          </span>
+        </param>
+        <param name="createPersistentCookie">
+          <span data-ttu-id="5dcfc-304">
+            <see langword="true" />, чтобы создать долговременный файл Cookie (т.е. сохраняемый между сеансами браузера); в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-304">
+              <see langword="true" /> to create a durable cookie (one that is saved across browser sessions); otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <param name="strCookiePath">
+          <span data-ttu-id="5dcfc-305">Путь к файлу Cookie для билета проверки подлинности формы.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-305">The cookie path for the forms-authentication ticket.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-306">Перенаправляет пользователя, прошедшего проверку на первоначально запрошенный URL-адрес или на URL-адрес, использующий указанный путь к файлу Cookie для проверки подлинности с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-306">Redirects an authenticated user back to the originally requested URL or the default URL using the specified cookie path for the forms-authentication cookie.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-307"><xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> Перенаправляет URL возврата, указанный в строке запроса, используя метод `ReturnURL` имя переменной.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-307">The <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method redirects to the return URL specified in the query string using the `ReturnURL` variable name.</span></span> <span data-ttu-id="5dcfc-308">Например, в URL-адрес `http://www.contoso.com/login.aspx?ReturnUrl=caller.aspx`, <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод перенаправляет на URL-адрес возврата `caller.aspx`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-308">For example, in the URL `http://www.contoso.com/login.aspx?ReturnUrl=caller.aspx`, the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method redirects tothe return URL `caller.aspx`.</span></span> <span data-ttu-id="5dcfc-309">Если `ReturnURL` переменная не существует, <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод перенаправляет на URL-адрес в <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-309">If the `ReturnURL` variable does not exist, the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method redirects to the URL in the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> property.</span></span>  
+  
+ <span data-ttu-id="5dcfc-310">ASP.NET автоматически добавляет возвращаемый URL-адрес, когда браузер перенаправляется на страницу входа.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-310">ASP.NET automatically adds the return URL when the browser is redirected to the login page.</span></span>  
+  
+ <span data-ttu-id="5dcfc-311">По умолчанию `ReturnUrl` переменные должны ссылаться на страницы в текущем приложении.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-311">By default, the `ReturnUrl` variable must refer to a page within the current application.</span></span> <span data-ttu-id="5dcfc-312">Если `ReturnUrl` ссылается на страницу в другом приложении или на другом сервере, <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод перенаправляет на URL-адрес в <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-312">If `ReturnUrl` refers to a page in a different application or on a different server, the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method redirects to the URL in the <xref:System.Web.Security.FormsAuthentication.DefaultUrl%2A> property.</span></span> <span data-ttu-id="5dcfc-313">Если вы хотите разрешить перенаправление на страницу за пределами текущего приложения, необходимо задать <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> свойства `true` с помощью `enableCrossAppRedirects` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-313">If you want to allow redirects to a page outside the current application, you must set the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property to `true` using the `enableCrossAppRedirects` attribute of the  configuration element.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="5dcfc-314">Установка <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> свойства `true` разрешающее перенаправления между приложениями является потенциальной угрозой безопасности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-314">Setting the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property to `true` to allow cross-application redirects is a potential security threat.</span></span> <span data-ttu-id="5dcfc-315">Дополнительные сведения см. в описании свойства <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A>.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-315">For more information, see the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property.</span></span>  
+  
+ <span data-ttu-id="5dcfc-316">Если <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> свойство `true`и либо `ReturnUrl` переменная находится в пределах текущего приложения или <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> свойство `true`, то <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод выдает билет проверки подлинности и помещает его в файл cookie, определяемое `strCookiePath` с помощью параметра <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-316">If the <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> property is `true`, and either the `ReturnUrl` variable is within the current application or the <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> property is `true`, then the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method issues an authentication ticket and places it in the cookie specified by the `strCookiePath` parameter using the <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> method.</span></span>  
+  
+ <span data-ttu-id="5dcfc-317">Если <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> — `false` и пути перенаправления на URL-адрес в текущем приложении, билет выдается как часть URL-адрес перенаправления.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-317">If <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> is `false` and the redirect path is to a URL in the current application, the ticket is issued as part of the redirect URL.</span></span> <span data-ttu-id="5dcfc-318">Если <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> — `false`, <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> — `true`и перенаправления URL-адрес не ссылается на страницу в текущем приложении <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> метод выдает билет проверки подлинности и помещает его в <xref:System.Web.HttpRequest.QueryString%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-318">If <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> is `false`, <xref:System.Web.Security.FormsAuthentication.EnableCrossAppRedirects%2A> is `true`, and the redirect URL does not refer to a page within the current application, the <xref:System.Web.Security.FormsAuthentication.RedirectFromLoginPage%2A> method issues an authentication ticket and places it in the <xref:System.Web.HttpRequest.QueryString%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="5dcfc-319">Возвращаемый URL-адрес, указанный в строке запроса содержит протокол отличный от HTTP: или HTTPS:.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-319">The return URL specified in the query string contains a protocol other than HTTP: or HTTPS:.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="RedirectToLoginPage">
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-320">Перенаправляет браузер на URL-адрес страницы входа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-320">Redirects the browser to the login URL.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-321"><xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> Метод перенаправляет браузер, чтобы <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A>.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-321">The <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method redirects the browser to the <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A>.</span></span>  
+  
+ <span data-ttu-id="5dcfc-322"><xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> Метод очищает файл cookie проверки подлинности форм.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-322">The <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method does not clear the forms-authentication cookie.</span></span> <span data-ttu-id="5dcfc-323">Можно использовать <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> в сочетании с <xref:System.Web.Security.FormsAuthentication.SignOut%2A> метод один пользователь вышел и разрешить другого пользователя для входа.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-323">You can use the <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method in conjunction with the <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method to log one user out and allow a different user to log in.</span></span>  
+  
+ <span data-ttu-id="5dcfc-324">В отличие от <xref:System.Web.HttpResponse.Redirect%2A?displayProperty=nameWithType> метода, этот метод не заканчивается запроса путем вызова <xref:System.Web.HttpResponse.End%2A?displayProperty=nameWithType>.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-324">Unlike the <xref:System.Web.HttpResponse.Redirect%2A?displayProperty=nameWithType> method, this method does not end the request by calling <xref:System.Web.HttpResponse.End%2A?displayProperty=nameWithType>.</span></span> <span data-ttu-id="5dcfc-325">Это означает, что код, следующий <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> вызова метода будет выполняться.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-325">This means that code that follows the <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method call will run.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-326">В следующем примере кода удалит файл cookie проверки подлинности форм с помощью <xref:System.Web.Security.FormsAuthentication.SignOut%2A> метода, а затем передает страницу пользователю выполнить вход с использованием <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-326">The following code example clears the forms-authentication cookie using the <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method and redirects the user to the login page using the <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.FormsAuthentication#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.FormsAuthentication/CS/signoutcs.aspx#2)]
+ [!code-aspx-vb[System.Web.Security.FormsAuthentication#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.FormsAuthentication/VB/signoutvb.aspx#2)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="RedirectToLoginPage">
+      <MemberSignature Language="C#" Value="public static void RedirectToLoginPage ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void RedirectToLoginPage() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.RedirectToLoginPage" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub RedirectToLoginPage ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void RedirectToLoginPage();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-327">Перенаправляет браузер на URL-адрес страницы входа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-327">Redirects the browser to the login URL.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-328"><xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> Метод перенаправляет браузер, чтобы <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A>.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-328">The <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method redirects the browser to the <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A>.</span></span>  
+  
+ <span data-ttu-id="5dcfc-329"><xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> Метод очищает файл cookie проверки подлинности форм.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-329">The <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method does not clear the forms-authentication cookie.</span></span> <span data-ttu-id="5dcfc-330">Можно использовать <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> в сочетании с <xref:System.Web.Security.FormsAuthentication.SignOut%2A> метод один пользователь вышел и разрешить другого пользователя для входа.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-330">You can use the <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method in conjunction with the <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method to log one user out and allow a different user to log in.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-331">В следующем примере кода удалит файл cookie проверки подлинности форм с помощью <xref:System.Web.Security.FormsAuthentication.SignOut%2A> метода, а затем передает страницу пользователю выполнить вход с использованием <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-331">The following code example clears the forms-authentication cookie using the <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method and redirects the user to the login page using the <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.FormsAuthentication#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.FormsAuthentication/CS/signoutcs.aspx#2)]
+ [!code-aspx-vb[System.Web.Security.FormsAuthentication#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.FormsAuthentication/VB/signoutvb.aspx#2)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RedirectToLoginPage">
+      <MemberSignature Language="C#" Value="public static void RedirectToLoginPage (string extraQueryString);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void RedirectToLoginPage(string extraQueryString) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.RedirectToLoginPage(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub RedirectToLoginPage (extraQueryString As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void RedirectToLoginPage(System::String ^ extraQueryString);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="extraQueryString" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="extraQueryString">
+          <span data-ttu-id="5dcfc-332">Строка запроса для включения в URL-адрес перенаправления.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-332">The query string to include with the redirect URL.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-333">Перенаправляет браузер на URL-адрес страницы входа с указанной строкой запроса.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-333">Redirects the browser to the login URL with the specified query string.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-334"><xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> Метод перенаправляет браузер, чтобы <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A> и включает `extraQueryString` как <xref:System.Management.ManagementQuery.QueryString%2A> для URL-адреса перенаправления.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-334">The <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method redirects the browser to the <xref:System.Web.Security.FormsAuthentication.LoginUrl%2A> and includes the `extraQueryString` value as the <xref:System.Management.ManagementQuery.QueryString%2A> for the redirected URL.</span></span>  
+  
+ <span data-ttu-id="5dcfc-335"><xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> Метод очищает файл cookie проверки подлинности форм.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-335">The <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method does not clear the forms-authentication cookie.</span></span> <span data-ttu-id="5dcfc-336">Можно использовать <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> в сочетании с <xref:System.Web.Security.FormsAuthentication.SignOut%2A> метод один пользователь вышел и разрешить другого пользователя для входа.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-336">You can use the <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method in conjunction with the <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method to log one user out and allow a different user to log in.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-337">В следующем примере кода удалит файл cookie проверки подлинности форм с помощью <xref:System.Web.Security.FormsAuthentication.SignOut%2A> метода, а затем передает страницу пользователю выполнить вход с использованием <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-337">The following code example clears the forms-authentication cookie using the <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method and redirects the user to the login page using the <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.FormsAuthentication#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.FormsAuthentication/CS/signout2cs.aspx#3)]
+ [!code-aspx-vb[System.Web.Security.FormsAuthentication#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.FormsAuthentication/VB/signout2vb.aspx#3)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RenewTicketIfOld">
+      <MemberSignature Language="C#" Value="public static System.Web.Security.FormsAuthenticationTicket RenewTicketIfOld (System.Web.Security.FormsAuthenticationTicket tOld);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Web.Security.FormsAuthenticationTicket RenewTicketIfOld(class System.Web.Security.FormsAuthenticationTicket tOld) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.RenewTicketIfOld(System.Web.Security.FormsAuthenticationTicket)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function RenewTicketIfOld (tOld As FormsAuthenticationTicket) As FormsAuthenticationTicket" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Web::Security::FormsAuthenticationTicket ^ RenewTicketIfOld(System::Web::Security::FormsAuthenticationTicket ^ tOld);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.Security.FormsAuthenticationTicket</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="tOld" Type="System.Web.Security.FormsAuthenticationTicket" />
+      </Parameters>
+      <Docs>
+        <param name="tOld">
+          <span data-ttu-id="5dcfc-338">Билет проверки подлинности с помощью форм для обновления.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-338">The forms-authentication ticket to update.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-339">Условно обновляет дату и время выдачи, и дату и время истечения срока действия <see cref="T:System.Web.Security.FormsAuthenticationTicket" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-339">Conditionally updates the issue date and time and expiration date and time for a <see cref="T:System.Web.Security.FormsAuthenticationTicket" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="5dcfc-340">Обновленный объект <see cref="T:System.Web.Security.FormsAuthenticationTicket" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-340">The updated <see cref="T:System.Web.Security.FormsAuthenticationTicket" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-341"><xref:System.Web.Security.FormsAuthentication.RenewTicketIfOld%2A> Метод обновляет дату истечения срока действия и времени, предоставленного <xref:System.Web.Security.FormsAuthenticationTicket> Если текущая дата и время минус <xref:System.Web.Security.FormsAuthenticationTicket.IssueDate%2A> значение больше, чем <xref:System.Web.Security.FormsAuthenticationTicket.Expiration%2A> значение минус текущую дату и время.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-341">The <xref:System.Web.Security.FormsAuthentication.RenewTicketIfOld%2A> method updates the expiration date and time of the supplied <xref:System.Web.Security.FormsAuthenticationTicket> if the current date and time minus the <xref:System.Web.Security.FormsAuthenticationTicket.IssueDate%2A> value is greater than the <xref:System.Web.Security.FormsAuthenticationTicket.Expiration%2A> value minus the current date and time.</span></span>  
+  
+ <span data-ttu-id="5dcfc-342">Билет обновляется с <xref:System.Web.Security.FormsAuthenticationTicket.IssueDate%2A> свойства текущей даты и времени и <xref:System.Web.Security.FormsAuthenticationTicket.Expiration%2A> для текущей даты и времени, а также исходное значение свойства <xref:System.Web.Security.FormsAuthenticationTicket.Expiration%2A> значение минус исходного <xref:System.Web.Security.FormsAuthenticationTicket.IssueDate%2A> значение.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-342">The ticket is updated with the <xref:System.Web.Security.FormsAuthenticationTicket.IssueDate%2A> property set to the current date and time and the <xref:System.Web.Security.FormsAuthenticationTicket.Expiration%2A> property set to the current date and time plus the original <xref:System.Web.Security.FormsAuthenticationTicket.Expiration%2A> value minus the original <xref:System.Web.Security.FormsAuthenticationTicket.IssueDate%2A> value.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RequireSSL">
+      <MemberSignature Language="C#" Value="public static bool RequireSSL { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property bool RequireSSL" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.RequireSSL" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property RequireSSL As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property bool RequireSSL { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-343">Возвращает значение, показывающее требуется ли файлам Cookie проверки подлинности с помощью форм протокол SSL для возвращения на сервер.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-343">Gets a value indicating whether the forms-authentication cookie requires SSL in order to be returned to the server.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-344">
+            <see langword="true" />, если протокол SSL необходим для возвращения на сервер файлов Cookie проверки подлинности с помощью форм; в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-344">
+              <see langword="true" /> if SSL is required to return the forms-authentication cookie to the server; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="5dcfc-345">Значение по умолчанию: <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-345">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-346"><xref:System.Web.Security.FormsAuthentication.RequireSSL%2A> Значение свойства задается в файле конфигурации для приложения ASP.NET с помощью `requireSSL` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-346">The <xref:System.Web.Security.FormsAuthentication.RequireSSL%2A> property value is set in the configuration file for an ASP.NET application by using the `requireSSL` attribute of the  configuration element.</span></span> <span data-ttu-id="5dcfc-347">Можно указать в файле Web.config для приложения ASP.NET требуется ли SSL (Secure Sockets Layer) для возврата файла cookie проверки подлинности форм к серверу, задав `requireSSL` атрибута.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-347">You can specify in the Web.config file for your ASP.NET application whether SSL (Secure Sockets Layer) is required to return the forms-authentication cookie to the server by setting the `requireSSL` attribute .</span></span> <span data-ttu-id="5dcfc-348">Дополнительные сведения см. в разделе <xref:System.Web.HttpCookie.Secure%2A>.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-348">For more information, see <xref:System.Web.HttpCookie.Secure%2A>.</span></span>  
+  
+ <span data-ttu-id="5dcfc-349">Рекомендуется, если вы настраиваете `requireSSL` как `false`, можно также настроить `slidingExpiration` как `false`, чтобы сократить количество времени, для которого билет будет действительным.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-349">It is recommended that if you configure `requireSSL` as `false`, you also configure `slidingExpiration` as `false`, to reduce the amount of time for which a ticket is valid.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-350">В следующем примере кода `requireSSL` атрибут в файле Web.config.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-350">The following code example sets the `requireSSL` attribute in the Web.config file.</span></span>  
+  
+```  
+<authentication mode="Forms">  
+  <forms loginUrl="member_login.aspx"  
+    cookieless="UseCookies"  
+    requireSSL="true"  
+    path="/MyApplication" />  
+</authentication>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="SetAuthCookie">
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-351">Создает билет проверки подлинности для указанного имени пользователя и добавляет его к коллекции файлов Cookie ответа или к URL-адресу, если используется проверка подлинности без файлов Cookie.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-351">Creates an authentication ticket for the supplied user name and adds it to the cookies collection of the response, or to the URL if you are using cookieless authentication.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-352"><xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> Метод добавляет билет проверки подлинности форм коллекции файлов cookie или URL-адрес, если <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> — `false`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-352">The <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> method adds a forms-authentication ticket to either the cookies collection or the URL if <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> is `false`.</span></span> <span data-ttu-id="5dcfc-353">Билет проверки подлинности форм предоставляет сведения для проверки подлинности форм для следующего запроса веб-обозревателя.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-353">The forms-authentication ticket supplies forms-authentication information to the next request made by the browser.</span></span> <span data-ttu-id="5dcfc-354">С помощью форм, можно использовать <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> метод для проверки подлинности пользователя, но по-прежнему сохранение контроля над навигации с перенаправления.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-354">With forms authentication, you can use the <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> method when you want to authenticate a user but still retain control of the navigation with redirects.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="SetAuthCookie">
+      <MemberSignature Language="C#" Value="public static void SetAuthCookie (string userName, bool createPersistentCookie);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void SetAuthCookie(string userName, bool createPersistentCookie) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.SetAuthCookie(System.String,System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub SetAuthCookie (userName As String, createPersistentCookie As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void SetAuthCookie(System::String ^ userName, bool createPersistentCookie);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="userName" Type="System.String" />
+        <Parameter Name="createPersistentCookie" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="userName">
+          <span data-ttu-id="5dcfc-355">Имя пользователя, прошедшего проверку подлинности.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-355">The name of an authenticated user.</span>
+          </span>
+          <span data-ttu-id="5dcfc-356">Совпадение с учетной записью Windows не обязательно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-356">This does not have to map to a Windows account.</span>
+          </span>
+        </param>
+        <param name="createPersistentCookie">
+          <span data-ttu-id="5dcfc-357">
+            <see langword="true" /> для создания постоянного файла Cookie (сохраняемого между сеансами браузера); в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-357">
+              <see langword="true" /> to create a persistent cookie (one that is saved across browser sessions); otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-358">Создает билет проверки подлинности для указанного имени пользователя и добавляет его к коллекции файлов Cookie ответа или к URL-адресу, если используется проверка подлинности без файлов Cookie.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-358">Creates an authentication ticket for the supplied user name and adds it to the cookies collection of the response, or to the URL if you are using cookieless authentication.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-359"><xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> Метод добавляет билет проверки подлинности форм коллекции файлов cookie или URL-адрес Если <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> — `false`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-359">The <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> method adds a forms-authentication ticket to either the cookies collection, or to the URL if <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> is `false`.</span></span> <span data-ttu-id="5dcfc-360">Билет проверки подлинности форм предоставляет сведения для проверки подлинности форм для следующего запроса веб-обозревателя.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-360">The forms-authentication ticket supplies forms-authentication information to the next request made by the browser.</span></span> <span data-ttu-id="5dcfc-361">С помощью форм, можно использовать <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> метод для проверки подлинности пользователя, но по-прежнему сохранение контроля над навигации с перенаправления.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-361">With forms authentication, you can use the <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> method when you want to authenticate a user but still retain control of the navigation with redirects.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="5dcfc-362">Свойство <see cref="P:System.Web.Security.FormsAuthentication.RequireSSL" /> имеет значение <see langword="true" />; свойство <see cref="P:System.Web.HttpRequest.IsSecureConnection" /> имеет значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-362">
+              <see cref="P:System.Web.Security.FormsAuthentication.RequireSSL" /> is <see langword="true" /> and <see cref="P:System.Web.HttpRequest.IsSecureConnection" /> is <see langword="false" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="SetAuthCookie">
+      <MemberSignature Language="C#" Value="public static void SetAuthCookie (string userName, bool createPersistentCookie, string strCookiePath);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void SetAuthCookie(string userName, bool createPersistentCookie, string strCookiePath) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.SetAuthCookie(System.String,System.Boolean,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub SetAuthCookie (userName As String, createPersistentCookie As Boolean, strCookiePath As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void SetAuthCookie(System::String ^ userName, bool createPersistentCookie, System::String ^ strCookiePath);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="userName" Type="System.String" />
+        <Parameter Name="createPersistentCookie" Type="System.Boolean" />
+        <Parameter Name="strCookiePath" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="userName">
+          <span data-ttu-id="5dcfc-363">Имя пользователя, прошедшего проверку подлинности.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-363">The name of an authenticated user.</span>
+          </span>
+        </param>
+        <param name="createPersistentCookie">
+          <span data-ttu-id="5dcfc-364">
+            <see langword="true" />, чтобы создать долговременный файл Cookie (т.е. сохраняемый между сеансами браузера); в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-364">
+              <see langword="true" /> to create a durable cookie (one that is saved across browser sessions); otherwise, <see langword="false" />.</span>
+          </span>
+        </param>
+        <param name="strCookiePath">
+          <span data-ttu-id="5dcfc-365">Путь к файлу Cookie для билета проверки подлинности формы.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-365">The cookie path for the forms-authentication ticket.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5dcfc-366">Создает билет проверки подлинности для указанного имени пользователя и добавляет его к коллекции файлов Cookie ответа, используя заданный путь к файлу Cookie или URL-адрес, если используется проверка подлинности без cookie-файлов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-366">Creates an authentication ticket for the supplied user name and adds it to the cookies collection of the response, using the supplied cookie path, or using the URL if you are using cookieless authentication.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-367"><xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> Метод добавляет билет проверки подлинности форм коллекции файлов cookie или URL-адрес, если <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> — `false`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-367">The <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> method adds a forms-authentication ticket to either the cookies collection or the URL if <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> is `false`.</span></span> <span data-ttu-id="5dcfc-368">Билет проверки подлинности форм предоставляет сведения для проверки подлинности форм для следующего запроса веб-обозревателя.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-368">The forms-authentication ticket supplies forms-authentication information to the next request made by the browser.</span></span> <span data-ttu-id="5dcfc-369">С помощью форм, можно использовать <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> метод для проверки подлинности пользователя, но по-прежнему сохранение контроля над навигации с перенаправления.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-369">With forms authentication, you can use the <xref:System.Web.Security.FormsAuthentication.SetAuthCookie%2A> method when you want to authenticate a user but still retain control of the navigation with redirects.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Web.HttpException">
+          <span data-ttu-id="5dcfc-370">Свойство <see cref="P:System.Web.Security.FormsAuthentication.RequireSSL" /> имеет значение <see langword="true" />; свойство <see cref="P:System.Web.HttpRequest.IsSecureConnection" /> имеет значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-370">
+              <see cref="P:System.Web.Security.FormsAuthentication.RequireSSL" /> is <see langword="true" /> and <see cref="P:System.Web.HttpRequest.IsSecureConnection" /> is <see langword="false" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="SignOut">
+      <MemberSignature Language="C#" Value="public static void SignOut ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void SignOut() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Web.Security.FormsAuthentication.SignOut" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub SignOut ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void SignOut();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-371">Удаляет из браузера билет проверки подлинности с помощью форм.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-371">Removes the forms-authentication ticket from the browser.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-372"><xref:System.Web.Security.FormsAuthentication.SignOut%2A> Метод удаляет данные билета проверки подлинности форм из файла cookie или URL-адрес, если <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> — `false`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-372">The <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method removes the forms-authentication ticket information from the cookie or the URL if <xref:System.Web.Security.FormsAuthentication.CookiesSupported%2A> is `false`.</span></span> <span data-ttu-id="5dcfc-373">Можно использовать <xref:System.Web.Security.FormsAuthentication.SignOut%2A> в сочетании с <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> метод один пользователь вышел и разрешить другого пользователя для входа.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-373">You can use the <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method in conjunction with the <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method to log one user out and allow a different user to log in.</span></span>  
+  
+ <span data-ttu-id="5dcfc-374">При использовании исключительно в режиме без поддержки файлов cookie, или если требуется поддержка прошедшего проверку подлинности и анонимных пользователей, следует явно управление перенаправление на страницу входа, если требуются специальные бизнес-логики в результате удаления анонимный идентификатор.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-374">If you run exclusively in cookieless mode, or if you support both authenticated and anonymous users, you should explicitly control the redirect to the login page if you require special business logic to execute as a result of removing the anonymous identifier.</span></span>  
+  
+ <span data-ttu-id="5dcfc-375">Когда <xref:System.Web.Security.FormsAuthentication.SignOut%2A> вызывается метод, перенаправление на страницу входа приложения выполняется путем вызова <xref:System.Web.HttpResponse.Redirect%2A> метод с `endResponse` равным `false`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-375">When the <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method is called, a redirect to the application's login page is made by calling the <xref:System.Web.HttpResponse.Redirect%2A> method with the `endResponse` parameter set to `false`.</span></span> <span data-ttu-id="5dcfc-376">Перенаправления выполняться не до завершения выполнения текущей страницы, можно выполнить дополнительный код.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-376">The redirect does not take place until the current page has finished executing, so additional code can be run.</span></span> <span data-ttu-id="5dcfc-377">Если код не содержит явного перенаправления на другую страницу, пользователь перенаправляется на страницу входа, настроенные в файле конфигурации приложения.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-377">If the code does not contain an explicit redirect to another page, the user is redirected to the login page configured in the application's configuration file.</span></span>  
+  
+ <span data-ttu-id="5dcfc-378">Вызов <xref:System.Web.Security.FormsAuthentication.SignOut%2A> метод удаляет только файл cookie проверки подлинности форм.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-378">Calling the <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method only removes the forms authentication cookie.</span></span> <span data-ttu-id="5dcfc-379">Веб-сервер не хранит билетов проверки подлинности допустимые и истекшим сроком действия для дальнейшего сравнения.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-379">The Web server does not store valid and expired authentication tickets for later comparison.</span></span> <span data-ttu-id="5dcfc-380">Это делает узел уязвимым для атак воспроизведения, если пользователь-злоумышленник получит файл cookie проверки подлинности допустимых форматов.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-380">This makes your site vulnerable to a replay attack if a malicious user obtains a valid forms authentication cookie.</span></span> <span data-ttu-id="5dcfc-381">Для повышения безопасности при использовании файла cookie проверки подлинности форм делать следующее:</span><span class="sxs-lookup"><span data-stu-id="5dcfc-381">To improve security when using a forms authentication cookie, you should do the following:</span></span>  
+  
+-   <span data-ttu-id="5dcfc-382">Использовать абсолютный срок действия файлов cookie проверки подлинности форм, задав <xref:System.Web.Security.FormsAuthentication.SlidingExpiration%2A> свойства `false`.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-382">Use absolute expiration for forms authentication cookies by setting the <xref:System.Web.Security.FormsAuthentication.SlidingExpiration%2A> property to `false`.</span></span> <span data-ttu-id="5dcfc-383">Это ограничивает окна, в которых могут воспроизводиться поврежденный файл cookie.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-383">This limits the window in which a hijacked cookie can be replayed.</span></span>  
+  
+-   <span data-ttu-id="5dcfc-384">Выдавать только и принимают файлы cookie проверки подлинности через Secure Sockets Layer (SSL), установив <xref:System.Web.Security.FormsAuthentication.RequireSSL%2A> свойства `true` и выполнив всего веб-сайта в группе SSL.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-384">Only issue and accept authentication cookies over Secure Sockets Layer (SSL), by setting the <xref:System.Web.Security.FormsAuthentication.RequireSSL%2A> property to `true` and by running the entire Web site under SSL.</span></span> <span data-ttu-id="5dcfc-385">Установка <xref:System.Web.Security.FormsAuthentication.RequireSSL%2A> свойства `true` гарантирует, что ASP.NET никогда не будет отправлять файл cookie проверки подлинности в браузере через подключение без использования SSL; тем не менее, клиент не может принять параметры безопасности в файле cookie.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-385">Setting the <xref:System.Web.Security.FormsAuthentication.RequireSSL%2A> property to `true` ensures that ASP.NET will never send an authentication cookie to the browser over a non-SSL connection; however, the client might not honor the secure setting on the cookie.</span></span> <span data-ttu-id="5dcfc-386">Это означает, что клиент может отправить файл cookie проверки подлинности форм через подключение без использования SSL, таким образом делает его уязвимым для перехвата.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-386">This means the client might send the forms authentication cookie over a non-SSL connection, thus leaving it vulnerable to hijack.</span></span> <span data-ttu-id="5dcfc-387">Клиенту предотвратить отправку файла cookie проверки подлинности форм в открытом виде, выполнив всего веб-сайта в группе SSL.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-387">You can prevent a client from sending the forms authentication cookie in the clear by running the entire Web site under SSL.</span></span>  
+  
+-   <span data-ttu-id="5dcfc-388">Использовать постоянное хранилище на сервере для записи, когда пользователь выходит из веб-сайта, а затем использовать события приложения, такие как <xref:System.Web.HttpApplication.PostAuthenticateRequest> событие, чтобы определить, является ли текущий пользователь проверку подлинности с помощью форм.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-388">Use persistent storage on the server to record when a user logs out of the Web site, and then use an application event such as <xref:System.Web.HttpApplication.PostAuthenticateRequest> event to determine whether the current user was authenticated with forms authentication.</span></span> <span data-ttu-id="5dcfc-389">Если пользователь прошел проверку подлинности с помощью форм, и если информация в постоянном хранилище указывает пользователь вышел из, немедленно очистить файл cookie проверки подлинности и перенаправить браузер на страницу входа.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-389">If the user was authenticated with forms authentication, and if the information in persistent storage indicates the user is logged out, immediately clear the authentication cookie and redirect the browser back to the login page.</span></span> <span data-ttu-id="5dcfc-390">После успешного входа обновите хранилища, чтобы отразить вход в.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-390">After a successful login, update storage to reflect that the user is logged in.</span></span> <span data-ttu-id="5dcfc-391">При использовании этого метода приложение должно отслеживать статус вошедшего в систему пользователя и необходимо принудительно бездействующих пользователей выйти из системы.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-391">When you use this method, your application must track the logged-in status of the user, and must force idle users to log out.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-392">В следующем примере кода удалит файл cookie проверки подлинности форм с помощью <xref:System.Web.Security.FormsAuthentication.SignOut%2A> метода, а затем передает страницу пользователю выполнить вход с использованием <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-392">The following code example clears the forms-authentication cookie using the <xref:System.Web.Security.FormsAuthentication.SignOut%2A> method and redirects the user to the login page using the <xref:System.Web.Security.FormsAuthentication.RedirectToLoginPage%2A> method.</span></span>  
+  
+ [!code-aspx-csharp[System.Web.Security.FormsAuthentication#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.Security.FormsAuthentication/CS/signoutcs.aspx#2)]
+ [!code-aspx-vb[System.Web.Security.FormsAuthentication#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.Security.FormsAuthentication/VB/signoutvb.aspx#2)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SlidingExpiration">
+      <MemberSignature Language="C#" Value="public static bool SlidingExpiration { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property bool SlidingExpiration" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.SlidingExpiration" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property SlidingExpiration As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property bool SlidingExpiration { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-393">Возвращает значение, определяющее, включен ли скользящий срок действия.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-393">Gets a value indicating whether sliding expiration is enabled.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-394">
+            <see langword="true" />, если включен скользящий срок действия; в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-394">
+              <see langword="true" /> if sliding expiration is enabled; otherwise, <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="5dcfc-395">Значение по умолчанию: <see langword="true" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-395">The default is <see langword="true" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5dcfc-396"><xref:System.Web.Security.FormsAuthentication.SlidingExpiration%2A> Значение свойства задается с помощью `slidingExpiration` атрибута элемента конфигурации.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-396">The <xref:System.Web.Security.FormsAuthentication.SlidingExpiration%2A> property value is set using the `slidingExpiration` attribute of the  configuration element.</span></span>  
+  
+ <span data-ttu-id="5dcfc-397">Скользящем сроке действия срок действия файла cookie проверки подлинности при поступлении запроса и по истечении более половины интервала времени ожидания.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-397">Sliding expiration resets the expiration time for a valid authentication cookie if a request is made and more than half of the timeout interval has elapsed.</span></span> <span data-ttu-id="5dcfc-398">Если истекает срок действия файла cookie, пользователь должен повторно пройти проверку подлинности.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-398">If the cookie expires, the user must re-authenticate.</span></span> <span data-ttu-id="5dcfc-399">Установка <xref:System.Web.Security.FormsAuthentication.SlidingExpiration%2A> свойства `false` можно повысить безопасность приложения путем ограничения времени, для которого действителен файл cookie проверки подлинности, настроенного на основе `timeout` значение.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-399">Setting the <xref:System.Web.Security.FormsAuthentication.SlidingExpiration%2A> property to `false` can improve the security of an application by limiting the time for which an authentication cookie is valid, based on the configured `timeout` value.</span></span>  
+  
+ <span data-ttu-id="5dcfc-400">Рекомендуется, чтобы при настройке `requireSSL` как `false`, можно также настроить `slidingExpiration` как `false`, чтобы сократить количество времени, для которого билет будет действительным.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-400">We recommend that if you configure `requireSSL` as `false`, you also configure `slidingExpiration` as `false`, to reduce the amount of time for which a ticket is valid.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5dcfc-401">В следующем примере кода `slidingExpiration` атрибут `false` в файле Web.config для приложения ASP.NET.</span><span class="sxs-lookup"><span data-stu-id="5dcfc-401">The following code example sets the `slidingExpiration` attribute to `false` in the Web.config file for an ASP.NET application.</span></span>  
+  
+```  
+<authentication mode="Forms">  
+  <forms loginUrl="member_login.aspx"  
+    name=".ASPXFORMSAUTH"  
+    cookieless="UseCookies"  
+    requireSSL="true"   
+    slidingExpiration="false" />  
+</authentication>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TicketCompatibilityMode">
+      <MemberSignature Language="C#" Value="public static System.Web.Configuration.TicketCompatibilityMode TicketCompatibilityMode { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property valuetype System.Web.Configuration.TicketCompatibilityMode TicketCompatibilityMode" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.TicketCompatibilityMode" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property TicketCompatibilityMode As TicketCompatibilityMode" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::Web::Configuration::TicketCompatibilityMode TicketCompatibilityMode { System::Web::Configuration::TicketCompatibilityMode get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Web.Configuration.TicketCompatibilityMode</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-402">Получает значение, указывающее, какое время используется для даты окончания срока действия билета: в формате UTC или местное.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-402">Gets a value that indicates whether to use Coordinated Universal Time (UTC) or local time for the ticket expiration date.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-403">Значение, указывающее, какое время используется для даты окончания срока действия билета: в формате UTC или местное.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-403">A value that indicates whether to use Coordinated Universal Time (UTC) or local time for the ticket expiration date.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Timeout">
+      <MemberSignature Language="C#" Value="public static TimeSpan Timeout { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property valuetype System.TimeSpan Timeout" />
+      <MemberSignature Language="DocId" Value="P:System.Web.Security.FormsAuthentication.Timeout" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property Timeout As TimeSpan" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property TimeSpan Timeout { TimeSpan get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.TimeSpan</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5dcfc-404">Получает время, по истечении которого билет аутентификации прекращает действовать.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-404">Gets the amount of time before an authentication ticket expires.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5dcfc-405">Время, по истечении которого билет аутентификации прекращает действовать.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5dcfc-405">The amount of time before an authentication ticket expires.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
