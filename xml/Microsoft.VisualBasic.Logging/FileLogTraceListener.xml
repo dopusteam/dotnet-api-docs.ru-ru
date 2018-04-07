@@ -1,0 +1,1656 @@
+<Type Name="FileLogTraceListener" FullName="Microsoft.VisualBasic.Logging.FileLogTraceListener">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="78cc1b5b2fdd6e02efea469bb7ec414d6f4ba417" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class FileLogTraceListener : System.Diagnostics.TraceListener" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit FileLogTraceListener extends System.Diagnostics.TraceListener" />
+  <TypeSignature Language="DocId" Value="T:Microsoft.VisualBasic.Logging.FileLogTraceListener" />
+  <TypeSignature Language="VB.NET" Value="Public Class FileLogTraceListener&#xA;Inherits TraceListener" />
+  <TypeSignature Language="C++ CLI" Value="public ref class FileLogTraceListener : System::Diagnostics::TraceListener" />
+  <AssemblyInfo>
+    <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+    <AssemblyVersion>10.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Diagnostics.TraceListener</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="a7aeb-101">Предоставляет простой прослушиватель, который направляет вывод журнала в файл.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="a7aeb-101">Provides a simple listener that directs logging output to file.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-102"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> Класс предоставляет возможности автоматического обслуживания для архивации файлов журнала, при необходимости на основе ежедневно или на уровне приложений.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-102">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class provides automated maintenance capabilities to archive log files as needed, on a daily or per-application basis.</span></span> <span data-ttu-id="a7aeb-103">Эти функции автоматической архивации помогает сократить обслуживания обязанностей разработчиков и администраторов.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-103">This automatic archival functionality helps reduce the maintenance responsibilities of developers and administrators.</span></span>  
+  
+ <span data-ttu-id="a7aeb-104">Экземпляр <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> можно добавить <xref:System.Diagnostics.Debug.Listeners%2A?displayProperty=nameWithType> или <xref:System.Diagnostics.Trace.Listeners%2A?displayProperty=nameWithType> коллекций перенаправлять выходные данные ведения журнала в текстовый файл.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-104">An instance of <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> can be added to the <xref:System.Diagnostics.Debug.Listeners%2A?displayProperty=nameWithType> or <xref:System.Diagnostics.Trace.Listeners%2A?displayProperty=nameWithType> collections to redirect output from logging to a text file.</span></span> <span data-ttu-id="a7aeb-105">Экземпляры этого класса можно также добавить к `My.Application.Log` или `My.Log` (для веб-приложений) в [!INCLUDE[vbprvb](~/includes/vbprvb-md.md)] приложений.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-105">Instances of this class can also be added to `My.Application.Log` or `My.Log` (for Web applications) in [!INCLUDE[vbprvb](~/includes/vbprvb-md.md)] applications.</span></span> <span data-ttu-id="a7aeb-106">Дополнительные сведения см. в разделе [Пошаговое руководство: изменение информация](~/docs/visual-basic/developing-apps/programming/log-info/walkthrough-changing-where-my-application-log-writes-information.md)`.`</span><span class="sxs-lookup"><span data-stu-id="a7aeb-106">For more information, see [Walkthrough: Changing Where My.Application.Log Writes Information](~/docs/visual-basic/developing-apps/programming/log-info/walkthrough-changing-where-my-application-log-writes-information.md)`.`</span></span>  
+  
+ <span data-ttu-id="a7aeb-107">Ниже перечислены основные функции этого класса</span><span class="sxs-lookup"><span data-stu-id="a7aeb-107">The main features of this class are:</span></span>  
+  
+1.  <span data-ttu-id="a7aeb-108">*Функции архивации*.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-108">*Archival functionality*.</span></span> <span data-ttu-id="a7aeb-109">Файлы журналов, создаваемые этим классом присваиваются в соответствии с базовым именем и даты, вместе с номером, чтобы отличать файл журнала от последовательных версий журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-109">The log files generated by this class are named according to the base name and the date, along with a number to distinguish the log file from successive versions of the log.</span></span> <span data-ttu-id="a7aeb-110">Новые файлы журнала создаются по мере необходимости.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-110">New log files are created on an as-needed basis.</span></span>  
+  
+     <span data-ttu-id="a7aeb-111">Явное имя файла является `baseName`[-`dateStamp`] [-`version`] .log, где:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-111">The explicit form of the file name is `baseName`[-`dateStamp`][-`version`].log, where:</span></span>  
+  
+    -   <span data-ttu-id="a7aeb-112">`baseName` Часть — это имя фундаментальные журнала, определяемое <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-112">The `baseName` part is the fundamental log name, specified by the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName%2A> property.</span></span>  
+  
+    -   <span data-ttu-id="a7aeb-113">`dateStamp` Часть имеет формат «Гггг-мм-дд» и он отображается, когда <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> — <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Daily> или <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Weekly>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-113">The `dateStamp` part has the format "YYYY-MM-DD", and it is shown when <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> is <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Daily> or <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Weekly>.</span></span>  
+  
+    -   <span data-ttu-id="a7aeb-114">Если требуется несколько файлов журнала с таким же `baseName` и `dateStamp`, `version` часть положительное `Integer`, добавляется к имени файла.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-114">If more than one log file is needed with the same `baseName` and `dateStamp`, the `version` part, a positive `Integer`, is added to the file name.</span></span>  
+  
+2.  <span data-ttu-id="a7aeb-115">*Несколько экземпляров класса*.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-115">*Multiple class instances*.</span></span> <span data-ttu-id="a7aeb-116">Если экземпляр <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> класс записывает в файл, который используется:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-116">If an instance of the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class writes to a file that is in use:</span></span>  
+  
+    -   <span data-ttu-id="a7aeb-117">Класс совместно использует файл, если он используется другим экземпляром <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> класс в тот же процесс.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-117">The class shares the file if it is being used by another instance of the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class in the same process.</span></span>  
+  
+    -   <span data-ttu-id="a7aeb-118">Класс создает новый файл журнала, используя следующее доступное имя, если файл используется другим процессом.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-118">The class creates a new log file using the next available name if the file is being used by another process.</span></span>  
+  
+3.  <span data-ttu-id="a7aeb-119">*Потокобезопасность*.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-119">*Thread safety*.</span></span> <span data-ttu-id="a7aeb-120"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> Класс является потокобезопасным.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-120">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class is thread safe.</span></span> <span data-ttu-id="a7aeb-121">Это позволяет безопасно записывать сообщения в журнал из нескольких потоков без использования блокировки.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-121">This allows you to safely write messages to the log from multiple threads without using locks.</span></span>  
+  
+ <span data-ttu-id="a7aeb-122">**Расположение файла журнала**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-122">**Log-File Location**</span></span>  
+  
+-   <span data-ttu-id="a7aeb-123"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location%2A> Принимает свойство <xref:Microsoft.VisualBasic.Logging.LogFileLocation> перечисления, чтобы указать один из каталогов, типичные для записи файла журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-123">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location%2A> property takes a <xref:Microsoft.VisualBasic.Logging.LogFileLocation> enumeration to specify one of the typical directories to write the log file to.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-124">Записи журнала в другое расположение, задать <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> свойства к этому расположению.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-124">To write the log to another location, set the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> property to that location.</span></span>  
+  
+ <span data-ttu-id="a7aeb-125">**Имя файла журнала**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-125">**Log-File Name**</span></span>  
+  
+-   <span data-ttu-id="a7aeb-126">Базовое имя файла журнала задается <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-126">The base name for the log file is specified by the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName%2A> property.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-127">Текущий файл журнала может быть считано из <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-127">The current log file name can be read from the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> property.</span></span> <span data-ttu-id="a7aeb-128">Он является производным от других свойств и текущего состояния журналов в файловой системе.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-128">It is derived from several other properties and the current state of the logs in the file system.</span></span>  
+  
+ <span data-ttu-id="a7aeb-129">**Обслуживание журнала**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-129">**Log Maintenance**</span></span>  
+  
+-   <span data-ttu-id="a7aeb-130">Минимальный интервал для создания новых файлов журнала определяется <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-130">The minimum frequency for creating new log files is determined by the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> property.</span></span> <span data-ttu-id="a7aeb-131">Если значение равно <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Daily> или <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Weekly>, создается новый файл журнала создается по крайней мере один раз, каждый день или неделю и дату создания встроен в <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> имя.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-131">When the value is <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Daily> or <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Weekly>, a new log file is created at least once every day or week, and a date stamp is incorporated into the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> name.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-132">Максимальный размер (в байтах) файла журнала определяется <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-132">The maximum size (in bytes) of the log file is determined by the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize%2A> property.</span></span> <span data-ttu-id="a7aeb-133">Если размер файла журнала превышает этот размер, дополнительные сообщения, записывается в журнал, удаляется, а, в зависимости от <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> свойства, создается исключение.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-133">If the log file size exceeds this size, additional messages written to the log are discarded and, depending on the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> property, an exception is thrown.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-134"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace%2A> Свойство определяет объем свободного места (в байтах) должны быть доступны.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-134">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace%2A> property determines how much free space (in bytes) must be available.</span></span> <span data-ttu-id="a7aeb-135">Это гарантирует, что <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> класса не будет занимать свободное место на диске.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-135">This helps ensure that the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class will not consume all available disk space.</span></span> <span data-ttu-id="a7aeb-136">Используйте <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> свойство, чтобы указать параметры журнала записывает при наличии меньше, чем <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace%2A> свободных байтов.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-136">Use the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> property to specify the behavior of log writes when there are less than <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace%2A> bytes free.</span></span>  
+  
+ <span data-ttu-id="a7aeb-137">**Выходные параметры файла журнала**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-137">**Log-File Output Settings**</span></span>  
+  
+-   <span data-ttu-id="a7aeb-138"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.AutoFlush%2A> Свойство указывает, является ли базовый поток должны быть очищены автоматически после каждой операции записи в файл журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-138">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.AutoFlush%2A> property specifies whether the underlying stream should be flushed automatically after each write to the log file.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-139"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Append%2A> Свойство указывает, следует ли добавить сообщения к текущему файлу журнала, если это разрешено, или записывать их в новый файл журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-139">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Append%2A> property specifies whether to append messages to the current log file, if allowed, or write them to a new log file.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-140"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> Свойство указывает строку, используемую для разграничения полей в сообщении журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-140">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> property specifies the string to use for delimiting the fields within a log message.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-141"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Encoding%2A> Свойство указывает кодировку для использования при создании нового файла журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-141">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Encoding%2A> property specifies the encoding to use when creating a new log file.</span></span>  
+  
+ <span data-ttu-id="a7aeb-142">**Вывод в файл журнала**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-142">**Log-File Output**</span></span>  
+  
+-   <span data-ttu-id="a7aeb-143"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData%2A> И <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent%2A> методы записывают сообщения в файл журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-143">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData%2A> and <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent%2A> methods write messages to the log file.</span></span> <span data-ttu-id="a7aeb-144">Эти методы проверяют <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> свойства, включая все имеющиеся журналы с тем же базовым именем, чтобы определить, если должен быть создан новый журнал.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-144">These methods check the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> property, along with any existing logs with the same base name to determine if a new log should be created.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-145"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Flush%2A> Метод очищает все сообщения в настоящее время в буфер вывода в файле журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-145">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Flush%2A> method flushes any messages currently in the output buffer to the log file.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-146"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Close%2A> Метод закрывает файл журнала, чтобы он может использоваться другими процессами.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-146">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Close%2A> method closes the log file so that it can be used by other processes.</span></span>  
+  
+ <span data-ttu-id="a7aeb-147">**Включение выходных данных**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-147">**Enabling Output**</span></span>  
+  
+ <span data-ttu-id="a7aeb-148">Необходимо включить для использования прослушивателя трассировки отладки и трассировки.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-148">You must enable tracing or debugging to use a trace listener.</span></span> <span data-ttu-id="a7aeb-149">Следующий синтаксис зависит от компилятора.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-149">The following syntax is compiler specific.</span></span> <span data-ttu-id="a7aeb-150">При использовании компиляторов, отличных от C# или [!INCLUDE[vbprvb](~/includes/vbprvb-md.md)], обратитесь к документации этого компилятора.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-150">If you use compilers other than C# or [!INCLUDE[vbprvb](~/includes/vbprvb-md.md)], refer to the documentation for your compiler.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-151">Чтобы включить отладку в C#, добавьте `/d:DEBUG` флаг командную строку компилятора при компиляции кода, или можно добавить `#define DEBUG` в начало файла.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-151">To enable debugging in C#, add the `/d:DEBUG` flag to the compiler command line when you compile your code, or you can add `#define DEBUG` to the top of your file.</span></span> <span data-ttu-id="a7aeb-152">В [!INCLUDE[vbprvb](~/includes/vbprvb-md.md)], добавьте `/d:DEBUG=True` флаг компилятора командной строки.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-152">In [!INCLUDE[vbprvb](~/includes/vbprvb-md.md)], add the `/d:DEBUG=True` flag to the compiler command line.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-153">Чтобы включить трассировку в C#, добавьте `/d:TRACE` флаг командную строку компилятора при компиляции кода или добавьте `#define TRACE` в начало файла.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-153">To enable tracing in C#, add the `/d:TRACE` flag to the compiler command line when you compile your code, or add `#define TRACE` to the top of your file.</span></span> <span data-ttu-id="a7aeb-154">В [!INCLUDE[vbprvb](~/includes/vbprvb-md.md)], добавьте `/d:TRACE=True` флаг компилятора командной строки.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-154">In [!INCLUDE[vbprvb](~/includes/vbprvb-md.md)], add the `/d:TRACE=True` flag to the compiler command line.</span></span>  
+  
+ <span data-ttu-id="a7aeb-155">Чтобы задать уровень прослушивателя, измените файл конфигурации для приложения.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-155">To set the level of your listener, edit the configuration file for your application.</span></span> <span data-ttu-id="a7aeb-156">В этом файле можно добавить прослушиватель, задать его тип и параметры, удалить прослушиватель или удалить все прослушиватели, ранее установленный приложением.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-156">Within this file, you can add a listener, set its type and set its parameters, remove a listener, or clear all the listeners previously set by the application.</span></span> <span data-ttu-id="a7aeb-157">Файл конфигурации необходимо отформатировать как в следующем примере.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-157">The configuration file should be formatted like the following example.</span></span>  
+  
+ <span data-ttu-id="a7aeb-158">Для выполнения этого примера необходимо предоставить полное имя сборки.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-158">For this example to run, you must provide the fully qualified assembly name.</span></span> <span data-ttu-id="a7aeb-159">Сведения о том, как получить полное имя сборки см. в разделе [имена сборок](~/docs/framework/app-domains/assembly-names.md).</span><span class="sxs-lookup"><span data-stu-id="a7aeb-159">For information about how to obtain the fully qualified assembly name, see [Assembly Names](~/docs/framework/app-domains/assembly-names.md).</span></span>  
+  
+```  
+<configuration>  
+    <system.diagnostics>  
+        <sharedListeners>  
+            <add name="FileLog"  
+                type="Microsoft.VisualBasic.Logging.FileLogTraceListener,   
+                      Microsoft.VisualBasic, Version=8.0.0.0,   
+                      Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a,   
+                      processorArchitecture=MSIL"   
+                initializeData="FileLogWriter"/>  
+        </sharedListeners>  
+    </system.diagnostics>  
+</configuration>  
+```  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName" />
+    <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)" />
+    <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String)" />
+    <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.Flush" />
+    <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.Close" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-160">Инициализирует новый экземпляр класса <see cref="T:Microsoft.VisualBasic.Logging.FileLogTraceListener" /> и задает имя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-160">Initializes a new instance of the <see cref="T:Microsoft.VisualBasic.Logging.FileLogTraceListener" /> class and sets the name.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public FileLogTraceListener ();" />
+      <MemberSignature Language="ILAsm" Value=".method public specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; FileLogTraceListener();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-161">Инициализирует новый экземпляр класса <see cref="T:Microsoft.VisualBasic.Logging.FileLogTraceListener" /> с именем, используемым по умолчанию.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-161">Initializes a new instance of the <see cref="T:Microsoft.VisualBasic.Logging.FileLogTraceListener" /> class with the default name.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-162">Этот метод задает имя экземпляра <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> класса FileLogTraceListener.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-162">This method sets the instance name of the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class to FileLogTraceListener.</span></span>  
+  
+ <span data-ttu-id="a7aeb-163">Можно получить доступ к имени экземпляра через <xref:System.Diagnostics.TraceListener.Name%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-163">You can access the instance name through the <xref:System.Diagnostics.TraceListener.Name%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:Microsoft.VisualBasic.Logging.Log" />
+        <altmember cref="T:System.Diagnostics.TraceListener" />
+        <altmember cref="T:Microsoft.VisualBasic.Logging.FileLogTraceListener" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public FileLogTraceListener (string name);" />
+      <MemberSignature Language="ILAsm" Value=".method public specialname rtspecialname instance void .ctor(string name) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.#ctor(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (name As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; FileLogTraceListener(System::String ^ name);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="a7aeb-164">
+            <see langword="String" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-164">
+              <see langword="String" />.</span>
+          </span>
+          <span data-ttu-id="a7aeb-165">Имя объекта экземпляра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-165">The name of the instance object.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="a7aeb-166">Инициализирует новый экземпляр класса <see cref="T:Microsoft.VisualBasic.Logging.FileLogTraceListener" /> с использованием предоставленного имени.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-166">Initializes a new instance of the <see cref="T:Microsoft.VisualBasic.Logging.FileLogTraceListener" /> class with the supplied name.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-167">Этот метод задает имя экземпляра <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> класса `name`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-167">This method sets the instance name of the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class to `name`.</span></span>  
+  
+ <span data-ttu-id="a7aeb-168">Можно получить доступ к имени экземпляра рассматривать <xref:System.Diagnostics.TraceListener.Name%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-168">You can access the instance name thought the <xref:System.Diagnostics.TraceListener.Name%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:Microsoft.VisualBasic.Logging.Log" />
+        <altmember cref="T:System.Diagnostics.TraceListener" />
+        <altmember cref="T:Microsoft.VisualBasic.Logging.FileLogTraceListener" />
+      </Docs>
+    </Member>
+    <Member MemberName="Append">
+      <MemberSignature Language="C#" Value="public bool Append { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool Append" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.Append" />
+      <MemberSignature Language="VB.NET" Value="Public Property Append As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool Append { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>set: System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-169">Определяет, следует ли добавить выходные данные в текущий файл или следует записать их в новый файл.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-169">Determines whether to append the output to the current file or write it to a new file.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-170">Значение типа <see langword="Boolean" />; значение <see langword="True" /> указывает, что выходные данные добавляются в текущий файл, а значение <see langword="False" /> указывает, что выходные данные записываются в новый файл.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-170">
+              <see langword="Boolean" />, with <see langword="True" /> indicating that the output is appended to the current file, and <see langword="False" /> indicating that output is written to a new file.</span>
+          </span>
+          <span data-ttu-id="a7aeb-171">По умолчанию значение данного свойства равно <see langword="True" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-171">The default setting for this property is <see langword="True" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-172">Когда <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Append%2A> свойство `False`, выходные данные записываются в новый файл.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-172">When the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Append%2A> property is `False`, the output is written to a new file.</span></span> <span data-ttu-id="a7aeb-173">Если свойство не `True`, выходные данные добавляются в текущий файл, если:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-173">When the property is `True`, the output is appended to the current file, unless:</span></span>  
+  
+-   <span data-ttu-id="a7aeb-174">Выходной файл заблокирован другим процессом.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-174">The output file is locked by another process.</span></span> <span data-ttu-id="a7aeb-175">В этом случае создается новый файл журнала с номером версии, которые встроены в <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> имя.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-175">In this situation, a new log file is created with a version number that is incorporated into the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> name.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-176">Текущий размер файла больше, чем то, что <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize%2A> свойство позволяет.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-176">The current file size is greater than what the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize%2A> property allows.</span></span> <span data-ttu-id="a7aeb-177">В этом случае дополнительные сообщения, удаляется, а, в зависимости от <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> свойства, создается исключение.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-177">In this situation, additional messages are discarded and, depending on the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> property, an exception is thrown.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-178">Имя существующего файла является устаревшим в соответствии с расписанием создания журнала, заданным по <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-178">The existing file name is out of date according to the log-creation schedule specified by the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> property.</span></span> <span data-ttu-id="a7aeb-179">В этом случае создается новый файл журнала и отметка даты включается в <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> имя.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-179">In this situation, a new log file is created and the date stamp is incorporated into the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> name.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule" />
+      </Docs>
+    </Member>
+    <Member MemberName="AutoFlush">
+      <MemberSignature Language="C#" Value="public bool AutoFlush { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool AutoFlush" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.AutoFlush" />
+      <MemberSignature Language="VB.NET" Value="Public Property AutoFlush As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool AutoFlush { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>set: System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-180">Указывает, очищается ли буфер при записи в файл журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-180">Indicates whether or not the writing to the log file stream flushes the buffer.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-181">Значение типа <see langword="Boolean" />, значение <see langword="True" /> указывает, что поток очищается после каждой записи; в противном случае записи журнала буферизуются и записываются более эффективно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-181">
+              <see langword="Boolean" />, with <see langword="True" /> indicating that the stream is flushed after every write; otherwise the log entries are buffered and written more efficiently.</span>
+          </span>
+          <span data-ttu-id="a7aeb-182">По умолчанию значение данного свойства равно <see langword="False" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-182">The default setting for this property is <see langword="False" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-183">`False` Для <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.AutoFlush%2A> свойство обеспечивает лучшую производительность для большинства приложений, так как он является более эффективным для записи нескольких сообщений в файл журнала за один раз.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-183">The `False` setting for the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.AutoFlush%2A> property provides the best performance for most applications, because it is more efficient to write multiple messages to the log file at one time.</span></span> <span data-ttu-id="a7aeb-184">Можно использовать <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Flush%2A> метода, чтобы очистить все сообщения в данный момент в файле журнала выходного буфера.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-184">You can use the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Flush%2A> method to flush any messages currently in the log file's output buffer.</span></span> <span data-ttu-id="a7aeb-185">Можно также использовать <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Close%2A> метод, который неявно сбрасывает поток перед закрытием файла журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-185">You can also use the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Close%2A> method, which implicitly flushes the stream before closing the log file.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.Flush" />
+        <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.Close" />
+      </Docs>
+    </Member>
+    <Member MemberName="BaseFileName">
+      <MemberSignature Language="C#" Value="public string BaseFileName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string BaseFileName" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName" />
+      <MemberSignature Language="VB.NET" Value="Public Property BaseFileName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ BaseFileName { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-186">Получает или задает базовое имя файлов журнала, используемое для создания полного имени файлов журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-186">Gets or sets the base name for the log files, which is used to create the full log-file name.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-187">
+            <see langword="String" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-187">
+              <see langword="String" />.</span>
+          </span>
+          <span data-ttu-id="a7aeb-188">Базовое имя файлов журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-188">The base name for the log files.</span>
+          </span>
+          <span data-ttu-id="a7aeb-189">По умолчанию используется имя продукта приложения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-189">The default is the application's product name.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-190"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName%2A> Свойство определяет базовое имя для файлов журнала, <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> записывает класса.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-190">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName%2A> property determines the base name for the log files that the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class writes to.</span></span>  
+  
+ <span data-ttu-id="a7aeb-191"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> Свойство предоставляет текущее имя полного файла журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-191">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> property gives the current full log-file name.</span></span> <span data-ttu-id="a7aeb-192">Он создается в соответствии с путь к журналу, базовое имя, Дата и номер отличить его от разных версий журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-192">It is generated according to the log path, the base name, the date, and a number to distinguish it from different versions of the log.</span></span> <span data-ttu-id="a7aeb-193">Новые файлы журнала создаются по мере необходимости.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-193">New log files are created on an as-needed basis.</span></span>  
+  
+ <span data-ttu-id="a7aeb-194">Явные форму полного имени файла — `path` \\ `baseName`[-`dateStamp`] [-`iteration`] .log, где</span><span class="sxs-lookup"><span data-stu-id="a7aeb-194">The explicit form of the full log file name is `path`\\`baseName`[-`dateStamp`][-`iteration`].log, where</span></span>  
+  
+-   <span data-ttu-id="a7aeb-195">`path` Определяется часть <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location%2A> свойства и, если это значение равно <xref:Microsoft.VisualBasic.Logging.LogFileLocation.Custom>, <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-195">The `path` part is determined by the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location%2A> property and, if that property value is set to <xref:Microsoft.VisualBasic.Logging.LogFileLocation.Custom>, the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> property.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-196">`baseName` Часть — это имя фундаментальные журнала, определяемое <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-196">The `baseName` part is the fundamental log name, specified by the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName%2A> property.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-197">`dateStamp` Часть имеет формат «Гггг-мм-дд» и он отображается, когда <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> равно <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Daily> или <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Weekly>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-197">The `dateStamp` part has the format "YYYY-MM-DD", and it is shown when <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> is set to <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Daily> or <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Weekly>.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-198">Если требуется несколько файлов журнала с таким же `baseName` и `dateStamp`, `iteration` часть положительное `Integer`, добавляется к имени файла.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-198">If more than one log file is needed with the same `baseName` and `dateStamp`, the `iteration` part, a positive `Integer`, is added to the file name.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location" />
+        <altmember cref="F:Microsoft.VisualBasic.Logging.LogFileLocation.Custom" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule" />
+      </Docs>
+    </Member>
+    <Member MemberName="Close">
+      <MemberSignature Language="C#" Value="public override void Close ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void Close() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.Close" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub Close ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void Close();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-199">Закрывает основной поток для текущего файла журнала и освобождает все ресурсы, связанные с текущим потоком.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-199">Closes the underlying stream for the current log file and releases any resources associated with the current stream.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-200">Необходимо вызвать <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Close%2A> метод явно, так как <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> класс управляет базовый поток.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-200">You do not need to call the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Close%2A> method explicitly, because the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class manages the underlying steam.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CustomLocation">
+      <MemberSignature Language="C#" Value="public string CustomLocation { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string CustomLocation" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation" />
+      <MemberSignature Language="VB.NET" Value="Public Property CustomLocation As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ CustomLocation { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>get: System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-201">Получает или задает каталог файлов журнала, если для свойства <see cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location" /> задано значение <see cref="F:Microsoft.VisualBasic.Logging.LogFileLocation.Custom" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-201">Gets or sets the log file directory when the <see cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location" /> property is set to <see cref="F:Microsoft.VisualBasic.Logging.LogFileLocation.Custom" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-202">
+            <see langword="String" /> — имя каталога, в котором размещаются файлы журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-202">
+              <see langword="String" />, which is the name of the log-file directory.</span>
+          </span>
+          <span data-ttu-id="a7aeb-203">По умолчанию в качестве значения этого свойства задается каталог, выбранный пользователем для хранения данных приложения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-203">The default setting for this property is the user's directory for application data.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-204">Когда <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> имеет значение, этот параметр также устанавливает <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location%2A> свойства <xref:Microsoft.VisualBasic.Logging.LogFileLocation.Custom>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-204">When the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> property is set, it also sets the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location%2A> property to <xref:Microsoft.VisualBasic.Logging.LogFileLocation.Custom>.</span></span>  
+  
+ <span data-ttu-id="a7aeb-205"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> Свойство вызовет исключение, если каталог не удается разрешить.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-205">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> property will throw an exception if the directory cannot be resolved.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location" />
+      </Docs>
+    </Member>
+    <Member MemberName="Delimiter">
+      <MemberSignature Language="C#" Value="public string Delimiter { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Delimiter" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter" />
+      <MemberSignature Language="VB.NET" Value="Public Property Delimiter As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ Delimiter { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-206">Получает или задает разделитель, используемый для разделения полей в сообщении журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-206">Gets or sets the delimiter used to delimit fields within a log message.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-207">
+            <see langword="String" /> — разделитель, используемый для разделения полей в сообщении журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-207">
+              <see langword="String" />, which is the delimiter used for fields within a log message.</span>
+          </span>
+          <span data-ttu-id="a7aeb-208">По умолчанию в качестве значения этого свойства задан символ табуляции.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-208">The default setting for this property is the TAB character.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-209"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> Позволяет изменения разделителя по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-209">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> property allows you to change the default delimiter.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="DiskSpaceExhaustedBehavior">
+      <MemberSignature Language="C#" Value="public Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption DiskSpaceExhaustedBehavior { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption DiskSpaceExhaustedBehavior" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior" />
+      <MemberSignature Language="VB.NET" Value="Public Property DiskSpaceExhaustedBehavior As DiskSpaceExhaustedOption" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property Microsoft::VisualBasic::Logging::DiskSpaceExhaustedOption DiskSpaceExhaustedBehavior { Microsoft::VisualBasic::Logging::DiskSpaceExhaustedOption get(); void set(Microsoft::VisualBasic::Logging::DiskSpaceExhaustedOption value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>set: System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-210">Определяет, что делать при выполнении записи в файл журнала, когда на диске осталось меньше свободного места, чем указано в свойстве <see cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-210">Determines what to do when writing to the log file and there is less free disk space available than specified by the <see cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace" /> property.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-211">
+            <see cref="T:Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-211">
+              <see cref="T:Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption" />.</span>
+          </span>
+          <span data-ttu-id="a7aeb-212">Определяет, что делать при выполнении записи в файл журнала, когда на диске осталось меньше свободного места, чем указано в свойстве <see cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace" />, или когда размер файла журнала превышает допустимое значение, заданное в свойстве <see cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-212">Determines what to do when attempting to write to the log file and there is less free disk space available than specified by the <see cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace" /> property, or if the log file size is greater than what the <see cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize" /> property allows.</span>
+          </span>
+          <span data-ttu-id="a7aeb-213">Значение по умолчанию — <see cref="F:Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption.DiscardMessages" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-213">The default value is <see cref="F:Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption.DiscardMessages" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-214">Когда <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> свойству <xref:Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption.DiscardMessages>, сообщения журнала удаляются без уведомления, если недостаточно зарезервированного места на диске.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-214">When the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> property is set to <xref:Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption.DiscardMessages>, the log messages are silently discarded if there is not enough reserved disk space.</span></span> <span data-ttu-id="a7aeb-215">Это поведение по умолчанию и позволяет предотвратить сбои при переполнении диска простых приложений.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-215">This is the default behavior, and it prevents simple applications from failing if the disk gets too full.</span></span>  
+  
+ <span data-ttu-id="a7aeb-216">Можно задать более надежные приложения <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> свойства <xref:Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption.ThrowException>и добавьте `Try...Catch` блоки кода записи в журнал.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-216">More robust applications can set the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> property to <xref:Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption.ThrowException>, and add `Try...Catch` blocks around all code that writes to the log.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:Microsoft.VisualBasic.Logging.DiskSpaceExhaustedOption" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize" />
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="protected override void Dispose (bool disposing);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Dispose(bool disposing) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.Dispose(System.Boolean)" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Sub Dispose (disposing As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override void Dispose(bool disposing);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="disposing" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="disposing">
+          <span data-ttu-id="a7aeb-217">Значение <see langword="True" /> соответствует освобождению управляемых и неуправляемых ресурсов; значение <see langword="False" /> соответствует освобождению только неуправляемых ресурсов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-217">
+              <see langword="True" /> releases both managed and unmanaged resources; <see langword="False" /> releases only unmanaged resources.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="a7aeb-218">Закрывает основной поток и при необходимости освобождает управляемые ресурсы.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-218">Closes the underlying stream and optionally releases the managed resources.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-219">Если параметр `disposing` имеет значение `True`, то данный метод освобождает все ресурсы, занятые любыми управляемыми объектами, на которые ссылается этот объект <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-219">When the `disposing` parameter is `True`, this method releases all resources held by any managed objects that this <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> references.</span></span> <span data-ttu-id="a7aeb-220">Этот метод вызывает метод `Dispose` каждого объекта, на который есть ссылка.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-220">This method invokes the `Dispose` method of each referenced object.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="a7aeb-221">Метод <see langword="Dispose" /> может вызываться несколько раз другими объектами.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="a7aeb-221">
+                <see langword="Dispose" /> can be called multiple times by other objects.</span>
+            </span>
+            <span data-ttu-id="a7aeb-222">При переопределении метода <see langword="Dispose" /> нужно избегать ссылок на объекты, которые были уничтожены предыдущими вызовами метода <see langword="Dispose" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="a7aeb-222">When overriding <see langword="Dispose" />, be careful not to reference objects that have been previously disposed of in an earlier call to <see langword="Dispose" />.</span>
+            </span>
+            <span data-ttu-id="a7aeb-223">Этот метод вызывает метод <see langword="Dispose" /> метод базового класса, <see langword="Dispose" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="a7aeb-223">This method calls the <see langword="Dispose" /> method of the base class, <see langword="Dispose" />.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="Encoding">
+      <MemberSignature Language="C#" Value="public System.Text.Encoding Encoding { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Text.Encoding Encoding" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.Encoding" />
+      <MemberSignature Language="VB.NET" Value="Public Property Encoding As Encoding" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Text::Encoding ^ Encoding { System::Text::Encoding ^ get(); void set(System::Text::Encoding ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Text.Encoding</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-224">Получает или задает кодировку, которая должна использоваться при создании нового файла журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-224">Gets or sets the encoding to use when creating a new log file.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-225">
+            <see cref="T:System.Text.Encoding" /> — кодировка, которая должна использоваться при создании нового файла журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-225">
+              <see cref="T:System.Text.Encoding" />, which is the encoding to use when creating a new log file.</span>
+          </span>
+          <span data-ttu-id="a7aeb-226">По умолчанию этому свойству присваивается значение <see cref="T:System.Text.UTF8Encoding" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-226">The default value of this property is <see cref="T:System.Text.UTF8Encoding" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-227">При добавлении текста в существующий файл журнала, для этого файла используется вместо кодировку, заданную параметром <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Encoding%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-227">When appending text to an existing log file, the encoding for that file is used instead of the encoding specified by the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Encoding%2A> property.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Text.Encoding" />
+        <altmember cref="T:System.Text.UTF8Encoding" />
+      </Docs>
+    </Member>
+    <Member MemberName="Flush">
+      <MemberSignature Language="C#" Value="public override void Flush ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void Flush() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.Flush" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub Flush ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void Flush();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-228">Очищает основной поток, выполняющий запись в текущий файл журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-228">Flushes the underlying stream that writes to the current log file.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-229">Используйте <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Flush%2A> метод для записи всех буферизованных данных в текущий файл журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-229">Use the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Flush%2A> method to write all buffered data to the current log file.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="FullLogFileName">
+      <MemberSignature Language="C#" Value="public string FullLogFileName { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string FullLogFileName" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property FullLogFileName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ FullLogFileName { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>get: System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-230">Получает текущее полное имя файла журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-230">Gets the current full log-file name.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-231">
+            <see langword="String" /> — текущее полное имя файла журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-231">
+              <see langword="String" />, which is the current full log-file name.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-232"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> Свойство предоставляет текущее имя полного файла журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-232">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A> property gives the current full log-file name.</span></span> <span data-ttu-id="a7aeb-233">Он создается в соответствии с путь к журналу, базовое имя, Дата и номер отличить его от разных версий журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-233">It is generated according to the log path, the base name, the date, and a number to distinguish it from different versions of the log.</span></span> <span data-ttu-id="a7aeb-234">Новые файлы журнала создаются по мере необходимости.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-234">New log files are created on an as-needed basis.</span></span>  
+  
+ <span data-ttu-id="a7aeb-235">Явное имя полного файла журнала является `path` \\ `baseName`[-`dateStamp`] [-`iteration`] .log, где:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-235">The explicit form of the full log-file name is `path`\\`baseName`[-`dateStamp`][-`iteration`].log, where:</span></span>  
+  
+-   <span data-ttu-id="a7aeb-236">`path` Определяется часть <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location%2A> свойства и, если это значение равно <xref:Microsoft.VisualBasic.Logging.LogFileLocation.Custom>, <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-236">The `path` part is determined by the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location%2A> property and, if that property value is set to <xref:Microsoft.VisualBasic.Logging.LogFileLocation.Custom>, the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> property.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-237">`baseName` Часть — это имя фундаментальные журнала, определяемое <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-237">The `baseName` part is the fundamental log name, specified by the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName%2A> property.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-238">`dateStamp` Часть имеет формат гггг-мм-дд, и он отображается, когда <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> — <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Daily> или <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Weekly>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-238">The `dateStamp` part has the format YYYY-MM-DD, and it is shown when <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> is <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Daily> or <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Weekly>.</span></span>  
+  
+-   <span data-ttu-id="a7aeb-239">Если требуется несколько файлов журнала с таким же `baseName` и `dateStamp`, `iteration` часть положительное `Integer`, добавляется к имени файла.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-239">If more than one log file is needed with the same `baseName` and `dateStamp`, the `iteration` part, a positive `Integer`, is added to the file name.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.BaseFileName" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location" />
+        <altmember cref="F:Microsoft.VisualBasic.Logging.LogFileLocation.Custom" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule" />
+      </Docs>
+    </Member>
+    <Member MemberName="GetSupportedAttributes">
+      <MemberSignature Language="C#" Value="protected override string[] GetSupportedAttributes ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance string[] GetSupportedAttributes() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.GetSupportedAttributes" />
+      <MemberSignature Language="VB.NET" Value="Protected Overrides Function GetSupportedAttributes () As String()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; override cli::array &lt;System::String ^&gt; ^ GetSupportedAttributes();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String[]</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-240">Возвращает настраиваемые атрибуты конфигурации XML, поддерживаемые прослушивателем трассировки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-240">Gets the custom XML configuration attributes supported by the trace listener.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="a7aeb-241">Массив типа <see langword="String" />, содержащий атрибуты конфигурации XML, распознаваемые данным прослушивателем.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-241">
+              <see langword="String" /> array containing the XML configuration attributes recognized by this listener.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-242">Пользовательские атрибуты для <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> можно использовать в XML-файл конфигурации для управления поведением экземпляра <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> класса.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-242">The custom attributes for the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> can be used in the XML configuration file for controlling the behavior of an instance of the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class.</span></span> <span data-ttu-id="a7aeb-243">При использовании любого другого атрибута возникает исключение конфигурации.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-243">Using any other attribute causes a configuration exception.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Diagnostics.TraceSource.GetSupportedAttributes" />
+      </Docs>
+    </Member>
+    <Member MemberName="IncludeHostName">
+      <MemberSignature Language="C#" Value="public bool IncludeHostName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IncludeHostName" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.IncludeHostName" />
+      <MemberSignature Language="VB.NET" Value="Public Property IncludeHostName As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool IncludeHostName { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>set: System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-244">Указывает, следует ли включать в выходные данные имя сайта компьютера, на котором ведется журнал.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-244">Indicates whether or not the host name of the logging machine should be included in the output.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-245">
+            <see langword="Boolean" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-245">
+              <see langword="Boolean" />.</span>
+          </span>
+          <span data-ttu-id="a7aeb-246">Если следует включить адрес сайта, используется значение <see langword="True" />; в противном случае — <see langword="False" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-246">Use <see langword="True" /> if the host identifier should be included; otherwise use <see langword="False" />.</span>
+          </span>
+          <span data-ttu-id="a7aeb-247">Значение по умолчанию — <see langword="False" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-247">The default value is <see langword="False" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-248">Свойство для настройки поведения <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData%2A> и <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-248">Use the property to configure the behavior of the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData%2A> and <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent%2A> methods.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)" />
+        <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String)" />
+      </Docs>
+    </Member>
+    <Member MemberName="Location">
+      <MemberSignature Language="C#" Value="public Microsoft.VisualBasic.Logging.LogFileLocation Location { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype Microsoft.VisualBasic.Logging.LogFileLocation Location" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location" />
+      <MemberSignature Language="VB.NET" Value="Public Property Location As LogFileLocation" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property Microsoft::VisualBasic::Logging::LogFileLocation Location { Microsoft::VisualBasic::Logging::LogFileLocation get(); void set(Microsoft::VisualBasic::Logging::LogFileLocation value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Microsoft.VisualBasic.Logging.LogFileLocation</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-249">Получает или задает расположение файлов журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-249">Gets or sets location for the log files.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-250">
+            <see cref="T:Microsoft.VisualBasic.Logging.LogFileLocation" /> — расположение файла журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-250">
+              <see cref="T:Microsoft.VisualBasic.Logging.LogFileLocation" />, which is the location for the log file.</span>
+          </span>
+          <span data-ttu-id="a7aeb-251">Значение по умолчанию — <see cref="F:Microsoft.VisualBasic.Logging.LogFileLocation.LocalUserApplicationDirectory" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-251">The default value is <see cref="F:Microsoft.VisualBasic.Logging.LogFileLocation.LocalUserApplicationDirectory" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-252">Используйте <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location%2A> свойство, чтобы задать путь к журналу стандартные пути, определяется <xref:Microsoft.VisualBasic.Logging.LogFileLocation> значений перечисления.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-252">Use the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Location%2A> property to set the log path to one of the predefined paths, determined by the <xref:Microsoft.VisualBasic.Logging.LogFileLocation> enumeration values.</span></span>  
+  
+|<span data-ttu-id="a7aeb-253">**Значение расположения**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-253">**Location value**</span></span>|<span data-ttu-id="a7aeb-254">**Путь**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-254">**Path**</span></span>|  
+|------------------------|--------------|  
+|<xref:Microsoft.VisualBasic.Logging.LogFileLocation.CommonApplicationDirectory>|<span data-ttu-id="a7aeb-255">Путь для данных приложения, являющихся общими для всех пользователей, в формате:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-255">The path for the application data that is shared among all users, with the format:</span></span><br /><br /> `BasePath`\\`CompanyName`\\`ProductName`\\`ProductVersion`<br /><br /> <span data-ttu-id="a7aeb-256">Стандартное значение для `BasePath` является:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-256">A typical value for `BasePath` is:</span></span><br /><br /> <span data-ttu-id="a7aeb-257">C:\Documents and Settings\All Users\Application данных</span><span class="sxs-lookup"><span data-stu-id="a7aeb-257">C:\Documents and Settings\All Users\Application Data</span></span><br /><br /> <span data-ttu-id="a7aeb-258">Значения `CompanyName`, `ProductName`, и `ProductVersion` берутся из сборки.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-258">The values of `CompanyName`, `ProductName`, and `ProductVersion` come from the assembly.</span></span>|  
+|<xref:Microsoft.VisualBasic.Logging.LogFileLocation.ExecutableDirectory>|<span data-ttu-id="a7aeb-259">Путь для исполняемого файла, запустившего приложение.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-259">The path for the executable file that started the application.</span></span>|  
+|<xref:Microsoft.VisualBasic.Logging.LogFileLocation.LocalUserApplicationDirectory>|<span data-ttu-id="a7aeb-260">Путь для данных приложения пользователя, в формате:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-260">The path for the application data of a user, with the format:</span></span><br /><br /> `BasePath`\\`CompanyName`\\`ProductName`\\`ProductVersion`<br /><br /> <span data-ttu-id="a7aeb-261">Стандартное значение для `BasePath` является:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-261">A typical value for `BasePath` is:</span></span><br /><br /> <span data-ttu-id="a7aeb-262">C:\Documents and Settings\\`username`\Application Data</span><span class="sxs-lookup"><span data-stu-id="a7aeb-262">C:\Documents and Settings\\`username`\Application Data</span></span><br /><br /> <span data-ttu-id="a7aeb-263">Значения `CompanyName`, `ProductName`, и `ProductVersion` входящие в сборку.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-263">The values of `CompanyName`, `ProductName`, and `ProductVersion` come form the assembly.</span></span>|  
+|<xref:Microsoft.VisualBasic.Logging.LogFileLocation.TempDirectory>|<span data-ttu-id="a7aeb-264">Путь к временной папке текущей системы.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-264">The path of the current system's temporary folder.</span></span>|  
+|<xref:Microsoft.VisualBasic.Logging.LogFileLocation.Custom>|<span data-ttu-id="a7aeb-265">Если заданная строка <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> является не пустым, а затем использовать его в качестве пути; в противном случае используйте путь для данных приложения пользователя.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-265">If the string specified by <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.CustomLocation%2A> is not empty, then use it as the path; otherwise use the path for the application data of a user.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:Microsoft.VisualBasic.Logging.LogFileLocation" />
+      </Docs>
+    </Member>
+    <Member MemberName="LogFileCreationSchedule">
+      <MemberSignature Language="C#" Value="public Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption LogFileCreationSchedule { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption LogFileCreationSchedule" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule" />
+      <MemberSignature Language="VB.NET" Value="Public Property LogFileCreationSchedule As LogFileCreationScheduleOption" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property Microsoft::VisualBasic::Logging::LogFileCreationScheduleOption LogFileCreationSchedule { Microsoft::VisualBasic::Logging::LogFileCreationScheduleOption get(); void set(Microsoft::VisualBasic::Logging::LogFileCreationScheduleOption value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-266">Определяет, какую дату включать в имена файлов журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-266">Determines which date to include in the names of the log files.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-267">
+            <see cref="T:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-267">
+              <see cref="T:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption" />.</span>
+          </span>
+          <span data-ttu-id="a7aeb-268">Указывает, какую дату включать в имена файлов журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-268">This indicates which date to include in the log-file names.</span>
+          </span>
+          <span data-ttu-id="a7aeb-269">Значение по умолчанию — <see cref="F:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.None" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-269">The default value is <see cref="F:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.None" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-270">Назначить один из <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption> значений перечисления <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> свойство, чтобы указать, какую дату включать в имена файлов журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-270">Assign one of the <xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption> enumeration values to the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.LogFileCreationSchedule%2A> property to specify which date to include in the names of the log files.</span></span>  
+  
+ <span data-ttu-id="a7aeb-271">Формат даты: гггг-мм-дд.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-271">The format of the date is YYYY-MM-DD.</span></span> <span data-ttu-id="a7aeb-272">Дополнительные сведения о формате имени файла журнала см. в разделе <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-272">For more information on the format of the log file name, see <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A>.</span></span>  
+  
+|<span data-ttu-id="a7aeb-273">**Значение LogFileCreationSchedule**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-273">**LogFileCreationSchedule value**</span></span>|<span data-ttu-id="a7aeb-274">**Дата в имени файла журнала**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-274">**Date in the log file name**</span></span>|  
+|---------------------------------------|-----------------------------------|  
+|<xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Daily>|<span data-ttu-id="a7aeb-275">Включать текущую дату в имя файла журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-275">Include the current date in the log file name.</span></span>|  
+|<xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.None>|<span data-ttu-id="a7aeb-276">Не включать дату в имя файла журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-276">Do not include the date in the log file name.</span></span>|  
+|<xref:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption.Weekly>|<span data-ttu-id="a7aeb-277">Включать в имя файла журнала первый день текущей недели.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-277">Include the first day of the current week in the log file name.</span></span><br /><br /> <span data-ttu-id="a7aeb-278">Неделя начинается в субботу.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-278">The week starts on Saturday.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:Microsoft.VisualBasic.Logging.LogFileCreationScheduleOption" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName" />
+      </Docs>
+    </Member>
+    <Member MemberName="MaxFileSize">
+      <MemberSignature Language="C#" Value="public long MaxFileSize { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int64 MaxFileSize" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize" />
+      <MemberSignature Language="VB.NET" Value="Public Property MaxFileSize As Long" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property long MaxFileSize { long get(); void set(long value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>set: System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Int64</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-279">Получает или задает максимальный допустимый размер файла журнала (в байтах).</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-279">Gets or sets the maximum allowed size of the log file, in bytes.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-280">
+            <see langword="Long" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-280">
+              <see langword="Long" />.</span>
+          </span>
+          <span data-ttu-id="a7aeb-281">Это максимальный допустимый размер файла журнала (в байтах).</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-281">This is the maximum allowed log-file size, in bytes.</span>
+          </span>
+          <span data-ttu-id="a7aeb-282">Значение по умолчанию является 5000000.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-282">The default value is 5000000.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-283">Используйте это свойство, чтобы убедиться в том, что файлы журналов не слишком большой рост размера.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-283">Use this property to make sure that the log files do not grow too large.</span></span>  
+  
+ <span data-ttu-id="a7aeb-284">Если размер файла журнала (в байтах) больше, чем значение этого свойства, затем при <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> класс пытается записать сообщение в журнал сообщение отбрасывается и сбоя автоматическое или исключение возникает в зависимости от значения <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A>свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-284">If the log file size (in bytes) is greater than the value of this property, then when the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class attempts to write a message to the log, the message is discarded and the failure is either silent or an exception is thrown depending on the value of the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> property.</span></span> <span data-ttu-id="a7aeb-285">В противном случае сообщение записывается в журнал, если объем свободного места на диске (в байтах) меньше, чем <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace%2A>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-285">Otherwise, the message is written to the log, if the amount of free disk space (in bytes) is less than <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace%2A>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="a7aeb-286">Если для этого свойства задано значение меньше 1000.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-286">When this property is set to a value less than 1000.</span>
+          </span>
+        </exception>
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName" />
+      </Docs>
+    </Member>
+    <Member MemberName="ReserveDiskSpace">
+      <MemberSignature Language="C#" Value="public long ReserveDiskSpace { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int64 ReserveDiskSpace" />
+      <MemberSignature Language="DocId" Value="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.ReserveDiskSpace" />
+      <MemberSignature Language="VB.NET" Value="Public Property ReserveDiskSpace As Long" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property long ReserveDiskSpace { long get(); void set(long value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>set: System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Int64</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-287">Получает или задает объем необходимого свободного дискового пространства в байтах перед записью сообщений в файл журнала.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-287">Gets or sets the amount of free disk space, in bytes, necessary before messages can be written to the log file.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="a7aeb-288">
+            <see langword="Long" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-288">
+              <see langword="Long" />.</span>
+          </span>
+          <span data-ttu-id="a7aeb-289">Необходимый объем свободного места на диске. </span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-289">This is the amount of free disk space necessary.</span>
+          </span>
+          <span data-ttu-id="a7aeb-290">Значение по умолчанию — 10000000.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-290">The default value is 10000000.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-291">Используйте это свойство, чтобы убедиться в том, что файлы журнала не полностью занимает диска.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-291">Use this property to make sure that the log files do not completely fill the disk.</span></span>  
+  
+ <span data-ttu-id="a7aeb-292">Если объем свободного дискового пространства (в байтах) меньше, чем значение этого свойства, затем при <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> класс пытается записать сообщение в журнал сообщение отбрасывается и сбоя автоматическое или исключение возникает в зависимости от значения < C2 настроек <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A>  свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-292">If the amount of free disk space (in bytes) is less than the value of this property, then when the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener> class attempts to write a message to the log, the message is discarded and the failure is either silent or an exception is thrown depending on the value of the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior%2A> property.</span></span> <span data-ttu-id="a7aeb-293">В противном случае сообщение записывается в журнал, если размер файла журнала (в байтах) больше, чем <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize%2A>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-293">Otherwise, the message is written to the log, if the log file size (in bytes) is greater than <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.MaxFileSize%2A>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="a7aeb-294">Если для этого свойства задано значение меньше 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-294">When this property is set to a value less than 0.</span>
+          </span>
+        </exception>
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.DiskSpaceExhaustedBehavior" />
+        <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)" />
+        <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String)" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="TraceData">
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-295">Записывает данные трассировки в выходной файл.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-295">Writes trace data to the output file.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-296"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData%2A> методы не предназначены для вызова из кода приложения.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-296"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData%2A> methods are not intended to be called by application code.</span></span> <span data-ttu-id="a7aeb-297">Эти методы вызываются членами <xref:System.Diagnostics.Debug>, <xref:System.Diagnostics.Trace>, и <xref:System.Diagnostics.TraceSource> классы для записи данных трассировки для вывода.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-297">These methods are called by members of the <xref:System.Diagnostics.Debug>, <xref:System.Diagnostics.Trace>, and <xref:System.Diagnostics.TraceSource> classes to write trace data to output.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="TraceData">
+      <MemberSignature Language="C#" Value="public override void TraceData (System.Diagnostics.TraceEventCache eventCache, string source, System.Diagnostics.TraceEventType eventType, int id, object data);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void TraceData(class System.Diagnostics.TraceEventCache eventCache, string source, valuetype System.Diagnostics.TraceEventType eventType, int32 id, object data) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub TraceData (eventCache As TraceEventCache, source As String, eventType As TraceEventType, id As Integer, data As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void TraceData(System::Diagnostics::TraceEventCache ^ eventCache, System::String ^ source, System::Diagnostics::TraceEventType eventType, int id, System::Object ^ data);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="eventCache" Type="System.Diagnostics.TraceEventCache" />
+        <Parameter Name="source" Type="System.String" />
+        <Parameter Name="eventType" Type="System.Diagnostics.TraceEventType" />
+        <Parameter Name="id" Type="System.Int32" />
+        <Parameter Name="data" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="eventCache">
+          <span data-ttu-id="a7aeb-298">Объект <see cref="T:System.Diagnostics.TraceEventCache" />, содержащий текущие идентификатор процесса, идентификатор потока и сведения о трассировке стека.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-298">A <see cref="T:System.Diagnostics.TraceEventCache" /> object that contains the current process ID, thread ID, and stack trace information.</span>
+          </span>
+        </param>
+        <param name="source">
+          <span data-ttu-id="a7aeb-299">Имя источника трассировки, вызвавшего этот метод.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-299">A name of the trace source that invoked this method.</span>
+          </span>
+        </param>
+        <param name="eventType">
+          <span data-ttu-id="a7aeb-300">Одно из значений перечисления <see cref="T:System.Diagnostics.TraceEventType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-300">One of the <see cref="T:System.Diagnostics.TraceEventType" /> enumeration values.</span>
+          </span>
+        </param>
+        <param name="id">
+          <span data-ttu-id="a7aeb-301">Числовой идентификатор события.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-301">A numeric identifier for the event.</span>
+          </span>
+        </param>
+        <param name="data">
+          <span data-ttu-id="a7aeb-302">Выдаваемые данные трассировки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-302">The trace data to emit.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="a7aeb-303">Записывает сведения трассировки, объект данных и сведения о событии в исходящий файл или поток.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-303">Writes trace information, a data object, and event information to the output file or stream.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-304">Этот метод:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-304">This method:</span></span>  
+  
+1.  <span data-ttu-id="a7aeb-305">Форматирование данных и сведений о контексте для вывода.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-305">Formats the data and context information for output.</span></span>  
+  
+2.  <span data-ttu-id="a7aeb-306">При необходимости, создает новый файл журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-306">Creates a new log file, if necessary.</span></span>  
+  
+3.  <span data-ttu-id="a7aeb-307">Записывает сведения в файл журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-307">Writes the information to the log file.</span></span>  
+  
+ <span data-ttu-id="a7aeb-308">Дополнительные сведения о создании файлов журнала см. в разделе <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-308">For more information on creating new log files, see <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A>.</span></span>  
+  
+ <span data-ttu-id="a7aeb-309">В следующей таблице перечислены поля вывода в порядке их следования.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-309">The following table lists the output fields in the order they appear.</span></span> <span data-ttu-id="a7aeb-310">Поля разделяются на строку, <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> указывает свойство и следует признак конца строки.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-310">The fields are delimited by the string that the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> property specifies, and are followed by a line terminator.</span></span>  
+  
+|<span data-ttu-id="a7aeb-311">**Поле**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-311">**Field**</span></span>|<span data-ttu-id="a7aeb-312">**Условие вывода**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-312">**Output condition**</span></span>|<span data-ttu-id="a7aeb-313">**Описание**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-313">**Description**</span></span>|  
+|---------------|--------------------------|---------------------|  
+|`source`|<span data-ttu-id="a7aeb-314">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-314">Always</span></span>|<span data-ttu-id="a7aeb-315">Значение `name`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-315">The value of `name`.</span></span>|  
+|`severity`|<span data-ttu-id="a7aeb-316">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-316">Always</span></span>|<span data-ttu-id="a7aeb-317">Имя значения перечисления `eventType`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-317">The enumeration-value name of `eventType`.</span></span>|  
+|`id`|<span data-ttu-id="a7aeb-318">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-318">Always</span></span>|<span data-ttu-id="a7aeb-319">Строковое представление параметра `id`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-319">The string representation of `id`.</span></span>|  
+|`message`|<span data-ttu-id="a7aeb-320">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-320">Always</span></span>|<span data-ttu-id="a7aeb-321">Строковое представление параметра `data`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-321">The string representation of `data`.</span></span>|  
+|`callStack`|<span data-ttu-id="a7aeb-322">Когда <xref:System.Diagnostics.TraceOptions.Callstack> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-322">When the <xref:System.Diagnostics.TraceOptions.Callstack> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-323"><xref:System.Diagnostics.TraceEventCache.Callstack%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-323">The <xref:System.Diagnostics.TraceEventCache.Callstack%2A> property of `eventCache`.</span></span>|  
+|`CorrelationID`|<span data-ttu-id="a7aeb-324">Когда <xref:System.Diagnostics.TraceOptions.LogicalOperationStack> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-324">When the <xref:System.Diagnostics.TraceOptions.LogicalOperationStack> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-325"><xref:System.Diagnostics.TraceEventCache.ThreadId%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-325">The <xref:System.Diagnostics.TraceEventCache.ThreadId%2A> property of `eventCache`.</span></span>|  
+|`DateTime`|<span data-ttu-id="a7aeb-326">Когда <xref:System.Diagnostics.TraceOptions.DateTime> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-326">When the <xref:System.Diagnostics.TraceOptions.DateTime> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-327">Строковое представление <xref:System.Diagnostics.TraceEventCache.DateTime%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-327">The string representation of the <xref:System.Diagnostics.TraceEventCache.DateTime%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-328">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-328">The invariant culture is used for the string conversion.</span></span>|  
+|`ProcessID`|<span data-ttu-id="a7aeb-329">Когда <xref:System.Diagnostics.TraceOptions.ProcessId> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-329">When the <xref:System.Diagnostics.TraceOptions.ProcessId> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-330">Строковое представление <xref:System.Diagnostics.TraceEventCache.ProcessId%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-330">The string representation of the <xref:System.Diagnostics.TraceEventCache.ProcessId%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-331">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-331">The invariant culture is used for the string conversion.</span></span>|  
+|`ThreadID`|<span data-ttu-id="a7aeb-332">Когда <xref:System.Diagnostics.TraceOptions.ThreadId> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-332">When the <xref:System.Diagnostics.TraceOptions.ThreadId> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-333"><xref:System.Diagnostics.TraceEventCache.ThreadId%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-333">The <xref:System.Diagnostics.TraceEventCache.ThreadId%2A> property of `eventCache`.</span></span>|  
+|`Timestamp`|<span data-ttu-id="a7aeb-334">Когда <xref:System.Diagnostics.TraceOptions.Timestamp> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-334">When the <xref:System.Diagnostics.TraceOptions.Timestamp> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-335">Строковое представление <xref:System.Diagnostics.TraceEventCache.Timestamp%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-335">The string representation of the <xref:System.Diagnostics.TraceEventCache.Timestamp%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-336">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-336">The invariant culture is used for the string conversion.</span></span>|  
+|`HostName`|<span data-ttu-id="a7aeb-337">Когда <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.IncludeHostName%2A> свойство `True`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-337">When the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.IncludeHostName%2A> property is `True`.</span></span>|<span data-ttu-id="a7aeb-338">Имя компьютера.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-338">The name of the computer.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Diagnostics.TraceListener" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName" />
+        <altmember cref="P:System.Diagnostics.TraceListener.TraceOutputOptions" />
+        <altmember cref="T:System.Diagnostics.TraceEventCache" />
+        <altmember cref="T:System.Diagnostics.TraceEventType" />
+      </Docs>
+    </Member>
+    <Member MemberName="TraceData">
+      <MemberSignature Language="C#" Value="public override void TraceData (System.Diagnostics.TraceEventCache eventCache, string source, System.Diagnostics.TraceEventType eventType, int id, params object[] data);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void TraceData(class System.Diagnostics.TraceEventCache eventCache, string source, valuetype System.Diagnostics.TraceEventType eventType, int32 id, object[] data) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub TraceData (eventCache As TraceEventCache, source As String, eventType As TraceEventType, id As Integer, ParamArray data As Object())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void TraceData(System::Diagnostics::TraceEventCache ^ eventCache, System::String ^ source, System::Diagnostics::TraceEventType eventType, int id, ... cli::array &lt;System::Object ^&gt; ^ data);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="eventCache" Type="System.Diagnostics.TraceEventCache" />
+        <Parameter Name="source" Type="System.String" />
+        <Parameter Name="eventType" Type="System.Diagnostics.TraceEventType" />
+        <Parameter Name="id" Type="System.Int32" />
+        <Parameter Name="data" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="eventCache">
+          <span data-ttu-id="a7aeb-339">Объект <see cref="T:System.Diagnostics.TraceEventCache" />, содержащий текущие идентификатор процесса, идентификатор потока и сведения о трассировке стека.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-339">A <see cref="T:System.Diagnostics.TraceEventCache" /> object that contains the current process ID, thread ID, and stack trace information.</span>
+          </span>
+        </param>
+        <param name="source">
+          <span data-ttu-id="a7aeb-340">Имя источника трассировки, вызвавшего этот метод.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-340">The name of the trace source that invoked this method.</span>
+          </span>
+        </param>
+        <param name="eventType">
+          <span data-ttu-id="a7aeb-341">Одно из значений перечисления <see cref="T:System.Diagnostics.TraceEventType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-341">One of the <see cref="T:System.Diagnostics.TraceEventType" /> enumeration values.</span>
+          </span>
+        </param>
+        <param name="id">
+          <span data-ttu-id="a7aeb-342">Числовой идентификатор события.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-342">A numeric identifier for the event.</span>
+          </span>
+        </param>
+        <param name="data">
+          <span data-ttu-id="a7aeb-343">Выдаваемые данные массива объектов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-343">An array of objects to emit as data.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="a7aeb-344">Записывает сведения трассировки, массив объектов данных и сведения о событии в выходной файл или поток.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-344">Writes trace information, an array of data objects, and event information to the output file or stream.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-345">Этот метод:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-345">This method:</span></span>  
+  
+1.  <span data-ttu-id="a7aeb-346">Форматы данных и сведений о контексте для выходных данных</span><span class="sxs-lookup"><span data-stu-id="a7aeb-346">Formats the data and context information for output,</span></span>  
+  
+2.  <span data-ttu-id="a7aeb-347">При необходимости, создает новый файл журнала</span><span class="sxs-lookup"><span data-stu-id="a7aeb-347">Creates a new log file, if necessary,</span></span>  
+  
+3.  <span data-ttu-id="a7aeb-348">Записывает сведения в файл журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-348">Writes the information to the log file.</span></span>  
+  
+ <span data-ttu-id="a7aeb-349">Дополнительные сведения о создании файлов журнала см. в разделе <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-349">For more information on creating new log files, see <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A>.</span></span>  
+  
+ <span data-ttu-id="a7aeb-350">В этой таблице приведены поля вывода в порядке их следования.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-350">This table lists the output fields in the order they appear.</span></span> <span data-ttu-id="a7aeb-351">Поля разделяются на строку, <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> указывает свойство и следует признак конца строки.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-351">The fields are delimited by the string that the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> property specifies, and are followed by a line terminator.</span></span>  
+  
+|<span data-ttu-id="a7aeb-352">**Поле**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-352">**Field**</span></span>|<span data-ttu-id="a7aeb-353">**Условие вывода**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-353">**Output condition**</span></span>|<span data-ttu-id="a7aeb-354">**Описание**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-354">**Description**</span></span>|  
+|---------------|--------------------------|---------------------|  
+|`source`|<span data-ttu-id="a7aeb-355">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-355">Always</span></span>|<span data-ttu-id="a7aeb-356">Значение `name`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-356">The value of `name`.</span></span>|  
+|`severity`|<span data-ttu-id="a7aeb-357">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-357">Always</span></span>|<span data-ttu-id="a7aeb-358">Имя значения перечисления `eventType`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-358">The enumeration-value name of `eventType`.</span></span>|  
+|`id`|<span data-ttu-id="a7aeb-359">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-359">Always</span></span>|<span data-ttu-id="a7aeb-360">Строковое представление параметра `id`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-360">The string representation of `id`.</span></span>|  
+|`message`|<span data-ttu-id="a7aeb-361">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-361">Always</span></span>|<span data-ttu-id="a7aeb-362">Строка, состоящая из строкового представления каждого элемента в `data`, разделяя их <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-362">The string consisting of the string representation of each element in `data`, each separated by <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A>.</span></span>|  
+|`callStack`|<span data-ttu-id="a7aeb-363">Когда <xref:System.Diagnostics.TraceOptions.Callstack> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-363">When the <xref:System.Diagnostics.TraceOptions.Callstack> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-364"><xref:System.Diagnostics.TraceEventCache.Callstack%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-364">The <xref:System.Diagnostics.TraceEventCache.Callstack%2A> property of `eventCache`.</span></span>|  
+|`CorrelationID`|<span data-ttu-id="a7aeb-365">Когда <xref:System.Diagnostics.TraceOptions.LogicalOperationStack> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-365">When the <xref:System.Diagnostics.TraceOptions.LogicalOperationStack> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-366"><xref:System.Diagnostics.TraceEventCache.ThreadId%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-366">The <xref:System.Diagnostics.TraceEventCache.ThreadId%2A> property of `eventCache`.</span></span>|  
+|`DateTime`|<span data-ttu-id="a7aeb-367">Когда <xref:System.Diagnostics.TraceOptions.DateTime> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-367">When the <xref:System.Diagnostics.TraceOptions.DateTime> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-368">Строковое представление <xref:System.Diagnostics.TraceEventCache.DateTime%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-368">The string representation of the <xref:System.Diagnostics.TraceEventCache.DateTime%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-369">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-369">The invariant culture is used for the string conversion.</span></span>|  
+|`ProcessID`|<span data-ttu-id="a7aeb-370">Когда <xref:System.Diagnostics.TraceOptions.ProcessId> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-370">When the <xref:System.Diagnostics.TraceOptions.ProcessId> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-371">Строковое представление <xref:System.Diagnostics.TraceEventCache.ProcessId%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-371">The string representation of the <xref:System.Diagnostics.TraceEventCache.ProcessId%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-372">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-372">The invariant culture is used for the string conversion.</span></span>|  
+|`ThreadID`|<span data-ttu-id="a7aeb-373">Когда <xref:System.Diagnostics.TraceOptions.ThreadId> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-373">When the <xref:System.Diagnostics.TraceOptions.ThreadId> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-374"><xref:System.Diagnostics.TraceEventCache.ThreadId%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-374">The <xref:System.Diagnostics.TraceEventCache.ThreadId%2A> property of `eventCache`.</span></span>|  
+|`Timestamp`|<span data-ttu-id="a7aeb-375">Когда <xref:System.Diagnostics.TraceOptions.Timestamp> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-375">When the <xref:System.Diagnostics.TraceOptions.Timestamp> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-376">Строковое представление <xref:System.Diagnostics.TraceEventCache.Timestamp%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-376">The string representation of the <xref:System.Diagnostics.TraceEventCache.Timestamp%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-377">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-377">The invariant culture is used for the string conversion.</span></span>|  
+|`HostName`|<span data-ttu-id="a7aeb-378">Когда <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.IncludeHostName%2A> свойство `True`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-378">When the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.IncludeHostName%2A> property is `True`.</span></span>|<span data-ttu-id="a7aeb-379">Имя компьютера.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-379">The name of the computer.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Diagnostics.TraceListener" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName" />
+        <altmember cref="P:System.Diagnostics.TraceListener.TraceOutputOptions" />
+        <altmember cref="T:System.Diagnostics.TraceEventCache" />
+        <altmember cref="T:System.Diagnostics.TraceEventType" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="TraceEvent">
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="a7aeb-380">Записывает сведения трассировки и сведения о событиях в выходной файл или поток.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-380">Writes trace and event information to the output file or stream.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-381"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent%2A> методы не предназначены для вызова из кода приложения.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-381"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent%2A> methods are not intended to be called by application code.</span></span> <span data-ttu-id="a7aeb-382">Эти методы вызываются членами <xref:System.Diagnostics.Debug>, <xref:System.Diagnostics.Trace>, и <xref:System.Diagnostics.TraceSource> классы для записи данных трассировки для вывода.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-382">These methods are called by members of the <xref:System.Diagnostics.Debug>, <xref:System.Diagnostics.Trace>, and <xref:System.Diagnostics.TraceSource> classes to write trace data to output.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="TraceEvent">
+      <MemberSignature Language="C#" Value="public override void TraceEvent (System.Diagnostics.TraceEventCache eventCache, string source, System.Diagnostics.TraceEventType eventType, int id, string message);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void TraceEvent(class System.Diagnostics.TraceEventCache eventCache, string source, valuetype System.Diagnostics.TraceEventType eventType, int32 id, string message) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub TraceEvent (eventCache As TraceEventCache, source As String, eventType As TraceEventType, id As Integer, message As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void TraceEvent(System::Diagnostics::TraceEventCache ^ eventCache, System::String ^ source, System::Diagnostics::TraceEventType eventType, int id, System::String ^ message);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="eventCache" Type="System.Diagnostics.TraceEventCache" />
+        <Parameter Name="source" Type="System.String" />
+        <Parameter Name="eventType" Type="System.Diagnostics.TraceEventType" />
+        <Parameter Name="id" Type="System.Int32" />
+        <Parameter Name="message" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="eventCache">
+          <span data-ttu-id="a7aeb-383">Объект <see cref="T:System.Diagnostics.TraceEventCache" />, содержащий текущие идентификатор процесса, идентификатор потока и сведения о трассировке стека.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-383">A <see cref="T:System.Diagnostics.TraceEventCache" /> object that contains the current process ID, thread ID, and stack trace information.</span>
+          </span>
+        </param>
+        <param name="source">
+          <span data-ttu-id="a7aeb-384">Имя источника трассировки, вызвавшего этот метод.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-384">A name of the trace source that invoked this method.</span>
+          </span>
+        </param>
+        <param name="eventType">
+          <span data-ttu-id="a7aeb-385">Одно из значений перечисления <see cref="T:System.Diagnostics.TraceEventType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-385">One of the <see cref="T:System.Diagnostics.TraceEventType" /> enumeration values.</span>
+          </span>
+        </param>
+        <param name="id">
+          <span data-ttu-id="a7aeb-386">Числовой идентификатор события.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-386">A numeric identifier for the event.</span>
+          </span>
+        </param>
+        <param name="message">
+          <span data-ttu-id="a7aeb-387">Записываемое сообщение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-387">A message to write.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="a7aeb-388">Записывает сведения трассировки, сообщение и сведения о событии в выходной файл или поток.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-388">Writes trace information, a message and event information to the output file or stream.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-389">Этот метод:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-389">This method:</span></span>  
+  
+1.  <span data-ttu-id="a7aeb-390">Форматирование данных и сведений о контексте для вывода.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-390">Formats the data and context information for output.</span></span>  
+  
+2.  <span data-ttu-id="a7aeb-391">При необходимости, создает новый файл журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-391">Creates a new log file, if necessary.</span></span>  
+  
+3.  <span data-ttu-id="a7aeb-392">Записывает сведения в файл журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-392">Writes the information to the log file.</span></span>  
+  
+ <span data-ttu-id="a7aeb-393">Дополнительные сведения о создании файлов журнала см. в разделе <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-393">For more information on creating new log files, see <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A>.</span></span>  
+  
+ <span data-ttu-id="a7aeb-394">В этой таблице приведены поля вывода в порядке, в котором они отображаются.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-394">This table lists the output fields in the order in which they appear.</span></span> <span data-ttu-id="a7aeb-395">Поля разделяются на строку, <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> указывает свойство и следует признак конца строки.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-395">The fields are delimited by the string that the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> property specifies, and are followed by a line terminator.</span></span>  
+  
+|<span data-ttu-id="a7aeb-396">**Поле**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-396">**Field**</span></span>|<span data-ttu-id="a7aeb-397">**Условие вывода**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-397">**Output condition**</span></span>|<span data-ttu-id="a7aeb-398">**Описание**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-398">**Description**</span></span>|  
+|---------------|--------------------------|---------------------|  
+|`source`|<span data-ttu-id="a7aeb-399">Всегда.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-399">Always.</span></span>|<span data-ttu-id="a7aeb-400">Значение `name`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-400">The value of `name`.</span></span>|  
+|`severity`|<span data-ttu-id="a7aeb-401">Всегда.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-401">Always.</span></span>|<span data-ttu-id="a7aeb-402">Имя значения перечисления `eventType`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-402">The enumeration-value name of `eventType`.</span></span>|  
+|`id`|<span data-ttu-id="a7aeb-403">Всегда.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-403">Always.</span></span>|<span data-ttu-id="a7aeb-404">Строковое представление параметра `id`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-404">The string representation of `id`.</span></span>|  
+|`message`|<span data-ttu-id="a7aeb-405">Всегда.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-405">Always.</span></span>|<span data-ttu-id="a7aeb-406">Значение `message`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-406">The value of `message`.</span></span>|  
+|`callStack`|<span data-ttu-id="a7aeb-407">Когда <xref:System.Diagnostics.TraceOptions.Callstack> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-407">When the <xref:System.Diagnostics.TraceOptions.Callstack> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-408"><xref:System.Diagnostics.TraceEventCache.Callstack%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-408">The <xref:System.Diagnostics.TraceEventCache.Callstack%2A> property of `eventCache`.</span></span>|  
+|`CorrelationID`|<span data-ttu-id="a7aeb-409">Когда <xref:System.Diagnostics.TraceOptions.LogicalOperationStack> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-409">When the <xref:System.Diagnostics.TraceOptions.LogicalOperationStack> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-410"><xref:System.Diagnostics.TraceEventCache.ThreadId%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-410">The <xref:System.Diagnostics.TraceEventCache.ThreadId%2A> property of `eventCache`.</span></span>|  
+|`DateTime`|<span data-ttu-id="a7aeb-411">Когда <xref:System.Diagnostics.TraceOptions.DateTime> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-411">When the <xref:System.Diagnostics.TraceOptions.DateTime> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-412">Строковое представление <xref:System.Diagnostics.TraceEventCache.DateTime%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-412">The string representation of the <xref:System.Diagnostics.TraceEventCache.DateTime%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-413">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-413">The invariant culture is used for the string conversion.</span></span>|  
+|`ProcessID`|<span data-ttu-id="a7aeb-414">Когда <xref:System.Diagnostics.TraceOptions.ProcessId> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-414">When the <xref:System.Diagnostics.TraceOptions.ProcessId> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-415">Строковое представление <xref:System.Diagnostics.TraceEventCache.ProcessId%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-415">The string representation of the <xref:System.Diagnostics.TraceEventCache.ProcessId%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-416">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-416">The invariant culture is used for the string conversion.</span></span>|  
+|`ThreadID`|<span data-ttu-id="a7aeb-417">Когда <xref:System.Diagnostics.TraceOptions.ThreadId> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-417">When the <xref:System.Diagnostics.TraceOptions.ThreadId> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-418"><xref:System.Diagnostics.TraceEventCache.ThreadId%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-418">The <xref:System.Diagnostics.TraceEventCache.ThreadId%2A> property of `eventCache`.</span></span>|  
+|`Timestamp`|<span data-ttu-id="a7aeb-419">Когда <xref:System.Diagnostics.TraceOptions.Timestamp> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-419">When the <xref:System.Diagnostics.TraceOptions.Timestamp> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-420">Строковое представление <xref:System.Diagnostics.TraceEventCache.Timestamp%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-420">The string representation of the <xref:System.Diagnostics.TraceEventCache.Timestamp%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-421">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-421">The invariant culture is used for the string conversion.</span></span>|  
+|`HostName`|<span data-ttu-id="a7aeb-422">Когда <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.IncludeHostName%2A> свойство `True`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-422">When the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.IncludeHostName%2A> property is `True`.</span></span>|<span data-ttu-id="a7aeb-423">Имя компьютера.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-423">The name of the computer.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Diagnostics.TraceListener" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName" />
+        <altmember cref="P:System.Diagnostics.TraceListener.TraceOutputOptions" />
+        <altmember cref="T:System.Diagnostics.TraceEventCache" />
+        <altmember cref="T:System.Diagnostics.TraceEventType" />
+      </Docs>
+    </Member>
+    <Member MemberName="TraceEvent">
+      <MemberSignature Language="C#" Value="public override void TraceEvent (System.Diagnostics.TraceEventCache eventCache, string source, System.Diagnostics.TraceEventType eventType, int id, string format, params object[] args);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void TraceEvent(class System.Diagnostics.TraceEventCache eventCache, string source, valuetype System.Diagnostics.TraceEventType eventType, int32 id, string format, object[] args) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String,System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub TraceEvent (eventCache As TraceEventCache, source As String, eventType As TraceEventType, id As Integer, format As String, ParamArray args As Object())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void TraceEvent(System::Diagnostics::TraceEventCache ^ eventCache, System::String ^ source, System::Diagnostics::TraceEventType eventType, int id, System::String ^ format, ... cli::array &lt;System::Object ^&gt; ^ args);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="eventCache" Type="System.Diagnostics.TraceEventCache" />
+        <Parameter Name="source" Type="System.String" />
+        <Parameter Name="eventType" Type="System.Diagnostics.TraceEventType" />
+        <Parameter Name="id" Type="System.Int32" />
+        <Parameter Name="format" Type="System.String" />
+        <Parameter Name="args" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="eventCache">
+          <span data-ttu-id="a7aeb-424">Объект <see cref="T:System.Diagnostics.TraceEventCache" />, содержащий текущие идентификатор процесса, идентификатор потока и сведения о трассировке стека.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-424">A <see cref="T:System.Diagnostics.TraceEventCache" /> object that contains the current process ID, thread ID, and stack trace information.</span>
+          </span>
+        </param>
+        <param name="source">
+          <span data-ttu-id="a7aeb-425">Имя источника трассировки, вызвавшего этот метод.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-425">A name of the trace source that invoked this method.</span>
+          </span>
+        </param>
+        <param name="eventType">
+          <span data-ttu-id="a7aeb-426">Одно из значений перечисления <see cref="T:System.Diagnostics.TraceEventType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-426">One of the <see cref="T:System.Diagnostics.TraceEventType" /> enumeration values.</span>
+          </span>
+        </param>
+        <param name="id">
+          <span data-ttu-id="a7aeb-427">Числовой идентификатор события.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-427">A numeric identifier for the event.</span>
+          </span>
+        </param>
+        <param name="format">
+          <span data-ttu-id="a7aeb-428">Строка формата, не содержащая элементов формата или содержащая один либо несколько элементов формата, соответствующих объектам в массиве <c>args</c>.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-428">A format string that contains zero or more format items, which correspond to objects in the <c>args</c> array.</span>
+          </span>
+        </param>
+        <param name="args">
+          <span data-ttu-id="a7aeb-429">Массив <see langword="Object" />, содержащий несколько объектов (или ни одного), которые необходимо отформатировать.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-429">An <see langword="Object" /> array containing zero or more objects to format.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="a7aeb-430">Записывает сведения трассировки, форматированный массив объектов данных и сведения о событии в исходящий файл или поток.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-430">Writes trace information, a formatted array of objects, and event information to the output file or stream.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-431">Этот метод:</span><span class="sxs-lookup"><span data-stu-id="a7aeb-431">This method:</span></span>  
+  
+1.  <span data-ttu-id="a7aeb-432">Форматирование данных и сведений о контексте для вывода.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-432">Formats the data and context information for output.</span></span>  
+  
+2.  <span data-ttu-id="a7aeb-433">Создает новый файл журнала, при необходимости.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-433">Creates a new a new log file, if necessary.</span></span>  
+  
+3.  <span data-ttu-id="a7aeb-434">Записывает сведения в файл журнала.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-434">Writes the information to the log file.</span></span>  
+  
+ <span data-ttu-id="a7aeb-435">Дополнительные сведения о создании нового файла журнала см. в разделе <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A>.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-435">For more information on creating new log file, see <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName%2A>.</span></span>  
+  
+ <span data-ttu-id="a7aeb-436">В этой таблице приведены поля вывода в порядке, в котором они отображаются.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-436">This table lists the output fields in the order in which they appear.</span></span> <span data-ttu-id="a7aeb-437">Поля разделяются на строку, <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> указывает свойство и с признаком конца строки.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-437">The fields are delimited by the string that the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Delimiter%2A> property specifies, and followed by a line terminator.</span></span>  
+  
+|<span data-ttu-id="a7aeb-438">**Поле**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-438">**Field**</span></span>|<span data-ttu-id="a7aeb-439">**Условие вывода**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-439">**Output condition**</span></span>|<span data-ttu-id="a7aeb-440">**Описание**</span><span class="sxs-lookup"><span data-stu-id="a7aeb-440">**Description**</span></span>|  
+|---------------|--------------------------|---------------------|  
+|`source`|<span data-ttu-id="a7aeb-441">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-441">Always</span></span>|<span data-ttu-id="a7aeb-442">Значение `name`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-442">The value of `name`.</span></span>|  
+|`severity`|<span data-ttu-id="a7aeb-443">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-443">Always</span></span>|<span data-ttu-id="a7aeb-444">Имя значения перечисления `eventType`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-444">The enumeration-value name of `eventType`.</span></span>|  
+|`id`|<span data-ttu-id="a7aeb-445">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-445">Always</span></span>|<span data-ttu-id="a7aeb-446">Строковое представление параметра `id`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-446">The string representation of `id`.</span></span>|  
+|`message`|<span data-ttu-id="a7aeb-447">Всегда</span><span class="sxs-lookup"><span data-stu-id="a7aeb-447">Always</span></span>|<span data-ttu-id="a7aeb-448">Данные в `args` отформатирован `format` строку и с помощью инвариантного языка и региональных параметров для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-448">The data in `args` formatted with the `format` string and using the invariant culture for string conversions.</span></span>|  
+|`callStack`|<span data-ttu-id="a7aeb-449">Когда <xref:System.Diagnostics.TraceOptions.Callstack> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-449">When the <xref:System.Diagnostics.TraceOptions.Callstack> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-450"><xref:System.Diagnostics.TraceEventCache.Callstack%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-450">The <xref:System.Diagnostics.TraceEventCache.Callstack%2A> property of `eventCache`.</span></span>|  
+|`CorrelationID`|<span data-ttu-id="a7aeb-451">Когда <xref:System.Diagnostics.TraceOptions.LogicalOperationStack> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-451">When the <xref:System.Diagnostics.TraceOptions.LogicalOperationStack> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-452"><xref:System.Diagnostics.TraceEventCache.ThreadId%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-452">The <xref:System.Diagnostics.TraceEventCache.ThreadId%2A> property of `eventCache`.</span></span>|  
+|`DateTime`|<span data-ttu-id="a7aeb-453">Когда <xref:System.Diagnostics.TraceOptions.DateTime> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-453">When the <xref:System.Diagnostics.TraceOptions.DateTime> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-454">Строковое представление <xref:System.Diagnostics.TraceEventCache.DateTime%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-454">The string representation of the <xref:System.Diagnostics.TraceEventCache.DateTime%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-455">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-455">The invariant culture is used for the string conversion.</span></span>|  
+|`ProcessID`|<span data-ttu-id="a7aeb-456">Когда <xref:System.Diagnostics.TraceOptions.ProcessId> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-456">When the <xref:System.Diagnostics.TraceOptions.ProcessId> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-457">Строковое представление <xref:System.Diagnostics.TraceEventCache.ProcessId%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-457">The string representation of the <xref:System.Diagnostics.TraceEventCache.ProcessId%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-458">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-458">The invariant culture is used for the string conversion.</span></span>|  
+|`ThreadID`|<span data-ttu-id="a7aeb-459">Когда <xref:System.Diagnostics.TraceOptions.ThreadId> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-459">When the <xref:System.Diagnostics.TraceOptions.ThreadId> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-460"><xref:System.Diagnostics.TraceEventCache.ThreadId%2A> Свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-460">The <xref:System.Diagnostics.TraceEventCache.ThreadId%2A> property of `eventCache`.</span></span>|  
+|`Timestamp`|<span data-ttu-id="a7aeb-461">Когда <xref:System.Diagnostics.TraceOptions.Timestamp> установлен флаг <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-461">When the <xref:System.Diagnostics.TraceOptions.Timestamp> flag is set in the <xref:System.Diagnostics.TraceListener.TraceOutputOptions%2A> property.</span></span>|<span data-ttu-id="a7aeb-462">Строковое представление <xref:System.Diagnostics.TraceEventCache.Timestamp%2A> свойство `eventCache`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-462">The string representation of the <xref:System.Diagnostics.TraceEventCache.Timestamp%2A> property of `eventCache`.</span></span> <span data-ttu-id="a7aeb-463">Инвариантный язык и региональные параметры, используется для преобразования строк.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-463">The invariant culture is used for the string conversion.</span></span>|  
+|`HostName`|<span data-ttu-id="a7aeb-464">Когда <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.IncludeHostName%2A> свойство `True`.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-464">When the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.IncludeHostName%2A> property is `True`.</span></span>|<span data-ttu-id="a7aeb-465">Имя компьютера.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-465">The name of the computer.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Diagnostics.TraceListener" />
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName" />
+        <altmember cref="P:System.Diagnostics.TraceListener.TraceOutputOptions" />
+        <altmember cref="T:System.Diagnostics.TraceEventCache" />
+        <altmember cref="T:System.Diagnostics.TraceEventType" />
+      </Docs>
+    </Member>
+    <Member MemberName="Write">
+      <MemberSignature Language="C#" Value="public override void Write (string message);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void Write(string message) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.Write(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub Write (message As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void Write(System::String ^ message);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="message" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="message">
+          <span data-ttu-id="a7aeb-466">
+            <see langword="String" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-466">
+              <see langword="String" />.</span>
+          </span>
+          <span data-ttu-id="a7aeb-467">Настраиваемое сообщение для записи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-467">The custom message to write.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="a7aeb-468">Дословно записывает сообщение на диск без какой-либо дополнительной контекстной информации.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-468">Writes a verbatim message to disk, without any additional context information.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-469"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Write%2A> Метод записывает сообщение в файл журнала, без любой дополнительной контекстной информации.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-469">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.Write%2A> method writes a specific message to the log file, without any additional context information.</span></span>  
+  
+ <span data-ttu-id="a7aeb-470">Используйте одну из <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData%2A> методы для включения в выходные данные журнала сведений о контексте.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-470">Use the one of the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData%2A> methods to include the context information in the log output.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName" />
+        <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)" />
+        <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String)" />
+      </Docs>
+    </Member>
+    <Member MemberName="WriteLine">
+      <MemberSignature Language="C#" Value="public override void WriteLine (string message);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void WriteLine(string message) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.WriteLine(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub WriteLine (message As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void WriteLine(System::String ^ message);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Microsoft.VisualBasic</AssemblyName>
+        <AssemblyVersion>10.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="message" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="message">
+          <span data-ttu-id="a7aeb-471">
+            <see langword="String" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-471">
+              <see langword="String" />.</span>
+          </span>
+          <span data-ttu-id="a7aeb-472">Настраиваемое сообщение для записи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-472">The custom message to write.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="a7aeb-473">Дословно записывает сообщение на диск без какой-либо дополнительной контекстной информации, после сообщения ставится текущий разделитель строк.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="a7aeb-473">Writes a verbatim message to disk, followed by the current line terminator, without any additional context information.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="a7aeb-474"><xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.WriteLine%2A> Метод записывает сообщение в файл журнала, без любой дополнительной контекстной информации.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-474">The <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.WriteLine%2A> method writes a specific message to the log file, without any additional context information.</span></span>  
+  
+ <span data-ttu-id="a7aeb-475">Используйте одну из <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData%2A> методы для включения в выходные данные журнала сведений о контексте.</span><span class="sxs-lookup"><span data-stu-id="a7aeb-475">Use the one of the <xref:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData%2A> methods to include the context information in the log output.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:Microsoft.VisualBasic.Logging.FileLogTraceListener.FullLogFileName" />
+        <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)" />
+        <altmember cref="M:Microsoft.VisualBasic.Logging.FileLogTraceListener.TraceEvent(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String)" />
+      </Docs>
+    </Member>
+  </Members>
+</Type>
