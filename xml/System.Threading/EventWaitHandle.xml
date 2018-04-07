@@ -1,0 +1,1403 @@
+<Type Name="EventWaitHandle" FullName="System.Threading.EventWaitHandle">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="04ca1c444cfd772670659b4609b267628b38c728" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class EventWaitHandle : System.Threading.WaitHandle" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit EventWaitHandle extends System.Threading.WaitHandle" />
+  <TypeSignature Language="DocId" Value="T:System.Threading.EventWaitHandle" />
+  <TypeSignature Language="VB.NET" Value="Public Class EventWaitHandle&#xA;Inherits WaitHandle" />
+  <TypeSignature Language="C++ CLI" Value="public ref class EventWaitHandle : System::Threading::WaitHandle" />
+  <AssemblyInfo>
+    <AssemblyName>System.Threading</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Threading.WaitHandle</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="b2212-101">Представляет событие синхронизации потока.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="b2212-101">Represents a thread synchronization event.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-102"><xref:System.Threading.EventWaitHandle> Класс позволяет потокам взаимодействовать друг с другом путем передачи сигналов.</span><span class="sxs-lookup"><span data-stu-id="b2212-102">The <xref:System.Threading.EventWaitHandle> class allows threads to communicate with each other by signaling.</span></span> <span data-ttu-id="b2212-103">Как правило, один или несколько потоков блокируются на <xref:System.Threading.EventWaitHandle> до как незаблокированный поток вызовет <xref:System.Threading.EventWaitHandle.Set%2A> метод, освобождая один или несколько заблокированных потоков.</span><span class="sxs-lookup"><span data-stu-id="b2212-103">Typically, one or more threads block on an <xref:System.Threading.EventWaitHandle> until an unblocked thread calls the <xref:System.Threading.EventWaitHandle.Set%2A> method, releasing one or more of the blocked threads.</span></span> <span data-ttu-id="b2212-104">Поток может сообщить <xref:System.Threading.EventWaitHandle> и затем заблокировать, путем вызова `static` (`Shared` в Visual Basic) <xref:System.Threading.WaitHandle.SignalAndWait%2A?displayProperty=nameWithType> метод.</span><span class="sxs-lookup"><span data-stu-id="b2212-104">A thread can signal an <xref:System.Threading.EventWaitHandle> and then block on it, by calling the `static` (`Shared` in Visual Basic) <xref:System.Threading.WaitHandle.SignalAndWait%2A?displayProperty=nameWithType> method.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="b2212-105"><xref:System.Threading.EventWaitHandle> Класс предоставляет доступ к под названием system события синхронизации.</span><span class="sxs-lookup"><span data-stu-id="b2212-105">The <xref:System.Threading.EventWaitHandle> class provides access to named system synchronization events.</span></span>  
+  
+ <span data-ttu-id="b2212-106">Поведение <xref:System.Threading.EventWaitHandle> , было сообщено зависит от режима его сброса.</span><span class="sxs-lookup"><span data-stu-id="b2212-106">The behavior of an <xref:System.Threading.EventWaitHandle> that has been signaled depends on its reset mode.</span></span> <span data-ttu-id="b2212-107"><xref:System.Threading.EventWaitHandle> С <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг сбрасывается автоматически при получении сигнала после освобождения одного ожидающего потока.</span><span class="sxs-lookup"><span data-stu-id="b2212-107">An <xref:System.Threading.EventWaitHandle> created with the <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> flag resets automatically when signaled, after releasing a single waiting thread.</span></span> <span data-ttu-id="b2212-108"><xref:System.Threading.EventWaitHandle> С <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг получает сигнал до его <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод.</span><span class="sxs-lookup"><span data-stu-id="b2212-108">An <xref:System.Threading.EventWaitHandle> created with the <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> flag remains signaled until its <xref:System.Threading.EventWaitHandle.Reset%2A> method is called.</span></span>  
+  
+ <span data-ttu-id="b2212-109">События автоматического сброса предоставления монопольного доступа к ресурсу.</span><span class="sxs-lookup"><span data-stu-id="b2212-109">Automatic reset events provide exclusive access to a resource.</span></span> <span data-ttu-id="b2212-110">Если событие с автоматическим сбросом создается при отсутствии потоков в состоянии ожидания, оно сохраняет свой статус, пока не получит обращение от потока.</span><span class="sxs-lookup"><span data-stu-id="b2212-110">If an automatic reset event is signaled when no threads are waiting, it remains signaled until a thread attempts to wait on it.</span></span> <span data-ttu-id="b2212-111">Тогда событие освобождает поток и немедленно сбрасывается, блокируя следующие потоки.</span><span class="sxs-lookup"><span data-stu-id="b2212-111">The event releases the thread and immediately resets, blocking subsequent threads.</span></span>  
+  
+ <span data-ttu-id="b2212-112">События, как шлюзы ручного сброса.</span><span class="sxs-lookup"><span data-stu-id="b2212-112">Manual reset events are like gates.</span></span> <span data-ttu-id="b2212-113">Когда событие не сигнализирует, блокирует потоки, ожидающие.</span><span class="sxs-lookup"><span data-stu-id="b2212-113">When the event is not signaled, threads that wait on it will block.</span></span> <span data-ttu-id="b2212-114">Если событие сигнализирует, все ожидающие потоки освобождаются и событие получает сигнал (то есть последующие не блокируется) до его <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод.</span><span class="sxs-lookup"><span data-stu-id="b2212-114">When the event is signaled, all waiting threads are released, and the event remains signaled (that is, subsequent waits do not block) until its <xref:System.Threading.EventWaitHandle.Reset%2A> method is called.</span></span> <span data-ttu-id="b2212-115">Ручной Сброс событий полезны, когда один поток должен завершить действие перед продолжением других потоков.</span><span class="sxs-lookup"><span data-stu-id="b2212-115">Manual reset events are useful when one thread must complete an activity before other threads can proceed.</span></span>  
+  
+ <span data-ttu-id="b2212-116"><xref:System.Threading.EventWaitHandle> объекты, которые могут использоваться с `static`(`Shared` в Visual Basic) <xref:System.Threading.WaitHandle.WaitAll%2A?displayProperty=nameWithType> и <xref:System.Threading.WaitHandle.WaitAny%2A?displayProperty=nameWithType> методы.</span><span class="sxs-lookup"><span data-stu-id="b2212-116"><xref:System.Threading.EventWaitHandle> objects can be used with the `static`(`Shared` in Visual Basic) <xref:System.Threading.WaitHandle.WaitAll%2A?displayProperty=nameWithType> and <xref:System.Threading.WaitHandle.WaitAny%2A?displayProperty=nameWithType> methods.</span></span>  
+  
+ <span data-ttu-id="b2212-117">Дополнительные сведения о механизмах синхронизации потоков см. в разделе [EventWaitHandle, AutoResetEvent, CountdownEvent, ManualResetEvent](~/docs/standard/threading/eventwaithandle-autoresetevent-countdownevent-manualresetevent.md).</span><span class="sxs-lookup"><span data-stu-id="b2212-117">For more information about thread synchronization mechanisms, see [EventWaitHandle, AutoResetEvent, CountdownEvent, ManualResetEvent](~/docs/standard/threading/eventwaithandle-autoresetevent-countdownevent-manualresetevent.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b2212-118">Следующий пример кода использует <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> перегрузка метода, чтобы разрешить основной поток отправлять сигнал заблокированный поток и подождите, пока поток завершает задачу.</span><span class="sxs-lookup"><span data-stu-id="b2212-118">The following code example uses the <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> method overload to allow the main thread to signal a blocked thread and then wait until the thread finishes a task.</span></span>  
+  
+ <span data-ttu-id="b2212-119">В примере запускается пять потоков и их можно заблокировать на <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг, а затем время один поток выпуски, пользователь нажимает клавишу ВВОД.</span><span class="sxs-lookup"><span data-stu-id="b2212-119">The example starts five threads and allows them to block on an <xref:System.Threading.EventWaitHandle> created with the <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> flag, then releases one thread each time the user presses the ENTER key.</span></span> <span data-ttu-id="b2212-120">Затем помещает в очередь другой пять потоков и освобождает их с помощью <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг.</span><span class="sxs-lookup"><span data-stu-id="b2212-120">The example then queues another five threads and releases them all using an <xref:System.Threading.EventWaitHandle> created with the <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> flag.</span></span>  
+  
+ [!code-cpp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CS/source.cs#1)]
+ [!code-vb[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/VB/source.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <threadsafe>
+      <span data-ttu-id="b2212-121">Данный тип потокобезопасен.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="b2212-121">This type is thread safe.</span>
+      </span>
+    </threadsafe>
+    <altmember cref="T:System.Threading.WaitHandle" />
+    <altmember cref="T:System.Threading.AutoResetEvent" />
+    <altmember cref="T:System.Threading.ManualResetEvent" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="b2212-122">Инициализирует новый экземпляр класса <see cref="T:System.Threading.EventWaitHandle" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-122">Initializes a new instance of the <see cref="T:System.Threading.EventWaitHandle" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public EventWaitHandle (bool initialState, System.Threading.EventResetMode mode);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(bool initialState, valuetype System.Threading.EventResetMode mode) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.#ctor(System.Boolean,System.Threading.EventResetMode)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (initialState As Boolean, mode As EventResetMode)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; EventWaitHandle(bool initialState, System::Threading::EventResetMode mode);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="initialState" Type="System.Boolean" />
+        <Parameter Name="mode" Type="System.Threading.EventResetMode" />
+      </Parameters>
+      <Docs>
+        <param name="initialState">
+          <span data-ttu-id="b2212-123">Значение <see langword="true" /> для задания начального состояния сигнальным; <see langword="false" /> для задания несигнального начального состояния.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-123">
+              <see langword="true" /> to set the initial state to signaled; <see langword="false" /> to set it to nonsignaled.</span>
+          </span>
+        </param>
+        <param name="mode">
+          <span data-ttu-id="b2212-124">Одно из значений <see cref="T:System.Threading.EventResetMode" />, которое определяет, выполняется ли сброс события автоматически или вручную.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-124">One of the <see cref="T:System.Threading.EventResetMode" /> values that determines whether the event resets automatically or manually.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b2212-125">Выполняет инициализацию нового экземпляра класса <see cref="T:System.Threading.EventWaitHandle" />, определяя, получает ли сигнал, ожидающий дескриптор, и производится ли сброс автоматически или вручную.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-125">Initializes a new instance of the <see cref="T:System.Threading.EventWaitHandle" /> class, specifying whether the wait handle is initially signaled, and whether it resets automatically or manually.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-126">Если начальное состояние события является несигнальным, потоки, которые ожидают события будет заблокирована.</span><span class="sxs-lookup"><span data-stu-id="b2212-126">If the initial state of the event is nonsignaled, threads that wait on the event will block.</span></span> <span data-ttu-id="b2212-127">Если начальное состояние сигнальное и <xref:System.Threading.EventResetMode.ManualReset> флаг указан для `mode`, потоки, которые ожидают события не будет блокирована.</span><span class="sxs-lookup"><span data-stu-id="b2212-127">If the initial state is signaled, and the <xref:System.Threading.EventResetMode.ManualReset> flag is specified for `mode`, threads that wait on the event will not block.</span></span> <span data-ttu-id="b2212-128">Если начальное состояние сигнальное, и `mode` — <xref:System.Threading.EventResetMode.AutoReset>, первый поток, ожидающий события, немедленно освобождается, после чего событие сбрасывается, и последующие потоки блокируются.</span><span class="sxs-lookup"><span data-stu-id="b2212-128">If the initial state is signaled, and `mode` is <xref:System.Threading.EventResetMode.AutoReset>, the first thread that waits on the event will be released immediately, after which the event will reset, and subsequent threads will block.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b2212-129">Следующий пример кода использует <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> перегрузка метода, чтобы разрешить основной поток отправлять сигнал заблокированный поток и подождите, пока поток завершает задачу.</span><span class="sxs-lookup"><span data-stu-id="b2212-129">The following code example uses the <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> method overload to allow the main thread to signal a blocked thread and then wait until the thread finishes a task.</span></span>  
+  
+ <span data-ttu-id="b2212-130">В примере запускается пять потоков и их можно заблокировать на <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг, а затем время один поток выпуски, пользователь нажимает клавишу ВВОД.</span><span class="sxs-lookup"><span data-stu-id="b2212-130">The example starts five threads and allows them to block on an <xref:System.Threading.EventWaitHandle> created with the <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> flag, then releases one thread each time the user presses ENTER key.</span></span> <span data-ttu-id="b2212-131">Затем помещает в очередь другой пять потоков и освобождает их с помощью <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг.</span><span class="sxs-lookup"><span data-stu-id="b2212-131">The example then queues another five threads and releases them all using an <xref:System.Threading.EventWaitHandle> created with the <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> flag.</span></span>  
+  
+ [!code-cpp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CS/source.cs#1)]
+ [!code-vb[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public EventWaitHandle (bool initialState, System.Threading.EventResetMode mode, string name);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(bool initialState, valuetype System.Threading.EventResetMode mode, string name) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.#ctor(System.Boolean,System.Threading.EventResetMode,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (initialState As Boolean, mode As EventResetMode, name As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; EventWaitHandle(bool initialState, System::Threading::EventResetMode mode, System::String ^ name);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="initialState" Type="System.Boolean" />
+        <Parameter Name="mode" Type="System.Threading.EventResetMode" />
+        <Parameter Name="name" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="initialState">
+          <span data-ttu-id="b2212-132">Значение <see langword="true" /> обозначает, что именованное событие получит исходное сигнальное состояние, если такое событие создается в результате этого вызова; значение <see langword="false" /> устанавливает несигнальное состояние.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-132">
+              <see langword="true" /> to set the initial state to signaled if the named event is created as a result of this call; <see langword="false" /> to set it to nonsignaled.</span>
+          </span>
+        </param>
+        <param name="mode">
+          <span data-ttu-id="b2212-133">Одно из значений <see cref="T:System.Threading.EventResetMode" />, которое определяет, выполняется ли сброс события автоматически или вручную.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-133">One of the <see cref="T:System.Threading.EventResetMode" /> values that determines whether the event resets automatically or manually.</span>
+          </span>
+        </param>
+        <param name="name">
+          <span data-ttu-id="b2212-134">Имя события синхронизации на уровне системы.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-134">The name of a system-wide synchronization event.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b2212-135">Выполняет инициализацию нового экземпляра класса <see cref="T:System.Threading.EventWaitHandle" />, определяющего получает ли сигнал дескриптор ожидания, если он был создан в результате данного вызова, сбрасывается ли он автоматически или вручную, а также имя системного события синхронизации.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-135">Initializes a new instance of the <see cref="T:System.Threading.EventWaitHandle" /> class, specifying whether the wait handle is initially signaled if created as a result of this call, whether it resets automatically or manually, and the name of a system synchronization event.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-136">Если `name` — `null` или является пустой строкой, локальный <xref:System.Threading.EventWaitHandle> создается.</span><span class="sxs-lookup"><span data-stu-id="b2212-136">If `name` is `null` or an empty string, a local <xref:System.Threading.EventWaitHandle> is created.</span></span>  
+  
+ <span data-ttu-id="b2212-137">Если системное событие с именем, указанным для `name` уже существует параметр `initialState` параметр учитывается.</span><span class="sxs-lookup"><span data-stu-id="b2212-137">If a system event with the name specified for the `name` parameter already exists, the `initialState` parameter is ignored.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="b2212-138">При использовании этого конструктора для именованного системного события, укажите `false` для `initialState`.</span><span class="sxs-lookup"><span data-stu-id="b2212-138">When using this constructor for named system events, specify `false` for `initialState`.</span></span> <span data-ttu-id="b2212-139">Этот конструктор не предоставляет способ определить, был ли создан именованное системное событие, поэтому нельзя делать никаких предположений о состоянии именованного события.</span><span class="sxs-lookup"><span data-stu-id="b2212-139">This constructor provides no way to determine whether a named system event was created, so you cannot make any assumptions about the state of the named event.</span></span> <span data-ttu-id="b2212-140">Чтобы определить, был ли создан события с заданным именем, используйте <xref:System.Threading.EventWaitHandle.%23ctor%28System.Boolean%2CSystem.Threading.EventResetMode%2CSystem.String%2CSystem.Boolean%40%29> конструктор или <xref:System.Threading.EventWaitHandle.%23ctor%28System.Boolean%2CSystem.Threading.EventResetMode%2CSystem.String%2CSystem.Boolean%40%2CSystem.Security.AccessControl.EventWaitHandleSecurity%29> конструктор.</span><span class="sxs-lookup"><span data-stu-id="b2212-140">To determine whether a named event was created, use the <xref:System.Threading.EventWaitHandle.%23ctor%28System.Boolean%2CSystem.Threading.EventResetMode%2CSystem.String%2CSystem.Boolean%40%29> constructor or the <xref:System.Threading.EventWaitHandle.%23ctor%28System.Boolean%2CSystem.Threading.EventResetMode%2CSystem.String%2CSystem.Boolean%40%2CSystem.Security.AccessControl.EventWaitHandleSecurity%29> constructor.</span></span>  
+  
+ <span data-ttu-id="b2212-141">Если начальное состояние события является несигнальным, потоки, которые ожидают события будет заблокирована.</span><span class="sxs-lookup"><span data-stu-id="b2212-141">If the initial state of the event is nonsignaled, threads that wait on the event will block.</span></span> <span data-ttu-id="b2212-142">Если начальное состояние сигнальное и <xref:System.Threading.EventResetMode.ManualReset> флаг указан для `mode`, потоки, которые ожидают события не будет блокирована.</span><span class="sxs-lookup"><span data-stu-id="b2212-142">If the initial state is signaled, and the <xref:System.Threading.EventResetMode.ManualReset> flag is specified for `mode`, threads that wait on the event will not block.</span></span> <span data-ttu-id="b2212-143">Если начальное состояние сигнальное, и `mode` — <xref:System.Threading.EventResetMode.AutoReset>, первый поток, ожидающий события, немедленно освобождается, после чего событие сбрасывается, и последующие потоки блокируются.</span><span class="sxs-lookup"><span data-stu-id="b2212-143">If the initial state is signaled, and `mode` is <xref:System.Threading.EventResetMode.AutoReset>, the first thread that waits on the event will be released immediately, after which the event will reset, and subsequent threads will block.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="b2212-144">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-144">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="b2212-145">Именованное событие уже существует и имеет настройки управления доступом, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-145">The named event exists and has access control security, but the user does not have <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">
+          <span data-ttu-id="b2212-146">Именованное событие нельзя создать; вероятно, дескриптор ожидания другого типа имеет то же имя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-146">The named event cannot be created, perhaps because a wait handle of a different type has the same name.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="b2212-147">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-147">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="b2212-148">требуется полное доверие для непосредственно вызывающего метода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-148">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="b2212-149">Этот член не может использоваться частично доверенным или прозрачным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-149">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public EventWaitHandle (bool initialState, System.Threading.EventResetMode mode, string name, out bool createdNew);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(bool initialState, valuetype System.Threading.EventResetMode mode, string name, [out] bool&amp; createdNew) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.#ctor(System.Boolean,System.Threading.EventResetMode,System.String,System.Boolean@)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (initialState As Boolean, mode As EventResetMode, name As String, ByRef createdNew As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; EventWaitHandle(bool initialState, System::Threading::EventResetMode mode, System::String ^ name, [Runtime::InteropServices::Out] bool % createdNew);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="initialState" Type="System.Boolean" />
+        <Parameter Name="mode" Type="System.Threading.EventResetMode" />
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="createdNew" Type="System.Boolean&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="initialState">
+          <span data-ttu-id="b2212-150">Значение <see langword="true" /> обозначает, что именованное событие получит исходное сигнальное состояние, если такое событие создается в результате этого вызова; значение <see langword="false" /> устанавливает несигнальное состояние.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-150">
+              <see langword="true" /> to set the initial state to signaled if the named event is created as a result of this call; <see langword="false" /> to set it to nonsignaled.</span>
+          </span>
+        </param>
+        <param name="mode">
+          <span data-ttu-id="b2212-151">Одно из значений <see cref="T:System.Threading.EventResetMode" />, которое определяет, выполняется ли сброс события автоматически или вручную.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-151">One of the <see cref="T:System.Threading.EventResetMode" /> values that determines whether the event resets automatically or manually.</span>
+          </span>
+        </param>
+        <param name="name">
+          <span data-ttu-id="b2212-152">Имя события синхронизации на уровне системы.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-152">The name of a system-wide synchronization event.</span>
+          </span>
+        </param>
+        <param name="createdNew">
+          <span data-ttu-id="b2212-153">При завершении работы метода содержит значение <see langword="true" />, если было создано локальное событие (то есть если параметр <c>name</c> имеет значение <see langword="null" /> или содержит пустую строку) или заданное именованное системное событие; или значение <see langword="false" />, если указанное именованное событие уже существовало.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-153">When this method returns, contains <see langword="true" /> if a local event was created (that is, if <c>name</c> is <see langword="null" /> or an empty string) or if the specified named system event was created; <see langword="false" /> if the specified named system event already existed.</span>
+          </span>
+          <span data-ttu-id="b2212-154">Этот параметр передается неинициализированным.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-154">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b2212-155">Инициализирует новый экземпляр класса <see cref="T:System.Threading.EventWaitHandle" /> и указывает следующие сведения: передавать ли сигнал в дескриптор ожидания при первичном запуске в результате этого вызова; выполнять ли сброс автоматически или вручную; имя системного события синхронизации; логическая переменная для сохранения информации о том, было ли создано именованное системное событие.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-155">Initializes a new instance of the <see cref="T:System.Threading.EventWaitHandle" /> class, specifying whether the wait handle is initially signaled if created as a result of this call, whether it resets automatically or manually, the name of a system synchronization event, and a Boolean variable whose value after the call indicates whether the named system event was created.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-156">Если системное событие с именем, указанным для `name` уже существует параметр `initialState` параметр учитывается.</span><span class="sxs-lookup"><span data-stu-id="b2212-156">If a system event with the name specified for the `name` parameter already exists, the `initialState` parameter is ignored.</span></span> <span data-ttu-id="b2212-157">После вызова этого конструктора, используйте значение в переменной, указанной для `ref` параметра (`ByRef` в Visual Basic)`createdNew` для определения именованного системного события уже существует или был создан.</span><span class="sxs-lookup"><span data-stu-id="b2212-157">After calling this constructor, use the value in the variable specified for the `ref` parameter (`ByRef` parameter in Visual Basic)`createdNew` to determine whether the named system event already existed or was created.</span></span>  
+  
+ <span data-ttu-id="b2212-158">Если начальное состояние события является несигнальным, потоки, которые ожидают события будет заблокирована.</span><span class="sxs-lookup"><span data-stu-id="b2212-158">If the initial state of the event is nonsignaled, threads that wait on the event will block.</span></span> <span data-ttu-id="b2212-159">Если начальное состояние сигнальное и <xref:System.Threading.EventResetMode.ManualReset> флаг указан для `mode`, потоки, которые ожидают события не будет блокирована.</span><span class="sxs-lookup"><span data-stu-id="b2212-159">If the initial state is signaled, and the <xref:System.Threading.EventResetMode.ManualReset> flag is specified for `mode`, threads that wait on the event will not block.</span></span> <span data-ttu-id="b2212-160">Если начальное состояние сигнальное, и `mode` — <xref:System.Threading.EventResetMode.AutoReset>, первый поток, ожидающий события, немедленно освобождается, после чего событие сбрасывается, и последующие потоки блокируются.</span><span class="sxs-lookup"><span data-stu-id="b2212-160">If the initial state is signaled, and `mode` is <xref:System.Threading.EventResetMode.AutoReset>, the first thread that waits on the event will be released immediately, after which the event will reset, and subsequent threads will block.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="b2212-161">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-161">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="b2212-162">Именованное событие уже существует и имеет настройки управления доступом, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-162">The named event exists and has access control security, but the user does not have <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">
+          <span data-ttu-id="b2212-163">Именованное событие нельзя создать; вероятно, дескриптор ожидания другого типа имеет то же имя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-163">The named event cannot be created, perhaps because a wait handle of a different type has the same name.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="b2212-164">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-164">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="b2212-165">требуется полное доверие для непосредственно вызывающего метода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-165">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="b2212-166">Этот член не может использоваться частично доверенным или прозрачным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-166">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public EventWaitHandle (bool initialState, System.Threading.EventResetMode mode, string name, out bool createdNew, System.Security.AccessControl.EventWaitHandleSecurity eventSecurity);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(bool initialState, valuetype System.Threading.EventResetMode mode, string name, [out] bool&amp; createdNew, class System.Security.AccessControl.EventWaitHandleSecurity eventSecurity) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.#ctor(System.Boolean,System.Threading.EventResetMode,System.String,System.Boolean@,System.Security.AccessControl.EventWaitHandleSecurity)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (initialState As Boolean, mode As EventResetMode, name As String, ByRef createdNew As Boolean, eventSecurity As EventWaitHandleSecurity)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; EventWaitHandle(bool initialState, System::Threading::EventResetMode mode, System::String ^ name, [Runtime::InteropServices::Out] bool % createdNew, System::Security::AccessControl::EventWaitHandleSecurity ^ eventSecurity);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="initialState" Type="System.Boolean" />
+        <Parameter Name="mode" Type="System.Threading.EventResetMode" />
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="createdNew" Type="System.Boolean&amp;" RefType="out" />
+        <Parameter Name="eventSecurity" Type="System.Security.AccessControl.EventWaitHandleSecurity" />
+      </Parameters>
+      <Docs>
+        <param name="initialState">
+          <span data-ttu-id="b2212-167">Значение <see langword="true" /> обозначает, что именованное событие получит исходное сигнальное состояние, если такое событие создается в результате этого вызова; значение <see langword="false" /> устанавливает несигнальное состояние.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-167">
+              <see langword="true" /> to set the initial state to signaled if the named event is created as a result of this call; <see langword="false" /> to set it to nonsignaled.</span>
+          </span>
+        </param>
+        <param name="mode">
+          <span data-ttu-id="b2212-168">Одно из значений <see cref="T:System.Threading.EventResetMode" />, которое определяет, выполняется ли сброс события автоматически или вручную.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-168">One of the <see cref="T:System.Threading.EventResetMode" /> values that determines whether the event resets automatically or manually.</span>
+          </span>
+        </param>
+        <param name="name">
+          <span data-ttu-id="b2212-169">Имя события синхронизации на уровне системы.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-169">The name of a system-wide synchronization event.</span>
+          </span>
+        </param>
+        <param name="createdNew">
+          <span data-ttu-id="b2212-170">При завершении работы метода содержит значение <see langword="true" />, если было создано локальное событие (то есть если параметр <c>name</c> имеет значение <see langword="null" /> или содержит пустую строку) или заданное именованное системное событие; или значение <see langword="false" />, если указанное именованное событие уже существовало.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-170">When this method returns, contains <see langword="true" /> if a local event was created (that is, if <c>name</c> is <see langword="null" /> or an empty string) or if the specified named system event was created; <see langword="false" /> if the specified named system event already existed.</span>
+          </span>
+          <span data-ttu-id="b2212-171">Этот параметр передается неинициализированным.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-171">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <param name="eventSecurity">
+          <span data-ttu-id="b2212-172">Объект <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" />, определяющий настройки управления доступом для применения к именованному системному событию.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-172">An <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" /> object that represents the access control security to be applied to the named system event.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b2212-173">Инициализирует новый экземпляр класса <see cref="T:System.Threading.EventWaitHandle" /> с указанием следующих сведений: передавать ли сигнал в дескриптор ожидания при первичном запуске в результате этого вызова, выполнять ли сброс автоматически или вручную, имя системного события синхронизации, логическая переменная для сохранения информации о том, было ли создано именованное системное событие, правила управления доступом для именованного события, если оно создается.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-173">Initializes a new instance of the <see cref="T:System.Threading.EventWaitHandle" /> class, specifying whether the wait handle is initially signaled if created as a result of this call, whether it resets automatically or manually, the name of a system synchronization event, a Boolean variable whose value after the call indicates whether the named system event was created, and the access control security to be applied to the named event if it is created.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-174">Этот конструктор используется для применения безопасности управления доступом для именованного системного события при его создании, чтобы предотвратить возможность управления событием другого кода.</span><span class="sxs-lookup"><span data-stu-id="b2212-174">Use this constructor to apply access control security to a named system event when it is created, preventing other code from taking control of the event.</span></span>  
+  
+ <span data-ttu-id="b2212-175">Этот конструктор инициализирует <xref:System.Threading.EventWaitHandle> , представляющий событие системы.</span><span class="sxs-lookup"><span data-stu-id="b2212-175">This constructor initializes an <xref:System.Threading.EventWaitHandle> object that represents a system event.</span></span> <span data-ttu-id="b2212-176">Можно создать несколько <xref:System.Threading.EventWaitHandle> объекты, которые представляют одно и то же событие системы.</span><span class="sxs-lookup"><span data-stu-id="b2212-176">You can create multiple <xref:System.Threading.EventWaitHandle> objects that represent the same system event.</span></span>  
+  
+ <span data-ttu-id="b2212-177">Если системное событие не существует, он создается с указанными управления доступом.</span><span class="sxs-lookup"><span data-stu-id="b2212-177">If the system event does not exist, it is created with the specified access control security.</span></span> <span data-ttu-id="b2212-178">Если событие существует, указанные настройки управления доступом учитывается.</span><span class="sxs-lookup"><span data-stu-id="b2212-178">If the event exists, the specified access control security is ignored.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="b2212-179">Вызывающий оператор имеет полный контроль над только что созданный <xref:System.Threading.EventWaitHandle> объект, даже если `eventSecurity` запрещает или не может предоставить некоторые права доступа для текущего пользователя.</span><span class="sxs-lookup"><span data-stu-id="b2212-179">The caller has full control over the newly created <xref:System.Threading.EventWaitHandle> object even if `eventSecurity` denies or fails to grant some access rights to the current user.</span></span> <span data-ttu-id="b2212-180">Тем не менее если текущий пользователь пытается получить другой <xref:System.Threading.EventWaitHandle> объекта представляют одинаковую меру с именем события, с помощью конструктора или <xref:System.Threading.EventWaitHandle.OpenExisting%2A> метод применяется безопасность управления доступом Windows.</span><span class="sxs-lookup"><span data-stu-id="b2212-180">However, if the current user attempts to get another <xref:System.Threading.EventWaitHandle> object to represent the same named event, using either a constructor or the <xref:System.Threading.EventWaitHandle.OpenExisting%2A> method, Windows access control security is applied.</span></span>  
+  
+ <span data-ttu-id="b2212-181">Если системное событие с именем, указанным для `name` уже существует параметр `initialState` параметр учитывается.</span><span class="sxs-lookup"><span data-stu-id="b2212-181">If a system event with the name specified for the `name` parameter already exists, the `initialState` parameter is ignored.</span></span> <span data-ttu-id="b2212-182">После вызова этого конструктора, используйте значение в переменной, указанной для `ref` параметра (`ByRef` в Visual Basic) `createdNew` для определения именованного системного события уже существует или был создан.</span><span class="sxs-lookup"><span data-stu-id="b2212-182">After calling this constructor, use the value in the variable specified for the `ref` parameter (`ByRef` parameter in Visual Basic) `createdNew` to determine whether the named system event already existed or was created.</span></span>  
+  
+ <span data-ttu-id="b2212-183">Если начальное состояние события является несигнальным, потоки, которые ожидают события будет заблокирована.</span><span class="sxs-lookup"><span data-stu-id="b2212-183">If the initial state of the event is nonsignaled, threads that wait on the event will block.</span></span> <span data-ttu-id="b2212-184">Если начальное состояние сигнальное и <xref:System.Threading.EventResetMode.ManualReset> флаг указан для `mode`, потоки, которые ожидают события не будет блокирована.</span><span class="sxs-lookup"><span data-stu-id="b2212-184">If the initial state is signaled, and the <xref:System.Threading.EventResetMode.ManualReset> flag is specified for `mode`, threads that wait on the event will not block.</span></span> <span data-ttu-id="b2212-185">Если начальное состояние сигнальное, и `mode` — <xref:System.Threading.EventResetMode.AutoReset>, первый поток, ожидающий события, немедленно освобождается, после чего событие сбрасывается, и последующие потоки блокируются.</span><span class="sxs-lookup"><span data-stu-id="b2212-185">If the initial state is signaled, and `mode` is <xref:System.Threading.EventResetMode.AutoReset>, the first thread that waits on the event will be released immediately, after which the event will reset, and subsequent threads will block.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b2212-186">В следующем примере кода демонстрируется поведение между процессами именованного системного события с безопасность управления доступом.</span><span class="sxs-lookup"><span data-stu-id="b2212-186">The following code example demonstrates the cross-process behavior of a named system event with access control security.</span></span> <span data-ttu-id="b2212-187">В этом примере <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода для проверки на наличие события с заданным именем.</span><span class="sxs-lookup"><span data-stu-id="b2212-187">The example uses the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> method overload to test for the existence of a named event.</span></span>  
+  
+ <span data-ttu-id="b2212-188">Если событие не существует, она создается с изначального владения и управления доступом, запрещают текущему пользователю использовать событие, но предоставляет право на чтение и изменение разрешений на событие.</span><span class="sxs-lookup"><span data-stu-id="b2212-188">If the event does not exist, it is created with initial ownership and access control security that denies the current user the right to use the event, but grants the right to read and change permissions on the event.</span></span>  
+  
+ <span data-ttu-id="b2212-189">При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>.</span><span class="sxs-lookup"><span data-stu-id="b2212-189">If you run the compiled example from two command windows, the second copy will throw an access violation exception on the call to <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>.</span></span> <span data-ttu-id="b2212-190">Исключение перехватывается, а в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода для ожидания события с права, необходимые для чтения и изменения разрешений.</span><span class="sxs-lookup"><span data-stu-id="b2212-190">The exception is caught, and the example uses the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> method overload to wait on the event with the rights needed to read and change the permissions.</span></span>  
+  
+ <span data-ttu-id="b2212-191">После изменения разрешений, событие открывается с права, необходимые для ожидания и сигнал.</span><span class="sxs-lookup"><span data-stu-id="b2212-191">After the permissions are changed, the event is opened with the rights required to wait on it and signal it.</span></span> <span data-ttu-id="b2212-192">При запуске скомпилированный пример в третьем командном окне, в этом примере запускается с помощью новых разрешений.</span><span class="sxs-lookup"><span data-stu-id="b2212-192">If you run the compiled example from a third command window, the example runs using the new permissions.</span></span>  
+  
+ [!code-cpp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CS/source.cs#1)]
+ [!code-vb[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="b2212-193">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-193">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="b2212-194">Именованное событие уже существует и имеет настройки управления доступом, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-194">The named event exists and has access control security, but the user does not have <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">
+          <span data-ttu-id="b2212-195">Именованное событие нельзя создать; вероятно, дескриптор ожидания другого типа имеет то же имя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-195">The named event cannot be created, perhaps because a wait handle of a different type has the same name.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="b2212-196">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-196">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="b2212-197">требуется полное доверие для непосредственно вызывающего метода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-197">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="b2212-198">Этот член не может использоваться частично доверенным или прозрачным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-198">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="GetAccessControl">
+      <MemberSignature Language="C#" Value="public System.Security.AccessControl.EventWaitHandleSecurity GetAccessControl ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Security.AccessControl.EventWaitHandleSecurity GetAccessControl() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.GetAccessControl" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetAccessControl () As EventWaitHandleSecurity" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Security::AccessControl::EventWaitHandleSecurity ^ GetAccessControl();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Security.AccessControl.EventWaitHandleSecurity</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="b2212-199">Возвращает объект <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" />, представляющий управление доступом для именованного системного события, представленного объектом <see cref="T:System.Threading.EventWaitHandle" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-199">Gets an <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" /> object that represents the access control security for the named system event represented by the current <see cref="T:System.Threading.EventWaitHandle" /> object.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="b2212-200">Объект <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" />, представляющий управление доступом для именованного системного события.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-200">An <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" /> object that represents the access control security for the named system event.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-201"><xref:System.Threading.EventWaitHandle.GetAccessControl%2A> Метод используется комбинация следующих (объединены с помощью битовой операции OR) флагов для поиска для разрешения: <xref:System.Security.AccessControl.AccessControlSections.Access?displayProperty=nameWithType>, <xref:System.Security.AccessControl.AccessControlSections.Owner?displayProperty=nameWithType>, и <xref:System.Security.AccessControl.AccessControlSections.Group?displayProperty=nameWithType>.</span><span class="sxs-lookup"><span data-stu-id="b2212-201">The <xref:System.Threading.EventWaitHandle.GetAccessControl%2A> method uses the following combination of flags (combined using the bitwise OR operation) to search for permissions: <xref:System.Security.AccessControl.AccessControlSections.Access?displayProperty=nameWithType>, <xref:System.Security.AccessControl.AccessControlSections.Owner?displayProperty=nameWithType>, and <xref:System.Security.AccessControl.AccessControlSections.Group?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="b2212-202">Пользователь должен иметь <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions?displayProperty=nameWithType> правами для вызова этого метода и события должен быть открыт с <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions?displayProperty=nameWithType> флаг.</span><span class="sxs-lookup"><span data-stu-id="b2212-202">The user must have <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions?displayProperty=nameWithType> rights to call this method, and the event must have been opened with the <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions?displayProperty=nameWithType> flag.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b2212-203">В следующем примере кода демонстрируется поведение между процессами именованного системного события с безопасность управления доступом.</span><span class="sxs-lookup"><span data-stu-id="b2212-203">The following code example demonstrates the cross-process behavior of a named system event with access control security.</span></span> <span data-ttu-id="b2212-204">В этом примере <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода для проверки на наличие события с заданным именем.</span><span class="sxs-lookup"><span data-stu-id="b2212-204">The example uses the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> method overload to test for the existence of a named event.</span></span>  
+  
+ <span data-ttu-id="b2212-205">Если событие не существует, она создается с изначального владения и управления доступом, запрещают текущему пользователю использовать событие, но предоставляет право на чтение и изменение разрешений на событие.</span><span class="sxs-lookup"><span data-stu-id="b2212-205">If the event does not exist, it is created with initial ownership and access control security that denies the current user the right to use the event, but grants the right to read and change permissions on the event.</span></span>  
+  
+ <span data-ttu-id="b2212-206">При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>.</span><span class="sxs-lookup"><span data-stu-id="b2212-206">If you run the compiled example from two command windows, the second copy will throw an access violation exception on the call to <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>.</span></span> <span data-ttu-id="b2212-207">Исключение перехватывается, а в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода для ожидания события с права, необходимые для чтения и изменения разрешений.</span><span class="sxs-lookup"><span data-stu-id="b2212-207">The exception is caught, and the example uses the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> method overload to wait on the event with the rights needed to read and change the permissions.</span></span>  
+  
+ <span data-ttu-id="b2212-208">После разрешения были прочитаны с помощью <xref:System.Threading.EventWaitHandle.GetAccessControl%2A> метод, и изменения, событие открывается с права, необходимые для ожидания и сигнал.</span><span class="sxs-lookup"><span data-stu-id="b2212-208">After the permissions have been read, using the <xref:System.Threading.EventWaitHandle.GetAccessControl%2A> method, and changed, the event is opened with the rights required to wait on it and signal it.</span></span> <span data-ttu-id="b2212-209">При запуске скомпилированный пример в третьем командном окне, в этом примере запускается с помощью новых разрешений.</span><span class="sxs-lookup"><span data-stu-id="b2212-209">If you run the compiled example from a third command window, the example runs using the new permissions.</span></span>  
+  
+ [!code-cpp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CS/source.cs#1)]
+ [!code-vb[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="b2212-210">Текущий объект <see cref="T:System.Threading.EventWaitHandle" /> представляет именованное системное событие, а пользователь не имеет прав <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-210">The current <see cref="T:System.Threading.EventWaitHandle" /> object represents a named system event, and the user does not have <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions" />.</span>
+          </span>
+          <span data-ttu-id="b2212-211">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-211">-or-</span>
+          </span>
+          <span data-ttu-id="b2212-212">Текущий объект <see cref="T:System.Threading.EventWaitHandle" /> представляет именованное системное событие, но оно не было открыто с правами <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-212">The current <see cref="T:System.Threading.EventWaitHandle" /> object represents a named system event, and was not opened with <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="b2212-213">Не поддерживается для Windows 98 или Windows Millennium Edition.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-213">Not supported for Windows 98 or Windows Millennium Edition.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="b2212-214">Для данного объекта <see cref="M:System.Threading.WaitHandle.Close" /> ранее вызывался метод <see cref="T:System.Threading.EventWaitHandle" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-214">The <see cref="M:System.Threading.WaitHandle.Close" /> method was previously called on this <see cref="T:System.Threading.EventWaitHandle" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="OpenExisting">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="b2212-215">Открывает указанное именованное событие синхронизации, если оно уже существует.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-215">Opens a specified named synchronization event, if it already exists.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="OpenExisting">
+      <MemberSignature Language="C#" Value="public static System.Threading.EventWaitHandle OpenExisting (string name);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.EventWaitHandle OpenExisting(string name) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.OpenExisting(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function OpenExisting (name As String) As EventWaitHandle" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::EventWaitHandle ^ OpenExisting(System::String ^ name);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.EventWaitHandle</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="b2212-216">Имя системного события синхронизации, которое нужно открыть.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-216">The name of the system synchronization event to open.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b2212-217">Открывает указанное именованное событие синхронизации, если оно уже существует.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-217">Opens the specified named synchronization event, if it already exists.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="b2212-218">Объект, представляющий именованное системное событие.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-218">An  object that represents the named system event.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-219"><xref:System.Threading.EventWaitHandle.OpenExisting%2A> Метод пытается открыть указанного именованного системного события.</span><span class="sxs-lookup"><span data-stu-id="b2212-219">The <xref:System.Threading.EventWaitHandle.OpenExisting%2A> method tries to open the specified named system event.</span></span> <span data-ttu-id="b2212-220">Если системное событие не существует, этот метод выдает исключение вместо создания системного события.</span><span class="sxs-lookup"><span data-stu-id="b2212-220">If the system event does not exist, this method throws an exception instead of creating the system event.</span></span> <span data-ttu-id="b2212-221">Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.</span><span class="sxs-lookup"><span data-stu-id="b2212-221">To create the system event when it does not already exist, use one of the <xref:System.Threading.EventWaitHandle.%23ctor%2A> constructors that has a `name` parameter.</span></span>  
+  
+ <span data-ttu-id="b2212-222">Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют того же именованного системного события.</span><span class="sxs-lookup"><span data-stu-id="b2212-222">Multiple calls to this method that use the same value for `name` do not necessarily return the same <xref:System.Threading.EventWaitHandle> object, even though the objects that are returned represent the same named system event.</span></span>  
+  
+ <span data-ttu-id="b2212-223">Эта перегрузка метода эквивалентен вызову <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегруженный метод и указывая <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> прав, объединяются с помощью битовой операции или.</span><span class="sxs-lookup"><span data-stu-id="b2212-223">This method overload is equivalent to calling the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> method overload and specifying <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> and <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> rights, combined by using the bitwise OR operation.</span></span>  
+  
+ <span data-ttu-id="b2212-224">Указание <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг позволяет потоку ожидать на именованного системного события и указав <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг позволяет потоку для вызова <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="b2212-224">Specifying the <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> flag allows a thread to wait on the named system event, and specifying the <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> flag allows a thread to call the <xref:System.Threading.EventWaitHandle.Set%2A> and <xref:System.Threading.EventWaitHandle.Reset%2A> methods.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b2212-225">В следующем примере кода демонстрируется поведение между процессами именованного системного события с безопасность управления доступом.</span><span class="sxs-lookup"><span data-stu-id="b2212-225">The following code example demonstrates the cross-process behavior of a named system event with access control security.</span></span> <span data-ttu-id="b2212-226">В этом примере <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода для проверки на наличие события с заданным именем.</span><span class="sxs-lookup"><span data-stu-id="b2212-226">The example uses the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> method overload to test for the existence of a named event.</span></span>  
+  
+ <span data-ttu-id="b2212-227">Если событие не существует, она создается с изначального владения и управления доступом, запрещают текущему пользователю использовать событие, но предоставляет право на чтение и изменение разрешений на событие.</span><span class="sxs-lookup"><span data-stu-id="b2212-227">If the event does not exist, it is created with initial ownership and access control security that denies the current user the right to use the event, but grants the right to read and change permissions on the event.</span></span>  
+  
+ <span data-ttu-id="b2212-228">При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>.</span><span class="sxs-lookup"><span data-stu-id="b2212-228">If you run the compiled example from two command windows, the second copy will throw an access violation exception on the call to <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>.</span></span> <span data-ttu-id="b2212-229">Исключение перехватывается, а в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода для ожидания события с права, необходимые для чтения и изменения разрешений.</span><span class="sxs-lookup"><span data-stu-id="b2212-229">The exception is caught, and the example uses the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> method overload to wait on the event with the rights needed to read and change the permissions.</span></span>  
+  
+ <span data-ttu-id="b2212-230">После изменения разрешений, событие открывается с права, необходимые для ожидания и сигнал.</span><span class="sxs-lookup"><span data-stu-id="b2212-230">After the permissions are changed, the event is opened with the rights required to wait on it and signal it.</span></span> <span data-ttu-id="b2212-231">При запуске скомпилированный пример в третьем командном окне, в этом примере запускается с помощью новых разрешений.</span><span class="sxs-lookup"><span data-stu-id="b2212-231">If you run the compiled example from a third command window, the example runs using the new permissions.</span></span>  
+  
+ [!code-cpp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CS/source.cs#1)]
+ [!code-vb[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="b2212-232">Параметр <paramref name="name" /> равен пустой строке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-232">
+              <paramref name="name" /> is an empty string.</span>
+          </span>
+          <span data-ttu-id="b2212-233">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-233">-or-</span>
+          </span>
+          <span data-ttu-id="b2212-234">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-234">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="b2212-235">Свойство <paramref name="name" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-235">
+              <paramref name="name" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">
+          <span data-ttu-id="b2212-236">Именованное системное событие не существует.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-236">The named system event does not exist.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="b2212-237">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-237">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="b2212-238">Именованное событие существует, но у пользователя нет необходимых для его использования прав доступа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-238">The named event exists, but the user does not have the security access required to use it.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="b2212-239">требуется полное доверие для непосредственно вызывающего метода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-239">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="b2212-240">Этот член не может использоваться частично доверенным или прозрачным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-240">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="OpenExisting">
+      <MemberSignature Language="C#" Value="public static System.Threading.EventWaitHandle OpenExisting (string name, System.Security.AccessControl.EventWaitHandleRights rights);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.EventWaitHandle OpenExisting(string name, valuetype System.Security.AccessControl.EventWaitHandleRights rights) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.OpenExisting(System.String,System.Security.AccessControl.EventWaitHandleRights)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function OpenExisting (name As String, rights As EventWaitHandleRights) As EventWaitHandle" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::EventWaitHandle ^ OpenExisting(System::String ^ name, System::Security::AccessControl::EventWaitHandleRights rights);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.EventWaitHandle</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="rights" Type="System.Security.AccessControl.EventWaitHandleRights" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="b2212-241">Имя системного события синхронизации, которое нужно открыть.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-241">The name of the system synchronization event to open.</span>
+          </span>
+        </param>
+        <param name="rights">
+          <span data-ttu-id="b2212-242">Битовая комбинация значений перечисления, которые определяют желаемые права доступа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-242">A bitwise combination of the enumeration values that represent the desired security access.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b2212-243">Открывает указанное именованное событие синхронизации, если оно уже существует, с требуемыми правами доступа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-243">Opens the specified named synchronization event, if it already exists, with the desired security access.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="b2212-244">Объект, представляющий именованное системное событие.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-244">An object that represents the named system event.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-245">`rights` Необходимо включить параметр <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг для освобождения потоков ожидают события и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг, чтобы разрешить потоков для вызова <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="b2212-245">The `rights` parameter must include the <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> flag to allow threads to wait on the event, and the <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> flag to allow threads to call the <xref:System.Threading.EventWaitHandle.Set%2A> and <xref:System.Threading.EventWaitHandle.Reset%2A> methods.</span></span>  
+  
+ <span data-ttu-id="b2212-246"><xref:System.Threading.EventWaitHandle.OpenExisting%2A> Метод пытается открыть существующего именованного системного события.</span><span class="sxs-lookup"><span data-stu-id="b2212-246">The <xref:System.Threading.EventWaitHandle.OpenExisting%2A> method tries to open an existing named system event.</span></span> <span data-ttu-id="b2212-247">Если системное событие не существует, этот метод выдает исключение вместо создания системного события.</span><span class="sxs-lookup"><span data-stu-id="b2212-247">If the system event does not exist, this method throws an exception instead of creating the system event.</span></span> <span data-ttu-id="b2212-248">Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.</span><span class="sxs-lookup"><span data-stu-id="b2212-248">To create the system event when it does not already exist, use one of the <xref:System.Threading.EventWaitHandle.%23ctor%2A> constructors that has a `name` parameter.</span></span>  
+  
+ <span data-ttu-id="b2212-249">Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют того же именованного системного события.</span><span class="sxs-lookup"><span data-stu-id="b2212-249">Multiple calls to this method that use the same value for `name` do not necessarily return the same <xref:System.Threading.EventWaitHandle> object, even though the objects that are returned represent the same named system event.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b2212-250">В следующем примере кода демонстрируется поведение между процессами именованного системного события с безопасность управления доступом.</span><span class="sxs-lookup"><span data-stu-id="b2212-250">The following code example demonstrates the cross-process behavior of a named system event with access control security.</span></span> <span data-ttu-id="b2212-251">В этом примере <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода для проверки на наличие события с заданным именем.</span><span class="sxs-lookup"><span data-stu-id="b2212-251">The example uses the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> method overload to test for the existence of a named event.</span></span>  
+  
+ <span data-ttu-id="b2212-252">Если событие не существует, она создается с изначального владения и управления доступом, запрещают текущему пользователю использовать событие, но предоставляет право на чтение и изменение разрешений на событие.</span><span class="sxs-lookup"><span data-stu-id="b2212-252">If the event does not exist, it is created with initial ownership and access control security that denies the current user the right to use the event, but grants the right to read and change permissions on the event.</span></span>  
+  
+ <span data-ttu-id="b2212-253">При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>.</span><span class="sxs-lookup"><span data-stu-id="b2212-253">If you run the compiled example from two command windows, the second copy will throw an access violation exception on the call to <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>.</span></span> <span data-ttu-id="b2212-254">Исключение перехватывается, а в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода для ожидания события с права, необходимые для чтения и изменения разрешений.</span><span class="sxs-lookup"><span data-stu-id="b2212-254">The exception is caught, and the example uses the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> method overload to wait on the event with the rights needed to read and change the permissions.</span></span>  
+  
+ <span data-ttu-id="b2212-255">После изменения разрешений, событие открывается с права, необходимые для ожидания и сигнал.</span><span class="sxs-lookup"><span data-stu-id="b2212-255">After the permissions are changed, the event is opened with the rights required to wait on it and signal it.</span></span> <span data-ttu-id="b2212-256">При запуске скомпилированный пример в третьем командном окне, в этом примере запускается с помощью новых разрешений.</span><span class="sxs-lookup"><span data-stu-id="b2212-256">If you run the compiled example from a third command window, the example runs using the new permissions.</span></span>  
+  
+ [!code-cpp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CS/source.cs#1)]
+ [!code-vb[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="b2212-257">Параметр <paramref name="name" /> равен пустой строке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-257">
+              <paramref name="name" /> is an empty string.</span>
+          </span>
+          <span data-ttu-id="b2212-258">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-258">-or-</span>
+          </span>
+          <span data-ttu-id="b2212-259">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-259">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="b2212-260">Свойство <paramref name="name" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-260">
+              <paramref name="name" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">
+          <span data-ttu-id="b2212-261">Именованное системное событие не существует.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-261">The named system event does not exist.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="b2212-262">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-262">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="b2212-263">Именованное событие уже существует, но пользователь не имеет требуемых прав для безопасного доступа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-263">The named event exists, but the user does not have the desired security access.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="b2212-264">требуется полное доверие для непосредственно вызывающего метода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-264">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="b2212-265">Этот член не может использоваться частично доверенным или прозрачным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-265">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="Reset">
+      <MemberSignature Language="C#" Value="public bool Reset ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool Reset() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.Reset" />
+      <MemberSignature Language="VB.NET" Value="Public Function Reset () As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool Reset();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="b2212-266">Задает несигнальное состояние события, вызывая блокирование потоков.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-266">Sets the state of the event to nonsignaled, causing threads to block.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="b2212-267">
+            <see langword="true" />, если операция прошла успешно; в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-267">
+              <see langword="true" /> if the operation succeeds; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="b2212-268">Для данного объекта <see cref="M:System.Threading.WaitHandle.Close" /> ранее вызывался метод <see cref="T:System.Threading.EventWaitHandle" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-268">The <see cref="M:System.Threading.WaitHandle.Close" /> method was previously called on this <see cref="T:System.Threading.EventWaitHandle" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Set">
+      <MemberSignature Language="C#" Value="public bool Set ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool Set() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.Set" />
+      <MemberSignature Language="VB.NET" Value="Public Function Set () As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool Set();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="b2212-269">Устанавливает сигнальное состояние события, что позволяет продолжить выполнение одному или нескольким ожидающим потокам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-269">Sets the state of the event to signaled, allowing one or more waiting threads to proceed.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="b2212-270">
+            <see langword="true" />, если операция прошла успешно; в противном случае — <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-270">
+              <see langword="true" /> if the operation succeeds; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-271">Для <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> (включая <xref:System.Threading.AutoResetEvent>), <xref:System.Threading.EventWaitHandle.Set%2A> метод освобождает один поток.</span><span class="sxs-lookup"><span data-stu-id="b2212-271">For an <xref:System.Threading.EventWaitHandle> with <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> (including <xref:System.Threading.AutoResetEvent>), the <xref:System.Threading.EventWaitHandle.Set%2A> method releases a single thread.</span></span> <span data-ttu-id="b2212-272">Если нет ожидающих потоков, дескриптор ожидания остается сигнальным, пока поток попытается ожидать на нем или до его <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод.</span><span class="sxs-lookup"><span data-stu-id="b2212-272">If there are no waiting threads, the wait handle remains signaled until a thread attempts to wait on it, or until its <xref:System.Threading.EventWaitHandle.Reset%2A> method is called.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="b2212-273">Нет никакой гарантии, каждый вызов <xref:System.Threading.EventWaitHandle.Set%2A> метод освобождает поток из <xref:System.Threading.EventWaitHandle> чей режим сброса <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType>.</span><span class="sxs-lookup"><span data-stu-id="b2212-273">There is no guarantee that every call to the <xref:System.Threading.EventWaitHandle.Set%2A> method will release a thread from an <xref:System.Threading.EventWaitHandle> whose reset mode is <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType>.</span></span> <span data-ttu-id="b2212-274">Если два вызова находятся слишком близко друг к другу, что второй вызов происходит до выпустила потока, освобождается только один поток.</span><span class="sxs-lookup"><span data-stu-id="b2212-274">If two calls are too close together, so that the second call occurs before a thread has been released, only one thread is released.</span></span> <span data-ttu-id="b2212-275">Это, как если бы второй вызов не произошло.</span><span class="sxs-lookup"><span data-stu-id="b2212-275">It is as if the second call did not happen.</span></span> <span data-ttu-id="b2212-276">Кроме того Если <xref:System.Threading.EventWaitHandle.Set%2A> вызывается, когда нет ожидающих потоков и <xref:System.Threading.EventWaitHandle> уже есть сигнал, вызов не оказывает влияния.</span><span class="sxs-lookup"><span data-stu-id="b2212-276">Also, if <xref:System.Threading.EventWaitHandle.Set%2A> is called when there are no threads waiting and the <xref:System.Threading.EventWaitHandle> is already signaled, the call has no effect.</span></span>  
+  
+ <span data-ttu-id="b2212-277">Для <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> (включая <xref:System.Threading.ManualResetEvent>), что вызов <xref:System.Threading.EventWaitHandle.Set%2A> метод оставляет дескриптора ожидания в сигнальном состоянии до ее <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод.</span><span class="sxs-lookup"><span data-stu-id="b2212-277">For an <xref:System.Threading.EventWaitHandle> with <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> (including <xref:System.Threading.ManualResetEvent>), calling the <xref:System.Threading.EventWaitHandle.Set%2A> method leaves the wait handle in a signaled state until its <xref:System.Threading.EventWaitHandle.Reset%2A> method is called.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b2212-278">Следующий пример кода использует <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> перегрузка метода, чтобы разрешить основной поток отправлять сигнал заблокированный поток и подождите, пока поток завершает задачу.</span><span class="sxs-lookup"><span data-stu-id="b2212-278">The following code example uses the <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> method overload to allow the main thread to signal a blocked thread and then wait until the thread finishes a task.</span></span>  
+  
+ <span data-ttu-id="b2212-279">В примере запускается пять потоков и их можно заблокировать на <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг, а затем время один поток выпуски, пользователь нажимает клавишу ВВОД.</span><span class="sxs-lookup"><span data-stu-id="b2212-279">The example starts five threads and allows them to block on an <xref:System.Threading.EventWaitHandle> created with the <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> flag, then releases one thread each time the user presses the ENTER key.</span></span> <span data-ttu-id="b2212-280">Затем помещает в очередь другой пять потоков и освобождает их с помощью <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг.</span><span class="sxs-lookup"><span data-stu-id="b2212-280">The example then queues another five threads and releases them all using an <xref:System.Threading.EventWaitHandle> created with the <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> flag.</span></span>  
+  
+ [!code-cpp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CS/source.cs#1)]
+ [!code-vb[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="b2212-281">Для данного объекта <see cref="M:System.Threading.WaitHandle.Close" /> ранее вызывался метод <see cref="T:System.Threading.EventWaitHandle" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-281">The <see cref="M:System.Threading.WaitHandle.Close" /> method was previously called on this <see cref="T:System.Threading.EventWaitHandle" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="SetAccessControl">
+      <MemberSignature Language="C#" Value="public void SetAccessControl (System.Security.AccessControl.EventWaitHandleSecurity eventSecurity);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void SetAccessControl(class System.Security.AccessControl.EventWaitHandleSecurity eventSecurity) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.SetAccessControl(System.Security.AccessControl.EventWaitHandleSecurity)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub SetAccessControl (eventSecurity As EventWaitHandleSecurity)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void SetAccessControl(System::Security::AccessControl::EventWaitHandleSecurity ^ eventSecurity);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="eventSecurity" Type="System.Security.AccessControl.EventWaitHandleSecurity" />
+      </Parameters>
+      <Docs>
+        <param name="eventSecurity">
+          <span data-ttu-id="b2212-282">Объект <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" />, определяющий настройки управления доступом для применения к именованному системному событию.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-282">An <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" /> object that represents the access control security to be applied to the named system event.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b2212-283">Задает защиту управления доступом для именованного системного события.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-283">Sets the access control security for a named system event.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-284">Пользователь должен иметь <xref:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions?displayProperty=nameWithType> правами для вызова этого метода и события должен быть открыт с <xref:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions?displayProperty=nameWithType> флаг.</span><span class="sxs-lookup"><span data-stu-id="b2212-284">The user must have <xref:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions?displayProperty=nameWithType> rights to call this method, and the event must have been opened with the <xref:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions?displayProperty=nameWithType> flag.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="b2212-285">В следующем примере кода демонстрируется поведение между процессами именованного системного события с безопасность управления доступом.</span><span class="sxs-lookup"><span data-stu-id="b2212-285">The following code example demonstrates the cross-process behavior of a named system event with access control security.</span></span> <span data-ttu-id="b2212-286">В этом примере <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода для проверки на наличие события с заданным именем.</span><span class="sxs-lookup"><span data-stu-id="b2212-286">The example uses the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> method overload to test for the existence of a named event.</span></span>  
+  
+ <span data-ttu-id="b2212-287">Если событие не существует, она создается с изначального владения и управления доступом, запрещают текущему пользователю использовать событие, но предоставляет право на чтение и изменение разрешений на событие.</span><span class="sxs-lookup"><span data-stu-id="b2212-287">If the event does not exist, it is created with initial ownership and access control security that denies the current user the right to use the event, but grants the right to read and change permissions on the event.</span></span>  
+  
+ <span data-ttu-id="b2212-288">При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>.</span><span class="sxs-lookup"><span data-stu-id="b2212-288">If you run the compiled example from two command windows, the second copy will throw an access violation exception on the call to <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>.</span></span> <span data-ttu-id="b2212-289">Исключение перехватывается, а в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода для ожидания события с права, необходимые для чтения и изменения разрешений.</span><span class="sxs-lookup"><span data-stu-id="b2212-289">The exception is caught, and the example uses the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> method overload to wait on the event with the rights needed to read and change the permissions.</span></span>  
+  
+ <span data-ttu-id="b2212-290">После изменения разрешений, с помощью <xref:System.Threading.EventWaitHandle.SetAccessControl%2A> метод событие открывается с права, необходимые для ожидания и сигнал.</span><span class="sxs-lookup"><span data-stu-id="b2212-290">After the permissions are changed, using the <xref:System.Threading.EventWaitHandle.SetAccessControl%2A> method, the event is opened with the rights required to wait on it and signal it.</span></span> <span data-ttu-id="b2212-291">При запуске скомпилированный пример в третьем командном окне, в этом примере запускается с помощью новых разрешений.</span><span class="sxs-lookup"><span data-stu-id="b2212-291">If you run the compiled example from a third command window, the example runs using the new permissions.</span></span>  
+  
+ [!code-cpp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CS/source.cs#1)]
+ [!code-vb[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="b2212-292">Свойство <paramref name="eventSecurity" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-292">
+              <paramref name="eventSecurity" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="b2212-293">Пользователь не имеет <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-293">The user does not have <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions" />.</span>
+          </span>
+          <span data-ttu-id="b2212-294">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-294">-or-</span>
+          </span>
+          <span data-ttu-id="b2212-295">Событие не было открыто с <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-295">The event was not opened with <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.SystemException">
+          <span data-ttu-id="b2212-296">Текущий объект <see cref="T:System.Threading.EventWaitHandle" /> не представляет именованное системное событие.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-296">The current <see cref="T:System.Threading.EventWaitHandle" /> object does not represent a named system event.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="b2212-297">Для данного объекта <see cref="M:System.Threading.WaitHandle.Close" /> ранее вызывался метод <see cref="T:System.Threading.EventWaitHandle" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-297">The <see cref="M:System.Threading.WaitHandle.Close" /> method was previously called on this <see cref="T:System.Threading.EventWaitHandle" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="TryOpenExisting">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="b2212-298">Открывает указанное именованное событие синхронизации, если оно уже существует, и возвращает значение, указывающее, успешно ли выполнена операция.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-298">Opens a specified named synchronization event, if it already exists, and returns a value that indicates whether the operation succeeded.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="TryOpenExisting">
+      <MemberSignature Language="C#" Value="public static bool TryOpenExisting (string name, out System.Threading.EventWaitHandle result);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig bool TryOpenExisting(string name, [out] class System.Threading.EventWaitHandle&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.TryOpenExisting(System.String,System.Threading.EventWaitHandle@)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function TryOpenExisting (name As String, ByRef result As EventWaitHandle) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool TryOpenExisting(System::String ^ name, [Runtime::InteropServices::Out] System::Threading::EventWaitHandle ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="result" Type="System.Threading.EventWaitHandle&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="b2212-299">Имя системного события синхронизации, которое нужно открыть.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-299">The name of the system synchronization event to open.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="b2212-300">При возврате этого метода содержит объект <see cref="T:System.Threading.EventWaitHandle" />, представляющий именованное событие синхронизации, если вызов завершился успешно, или значение <see langword="null" />, если вызов завершился неудачно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-300">When this method returns, contains a <see cref="T:System.Threading.EventWaitHandle" /> object that represents the named synchronization event if the call succeeded, or <see langword="null" /> if the call failed.</span>
+          </span>
+          <span data-ttu-id="b2212-301">Этот параметр обрабатывается как неинициализированный.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-301">This parameter is treated as uninitialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b2212-302">Открывает указанное именованное событие синхронизации, если оно уже существует, и возвращает значение, указывающее, успешно ли выполнена операция.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-302">Opens the specified named synchronization event, if it already exists, and returns a value that indicates whether the operation succeeded.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="b2212-303">Значение <see langword="true" />, если именованное событие синхронизации открылось успешно. В противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-303">
+              <see langword="true" /> if the named synchronization event was opened successfully; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-304">Если именованное событие не существует, этот метод не создает его.</span><span class="sxs-lookup"><span data-stu-id="b2212-304">If the named synchronization event does not exist, this method does not create it.</span></span> <span data-ttu-id="b2212-305">Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.</span><span class="sxs-lookup"><span data-stu-id="b2212-305">To create the system event when it does not already exist, use one of the <xref:System.Threading.EventWaitHandle.%23ctor%2A> constructors that has a `name` parameter.</span></span>  
+  
+ <span data-ttu-id="b2212-306">Если неизвестно, существует ли именованное событие, используйте перегрузку этого метода, а не <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода, который создает исключение, если событие синхронизации не существует.</span><span class="sxs-lookup"><span data-stu-id="b2212-306">If you are uncertain whether a named synchronization event exists, use this method overload instead of the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> method overload, which throws an exception if the synchronization event does not exist.</span></span>  
+  
+ <span data-ttu-id="b2212-307">Эта перегрузка метода эквивалентен вызову <xref:System.Threading.EventWaitHandle.TryOpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%2CSystem.Threading.EventWaitHandle%40%29> перегруженный метод и указывая <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> прав, объединяются с помощью битовой операции или.</span><span class="sxs-lookup"><span data-stu-id="b2212-307">This method overload is equivalent to calling the <xref:System.Threading.EventWaitHandle.TryOpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%2CSystem.Threading.EventWaitHandle%40%29> method overload and specifying <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> and <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> rights, combined by using the bitwise OR operation.</span></span> <span data-ttu-id="b2212-308">Указание <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг позволяет потоку ожидать на именованного системного события и указав <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг позволяет потоку для вызова <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="b2212-308">Specifying the <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> flag allows a thread to wait on the named system event, and specifying the <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> flag allows a thread to call the <xref:System.Threading.EventWaitHandle.Set%2A> and <xref:System.Threading.EventWaitHandle.Reset%2A> methods.</span></span>  
+  
+ <span data-ttu-id="b2212-309">Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют того же именованного системного события.</span><span class="sxs-lookup"><span data-stu-id="b2212-309">Multiple calls to this method that use the same value for `name` do not necessarily return the same <xref:System.Threading.EventWaitHandle> object, even though the objects that are returned represent the same named system event.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="b2212-310">Параметр <paramref name="name" /> равен пустой строке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-310">
+              <paramref name="name" /> is an empty string.</span>
+          </span>
+          <span data-ttu-id="b2212-311">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-311">-or-</span>
+          </span>
+          <span data-ttu-id="b2212-312">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-312">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="b2212-313">Свойство <paramref name="name" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-313">
+              <paramref name="name" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="b2212-314">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-314">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="b2212-315">Именованное событие уже существует, но пользователь не имеет требуемых прав для безопасного доступа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-315">The named event exists, but the user does not have the desired security access.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="b2212-316">требуется полное доверие для непосредственно вызывающего метода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-316">requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="b2212-317">Этот член не может использоваться частично доверенным или прозрачным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-317">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="TryOpenExisting">
+      <MemberSignature Language="C#" Value="public static bool TryOpenExisting (string name, System.Security.AccessControl.EventWaitHandleRights rights, out System.Threading.EventWaitHandle result);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig bool TryOpenExisting(string name, valuetype System.Security.AccessControl.EventWaitHandleRights rights, [out] class System.Threading.EventWaitHandle&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.TryOpenExisting(System.String,System.Security.AccessControl.EventWaitHandleRights,System.Threading.EventWaitHandle@)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function TryOpenExisting (name As String, rights As EventWaitHandleRights, ByRef result As EventWaitHandle) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool TryOpenExisting(System::String ^ name, System::Security::AccessControl::EventWaitHandleRights rights, [Runtime::InteropServices::Out] System::Threading::EventWaitHandle ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="rights" Type="System.Security.AccessControl.EventWaitHandleRights" />
+        <Parameter Name="result" Type="System.Threading.EventWaitHandle&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="b2212-318">Имя системного события синхронизации, которое нужно открыть.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-318">The name of the system synchronization event to open.</span>
+          </span>
+        </param>
+        <param name="rights">
+          <span data-ttu-id="b2212-319">Битовая комбинация значений перечисления, которые определяют желаемые права доступа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-319">A bitwise combination of the enumeration values that represent the desired security access.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="b2212-320">При возврате этого метода содержит объект <see cref="T:System.Threading.EventWaitHandle" />, представляющий именованное событие синхронизации, если вызов завершился успешно, или значение <see langword="null" />, если вызов завершился неудачно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-320">When this method returns, contains a <see cref="T:System.Threading.EventWaitHandle" /> object that represents the named synchronization event if the call succeeded, or <see langword="null" /> if the call failed.</span>
+          </span>
+          <span data-ttu-id="b2212-321">Этот параметр обрабатывается как неинициализированный.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-321">This parameter is treated as uninitialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="b2212-322">Открывает заданное именованное событие синхронизации, если оно уже существует, с требуемыми правами доступа и возвращает значение, указывающее, успешно ли выполнена операция.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-322">Opens the specified named synchronization event, if it already exists, with the desired security access, and returns a value that indicates whether the operation succeeded.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="b2212-323">Значение <see langword="true" />, если именованное событие синхронизации открылось успешно. В противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-323">
+              <see langword="true" /> if the named synchronization event was opened successfully; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="b2212-324">Если именованное событие не существует, этот метод не создает его.</span><span class="sxs-lookup"><span data-stu-id="b2212-324">If the named synchronization event does not exist, this method does not create it.</span></span> <span data-ttu-id="b2212-325">Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.</span><span class="sxs-lookup"><span data-stu-id="b2212-325">To create the system event when it does not already exist, use one of the <xref:System.Threading.EventWaitHandle.%23ctor%2A> constructors that has a `name` parameter.</span></span>  
+  
+ <span data-ttu-id="b2212-326">Если неизвестно, существует ли именованное событие, используйте перегрузку этого метода, а не <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода, который создает исключение, если событие синхронизации не существует.</span><span class="sxs-lookup"><span data-stu-id="b2212-326">If you are uncertain whether a named synchronization event exists, use this method overload instead of the <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> method overload, which throws an exception if the synchronization event does not exist.</span></span>  
+  
+ <span data-ttu-id="b2212-327">`rights` Необходимо включить параметр <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг для освобождения потоков ожидают события и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг, чтобы разрешить потоков для вызова <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="b2212-327">The `rights` parameter must include the <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> flag to allow threads to wait on the event, and the <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> flag to allow threads to call the <xref:System.Threading.EventWaitHandle.Set%2A> and <xref:System.Threading.EventWaitHandle.Reset%2A> methods.</span></span>  
+  
+ <span data-ttu-id="b2212-328">Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют того же именованного системного события.</span><span class="sxs-lookup"><span data-stu-id="b2212-328">Multiple calls to this method that use the same value for `name` do not necessarily return the same <xref:System.Threading.EventWaitHandle> object, even though the objects that are returned represent the same named system event.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="b2212-329">Параметр <paramref name="name" /> равен пустой строке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-329">
+              <paramref name="name" /> is an empty string.</span>
+          </span>
+          <span data-ttu-id="b2212-330">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-330">-or-</span>
+          </span>
+          <span data-ttu-id="b2212-331">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-331">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="b2212-332">Свойство <paramref name="name" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-332">
+              <paramref name="name" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="b2212-333">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-333">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="b2212-334">Именованное событие уже существует, но пользователь не имеет требуемых прав для безопасного доступа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-334">The named event exists, but the user does not have the desired security access.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="b2212-335">требуется полное доверие для непосредственно вызывающего метода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-335">requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="b2212-336">Этот член не может использоваться частично доверенным или прозрачным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="b2212-336">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

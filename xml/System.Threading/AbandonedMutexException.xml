@@ -1,0 +1,665 @@
+<Type Name="AbandonedMutexException" FullName="System.Threading.AbandonedMutexException">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="aff749be646a23d7b3e5cd0e23fa4000612a6a58" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class AbandonedMutexException : SystemException" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit AbandonedMutexException extends System.SystemException" />
+  <TypeSignature Language="DocId" Value="T:System.Threading.AbandonedMutexException" />
+  <TypeSignature Language="VB.NET" Value="Public Class AbandonedMutexException&#xA;Inherits SystemException" />
+  <TypeSignature Language="C++ CLI" Value="public ref class AbandonedMutexException : SystemException" />
+  <AssemblyInfo>
+    <AssemblyName>System.Threading</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Exception</BaseTypeName>
+    <BaseTypeName FrameworkAlternate="netframework-4.5">System.SystemException</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="5bfe3-101">Исключение вызывается, когда некоторый поток получает объект <see cref="T:System.Threading.Mutex" />, брошенный другим потоком путем выхода без высвобождения.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="5bfe3-101">The exception that is thrown when one thread acquires a <see cref="T:System.Threading.Mutex" /> object that another thread has abandoned by exiting without releasing it.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5bfe3-102">Если поток получившем мьютекс, исключение создается в следующий поток, который получает объект взаимного исключения.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-102">When a thread abandons a mutex, the exception is thrown in the next thread that acquires the mutex.</span></span> <span data-ttu-id="5bfe3-103">Поток может занять объект взаимного исключения, так как он уже ожидал мьютекс или переходом мьютекса позднее.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-103">The thread might acquire the mutex because it was already waiting on the mutex or because it enters the mutex at a later time.</span></span>  
+  
+ <span data-ttu-id="5bfe3-104">Брошенный mutex признаком серьезной ошибки программирования.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-104">An abandoned mutex indicates a serious programming error.</span></span> <span data-ttu-id="5bfe3-105">Когда поток завершает работу без освобождения объекта mutex, структуры данных, защищенные объектом mutex, не может быть в согласованном состоянии.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-105">When a thread exits without releasing the mutex, the data structures protected by the mutex might not be in a consistent state.</span></span> <span data-ttu-id="5bfe3-106">До .NET Framework версии 2.0 такие проблемы было трудно обнаружить, поскольку исключение не выдавалось, при завершении в результате Брошенный mutex ожидания.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-106">Prior to version 2.0 of the .NET Framework, such problems were hard to discover because no exception was thrown if a wait completed as the result of an abandoned mutex.</span></span> <span data-ttu-id="5bfe3-107">Дополнительные сведения см. в описании класса <xref:System.Threading.Mutex>.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-107">For more information, see the <xref:System.Threading.Mutex> class.</span></span>  
+  
+ <span data-ttu-id="5bfe3-108">Следующий поток, который запросит владение объектом Mutex можно обработать это исключение и продолжить работу, при условии, что можно удостовериться в целостности структуры данных.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-108">The next thread to request ownership of the mutex can handle this exception and proceed, provided that the integrity of the data structures can be verified.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5bfe3-109">В следующем примере кода выполняется поток, который отменяет пять мьютексы, демонстрирующий их влияние на <xref:System.Threading.WaitHandle.WaitOne%2A>, <xref:System.Threading.WaitHandle.WaitAny%2A>, и <xref:System.Threading.WaitHandle.WaitAll%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-109">The following code example executes a thread that abandons five mutexes, demonstrating their effects on the <xref:System.Threading.WaitHandle.WaitOne%2A>, <xref:System.Threading.WaitHandle.WaitAny%2A>, and <xref:System.Threading.WaitHandle.WaitAll%2A> methods.</span></span> <span data-ttu-id="5bfe3-110">Значение <xref:System.Threading.AbandonedMutexException.MutexIndex%2A> свойство отображается для <xref:System.Threading.WaitHandle.WaitAny%2A> вызова.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-110">The value of the <xref:System.Threading.AbandonedMutexException.MutexIndex%2A> property is displayed for the <xref:System.Threading.WaitHandle.WaitAny%2A> call.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="5bfe3-111">Вызов <xref:System.Threading.WaitHandle.WaitAny%2A> метод прерывается на единицу прерванное мьютексов.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-111">The call to the <xref:System.Threading.WaitHandle.WaitAny%2A> method is interrupted by one of the abandoned mutexes.</span></span> <span data-ttu-id="5bfe3-112">Брошенный mutex по-прежнему может привести к <xref:System.Threading.AbandonedMutexException> в результате последующие ожидания методов.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-112">The other abandoned mutex could still cause an <xref:System.Threading.AbandonedMutexException> to be thrown by subsequent wait methods.</span></span>  
+  
+ [!code-cpp[System.Threading.AbandonedMutexException#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.AbandonedMutexException/CPP/koax.cpp#1)]
+ [!code-csharp[System.Threading.AbandonedMutexException#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.AbandonedMutexException/CS/koax.cs#1)]
+ [!code-vb[System.Threading.AbandonedMutexException#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.AbandonedMutexException/VB/koax.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Threading.Mutex" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5bfe3-113">Инициализирует новый экземпляр класса <see cref="T:System.Threading.AbandonedMutexException" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-113">Initializes a new instance of the <see cref="T:System.Threading.AbandonedMutexException" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AbandonedMutexException ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.AbandonedMutexException.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AbandonedMutexException();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="5bfe3-114">Инициализирует новый экземпляр класса <see cref="T:System.Threading.AbandonedMutexException" /> со значениями по умолчанию.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-114">Initializes a new instance of the <see cref="T:System.Threading.AbandonedMutexException" /> class with default values.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5bfe3-115">Этот конструктор инициализирует <xref:System.Exception.Message%2A> свойств нового экземпляра системным сообщением, описывающим ошибку, например «Ожидание закончилось вследствие освобождения семафора.»</span><span class="sxs-lookup"><span data-stu-id="5bfe3-115">This constructor initializes the <xref:System.Exception.Message%2A> property of the new instance to a system-supplied message that describes the error, such as "The wait completed due to an abandoned mutex."</span></span> <span data-ttu-id="5bfe3-116">Это сообщение учитывает текущую культуру системы.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-116">This message takes into account the current system culture.</span></span>  
+  
+ <span data-ttu-id="5bfe3-117">В следующей таблице представлены исходные значения свойств экземпляра класса <xref:System.Threading.AbandonedMutexException>.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-117">The following table shows the initial property values for an instance of <xref:System.Threading.AbandonedMutexException>.</span></span>  
+  
+|<span data-ttu-id="5bfe3-118">Свойство.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-118">Property</span></span>|<span data-ttu-id="5bfe3-119">Значение</span><span class="sxs-lookup"><span data-stu-id="5bfe3-119">Value</span></span>|  
+|--------------|-----------|  
+|<xref:System.Exception.InnerException%2A>|<span data-ttu-id="5bfe3-120">`null`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-120">`null`.</span></span>|  
+|<xref:System.Exception.Message%2A>|<span data-ttu-id="5bfe3-121">Строка сообщения об системным.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-121">The system-supplied error message string.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.Mutex%2A>|<span data-ttu-id="5bfe3-122">`null`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-122">`null`.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.MutexIndex%2A>|<span data-ttu-id="5bfe3-123">– 1 (минус единица).</span><span class="sxs-lookup"><span data-stu-id="5bfe3-123">–1 (minus one).</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Threading.Mutex" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AbandonedMutexException (string message);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string message) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.AbandonedMutexException.#ctor(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (message As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AbandonedMutexException(System::String ^ message);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="message" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="message">
+          <span data-ttu-id="5bfe3-124">Сообщение об ошибке с объяснением причины исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-124">An error message that explains the reason for the exception.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5bfe3-125">Инициализирует новый экземпляр класса <see cref="T:System.Threading.AbandonedMutexException" /> с указанным сообщением об ошибке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-125">Initializes a new instance of the <see cref="T:System.Threading.AbandonedMutexException" /> class with a specified error message.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5bfe3-126">Содержимое `message` должно быть понятно пользователю.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-126">The content of `message` is intended to be understood by humans.</span></span> <span data-ttu-id="5bfe3-127">Код, вызывающий этот конструктор, должен обеспечить локализацию данной строки в соответствии с текущим языком и региональными параметрами системы.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-127">The caller of this constructor is required to ensure that this string has been localized for the current system culture.</span></span>  
+  
+ <span data-ttu-id="5bfe3-128">В следующей таблице показаны исходные значения свойств для экземпляра <xref:System.Threading.AbandonedMutexException> инициализирован с помощью этого конструктора.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-128">The following table shows the initial property values for an instance of <xref:System.Threading.AbandonedMutexException> initialized with this constructor.</span></span>  
+  
+|<span data-ttu-id="5bfe3-129">Свойство.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-129">Property</span></span>|<span data-ttu-id="5bfe3-130">Значение</span><span class="sxs-lookup"><span data-stu-id="5bfe3-130">Value</span></span>|  
+|--------------|-----------|  
+|<xref:System.Exception.InnerException%2A>|<span data-ttu-id="5bfe3-131">`null`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-131">`null`.</span></span>|  
+|<xref:System.Exception.Message%2A>|<span data-ttu-id="5bfe3-132">`message`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-132">`message`.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.Mutex%2A>|<span data-ttu-id="5bfe3-133">`null`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-133">`null`.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.MutexIndex%2A>|<span data-ttu-id="5bfe3-134">– 1 (минус единица).</span><span class="sxs-lookup"><span data-stu-id="5bfe3-134">–1 (minus one).</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Threading.Mutex" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AbandonedMutexException (int location, System.Threading.WaitHandle handle);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(int32 location, class System.Threading.WaitHandle handle) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.AbandonedMutexException.#ctor(System.Int32,System.Threading.WaitHandle)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (location As Integer, handle As WaitHandle)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AbandonedMutexException(int location, System::Threading::WaitHandle ^ handle);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="location" Type="System.Int32" />
+        <Parameter Name="handle" Type="System.Threading.WaitHandle" />
+      </Parameters>
+      <Docs>
+        <param name="location">
+          <span data-ttu-id="5bfe3-135">Индекс брошенного мьютекса в массиве дескрипторов ожидания, если выдается исключение для метода <see cref="Overload:System.Threading.WaitHandle.WaitAny" />, или –1, если исключение выдается для методов <see cref="Overload:System.Threading.WaitHandle.WaitOne" /> или <see cref="Overload:System.Threading.WaitHandle.WaitAll" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-135">The index of the abandoned mutex in the array of wait handles if the exception is thrown for the <see cref="Overload:System.Threading.WaitHandle.WaitAny" /> method, or –1 if the exception is thrown for the <see cref="Overload:System.Threading.WaitHandle.WaitOne" /> or <see cref="Overload:System.Threading.WaitHandle.WaitAll" /> methods.</span>
+          </span>
+        </param>
+        <param name="handle">
+          <span data-ttu-id="5bfe3-136">Объект <see cref="T:System.Threading.Mutex" />, представляющий брошенный мьютекс.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-136">A <see cref="T:System.Threading.Mutex" /> object that represents the abandoned mutex.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5bfe3-137">Инициализирует новый экземпляр класса <see cref="T:System.Threading.AbandonedMutexException" />, используя конкретиый индекс брошенного мьютекса, (если применимо), а также объект <see cref="T:System.Threading.Mutex" />, представляющий мьютекс.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-137">Initializes a new instance of the <see cref="T:System.Threading.AbandonedMutexException" /> class with a specified index for the abandoned mutex, if applicable, and a <see cref="T:System.Threading.Mutex" /> object that represents the mutex.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5bfe3-138">Этот конструктор инициализирует <xref:System.Exception.Message%2A> свойств нового экземпляра системным сообщением, описывающим ошибку, например «Ожидание закончилось вследствие освобождения семафора.»</span><span class="sxs-lookup"><span data-stu-id="5bfe3-138">This constructor initializes the <xref:System.Exception.Message%2A> property of the new instance to a system-supplied message that describes the error, such as "The wait completed due to an abandoned mutex."</span></span> <span data-ttu-id="5bfe3-139">Это сообщение учитывает текущую культуру системы.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-139">This message takes into account the current system culture.</span></span>  
+  
+ <span data-ttu-id="5bfe3-140">В следующей таблице показаны исходные значения свойств для экземпляра <xref:System.Threading.AbandonedMutexException> инициализирован с помощью этого конструктора.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-140">The following table shows the initial property values for an instance of <xref:System.Threading.AbandonedMutexException> initialized with this constructor.</span></span>  
+  
+|<span data-ttu-id="5bfe3-141">Свойство.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-141">Property</span></span>|<span data-ttu-id="5bfe3-142">Значение</span><span class="sxs-lookup"><span data-stu-id="5bfe3-142">Value</span></span>|  
+|--------------|-----------|  
+|<xref:System.Exception.InnerException%2A>|<span data-ttu-id="5bfe3-143">`null`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-143">`null`.</span></span>|  
+|<xref:System.Exception.Message%2A>|<span data-ttu-id="5bfe3-144">Строка ошибки системного сообщения.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-144">A system-supplied error message string.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.Mutex%2A>|<span data-ttu-id="5bfe3-145">`handle`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-145">`handle`.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.MutexIndex%2A>|<span data-ttu-id="5bfe3-146">`location`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-146">`location`.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Threading.Mutex" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected AbandonedMutexException (System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor(class System.Runtime.Serialization.SerializationInfo info, valuetype System.Runtime.Serialization.StreamingContext context) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.AbandonedMutexException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New (info As SerializationInfo, context As StreamingContext)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; AbandonedMutexException(System::Runtime::Serialization::SerializationInfo ^ info, System::Runtime::Serialization::StreamingContext context);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="info" Type="System.Runtime.Serialization.SerializationInfo" />
+        <Parameter Name="context" Type="System.Runtime.Serialization.StreamingContext" />
+      </Parameters>
+      <Docs>
+        <param name="info">
+          <span data-ttu-id="5bfe3-147">Объект <see cref="T:System.Runtime.Serialization.SerializationInfo" />, содержащий сериализованные данные объекта по возникающему исключению.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-147">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object that holds the serialized object data about the exception being thrown.</span>
+          </span>
+        </param>
+        <param name="context">
+          <span data-ttu-id="5bfe3-148">Объект <see cref="T:System.Runtime.Serialization.StreamingContext" />, содержащий контекстные сведения об источнике или назначении.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-148">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> object that contains contextual information about the source or destination.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5bfe3-149">Инициализирует новый экземпляр класса <see cref="T:System.Threading.AbandonedMutexException" /> с сериализованными данными.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-149">Initializes a new instance of the <see cref="T:System.Threading.AbandonedMutexException" /> class with serialized data.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5bfe3-150">Данный конструктор вызывается в процессе десериализации для воссоздания объекта исключения, переданного в потоке.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-150">This constructor is called during deserialization to reconstitute the exception object transmitted over a stream.</span></span> <span data-ttu-id="5bfe3-151">Дополнительные сведения см. в разделе [сериализации XML и SOAP](~/docs/standard/serialization/xml-and-soap-serialization.md).</span><span class="sxs-lookup"><span data-stu-id="5bfe3-151">For more information, see [XML and SOAP Serialization](~/docs/standard/serialization/xml-and-soap-serialization.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Threading.Mutex" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AbandonedMutexException (string message, Exception inner);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string message, class System.Exception inner) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.AbandonedMutexException.#ctor(System.String,System.Exception)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (message As String, inner As Exception)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AbandonedMutexException(System::String ^ message, Exception ^ inner);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="message" Type="System.String" />
+        <Parameter Name="inner" Type="System.Exception" />
+      </Parameters>
+      <Docs>
+        <param name="message">
+          <span data-ttu-id="5bfe3-152">Сообщение об ошибке с объяснением причины исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-152">An error message that explains the reason for the exception.</span>
+          </span>
+        </param>
+        <param name="inner">
+          <span data-ttu-id="5bfe3-153">Исключение, которое является причиной текущего исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-153">The exception that is the cause of the current exception.</span>
+          </span>
+          <span data-ttu-id="5bfe3-154">Если значение параметра <c>inner</c> не равно <see langword="null" />, текущее исключение возникает в блоке <see langword="catch" />, обрабатывающем внутреннее исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-154">If the <c>inner</c> parameter is not <see langword="null" />, the current exception is raised in a <see langword="catch" /> block that handles the inner exception.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5bfe3-155">Выполняет инициализацию нового экземпляра класса <see cref="T:System.Threading.AbandonedMutexException" /> с указанным сообщением об ошибке и внутренним исключением.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-155">Initializes a new instance of the <see cref="T:System.Threading.AbandonedMutexException" /> class with a specified error message and inner exception.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5bfe3-156">Содержимое `message` должно быть понятно пользователю.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-156">The content of `message` is intended to be understood by humans.</span></span> <span data-ttu-id="5bfe3-157">Код, вызывающий этот конструктор, должен обеспечить локализацию данной строки в соответствии с текущим языком и региональными параметрами системы.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-157">The caller of this constructor is required to ensure that this string has been localized for the current system culture.</span></span>  
+  
+ <span data-ttu-id="5bfe3-158">Исключение, созданное как прямой результат предыдущего исключения, должно содержать в свойстве <xref:System.Exception.InnerException%2A> ссылку на предыдущее исключение.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-158">An exception that is thrown as a direct result of a previous exception should include a reference to the previous exception in the <xref:System.Exception.InnerException%2A> property.</span></span> <span data-ttu-id="5bfe3-159">Свойство <xref:System.Exception.InnerException%2A> возвращает значение, переданное конструктору, или значение `null`, если свойство <xref:System.Exception.InnerException%2A> не передает конструктору значение внутреннего исключения.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-159">The <xref:System.Exception.InnerException%2A> property returns the same value that is passed into the constructor, or `null` if the <xref:System.Exception.InnerException%2A> property does not supply the inner exception value to the constructor.</span></span>  
+  
+ <span data-ttu-id="5bfe3-160">В следующей таблице показаны исходные значения свойств для экземпляра <xref:System.Threading.AbandonedMutexException> инициализирован с помощью этого конструктора.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-160">The following table shows the initial property values for an instance of <xref:System.Threading.AbandonedMutexException> initialized with this constructor.</span></span>  
+  
+|<span data-ttu-id="5bfe3-161">Свойство.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-161">Property</span></span>|<span data-ttu-id="5bfe3-162">Значение</span><span class="sxs-lookup"><span data-stu-id="5bfe3-162">Value</span></span>|  
+|--------------|-----------|  
+|<xref:System.Exception.InnerException%2A>|<span data-ttu-id="5bfe3-163">`inner`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-163">`inner`.</span></span>|  
+|<xref:System.Exception.Message%2A>|<span data-ttu-id="5bfe3-164">`message`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-164">`message`.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.Mutex%2A>|<span data-ttu-id="5bfe3-165">`null`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-165">`null`.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.MutexIndex%2A>|<span data-ttu-id="5bfe3-166">– 1 (минус единица).</span><span class="sxs-lookup"><span data-stu-id="5bfe3-166">–1 (minus one).</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Threading.Mutex" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AbandonedMutexException (string message, int location, System.Threading.WaitHandle handle);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string message, int32 location, class System.Threading.WaitHandle handle) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.AbandonedMutexException.#ctor(System.String,System.Int32,System.Threading.WaitHandle)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (message As String, location As Integer, handle As WaitHandle)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AbandonedMutexException(System::String ^ message, int location, System::Threading::WaitHandle ^ handle);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="message" Type="System.String" />
+        <Parameter Name="location" Type="System.Int32" />
+        <Parameter Name="handle" Type="System.Threading.WaitHandle" />
+      </Parameters>
+      <Docs>
+        <param name="message">
+          <span data-ttu-id="5bfe3-167">Сообщение об ошибке с объяснением причины исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-167">An error message that explains the reason for the exception.</span>
+          </span>
+        </param>
+        <param name="location">
+          <span data-ttu-id="5bfe3-168">Индекс брошенного мьютекса в массиве дескрипторов ожидания, если выдается исключение для метода <see cref="Overload:System.Threading.WaitHandle.WaitAny" />, или –1, если исключение выдается для методов <see cref="Overload:System.Threading.WaitHandle.WaitOne" /> или <see cref="Overload:System.Threading.WaitHandle.WaitAll" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-168">The index of the abandoned mutex in the array of wait handles if the exception is thrown for the <see cref="Overload:System.Threading.WaitHandle.WaitAny" /> method, or –1 if the exception is thrown for the <see cref="Overload:System.Threading.WaitHandle.WaitOne" /> or <see cref="Overload:System.Threading.WaitHandle.WaitAll" /> methods.</span>
+          </span>
+        </param>
+        <param name="handle">
+          <span data-ttu-id="5bfe3-169">Объект <see cref="T:System.Threading.Mutex" />, представляющий брошенный мьютекс.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-169">A <see cref="T:System.Threading.Mutex" /> object that represents the abandoned mutex.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5bfe3-170">Инициализирует новый экземпляр класса <see cref="T:System.Threading.AbandonedMutexException" /> указанным сообщением об ошибке, индексом брошенного мьютекса (если применимо), а также брошенным мьютексом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-170">Initializes a new instance of the <see cref="T:System.Threading.AbandonedMutexException" /> class with a specified error message, the index of the abandoned mutex, if applicable, and the abandoned mutex.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5bfe3-171">Содержимое `message` должно быть понятно пользователю.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-171">The content of `message` is intended to be understood by humans.</span></span> <span data-ttu-id="5bfe3-172">Код, вызывающий этот конструктор, должен обеспечить локализацию данной строки в соответствии с текущим языком и региональными параметрами системы.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-172">The caller of this constructor is required to ensure that this string has been localized for the current system culture.</span></span>  
+  
+ <span data-ttu-id="5bfe3-173">В следующей таблице показаны исходные значения свойств для экземпляра <xref:System.Threading.AbandonedMutexException> инициализирован с помощью этого конструктора.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-173">The following table shows the initial property values for an instance of <xref:System.Threading.AbandonedMutexException> initialized with this constructor.</span></span>  
+  
+|<span data-ttu-id="5bfe3-174">Свойство.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-174">Property</span></span>|<span data-ttu-id="5bfe3-175">Значение</span><span class="sxs-lookup"><span data-stu-id="5bfe3-175">Value</span></span>|  
+|--------------|-----------|  
+|<xref:System.Exception.InnerException%2A>|<span data-ttu-id="5bfe3-176">`null`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-176">`null`.</span></span>|  
+|<xref:System.Exception.Message%2A>|<span data-ttu-id="5bfe3-177">`message`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-177">`message`.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.Mutex%2A>|<span data-ttu-id="5bfe3-178">`handle`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-178">`handle`.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.MutexIndex%2A>|<span data-ttu-id="5bfe3-179">`location`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-179">`location`.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Threading.Mutex" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AbandonedMutexException (string message, Exception inner, int location, System.Threading.WaitHandle handle);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string message, class System.Exception inner, int32 location, class System.Threading.WaitHandle handle) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.AbandonedMutexException.#ctor(System.String,System.Exception,System.Int32,System.Threading.WaitHandle)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (message As String, inner As Exception, location As Integer, handle As WaitHandle)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AbandonedMutexException(System::String ^ message, Exception ^ inner, int location, System::Threading::WaitHandle ^ handle);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="message" Type="System.String" />
+        <Parameter Name="inner" Type="System.Exception" />
+        <Parameter Name="location" Type="System.Int32" />
+        <Parameter Name="handle" Type="System.Threading.WaitHandle" />
+      </Parameters>
+      <Docs>
+        <param name="message">
+          <span data-ttu-id="5bfe3-180">Сообщение об ошибке с объяснением причины исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-180">An error message that explains the reason for the exception.</span>
+          </span>
+        </param>
+        <param name="inner">
+          <span data-ttu-id="5bfe3-181">Исключение, которое является причиной текущего исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-181">The exception that is the cause of the current exception.</span>
+          </span>
+          <span data-ttu-id="5bfe3-182">Если значение параметра <c>inner</c> не равно <see langword="null" />, текущее исключение возникает в блоке <see langword="catch" />, обрабатывающем внутреннее исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-182">If the <c>inner</c> parameter is not <see langword="null" />, the current exception is raised in a <see langword="catch" /> block that handles the inner exception.</span>
+          </span>
+        </param>
+        <param name="location">
+          <span data-ttu-id="5bfe3-183">Индекс брошенного мьютекса в массиве дескрипторов ожидания, если выдается исключение для метода <see cref="Overload:System.Threading.WaitHandle.WaitAny" />, или –1, если исключение выдается для методов <see cref="Overload:System.Threading.WaitHandle.WaitOne" /> или <see cref="Overload:System.Threading.WaitHandle.WaitAll" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-183">The index of the abandoned mutex in the array of wait handles if the exception is thrown for the <see cref="Overload:System.Threading.WaitHandle.WaitAny" /> method, or –1 if the exception is thrown for the <see cref="Overload:System.Threading.WaitHandle.WaitOne" /> or <see cref="Overload:System.Threading.WaitHandle.WaitAll" /> methods.</span>
+          </span>
+        </param>
+        <param name="handle">
+          <span data-ttu-id="5bfe3-184">Объект <see cref="T:System.Threading.Mutex" />, представляющий брошенный мьютекс.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-184">A <see cref="T:System.Threading.Mutex" /> object that represents the abandoned mutex.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="5bfe3-185">Инициализирует новый экземпляр класса <see cref="T:System.Threading.AbandonedMutexException" />, используя указанное сообщения об ошибке, внутреннее исключение, индекс брошенного мьютекса (если применимо), а также объект <see cref="T:System.Threading.Mutex" />, представляющего мьютекс.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-185">Initializes a new instance of the <see cref="T:System.Threading.AbandonedMutexException" /> class with a specified error message, the inner exception, the index for the abandoned mutex, if applicable, and a <see cref="T:System.Threading.Mutex" /> object that represents the mutex.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5bfe3-186">Содержимое `message` предназначено для уведомления пользователя об исключении текстовой строки.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-186">The content of `message` is a text string intended to inform the user about the exception.</span></span> <span data-ttu-id="5bfe3-187">Код, вызывающий этот конструктор, должен обеспечить локализацию данной строки в соответствии с текущим языком и региональными параметрами системы.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-187">The caller of this constructor is required to ensure that this string has been localized for the current system culture.</span></span>  
+  
+ <span data-ttu-id="5bfe3-188">Исключение, созданное как прямой результат предыдущего исключения, должно содержать в свойстве <xref:System.Exception.InnerException%2A> ссылку на предыдущее исключение.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-188">An exception that is thrown as a direct result of a previous exception should include a reference to the previous exception in the <xref:System.Exception.InnerException%2A> property.</span></span> <span data-ttu-id="5bfe3-189">Свойство <xref:System.Exception.InnerException%2A> возвращает значение, переданное конструктору, или значение `null`, если свойство <xref:System.Exception.InnerException%2A> не передает конструктору значение внутреннего исключения.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-189">The <xref:System.Exception.InnerException%2A> property returns the same value that is passed into the constructor, or `null` if the <xref:System.Exception.InnerException%2A> property does not supply the inner exception value to the constructor.</span></span>  
+  
+ <span data-ttu-id="5bfe3-190">В следующей таблице показаны исходные значения свойств для экземпляра <xref:System.Threading.AbandonedMutexException> инициализирован с помощью этого конструктора.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-190">The following table shows the initial property values for an instance of <xref:System.Threading.AbandonedMutexException> initialized with this constructor.</span></span>  
+  
+|<span data-ttu-id="5bfe3-191">Свойство.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-191">Property</span></span>|<span data-ttu-id="5bfe3-192">Значение</span><span class="sxs-lookup"><span data-stu-id="5bfe3-192">Value</span></span>|  
+|--------------|-----------|  
+|<xref:System.Exception.InnerException%2A>|<span data-ttu-id="5bfe3-193">`inner`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-193">`inner`.</span></span>|  
+|<xref:System.Exception.Message%2A>|<span data-ttu-id="5bfe3-194">`message`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-194">`message`.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.Mutex%2A>|<span data-ttu-id="5bfe3-195">`handle`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-195">`handle`.</span></span>|  
+|<xref:System.Threading.AbandonedMutexException.MutexIndex%2A>|<span data-ttu-id="5bfe3-196">`location`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-196">`location`.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Threading.Mutex" />
+      </Docs>
+    </Member>
+    <Member MemberName="Mutex">
+      <MemberSignature Language="C#" Value="public System.Threading.Mutex Mutex { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Threading.Mutex Mutex" />
+      <MemberSignature Language="DocId" Value="P:System.Threading.AbandonedMutexException.Mutex" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Mutex As Mutex" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Threading::Mutex ^ Mutex { System::Threading::Mutex ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Mutex</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5bfe3-197">Получает брошенный мьютекс, вызвавший исключение (если он известен).</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-197">Gets the abandoned mutex that caused the exception, if known.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5bfe3-198">Объект <see cref="T:System.Threading.Mutex" />, представляющий брошенный мьютекс, или <see langword="null" />, если брошенный мьютекс не может быть идентифицирован.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-198">A <see cref="T:System.Threading.Mutex" /> object that represents the abandoned mutex, or <see langword="null" /> if the abandoned mutex could not be identified.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5bfe3-199">Если исключение создается во время вызова <xref:System.Threading.WaitHandle.WaitAny%2A?displayProperty=nameWithType> метод, <xref:System.Threading.Mutex> возвращается является Брошенный mutex с наименьшим индексом в массив <xref:System.Threading.WaitHandle> объекты, которые был передан <xref:System.Threading.WaitHandle.WaitAny%2A>, или `null` Если Брошенный mutex, не может быть определить.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-199">If the exception is thrown on a call to the <xref:System.Threading.WaitHandle.WaitAny%2A?displayProperty=nameWithType> method, the <xref:System.Threading.Mutex> returned is the abandoned mutex with the lowest index in the array of <xref:System.Threading.WaitHandle> objects that was passed to <xref:System.Threading.WaitHandle.WaitAny%2A>, or `null` if the abandoned mutex could not be identified.</span></span> <span data-ttu-id="5bfe3-200">Если исключение создается при вызове <xref:System.Threading.WaitHandle.WaitOne%2A> или <xref:System.Threading.WaitHandle.WaitAll%2A>, это свойство всегда возвращает `null`.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-200">If the exception is thrown on a call to <xref:System.Threading.WaitHandle.WaitOne%2A> or <xref:System.Threading.WaitHandle.WaitAll%2A>, this property always returns `null`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Threading.Mutex" />
+      </Docs>
+    </Member>
+    <Member MemberName="MutexIndex">
+      <MemberSignature Language="C#" Value="public int MutexIndex { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 MutexIndex" />
+      <MemberSignature Language="DocId" Value="P:System.Threading.AbandonedMutexException.MutexIndex" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property MutexIndex As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int MutexIndex { int get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="5bfe3-201">Получает индекс брошенного мьютекса, вызвавшего исключение (если он известен).</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-201">Gets the index of the abandoned mutex that caused the exception, if known.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="5bfe3-202">Индекс в массиве дескрипторов ожидания, передаваемый в метод <see cref="Overload:System.Threading.WaitHandle.WaitAny" />, объекта <see cref="T:System.Threading.Mutex" />, представляющего брошенный мьютекс, или же -1, если индекс брошенного мьютекса невозможно определить.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="5bfe3-202">The index, in the array of wait handles passed to the <see cref="Overload:System.Threading.WaitHandle.WaitAny" /> method, of the <see cref="T:System.Threading.Mutex" /> object that represents the abandoned mutex, or –1 if the index of the abandoned mutex could not be determined.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="5bfe3-203">Если исключение создается при вызове <xref:System.Threading.WaitHandle.WaitAny%2A?displayProperty=nameWithType> метода, это свойство возвращает индекс Брошенный mutex с наименьшим индексом в массив <xref:System.Threading.WaitHandle> объектов, которые был передан <xref:System.Threading.WaitHandle.WaitAny%2A>, или -1, если не удалось идентифицировать Брошенный mutex .</span><span class="sxs-lookup"><span data-stu-id="5bfe3-203">If the exception is thrown on a call to the <xref:System.Threading.WaitHandle.WaitAny%2A?displayProperty=nameWithType> method, this property returns the index of the abandoned mutex with the lowest index in the array of <xref:System.Threading.WaitHandle> objects that was passed to <xref:System.Threading.WaitHandle.WaitAny%2A>, or –1 if the abandoned mutex could not be identified.</span></span> <span data-ttu-id="5bfe3-204">Если исключение создается при вызове <xref:System.Threading.WaitHandle.WaitOne%2A> или <xref:System.Threading.WaitHandle.WaitAll%2A>, это свойство всегда возвращает значение -1.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-204">If the exception is thrown on a call to <xref:System.Threading.WaitHandle.WaitOne%2A> or <xref:System.Threading.WaitHandle.WaitAll%2A>, this property always returns –1.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="5bfe3-205">В следующем примере кода выполняется поток, который отменяет пять мьютексов.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-205">The following code example executes a thread that abandons five mutexes.</span></span> <span data-ttu-id="5bfe3-206">Брошенный мьютексы используются для демонстрации влияния на <xref:System.Threading.WaitHandle.WaitOne%2A?displayProperty=nameWithType>, <xref:System.Threading.WaitHandle.WaitAny%2A>, и <xref:System.Threading.WaitHandle.WaitAll%2A> вызовы методов.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-206">The abandoned mutexes are used to demonstrate the effects on the <xref:System.Threading.WaitHandle.WaitOne%2A?displayProperty=nameWithType>, <xref:System.Threading.WaitHandle.WaitAny%2A>, and <xref:System.Threading.WaitHandle.WaitAll%2A> method calls.</span></span> <span data-ttu-id="5bfe3-207">Значение <xref:System.Threading.AbandonedMutexException.MutexIndex%2A> свойство отображается для <xref:System.Threading.WaitHandle.WaitAny%2A> вызова.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-207">The value of the <xref:System.Threading.AbandonedMutexException.MutexIndex%2A> property is displayed for the <xref:System.Threading.WaitHandle.WaitAny%2A> call.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="5bfe3-208">Вызов <xref:System.Threading.WaitHandle.WaitAny%2A> прерывается на единицу прерванное мьютексов.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-208">The call to <xref:System.Threading.WaitHandle.WaitAny%2A> is interrupted by one of the abandoned mutexes.</span></span> <span data-ttu-id="5bfe3-209">Брошенный mutex по-прежнему может привести к <xref:System.Threading.AbandonedMutexException> в результате последующие ожидания методов.</span><span class="sxs-lookup"><span data-stu-id="5bfe3-209">The other abandoned mutex could still cause an <xref:System.Threading.AbandonedMutexException> to be thrown by subsequent wait methods.</span></span>  
+  
+ [!code-cpp[System.Threading.AbandonedMutexException#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.AbandonedMutexException/CPP/koax.cpp#1)]
+ [!code-csharp[System.Threading.AbandonedMutexException#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.AbandonedMutexException/CS/koax.cs#1)]
+ [!code-vb[System.Threading.AbandonedMutexException#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.AbandonedMutexException/VB/koax.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Threading.Mutex" />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

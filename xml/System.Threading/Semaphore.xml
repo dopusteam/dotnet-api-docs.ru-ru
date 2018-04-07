@@ -1,0 +1,1554 @@
+<Type Name="Semaphore" FullName="System.Threading.Semaphore">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="589fcf34edfc4ff1eb1c243acad8b5ad0d3cd911" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class Semaphore : System.Threading.WaitHandle" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit Semaphore extends System.Threading.WaitHandle" />
+  <TypeSignature Language="DocId" Value="T:System.Threading.Semaphore" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class Semaphore&#xA;Inherits WaitHandle" />
+  <TypeSignature Language="C++ CLI" Value="public ref class Semaphore sealed : System::Threading::WaitHandle" />
+  <AssemblyInfo>
+    <AssemblyName>System.Threading</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Threading.WaitHandle</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="8f468-101">Ограничивает число потоков, которые могут одновременно обращаться к ресурсу или пулу ресурсов.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="8f468-101">Limits the number of threads that can access a resource or pool of resources concurrently.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-102">Используйте <xref:System.Threading.Semaphore> класса для управления доступом к пулу ресурсов.</span><span class="sxs-lookup"><span data-stu-id="8f468-102">Use the <xref:System.Threading.Semaphore> class to control access to a pool of resources.</span></span> <span data-ttu-id="8f468-103">Потоки входили в семафор посредством вызова <xref:System.Threading.WaitHandle.WaitOne%2A> метод, который наследуется от <xref:System.Threading.WaitHandle> класса и освобождают семафор посредством вызова <xref:System.Threading.Semaphore.Release%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="8f468-103">Threads enter the semaphore by calling the <xref:System.Threading.WaitHandle.WaitOne%2A> method, which is inherited from the <xref:System.Threading.WaitHandle> class, and release the semaphore by calling the <xref:System.Threading.Semaphore.Release%2A> method.</span></span>  
+  
+ <span data-ttu-id="8f468-104">Счетчик на семафоре уменьшается на единицу каждый раз поток входит в семафор и увеличивается на единицу, когда поток выходит из семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-104">The count on a semaphore is decremented each time a thread enters the semaphore, and incremented when a thread releases the semaphore.</span></span> <span data-ttu-id="8f468-105">Если счетчик равен нулю, последующие запросы блокируются, пока другие потоки освобождают семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-105">When the count is zero, subsequent requests block until other threads release the semaphore.</span></span> <span data-ttu-id="8f468-106">Если семафор освобожден всеми потоками, счетчик равен максимальному значению указывается при создании семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-106">When all threads have released the semaphore, the count is at the maximum value specified when the semaphore was created.</span></span>  
+  
+ <span data-ttu-id="8f468-107">Нет гарантированного порядка, например FIFO, LIFO, в котором заблокированных потоков в семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-107">There is no guaranteed order, such as FIFO or LIFO, in which blocked threads enter the semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-108">Поток может войти в семафор несколько раз, вызвав <xref:System.Threading.WaitHandle.WaitOne%2A> метода несколько раз.</span><span class="sxs-lookup"><span data-stu-id="8f468-108">A thread can enter the semaphore multiple times, by calling the <xref:System.Threading.WaitHandle.WaitOne%2A> method repeatedly.</span></span> <span data-ttu-id="8f468-109">Чтобы освободить все или некоторые из этих записей, можно вызвать без параметров потока <xref:System.Threading.Semaphore.Release> несколько раз, или его можно вызвать перегрузку метода <xref:System.Threading.Semaphore.Release%28System.Int32%29> перегрузки метода, который указывает количество освобождаемых записей.</span><span class="sxs-lookup"><span data-stu-id="8f468-109">To release some or all of these entries, the thread can call the parameterless <xref:System.Threading.Semaphore.Release> method overload multiple times, or it can call the <xref:System.Threading.Semaphore.Release%28System.Int32%29> method overload that specifies the number of entries to be released.</span></span>  
+  
+ <span data-ttu-id="8f468-110"><xref:System.Threading.Semaphore> Класс обеспечивает идентификацию вызовов <xref:System.Threading.WaitHandle.WaitOne%2A> или <xref:System.Threading.Semaphore.Release%2A>.</span><span class="sxs-lookup"><span data-stu-id="8f468-110">The <xref:System.Threading.Semaphore> class does not enforce thread identity on calls to <xref:System.Threading.WaitHandle.WaitOne%2A> or <xref:System.Threading.Semaphore.Release%2A>.</span></span> <span data-ttu-id="8f468-111">Это программист должен убедиться, что потоки не освободить семафор слишком много раз.</span><span class="sxs-lookup"><span data-stu-id="8f468-111">It is the programmer's responsibility to ensure that threads do not release the semaphore too many times.</span></span> <span data-ttu-id="8f468-112">Например предположим, что семафор имеет максимальное значение счетчика равное двум, а два потока A и B входят в семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-112">For example, suppose a semaphore has a maximum count of two, and that thread A and thread B both enter the semaphore.</span></span> <span data-ttu-id="8f468-113">Если ошибка программирования в потоке B заставляет его вызывать метод <xref:System.Threading.Semaphore.Release%2A> дважды, оба вызова оканчиваются успешно.</span><span class="sxs-lookup"><span data-stu-id="8f468-113">If a programming error in thread B causes it to call <xref:System.Threading.Semaphore.Release%2A> twice, both calls succeed.</span></span> <span data-ttu-id="8f468-114">Счетчик на семафоре переполнен, и если поток A вызывает <xref:System.Threading.Semaphore.Release%2A>, <xref:System.Threading.SemaphoreFullException> создается исключение.</span><span class="sxs-lookup"><span data-stu-id="8f468-114">The count on the semaphore is full, and when thread A eventually calls <xref:System.Threading.Semaphore.Release%2A>, a <xref:System.Threading.SemaphoreFullException> is thrown.</span></span>  
+  
+ <span data-ttu-id="8f468-115">Семафоры бывают двух типов: локальные семафоры и именованного системного семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-115">Semaphores are of two types: local semaphores and named system semaphores.</span></span> <span data-ttu-id="8f468-116">Если вы создаете <xref:System.Threading.Semaphore> объекта, используя конструктор, который принимает имя, она связана с семафора операционной системы с тем же именем.</span><span class="sxs-lookup"><span data-stu-id="8f468-116">If you create a <xref:System.Threading.Semaphore> object using a constructor that accepts a name, it is associated with an operating-system semaphore of that name.</span></span> <span data-ttu-id="8f468-117">Именованные системные семафоры доступны в пределах всей операционной системы и может использоваться для синхронизации действий процессов.</span><span class="sxs-lookup"><span data-stu-id="8f468-117">Named system semaphores are visible throughout the operating system, and can be used to synchronize the activities of processes.</span></span> <span data-ttu-id="8f468-118">Можно создать несколько <xref:System.Threading.Semaphore> объекты, представляющие же именованный семафор, и можно использовать <xref:System.Threading.Semaphore.OpenExisting%2A> метод, чтобы открыть существующий именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-118">You can create multiple <xref:System.Threading.Semaphore> objects that represent the same named system semaphore, and you can use the <xref:System.Threading.Semaphore.OpenExisting%2A> method to open an existing named system semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-119">Локальный семафор существует только внутри одного процесса.</span><span class="sxs-lookup"><span data-stu-id="8f468-119">A local semaphore exists only within your process.</span></span> <span data-ttu-id="8f468-120">Его может использовать любой поток в вашем процессе, имеющий ссылку на локальный объект <xref:System.Threading.Semaphore>.</span><span class="sxs-lookup"><span data-stu-id="8f468-120">It can be used by any thread in your process that has a reference to the local <xref:System.Threading.Semaphore> object.</span></span> <span data-ttu-id="8f468-121">Каждый <xref:System.Threading.Semaphore> объект — это отдельный локальный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-121">Each <xref:System.Threading.Semaphore> object is a separate local semaphore.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-122">В следующем примере кода создается семафор с максимальное число из трех и исходным значением счетчика равно нулю.</span><span class="sxs-lookup"><span data-stu-id="8f468-122">The following code example creates a semaphore with a maximum count of three and an initial count of zero.</span></span> <span data-ttu-id="8f468-123">В примере запускается пять потоков, которые блокируют ожидание семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-123">The example starts five threads, which block waiting for the semaphore.</span></span> <span data-ttu-id="8f468-124">Основной поток, используя <xref:System.Threading.Semaphore.Release%28System.Int32%29> перегрузка метода, чтобы увеличить значение счетчика семафора максимальное разрешение трех потоков в семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-124">The main thread uses the <xref:System.Threading.Semaphore.Release%28System.Int32%29> method overload to increase the semaphore count to its maximum, allowing three threads to enter the semaphore.</span></span> <span data-ttu-id="8f468-125">Каждый поток использует <xref:System.Threading.Thread.Sleep%2A?displayProperty=nameWithType> метод для ожидания одной секунды для имитации работы, а затем вызывает <xref:System.Threading.Semaphore.Release> перегрузка метода, чтобы освободить семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-125">Each thread uses the <xref:System.Threading.Thread.Sleep%2A?displayProperty=nameWithType> method to wait for one second, to simulate work, and then calls the <xref:System.Threading.Semaphore.Release> method overload to release the semaphore.</span></span> <span data-ttu-id="8f468-126">Каждый раз, когда освобождения семафора отображается предыдущее значение счетчика семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-126">Each time the semaphore is released, the previous semaphore count is displayed.</span></span> <span data-ttu-id="8f468-127">Консоль сообщения позволяют отслеживать использование семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-127">Console messages track semaphore use.</span></span> <span data-ttu-id="8f468-128">Интервал имитирующей работу немного увеличивается для каждого потока, чтобы облегчить чтение выходных данных.</span><span class="sxs-lookup"><span data-stu-id="8f468-128">The simulated work interval is increased slightly for each thread, to make the output easier to read.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore2#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore2/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore2#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore2/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore2#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore2/VB/source.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <threadsafe>
+      <span data-ttu-id="8f468-129">Данный тип потокобезопасен.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="8f468-129">This type is thread safe.</span>
+      </span>
+    </threadsafe>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="8f468-130">Инициализирует новый экземпляр класса <see cref="T:System.Threading.Semaphore" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-130">Initializes a new instance of the <see cref="T:System.Threading.Semaphore" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Semaphore (int initialCount, int maximumCount);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(int32 initialCount, int32 maximumCount) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.#ctor(System.Int32,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (initialCount As Integer, maximumCount As Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Semaphore(int initialCount, int maximumCount);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="initialCount" Type="System.Int32" />
+        <Parameter Name="maximumCount" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="initialCount">
+          <span data-ttu-id="8f468-131">Начальное количество запросов для семафора, которое может быть обеспечено одновременно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-131">The initial number of requests for the semaphore that can be granted concurrently.</span>
+          </span>
+        </param>
+        <param name="maximumCount">
+          <span data-ttu-id="8f468-132">Максимальное количество запросов семафора, которое может быть обеспеченно одновременно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-132">The maximum number of requests for the semaphore that can be granted concurrently.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="8f468-133">Инициализирует новый экземпляр класса <see cref="T:System.Threading.Semaphore" />, задающий начальное количество входов и максимальное количество одновременных входов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-133">Initializes a new instance of the <see cref="T:System.Threading.Semaphore" /> class, specifying the initial number of entries and the maximum number of concurrent entries.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-134">Этот конструктор инициализирует неименованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-134">This constructor initializes an unnamed semaphore.</span></span> <span data-ttu-id="8f468-135">Все потоки, использующие экземпляр такого семафора должно иметь ссылки на экземпляр.</span><span class="sxs-lookup"><span data-stu-id="8f468-135">All threads that use an instance of such a semaphore must have references to the instance.</span></span>  
+  
+ <span data-ttu-id="8f468-136">Если `initialCount` — меньше, чем `maximumCount`, действует так же как если бы метод текущий поток <xref:System.Threading.WaitHandle.WaitOne%2A> (`maximumCount` минус `initialCount`) раз.</span><span class="sxs-lookup"><span data-stu-id="8f468-136">If `initialCount` is less than `maximumCount`, the effect is the same as if the current thread had called <xref:System.Threading.WaitHandle.WaitOne%2A> (`maximumCount` minus `initialCount`) times.</span></span> <span data-ttu-id="8f468-137">Если вы не хотите резервировать входы для потока, создающего семафор, используйте один и тот же номер для `maximumCount` и `initialCount`.</span><span class="sxs-lookup"><span data-stu-id="8f468-137">If you do not want to reserve any entries for the thread that creates the semaphore, use the same number for `maximumCount` and `initialCount`.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-138">В следующем примере создается семафор с максимальное число из трех и исходным значением счетчика равно нулю.</span><span class="sxs-lookup"><span data-stu-id="8f468-138">The following example creates a semaphore with a maximum count of three and an initial count of zero.</span></span> <span data-ttu-id="8f468-139">В примере запускается пять потоков, которые блокируют ожидание семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-139">The example starts five threads, which block waiting for the semaphore.</span></span> <span data-ttu-id="8f468-140">Основной поток, используя <xref:System.Threading.Semaphore.Release%28System.Int32%29> перегрузка метода, чтобы увеличить значение счетчика семафора максимальное разрешение трех потоков в семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-140">The main thread uses the <xref:System.Threading.Semaphore.Release%28System.Int32%29> method overload to increase the semaphore count to its maximum, allowing three threads to enter the semaphore.</span></span> <span data-ttu-id="8f468-141">Каждый поток использует <xref:System.Threading.Thread.Sleep%2A?displayProperty=nameWithType> метод для ожидания одной секунды для имитации работы, а затем вызывает <xref:System.Threading.Semaphore.Release> перегрузка метода, чтобы освободить семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-141">Each thread uses the <xref:System.Threading.Thread.Sleep%2A?displayProperty=nameWithType> method to wait for one second, to simulate work, and then calls the <xref:System.Threading.Semaphore.Release> method overload to release the semaphore.</span></span> <span data-ttu-id="8f468-142">Каждый раз, когда освобождения семафора отображается предыдущее значение счетчика семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-142">Each time the semaphore is released, the previous semaphore count is displayed.</span></span> <span data-ttu-id="8f468-143">Консоль сообщения позволяют отслеживать использование семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-143">Console messages track semaphore use.</span></span> <span data-ttu-id="8f468-144">Интервал имитирующей работу немного увеличивается для каждого потока, чтобы облегчить чтение выходных данных.</span><span class="sxs-lookup"><span data-stu-id="8f468-144">The simulated work interval is increased slightly for each thread, to make the output easier to read.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore2#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore2/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore2#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore2/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore2#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore2/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="8f468-145">Значение <paramref name="initialCount" /> больше значения <paramref name="maximumCount" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-145">
+              <paramref name="initialCount" /> is greater than <paramref name="maximumCount" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="8f468-146">Значение параметра <paramref name="maximumCount" /> меньше 1.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-146">
+              <paramref name="maximumCount" /> is less than 1.</span>
+          </span>
+          <span data-ttu-id="8f468-147">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-147">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-148">Значение параметра <paramref name="initialCount" /> меньше 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-148">
+              <paramref name="initialCount" /> is less than 0.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Semaphore (int initialCount, int maximumCount, string name);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(int32 initialCount, int32 maximumCount, string name) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.#ctor(System.Int32,System.Int32,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (initialCount As Integer, maximumCount As Integer, name As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Semaphore(int initialCount, int maximumCount, System::String ^ name);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="initialCount" Type="System.Int32" />
+        <Parameter Name="maximumCount" Type="System.Int32" />
+        <Parameter Name="name" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="initialCount">
+          <span data-ttu-id="8f468-149">Начальное количество запросов для семафора, которое может быть обеспечено одновременно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-149">The initial number of requests for the semaphore that can be granted concurrently.</span>
+          </span>
+        </param>
+        <param name="maximumCount">
+          <span data-ttu-id="8f468-150">Максимальное количество запросов семафора, которое может быть обеспеченно одновременно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-150">The maximum number of requests for the semaphore that can be granted concurrently.</span>
+          </span>
+        </param>
+        <param name="name">
+          <span data-ttu-id="8f468-151">Имя объекта именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-151">The name of a named system semaphore object.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="8f468-152">Инициализирует новый экземпляр класса <see cref="T:System.Threading.Semaphore" />, задающий начальное количество входов и максимальное количество одновременных входов, а также при необходимости имя объекта системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-152">Initializes a new instance of the <see cref="T:System.Threading.Semaphore" /> class, specifying the initial number of entries and the maximum number of concurrent entries, and optionally specifying the name of a system semaphore object.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-153">Этот конструктор инициализирует <xref:System.Threading.Semaphore> , представляющий именованный системный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-153">This constructor initializes a <xref:System.Threading.Semaphore> object that represents a named system semaphore.</span></span> <span data-ttu-id="8f468-154">Можно создать несколько <xref:System.Threading.Semaphore> объекты, представляющие же именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-154">You can create multiple <xref:System.Threading.Semaphore> objects that represent the same named system semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-155">Если именованный системный семафор не существует, он создается с начальным и максимальное число, указанное в `initialCount` и `maximumCount`.</span><span class="sxs-lookup"><span data-stu-id="8f468-155">If the named system semaphore does not exist, it is created with the initial count and maximum count specified by `initialCount` and `maximumCount`.</span></span> <span data-ttu-id="8f468-156">Если именованный системный семафор уже существует, `initialCount` и `maximumCount` не используются, несмотря на то, что недопустимые значения по-прежнему вызывать исключения.</span><span class="sxs-lookup"><span data-stu-id="8f468-156">If the named system semaphore already exists, `initialCount` and `maximumCount` are not used, although invalid values still cause exceptions.</span></span> <span data-ttu-id="8f468-157">Если необходимо определить ли именованный системный семафор был создан, используйте <xref:System.Threading.Semaphore.%23ctor%28System.Int32%2CSystem.Int32%2CSystem.String%2CSystem.Boolean%40%29> перегрузку конструктора.</span><span class="sxs-lookup"><span data-stu-id="8f468-157">If you need to determine whether or not a named system semaphore was created, use the <xref:System.Threading.Semaphore.%23ctor%28System.Int32%2CSystem.Int32%2CSystem.String%2CSystem.Boolean%40%29> constructor overload instead.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="8f468-158">При использовании этого перегруженного конструктора, рекомендуется указать тот же номер для `initialCount` и `maximumCount`.</span><span class="sxs-lookup"><span data-stu-id="8f468-158">When you use this constructor overload, the recommended practice is to specify the same number for `initialCount` and `maximumCount`.</span></span> <span data-ttu-id="8f468-159">Если `initialCount` — меньше, чем `maximumCount`и создается именованный системный семафор, действует так же как если бы метод текущий поток <xref:System.Threading.WaitHandle.WaitOne%2A> (`maximumCount` минус `initialCount`) раз.</span><span class="sxs-lookup"><span data-stu-id="8f468-159">If `initialCount` is less than `maximumCount`, and a named system semaphore is created, the effect is the same as if the current thread had called <xref:System.Threading.WaitHandle.WaitOne%2A> (`maximumCount` minus `initialCount`) times.</span></span> <span data-ttu-id="8f468-160">Однако эта перегрузка конструктора является не может определить, был ли создан именованный системный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-160">However, with this constructor overload there is no way to determine whether a named system semaphore was created.</span></span>  
+  
+ <span data-ttu-id="8f468-161">При указании `null` или пустую строку для `name`, создан локальный семафор, как если бы метод <xref:System.Threading.Semaphore.%23ctor%28System.Int32%2CSystem.Int32%29> перегрузку конструктора.</span><span class="sxs-lookup"><span data-stu-id="8f468-161">If you specify `null` or an empty string for `name`, a local semaphore is created, as if you had called the <xref:System.Threading.Semaphore.%23ctor%28System.Int32%2CSystem.Int32%29> constructor overload.</span></span>  
+  
+ <span data-ttu-id="8f468-162">Так как именованные семафоры доступны в пределах всей операционной системы, их можно использовать для координирования использования ресурсов разными процессами.</span><span class="sxs-lookup"><span data-stu-id="8f468-162">Because named semaphores are visible throughout the operating system, they can be used to coordinate resource use across process boundaries.</span></span>  
+  
+ <span data-ttu-id="8f468-163">Если вы хотите узнать, существует ли именованный системный семафор, используйте <xref:System.Threading.Semaphore.OpenExisting%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="8f468-163">If you want to find out whether a named system semaphore exists, use the <xref:System.Threading.Semaphore.OpenExisting%2A> method.</span></span> <span data-ttu-id="8f468-164"><xref:System.Threading.Semaphore.OpenExisting%2A> Метод пытается открыть существующий именованный семафор и вызывает исключение, если не существует системного семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-164">The <xref:System.Threading.Semaphore.OpenExisting%2A> method attempts to open an existing named semaphore, and throws an exception if the system semaphore does not exist.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-165">В следующем примере кода демонстрируется поведение между процессами именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-165">The following code example demonstrates the cross-process behavior of a named semaphore.</span></span> <span data-ttu-id="8f468-166">В примере создается именованный семафор с максимум 5 и начальное число 5.</span><span class="sxs-lookup"><span data-stu-id="8f468-166">The example creates a named semaphore with a maximum count of five and an initial count of five.</span></span> <span data-ttu-id="8f468-167">Программа выполняет три вызова <xref:System.Threading.WaitHandle.WaitOne%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="8f468-167">The program makes three calls to the <xref:System.Threading.WaitHandle.WaitOne%2A> method.</span></span> <span data-ttu-id="8f468-168">Таким образом, при запуске скомпилированный пример из двух окнах команда второй копии заблокирует третий вызов <xref:System.Threading.WaitHandle.WaitOne%2A>.</span><span class="sxs-lookup"><span data-stu-id="8f468-168">Thus, if you run the compiled example from two command windows, the second copy will block on the third call to <xref:System.Threading.WaitHandle.WaitOne%2A>.</span></span> <span data-ttu-id="8f468-169">Освободить один или несколько записей в первой копии программы, чтобы разблокировать за секунду.</span><span class="sxs-lookup"><span data-stu-id="8f468-169">Release one or more entries in the first copy of the program to unblock the second.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore.ctor named 3#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 3/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore.ctor named 3#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 3/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore.ctor named 3#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 3/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="8f468-170">Значение <paramref name="initialCount" /> больше значения <paramref name="maximumCount" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-170">
+              <paramref name="initialCount" /> is greater than <paramref name="maximumCount" />.</span>
+          </span>
+          <span data-ttu-id="8f468-171">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-171">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-172">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-172">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="8f468-173">Значение параметра <paramref name="maximumCount" /> меньше 1.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-173">
+              <paramref name="maximumCount" /> is less than 1.</span>
+          </span>
+          <span data-ttu-id="8f468-174">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-174">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-175">Значение параметра <paramref name="initialCount" /> меньше 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-175">
+              <paramref name="initialCount" /> is less than 0.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="8f468-176">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-176">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-177">Именованный семафор существует, доступ к нему безопасно регулируется, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.SemaphoreRights.FullControl" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-177">The named semaphore exists and has access control security, and the user does not have <see cref="F:System.Security.AccessControl.SemaphoreRights.FullControl" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">
+          <span data-ttu-id="8f468-178">Именованный семафор нельзя создать. Вероятно, дескриптор ожидания другого типа имеет то же имя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-178">The named semaphore cannot be created, perhaps because a wait handle of a different type has the same name.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="8f468-179">для вызова неуправляемого кода для создания именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-179">for calling unmanaged code to create a named system semaphore.</span>
+          </span>
+          <span data-ttu-id="8f468-180">Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-180">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" />.</span>
+          </span>
+          <span data-ttu-id="8f468-181">Действие по обеспечению безопасности: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-181">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Semaphore (int initialCount, int maximumCount, string name, out bool createdNew);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(int32 initialCount, int32 maximumCount, string name, [out] bool&amp; createdNew) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.#ctor(System.Int32,System.Int32,System.String,System.Boolean@)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (initialCount As Integer, maximumCount As Integer, name As String, ByRef createdNew As Boolean)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Semaphore(int initialCount, int maximumCount, System::String ^ name, [Runtime::InteropServices::Out] bool % createdNew);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="initialCount" Type="System.Int32" />
+        <Parameter Name="maximumCount" Type="System.Int32" />
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="createdNew" Type="System.Boolean&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="initialCount">
+          <span data-ttu-id="8f468-182">Начальное количество запросов семафора, которое может быть удовлетворено одновременно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-182">The initial number of requests for the semaphore that can be satisfied concurrently.</span>
+          </span>
+        </param>
+        <param name="maximumCount">
+          <span data-ttu-id="8f468-183">Максимальное количество запросов семафора, которое может быть удовлетворено одновременно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-183">The maximum number of requests for the semaphore that can be satisfied concurrently.</span>
+          </span>
+        </param>
+        <param name="name">
+          <span data-ttu-id="8f468-184">Имя объекта именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-184">The name of a named system semaphore object.</span>
+          </span>
+        </param>
+        <param name="createdNew">
+          <span data-ttu-id="8f468-185">При возврате этот метод содержит значение <see langword="true" />, если был создан локальный семафор (то есть если параметр <c>name</c> имеет значение <see langword="null" /> или содержит пустую строку) или был создан заданный именованный системный семафор; значение <see langword="false" />, если указанный именованный семафор уже существовал.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-185">When this method returns, contains <see langword="true" /> if a local semaphore was created (that is, if <c>name</c> is <see langword="null" /> or an empty string) or if the specified named system semaphore was created; <see langword="false" /> if the specified named system semaphore already existed.</span>
+          </span>
+          <span data-ttu-id="8f468-186">Этот параметр передается неинициализированным.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-186">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="8f468-187">Инициализирует новый экземпляр класса <see cref="T:System.Threading.Semaphore" />, задающий начальное количество входов и максимальное количество одновременных входов, а также при необходимости задающий имя объекта системного семафора и переменную, получающую значение, которое указывает, был ли создан новый системный семафор.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-187">Initializes a new instance of the <see cref="T:System.Threading.Semaphore" /> class, specifying the initial number of entries and the maximum number of concurrent entries, optionally specifying the name of a system semaphore object, and specifying a variable that receives a value indicating whether a new system semaphore was created.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-188">Этот конструктор инициализирует <xref:System.Threading.Semaphore> , представляющий именованный системный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-188">This constructor initializes a <xref:System.Threading.Semaphore> object that represents a named system semaphore.</span></span> <span data-ttu-id="8f468-189">Можно создать несколько <xref:System.Threading.Semaphore> объекты, представляющие же именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-189">You can create multiple <xref:System.Threading.Semaphore> objects that represent the same named system semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-190">Если именованный системный семафор не существует, он создается с начальным и максимальное число, указанное в `initialCount` и `maximumCount`.</span><span class="sxs-lookup"><span data-stu-id="8f468-190">If the named system semaphore does not exist, it is created with the initial count and maximum count specified by `initialCount` and `maximumCount`.</span></span> <span data-ttu-id="8f468-191">Если именованный системный семафор уже существует, `initialCount` и `maximumCount` не используются, несмотря на то, что недопустимые значения по-прежнему вызывать исключения.</span><span class="sxs-lookup"><span data-stu-id="8f468-191">If the named system semaphore already exists, `initialCount` and `maximumCount` are not used, although invalid values still cause exceptions.</span></span> <span data-ttu-id="8f468-192">Используйте `createdNew` для определения, был ли создан системный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-192">Use `createdNew` to determine whether the system semaphore was created.</span></span>  
+  
+ <span data-ttu-id="8f468-193">Если `initialCount` — меньше, чем `maximumCount`, и `createdNew` — `true`, действует так же как если бы метод текущий поток <xref:System.Threading.WaitHandle.WaitOne%2A> (`maximumCount` минус `initialCount`) раз.</span><span class="sxs-lookup"><span data-stu-id="8f468-193">If `initialCount` is less than `maximumCount`, and `createdNew` is `true`, the effect is the same as if the current thread had called <xref:System.Threading.WaitHandle.WaitOne%2A> (`maximumCount` minus `initialCount`) times.</span></span>  
+  
+ <span data-ttu-id="8f468-194">При указании `null` или пустую строку для `name`, создан локальный семафор, как если бы метод <xref:System.Threading.Semaphore.%23ctor%28System.Int32%2CSystem.Int32%29> перегрузку конструктора.</span><span class="sxs-lookup"><span data-stu-id="8f468-194">If you specify `null` or an empty string for `name`, a local semaphore is created, as if you had called the <xref:System.Threading.Semaphore.%23ctor%28System.Int32%2CSystem.Int32%29> constructor overload.</span></span> <span data-ttu-id="8f468-195">В этом случае `createdNew` всегда `true`.</span><span class="sxs-lookup"><span data-stu-id="8f468-195">In this case, `createdNew` is always `true`.</span></span>  
+  
+ <span data-ttu-id="8f468-196">Так как именованные семафоры доступны в пределах всей операционной системы, их можно использовать для координирования использования ресурсов разными процессами.</span><span class="sxs-lookup"><span data-stu-id="8f468-196">Because named semaphores are visible throughout the operating system, they can be used to coordinate resource use across process boundaries.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-197">В следующем примере кода демонстрируется поведение между процессами именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-197">The following code example demonstrates the cross-process behavior of a named semaphore.</span></span> <span data-ttu-id="8f468-198">В примере создается именованный семафор с максимум 5 и исходным значением счетчика двух.</span><span class="sxs-lookup"><span data-stu-id="8f468-198">The example creates a named semaphore with a maximum count of five and an initial count of two.</span></span> <span data-ttu-id="8f468-199">То есть резервируется три входа для потока, который вызывает конструктор.</span><span class="sxs-lookup"><span data-stu-id="8f468-199">That is, it reserves three entries for the thread that calls the constructor.</span></span> <span data-ttu-id="8f468-200">Если `createNew` — `false`, программа выполняет три вызова <xref:System.Threading.WaitHandle.WaitOne%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="8f468-200">If `createNew` is `false`, the program makes three calls to the <xref:System.Threading.WaitHandle.WaitOne%2A> method.</span></span> <span data-ttu-id="8f468-201">Таким образом, при запуске скомпилированный пример из двух окнах команда второй копии заблокирует третий вызов <xref:System.Threading.WaitHandle.WaitOne%2A>.</span><span class="sxs-lookup"><span data-stu-id="8f468-201">Thus, if you run the compiled example from two command windows, the second copy will block on the third call to <xref:System.Threading.WaitHandle.WaitOne%2A>.</span></span> <span data-ttu-id="8f468-202">Освободить один или несколько записей в первой копии программы, чтобы разблокировать за секунду.</span><span class="sxs-lookup"><span data-stu-id="8f468-202">Release one or more entries in the first copy of the program to unblock the second.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore.ctor named 4#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 4/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore.ctor named 4#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 4/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore.ctor named 4#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 4/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="8f468-203">Значение <paramref name="initialCount" /> больше значения <paramref name="maximumCount" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-203">
+              <paramref name="initialCount" /> is greater than <paramref name="maximumCount" />.</span>
+          </span>
+          <span data-ttu-id="8f468-204">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-204">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-205">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-205">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="8f468-206">Значение параметра <paramref name="maximumCount" /> меньше 1.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-206">
+              <paramref name="maximumCount" /> is less than 1.</span>
+          </span>
+          <span data-ttu-id="8f468-207">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-207">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-208">Значение параметра <paramref name="initialCount" /> меньше 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-208">
+              <paramref name="initialCount" /> is less than 0.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="8f468-209">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-209">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-210">Именованный семафор существует, доступ к нему безопасно регулируется, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.SemaphoreRights.FullControl" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-210">The named semaphore exists and has access control security, and the user does not have <see cref="F:System.Security.AccessControl.SemaphoreRights.FullControl" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">
+          <span data-ttu-id="8f468-211">Именованный семафор нельзя создать. Вероятно, дескриптор ожидания другого типа имеет то же имя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-211">The named semaphore cannot be created, perhaps because a wait handle of a different type has the same name.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="8f468-212">для вызова неуправляемого кода для создания именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-212">for calling unmanaged code to create a named system semaphore.</span>
+          </span>
+          <span data-ttu-id="8f468-213">Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-213">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" />.</span>
+          </span>
+          <span data-ttu-id="8f468-214">Действие по обеспечению безопасности: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-214">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Semaphore (int initialCount, int maximumCount, string name, out bool createdNew, System.Security.AccessControl.SemaphoreSecurity semaphoreSecurity);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(int32 initialCount, int32 maximumCount, string name, [out] bool&amp; createdNew, class System.Security.AccessControl.SemaphoreSecurity semaphoreSecurity) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.#ctor(System.Int32,System.Int32,System.String,System.Boolean@,System.Security.AccessControl.SemaphoreSecurity)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Semaphore(int initialCount, int maximumCount, System::String ^ name, [Runtime::InteropServices::Out] bool % createdNew, System::Security::AccessControl::SemaphoreSecurity ^ semaphoreSecurity);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="initialCount" Type="System.Int32" />
+        <Parameter Name="maximumCount" Type="System.Int32" />
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="createdNew" Type="System.Boolean&amp;" RefType="out" />
+        <Parameter Name="semaphoreSecurity" Type="System.Security.AccessControl.SemaphoreSecurity" />
+      </Parameters>
+      <Docs>
+        <param name="initialCount">
+          <span data-ttu-id="8f468-215">Начальное количество запросов семафора, которое может быть удовлетворено одновременно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-215">The initial number of requests for the semaphore that can be satisfied concurrently.</span>
+          </span>
+        </param>
+        <param name="maximumCount">
+          <span data-ttu-id="8f468-216">Максимальное количество запросов семафора, которое может быть удовлетворено одновременно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-216">The maximum number of requests for the semaphore that can be satisfied concurrently.</span>
+          </span>
+        </param>
+        <param name="name">
+          <span data-ttu-id="8f468-217">Имя объекта именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-217">The name of a named system semaphore object.</span>
+          </span>
+        </param>
+        <param name="createdNew">
+          <span data-ttu-id="8f468-218">При возврате этот метод содержит значение <see langword="true" />, если был создан локальный семафор (то есть если параметр <c>name</c> имеет значение <see langword="null" /> или содержит пустую строку) или был создан заданный именованный системный семафор; значение <see langword="false" />, если указанный именованный семафор уже существовал.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-218">When this method returns, contains <see langword="true" /> if a local semaphore was created (that is, if <c>name</c> is <see langword="null" /> or an empty string) or if the specified named system semaphore was created; <see langword="false" /> if the specified named system semaphore already existed.</span>
+          </span>
+          <span data-ttu-id="8f468-219">Этот параметр передается неинициализированным.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-219">This parameter is passed uninitialized.</span>
+          </span>
+        </param>
+        <param name="semaphoreSecurity">
+          <span data-ttu-id="8f468-220">Объект <see cref="T:System.Security.AccessControl.SemaphoreSecurity" />, представляющий безопасность управления доступом для применения к именованному системному семафору.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-220">A <see cref="T:System.Security.AccessControl.SemaphoreSecurity" /> object that represents the access control security to be applied to the named system semaphore.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="8f468-221">Инициализирует новый экземпляр класса <see cref="T:System.Threading.Semaphore" />, задающий начальное количество входов и максимальное количество одновременных входов, а также при необходимости задает имя объекта системного семафора, переменную, которая получает значение, указывающее, был ли создан новый системный семафор, и управление безопасным доступом для системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-221">Initializes a new instance of the <see cref="T:System.Threading.Semaphore" /> class, specifying the initial number of entries and the maximum number of concurrent entries, optionally specifying the name of a system semaphore object, specifying a variable that receives a value indicating whether a new system semaphore was created, and specifying security access control for the system semaphore.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-222">Этот конструктор используется, чтобы применить безопасность управления доступом для именованного системного семафора, при его создании, чтобы предотвратить возможность управления семафора другим кодом.</span><span class="sxs-lookup"><span data-stu-id="8f468-222">Use this constructor to apply access control security to a named system semaphore when it is created, preventing other code from taking control of the semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-223">Этот конструктор инициализирует <xref:System.Threading.Semaphore> , представляющий именованный системный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-223">This constructor initializes a <xref:System.Threading.Semaphore> object that represents a named system semaphore.</span></span> <span data-ttu-id="8f468-224">Можно создать несколько <xref:System.Threading.Semaphore> объекты, представляющие же именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-224">You can create multiple <xref:System.Threading.Semaphore> objects that represent the same named system semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-225">Если именованный системный семафор не существует, он создается с указанными управления доступом.</span><span class="sxs-lookup"><span data-stu-id="8f468-225">If the named system semaphore does not exist, it is created with the specified access control security.</span></span> <span data-ttu-id="8f468-226">Если именованный семафор существует, указанные настройки управления доступом учитывается.</span><span class="sxs-lookup"><span data-stu-id="8f468-226">If the named semaphore exists, the specified access control security is ignored.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="8f468-227">Вызывающий оператор имеет полный контроль над только что созданный <xref:System.Threading.Semaphore> объект, даже если `semaphoreSecurity` запрещает или не может предоставить некоторые права доступа для текущего пользователя.</span><span class="sxs-lookup"><span data-stu-id="8f468-227">The caller has full control over the newly created <xref:System.Threading.Semaphore> object even if `semaphoreSecurity` denies or fails to grant some access rights to the current user.</span></span> <span data-ttu-id="8f468-228">Тем не менее если текущий пользователь пытается получить другой <xref:System.Threading.Semaphore> объекта для представления же именованный семафор, с помощью конструктора или <xref:System.Threading.Semaphore.OpenExisting%2A> метод применяется безопасность управления доступом Windows.</span><span class="sxs-lookup"><span data-stu-id="8f468-228">However, if the current user attempts to get another <xref:System.Threading.Semaphore> object to represent the same named semaphore, using either a constructor or the <xref:System.Threading.Semaphore.OpenExisting%2A> method, Windows access control security is applied.</span></span>  
+  
+ <span data-ttu-id="8f468-229">Если именованный системный семафор не существует, он создается с начальным и максимальное число, указанное в `initialCount` и `maximumCount`.</span><span class="sxs-lookup"><span data-stu-id="8f468-229">If the named system semaphore does not exist, it is created with the initial count and maximum count specified by `initialCount` and `maximumCount`.</span></span> <span data-ttu-id="8f468-230">Если именованный системный семафор уже существует, `initialCount` и `maximumCount` не используются, несмотря на то, что недопустимые значения по-прежнему вызывать исключения.</span><span class="sxs-lookup"><span data-stu-id="8f468-230">If the named system semaphore already exists, `initialCount` and `maximumCount` are not used, although invalid values still cause exceptions.</span></span> <span data-ttu-id="8f468-231">Используйте `createdNew` параметра, чтобы определить, был ли создан системный семафор этим конструктором.</span><span class="sxs-lookup"><span data-stu-id="8f468-231">Use the `createdNew` parameter to determine whether the system semaphore was created by this constructor.</span></span>  
+  
+ <span data-ttu-id="8f468-232">Если `initialCount` — меньше, чем `maximumCount`, и `createdNew` — `true`, действует так же как если бы метод текущий поток <xref:System.Threading.WaitHandle.WaitOne%2A> (`maximumCount` минус `initialCount`) раз.</span><span class="sxs-lookup"><span data-stu-id="8f468-232">If `initialCount` is less than `maximumCount`, and `createdNew` is `true`, the effect is the same as if the current thread had called <xref:System.Threading.WaitHandle.WaitOne%2A> (`maximumCount` minus `initialCount`) times.</span></span>  
+  
+ <span data-ttu-id="8f468-233">При указании `null` или пустую строку для `name`, создан локальный семафор, как если бы метод <xref:System.Threading.Semaphore.%23ctor%28System.Int32%2CSystem.Int32%29> перегрузку конструктора.</span><span class="sxs-lookup"><span data-stu-id="8f468-233">If you specify `null` or an empty string for `name`, a local semaphore is created, as if you had called the <xref:System.Threading.Semaphore.%23ctor%28System.Int32%2CSystem.Int32%29> constructor overload.</span></span> <span data-ttu-id="8f468-234">В этом случае `createdNew` всегда `true`.</span><span class="sxs-lookup"><span data-stu-id="8f468-234">In this case, `createdNew` is always `true`.</span></span>  
+  
+ <span data-ttu-id="8f468-235">Так как именованные семафоры доступны в пределах всей операционной системы, их можно использовать для координирования использования ресурсов разными процессами.</span><span class="sxs-lookup"><span data-stu-id="8f468-235">Because named semaphores are visible throughout the operating system, they can be used to coordinate resource use across process boundaries.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-236">В следующем примере кода демонстрируется поведение между процессами именованный семафор с безопасность управления доступом.</span><span class="sxs-lookup"><span data-stu-id="8f468-236">The following code example demonstrates the cross-process behavior of a named semaphore with access control security.</span></span> <span data-ttu-id="8f468-237">В этом примере <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> перегрузка метода для проверки существования именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-237">The example uses the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method overload to test for the existence of a named semaphore.</span></span> <span data-ttu-id="8f468-238">Если семафор не существует, он создается с двух максимальное значение счетчика и управления доступом, которые запрещают текущему пользователю использовать семафор, но предоставляет право на чтение и изменение разрешений семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-238">If the semaphore does not exist, it is created with a maximum count of two and with access control security that denies the current user the right to use the semaphore but grants the right to read and change permissions on the semaphore.</span></span> <span data-ttu-id="8f468-239">При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> метода.</span><span class="sxs-lookup"><span data-stu-id="8f468-239">If you run the compiled example from two command windows, the second copy will throw an access violation exception on the call to the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method.</span></span> <span data-ttu-id="8f468-240">Исключение перехватывается, а в примере используется <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> перегрузку метода, чтобы открыть семафор с права, необходимые для чтения и изменения разрешений.</span><span class="sxs-lookup"><span data-stu-id="8f468-240">The exception is caught, and the example uses the <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> method overload to open the semaphore with the rights needed to read and change the permissions.</span></span>  
+  
+ <span data-ttu-id="8f468-241">После изменения разрешений семафор открывается с права, необходимые для ввода и вывода.</span><span class="sxs-lookup"><span data-stu-id="8f468-241">After the permissions are changed, the semaphore is opened with the rights required to enter and release.</span></span> <span data-ttu-id="8f468-242">Если запустить скомпилированный пример в третьем командном окне, запускается с помощью новых разрешений.</span><span class="sxs-lookup"><span data-stu-id="8f468-242">If you run the compiled example from a third command window, it runs using the new permissions.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="8f468-243">Значение <paramref name="initialCount" /> больше значения <paramref name="maximumCount" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-243">
+              <paramref name="initialCount" /> is greater than <paramref name="maximumCount" />.</span>
+          </span>
+          <span data-ttu-id="8f468-244">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-244">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-245">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-245">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="8f468-246">Значение параметра <paramref name="maximumCount" /> меньше 1.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-246">
+              <paramref name="maximumCount" /> is less than 1.</span>
+          </span>
+          <span data-ttu-id="8f468-247">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-247">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-248">Значение параметра <paramref name="initialCount" /> меньше 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-248">
+              <paramref name="initialCount" /> is less than 0.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-249">Именованный семафор существует, доступ к нему безопасно регулируется, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.SemaphoreRights.FullControl" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-249">The named semaphore exists and has access control security, and the user does not have <see cref="F:System.Security.AccessControl.SemaphoreRights.FullControl" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="8f468-250">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-250">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">
+          <span data-ttu-id="8f468-251">Именованный семафор нельзя создать. Вероятно, дескриптор ожидания другого типа имеет то же имя.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-251">The named semaphore cannot be created, perhaps because a wait handle of a different type has the same name.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="8f468-252">для вызова неуправляемого кода для создания именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-252">for calling unmanaged code to create a named system semaphore.</span>
+          </span>
+          <span data-ttu-id="8f468-253">Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-253">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" />.</span>
+          </span>
+          <span data-ttu-id="8f468-254">Действие по обеспечению безопасности: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-254">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="GetAccessControl">
+      <MemberSignature Language="C#" Value="public System.Security.AccessControl.SemaphoreSecurity GetAccessControl ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Security.AccessControl.SemaphoreSecurity GetAccessControl() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.GetAccessControl" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetAccessControl () As SemaphoreSecurity" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Security::AccessControl::SemaphoreSecurity ^ GetAccessControl();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Security.AccessControl.SemaphoreSecurity</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="8f468-255">Возвращает настройки управления доступом для именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-255">Gets the access control security for a named system semaphore.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="8f468-256">Объект <see cref="T:System.Security.AccessControl.SemaphoreSecurity" />, представляющий параметры безопасности управления доступом для именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-256">A <see cref="T:System.Security.AccessControl.SemaphoreSecurity" /> object that represents the access control security for the named system semaphore.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-257"><xref:System.Threading.Semaphore.GetAccessControl%2A> Метод используется комбинация следующих (объединены с помощью битовой операции OR) флагов для поиска для разрешения: <xref:System.Security.AccessControl.AccessControlSections.Access?displayProperty=nameWithType>, <xref:System.Security.AccessControl.AccessControlSections.Owner?displayProperty=nameWithType>, и <xref:System.Security.AccessControl.AccessControlSections.Group?displayProperty=nameWithType>.</span><span class="sxs-lookup"><span data-stu-id="8f468-257">The <xref:System.Threading.Semaphore.GetAccessControl%2A> method uses the following combination of flags (combined using the bitwise OR operation) to search for permissions: <xref:System.Security.AccessControl.AccessControlSections.Access?displayProperty=nameWithType>, <xref:System.Security.AccessControl.AccessControlSections.Owner?displayProperty=nameWithType>, and <xref:System.Security.AccessControl.AccessControlSections.Group?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="8f468-258">Пользователь должен иметь <xref:System.Security.AccessControl.SemaphoreRights.ReadPermissions?displayProperty=nameWithType> правами для вызова этого метода и семафора должен быть открыт с <xref:System.Security.AccessControl.SemaphoreRights.ReadPermissions?displayProperty=nameWithType> права.</span><span class="sxs-lookup"><span data-stu-id="8f468-258">The user must have <xref:System.Security.AccessControl.SemaphoreRights.ReadPermissions?displayProperty=nameWithType> rights to call this method, and the semaphore must have been opened with <xref:System.Security.AccessControl.SemaphoreRights.ReadPermissions?displayProperty=nameWithType> rights.</span></span>  
+  
+ <span data-ttu-id="8f468-259">На локальный семафор безопасность управления доступом не имеет значения.</span><span class="sxs-lookup"><span data-stu-id="8f468-259">On a local semaphore, access control security is irrelevant.</span></span> <span data-ttu-id="8f468-260">Если <xref:System.Threading.Semaphore> объект не представляет именованный системный семафор, этот метод возвращает <xref:System.Security.AccessControl.SemaphoreSecurity> объект, который предоставляет все права для любого пользователя.</span><span class="sxs-lookup"><span data-stu-id="8f468-260">If the <xref:System.Threading.Semaphore> object does not represent a named system semaphore, this method returns a <xref:System.Security.AccessControl.SemaphoreSecurity> object that grants all rights to any user.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-261">В следующем примере кода демонстрируется поведение между процессами именованный семафор с безопасность управления доступом.</span><span class="sxs-lookup"><span data-stu-id="8f468-261">The following code example demonstrates the cross-process behavior of a named semaphore with access control security.</span></span> <span data-ttu-id="8f468-262">В этом примере <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> перегрузка метода для проверки существования именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-262">The example uses the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method overload to test for the existence of a named semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-263">Если семафор не существует, он создается с двух максимальное значение счетчика и управления доступом, которые запрещают текущему пользователю использовать семафор, но предоставляет право на чтение и изменение разрешений семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-263">If the semaphore does not exist, it is created with a maximum count of two and with access control security that denies the current user the right to use the semaphore, but grants the right to read and change permissions on the semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-264">При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> метода.</span><span class="sxs-lookup"><span data-stu-id="8f468-264">If you run the compiled example from two command windows, the second copy will throw an access violation exception on the call to the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method.</span></span> <span data-ttu-id="8f468-265">Исключение перехватывается, а в примере используется <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> перегрузку метода, чтобы открыть семафор с права, необходимые для чтения и изменения разрешений.</span><span class="sxs-lookup"><span data-stu-id="8f468-265">The exception is caught, and the example uses the <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> method overload to open the semaphore with the rights needed to read and change the permissions.</span></span> <span data-ttu-id="8f468-266">Безопасность управления доступом для системного семафора, можно получить <xref:System.Threading.Semaphore.GetAccessControl%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="8f468-266">The access control security for the system semaphore is obtained using the <xref:System.Threading.Semaphore.GetAccessControl%2A> method.</span></span>  
+  
+ <span data-ttu-id="8f468-267">После изменения разрешений семафор открывается с права, необходимые для ввода и вывода.</span><span class="sxs-lookup"><span data-stu-id="8f468-267">After the permissions are changed, the semaphore is opened with the rights required to enter and release.</span></span> <span data-ttu-id="8f468-268">Если запустить скомпилированный пример в третьем командном окне, запускается с помощью новых разрешений.</span><span class="sxs-lookup"><span data-stu-id="8f468-268">If you run the compiled example from a third command window, it runs using the new permissions.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-269">Текущий объект <see cref="T:System.Threading.Semaphore" /> представляет именованный системный семафор, а пользователь не имеет прав <see cref="F:System.Security.AccessControl.SemaphoreRights.ReadPermissions" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-269">The current <see cref="T:System.Threading.Semaphore" /> object represents a named system semaphore, and the user does not have <see cref="F:System.Security.AccessControl.SemaphoreRights.ReadPermissions" /> rights.</span>
+          </span>
+          <span data-ttu-id="8f468-270">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-270">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-271">Текущий объект <see cref="T:System.Threading.Semaphore" /> представляет именованный системный семафор и не был открыт с использованием прав <see cref="F:System.Security.AccessControl.SemaphoreRights.ReadPermissions" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-271">The current <see cref="T:System.Threading.Semaphore" /> object represents a named system semaphore and was not opened with <see cref="F:System.Security.AccessControl.SemaphoreRights.ReadPermissions" /> rights.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="8f468-272">Не поддерживается для Windows 98 или Windows Millennium Edition.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-272">Not supported for Windows 98 or Windows Millennium Edition.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="OpenExisting">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="8f468-273">Открывает указанный именованный семафор, если он уже существует.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-273">Opens a specified named semaphore, if it already exists.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="OpenExisting">
+      <MemberSignature Language="C#" Value="public static System.Threading.Semaphore OpenExisting (string name);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Semaphore OpenExisting(string name) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.OpenExisting(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function OpenExisting (name As String) As Semaphore" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::Semaphore ^ OpenExisting(System::String ^ name);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Semaphore</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="8f468-274">Имя системного семафора для открытия.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-274">The name of the system semaphore to open.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="8f468-275">Открывает указанный именованный семафор, если он уже существует.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-275">Opens the specified named semaphore, if it already exists.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="8f468-276">Объект, представляющий именованный системный семафор.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-276">An object that represents the named system semaphore.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-277"><xref:System.Threading.Semaphore.OpenExisting%2A> Метод пытается открыть указанный именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-277">The <xref:System.Threading.Semaphore.OpenExisting%2A> method tries to open the specified named semaphore.</span></span> <span data-ttu-id="8f468-278">Если системный семафор не существует, этот метод выдает исключение вместо создания системного семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-278">If the system semaphore does not exist, this method throws an exception instead of creating the system semaphore.</span></span> <span data-ttu-id="8f468-279">Чтобы создать системный семафор, если он еще не существует, используйте один из <xref:System.Threading.Semaphore.%23ctor%2A> конструкторы, которые имеет `name` параметра.</span><span class="sxs-lookup"><span data-stu-id="8f468-279">To create the system semaphore when it does not already exist, use one of the <xref:System.Threading.Semaphore.%23ctor%2A> constructors that has a `name` parameter.</span></span>  
+  
+ <span data-ttu-id="8f468-280">Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.Semaphore> объекта, несмотря на то, что объекты, возвращаемые представляют же именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-280">Multiple calls to this method that use the same value for `name` do not necessarily return the same <xref:System.Threading.Semaphore> object, even though the objects that are returned represent the same named system semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-281">Эта перегрузка метода эквивалентен вызову <xref:System.Threading.Semaphore.OpenExisting%2A> перегруженный метод и указывая <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> и <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> прав, объединяются с помощью битовой операции или.</span><span class="sxs-lookup"><span data-stu-id="8f468-281">This method overload is equivalent to calling the <xref:System.Threading.Semaphore.OpenExisting%2A> method overload and specifying <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> and <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> rights, combined by using the bitwise OR operation.</span></span>  
+  
+ <span data-ttu-id="8f468-282">Указание <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> флаг позволяет потоков в семафор и указав <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> флаг позволяет потоку для вызова <xref:System.Threading.Semaphore.Release%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="8f468-282">Specifying the <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> flag allows a thread to enter the semaphore, and specifying the <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> flag allows a thread to call the <xref:System.Threading.Semaphore.Release%2A> method.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-283">В следующем примере кода демонстрируется поведение между процессами именованный семафор с безопасность управления доступом.</span><span class="sxs-lookup"><span data-stu-id="8f468-283">The following code example demonstrates the cross-process behavior of a named semaphore with access control security.</span></span> <span data-ttu-id="8f468-284">В этом примере <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> перегрузка метода для проверки существования именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-284">The example uses the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method overload to test for the existence of a named semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-285">Если семафор не существует, он создается с двух максимальное значение счетчика и управления доступом, запрещают текущему пользователю использовать семафор, но предоставляют право на чтение и изменение разрешений семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-285">If the semaphore does not exist, it is created with a maximum count of two and with access control security that denies the current user the right to use the semaphore, but which grants the right to read and change permissions on the semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-286">При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> перегрузки метода.</span><span class="sxs-lookup"><span data-stu-id="8f468-286">If you run the compiled example from two command windows, the second copy will throw an access violation exception on the call to the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method overload.</span></span> <span data-ttu-id="8f468-287">Исключение перехватывается, а в примере используется <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> перегрузку метода, чтобы открыть семафор с права, необходимые для чтения и изменения разрешений.</span><span class="sxs-lookup"><span data-stu-id="8f468-287">The exception is caught, and the example uses the <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> method overload to open the semaphore with the rights needed to read and change the permissions.</span></span>  
+  
+ <span data-ttu-id="8f468-288">После изменения разрешений семафор открывается с права, необходимые для ввода и освободите его.</span><span class="sxs-lookup"><span data-stu-id="8f468-288">After the permissions are changed, the semaphore is opened with the rights required to enter and release it.</span></span> <span data-ttu-id="8f468-289">Если запустить скомпилированный пример в третьем командном окне, запускается с помощью новых разрешений.</span><span class="sxs-lookup"><span data-stu-id="8f468-289">If you run the compiled example from a third command window, it runs using the new permissions.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="8f468-290">Параметр <paramref name="name" /> равен пустой строке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-290">
+              <paramref name="name" /> is an empty string.</span>
+          </span>
+          <span data-ttu-id="8f468-291">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-291">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-292">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-292">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="8f468-293">Свойство <paramref name="name" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-293">
+              <paramref name="name" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">
+          <span data-ttu-id="8f468-294">Именованный семафор не существует.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-294">The named semaphore does not exist.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="8f468-295">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-295">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-296">Именованный семафор существует, но у пользователя нет прав доступа, необходимых для его использования.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-296">The named semaphore exists, but the user does not have the security access required to use it.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="8f468-297">для вызова неуправляемого кода для открытия именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-297">for calling unmanaged code to open a named system semaphore.</span>
+          </span>
+          <span data-ttu-id="8f468-298">Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-298">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" />.</span>
+          </span>
+          <span data-ttu-id="8f468-299">Действие по обеспечению безопасности: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-299">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="OpenExisting">
+      <MemberSignature Language="C#" Value="public static System.Threading.Semaphore OpenExisting (string name, System.Security.AccessControl.SemaphoreRights rights);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Semaphore OpenExisting(string name, valuetype System.Security.AccessControl.SemaphoreRights rights) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.OpenExisting(System.String,System.Security.AccessControl.SemaphoreRights)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function OpenExisting (name As String, rights As SemaphoreRights) As Semaphore" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::Semaphore ^ OpenExisting(System::String ^ name, System::Security::AccessControl::SemaphoreRights rights);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Semaphore</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="rights" Type="System.Security.AccessControl.SemaphoreRights" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="8f468-300">Имя системного семафора для открытия.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-300">The name of the system semaphore to open.</span>
+          </span>
+        </param>
+        <param name="rights">
+          <span data-ttu-id="8f468-301">Битовая комбинация значений перечисления, которые определяют желаемые права доступа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-301">A bitwise combination of the enumeration values that represent the desired security access.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="8f468-302">Открывает указанный именованный семафор, если он уже существует, с требуемым безопасным доступом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-302">Opens the specified named semaphore, if it already exists, with the desired security access.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="8f468-303">Объект, представляющий именованный системный семафор.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-303">An object that represents the named system semaphore.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-304">`rights` Необходимо включить параметр <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> флаг, чтобы разрешить потоков в семафор и <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> флаг, чтобы разрешить потоков для вызова <xref:System.Threading.Semaphore.Release%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="8f468-304">The `rights` parameter must include the <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> flag to allow threads to enter the semaphore, and the <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> flag to allow threads to call the <xref:System.Threading.Semaphore.Release%2A> method.</span></span>  
+  
+ <span data-ttu-id="8f468-305"><xref:System.Threading.Semaphore.OpenExisting%2A> Метод пытается открыть существующий именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-305">The <xref:System.Threading.Semaphore.OpenExisting%2A> method tries to open an existing named semaphore.</span></span> <span data-ttu-id="8f468-306">Если системный семафор не существует, этот метод выдает исключение вместо создания системного семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-306">If the system semaphore does not exist, this method throws an exception instead of creating the system semaphore.</span></span> <span data-ttu-id="8f468-307">Чтобы создать системный семафор, если он еще не существует, используйте один из <xref:System.Threading.Semaphore.%23ctor%2A> конструкторы, которые имеет `name` параметра.</span><span class="sxs-lookup"><span data-stu-id="8f468-307">To create the system semaphore when it does not already exist, use one of the <xref:System.Threading.Semaphore.%23ctor%2A> constructors that has a `name` parameter.</span></span>  
+  
+ <span data-ttu-id="8f468-308">Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.Semaphore> объекта, несмотря на то, что объекты, возвращаемые представляют же именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-308">Multiple calls to this method that use the same value for `name` do not necessarily return the same <xref:System.Threading.Semaphore> object, even though the objects that are returned represent the same named system semaphore.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-309">В следующем примере кода демонстрируется поведение между процессами именованный семафор с безопасность управления доступом.</span><span class="sxs-lookup"><span data-stu-id="8f468-309">The following code example demonstrates the cross-process behavior of a named semaphore with access control security.</span></span> <span data-ttu-id="8f468-310">В этом примере <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> перегрузка метода для проверки существования именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-310">The example uses the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method overload to test for the existence of a named semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-311">Если семафор не существует, он создается с двух максимальное значение счетчика и управления доступом, которые запрещают текущему пользователю использовать семафор, но предоставляет право на чтение и изменение разрешений семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-311">If the semaphore does not exist, it is created with a maximum count of two and with access control security that denies the current user the right to use the semaphore, but grants the right to read and change permissions on the semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-312">При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> метода.</span><span class="sxs-lookup"><span data-stu-id="8f468-312">If you run the compiled example from two command windows, the second copy will throw an access violation exception on the call to the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method.</span></span> <span data-ttu-id="8f468-313">Исключение перехватывается, а в примере используется <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> перегрузку метода, чтобы открыть семафор с права, необходимые для чтения и изменения разрешений.</span><span class="sxs-lookup"><span data-stu-id="8f468-313">The exception is caught, and the example uses the <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> method overload to open the semaphore with the rights needed to read and change the permissions.</span></span>  
+  
+ <span data-ttu-id="8f468-314">После изменения разрешений семафор открывается с права, необходимые для ввода и освободите его.</span><span class="sxs-lookup"><span data-stu-id="8f468-314">After the permissions are changed, the semaphore is opened with the rights required to enter and release it.</span></span> <span data-ttu-id="8f468-315">Если запустить скомпилированный пример в третьем командном окне, запускается с помощью новых разрешений.</span><span class="sxs-lookup"><span data-stu-id="8f468-315">If you run the compiled example from a third command window, it runs using the new permissions.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="8f468-316">Параметр <paramref name="name" /> равен пустой строке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-316">
+              <paramref name="name" /> is an empty string.</span>
+          </span>
+          <span data-ttu-id="8f468-317">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-317">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-318">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-318">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="8f468-319">Свойство <paramref name="name" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-319">
+              <paramref name="name" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">
+          <span data-ttu-id="8f468-320">Именованный семафор не существует.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-320">The named semaphore does not exist.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="8f468-321">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-321">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-322">Именованный семафор существует, но у пользователя нет требуемых прав доступа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-322">The named semaphore exists, but the user does not have the desired security access rights.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">
+          <span data-ttu-id="8f468-323">для вызова неуправляемого кода для создания именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-323">for calling unmanaged code to create a named system semaphore.</span>
+          </span>
+          <span data-ttu-id="8f468-324">Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-324">Associated enumeration: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" />.</span>
+          </span>
+          <span data-ttu-id="8f468-325">Действие по обеспечению безопасности: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-325">Security action: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Release">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="8f468-326">Выполняет выход из семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-326">Exits the semaphore.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Release">
+      <MemberSignature Language="C#" Value="public int Release ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance int32 Release() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.Release" />
+      <MemberSignature Language="VB.NET" Value="Public Function Release () As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; int Release();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.PrePrepareMethod</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="8f468-327">Выходит из семафора и возвращает последнее значение счетчика.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-327">Exits the semaphore and returns the previous count.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="8f468-328">Счетчик семафора перед вызовом метода <see cref="Overload:System.Threading.Semaphore.Release" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-328">The count on the semaphore before the <see cref="Overload:System.Threading.Semaphore.Release" /> method was called.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-329">Потоки обычно используют <xref:System.Threading.WaitHandle.WaitOne%2A> метод для ввода семафора и они обычно используйте перегрузку этого метода, чтобы выйти из.</span><span class="sxs-lookup"><span data-stu-id="8f468-329">Threads typically use the <xref:System.Threading.WaitHandle.WaitOne%2A> method to enter the semaphore, and they typically use this method overload to exit.</span></span>  
+  
+ <span data-ttu-id="8f468-330">Если <xref:System.Threading.SemaphoreFullException> вызванное <xref:System.Threading.Semaphore.Release%2A> метод, он не обязательно указывает на проблему с вызывающего потока.</span><span class="sxs-lookup"><span data-stu-id="8f468-330">If a <xref:System.Threading.SemaphoreFullException> is thrown by the <xref:System.Threading.Semaphore.Release%2A> method, it does not necessarily indicate a problem with the calling thread.</span></span> <span data-ttu-id="8f468-331">Возможно, этот поток из семафора больше раз, чем вход в него вызвана ошибка программирования в другом потоке.</span><span class="sxs-lookup"><span data-stu-id="8f468-331">A programming error in another thread might have caused that thread to exit the semaphore more times than it entered.</span></span>  
+  
+ <span data-ttu-id="8f468-332">Если текущий <xref:System.Threading.Semaphore> представляет именованный системный семафор, пользователь должен иметь <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> права и семафора должен быть открыт с <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> права.</span><span class="sxs-lookup"><span data-stu-id="8f468-332">If the current <xref:System.Threading.Semaphore> object represents a named system semaphore, the user must have <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> rights and the semaphore must have been opened with <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> rights.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-333">В следующем примере кода создается семафор с максимальное число из трех и исходным значением счетчика равно нулю.</span><span class="sxs-lookup"><span data-stu-id="8f468-333">The following code example creates a semaphore with a maximum count of three and an initial count of zero.</span></span> <span data-ttu-id="8f468-334">В примере запускается пять потоков, которые блокируют ожидание семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-334">The example starts five threads, which block waiting for the semaphore.</span></span> <span data-ttu-id="8f468-335">Основной поток, используя <xref:System.Threading.Semaphore.Release%28System.Int32%29> перегрузка метода, чтобы увеличить значение счетчика семафора максимальное разрешение трех потоков в семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-335">The main thread uses the <xref:System.Threading.Semaphore.Release%28System.Int32%29> method overload to increase the semaphore count to its maximum, allowing three threads to enter the semaphore.</span></span> <span data-ttu-id="8f468-336">Каждый поток использует <xref:System.Threading.Thread.Sleep%2A?displayProperty=nameWithType> метод для ожидания одной секунды для имитации работы, а затем вызывает <xref:System.Threading.Semaphore.Release> перегрузка метода, чтобы освободить семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-336">Each thread uses the <xref:System.Threading.Thread.Sleep%2A?displayProperty=nameWithType> method to wait for one second, to simulate work, and then calls the <xref:System.Threading.Semaphore.Release> method overload to release the semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-337">Каждый раз, когда освобождения семафора отображается предыдущее значение счетчика семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-337">Each time the semaphore is released, the previous semaphore count is displayed.</span></span> <span data-ttu-id="8f468-338">Консоль сообщения позволяют отслеживать использование семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-338">Console messages track semaphore use.</span></span> <span data-ttu-id="8f468-339">Интервал имитирующей работу немного увеличивается для каждого потока, чтобы облегчить чтение выходных данных.</span><span class="sxs-lookup"><span data-stu-id="8f468-339">The simulated work interval is increased slightly for each thread, to make the output easier to read.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore2#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore2/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore2#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore2/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore2#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore2/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.Threading.SemaphoreFullException">
+          <span data-ttu-id="8f468-340">Счетчик семафора уже имеет максимальное значение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-340">The semaphore count is already at the maximum value.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="8f468-341">Произошла ошибка Win32, связанная с именованным семафором.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-341">A Win32 error occurred with a named semaphore.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-342">Текущий семафор представляет именованный системный семафор, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.SemaphoreRights.Modify" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-342">The current semaphore represents a named system semaphore, but the user does not have <see cref="F:System.Security.AccessControl.SemaphoreRights.Modify" />.</span>
+          </span>
+          <span data-ttu-id="8f468-343">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-343">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-344">Текущий семафор представляет именованный системный семафор, но он не был открыт с правами доступа <see cref="F:System.Security.AccessControl.SemaphoreRights.Modify" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-344">The current semaphore represents a named system semaphore, but it was not opened with <see cref="F:System.Security.AccessControl.SemaphoreRights.Modify" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Release">
+      <MemberSignature Language="C#" Value="public int Release (int releaseCount);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance int32 Release(int32 releaseCount) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.Release(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Function Release (releaseCount As Integer) As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; int Release(int releaseCount);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="releaseCount" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="releaseCount">
+          <span data-ttu-id="8f468-345">Количество требуемых выходов из семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-345">The number of times to exit the semaphore.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="8f468-346">Выходит из семафора указанное число раз и возвращает последнее значение счетчика.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-346">Exits the semaphore a specified number of times and returns the previous count.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="8f468-347">Счетчик семафора перед вызовом метода <see cref="Overload:System.Threading.Semaphore.Release" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-347">The count on the semaphore before the <see cref="Overload:System.Threading.Semaphore.Release" /> method was called.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-348">Если поток вошел в семафор несколько раз, эта перегрузка метода позволяет восстановить с помощью одного вызова счетчик семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-348">If a thread has entered the semaphore multiple times, this method overload allows the entire semaphore count to be restored with one call.</span></span>  
+  
+ <span data-ttu-id="8f468-349">Если <xref:System.Threading.SemaphoreFullException> вызванное <xref:System.Threading.Semaphore.Release%2A> метод, он не обязательно указывает на проблему с вызывающего потока.</span><span class="sxs-lookup"><span data-stu-id="8f468-349">If a <xref:System.Threading.SemaphoreFullException> is thrown by the <xref:System.Threading.Semaphore.Release%2A> method, it does not necessarily indicate a problem with the calling thread.</span></span> <span data-ttu-id="8f468-350">Возможно, этот поток из семафора больше раз, чем вход в него вызвана ошибка программирования в другом потоке.</span><span class="sxs-lookup"><span data-stu-id="8f468-350">A programming error in another thread might have caused that thread to exit the semaphore more times than it entered.</span></span>  
+  
+ <span data-ttu-id="8f468-351">Если текущий <xref:System.Threading.Semaphore> представляет именованный системный семафор, пользователь должен иметь <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> права и семафора должен быть открыт с <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> права.</span><span class="sxs-lookup"><span data-stu-id="8f468-351">If the current <xref:System.Threading.Semaphore> object represents a named system semaphore, the user must have <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> rights and the semaphore must have been opened with <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> rights.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-352">В следующем примере кода создается семафор с максимальное число из трех и исходным значением счетчика равно нулю.</span><span class="sxs-lookup"><span data-stu-id="8f468-352">The following code example creates a semaphore with a maximum count of three and an initial count of zero.</span></span> <span data-ttu-id="8f468-353">В примере запускается пять потоков, которые блокируют ожидание семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-353">The example starts five threads, which block waiting for the semaphore.</span></span> <span data-ttu-id="8f468-354">Основной поток, используя <xref:System.Threading.Semaphore.Release%28System.Int32%29> перегрузка метода, чтобы увеличить значение счетчика семафора максимальное разрешение трех потоков в семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-354">The main thread uses the <xref:System.Threading.Semaphore.Release%28System.Int32%29> method overload to increase the semaphore count to its maximum, allowing three threads to enter the semaphore.</span></span> <span data-ttu-id="8f468-355">Каждый поток использует <xref:System.Threading.Thread.Sleep%2A?displayProperty=nameWithType> метод для ожидания одной секунды для имитации работы, а затем вызывает <xref:System.Threading.Semaphore.Release> перегрузка метода, чтобы освободить семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-355">Each thread uses the <xref:System.Threading.Thread.Sleep%2A?displayProperty=nameWithType> method to wait for one second, to simulate work, and then calls the <xref:System.Threading.Semaphore.Release> method overload to release the semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-356">Каждый раз, когда освобождения семафора отображается предыдущее значение счетчика семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-356">Each time the semaphore is released, the previous semaphore count is displayed.</span></span> <span data-ttu-id="8f468-357">Консоль сообщения позволяют отслеживать использование семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-357">Console messages track semaphore use.</span></span> <span data-ttu-id="8f468-358">Интервал имитирующей работу немного увеличивается для каждого потока, чтобы облегчить чтение выходных данных.</span><span class="sxs-lookup"><span data-stu-id="8f468-358">The simulated work interval is increased slightly for each thread, to make the output easier to read.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore2#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore2/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore2#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore2/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore2#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore2/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="8f468-359">Значение параметра <paramref name="releaseCount" /> меньше 1.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-359">
+              <paramref name="releaseCount" /> is less than 1.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Threading.SemaphoreFullException">
+          <span data-ttu-id="8f468-360">Счетчик семафора уже имеет максимальное значение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-360">The semaphore count is already at the maximum value.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="8f468-361">Произошла ошибка Win32, связанная с именованным семафором.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-361">A Win32 error occurred with a named semaphore.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-362">Текущий семафор представляет именованный системный семафор, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.SemaphoreRights.Modify" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-362">The current semaphore represents a named system semaphore, but the user does not have <see cref="F:System.Security.AccessControl.SemaphoreRights.Modify" /> rights.</span>
+          </span>
+          <span data-ttu-id="8f468-363">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-363">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-364">Текущий семафор представляет именованный системный семафор, но он не был открыт с правами <see cref="F:System.Security.AccessControl.SemaphoreRights.Modify" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-364">The current semaphore represents a named system semaphore, but it was not opened with <see cref="F:System.Security.AccessControl.SemaphoreRights.Modify" /> rights.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="SetAccessControl">
+      <MemberSignature Language="C#" Value="public void SetAccessControl (System.Security.AccessControl.SemaphoreSecurity semaphoreSecurity);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void SetAccessControl(class System.Security.AccessControl.SemaphoreSecurity semaphoreSecurity) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.SetAccessControl(System.Security.AccessControl.SemaphoreSecurity)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void SetAccessControl(System::Security::AccessControl::SemaphoreSecurity ^ semaphoreSecurity);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="semaphoreSecurity" Type="System.Security.AccessControl.SemaphoreSecurity" />
+      </Parameters>
+      <Docs>
+        <param name="semaphoreSecurity">
+          <span data-ttu-id="8f468-365">Объект <see cref="T:System.Security.AccessControl.SemaphoreSecurity" />, представляющий безопасность управления доступом для применения к именованному системному семафору.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-365">A <see cref="T:System.Security.AccessControl.SemaphoreSecurity" /> object that represents the access control security to be applied to the named system semaphore.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="8f468-366">Задает безопасность управления доступом для именованного системного семафора.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-366">Sets the access control security for a named system semaphore.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-367">Безопасность управления доступом можно задать только на <xref:System.Threading.Semaphore> объекты, представляющие именованного системного семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-367">You can set access control security only on <xref:System.Threading.Semaphore> objects that represent named system semaphores.</span></span>  
+  
+ <span data-ttu-id="8f468-368">Пользователь должен иметь <xref:System.Security.AccessControl.SemaphoreRights.ChangePermissions?displayProperty=nameWithType> правами для вызова этого метода и семафора должен быть открыт с <xref:System.Security.AccessControl.SemaphoreRights.ChangePermissions?displayProperty=nameWithType> права.</span><span class="sxs-lookup"><span data-stu-id="8f468-368">The user must have <xref:System.Security.AccessControl.SemaphoreRights.ChangePermissions?displayProperty=nameWithType> rights to call this method, and the semaphore must have been opened with <xref:System.Security.AccessControl.SemaphoreRights.ChangePermissions?displayProperty=nameWithType> rights.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="8f468-369">В следующем примере кода демонстрируется поведение между процессами именованный семафор с безопасность управления доступом.</span><span class="sxs-lookup"><span data-stu-id="8f468-369">The following code example demonstrates the cross-process behavior of a named semaphore with access control security.</span></span> <span data-ttu-id="8f468-370">В этом примере <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> перегрузка метода для проверки существования именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-370">The example uses the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method overload to test for the existence of a named semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-371">Если семафор не существует, он создается с двух максимальное значение счетчика и управления доступом, которые запрещают текущему пользователю использовать семафор, но предоставляет право на чтение и изменение разрешений семафора.</span><span class="sxs-lookup"><span data-stu-id="8f468-371">If the semaphore does not exist, it is created with a maximum count of two and with access control security that denies the current user the right to use the semaphore but grants the right to read and change permissions on the semaphore.</span></span>  
+  
+ <span data-ttu-id="8f468-372">При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> метода.</span><span class="sxs-lookup"><span data-stu-id="8f468-372">If you run the compiled example from two command windows, the second copy will throw an access violation exception on the call to the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method.</span></span> <span data-ttu-id="8f468-373">Исключение перехватывается, а в примере используется <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> перегрузку метода, чтобы открыть семафор с права, необходимые для чтения и изменения разрешений.</span><span class="sxs-lookup"><span data-stu-id="8f468-373">The exception is caught, and the example uses the <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> method overload to open the semaphore with the rights needed to read and change the permissions.</span></span>  
+  
+ <span data-ttu-id="8f468-374">После изменения разрешений, с помощью <xref:System.Threading.Semaphore.SetAccessControl%2A> метод семафор открывается с права, необходимые для ввода и вывода.</span><span class="sxs-lookup"><span data-stu-id="8f468-374">After the permissions are changed, using the <xref:System.Threading.Semaphore.SetAccessControl%2A> method, the semaphore is opened with the rights required to enter and release.</span></span> <span data-ttu-id="8f468-375">Если запустить скомпилированный пример в третьем командном окне, запускается с помощью новых разрешений.</span><span class="sxs-lookup"><span data-stu-id="8f468-375">If you run the compiled example from a third command window, it runs using the new permissions.</span></span>  
+  
+ [!code-cpp[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/CPP/source.cpp#1)]
+ [!code-csharp[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/CS/source.cs#1)]
+ [!code-vb[System.Threading.Semaphore.ctor named 5a#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.Semaphore.ctor named 5a/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="8f468-376">Свойство <paramref name="semaphoreSecurity" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-376">
+              <paramref name="semaphoreSecurity" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-377">Пользователь не имеет прав <see cref="F:System.Security.AccessControl.SemaphoreRights.ChangePermissions" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-377">The user does not have <see cref="F:System.Security.AccessControl.SemaphoreRights.ChangePermissions" /> rights.</span>
+          </span>
+          <span data-ttu-id="8f468-378">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-378">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-379">Семафор не был открыт с правами <see cref="F:System.Security.AccessControl.SemaphoreRights.ChangePermissions" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-379">The semaphore was not opened with <see cref="F:System.Security.AccessControl.SemaphoreRights.ChangePermissions" /> rights.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="8f468-380">Текущий объект <see cref="T:System.Threading.Semaphore" /> не представляет именованный системный семафор.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-380">The current <see cref="T:System.Threading.Semaphore" /> object does not represent a named system semaphore.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="TryOpenExisting">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="8f468-381">Открывает заданный именованный семафор, если он уже существует, и возвращает значение, указывающее, успешно ли выполнена операция.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-381">Opens a specified named semaphore, if it already exists, and returns a value that indicates whether the operation succeeded.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="TryOpenExisting">
+      <MemberSignature Language="C#" Value="public static bool TryOpenExisting (string name, out System.Threading.Semaphore result);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig bool TryOpenExisting(string name, [out] class System.Threading.Semaphore&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.TryOpenExisting(System.String,System.Threading.Semaphore@)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function TryOpenExisting (name As String, ByRef result As Semaphore) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool TryOpenExisting(System::String ^ name, [Runtime::InteropServices::Out] System::Threading::Semaphore ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="result" Type="System.Threading.Semaphore&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="8f468-382">Имя системного семафора для открытия.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-382">The name of the system semaphore to open.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="8f468-383">При возврате этот метод содержит объект <see cref="T:System.Threading.Semaphore" />, представляющий именованный семафор, если вызов завершился успешно, или значение <see langword="null" />, если вызов завершился неудачно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-383">When this method returns, contains a <see cref="T:System.Threading.Semaphore" /> object that represents the named semaphore if the call succeeded, or <see langword="null" /> if the call failed.</span>
+          </span>
+          <span data-ttu-id="8f468-384">Этот параметр обрабатывается как неинициализированный.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-384">This parameter is treated as uninitialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="8f468-385">Открывает указанный именованный семафор, если он уже существует, и возвращает значение, указывающее, успешно ли выполнена операция.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-385">Opens the specified named semaphore, if it already exists, and returns a value that indicates whether the operation succeeded.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="8f468-386">Значение <see langword="true" />, если именованный семафор был успешно открыт; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-386">
+              <see langword="true" /> if the named semaphore was opened successfully; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-387">Если именованный семафор не существует, этот метод не создает его.</span><span class="sxs-lookup"><span data-stu-id="8f468-387">If the named semaphore does not exist, this method does not create it.</span></span> <span data-ttu-id="8f468-388">Чтобы создать системный семафор, если он еще не существует, используйте один из <xref:System.Threading.Semaphore.%23ctor%2A> конструкторы, которые имеет `name` параметра.</span><span class="sxs-lookup"><span data-stu-id="8f468-388">To create the system semaphore when it does not already exist, use one of the <xref:System.Threading.Semaphore.%23ctor%2A> constructors that has a `name` parameter.</span></span>  
+  
+ <span data-ttu-id="8f468-389">Если неизвестно, существует ли именованный семафор, используйте перегрузку этого метода, а не <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> перегрузка метода, который создает исключение, если семафора не существует.</span><span class="sxs-lookup"><span data-stu-id="8f468-389">If you are uncertain whether a named semaphore exists, use this method overload instead of the <xref:System.Threading.Semaphore.OpenExisting%28System.String%29> method overload, which throws an exception if the semaphore does not exist.</span></span>  
+  
+ <span data-ttu-id="8f468-390">Эта перегрузка метода эквивалентен вызову <xref:System.Threading.Semaphore.TryOpenExisting%2A> перегруженный метод и указывая <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> и <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> прав, объединяются с помощью битовой операции или.</span><span class="sxs-lookup"><span data-stu-id="8f468-390">This method overload is equivalent to calling the <xref:System.Threading.Semaphore.TryOpenExisting%2A> method overload and specifying <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> and <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> rights, combined by using the bitwise OR operation.</span></span> <span data-ttu-id="8f468-391">Указание <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> флаг позволяет потоков в семафор и указав <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> флаг позволяет потоку для вызова <xref:System.Threading.Semaphore.Release%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="8f468-391">Specifying the <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> flag allows a thread to enter the semaphore, and specifying the   <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> flag allows a thread to call the <xref:System.Threading.Semaphore.Release%2A> method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="8f468-392">Параметр <paramref name="name" /> равен пустой строке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-392">
+              <paramref name="name" /> is an empty string.</span>
+          </span>
+          <span data-ttu-id="8f468-393">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-393">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-394">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-394">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="8f468-395">Свойство <paramref name="name" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-395">
+              <paramref name="name" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="8f468-396">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-396">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-397">Именованный семафор существует, но у пользователя нет прав доступа, необходимых для его использования.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-397">The named semaphore exists, but the user does not have the security access required to use it.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="TryOpenExisting">
+      <MemberSignature Language="C#" Value="public static bool TryOpenExisting (string name, System.Security.AccessControl.SemaphoreRights rights, out System.Threading.Semaphore result);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig bool TryOpenExisting(string name, valuetype System.Security.AccessControl.SemaphoreRights rights, [out] class System.Threading.Semaphore&amp; result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Semaphore.TryOpenExisting(System.String,System.Security.AccessControl.SemaphoreRights,System.Threading.Semaphore@)" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function TryOpenExisting (name As String, rights As SemaphoreRights, ByRef result As Semaphore) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool TryOpenExisting(System::String ^ name, System::Security::AccessControl::SemaphoreRights rights, [Runtime::InteropServices::Out] System::Threading::Semaphore ^ % result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="rights" Type="System.Security.AccessControl.SemaphoreRights" />
+        <Parameter Name="result" Type="System.Threading.Semaphore&amp;" RefType="out" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="8f468-398">Имя системного семафора для открытия.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-398">The name of the system semaphore to open.</span>
+          </span>
+        </param>
+        <param name="rights">
+          <span data-ttu-id="8f468-399">Битовая комбинация значений перечисления, которые определяют желаемые права доступа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-399">A bitwise combination of the enumeration values that represent the desired security access.</span>
+          </span>
+        </param>
+        <param name="result">
+          <span data-ttu-id="8f468-400">При возврате этот метод содержит объект <see cref="T:System.Threading.Semaphore" />, представляющий именованный семафор, если вызов завершился успешно, или значение <see langword="null" />, если вызов завершился неудачно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-400">When this method returns, contains a <see cref="T:System.Threading.Semaphore" /> object that represents the named semaphore if the call succeeded, or <see langword="null" /> if the call failed.</span>
+          </span>
+          <span data-ttu-id="8f468-401">Этот параметр обрабатывается как неинициализированный.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-401">This parameter is treated as uninitialized.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="8f468-402">Открывает заданный именованный семафор, если он уже существует, с требуемыми правами доступа, и возвращает значение, указывающее, успешно ли выполнена операция.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-402">Opens the specified named semaphore, if it already exists, with the desired security access, and returns a value that indicates whether the operation succeeded.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="8f468-403">Значение <see langword="true" />, если именованный семафор был успешно открыт; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-403">
+              <see langword="true" /> if the named semaphore was opened successfully; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="8f468-404">Если именованный семафор не существует, этот метод не создает его.</span><span class="sxs-lookup"><span data-stu-id="8f468-404">If the named semaphore does not exist, this method does not create it.</span></span> <span data-ttu-id="8f468-405">Чтобы создать системный семафор, если он еще не существует, используйте один из <xref:System.Threading.Semaphore.%23ctor%2A> конструкторы, которые имеет `name` параметра.</span><span class="sxs-lookup"><span data-stu-id="8f468-405">To create the system semaphore when it does not already exist, use one of the <xref:System.Threading.Semaphore.%23ctor%2A> constructors that has a `name` parameter.</span></span>  
+  
+ <span data-ttu-id="8f468-406">Если неизвестно, существует ли именованный семафор, используйте перегрузку этого метода, а не <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> перегрузка метода, который создает исключение, если семафора не существует.</span><span class="sxs-lookup"><span data-stu-id="8f468-406">If you are uncertain whether a named semaphore exists, use this method overload instead of the <xref:System.Threading.Semaphore.OpenExisting%28System.String%2CSystem.Security.AccessControl.SemaphoreRights%29> method overload, which throws an exception if the semaphore does not exist.</span></span>  
+  
+ <span data-ttu-id="8f468-407">`rights` Необходимо включить параметр <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> флаг, чтобы разрешить потоков в семафор и <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> флаг, чтобы разрешить потоков для вызова <xref:System.Threading.Semaphore.Release%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="8f468-407">The `rights` parameter must include the <xref:System.Security.AccessControl.SemaphoreRights.Synchronize?displayProperty=nameWithType> flag to allow threads to enter the semaphore, and the <xref:System.Security.AccessControl.SemaphoreRights.Modify?displayProperty=nameWithType> flag to allow threads to call the <xref:System.Threading.Semaphore.Release%2A> method.</span></span>  
+  
+ <span data-ttu-id="8f468-408">Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.Semaphore> объекта, несмотря на то, что объекты, возвращаемые представляют же именованный семафор.</span><span class="sxs-lookup"><span data-stu-id="8f468-408">Multiple calls to this method that use the same value for `name` do not necessarily return the same <xref:System.Threading.Semaphore> object, even though the objects that are returned represent the same named system semaphore.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="8f468-409">Параметр <paramref name="name" /> равен пустой строке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-409">
+              <paramref name="name" /> is an empty string.</span>
+          </span>
+          <span data-ttu-id="8f468-410">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-410">-or-</span>
+          </span>
+          <span data-ttu-id="8f468-411">Длина значения параметра <paramref name="name" /> превышает 260 символов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-411">
+              <paramref name="name" /> is longer than 260 characters.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="8f468-412">Свойство <paramref name="name" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-412">
+              <paramref name="name" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.IO.IOException">
+          <span data-ttu-id="8f468-413">Произошла ошибка Win32.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-413">A Win32 error occurred.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.UnauthorizedAccessException">
+          <span data-ttu-id="8f468-414">Именованный семафор существует, но у пользователя нет прав доступа, необходимых для его использования.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="8f468-414">The named semaphore exists, but the user does not have the security access required to use it.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

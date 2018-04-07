@@ -1,0 +1,944 @@
+<Type Name="TaskCompletionSource&lt;TResult&gt;" FullName="System.Threading.Tasks.TaskCompletionSource&lt;TResult&gt;">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="2de3645476c627ddb3a294805715dabada484129" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class TaskCompletionSource&lt;TResult&gt;" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit TaskCompletionSource`1&lt;TResult&gt; extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Threading.Tasks.TaskCompletionSource`1" />
+  <TypeSignature Language="VB.NET" Value="Public Class TaskCompletionSource(Of TResult)" />
+  <TypeSignature Language="C++ CLI" Value="generic &lt;typename TResult&gt;&#xA;public ref class TaskCompletionSource" />
+  <AssemblyInfo>
+    <AssemblyName>System.Threading.Tasks</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <TypeParameters>
+    <TypeParameter Name="TResult" />
+  </TypeParameters>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <typeparam name="TResult">
+      <span data-ttu-id="0c4db-101">Тип значений результата, связанного с данным объектом <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="0c4db-101">The type of the result value assocatied with this <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+      </span>
+    </typeparam>
+    <summary>
+      <span data-ttu-id="0c4db-102">Представляет сторону производителя задач <see cref="T:System.Threading.Tasks.Task`1" />, не привязанных к делегату и предоставляющих доступ к потребительской стороне через свойство <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" />.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="0c4db-102">Represents the producer side of a <see cref="T:System.Threading.Tasks.Task`1" /> unbound to a delegate, providing access to the consumer side through the <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> property.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="0c4db-103">Во многих случаях имеет смысл включить <xref:System.Threading.Tasks.Task%601> для представления внешних асинхронной операции.</span><span class="sxs-lookup"><span data-stu-id="0c4db-103">In many scenarios, it is useful to enable a <xref:System.Threading.Tasks.Task%601> to represent an external asynchronous operation.</span></span> <span data-ttu-id="0c4db-104"><xref:System.Threading.Tasks.TaskCompletionSource%601> предоставляется для этой цели.</span><span class="sxs-lookup"><span data-stu-id="0c4db-104"><xref:System.Threading.Tasks.TaskCompletionSource%601> is provided for this purpose.</span></span> <span data-ttu-id="0c4db-105">Он позволяет создать задачу, которая может обрабатываться для потребителей, и эти потребители могут использовать члены задачи, как и любые другие.</span><span class="sxs-lookup"><span data-stu-id="0c4db-105">It enables the creation of a task that can be handed out to consumers, and those consumers can use the members of the task as they would any other.</span></span> <span data-ttu-id="0c4db-106">Однако в отличие от большинства задач, состояние задачи, созданные TaskCompletionSource управляется явно методов TaskCompletionSource.</span><span class="sxs-lookup"><span data-stu-id="0c4db-106">However, unlike most tasks, the state of a task created by a TaskCompletionSource is controlled explicitly by the methods on TaskCompletionSource.</span></span> <span data-ttu-id="0c4db-107">Это позволяет внешней асинхронной операции, распространяются на базовую задачу завершения.</span><span class="sxs-lookup"><span data-stu-id="0c4db-107">This enables the completion of the external asynchronous operation to be propagated to the underlying Task.</span></span> <span data-ttu-id="0c4db-108">Разделение также гарантирует, что пользователи не могут переходить из состояния без доступа к соответствующим TaskCompletionSource.</span><span class="sxs-lookup"><span data-stu-id="0c4db-108">The separation also ensures that consumers are not able to transition the state without access to the corresponding TaskCompletionSource.</span></span> <span data-ttu-id="0c4db-109">Дополнительные сведения см. в записи [характера TaskCompletionSource\<TResult >](http://blogs.msdn.com/b/pfxteam/archive/2009/06/02/9685804.aspx) в параллельное программирование с блога .NET.</span><span class="sxs-lookup"><span data-stu-id="0c4db-109">For more information, see the entry [The Nature of TaskCompletionSource\<TResult>](http://blogs.msdn.com/b/pfxteam/archive/2009/06/02/9685804.aspx) in the Parallel Programming with .NET blog.</span></span>  
+  
+ <span data-ttu-id="0c4db-110">[Примеры параллельных расширений](http://go.microsoft.com/fwlink/?LinkID=165717) также содержатся примеры использования <xref:System.Threading.Tasks.TaskCompletionSource%601>.</span><span class="sxs-lookup"><span data-stu-id="0c4db-110">The [Parallel Extensions samples](http://go.microsoft.com/fwlink/?LinkID=165717) also contain examples of how to use <xref:System.Threading.Tasks.TaskCompletionSource%601>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="0c4db-111">В следующем примере показано, как использовать <xref:System.Threading.Tasks.TaskCompletionSource%601>:</span><span class="sxs-lookup"><span data-stu-id="0c4db-111">The following example shows how to use a <xref:System.Threading.Tasks.TaskCompletionSource%601>:</span></span>  
+  
+ [!code-csharp[System.Threading.Tasks.TaskCompletionSource#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.tasks.taskcompletionsource/cs/taskcompletionsource.cs#01)]
+ [!code-vb[System.Threading.Tasks.TaskCompletionSource#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.tasks.taskcompletionsource/vb/taskcompletionsource.vb#01)]  
+  
+ ]]></format>
+    </remarks>
+    <threadsafe>
+      <span data-ttu-id="0c4db-112">Все члены <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> являются потокобезопасными и могут быть использованы из нескольких потоков одновременно.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="0c4db-112">All members of <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> are thread-safe and may be used from multiple threads concurrently.</span>
+      </span>
+    </threadsafe>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="0c4db-113">Создает объект <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-113">Creates a <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> object.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public TaskCompletionSource ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; TaskCompletionSource();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="0c4db-114">Создает объект <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-114">Creates a <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public TaskCompletionSource (object state);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(object state) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.#ctor(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (state As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; TaskCompletionSource(System::Object ^ state);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="state" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="state">
+          <span data-ttu-id="0c4db-115">Состояние, используемое в качестве состояния AsyncState базового объекта <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-115">The state to use as the underlying <see cref="T:System.Threading.Tasks.Task`1" />'s AsyncState.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="0c4db-116">Создает объект <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> с указанным состоянием.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-116">Creates a <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> with the specified state.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public TaskCompletionSource (System.Threading.Tasks.TaskCreationOptions creationOptions);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(valuetype System.Threading.Tasks.TaskCreationOptions creationOptions) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.#ctor(System.Threading.Tasks.TaskCreationOptions)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (creationOptions As TaskCreationOptions)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; TaskCompletionSource(System::Threading::Tasks::TaskCreationOptions creationOptions);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="creationOptions" Type="System.Threading.Tasks.TaskCreationOptions" />
+      </Parameters>
+      <Docs>
+        <param name="creationOptions">
+          <span data-ttu-id="0c4db-117">Параметры, используемые при создании базовых задач <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-117">The options to use when creating the underlying <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="0c4db-118">Создает объект <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> с заданными параметрами.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-118">Creates a <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> with the specified options.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="0c4db-119"><xref:System.Threading.Tasks.Task%601> Создана с помощью этого экземпляра и доступны через его <xref:System.Threading.Tasks.TaskCompletionSource%601.Task%2A> свойство будет создан с помощью указанного `creationOptions`.</span><span class="sxs-lookup"><span data-stu-id="0c4db-119">The <xref:System.Threading.Tasks.Task%601> created by this instance and accessible through its <xref:System.Threading.Tasks.TaskCompletionSource%601.Task%2A> property will be instantiated using the specified `creationOptions`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="0c4db-120">
+            <paramref name="creationOptions" /> представляет параметры, недопустимые для использования с <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-120">The <paramref name="creationOptions" /> represent options invalid for use with a <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public TaskCompletionSource (object state, System.Threading.Tasks.TaskCreationOptions creationOptions);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(object state, valuetype System.Threading.Tasks.TaskCreationOptions creationOptions) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.#ctor(System.Object,System.Threading.Tasks.TaskCreationOptions)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (state As Object, creationOptions As TaskCreationOptions)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; TaskCompletionSource(System::Object ^ state, System::Threading::Tasks::TaskCreationOptions creationOptions);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="state" Type="System.Object" />
+        <Parameter Name="creationOptions" Type="System.Threading.Tasks.TaskCreationOptions" />
+      </Parameters>
+      <Docs>
+        <param name="state">
+          <span data-ttu-id="0c4db-121">Состояние, используемое в качестве состояния AsyncState базового объекта <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-121">The state to use as the underlying <see cref="T:System.Threading.Tasks.Task`1" />'s AsyncState.</span>
+          </span>
+        </param>
+        <param name="creationOptions">
+          <span data-ttu-id="0c4db-122">Параметры, используемые при создании базовых задач <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-122">The options to use when creating the underlying <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="0c4db-123">Создает объект <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> с заданным состоянием и параметрами.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-123">Creates a <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> with the specified state and options.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="0c4db-124">
+            <paramref name="creationOptions" /> представляет параметры, недопустимые для использования с <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-124">The <paramref name="creationOptions" /> represent options invalid for use with a <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="SetCanceled">
+      <MemberSignature Language="C#" Value="public void SetCanceled ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void SetCanceled() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.SetCanceled" />
+      <MemberSignature Language="VB.NET" Value="Public Sub SetCanceled ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void SetCanceled();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="0c4db-125">Переводит базовый объект <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-125">Transitions the underlying <see cref="T:System.Threading.Tasks.Task`1" /> into the <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" /> state.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="0c4db-126">Базовая <see cref="T:System.Threading.Tasks.Task`1" /> уже находится в одном из трех конечных состояний: <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" />,  <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> или <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />, если базовая <see cref="T:System.Threading.Tasks.Task`1" /> уже была удалена.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-126">The underlying <see cref="T:System.Threading.Tasks.Task`1" /> is already in one of the three final states: <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" />, <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" />, or <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />, or if the underlying <see cref="T:System.Threading.Tasks.Task`1" /> has already been disposed.</span>
+          </span>
+        </exception>
+        <altmember cref="M:System.Threading.Tasks.TaskCompletionSource`1.TrySetCanceled" />
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="SetException">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="0c4db-127">Переводит базовый объект <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-127">Transitions the underlying <see cref="T:System.Threading.Tasks.Task`1" /> object into the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> state.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="SetException">
+      <MemberSignature Language="C#" Value="public void SetException (System.Collections.Generic.IEnumerable&lt;Exception&gt; exceptions);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void SetException(class System.Collections.Generic.IEnumerable`1&lt;class System.Exception&gt; exceptions) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.SetException(System.Collections.Generic.IEnumerable{System.Exception})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub SetException (exceptions As IEnumerable(Of Exception))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void SetException(System::Collections::Generic::IEnumerable&lt;Exception ^&gt; ^ exceptions);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="exceptions" Type="System.Collections.Generic.IEnumerable&lt;System.Exception&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="exceptions">
+          <span data-ttu-id="0c4db-128">Коллекция исключений для привязки к данному объекту <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-128">The collection of exceptions to bind to this <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="0c4db-129">Переводит базовый объект <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> и привязывает к нему коллекцию объектов исключений.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-129">Transitions the underlying <see cref="T:System.Threading.Tasks.Task`1" /> into the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> state and binds a collection of exception objects to it.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="0c4db-130">Элемент <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> удален.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-130">The <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> was disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="0c4db-131">Аргумент <paramref name="exceptions" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-131">The <paramref name="exceptions" /> argument is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="0c4db-132">
+            <paramref name="exceptions" /> включает один или несколько элементов со значением null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-132">There are one or more null elements in <paramref name="exceptions" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="0c4db-133">Базовый элемент <see cref="T:System.Threading.Tasks.Task`1" /> уже находится в одном из трех конечных состояний: <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" />, <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> или <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-133">The underlying <see cref="T:System.Threading.Tasks.Task`1" /> is already in one of the three final states: <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" />, <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" />, or <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="SetException">
+      <MemberSignature Language="C#" Value="public void SetException (Exception exception);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void SetException(class System.Exception exception) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.SetException(System.Exception)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void SetException(Exception ^ exception);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="exception" Type="System.Exception" />
+      </Parameters>
+      <Docs>
+        <param name="exception">
+          <span data-ttu-id="0c4db-134">Выражение для привязки к данному <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-134">The exception to bind to this <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="0c4db-135">Переводит базовый объект <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> и привязывает его к определенному исключению.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-135">Transitions the underlying <see cref="T:System.Threading.Tasks.Task`1" /> into the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> state and binds it to a specified exception.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="0c4db-136">Элемент <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> удален.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-136">The <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> was disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="0c4db-137">Аргумент <paramref name="exception" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-137">The <paramref name="exception" /> argument is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="0c4db-138">Базовый элемент <see cref="T:System.Threading.Tasks.Task`1" /> уже находится в одном из трех конечных состояний: <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" />, <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> или <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-138">The underlying <see cref="T:System.Threading.Tasks.Task`1" /> is already in one of the three final states: <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" />, <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" />, or <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="SetResult">
+      <MemberSignature Language="C#" Value="public void SetResult (TResult result);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void SetResult(!TResult result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.SetResult(`0)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub SetResult (result As TResult)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void SetResult(TResult result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="result" Type="TResult" />
+      </Parameters>
+      <Docs>
+        <param name="result">
+          <span data-ttu-id="0c4db-139">Итоговое значение для привязки к данному <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-139">The result value to bind to this <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="0c4db-140">Переводит базовый объект <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-140">Transitions the underlying <see cref="T:System.Threading.Tasks.Task`1" /> into the <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" /> state.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="0c4db-141">Элемент <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> удален.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-141">The <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> was disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="0c4db-142">Базовый элемент <see cref="T:System.Threading.Tasks.Task`1" /> уже находится в одном из трех конечных состояний: <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" />, <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> или <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-142">The underlying <see cref="T:System.Threading.Tasks.Task`1" /> is already in one of the three final states: <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" />, <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" />, or <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Task">
+      <MemberSignature Language="C#" Value="public System.Threading.Tasks.Task&lt;TResult&gt; Task { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Threading.Tasks.Task`1&lt;!TResult&gt; Task" />
+      <MemberSignature Language="DocId" Value="P:System.Threading.Tasks.TaskCompletionSource`1.Task" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Task As Task(Of TResult)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Threading::Tasks::Task&lt;TResult&gt; ^ Task { System::Threading::Tasks::Task&lt;TResult&gt; ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;TResult&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="0c4db-143">Получает объект <see cref="T:System.Threading.Tasks.Task`1" />, созданный данным объектом <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-143">Gets the <see cref="T:System.Threading.Tasks.Task`1" /> created by this <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="0c4db-144">Возвращает объект <see cref="T:System.Threading.Tasks.Task`1" />, созданный данным объектом <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-144">Returns the <see cref="T:System.Threading.Tasks.Task`1" /> created by this <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="0c4db-145">Это свойство позволяет потребителю получить доступ к <xref:System.Threading.Tasks.Task%601> управляется данного экземпляра.</span><span class="sxs-lookup"><span data-stu-id="0c4db-145">This property enables a consumer to access the <xref:System.Threading.Tasks.Task%601> that is controlled by this instance.</span></span> <span data-ttu-id="0c4db-146">При создании <xref:System.Threading.Tasks.TaskCompletionSource%601> объекта, <xref:System.Threading.Tasks.Task.Status%2A> это свойство <xref:System.Threading.Tasks.Task%601> возвращает <xref:System.Threading.Tasks.TaskStatus.WaitingForActivation></span><span class="sxs-lookup"><span data-stu-id="0c4db-146">When you create a <xref:System.Threading.Tasks.TaskCompletionSource%601> object, the <xref:System.Threading.Tasks.Task.Status%2A> property of this <xref:System.Threading.Tasks.Task%601> object returns <xref:System.Threading.Tasks.TaskStatus.WaitingForActivation></span></span>  
+  
+ <span data-ttu-id="0c4db-147"><xref:System.Threading.Tasks.TaskCompletionSource%601.SetResult%2A>, <xref:System.Threading.Tasks.TaskCompletionSource%601.SetException%2A>, <xref:System.Threading.Tasks.TaskCompletionSource%601.SetException%2A>, И <xref:System.Threading.Tasks.TaskCompletionSource%601.SetCanceled%2A> методы (и их вариантов «Try») для данного экземпляра все результирующие соответствующего региона, переходит в это базовые задачи.</span><span class="sxs-lookup"><span data-stu-id="0c4db-147">The <xref:System.Threading.Tasks.TaskCompletionSource%601.SetResult%2A>, <xref:System.Threading.Tasks.TaskCompletionSource%601.SetException%2A>, <xref:System.Threading.Tasks.TaskCompletionSource%601.SetException%2A>, and <xref:System.Threading.Tasks.TaskCompletionSource%601.SetCanceled%2A> methods (and their "Try" variants) on this instance all result in the relevant state transitions on this underlying Task.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="TrySetCanceled">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="0c4db-148">Пытается перевести базовый объект <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-148">Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task`1" /> into the <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" /> state.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="TrySetCanceled">
+      <MemberSignature Language="C#" Value="public bool TrySetCanceled ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool TrySetCanceled() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.TrySetCanceled" />
+      <MemberSignature Language="VB.NET" Value="Public Function TrySetCanceled () As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool TrySetCanceled();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="0c4db-149">Пытается перевести базовый объект <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-149">Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task`1" /> into the <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" /> state.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="0c4db-150">Значение true, если операция завершилась успешно; значение false, если не удалось завершить операцию или объект уже был удален.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-150">True if the operation was successful; false if the operation was unsuccessful or the object has already been disposed.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="0c4db-151">Эта операция вернет false, если <xref:System.Threading.Tasks.Task%601> уже находится в одном из трех состояний окончательного: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, или <xref:System.Threading.Tasks.TaskStatus.Canceled>.</span><span class="sxs-lookup"><span data-stu-id="0c4db-151">This operation will return false if the <xref:System.Threading.Tasks.Task%601> is already in one of the three final states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled>.</span></span>  
+  
+ <span data-ttu-id="0c4db-152">Этот метод также возвращает значение false, если базовый <xref:System.Threading.Tasks.Task%601> уже был удален.</span><span class="sxs-lookup"><span data-stu-id="0c4db-152">This method also returns false if the underlying <xref:System.Threading.Tasks.Task%601> has already been disposed.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TrySetCanceled">
+      <MemberSignature Language="C#" Value="public bool TrySetCanceled (System.Threading.CancellationToken cancellationToken);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool TrySetCanceled(valuetype System.Threading.CancellationToken cancellationToken) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.TrySetCanceled(System.Threading.CancellationToken)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool TrySetCanceled(System::Threading::CancellationToken cancellationToken);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
+      </Parameters>
+      <Docs>
+        <param name="cancellationToken">
+          <span data-ttu-id="0c4db-153">Токен отмены.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-153">A cancellation token.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="0c4db-154">Пытается перевести базовый объект <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" /> и позволяет хранить токен отмены в задаче отмены.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-154">Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task`1" /> into the <see cref="F:System.Threading.Tasks.TaskStatus.Canceled" /> state and enables a cancellation token to be stored in the canceled task.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="0c4db-155">Значение <see langword="true" />, если операция выполнена успешно; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-155">
+              <see langword="true" /> if the operation is successful; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="0c4db-156">Метод возвращает значение false, если базовый <xref:System.Threading.Tasks.Task%601> объект уже находится в одном из трех состояний окончательного.</span><span class="sxs-lookup"><span data-stu-id="0c4db-156">The method returns false if the underlying <xref:System.Threading.Tasks.Task%601> object is already in one of the following three final states.</span></span>  
+  
+-   <xref:System.Threading.Tasks.TaskStatus.Canceled?displayProperty=nameWithType>  
+  
+-   <xref:System.Threading.Tasks.TaskStatus.Faulted?displayProperty=nameWithType>  
+  
+-   <xref:System.Threading.Tasks.TaskStatus.RanToCompletion?displayProperty=nameWithType>  
+  
+ <span data-ttu-id="0c4db-157">Этот метод также возвращает `false` Если базовый <xref:System.Threading.Tasks.Task%601> объект уже удален.</span><span class="sxs-lookup"><span data-stu-id="0c4db-157">This method also returns `false` if the underlying <xref:System.Threading.Tasks.Task%601> object has already been disposed.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="TrySetException">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="0c4db-158">Пытается перевести базовый объект <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-158">Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task`1" /> object into the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> state.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="TrySetException">
+      <MemberSignature Language="C#" Value="public bool TrySetException (System.Collections.Generic.IEnumerable&lt;Exception&gt; exceptions);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool TrySetException(class System.Collections.Generic.IEnumerable`1&lt;class System.Exception&gt; exceptions) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.TrySetException(System.Collections.Generic.IEnumerable{System.Exception})" />
+      <MemberSignature Language="VB.NET" Value="Public Function TrySetException (exceptions As IEnumerable(Of Exception)) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool TrySetException(System::Collections::Generic::IEnumerable&lt;Exception ^&gt; ^ exceptions);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="exceptions" Type="System.Collections.Generic.IEnumerable&lt;System.Exception&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="exceptions">
+          <span data-ttu-id="0c4db-159">Коллекция исключений для привязки к данному объекту <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-159">The collection of exceptions to bind to this <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="0c4db-160">Пытается перевести базовый <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> и привязывает к нему коллекцию объектов исключений.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-160">Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task`1" /> into the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> state and binds a collection of exception objects to it.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="0c4db-161">Значение true, если операция выполнена успешно; в противном случае — значение false.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-161">True if the operation was successful; otherwise, false.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="0c4db-162">Эта операция вернет false, если <xref:System.Threading.Tasks.Task%601> уже находится в одном из трех состояний окончательного: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, или <xref:System.Threading.Tasks.TaskStatus.Canceled>.</span><span class="sxs-lookup"><span data-stu-id="0c4db-162">This operation will return false if the <xref:System.Threading.Tasks.Task%601> is already in one of the three final states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="0c4db-163">Элемент <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> удален.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-163">The <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> was disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="0c4db-164">Аргумент <paramref name="exceptions" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-164">The <paramref name="exceptions" /> argument is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="0c4db-165">
+            <paramref name="exceptions" /> включает один или несколько элементов со значением null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-165">There are one or more null elements in <paramref name="exceptions" />.</span>
+          </span>
+          <span data-ttu-id="0c4db-166">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-166">-or-</span>
+          </span>
+          <span data-ttu-id="0c4db-167">Коллекция <paramref name="exceptions" /> пуста.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-167">The <paramref name="exceptions" /> collection is empty.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="TrySetException">
+      <MemberSignature Language="C#" Value="public bool TrySetException (Exception exception);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool TrySetException(class System.Exception exception) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.TrySetException(System.Exception)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool TrySetException(Exception ^ exception);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="exception" Type="System.Exception" />
+      </Parameters>
+      <Docs>
+        <param name="exception">
+          <span data-ttu-id="0c4db-168">Выражение для привязки к данному <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-168">The exception to bind to this <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="0c4db-169">Пытается перевести базовый элемент <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> и привязывает его к определенному исключению.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-169">Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task`1" /> into the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted" /> state and binds it to a specified exception.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="0c4db-170">Значение true, если операция выполнена успешно; в противном случае — значение false.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-170">True if the operation was successful; otherwise, false.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="0c4db-171">Эта операция вернет false, если <xref:System.Threading.Tasks.Task%601> уже находится в одном из трех состояний окончательного: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, или <xref:System.Threading.Tasks.TaskStatus.Canceled>.</span><span class="sxs-lookup"><span data-stu-id="0c4db-171">This operation will return false if the <xref:System.Threading.Tasks.Task%601> is already in one of the three final states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ObjectDisposedException">
+          <span data-ttu-id="0c4db-172">Элемент <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> удален.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-172">The <see cref="P:System.Threading.Tasks.TaskCompletionSource`1.Task" /> was disposed.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="0c4db-173">Аргумент <paramref name="exception" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-173">The <paramref name="exception" /> argument is null.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="TrySetResult">
+      <MemberSignature Language="C#" Value="public bool TrySetResult (TResult result);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool TrySetResult(!TResult result) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.Tasks.TaskCompletionSource`1.TrySetResult(`0)" />
+      <MemberSignature Language="VB.NET" Value="Public Function TrySetResult (result As TResult) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool TrySetResult(TResult result);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="result" Type="TResult" />
+      </Parameters>
+      <Docs>
+        <param name="result">
+          <span data-ttu-id="0c4db-174">Итоговое значение для привязки к данному <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-174">The result value to bind to this <see cref="T:System.Threading.Tasks.Task`1" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="0c4db-175">Пытается перевести базовый объект <see cref="T:System.Threading.Tasks.Task`1" /> в состояние <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-175">Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task`1" /> into the <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion" /> state.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="0c4db-176">Значение true, если операция выполнена успешно; в противном случае — значение false.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="0c4db-176">True if the operation was successful; otherwise, false.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="0c4db-177">Эта операция вернет false, если <xref:System.Threading.Tasks.Task%601> уже находится в одном из трех состояний окончательного: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, или <xref:System.Threading.Tasks.TaskStatus.Canceled>.</span><span class="sxs-lookup"><span data-stu-id="0c4db-177">This operation will return false if the <xref:System.Threading.Tasks.Task%601> is already in one of the three final states: <xref:System.Threading.Tasks.TaskStatus.RanToCompletion>, <xref:System.Threading.Tasks.TaskStatus.Faulted>, or <xref:System.Threading.Tasks.TaskStatus.Canceled>.</span></span>  
+  
+ <span data-ttu-id="0c4db-178">Этот метод также возвращает значение false, если базовый <xref:System.Threading.Tasks.Task%601> уже был удален.</span><span class="sxs-lookup"><span data-stu-id="0c4db-178">This method also returns false if the underlying <xref:System.Threading.Tasks.Task%601> has already been disposed.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

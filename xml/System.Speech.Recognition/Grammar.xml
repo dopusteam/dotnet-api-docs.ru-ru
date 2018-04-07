@@ -1,0 +1,2352 @@
+<Type Name="Grammar" FullName="System.Speech.Recognition.Grammar">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="0590aacd1e6d847c085bb5c1a57748b1e452d7fa" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class Grammar" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Grammar extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Speech.Recognition.Grammar" />
+  <TypeSignature Language="VB.NET" Value="Public Class Grammar" />
+  <TypeSignature Language="C++ CLI" Value="public ref class Grammar" />
+  <AssemblyInfo>
+    <AssemblyName>System.Speech</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Diagnostics.DebuggerDisplay("Grammar: {(_uri != null ? "uri=" + _uri.ToString () + " " : "") + "rule=" + _ruleName }")</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="6ed44-101">Объект времени выполнения, который ссылается на грамматика распознавания речи, которые приложение может использовать для определения ограничений для распознавания речи.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="6ed44-101">A runtime object that references a speech recognition grammar, which an application can use to define the constraints for speech recognition.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-102">Грамматика распознавания речи — это набор правил или ограничений, которые определяют механизма распознавания речи может распознать как значимые входных данных.</span><span class="sxs-lookup"><span data-stu-id="6ed44-102">A speech recognition grammar is a set of rules or constraints that define what a speech recognition engine can recognize as meaningful input.</span></span> <span data-ttu-id="6ed44-103">Дополнительные сведения о создании и использовании грамматики распознавания речи см. в разделе [распознавания речи](http://msdn.microsoft.com/library/6a7dc524-07fc-4862-8d48-8c10dc64b919), [Создание XML с помощью грамматик](http://msdn.microsoft.com/library/2d799487-49c6-4cc9-b42f-f71cd3824fe1), [создание грамматики с помощью GrammarBuilder](http://msdn.microsoft.com/library/7e2cc577-cb05-4318-9da3-7c8675d3d9ae), и [создать помощи SrgsGrammar](http://msdn.microsoft.com/library/e4d9f96e-2241-4c39-b9e0-ac9ef4e9a906).</span><span class="sxs-lookup"><span data-stu-id="6ed44-103">For more information about creating and using speech recognition grammars, see [Speech Recognition](http://msdn.microsoft.com/library/6a7dc524-07fc-4862-8d48-8c10dc64b919),  [Create Grammars Using XML](http://msdn.microsoft.com/library/2d799487-49c6-4cc9-b42f-f71cd3824fe1), [Create Grammars Using GrammarBuilder](http://msdn.microsoft.com/library/7e2cc577-cb05-4318-9da3-7c8675d3d9ae), and [Create Grammars Using SrgsGrammar](http://msdn.microsoft.com/library/e4d9f96e-2241-4c39-b9e0-ac9ef4e9a906).</span></span>  
+  
+ <span data-ttu-id="6ed44-104">После создания Грамматика необходимо построить его в <xref:System.Speech.Recognition.Grammar> объекта, можно загрузить модуль распознавания речи и приложения могут использовать во время выполнения для управления распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-104">After you author a grammar, you must build it into a <xref:System.Speech.Recognition.Grammar> object that a speech recognition engine can load and that your application can use at runtime to manage speech recognition.</span></span> <span data-ttu-id="6ed44-105">Можно использовать <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструктор для создания <xref:System.Speech.Recognition.Grammar> экземпляра из <xref:System.Speech.Recognition.GrammarBuilder> или <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> объекта, или из файла или <xref:System.IO.Stream> , содержащее описание грамматики в поддерживаемом формате.</span><span class="sxs-lookup"><span data-stu-id="6ed44-105">You can use a <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor to create a <xref:System.Speech.Recognition.Grammar> instance from a <xref:System.Speech.Recognition.GrammarBuilder> or a <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> object, or from a file or a <xref:System.IO.Stream> that contains a description of a grammar in a supported format.</span></span> <span data-ttu-id="6ed44-106">Ниже приведены поддерживаемые форматы:</span><span class="sxs-lookup"><span data-stu-id="6ed44-106">Supported formats include the following:</span></span>  
+  
+-   <span data-ttu-id="6ed44-107">Файлы формата XML, которые соответствуют спецификации W3C [спецификации грамматики распознавания речи (SRGS) версии 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span><span class="sxs-lookup"><span data-stu-id="6ed44-107">XML-format files that conform to the W3C [Speech Recognition Grammar Specification (SRGS) Version 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span></span>  
+  
+-   <span data-ttu-id="6ed44-108">Грамматики, которые были скомпилированы в двоичный файл с расширением .cfg</span><span class="sxs-lookup"><span data-stu-id="6ed44-108">Grammars that have been compiled to a binary file with a .cfg file extension</span></span>  
+  
+ <span data-ttu-id="6ed44-109">Грамматика конструкторов, принимающих XML-формат файлов грамматики в своих аргументах Скомпилируйте грамматики XML в двоичный формат, чтобы оптимизировать их для загрузки и использования механизма распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-109">Grammar constructors that accept XML-format grammar files in their arguments compile the XML grammars to a binary format to optimize them for loading and consumption by a speech recognition engine.</span></span> <span data-ttu-id="6ed44-110">Сократить время, необходимое для создания <xref:System.Speech.Recognition.Grammar> объекта из XML-формата грамматики путем компиляции грамматики заранее, с помощью одного из <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="6ed44-110">You can reduce the amount of time required to construct a <xref:System.Speech.Recognition.Grammar> object from an XML-format grammar by compiling the grammar in advance, using one of the <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> methods.</span></span>  
+  
+ <span data-ttu-id="6ed44-111">Приложения распознавания речи, как управляются <xref:System.Speech.Recognition.SpeechRecognizer> или <xref:System.Speech.Recognition.SpeechRecognitionEngine> объекта, можно загрузить несколько грамматики распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-111">An application's speech recognition engine, as managed by a <xref:System.Speech.Recognition.SpeechRecognizer> or <xref:System.Speech.Recognition.SpeechRecognitionEngine> object, can load multiple speech recognition grammars.</span></span> <span data-ttu-id="6ed44-112">Приложение независимо друг от друга можно включить или отключить отдельные грамматик, задав <xref:System.Speech.Recognition.Grammar.Enabled%2A> свойство и изменение поведения распознавания через <xref:System.Speech.Recognition.Grammar> свойства, такие как <xref:System.Speech.Recognition.Grammar.Priority%2A> и <xref:System.Speech.Recognition.Grammar.Weight%2A> свойства.</span><span class="sxs-lookup"><span data-stu-id="6ed44-112">The application can independently enable or disable individual grammars by setting the <xref:System.Speech.Recognition.Grammar.Enabled%2A> property, and modify recognition behavior through <xref:System.Speech.Recognition.Grammar> properties, such as the <xref:System.Speech.Recognition.Grammar.Priority%2A> and <xref:System.Speech.Recognition.Grammar.Weight%2A> properties.</span></span>  
+  
+ <span data-ttu-id="6ed44-113">Грамматика <xref:System.Speech.Recognition.Grammar.SpeechRecognized> событие возникает, когда входные данные совпадают с путь через грамматики.</span><span class="sxs-lookup"><span data-stu-id="6ed44-113">The grammar’s <xref:System.Speech.Recognition.Grammar.SpeechRecognized> event is raised when input matches a path through the grammar.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="6ed44-114">Рекомендуется проверить безопасность любого URI или DLL, используемые для построения <xref:System.Speech.Recognition.Grammar> объекта.</span><span class="sxs-lookup"><span data-stu-id="6ed44-114">It is a best practice to verify the safety of any URI or DLL used to build a <xref:System.Speech.Recognition.Grammar> object.</span></span>  
+>   
+>  <span data-ttu-id="6ed44-115">Windows и платформы обработки речи обеспечивают безопасность для приложений, создав <xref:System.Speech.Recognition.Grammar> экземпляр из библиотеки DLL или из грамматики, который поддерживает сценарии.</span><span class="sxs-lookup"><span data-stu-id="6ed44-115">Windows and the Speech platform provide security for applications constructing a <xref:System.Speech.Recognition.Grammar> instance from a DLL or from a grammar that supports scripting.</span></span>  
+>   
+>  <span data-ttu-id="6ed44-116">Скрипты в <xref:System.Speech.Recognition.Grammar> объекты всегда выполняются, как если бы загрузить с веб-страницы в `Internet Zone`.</span><span class="sxs-lookup"><span data-stu-id="6ed44-116">Scripts in <xref:System.Speech.Recognition.Grammar> objects are always run as if downloaded from a web page in the `Internet Zone`.</span></span> <span data-ttu-id="6ed44-117">Common Language Runtime (CLR) изолирует любой библиотекой DLL, загружен для получения определения грамматики.</span><span class="sxs-lookup"><span data-stu-id="6ed44-117">The Common Language Runtime (CLR) isolates any DLL loaded to obtain a grammar definition.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-118">В следующем примере создается <xref:System.Speech.Recognition.Grammar> объекта из грамматики распознавания речи, определенные в XML-файл (cities.xml).</span><span class="sxs-lookup"><span data-stu-id="6ed44-118">The following example constructs a <xref:System.Speech.Recognition.Grammar> object from a speech recognition grammar defined in a XML file (cities.xml).</span></span> <span data-ttu-id="6ed44-119">В следующем примере XML отображается содержимое файла cities.xml.</span><span class="sxs-lookup"><span data-stu-id="6ed44-119">The content of the cities.xml file appears in the following XML example.</span></span>  
+  
+```csharp  
+// Load a cities grammar from a local file and return the grammar object.   
+private static Grammar CreateGrammarFromFile()  
+{  
+  Grammar citiesGrammar = new Grammar(@"c:\temp\cities.xml");  
+  citiesGrammar.Name = "SRGS File Cities Grammar";  
+  return citiesGrammar;  
+}  
+  
+```  
+  
+```xml  
+  
+<?xml version="1.0" encoding="UTF-8" ?>  
+<grammar version="1.0" xml:lang="en-US"  
+         xmlns="http://www.w3.org/2001/06/grammar"  
+         tag-format="semantics/1.0" root="Main">  
+  
+  <!-- cities.xml:   
+    Defines an SRGS grammar for requesting a flight. This grammar includes  
+    a Cities rule that lists the cities that can be used for departures  
+    and destinations. -->  
+  
+  <rule id="Main">  
+    <item>  
+      I would like to fly from <ruleref uri="#Cities"/>  
+      to <ruleref uri="#Cities"/>  
+    </item>  
+  </rule>  
+  
+  <rule id="Cities" scope="public">  
+    <one-of>  
+      <item> Seattle </item>  
+      <item> Los Angeles </item>  
+      <item> New York </item>  
+      <item> Miami </item>  
+    </one-of>  
+  </rule>  
+</grammar>  
+```  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />
+    <altmember cref="T:System.Speech.Recognition.GrammarBuilder" />
+    <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+    <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-120">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-120">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-121">Можно использовать <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструктор для создания <xref:System.Speech.Recognition.Grammar> экземпляра из <xref:System.Speech.Recognition.GrammarBuilder> или <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> объекта, или из файла или <xref:System.IO.Stream> , содержащее описание грамматики в поддерживаемом формате.</span><span class="sxs-lookup"><span data-stu-id="6ed44-121">You can use a <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor to create a <xref:System.Speech.Recognition.Grammar> instance from a <xref:System.Speech.Recognition.GrammarBuilder> or <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> object, or from a file or a <xref:System.IO.Stream> that contains a description of a grammar in a supported format.</span></span> <span data-ttu-id="6ed44-122">Ниже приведены поддерживаемые форматы:</span><span class="sxs-lookup"><span data-stu-id="6ed44-122">Supported formats include the following:</span></span>  
+  
+-   <span data-ttu-id="6ed44-123">Файлы формата XML, которые соответствуют спецификации W3C [спецификации грамматики распознавания речи (SRGS) версии 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span><span class="sxs-lookup"><span data-stu-id="6ed44-123">XML-format files that conform to the W3C [Speech Recognition Grammar Specification (SRGS) Version 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span></span>  
+  
+-   <span data-ttu-id="6ed44-124">Грамматики, которые были скомпилированы в двоичный файл с расширением .cfg</span><span class="sxs-lookup"><span data-stu-id="6ed44-124">Grammars that have been compiled to a binary file with a .cfg file extension</span></span>  
+  
+ <span data-ttu-id="6ed44-125">Грамматика конструкторов, принимающих XML-формат файлов грамматики в своих аргументах Скомпилируйте грамматики XML в двоичный формат, чтобы оптимизировать их для загрузки и использования механизма распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-125">Grammar constructors that accept XML-format grammar files in their arguments compile the XML grammars to a binary format to optimize them for loading and consumption by a speech recognition engine.</span></span> <span data-ttu-id="6ed44-126">Сократить время, необходимое для создания <xref:System.Speech.Recognition.Grammar> объекта из XML-формата грамматики путем компиляции грамматики заранее, с помощью одного из <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="6ed44-126">You can reduce the amount of time required to construct a <xref:System.Speech.Recognition.Grammar> object from an XML-format grammar by compiling the grammar in advance, using one of the <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> methods.</span></span>  
+  
+ <span data-ttu-id="6ed44-127">Грамматика распознавания речи можно определить корневое правило.</span><span class="sxs-lookup"><span data-stu-id="6ed44-127">A speech recognition grammar can define a root rule.</span></span> <span data-ttu-id="6ed44-128">Для создания <xref:System.Speech.Recognition.Grammar> объект, который указывает, какое правило для использования в качестве его корневое правило, используйте конструктор, который принимает `ruleName` параметра.</span><span class="sxs-lookup"><span data-stu-id="6ed44-128">To create a <xref:System.Speech.Recognition.Grammar> object that specifies which rule to use as its root rule, use a constructor that accepts the `ruleName` parameter.</span></span>  
+  
+ <span data-ttu-id="6ed44-129">Для создания <xref:System.Speech.Recognition.Grammar> , указывающий базовый URI для разрешения ссылок на относительный правило, используйте конструктор, который принимает `baseUri` параметра.</span><span class="sxs-lookup"><span data-stu-id="6ed44-129">To create a <xref:System.Speech.Recognition.Grammar> object that specifies a base URI to resolve relative rule references, use a constructor that takes the `baseUri` parameter.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected Grammar ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; Grammar();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-130">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-130">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.IO.Stream stream);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.IO.Stream)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::IO::Stream ^ stream);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="6ed44-131">Поток, описывающий грамматику для распознавания речи в поддерживаемом формате.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-131">A stream that describes a speech recognition grammar in a supported format.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-132">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из <see cref="T:System.IO.Stream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-132">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class from a <see cref="T:System.IO.Stream" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-133">Этот конструктор не передает все параметры инициализации обработчика и описание не следует определять обработчик инициализации, требующее аргументов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-133">This constructor does not pass any parameters to the initialization handler, and the description should not define an initialization handler that requires arguments.</span></span>  
+  
+ <span data-ttu-id="6ed44-134">Этот конструктор можно создать <xref:System.Speech.Recognition.Grammar> экземпляр из следующих форматов:</span><span class="sxs-lookup"><span data-stu-id="6ed44-134">This constructor can create a <xref:System.Speech.Recognition.Grammar> instance from the following formats:</span></span>  
+  
+-   <span data-ttu-id="6ed44-135">Файлы формата XML, которые соответствуют спецификации W3C [спецификации грамматики распознавания речи (SRGS) версии 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span><span class="sxs-lookup"><span data-stu-id="6ed44-135">XML-format files that conform to the W3C [Speech Recognition Grammar Specification (SRGS) Version 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span></span>  
+  
+-   <span data-ttu-id="6ed44-136">Грамматики, которые были скомпилированы в двоичный файл с расширением .cfg</span><span class="sxs-lookup"><span data-stu-id="6ed44-136">Grammars that have been compiled to a binary file with a .cfg file extension</span></span>  
+  
+ <span data-ttu-id="6ed44-137">Этот конструктор компилирует файлы грамматики формата XML в двоичный формат, чтобы оптимизировать их для загрузки и использования механизма распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-137">This constructor compiles XML-format grammar files to a binary format to optimize them for loading and consumption by a speech recognition engine.</span></span> <span data-ttu-id="6ed44-138">Сократить время, необходимое для создания <xref:System.Speech.Recognition.Grammar> объекта из XML-формата грамматики путем компиляции грамматики заранее, с помощью одного из <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="6ed44-138">You can reduce the amount of time required to construct a <xref:System.Speech.Recognition.Grammar> object from an XML-format grammar by compiling the grammar in advance, using one of the <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> methods.</span></span>  
+  
+ <span data-ttu-id="6ed44-139">Грамматика SRGS можно определить корневое правило.</span><span class="sxs-lookup"><span data-stu-id="6ed44-139">An SRGS grammar can define a root rule.</span></span> <span data-ttu-id="6ed44-140">Для создания <xref:System.Speech.Recognition.Grammar> из потока и указать корневое правило, используйте <xref:System.Speech.Recognition.Grammar.%23ctor%2A> или <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструктор.</span><span class="sxs-lookup"><span data-stu-id="6ed44-140">To create a <xref:System.Speech.Recognition.Grammar> object from a stream and specify a root rule, use the <xref:System.Speech.Recognition.Grammar.%23ctor%2A> or <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor.</span></span>  
+  
+ <span data-ttu-id="6ed44-141">Для создания <xref:System.Speech.Recognition.Grammar> из потока и указать базовый URI, используемый для разрешения ссылки на относительные правило, используйте <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструктор.</span><span class="sxs-lookup"><span data-stu-id="6ed44-141">To create a <xref:System.Speech.Recognition.Grammar> object from a stream and specify a base URI to use to resolve relative rule references, use the <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-142">В следующем примере создается Грамматика распознавания речи из локального SRGS файла (cities.xml) с использованием файлового потока.</span><span class="sxs-lookup"><span data-stu-id="6ed44-142">The following example creates a speech recognition grammar from a local SRGS file (cities.xml) using a file stream.</span></span> <span data-ttu-id="6ed44-143">Содержимое файла cities.xml появится в следующем примере C#.</span><span class="sxs-lookup"><span data-stu-id="6ed44-143">The content of the cities.xml file appears following C# example.</span></span>  
+  
+```csharp  
+  
+// Load a cities grammar from an I/O stream and    
+// return the new grammar.   
+private static Grammar CreateGrammarFromStream()  
+{  
+  string fileName = @"c:\temp\cities.xml";  
+  Grammar citiesGrammar =  
+    new Grammar(new FileStream(fileName, FileMode.Open));  
+  citiesGrammar.Name = "Stream Cities Grammar";  
+  return citiesGrammar;  
+}  
+```  
+  
+```xml  
+  
+<?xml version="1.0" encoding="UTF-8" ?>  
+<grammar version="1.0" xml:lang="en-US"  
+         xmlns="http://www.w3.org/2001/06/grammar"  
+         tag-format="semantics/1.0" root="Main">  
+  
+  <!-- cities.xml:   
+    Defines an SRGS grammar for requesting a flight. This grammar includes  
+    a Cities rule that lists the cities that can be used for departures  
+    and destinations. -->  
+  
+  <rule id="Main">  
+    <item>  
+      I would like to fly from <ruleref uri="#Cities"/>  
+      to <ruleref uri="#Cities"/>  
+    </item>  
+  </rule>  
+  
+  <rule id="Cities" scope="public">  
+    <one-of>  
+      <item>Seattle</item>  
+      <item>Los Angeles</item>  
+      <item>New York</item>  
+      <item>Miami</item>  
+    </one-of>  
+  </rule>  
+</grammar>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="6ed44-144">
+            <paramref name="stream" /> описывает грамматику, которая не содержит корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-144">
+              <paramref name="stream" /> describes a grammar that does not contain a root rule.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="6ed44-145">Свойство <paramref name="stream" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-145">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.FormatException">
+          <span data-ttu-id="6ed44-146">Поток не содержит допустимого описания грамматики или не описывает грамматику, содержащую ссылку на правило, которая не может быть разрешена.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-146">The stream does not contain a valid description of a grammar, or describes a grammar that contains a rule reference that cannot be resolved.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.IO.Stream" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.Speech.Recognition.GrammarBuilder builder);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Speech.Recognition.GrammarBuilder builder) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.Speech.Recognition.GrammarBuilder)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (builder As GrammarBuilder)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::Speech::Recognition::GrammarBuilder ^ builder);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="builder" Type="System.Speech.Recognition.GrammarBuilder" />
+      </Parameters>
+      <Docs>
+        <param name="builder">
+          <span data-ttu-id="6ed44-147">Экземпляр <see cref="T:System.Speech.Recognition.GrammarBuilder" />, содержащий ограничения для грамматики распознавания речи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-147">An instance of <see cref="T:System.Speech.Recognition.GrammarBuilder" /> that contains the constraints for the speech recognition grammar.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-148">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из объекта <see cref="T:System.Speech.Recognition.GrammarBuilder" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-148">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class from a <see cref="T:System.Speech.Recognition.GrammarBuilder" /> object.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-149">Дополнительные сведения об использовании <xref:System.Speech.Recognition.GrammarBuilder> класс, чтобы определить Грамматика см. в разделе [GrammarBuilder с помощью создания грамматик](http://msdn.microsoft.com/library/7e2cc577-cb05-4318-9da3-7c8675d3d9ae).</span><span class="sxs-lookup"><span data-stu-id="6ed44-149">For more information about using the <xref:System.Speech.Recognition.GrammarBuilder> class to define a grammar, see [Create Grammars Using GrammarBuilder](http://msdn.microsoft.com/library/7e2cc577-cb05-4318-9da3-7c8675d3d9ae).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-150">В следующем примере создается using грамматики распознавания речи <xref:System.Speech.Recognition.Choices> и <xref:System.Speech.Recognition.GrammarBuilder> объектов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-150">The following example creates a speech recognition grammar using <xref:System.Speech.Recognition.Choices> and <xref:System.Speech.Recognition.GrammarBuilder> objects.</span></span> <span data-ttu-id="6ed44-151"><xref:System.Speech.Recognition.Grammar.%23ctor%2A> Конструктор создает <xref:System.Speech.Recognition.Grammar> объекта из <xref:System.Speech.Recognition.GrammarBuilder> объекта.</span><span class="sxs-lookup"><span data-stu-id="6ed44-151">The <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor creates a <xref:System.Speech.Recognition.Grammar> object from the <xref:System.Speech.Recognition.GrammarBuilder> object.</span></span>  
+  
+```csharp  
+  
+// Create a grammar using a GrammarBuilder and return the new grammar.   
+private static Grammar CreateGrammarBuilderGrammar()  
+{  
+  GrammarBuilder builder = new GrammarBuilder();  
+  
+  Choices cityChoice = new Choices (new string[]   
+  {"Seattle", "New York", "Miami", "Los Angeles"});  
+  
+  builder.Append("I would like to fly from");  
+  builder.Append(cityChoice);  
+  builder.Append("to");  
+  builder.Append(cityChoice);  
+  
+  Grammar citiesGrammar = new Grammar(builder);  
+  citiesGrammar.Name = "GrammarBuilder Cities Grammar";  
+  
+  return citiesGrammar;  
+}  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Speech.Recognition.GrammarBuilder" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.Speech.Recognition.SrgsGrammar.SrgsDocument srgsDocument);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Speech.Recognition.SrgsGrammar.SrgsDocument srgsDocument) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.Speech.Recognition.SrgsGrammar.SrgsDocument)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::Speech::Recognition::SrgsGrammar::SrgsDocument ^ srgsDocument);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="srgsDocument" Type="System.Speech.Recognition.SrgsGrammar.SrgsDocument" />
+      </Parameters>
+      <Docs>
+        <param name="srgsDocument">
+          <span data-ttu-id="6ed44-152">Ограничения для грамматики распознавания речи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-152">The constraints for the speech recognition grammar.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-153">Инициализируется новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из объекта <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-153">Initializes a new instance of a <see cref="T:System.Speech.Recognition.Grammar" /> class from an <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" /> object.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-154">Этот конструктор не передает все параметры в обработчике инициализации и <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> не должны содержать обработчик инициализации, требующее аргументов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-154">This constructor does not pass any parameters to the initialization handler, and the <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> should not contain an initialization handler that requires arguments.</span></span>  
+  
+ <span data-ttu-id="6ed44-155">Объект <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> может иметь корневое правило.</span><span class="sxs-lookup"><span data-stu-id="6ed44-155">A <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> can have a root rule.</span></span> <span data-ttu-id="6ed44-156">Для создания <xref:System.Speech.Recognition.Grammar> , указывающий корневое правило, использование <xref:System.Speech.Recognition.Grammar.%23ctor%2A> или <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструктор.</span><span class="sxs-lookup"><span data-stu-id="6ed44-156">To create a <xref:System.Speech.Recognition.Grammar> object that specifies a root rule, use the <xref:System.Speech.Recognition.Grammar.%23ctor%2A> or <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor.</span></span>  
+  
+ <span data-ttu-id="6ed44-157">Чтобы создать распознавания речи <xref:System.Speech.Recognition.Grammar> из <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> и указать базовый URI, используемый для разрешения ссылки на относительные правило, использовать <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструктор.</span><span class="sxs-lookup"><span data-stu-id="6ed44-157">To create a speech recognition <xref:System.Speech.Recognition.Grammar> from an <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> and specify a base URI to use to resolve relative rule references, use the <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-158">В следующем примере создается Грамматика распознавания речи в <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> экземпляр, который затем используется для создания <xref:System.Speech.Recognition.Grammar> объекта.</span><span class="sxs-lookup"><span data-stu-id="6ed44-158">The following example creates a speech recognition grammar in an <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> instance, which is then used to construct a <xref:System.Speech.Recognition.Grammar> object.</span></span>  
+  
+```csharp  
+private static Grammar CreateSrgsDocumentGrammar()  
+{  
+  // Create the SrgsDocument.  
+  SrgsDocument document = new SrgsDocument();  
+  
+  // Create the Cities rule and add it to the document.  
+  SrgsRule citiesRule = new SrgsRule("Cities");  
+  
+  SrgsOneOf cityChoice = new SrgsOneOf();  
+  cityChoice.Add(new SrgsItem("Seattle"));  
+  cityChoice.Add(new SrgsItem("Los Angeles"));  
+  cityChoice.Add(new SrgsItem("New York"));  
+  cityChoice.Add(new SrgsItem("Miami"));  
+  
+  citiesRule.Add(cityChoice);  
+  document.Rules.Add(citiesRule);  
+  
+  // Create the Main rule and add it to the document.  
+  SrgsRule mainRule = new SrgsRule("Main");  
+  mainRule.Scope = SrgsRuleScope.Public;  
+  
+  SrgsItem item = new SrgsItem("I would like to fly from");  
+  item.Add(new SrgsRuleRef(citiesRule));  
+  item.Add(new SrgsText("to"));  
+  item.Add(new SrgsRuleRef(citiesRule));  
+  
+  mainRule.Add(item);  
+  document.Rules.Add(mainRule);  
+  
+  // Set the root rule.  
+  document.Root = mainRule;  
+  
+  // Create the Grammar object.  
+  Grammar citiesGrammar = new Grammar(document);  
+  citiesGrammar.Name = "SrgsDocument Cities Grammar";  
+  
+  return citiesGrammar;  
+}  
+  
+```  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="6ed44-159">
+            <paramref name="srgsDocument" /> не содержит корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-159">
+              <paramref name="srgsDocument" /> does not contain a root rule.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="6ed44-160">Свойство <paramref name="srgsDocument" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-160">
+              <paramref name="srgsDocument" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.FormatException">
+          <span data-ttu-id="6ed44-161">
+            <paramref name="srgsDocument" /> содержит ссылку на правило, которая не может быть разрешена.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-161">
+              <paramref name="srgsDocument" /> contains a rule reference that cannot be resolved.</span>
+          </span>
+        </exception>
+        <altmember cref="N:System.Speech.Recognition.SrgsGrammar" />
+        <altmember cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (string path);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string path) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (path As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::String ^ path);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="path">
+          <span data-ttu-id="6ed44-162">Путь к файлу, описывающему грамматику для распознавания речи в поддерживаемом формате.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-162">The path of the file that describes a speech recognition grammar in a supported format.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-163">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из файла.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-163">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class from a file.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-164">Этот конструктор не передает все параметры инициализации обработчика и описание не следует определять обработчик инициализации, требующее аргументов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-164">This constructor does not pass any parameters to the initialization handler, and the description should not define an initialization handler that requires arguments.</span></span>  
+  
+ <span data-ttu-id="6ed44-165">Этот конструктор можно создать <xref:System.Speech.Recognition.Grammar> экземпляр из следующих форматов:</span><span class="sxs-lookup"><span data-stu-id="6ed44-165">This constructor can create a <xref:System.Speech.Recognition.Grammar> instance from the following formats:</span></span>  
+  
+-   <span data-ttu-id="6ed44-166">Файлы формата XML, которые соответствуют спецификации W3C [спецификации грамматики распознавания речи (SRGS) версии 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span><span class="sxs-lookup"><span data-stu-id="6ed44-166">XML-format files that conform to the W3C [Speech Recognition Grammar Specification (SRGS) Version 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span></span>  
+  
+-   <span data-ttu-id="6ed44-167">Грамматики, которые были скомпилированы в двоичный файл с расширением .cfg</span><span class="sxs-lookup"><span data-stu-id="6ed44-167">Grammars that have been compiled to a binary file with a .cfg file extension</span></span>  
+  
+ <span data-ttu-id="6ed44-168">Этот конструктор компилирует файлы грамматики формата XML в двоичный формат, чтобы оптимизировать их для загрузки и использования механизма распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-168">This constructor compiles XML-format grammar files to a binary format to optimize them for loading and consumption by a speech recognition engine.</span></span> <span data-ttu-id="6ed44-169">Сократить время, необходимое для создания <xref:System.Speech.Recognition.Grammar> объекта из XML-формата грамматики путем компиляции грамматики заранее, с помощью одного из <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="6ed44-169">You can reduce the amount of time required to construct a <xref:System.Speech.Recognition.Grammar> object from an XML-format grammar by compiling the grammar in advance, using one of the <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> methods.</span></span>  
+  
+ <span data-ttu-id="6ed44-170">Грамматика SRGS можно определить корневое правило.</span><span class="sxs-lookup"><span data-stu-id="6ed44-170">An SRGS grammar can define a root rule.</span></span> <span data-ttu-id="6ed44-171">Для создания <xref:System.Speech.Recognition.Grammar> из строки и указать корневое правило, используйте <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструктор.</span><span class="sxs-lookup"><span data-stu-id="6ed44-171">To create a <xref:System.Speech.Recognition.Grammar> object from a string and specify a root rule, use the <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor.</span></span>  
+  
+ <span data-ttu-id="6ed44-172">Для создания <xref:System.Speech.Recognition.Grammar> , указывающий базовый URI, используемый для разрешения ссылки на относительные правило, откройте файл в файловый поток и используйте <xref:System.Speech.Recognition.Grammar.%23ctor%2A?displayProperty=nameWithType> конструктор.</span><span class="sxs-lookup"><span data-stu-id="6ed44-172">To create a <xref:System.Speech.Recognition.Grammar> object that specifies a base URI to use to resolve relative rule references, open the file in a file stream and use the <xref:System.Speech.Recognition.Grammar.%23ctor%2A?displayProperty=nameWithType> constructor.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-173">В следующем примере загружаются Грамматика распознавания речи из локального файла SRGS для построения <xref:System.Speech.Recognition.Grammar> объекта.</span><span class="sxs-lookup"><span data-stu-id="6ed44-173">The following example loads a speech recognition grammar from a local SRGS file to build a <xref:System.Speech.Recognition.Grammar> object.</span></span> <span data-ttu-id="6ed44-174">Содержимое файла cities.xml появляется в примере C# в следующем примере XML.</span><span class="sxs-lookup"><span data-stu-id="6ed44-174">The content of the cities.xml file appears in the XML example that follows the C# example.</span></span>  
+  
+```csharp  
+// Load a cities grammar from a local file and  
+// return the new grammar.   
+private static Grammar CreateGrammarFromFile()  
+{  
+  Grammar citiesGrammar = new Grammar(@"c:\temp\cities.xml");  
+  citiesGrammar.Name = "SRGS File Cities Grammar";  
+  return citiesGrammar;  
+}  
+  
+```  
+  
+```xml  
+  
+<?xml version="1.0" encoding="UTF-8" ?>  
+<grammar version="1.0" xml:lang="en-US"  
+         xmlns="http://www.w3.org/2001/06/grammar"  
+         tag-format="semantics/1.0" root="Main">  
+  
+  <!-- cities.xml:   
+    Defines an SRGS grammar for requesting a flight. This grammar includes  
+    a Cities rule that lists the cities that can be used for departures  
+    and destinations. -->  
+  
+  <rule id="Main">  
+    <item>  
+      I would like to fly from <ruleref uri="#Cities"/>  
+      to <ruleref uri="#Cities"/>  
+    </item>  
+  </rule>  
+  
+  <rule id="Cities" scope="public">  
+    <one-of>  
+      <item>Seattle</item>  
+      <item>Los Angeles</item>  
+      <item>New York</item>  
+      <item>Miami</item>  
+    </one-of>  
+  </rule>  
+</grammar>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="6ed44-175">
+            <paramref name="path" /> содержит пустую строку ("") или файл описывает грамматику, которая не содержит корневого правила.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-175">
+              <paramref name="path" /> contains the empty string (""), or the file describes a grammar that does not contain a root rule.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="6ed44-176">Свойство <paramref name="path" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-176">
+              <paramref name="path" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.FormatException">
+          <span data-ttu-id="6ed44-177">Файл не содержит допустимого описания или не описывает грамматику, содержащую ссылку на правило, которая не может быть разрешена.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-177">The file does not contain a valid description, or describes a grammar that contains a rule reference that cannot be resolved.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.IO.Stream stream, string ruleName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, string ruleName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.IO.Stream,System.String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::IO::Stream ^ stream, System::String ^ ruleName);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="ruleName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="6ed44-178">Поток, описывающий грамматику для распознавания речи в поддерживаемом формате.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-178">A stream that describes a speech recognition grammar in a supported format.</span>
+          </span>
+        </param>
+        <param name="ruleName">
+          <span data-ttu-id="6ed44-179">Идентификатор правила для использования в качестве точки входа грамматики распознавания речи или значение <see langword="null" />, чтобы использовать корневое правило по умолчанию описания грамматики.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-179">The identifier of the rule to use as the entry point of the speech recognition grammar, or <see langword="null" /> to use the default root rule of the grammar description.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-180">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из <see cref="T:System.IO.Stream" /> и указывает корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-180">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class from a <see cref="T:System.IO.Stream" /> and specifies a root rule.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-181">Этот конструктор не передает все параметры инициализации обработчика и описание не следует определять обработчик инициализации, требующее аргументов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-181">This constructor does not pass any parameters to the initialization handler, and the description should not define an initialization handler that requires arguments.</span></span>  
+  
+ <span data-ttu-id="6ed44-182">Этот конструктор можно создать <xref:System.Speech.Recognition.Grammar> экземпляр из следующих форматов:</span><span class="sxs-lookup"><span data-stu-id="6ed44-182">This constructor can create a  <xref:System.Speech.Recognition.Grammar> instance from the following formats:</span></span>  
+  
+-   <span data-ttu-id="6ed44-183">Файлы формата XML, которые соответствуют спецификации W3C [спецификации грамматики распознавания речи (SRGS) версии 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span><span class="sxs-lookup"><span data-stu-id="6ed44-183">XML-format files that conform to the W3C [Speech Recognition Grammar Specification (SRGS) Version 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span></span>  
+  
+-   <span data-ttu-id="6ed44-184">Грамматики, которые были скомпилированы в двоичный файл с расширением .cfg</span><span class="sxs-lookup"><span data-stu-id="6ed44-184">Grammars that have been compiled to a binary file with a .cfg file extension</span></span>  
+  
+ <span data-ttu-id="6ed44-185">Этот конструктор компилирует файлы грамматики формата XML в двоичный формат, чтобы оптимизировать их для загрузки и использования механизма распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-185">This constructor compiles XML-format grammar files to a binary format to optimize them for loading and consumption by a speech recognition engine.</span></span> <span data-ttu-id="6ed44-186">Сократить время, необходимое для создания <xref:System.Speech.Recognition.Grammar> объекта из XML-формата грамматики путем компиляции грамматики заранее, с помощью одного из <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="6ed44-186">You can reduce the amount of time required to construct a <xref:System.Speech.Recognition.Grammar> object from an XML-format grammar by compiling the grammar in advance, using one of the <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> methods.</span></span>  
+  
+ <span data-ttu-id="6ed44-187">Для создания <xref:System.Speech.Recognition.Grammar> из потока и указать базовый URI, используемый для разрешения ссылки на относительные правило, использовать <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструктор.</span><span class="sxs-lookup"><span data-stu-id="6ed44-187">To create a <xref:System.Speech.Recognition.Grammar> from a stream and specify a base URI to use to resolve relative rule references, use the <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-188">В следующем примере загружает локальный файл SRGS (cities.xml) из файлового потока и задает правило для использования в качестве корня грамматики.</span><span class="sxs-lookup"><span data-stu-id="6ed44-188">The following example loads a local SRGS file (cities.xml) from a file stream and specifies a rule to use as the root of the grammar.</span></span> <span data-ttu-id="6ed44-189">Содержимое файла cities.xml появляется в примере C# в следующем примере XML.</span><span class="sxs-lookup"><span data-stu-id="6ed44-189">The content of the cities.xml file appears in the XML example that follows the C# example.</span></span>  
+  
+```csharp  
+  
+// Load a cities grammar from an I/O stream, use a specific  
+// rule as the root of the grammar, and return the new grammar.   
+private static Grammar CreateGrammarFromStream2()  
+{  
+  FileInfo file = new FileInfo(@"c:\temp\cities.xml");  
+  Grammar citiesGrammar = new Grammar(file.OpenRead(), "Main");  
+  citiesGrammar.Name = "Stream Cities Grammar 2";  
+  return citiesGrammar;  
+}  
+```  
+  
+```xml  
+  
+<?xml version="1.0" encoding="UTF-8" ?>  
+<grammar version="1.0" xml:lang="en-US"  
+         xmlns="http://www.w3.org/2001/06/grammar"  
+         tag-format="semantics/1.0" root="Main">  
+  
+  <!-- cities.xml:   
+    Defines an SRGS grammar for requesting a flight. This grammar includes  
+    a Cities rule that lists the cities that can be used for departures  
+    and destinations. -->  
+  
+  <rule id="Main">  
+    <item>  
+      I would like to fly from <ruleref uri="#Cities"/>  
+      to <ruleref uri="#Cities"/>  
+    </item>  
+  </rule>  
+  
+  <rule id="Cities" scope="public">  
+    <one-of>  
+      <item>Seattle</item>  
+      <item>Los Angeles</item>  
+      <item>New York</item>  
+      <item>Miami</item>  
+    </one-of>  
+  </rule>  
+</grammar>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="6ed44-190">Невозможно разрешить <paramref name="ruleName" /> или оно не является открытым или <paramref name="ruleName" /> — <see langword="null" /> и грамматическое описание не определяет корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-190">
+              <paramref name="ruleName" /> cannot be resolved or is not public, or <paramref name="ruleName" /> is <see langword="null" /> and the grammar description does not define a root rule.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="6ed44-191">Свойство <paramref name="stream" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-191">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.FormatException">
+          <span data-ttu-id="6ed44-192">Поток не содержит допустимого описания или не описывает грамматику, содержащую ссылку на правило, которая не может быть разрешена.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-192">The stream does not contain a valid description or describes a grammar that contains a rule reference that cannot be resolved.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.IO.Stream" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.Speech.Recognition.SrgsGrammar.SrgsDocument srgsDocument, string ruleName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Speech.Recognition.SrgsGrammar.SrgsDocument srgsDocument, string ruleName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.Speech.Recognition.SrgsGrammar.SrgsDocument,System.String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::Speech::Recognition::SrgsGrammar::SrgsDocument ^ srgsDocument, System::String ^ ruleName);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="srgsDocument" Type="System.Speech.Recognition.SrgsGrammar.SrgsDocument" />
+        <Parameter Name="ruleName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="srgsDocument">
+          <span data-ttu-id="6ed44-193">Ограничения для грамматики распознавания речи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-193">The constraints for the speech recognition grammar.</span>
+          </span>
+        </param>
+        <param name="ruleName">
+          <span data-ttu-id="6ed44-194">Идентификатор правила для использования в качестве точки входа грамматики распознавания речи или значение <see langword="null" />, чтобы использовать корневое правило по умолчанию описания грамматики <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-194">The identifier of the rule to use as the entry point of the speech recognition grammar, or <see langword="null" /> to use the default root rule of the <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-195">Инициализирует новый экземпляр объекта <see cref="T:System.Speech.Recognition.Grammar" /> из <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" /> и указывает корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-195">Initializes a new instance of a <see cref="T:System.Speech.Recognition.Grammar" /> class from an <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" /> object and specifies a root rule.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-196">Этот конструктор не передает все параметры в обработчике инициализации и <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> не должны содержать обработчик инициализации, требующее аргументов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-196">This constructor does not pass any parameters to the initialization handler, and the <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> should not contain an initialization handler that requires arguments.</span></span>  
+  
+ <span data-ttu-id="6ed44-197">Для создания <xref:System.Speech.Recognition.Grammar> объекта из <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> и указать базовый URI, используемый для разрешения ссылки на относительные правило, использовать <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструктор.</span><span class="sxs-lookup"><span data-stu-id="6ed44-197">To create a <xref:System.Speech.Recognition.Grammar> object from a <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> and specify a base URI to use to resolve relative rule references, use the <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-198">В следующем примере создается Грамматика распознавания речи в <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> экземпляра и задает правило для использования в качестве корневое правило грамматики.</span><span class="sxs-lookup"><span data-stu-id="6ed44-198">The following example creates a speech recognition grammar in an <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> instance and specifies a rule to use as the root rule of the grammar.</span></span> <span data-ttu-id="6ed44-199">В примере создается <xref:System.Speech.Recognition.Grammar> объекта из <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> экземпляра и загружает их в модуль распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-199">The example constructs a <xref:System.Speech.Recognition.Grammar> object from the <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> instance and loads it into the speech recognition engine.</span></span>  
+  
+```csharp  
+using System;  
+using System.Speech.Recognition;  
+using System.Speech.Recognition.SrgsGrammar;  
+  
+namespace SampleRecognition  
+{  
+  class Program  
+  {  
+    static void Main(string[] args)  
+  
+    // Initialize an in-process speech recognition engine.  
+    {  
+      using (SpeechRecognitionEngine recognizer =  
+         new SpeechRecognitionEngine())  
+      {  
+  
+        // Create the SrgsDocument.  
+        SrgsDocument document = new SrgsDocument();  
+  
+        // Create the Cities rule and add it to the document.  
+        SrgsRule citiesRule = new SrgsRule("Cities");  
+        citiesRule.Scope = SrgsRuleScope.Public;  
+  
+        SrgsOneOf cityChoice = new SrgsOneOf();  
+        cityChoice.Add(new SrgsItem("Seattle"));  
+        cityChoice.Add(new SrgsItem("Los Angeles"));  
+        cityChoice.Add(new SrgsItem("New York"));  
+        cityChoice.Add(new SrgsItem("Miami"));  
+  
+        citiesRule.Add(cityChoice);  
+        document.Rules.Add(citiesRule);  
+  
+        // Create the Main rule and add it to the document.  
+        SrgsRule mainRule = new SrgsRule("Main");  
+        mainRule.Scope = SrgsRuleScope.Public;  
+  
+        mainRule.Add(new SrgsItem("I would like to fly from"));  
+        mainRule.Add(new SrgsRuleRef(citiesRule));  
+        mainRule.Add(new SrgsItem("to"));  
+        mainRule.Add(new SrgsRuleRef(citiesRule));  
+  
+        document.Rules.Add(mainRule);  
+  
+        // Create the Grammar object and specify which rule to use as the root.  
+        Grammar citiesGrammar = new Grammar(document,"Main");  
+  
+        // Load the grammar object to the recognizer.  
+        recognizer.LoadGrammarAsync(citiesGrammar);  
+  
+        // Attach a handler for the SpeechRecognized event.  
+        recognizer.SpeechRecognized +=  
+          new EventHandler<SpeechRecognizedEventArgs>(recognizer_SpeechRecognized);  
+  
+        // Set the input to the recognizer.  
+        recognizer.SetInputToDefaultAudioDevice();  
+  
+        // Start recognition.  
+        recognizer.RecognizeAsync();  
+        Console.WriteLine("Starting aynchronous recognition...");  
+  
+        // Keep the console window open.  
+        Console.ReadLine();  
+      }  
+    }  
+  
+    // Handle the SpeechRecognized event.  
+    static void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)  
+    {  
+      Console.WriteLine("  Speech recognized: " + e.Result.Text);  
+    }  
+  }  
+}  
+  
+```  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="6ed44-200">Невозможно разрешить <paramref name="ruleName" /> или оно не является открытым или <paramref name="ruleName" /> — <see langword="null" /> и <paramref name="srgsDocument" /> не содержит корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-200">
+              <paramref name="ruleName" /> cannot be resolved or is not public, or <paramref name="ruleName" /> is <see langword="null" /> and <paramref name="srgsDocument" /> does not contain a root rule.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="6ed44-201">Свойство <paramref name="srgsDocument" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-201">
+              <paramref name="srgsDocument" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.FormatException">
+          <span data-ttu-id="6ed44-202">
+            <paramref name="srgsDocument" /> содержит ссылку на правило, которая не может быть разрешена.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-202">
+              <paramref name="srgsDocument" /> contains a rule reference that cannot be resolved.</span>
+          </span>
+        </exception>
+        <altmember cref="N:System.Speech.Recognition.SrgsGrammar" />
+        <altmember cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (string path, string ruleName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string path, string ruleName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (path As String, ruleName As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::String ^ path, System::String ^ ruleName);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+        <Parameter Name="ruleName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="path">
+          <span data-ttu-id="6ed44-203">Путь к файлу, описывающему грамматику для распознавания речи в поддерживаемом формате.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-203">The path of the file that describes a speech recognition grammar in a supported format.</span>
+          </span>
+        </param>
+        <param name="ruleName">
+          <span data-ttu-id="6ed44-204">Идентификатор правила для использования в качестве точки входа грамматики распознавания речи или значение <see langword="null" />, чтобы использовать корневое правило по умолчанию описания грамматики.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-204">The identifier of the rule to use as the entry point of the speech recognition grammar, or <see langword="null" /> to use the default root rule of the grammar description.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-205">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из файла и указывает корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-205">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class from a file and specifies a root rule.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-206">Этот конструктор не передает все параметры инициализации обработчика и описание не следует определять обработчик инициализации, требующее аргументов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-206">This constructor does not pass any parameters to the initialization handler, and the description should not define an initialization handler that requires arguments.</span></span>  
+  
+ <span data-ttu-id="6ed44-207">Этот конструктор можно создать <xref:System.Speech.Recognition.Grammar> экземпляр из следующих форматов:</span><span class="sxs-lookup"><span data-stu-id="6ed44-207">This constructor can create a <xref:System.Speech.Recognition.Grammar> instance from the following formats:</span></span>  
+  
+-   <span data-ttu-id="6ed44-208">Файлы формата XML, которые соответствуют спецификации W3C [спецификации грамматики распознавания речи (SRGS) версии 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span><span class="sxs-lookup"><span data-stu-id="6ed44-208">XML-format files that conform to the W3C [Speech Recognition Grammar Specification (SRGS) Version 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span></span>  
+  
+-   <span data-ttu-id="6ed44-209">Грамматики, которые были скомпилированы в двоичный файл с расширением .cfg</span><span class="sxs-lookup"><span data-stu-id="6ed44-209">Grammars that have been compiled to a binary file with a .cfg file extension</span></span>  
+  
+ <span data-ttu-id="6ed44-210">Этот конструктор компилирует файлы грамматики формата XML в двоичный формат, чтобы оптимизировать их для загрузки и использования механизма распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-210">This constructor compiles XML-format grammar files to a binary format to optimize them for loading and consumption by a speech recognition engine.</span></span> <span data-ttu-id="6ed44-211">Сократить время, необходимое для создания <xref:System.Speech.Recognition.Grammar> объекта из XML-формата грамматики путем компиляции грамматики заранее, с помощью одного из <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="6ed44-211">You can reduce the amount of time required to construct a <xref:System.Speech.Recognition.Grammar> object from an XML-format grammar by compiling the grammar in advance, using one of the <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> methods.</span></span>  
+  
+ <span data-ttu-id="6ed44-212">Для создания <xref:System.Speech.Recognition.Grammar> , задающий базовый URI для разрешения ссылок на относительный правило, открыть поток файлов для файла и использовать <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструктор.</span><span class="sxs-lookup"><span data-stu-id="6ed44-212">To create a <xref:System.Speech.Recognition.Grammar> that specifies a base URI to use to resolve relative rule references, open a file stream for the file and use the <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructor.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-213">В следующем примере загружается из файла в локальный файл SRGS (cities.xml) и задает правило для использования в качестве корня грамматики.</span><span class="sxs-lookup"><span data-stu-id="6ed44-213">The following example loads a local SRGS file (cities.xml) from a file and specifies a rule to use as the root of the grammar.</span></span> <span data-ttu-id="6ed44-214">Содержимое файла cities.xml появляется в примере C# в следующем примере XML.</span><span class="sxs-lookup"><span data-stu-id="6ed44-214">The content of the cities.xml file appears in the XML example that follows the C# example.</span></span>  
+  
+```csharp  
+  
+// Load a cities grammar from a local file, use a specific  
+// rule as the root of the grammar, and return the new grammar.  
+private static Grammar CreateGrammarFromFile2()  
+{  
+  Grammar citiesGrammar = new Grammar(@"c:\temp\cities.xml", "Main");  
+  citiesGrammar.Name = "SRGS File Cities Grammar 2";  
+  return citiesGrammar;  
+}  
+```  
+  
+```xml  
+  
+<?xml version="1.0" encoding="UTF-8" ?>  
+<grammar version="1.0" xml:lang="en-US"  
+         xmlns="http://www.w3.org/2001/06/grammar"  
+         tag-format="semantics/1.0" root="Main">  
+  
+  <!-- cities.xml:   
+    Defines an SRGS grammar for requesting a flight. This grammar includes  
+    a Cities rule that lists the cities that can be used for departures  
+    and destinations. -->  
+  
+  <rule id="Main">  
+    <item>  
+      I would like to fly from <ruleref uri="#Cities"/>  
+      to <ruleref uri="#Cities"/>  
+    </item>  
+  </rule>  
+  
+  <rule id="Cities" scope="public">  
+    <one-of>  
+      <item>Seattle</item>  
+      <item>Los Angeles</item>  
+      <item>New York</item>  
+      <item>Miami</item>  
+    </one-of>  
+  </rule>  
+</grammar>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="6ed44-215">Невозможно разрешить <paramref name="ruleName" /> или оно не является открытым или <paramref name="path" /> является пустой строкой (""), или <paramref name="ruleName" /> — <see langword="null" />и грамматическое описание не определяет корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-215">
+              <paramref name="ruleName" /> cannot be resolved or is not public, <paramref name="path" /> is the empty string (""), or <paramref name="ruleName" /> is <see langword="null" /> and the grammar description does not define a root rule.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="6ed44-216">Свойство <paramref name="path" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-216">
+              <paramref name="path" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.FormatException">
+          <span data-ttu-id="6ed44-217">Файл не содержит допустимого описания или не описывает грамматику, содержащую ссылку на правило, которая не может быть разрешена.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-217">The file does not contain a valid description or describes a grammar that contains a rule reference that cannot be resolved.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.IO.Stream stream, string ruleName, object[] parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, string ruleName, object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.IO.Stream,System.String,System.Object[])" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::IO::Stream ^ stream, System::String ^ ruleName, cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="ruleName" Type="System.String" />
+        <Parameter Name="parameters" Type="System.Object[]" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="6ed44-218">Объект <see cref="T:System.IO.Stream" />, подключенный к объекту ввода/вывода (включая файлы, ресурсы Visual Studio и DLL-библиотеки), который содержит грамматическую спецификацию.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-218">A <see cref="T:System.IO.Stream" /> connected to an input/output object (including files, VisualStudio Resources, and DLLs) that contains a grammar specification.</span>
+          </span>
+        </param>
+        <param name="ruleName">
+          <span data-ttu-id="6ed44-219">Идентификатор правила для использования в качестве точки входа грамматики распознавания речи или значение <see langword="null" />, чтобы использовать корневое правило по умолчанию описания грамматики.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-219">The identifier of the rule to use as the entry point of the speech recognition grammar, or <see langword="null" /> to use the default root rule of the grammar description.</span>
+          </span>
+        </param>
+        <param name="parameters">
+          <span data-ttu-id="6ed44-220">Параметры, передаваемые обработчику инициализации, указанному свойством <see cref="P:System.Speech.Recognition.SrgsGrammar.SrgsRule.OnInit" /> для точки входа или корневого правила создаваемого объекта <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-220">Parameters to be passed to the initialization handler specified by the <see cref="P:System.Speech.Recognition.SrgsGrammar.SrgsRule.OnInit" /> property for the entry point or the root rule of the <see cref="T:System.Speech.Recognition.Grammar" /> to be created.</span>
+          </span>
+          <span data-ttu-id="6ed44-221">Этот параметр может быть равен null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-221">This parameter may be null.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-222">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из <see cref="T:System.IO.Stream" /> и указывает корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-222">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class from a <see cref="T:System.IO.Stream" /> and specifies a root rule.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-223">Также можно указать параметры для обработчика инициализации.</span><span class="sxs-lookup"><span data-stu-id="6ed44-223">Parameters for an initialization handler may also be specified.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="6ed44-224">
+            <paramref name="stream" /> подключен к грамматике, которая:</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-224">
+              <paramref name="stream" /> is connected to a grammar that:</span>
+          </span>  
+  
+-   <span data-ttu-id="6ed44-225">Не содержит правила, указанного в <paramref name="ruleName" /></span><span class="sxs-lookup"><span data-stu-id="6ed44-225">Does not contain the rule specified in <paramref name="ruleName" /></span></span>  
+  
+-   <span data-ttu-id="6ed44-226">Требует параметров инициализации отличающихся от тех, определенных в <paramref name="parameters" /></span><span class="sxs-lookup"><span data-stu-id="6ed44-226">Requires initialization parameters different from those specified in <paramref name="parameters" /></span></span>  
+  
+-   <span data-ttu-id="6ed44-227">Содержит относительную ссылку правила, которое не может быть разрешено основным правилом <see cref="T:System.Uri" /> по умолчанию для грамматик.</span><span class="sxs-lookup"><span data-stu-id="6ed44-227">Contains a relative rule reference that cannot be resolved by the default base <see cref="T:System.Uri" /> rule for grammars</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.IO.Stream stream, string ruleName, Uri baseUri);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, string ruleName, class System.Uri baseUri) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.IO.Stream,System.String,System.Uri)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::IO::Stream ^ stream, System::String ^ ruleName, Uri ^ baseUri);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="ruleName" Type="System.String" />
+        <Parameter Name="baseUri" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="6ed44-228">Поток, описывающий грамматику для распознавания речи в поддерживаемом формате.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-228">A stream that describes a speech recognition grammar in a supported format.</span>
+          </span>
+        </param>
+        <param name="ruleName">
+          <span data-ttu-id="6ed44-229">Идентификатор правила для использования в качестве точки входа грамматики распознавания речи или значение <see langword="null" />, чтобы использовать корневое правило по умолчанию описания грамматики.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-229">The identifier of the rule to use as the entry point of the speech recognition grammar, or <see langword="null" /> to use the default root rule of the grammar description.</span>
+          </span>
+        </param>
+        <param name="baseUri">
+          <span data-ttu-id="6ed44-230">Базовый универсальный код ресурса (uri), используемый для разрешения любых относительную ссылок на правила в описании грамматики или <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-230">The base URI to use to resolve any relative rule reference in the grammar description, or <see langword="null" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-231">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из потока, определяет корневое правило и определяет базовый универсальный идентификатор ресурса (URI) для разрешения относительных ссылок на правила.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-231">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class from a stream, specifies a root rule, and defines a base Uniform Resource Identifier (URI) to resolve relative rule references.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-232">Этот конструктор не передает все параметры инициализации обработчика и описание не следует определять обработчик инициализации, требующее аргументов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-232">This constructor does not pass any parameters to the initialization handler, and the description should not define an initialization handler that requires arguments.</span></span>  
+  
+ <span data-ttu-id="6ed44-233">Этот конструктор можно создать <xref:System.Speech.Recognition.Grammar> экземпляр из следующих форматов:</span><span class="sxs-lookup"><span data-stu-id="6ed44-233">This constructor can create a <xref:System.Speech.Recognition.Grammar> instance from the following formats:</span></span>  
+  
+-   <span data-ttu-id="6ed44-234">Файлы формата XML, которые соответствуют спецификации W3C [спецификации грамматики распознавания речи (SRGS) версии 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span><span class="sxs-lookup"><span data-stu-id="6ed44-234">XML-format files that conform to the W3C [Speech Recognition Grammar Specification (SRGS) Version 1.0](http://go.microsoft.com/fwlink/?LinkId=201761)</span></span>  
+  
+-   <span data-ttu-id="6ed44-235">Грамматики, которые были скомпилированы в двоичный файл с расширением .cfg</span><span class="sxs-lookup"><span data-stu-id="6ed44-235">Grammars that have been compiled to a binary file with a .cfg file extension</span></span>  
+  
+ <span data-ttu-id="6ed44-236">Этот конструктор компилирует файлы грамматики формата XML в двоичный формат, чтобы оптимизировать их для загрузки и использования механизма распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-236">This constructor compiles XML-format grammar files to a binary format to optimize them for loading and consumption by a speech recognition engine.</span></span> <span data-ttu-id="6ed44-237">Сократить время, необходимое для создания <xref:System.Speech.Recognition.Grammar> объекта из XML-формата грамматики путем компиляции грамматики заранее, с помощью одного из <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="6ed44-237">You can reduce the amount of time required to construct a <xref:System.Speech.Recognition.Grammar> object from an XML-format grammar by compiling the grammar in advance, using one of the <xref:System.Speech.Recognition.SrgsGrammar.SrgsGrammarCompiler.Compile%2A> methods.</span></span>  
+  
+ <span data-ttu-id="6ed44-238">Этот конструктор не проверяет `baseUri`.</span><span class="sxs-lookup"><span data-stu-id="6ed44-238">This constructor does not validate `baseUri`.</span></span> <span data-ttu-id="6ed44-239">Тем не менее `LoadGrammar` метод <xref:System.Speech.Recognition.SpeechRecognitionEngine> или <xref:System.Speech.Recognition.SpeechRecognizer> объекта вызывает исключение, если он не может разрешить все ссылки правило в грамматике описание.</span><span class="sxs-lookup"><span data-stu-id="6ed44-239">However, the `LoadGrammar` method of a <xref:System.Speech.Recognition.SpeechRecognitionEngine> or <xref:System.Speech.Recognition.SpeechRecognizer> object throws an exception if it cannot resolve all of the rule references in the grammar description.</span></span> <span data-ttu-id="6ed44-240">Если `baseUri` не `null`, `LoadGrammar` метод использует URI для разрешения ссылок правила, которые в противном случае он не может разрешить.</span><span class="sxs-lookup"><span data-stu-id="6ed44-240">If `baseUri` is not `null`, the `LoadGrammar` method uses the URI to resolve any rule references that it cannot otherwise resolve.</span></span> <span data-ttu-id="6ed44-241">Если `baseUri` представляет файл, а затем `LoadGrammar` использует указанный файл и каталог файлов при попытке разрешить относительный правило ссылки.</span><span class="sxs-lookup"><span data-stu-id="6ed44-241">If `baseUri` represents a file, then the `LoadGrammar` uses both the designated file and the file's directory when it attempts to resolve relative rule references.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-242">Следующий пример загружает локальный файл SRGS (shuttle.xml) из файлового потока.</span><span class="sxs-lookup"><span data-stu-id="6ed44-242">The following example loads a local SRGS file (shuttle.xml) from a file stream.</span></span> <span data-ttu-id="6ed44-243">Файл содержит ссылку на относительный правила для правила в файле cities.xml и задает базовый URI, используемый для разрешения ссылок правило.</span><span class="sxs-lookup"><span data-stu-id="6ed44-243">The file contains a relative rule reference to a rule in the cities.xml file, and specifies a base URI to use to resolve the rule reference.</span></span> <span data-ttu-id="6ed44-244">Содержимое файлов shuttle.xml и cities.xml отображается в следующем примере XML воспроизвести этот пример на C#.</span><span class="sxs-lookup"><span data-stu-id="6ed44-244">The content of the shuttle.xml and cities.xml files appears in the XML examples that follow the C# example.</span></span>  
+  
+```csharp  
+  
+private static Grammar CreateGrammarFromStream3()  
+{  
+  FileInfo file = new FileInfo(@".\shuttle.xml");  
+  Uri baseUri = new Uri(@"file://c:\temp\");  
+  Grammar citiesGrammar = new Grammar(file.OpenRead(), null, baseUri);  
+  citiesGrammar.Name = "Stream Cities Grammar 3";  
+  return citiesGrammar;  
+}  
+```  
+  
+```xml  
+  
+<?xml version="1.0" encoding="UTF-8" ?>  
+<grammar version="1.0" xml:lang="en-US"  
+         xmlns="http://www.w3.org/2001/06/grammar"  
+         tag-format="semantics/1.0" root="Main">  
+  
+  <!-- shuttle.xml:   
+    Defines an SRGS grammar for asking about a shuttle service. This grammar  
+    references a Cities rule that is defined in the cities.xml grammar. -->  
+  
+  <rule id="Main">  
+    <item>  
+      Can I get a shuttle in  
+      <ruleref uri="cities.xml#Cities"/>  
+    </item>  
+  </rule>  
+</grammar>  
+```  
+  
+```xml  
+  
+<?xml version="1.0" encoding="UTF-8" ?>  
+<grammar version="1.0" xml:lang="en-US"  
+         xmlns="http://www.w3.org/2001/06/grammar"  
+         tag-format="semantics/1.0" root="Main">  
+  
+  <!-- cities.xml:   
+    Defines an SRGS grammar for requesting a flight. This grammar includes  
+    a Cities rule that lists the cities that can be used for departures  
+    and destinations. -->  
+  
+  <rule id="Main">  
+    <item>  
+      I would like to fly from <ruleref uri="#Cities"/>  
+      to <ruleref uri="#Cities"/>  
+    </item>  
+  </rule>  
+  
+  <rule id="Cities" scope="public">  
+    <one-of>  
+      <item>Seattle</item>  
+      <item>Los Angeles</item>  
+      <item>New York</item>  
+      <item>Miami</item>  
+    </one-of>  
+  </rule>  
+</grammar>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="6ed44-245">Невозможно разрешить <paramref name="ruleName" /> или оно не является открытым или <paramref name="ruleName" /> — <see langword="null" /> и грамматическое описание не определяет корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-245">
+              <paramref name="ruleName" /> cannot be resolved or is not public, or <paramref name="ruleName" /> is <see langword="null" /> and the grammar description does not define a root rule.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="6ed44-246">Свойство <paramref name="stream" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-246">
+              <paramref name="stream" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.FormatException">
+          <span data-ttu-id="6ed44-247">Поток не содержит допустимого описания или не описывает грамматику, содержащую ссылку на правило, которая не может быть разрешена.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-247">The stream does not contain a valid description or describes a grammar that contains a rule reference that cannot be resolved.</span>
+          </span>
+        </exception>
+        <altmember cref="T:System.IO.Stream" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.Speech.Recognition.SrgsGrammar.SrgsDocument srgsDocument, string ruleName, object[] parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Speech.Recognition.SrgsGrammar.SrgsDocument srgsDocument, string ruleName, object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.Speech.Recognition.SrgsGrammar.SrgsDocument,System.String,System.Object[])" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::Speech::Recognition::SrgsGrammar::SrgsDocument ^ srgsDocument, System::String ^ ruleName, cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="srgsDocument" Type="System.Speech.Recognition.SrgsGrammar.SrgsDocument" />
+        <Parameter Name="ruleName" Type="System.String" />
+        <Parameter Name="parameters" Type="System.Object[]" />
+      </Parameters>
+      <Docs>
+        <param name="srgsDocument">
+          <span data-ttu-id="6ed44-248">Экземпляр <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />, содержащий ограничения для грамматики распознавания речи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-248">An instance of <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" /> that contains the constraints for the speech recognition grammar.</span>
+          </span>
+        </param>
+        <param name="ruleName">
+          <span data-ttu-id="6ed44-249">Идентификатор правила для использования в качестве точки входа грамматики распознавания речи или значение <see langword="null" />, чтобы использовать корневое правило по умолчанию описания грамматики.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-249">The identifier of the rule to use as the entry point of the speech recognition grammar, or <see langword="null" /> to use the default root rule of the grammar description.</span>
+          </span>
+        </param>
+        <param name="parameters">
+          <span data-ttu-id="6ed44-250">Параметры, передаваемые обработчику инициализации, указанному свойством <see cref="P:System.Speech.Recognition.SrgsGrammar.SrgsRule.OnInit" /> для точки входа или корневого правила создаваемого объекта <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-250">Parameters to be passed to the initialization handler specified by the <see cref="P:System.Speech.Recognition.SrgsGrammar.SrgsRule.OnInit" /> property for the entry point or the root rule of the <see cref="T:System.Speech.Recognition.Grammar" /> to be created.</span>
+          </span>
+          <span data-ttu-id="6ed44-251">Этот параметр может быть равен null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-251">This parameter may be null.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-252">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из экземпляра <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />, указывает имя правила, которое должно функционировать как точка входа в грамматику.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-252">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class from an instance of <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />, and specifies the name of a rule to be the entry point to the grammar.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-253">Также можно указать параметры для обработчика инициализации.</span><span class="sxs-lookup"><span data-stu-id="6ed44-253">Parameters for an initialization handler may also be specified.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">-   <span data-ttu-id="6ed44-254">Один из параметров содержит недопустимое значение.</span><span class="sxs-lookup"><span data-stu-id="6ed44-254">Any of the parameters contain an invalid value.</span></span>  
+  
+-   <span data-ttu-id="6ed44-255"><see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />, Указанный <paramref name="srgsDocument" />, не содержит правила, заданного параметром <paramref name="ruleName" />.</span><span class="sxs-lookup"><span data-stu-id="6ed44-255">The <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" /> specified by <paramref name="srgsDocument" /> does not contain the rule specified by <paramref name="ruleName" />.</span></span>  
+  
+-   <span data-ttu-id="6ed44-256">Содержимое параметров массива не соответствует аргументам любого из обработчиков инициализации правила.</span><span class="sxs-lookup"><span data-stu-id="6ed44-256">The contents of the array parameters do not match the arguments of any of the rule's initialization handlers.</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.Speech.Recognition.SrgsGrammar.SrgsDocument srgsDocument, string ruleName, Uri baseUri);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Speech.Recognition.SrgsGrammar.SrgsDocument srgsDocument, string ruleName, class System.Uri baseUri) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.Speech.Recognition.SrgsGrammar.SrgsDocument,System.String,System.Uri)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::Speech::Recognition::SrgsGrammar::SrgsDocument ^ srgsDocument, System::String ^ ruleName, Uri ^ baseUri);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="srgsDocument" Type="System.Speech.Recognition.SrgsGrammar.SrgsDocument" />
+        <Parameter Name="ruleName" Type="System.String" />
+        <Parameter Name="baseUri" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="srgsDocument">
+          <span data-ttu-id="6ed44-257">Ограничения для грамматики распознавания речи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-257">The constraints for the speech recognition grammar.</span>
+          </span>
+        </param>
+        <param name="ruleName">
+          <span data-ttu-id="6ed44-258">Идентификатор правила для использования в качестве точки входа грамматики распознавания речи или значение <see langword="null" />, чтобы использовать корневое правило по умолчанию описания грамматики <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-258">The identifier of the rule to use as the entry point of the speech recognition grammar, or <see langword="null" /> to use the default root rule of the <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />.</span>
+          </span>
+        </param>
+        <param name="baseUri">
+          <span data-ttu-id="6ed44-259">Базовый универсальный код ресурса (uri), используемый для разрешения любых относительную ссылок на правила в <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" /> или <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-259">The base URI to use to resolve any relative rule reference in the <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />, or <see langword="null" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-260">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из объекта <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />, определяет корневое правило и определяет базовый универсальный идентификатор ресурса (URI) для разрешения относительных ссылок на правила.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-260">Initializes a new instance of a <see cref="T:System.Speech.Recognition.Grammar" /> class from an <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" /> object, specifies a root rule, and defines a base Uniform Resource Identifier (URI) to resolve relative rule references.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-261">Этот конструктор не передает все параметры в обработчике инициализации и <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> не должны содержать обработчик инициализации, требующее аргументов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-261">This constructor does not pass any parameters to the initialization handler, and the <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> should not contain an initialization handler that requires arguments.</span></span>  
+  
+ <span data-ttu-id="6ed44-262">Этот конструктор не проверяет `baseUri`.</span><span class="sxs-lookup"><span data-stu-id="6ed44-262">This constructor does not validate `baseUri`.</span></span> <span data-ttu-id="6ed44-263">Тем не менее `LoadGrammar` метод <xref:System.Speech.Recognition.SpeechRecognitionEngine> или <xref:System.Speech.Recognition.SpeechRecognizer> объекта вызывает исключение, если он не может разрешить все ссылки правило в грамматике описание.</span><span class="sxs-lookup"><span data-stu-id="6ed44-263">However, the `LoadGrammar` method of a <xref:System.Speech.Recognition.SpeechRecognitionEngine> or <xref:System.Speech.Recognition.SpeechRecognizer> object throws an exception if it cannot resolve all of the rule references in the grammar description.</span></span> <span data-ttu-id="6ed44-264">Если `baseUri` не `null`, `LoadGrammar` метод использует URI для разрешения ссылок правила, которые в противном случае он не может разрешить.</span><span class="sxs-lookup"><span data-stu-id="6ed44-264">If `baseUri` is not `null`, the `LoadGrammar` method uses the URI to resolve any rule references that it cannot otherwise resolve.</span></span> <span data-ttu-id="6ed44-265">Если `baseUri` представляет файл, а затем `LoadGrammar` метод использует указанный файл и каталог файлов при попытке разрешить относительный правило ссылки.</span><span class="sxs-lookup"><span data-stu-id="6ed44-265">If `baseUri` represents a file, then the `LoadGrammar` method uses both the designated file and the file's directory when it attempts to resolve relative rule references.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-266">В следующем примере создается Грамматика распознавания речи в <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> содержит ссылку на относительный правило в файле cities.xml и указывает URI, используемый для разрешения ссылок правило.</span><span class="sxs-lookup"><span data-stu-id="6ed44-266">The following example creates a speech recognition grammar in an <xref:System.Speech.Recognition.SrgsGrammar.SrgsDocument> that contains a relative rule reference to the cities.xml file, and specifies a URI to use to resolve the rule reference.</span></span> <span data-ttu-id="6ed44-267">Содержимое файла cities.xml появляется в примере C# в следующем примере XML.</span><span class="sxs-lookup"><span data-stu-id="6ed44-267">The content of the cities.xml file appears in the XML example that follows the C# example.</span></span>  
+  
+```csharp  
+  
+private static Grammar CreateSrgsDocumentGrammar3()  
+{  
+  // Create the SrgsDocument.  
+  SrgsDocument document = new SrgsDocument();  
+  
+  // Create the Main rule and add it to the document.  
+  SrgsRule mainRule = new SrgsRule("Main");  
+  mainRule.Scope = SrgsRuleScope.Public;  
+  
+  SrgsItem item = new SrgsItem("Can I get a shuttle in");  
+  
+  // Create a relative URI for the cities rule.  
+  Uri ruleUri = new Uri("cities.xml#Cities", UriKind.Relative);  
+  
+  item.Add(new SrgsRuleRef(ruleUri));  
+  
+  mainRule.Add(item);  
+  document.Rules.Add(mainRule);  
+  
+  // Set the root rule.  
+  document.Root = mainRule;  
+  
+  // Create the grammar.  
+  Uri baseUri = new Uri(@"file://c:\temp\");  
+  Grammar citiesGrammar = new Grammar(document, null, baseUri);  
+  citiesGrammar.Name = "SrgsDocument Cities Grammar 3";  
+  
+  return citiesGrammar;  
+}  
+  
+```  
+  
+```xml  
+  
+<?xml version="1.0" encoding="UTF-8" ?>  
+<grammar version="1.0" xml:lang="en-US"  
+         xmlns="http://www.w3.org/2001/06/grammar"  
+         tag-format="semantics/1.0" root="Main">  
+  
+  <!-- cities.xml:   
+    Defines an SRGS grammar for requesting a flight. This grammar includes  
+    a Cities rule that lists the cities that can be used for departures  
+    and destinations. -->  
+  
+  <rule id="Main">  
+    <item>  
+      I would like to fly from <ruleref uri="#Cities"/>  
+      to <ruleref uri="#Cities"/>  
+    </item>  
+  </rule>  
+  
+  <rule id="Cities" scope="public">  
+    <one-of>  
+      <item>Seattle</item>  
+      <item>Los Angeles</item>  
+      <item>New York</item>  
+      <item>Miami</item>  
+    </one-of>  
+  </rule>  
+</grammar>  
+```  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="6ed44-268">Невозможно разрешить <paramref name="ruleName" /> или оно не является открытым или <paramref name="ruleName" /> — <see langword="null" /> и <paramref name="srgsDocument" /> не содержит корневое правило.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-268">
+              <paramref name="ruleName" /> cannot be resolved or is not public, or <paramref name="ruleName" /> is <see langword="null" /> and <paramref name="srgsDocument" /> does not contain a root rule.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="6ed44-269">Свойство <paramref name="srgsDocument" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-269">
+              <paramref name="srgsDocument" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.FormatException">
+          <span data-ttu-id="6ed44-270">
+            <paramref name="srgsDocument" /> содержит ссылку на правило, которая не может быть разрешена.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-270">
+              <paramref name="srgsDocument" /> contains a rule reference that cannot be resolved.</span>
+          </span>
+        </exception>
+        <altmember cref="N:System.Speech.Recognition.SrgsGrammar" />
+        <altmember cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (string path, string ruleName, object[] parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string path, string ruleName, object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.String,System.String,System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (path As String, ruleName As String, parameters As Object())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::String ^ path, System::String ^ ruleName, cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="path" Type="System.String" />
+        <Parameter Name="ruleName" Type="System.String" />
+        <Parameter Name="parameters" Type="System.Object[]" />
+      </Parameters>
+      <Docs>
+        <param name="path">
+          <span data-ttu-id="6ed44-271">Путь к файлу, включая библиотеки DLL, который содержит грамматическую спецификацию.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-271">The path to a file, including DLLs, that contains a grammar specification.</span>
+          </span>
+        </param>
+        <param name="ruleName">
+          <span data-ttu-id="6ed44-272">Идентификатор правила для использования в качестве точки входа грамматики распознавания речи или значение <see langword="null" />, чтобы использовать корневое правило по умолчанию описания грамматики.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-272">The identifier of the rule to use as the entry point of the speech recognition grammar, or <see langword="null" /> to use the default root rule of the grammar description.</span>
+          </span>
+        </param>
+        <param name="parameters">
+          <span data-ttu-id="6ed44-273">Параметры, передаваемые обработчику инициализации, указанному свойством <see cref="P:System.Speech.Recognition.SrgsGrammar.SrgsRule.OnInit" /> для точки входа или корневого правила создаваемого объекта <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-273">Parameters to be passed to the initialization handler specified by the <see cref="P:System.Speech.Recognition.SrgsGrammar.SrgsRule.OnInit" /> property for the entry point or the root rule of the <see cref="T:System.Speech.Recognition.Grammar" /> to be created.</span>
+          </span>
+          <span data-ttu-id="6ed44-274">Этот параметр может быть равен null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-274">This parameter may be null.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-275">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из файла, содержащего определение грамматики, и указывает имя правила, которое должно функционировать как точка входа в грамматику.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-275">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class from a file that contains a grammar definition, and specifies the name of a rule to be the entry point to the grammar..</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-276">Также можно указать параметры для обработчика инициализации.</span><span class="sxs-lookup"><span data-stu-id="6ed44-276">Parameters for an initialization handler may also be specified.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">-   <span data-ttu-id="6ed44-277">Один из параметров содержит недопустимое значение.</span><span class="sxs-lookup"><span data-stu-id="6ed44-277">Any of the parameters contain an invalid value.</span></span>  
+  
+-   <span data-ttu-id="6ed44-278">Файл, указанный в <paramref name="path" />, не содержит допустимую грамматику или правило, которые определены в <paramref name="ruleName" />.</span><span class="sxs-lookup"><span data-stu-id="6ed44-278">The file specified by <paramref name="path" /> does not contain a valid grammar or the rule specified in <paramref name="ruleName" />.</span></span>  
+  
+-   <span data-ttu-id="6ed44-279">Содержимое параметров массива не соответствует аргументам любого из обработчиков инициализации правила.</span><span class="sxs-lookup"><span data-stu-id="6ed44-279">The contents of the array parameters do not match the arguments of any of the rule's initialization handlers.</span></span>  
+  
+-   <span data-ttu-id="6ed44-280">Грамматика содержит относительную ссылку правила, которая не может быть разрешена основным правилом <see cref="T:System.Uri" /> по умолчанию для грамматик.</span><span class="sxs-lookup"><span data-stu-id="6ed44-280">The grammar has a relative rule reference that cannot be resolved by the default base <see cref="T:System.Uri" /> rule for grammars.</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.IO.Stream stream, string ruleName, Uri baseUri, object[] parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.IO.Stream stream, string ruleName, class System.Uri baseUri, object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.IO.Stream,System.String,System.Uri,System.Object[])" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::IO::Stream ^ stream, System::String ^ ruleName, Uri ^ baseUri, cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="ruleName" Type="System.String" />
+        <Parameter Name="baseUri" Type="System.Uri" />
+        <Parameter Name="parameters" Type="System.Object[]" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="6ed44-281">Объект <see cref="T:System.IO.Stream" />, подключенный к объекту ввода/вывода (включая файлы, ресурсы Visual Studio и DLL-библиотеки), который содержит грамматическую спецификацию.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-281">A <see cref="T:System.IO.Stream" /> connected to an input/output object (including files, VisualStudio Resources, and DLLs) that contains a grammar specification.</span>
+          </span>
+        </param>
+        <param name="ruleName">
+          <span data-ttu-id="6ed44-282">Идентификатор правила для использования в качестве точки входа грамматики распознавания речи или значение <see langword="null" />, чтобы использовать корневое правило по умолчанию описания грамматики.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-282">The identifier of the rule to use as the entry point of the speech recognition grammar, or <see langword="null" /> to use the default root rule of the grammar description.</span>
+          </span>
+        </param>
+        <param name="baseUri">
+          <span data-ttu-id="6ed44-283">Базовый универсальный код ресурса (uri), используемый для разрешения любых относительную ссылок на правила в описании грамматики или <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-283">The base URI to use to resolve any relative rule reference in the grammar description, or <see langword="null" />.</span>
+          </span>
+        </param>
+        <param name="parameters">
+          <span data-ttu-id="6ed44-284">Параметры, передаваемые обработчику инициализации, указанному свойством <see cref="P:System.Speech.Recognition.SrgsGrammar.SrgsRule.OnInit" /> для точки входа или корневого правила создаваемого объекта <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-284">Parameters to be passed to the initialization handler specified by the <see cref="P:System.Speech.Recognition.SrgsGrammar.SrgsRule.OnInit" /> property for the entry point or the root rule of the <see cref="T:System.Speech.Recognition.Grammar" /> to be created.</span>
+          </span>
+          <span data-ttu-id="6ed44-285">Этот параметр может быть равен null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-285">This parameter may be null.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-286">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> для <see cref="T:System.IO.Stream" /> и определяет корневое правило и базовый код URI для разрешения относительных ссылок.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-286">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class a <see cref="T:System.IO.Stream" /> and specifies a root rule and a base URI to resolve relative references.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-287">Также можно указать параметры для обработчика инициализации.</span><span class="sxs-lookup"><span data-stu-id="6ed44-287">Parameters for an initialization handler may also be specified.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">-   <span data-ttu-id="6ed44-288">Один из параметров содержит недопустимое значение.</span><span class="sxs-lookup"><span data-stu-id="6ed44-288">Any of the parameters contain an invalid value.</span></span>  
+  
+-   <span data-ttu-id="6ed44-289"><paramref name="stream" /> подключен к грамматике, которая не содержит правило, определенное <paramref name="ruleName" />.</span><span class="sxs-lookup"><span data-stu-id="6ed44-289">The <paramref name="stream" /> is connected to a grammar that does not contain the rule specified by <paramref name="ruleName" />.</span></span>  
+  
+-   <span data-ttu-id="6ed44-290">Содержимое параметров массива не соответствует аргументам любого из обработчиков инициализации правила.</span><span class="sxs-lookup"><span data-stu-id="6ed44-290">The contents of the array parameters do not match the arguments of any of the rule's initialization handlers.</span></span>  
+  
+-   <span data-ttu-id="6ed44-291">Грамматика содержит относительную ссылку правила, которая не может быть разрешена основным правилом <see cref="T:System.Uri" /> по умолчанию для грамматик или URI-адресом, заданным в <paramref name="baseUri" />.</span><span class="sxs-lookup"><span data-stu-id="6ed44-291">The grammar contains a relative rule reference that cannot be resolved by the default base <see cref="T:System.Uri" /> rule for grammars or the URI supplied by <paramref name="baseUri" />.</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Grammar (System.Speech.Recognition.SrgsGrammar.SrgsDocument srgsDocument, string ruleName, Uri baseUri, object[] parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Speech.Recognition.SrgsGrammar.SrgsDocument srgsDocument, string ruleName, class System.Uri baseUri, object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.#ctor(System.Speech.Recognition.SrgsGrammar.SrgsDocument,System.String,System.Uri,System.Object[])" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; Grammar(System::Speech::Recognition::SrgsGrammar::SrgsDocument ^ srgsDocument, System::String ^ ruleName, Uri ^ baseUri, cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="srgsDocument" Type="System.Speech.Recognition.SrgsGrammar.SrgsDocument" />
+        <Parameter Name="ruleName" Type="System.String" />
+        <Parameter Name="baseUri" Type="System.Uri" />
+        <Parameter Name="parameters" Type="System.Object[]" />
+      </Parameters>
+      <Docs>
+        <param name="srgsDocument">
+          <span data-ttu-id="6ed44-292">Экземпляр <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />, содержащий ограничения для грамматики распознавания речи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-292">An instance of <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" /> that contains the constraints for the speech recognition grammar.</span>
+          </span>
+        </param>
+        <param name="ruleName">
+          <span data-ttu-id="6ed44-293">Идентификатор правила для использования в качестве точки входа грамматики распознавания речи или значение <see langword="null" />, чтобы использовать корневое правило по умолчанию описания грамматики.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-293">The identifier of the rule to use as the entry point of the speech recognition grammar, or <see langword="null" /> to use the default root rule of the grammar description.</span>
+          </span>
+        </param>
+        <param name="baseUri">
+          <span data-ttu-id="6ed44-294">Базовый универсальный код ресурса (uri), используемый для разрешения любых относительную ссылок на правила в описании грамматики или <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-294">The base URI to use to resolve any relative rule reference in the grammar description, or <see langword="null" />.</span>
+          </span>
+        </param>
+        <param name="parameters">
+          <span data-ttu-id="6ed44-295">Параметры, передаваемые обработчику инициализации, указанному свойством <see cref="P:System.Speech.Recognition.SrgsGrammar.SrgsRule.OnInit" /> для точки входа или корневого правила создаваемого объекта <see cref="T:System.Speech.Recognition.Grammar" />. Этот параметр может быть нулевым.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-295">Parameters to be passed to the initialization handler specified by the <see cref="P:System.Speech.Recognition.SrgsGrammar.SrgsRule.OnInit" /> property for the entry point or the root rule of the <see cref="T:System.Speech.Recognition.Grammar" /> to be created.This parameter may be null.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-296">Инициализирует новый экземпляр класса <see cref="T:System.Speech.Recognition.Grammar" /> из экземпляра <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />, указывает имя правила, которое должно функционировать как точка входа в грамматику, и базовый URI для разрешения относительных ссылок.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-296">Initializes a new instance of the <see cref="T:System.Speech.Recognition.Grammar" /> class from an instance of <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />, and specifies the name of a rule to be the entry point to the grammar and a base URI to resolve relative references.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-297">Также можно указать параметры для обработчика инициализации.</span><span class="sxs-lookup"><span data-stu-id="6ed44-297">Parameters for an initialization handler may also be specified.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">-   <span data-ttu-id="6ed44-298">Один из параметров содержит недопустимое значение.</span><span class="sxs-lookup"><span data-stu-id="6ed44-298">Any of the parameters contain an invalid value.</span></span>  
+  
+-   <span data-ttu-id="6ed44-299"><see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" />, Указанный <paramref name="srgsDocument" />, не содержит правила, заданного в <paramref name="ruleName" />.</span><span class="sxs-lookup"><span data-stu-id="6ed44-299">The <see cref="T:System.Speech.Recognition.SrgsGrammar.SrgsDocument" /> specified by <paramref name="srgsDocument" /> does not contain the rule specified in <paramref name="ruleName" />.</span></span>  
+  
+-   <span data-ttu-id="6ed44-300">Содержимое параметров массива не соответствует аргументам любого из обработчиков инициализации правила.</span><span class="sxs-lookup"><span data-stu-id="6ed44-300">The contents of the array parameters do not match the arguments of any of the rule's initialization handlers.</span></span>  
+  
+-   <span data-ttu-id="6ed44-301">Грамматика содержит относительную ссылку правила, которая не может быть разрешена основным правилом <see cref="T:System.Uri" /> по умолчанию для грамматик или URI-адресом, заданным в <paramref name="baseUri" />.</span><span class="sxs-lookup"><span data-stu-id="6ed44-301">The grammar has a relative rule reference that cannot be resolved by the default base <see cref="T:System.Uri" /> rule for grammars or the URI supplied by <paramref name="baseUri" />.</span></span></exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Enabled">
+      <MemberSignature Language="C#" Value="public bool Enabled { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool Enabled" />
+      <MemberSignature Language="DocId" Value="P:System.Speech.Recognition.Grammar.Enabled" />
+      <MemberSignature Language="VB.NET" Value="Public Property Enabled As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool Enabled { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-302">Получает или задает значение, которое определяет, может ли <see cref="T:System.Speech.Recognition.Grammar" /> использоваться распознавателем речи для выполнения распознавания.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-302">Gets or sets a value that controls whether a <see cref="T:System.Speech.Recognition.Grammar" /> can be used by a speech recognizer to perform recognition.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="6ed44-303">
+            <see langword="Enabled" /> Возвращает <see langword="true" /> Если распознавателя речи может выполнить распознавания с помощью грамматики распознавания речи; в противном случае возвращает <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-303">The  <see langword="Enabled" /> property returns <see langword="true" /> if a speech recognizer can perform recognition using the speech recognition grammar; otherwise the property returns <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="6ed44-304">Значение по умолчанию: <see langword="true" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-304">The default is <see langword="true" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-305">Экземпляр <xref:System.Speech.Recognition.Grammar> может включать или отключать независимо от загрузки механизма распознавания речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-305">An instance of <xref:System.Speech.Recognition.Grammar> may be enabled or disabled independently of being loaded by a speech recognition engine.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-306">Следующий пример записывает сведения о <xref:System.Speech.Recognition.Grammar> объект [консоли](http://go.microsoft.com/fwlink/?LinkId=159613).</span><span class="sxs-lookup"><span data-stu-id="6ed44-306">The following example writes information about a <xref:System.Speech.Recognition.Grammar> object to the [console](http://go.microsoft.com/fwlink/?LinkId=159613).</span></span>  
+  
+```csharp  
+  
+private static void DumpGrammarStatus(Grammar item)  
+{  
+  Console.WriteLine("Grammar name is {0}:", item.Name);  
+  Console.WriteLine("  The Grammar {0} loaded.",  
+    item.Loaded ? "is" : "is not");  
+  Console.WriteLine("  The Grammar {0} enabled.",  
+    item.Enabled ? "is" : "is not");  
+  if (item.RuleName != null)  
+  {  
+    Console.WriteLine("  The root rule is {0}.", item.RuleName);  
+  }  
+  else  
+  {  
+    Console.WriteLine("  The Grammar does not specify a root rule.");  
+  }  
+}  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Speech.Recognition.Grammar.Loaded" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+      </Docs>
+    </Member>
+    <Member MemberName="IsStg">
+      <MemberSignature Language="C#" Value="protected internal virtual bool IsStg { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsStg" />
+      <MemberSignature Language="DocId" Value="P:System.Speech.Recognition.Grammar.IsStg" />
+      <MemberSignature Language="VB.NET" Value="Protected Friend Overridable ReadOnly Property IsStg As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="protected public:&#xA; virtual property bool IsStg { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-307">Получает значение, указывающее является ли грамматика строго типизированной.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-307">Gets whether a grammar is strongly typed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="6ed44-308">Свойство <see langword="IsStg" /> возвращает значение <see langword="true" />, если грамматика строго типизированная; в противном случае возвращает значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-308">The <see langword="IsStg" /> property returns <see langword="true" /> if the grammar is strongly-typed; otherwise the property returns <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-309">Строго типизированный <xref:System.Speech.Recognition.Grammar> объекта (`IsStg` равняется `true`), могут возвращать результаты, строго типизированными (объекты, а не необработанный текст) клиентское приложение.</span><span class="sxs-lookup"><span data-stu-id="6ed44-309">A strongly-typed <xref:System.Speech.Recognition.Grammar> object (`IsStg` equals `true`) can return strongly-typed results (objects, rather than raw text) to a client application.</span></span> <span data-ttu-id="6ed44-310">Например, может возвращать Грамматика строго типизированных <xref:System.DateTime> объектов, а не необработанные распознанных входных данных.</span><span class="sxs-lookup"><span data-stu-id="6ed44-310">For example, a strongly-typed grammar might return <xref:System.DateTime> objects rather than raw recognized input.</span></span>  
+  
+ <span data-ttu-id="6ed44-311">Строго типизированный грамматик можно реализовать путем присоединения кода к правилам грамматики.</span><span class="sxs-lookup"><span data-stu-id="6ed44-311">You can implement strongly-typed grammars by attaching code to the rules of a grammar.</span></span> <span data-ttu-id="6ed44-312">По мере механизма распознавания обрабатывает любые данного правила, переводится в качестве входных данных текущего частичные результаты, выполняется соответствующий код и текстовые данные становится форматированного типа объектов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-312">As a recognition engine processes any given rule, taking as input the current partial results, the associated code is executed and the textual information becomes rich type objects.</span></span> <span data-ttu-id="6ed44-313">Это позволяет клиенту более легко использовать расширенную Семантическая проверка, поддержка нескольких языков и региональных параметров и грамматики внутренней логики.</span><span class="sxs-lookup"><span data-stu-id="6ed44-313">This allows a client to more easily make use of enhanced semantic checking, support for multiple cultures, and internal grammar logic.</span></span>  
+  
+ <span data-ttu-id="6ed44-314">Строго типизированные экземпляры <xref:System.Speech.Recognition.Grammar> объектов обычно извлекаются из ресурсов в сборке в виде <xref:System.Type> из Common Language Runtime (CLR).</span><span class="sxs-lookup"><span data-stu-id="6ed44-314">Instances of strongly-typed <xref:System.Speech.Recognition.Grammar> objects are typically obtained from resources in an assembly as a <xref:System.Type> of the Common Language Runtime (CLR).</span></span> <span data-ttu-id="6ed44-315">Локализованные типы, используемые для поддержки различных языков приведены примеры таких <xref:System.Speech.Recognition.Grammar> объектов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-315">The localized types used to support different languages are examples of such <xref:System.Speech.Recognition.Grammar> objects.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="6ed44-316">Строго типизированный грамматик, наследующим <see cref="T:System.Speech.Recognition.Grammar" /> , необходимо переопределить поведение по умолчанию <see langword="IsStg" />, которой является возврат <see langword="false" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="6ed44-316">Strongly-typed grammars inheriting from <see cref="T:System.Speech.Recognition.Grammar" /> need to override the default behavior of <see langword="IsStg" />, which is to return <see langword="false" />.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="Loaded">
+      <MemberSignature Language="C#" Value="public bool Loaded { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool Loaded" />
+      <MemberSignature Language="DocId" Value="P:System.Speech.Recognition.Grammar.Loaded" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Loaded As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool Loaded { bool get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-317">Получает значение, указывающее загружен ли объект <see cref="T:System.Speech.Recognition.Grammar" /> распознавателем речи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-317">Gets whether a <see cref="T:System.Speech.Recognition.Grammar" /> has been loaded by a speech recognizer.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="6ed44-318">Свойство <see langword="Loaded" /> возвращает <see langword="true" />, если указанная грамматика распознавания речи в данный момент загружена в распознаватель речи; в противном случае возвращается значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-318">The <see langword="Loaded" /> property returns <see langword="true" /> if the referenced speech recognition grammar is currently loaded in a speech recognizer; otherwise the property returns <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="6ed44-319">Значение по умолчанию: <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-319">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-320">Один раз <xref:System.Speech.Recognition.Grammar> был загружен, значения <xref:System.Speech.Recognition.Grammar.Weight%2A>, и <xref:System.Speech.Recognition.Grammar.Priority%2A> не может быть изменено.</span><span class="sxs-lookup"><span data-stu-id="6ed44-320">Once a <xref:System.Speech.Recognition.Grammar> has been loaded, the values of <xref:System.Speech.Recognition.Grammar.Weight%2A>, and <xref:System.Speech.Recognition.Grammar.Priority%2A> cannot be changed.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-321">Следующий пример записывает сведения о <xref:System.Speech.Recognition.Grammar> объект [консоли](http://go.microsoft.com/fwlink/?LinkId=159613).</span><span class="sxs-lookup"><span data-stu-id="6ed44-321">The following example writes information about a <xref:System.Speech.Recognition.Grammar> object to the [console](http://go.microsoft.com/fwlink/?LinkId=159613).</span></span>  
+  
+```csharp  
+  
+private static void DumpGrammarStatus(Grammar item)  
+{  
+  Console.WriteLine("Grammar name is {0}:", item.Name);  
+  Console.WriteLine("  The Grammar {0} loaded.",  
+    item.Loaded ? "is" : "is not");  
+  Console.WriteLine("  The Grammar {0} enabled.",  
+    item.Enabled ? "is" : "is not");  
+  if (item.RuleName != null)  
+  {  
+    Console.WriteLine("  The root rule is {0}.", item.RuleName);  
+  }  
+  else  
+  {  
+    Console.WriteLine("  The Grammar does not specify a root rule.");  
+  }  
+}  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Speech.Recognition.Grammar.Enabled" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+      </Docs>
+    </Member>
+    <Member MemberName="LoadLocalizedGrammarFromType">
+      <MemberSignature Language="C#" Value="public static System.Speech.Recognition.Grammar LoadLocalizedGrammarFromType (Type type, params object[] onInitParameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Speech.Recognition.Grammar LoadLocalizedGrammarFromType(class System.Type type, object[] onInitParameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.LoadLocalizedGrammarFromType(System.Type,System.Object[])" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Speech::Recognition::Grammar ^ LoadLocalizedGrammarFromType(Type ^ type, ... cli::array &lt;System::Object ^&gt; ^ onInitParameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Speech.Recognition.Grammar</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="type" Type="System.Type" />
+        <Parameter Name="onInitParameters" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="type">
+          <span data-ttu-id="6ed44-322">В сборке <see cref="T:System.Type" /> объекта, основанного на <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-322">In an assembly, the <see cref="T:System.Type" /> of an object based on <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          </span>
+        </param>
+        <param name="onInitParameters">
+          <span data-ttu-id="6ed44-323">Параметры для передачи в метод инициализации локализованного объекта на основе <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-323">Parameters to be passed to an initialization method of the localizedobject based on <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          </span>
+          <span data-ttu-id="6ed44-324">Этот параметр может быть равен null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-324">This parameter may be null.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-325">Метод <see langword="LoadLocalizedGrammarFromType" /> возвращает локализованный экземпляр объекта <see cref="T:System.Speech.Recognition.Grammar" />, который является наследником <see cref="T:System.Type" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-325">The <see langword="LoadLocalizedGrammarFromType" /> method returns a localized instance of a <see cref="T:System.Speech.Recognition.Grammar" /> object derived from <see cref="T:System.Type" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="6ed44-326">Метод <see langword="LoadLocalizedGrammarFromType" /> возвращает допустимый объект на основе <see cref="T:System.Speech.Recognition.Grammar" /> или <see langword="null" />, если возникла ошибка.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-326">The <see langword="LoadLocalizedGrammarFromType" /> method returns a valid object based on <see cref="T:System.Speech.Recognition.Grammar" />, or <see langword="null" /> if there has been an error.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-327">Локализованные грамматик, полученное с `LoadLocalizedGrammarFromType` обычно строго типизированных (см. <xref:System.Speech.Recognition.Grammar.IsStg%2A> Дополнительные сведения о строго типизированный грамматик).</span><span class="sxs-lookup"><span data-stu-id="6ed44-327">Localized grammars obtained with `LoadLocalizedGrammarFromType` are typically strongly-typed (see <xref:System.Speech.Recognition.Grammar.IsStg%2A> for more information on strongly typed grammars).</span></span> <span data-ttu-id="6ed44-328">Если `onInitParameters` является пустой ссылкой (Nothing в Visual Basic) и локализованная грамматики должен иметь метод инициализации отсутствует, или метод, который не принимает аргументы.</span><span class="sxs-lookup"><span data-stu-id="6ed44-328">If `onInitParameters` is a null reference (Nothing in Visual Basic) the localized grammar should have either no initialization method, or a method that takes no arguments.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Name">
+      <MemberSignature Language="C#" Value="public string Name { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Name" />
+      <MemberSignature Language="DocId" Value="P:System.Speech.Recognition.Grammar.Name" />
+      <MemberSignature Language="VB.NET" Value="Public Property Name As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ Name { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-329">Получает или задает имя объекта <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-329">Gets or sets the name of a <see cref="T:System.Speech.Recognition.Grammar" /> object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="6ed44-330">Свойство <see langword="Name" />, возвращает имя объекта <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-330">The <see langword="Name" /> property returns the name of the <see cref="T:System.Speech.Recognition.Grammar" /> object.</span>
+          </span>
+          <span data-ttu-id="6ed44-331">Значение по умолчанию: <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-331">The default is <see langword="null" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="6ed44-332">В следующем примере создается два <xref:System.Speech.Recognition.Grammar> объектов: цифр и для дробей.</span><span class="sxs-lookup"><span data-stu-id="6ed44-332">The following example creates two <xref:System.Speech.Recognition.Grammar> objects, one for digits and one for fractions.</span></span> <span data-ttu-id="6ed44-333">Объекты грамматики присвоения имен и относительные веса и приоритеты и распознавателем речи в процессе загрузки.</span><span class="sxs-lookup"><span data-stu-id="6ed44-333">The Grammar objects are assigned names and relative weights and priorities, and loaded by an in-process speech recognizer.</span></span> <span data-ttu-id="6ed44-334">`CreateDigitsGrammar`, `CreateFractionsGrammar`, И `recognizer_SpeechRecognized` методы здесь не показаны.</span><span class="sxs-lookup"><span data-stu-id="6ed44-334">The `CreateDigitsGrammar`, `CreateFractionsGrammar`, and `recognizer_SpeechRecognized` methods are not shown here.</span></span>  
+  
+```csharp  
+  
+// Create a Grammar for recognizing numeric digits.  
+Grammar digitsGrammar = CreateDigitsGrammar();  
+digitsGrammar.Name = "Digits Grammar";  
+digitsGrammar.Priority = 2;  
+digitsGrammar.Weight = 0.6f;  
+  
+// Create a Grammar for recognizing fractions.  
+Grammar fractionsGrammar = CreateFractionsGrammar();  
+fractionsGrammar.Name = "Fractions Grammar";  
+fractionsGrammar.Priority = 1;  
+fractionsGrammar.Weight = 1f;  
+  
+// Create an in-process speech recognizer.  
+SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine();  
+  
+recognizer.SpeechRecognized +=  
+  new EventHandler<SpeechRecognizedEventArgs>(  
+    recognizer_SpeechRecognized);  
+  
+// Load the digits and fractions Grammar objects.  
+recognizer.LoadGrammar(digitsGrammar);  
+recognizer.LoadGrammar(fractionsGrammar);  
+  
+// Start recognition.  
+recognizer.SetInputToDefaultAudioDevice();  
+recognizer.RecognizeAsync(RecognizeMode.Multiple);  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+      </Docs>
+    </Member>
+    <Member MemberName="Priority">
+      <MemberSignature Language="C#" Value="public int Priority { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 Priority" />
+      <MemberSignature Language="DocId" Value="P:System.Speech.Recognition.Grammar.Priority" />
+      <MemberSignature Language="VB.NET" Value="Public Property Priority As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int Priority { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-335">Получает или задает значение приоритета объекта <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-335">Gets or sets the priority value of a <see cref="T:System.Speech.Recognition.Grammar" /> object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="6ed44-336">Свойство <see langword="Priority" /> возвращает целое значение, представляющее относительный приоритет конкретной грамматики <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-336">The <see langword="Priority" /> property returns an integer value that represents the relative priority of a specific <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          </span>
+          <span data-ttu-id="6ed44-337">Диапазон от -128 до 127 включительно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-337">The range is from -128 to 127 inclusive.</span>
+          </span>
+          <span data-ttu-id="6ed44-338">Значение по умолчанию — 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-338">The default is 0.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-339">`Priority` Свойство используется для выбора Грамматика при более чем одну грамматику будет выдавать результаты распознавания идентичными.</span><span class="sxs-lookup"><span data-stu-id="6ed44-339">The `Priority` property is used to select a grammar when more than one grammar will produce an identical recognition result.</span></span> <span data-ttu-id="6ed44-340">Если распознаватель речи имеет более одного распознавания грамматики речи загружены и включены, в соответствии с входными данными, сопоставление выполняется добиться наилучших результатов из распознавателя, затем распознаватель использует грамматики, максимальные `Priority`.</span><span class="sxs-lookup"><span data-stu-id="6ed44-340">If a speech recognizer has more than one speech recognition grammar loaded and enabled that match the input, and the match is the best result from the recognizer, then the recognizer uses the grammar that has the highest `Priority`.</span></span> <span data-ttu-id="6ed44-341">Если грамматики, возвращающих результат идентичные распознавания также иметь ту же `Priority` значение, а затем грамматики, который использует распознаватель не определено.</span><span class="sxs-lookup"><span data-stu-id="6ed44-341">If the grammars that produce the identical recognition result also have the same `Priority` value, then the grammar that the recognizer uses is undefined.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-342">В следующем примере создается два <xref:System.Speech.Recognition.Grammar> объектов: цифр и для дробей.</span><span class="sxs-lookup"><span data-stu-id="6ed44-342">The following example creates two <xref:System.Speech.Recognition.Grammar> objects, one for digits and one for fractions.</span></span> <span data-ttu-id="6ed44-343"><xref:System.Speech.Recognition.Grammar> Объекты присвоения имен и относительные веса и приоритеты и распознавателем речи в процессе загрузки.</span><span class="sxs-lookup"><span data-stu-id="6ed44-343">The <xref:System.Speech.Recognition.Grammar> objects are assigned names and relative weights and priorities, and loaded by an in-process speech recognizer.</span></span> <span data-ttu-id="6ed44-344">`CreateDigitsGrammar`, `CreateFractionsGrammar`, И `recognizer_SpeechRecognized` методы здесь не показаны.</span><span class="sxs-lookup"><span data-stu-id="6ed44-344">The `CreateDigitsGrammar`, `CreateFractionsGrammar`, and `recognizer_SpeechRecognized` methods are not shown here.</span></span>  
+  
+```csharp  
+  
+// Create a Grammar for recognizing numeric digits.  
+Grammar digitsGrammar = CreateDigitsGrammar();  
+digitsGrammar.Name = "Digits Grammar";  
+digitsGrammar.Priority = 2;  
+digitsGrammar.Weight = 0.6f;  
+  
+// Create a Grammar for recognizing fractions.  
+Grammar fractionsGrammar = CreateFractionsGrammar();  
+fractionsGrammar.Name = "Fractions Grammar";  
+fractionsGrammar.Priority = 1;  
+fractionsGrammar.Weight = 1f;  
+  
+// Create an in-process speech recognizer.  
+SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine();  
+  
+recognizer.SpeechRecognized +=  
+  new EventHandler<SpeechRecognizedEventArgs>(  
+    recognizer_SpeechRecognized);  
+  
+// Load the digits and fractions Grammar objects.  
+recognizer.LoadGrammar(digitsGrammar);  
+recognizer.LoadGrammar(fractionsGrammar);  
+  
+// Start recognition.  
+recognizer.SetInputToDefaultAudioDevice();  
+recognizer.RecognizeAsync(RecognizeMode.Multiple);  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Speech.Recognition.Grammar.Loaded" />
+        <altmember cref="P:System.Speech.Recognition.Grammar.Enabled" />
+        <altmember cref="P:System.Speech.Recognition.Grammar.Weight" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+      </Docs>
+    </Member>
+    <Member MemberName="ResourceName">
+      <MemberSignature Language="C#" Value="protected string ResourceName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ResourceName" />
+      <MemberSignature Language="DocId" Value="P:System.Speech.Recognition.Grammar.ResourceName" />
+      <MemberSignature Language="VB.NET" Value="Protected Property ResourceName As String" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; property System::String ^ ResourceName { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-345">Получает или задает значение с именем двоичного ресурса, который использовался для загрузки текущего <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-345">Gets or sets a value with the name of a binary resource that was used to load the current <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="6ed44-346">Свойство <see langword="ResourceName" /> возвращает имя двоичного ресурса, из которого была загружена строго типизированная грамматика, используемая объектом <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-346">The <see langword="ResourceName" /> property returns the name of the binary resource from which the strongly-typed grammar, used by <see cref="T:System.Speech.Recognition.Grammar" />, was loaded.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RuleName">
+      <MemberSignature Language="C#" Value="public string RuleName { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string RuleName" />
+      <MemberSignature Language="DocId" Value="P:System.Speech.Recognition.Grammar.RuleName" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property RuleName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ RuleName { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-347">Получает имя корневого правила или точки входа объекта <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-347">Gets the name of the root rule or entry point of a <see cref="T:System.Speech.Recognition.Grammar" /> object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="6ed44-348">Свойство <see langword="RuleName" /> возвращает идентификатор для корневого правила грамматики распознавания речи, на которую стоит ссылка.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-348">The <see langword="RuleName" /> property returns the identifier for the root rule of the referenced speech recognition grammar.</span>
+          </span>
+          <span data-ttu-id="6ed44-349">Значение по умолчанию: <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-349">The default is <see langword="null" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-350">Для создания <xref:System.Speech.Recognition.Grammar> и задайте имя для его корневое правило, используйте один из <xref:System.Speech.Recognition.Grammar.%23ctor%2A> конструкторов, которые принимают `ruleName` параметра.</span><span class="sxs-lookup"><span data-stu-id="6ed44-350">To construct a <xref:System.Speech.Recognition.Grammar> object and set the name for its root rule, use one of the <xref:System.Speech.Recognition.Grammar.%23ctor%2A> constructors that takes the `ruleName` parameter.</span></span>  
+  
+ <span data-ttu-id="6ed44-351">Если правило корневой <xref:System.Speech.Recognition.Grammar> не имеет имени, это свойство возвращает `null`.</span><span class="sxs-lookup"><span data-stu-id="6ed44-351">If the root rule of a <xref:System.Speech.Recognition.Grammar> has no name, the property returns `null`.</span></span>  
+  
+ <span data-ttu-id="6ed44-352">Правила корневого объекта <xref:System.Speech.Recognition.Grammar> создании экземпляров из <xref:System.Speech.Recognition.GrammarBuilder> объектов обычно имеют без имени, поэтому <xref:System.Speech.Recognition.Grammar.RuleName%2A> возвращает `null`.</span><span class="sxs-lookup"><span data-stu-id="6ed44-352">The root rules of <xref:System.Speech.Recognition.Grammar> instances constructed from <xref:System.Speech.Recognition.GrammarBuilder> objects typically have no name, so <xref:System.Speech.Recognition.Grammar.RuleName%2A> returns `null`.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-353">Следующий пример записывает сведения о <xref:System.Speech.Recognition.Grammar> объект [консоли](http://go.microsoft.com/fwlink/?LinkId=159613).</span><span class="sxs-lookup"><span data-stu-id="6ed44-353">The following example writes information about a <xref:System.Speech.Recognition.Grammar> object to the [console](http://go.microsoft.com/fwlink/?LinkId=159613).</span></span>  
+  
+```csharp  
+  
+private static void DumpGrammarStatus(Grammar item)  
+{  
+  Console.WriteLine("Grammar name is {0}:", item.Name);  
+  Console.WriteLine("  The Grammar {0} loaded.",  
+    item.Loaded ? "is" : "is not");  
+  Console.WriteLine("  The Grammar {0} enabled.",  
+    item.Enabled ? "is" : "is not");  
+  if (item.RuleName != null)  
+  {  
+    Console.WriteLine("  The root rule is {0}.", item.RuleName);  
+  }  
+  else  
+  {  
+    Console.WriteLine("  The Grammar does not specify a root rule.");  
+  }  
+}  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="M:System.Speech.Recognition.Grammar.#ctor(System.IO.Stream)" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+      </Docs>
+    </Member>
+    <Member MemberName="SpeechRecognized">
+      <MemberSignature Language="C#" Value="public event EventHandler&lt;System.Speech.Recognition.SpeechRecognizedEventArgs&gt; SpeechRecognized;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.EventHandler`1&lt;class System.Speech.Recognition.SpeechRecognizedEventArgs&gt; SpeechRecognized" />
+      <MemberSignature Language="DocId" Value="E:System.Speech.Recognition.Grammar.SpeechRecognized" />
+      <MemberSignature Language="VB.NET" Value="Public Event SpeechRecognized As EventHandler(Of SpeechRecognizedEventArgs) " />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; event EventHandler&lt;System::Speech::Recognition::SpeechRecognizedEventArgs ^&gt; ^ SpeechRecognized;" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.EventHandler&lt;System.Speech.Recognition.SpeechRecognizedEventArgs&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-354">Вызывается, когда распознаватель речи выполняет распознавание с помощью объекта <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-354">Raised when a speech recognizer performs recognition using the <see cref="T:System.Speech.Recognition.Grammar" /> object.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-355">Распознаватель речи также вызывает `SpeechRecognized` событие, когда он распознает входные данные.</span><span class="sxs-lookup"><span data-stu-id="6ed44-355">The speech recognizer also raises a `SpeechRecognized`  event when it recognizes input.</span></span> <span data-ttu-id="6ed44-356"><xref:System.Speech.Recognition.Grammar> Объекта <xref:System.Speech.Recognition.Grammar.SpeechRecognized> события до распознаватель речи `SpeechRecognized` событий.</span><span class="sxs-lookup"><span data-stu-id="6ed44-356">The <xref:System.Speech.Recognition.Grammar> object's <xref:System.Speech.Recognition.Grammar.SpeechRecognized> event is raised prior to the speech recognizer's `SpeechRecognized` event .</span></span> <span data-ttu-id="6ed44-357">Дополнительные сведения см. в разделе <xref:System.Speech.Recognition.SpeechRecognizer.SpeechRecognized?displayProperty=nameWithType>, <xref:System.Speech.Recognition.SpeechRecognitionEngine.SpeechRecognized?displayProperty=nameWithType>, и <xref:System.Speech.Recognition.SpeechRecognitionEngine.RecognizeCompleted> события.</span><span class="sxs-lookup"><span data-stu-id="6ed44-357">For more information, see the <xref:System.Speech.Recognition.SpeechRecognizer.SpeechRecognized?displayProperty=nameWithType>, <xref:System.Speech.Recognition.SpeechRecognitionEngine.SpeechRecognized?displayProperty=nameWithType>, and <xref:System.Speech.Recognition.SpeechRecognitionEngine.RecognizeCompleted> events.</span></span>  
+  
+ <span data-ttu-id="6ed44-358">Все задачи, относящиеся к определенной грамматики должно всегда обрабатываться обработчики для <xref:System.Speech.Recognition.Grammar> объекта <xref:System.Speech.Recognition.Grammar.SpeechRecognized> событий.</span><span class="sxs-lookup"><span data-stu-id="6ed44-358">Any tasks specific to a particular grammar should always be handled by handlers for the <xref:System.Speech.Recognition.Grammar> object's <xref:System.Speech.Recognition.Grammar.SpeechRecognized> event.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-359">В следующем примере показано использование обработчика событий для <xref:System.Speech.Recognition.Grammar> объекта <xref:System.Speech.Recognition.Grammar.SpeechRecognized> событий.</span><span class="sxs-lookup"><span data-stu-id="6ed44-359">The following example shows the use of an event handler for the <xref:System.Speech.Recognition.Grammar> object's <xref:System.Speech.Recognition.Grammar.SpeechRecognized> event.</span></span> <span data-ttu-id="6ed44-360">Он выводит результаты распознавания в [консоли](http://go.microsoft.com/fwlink/?LinkId=159613).</span><span class="sxs-lookup"><span data-stu-id="6ed44-360">It outputs the recognition results to the [console](http://go.microsoft.com/fwlink/?LinkId=159613).</span></span>  
+  
+```csharp  
+public partial class Form1 : Form  
+{  
+  SpeechRecognitionEngine sre;  
+  
+  public Form1()  
+  {  
+  InitializeComponent();  
+  
+  // Create an in-process speech recognizer.  
+  sre = new SpeechRecognitionEngine();  
+  
+  // Configure input to the speech recognizer.  
+  sre.SetInputToDefaultAudioDevice();  
+  
+  // Create a simple grammar and load it.  
+  Grammar testGrammar = new Grammar(new GrammarBuilder("testing"));  
+  sre.LoadGrammarAsync(testGrammar);  
+  
+  // Add a handler for the grammar's speech recognized event.  
+  testGrammar.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(testGrammar_SpeechRecognized);  
+  
+  // Start asynchronous speech recognition.  
+  sre.RecognizeAsync();  
+  }  
+  
+  // Handle the grammar's SpeechRecognized event, output the recognized text.  
+  void testGrammar_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)  
+  {  
+    Console.WriteLine("Recognized text: " + e.Result.Text);  
+  }  
+}  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+      </Docs>
+    </Member>
+    <Member MemberName="StgInit">
+      <MemberSignature Language="C#" Value="protected void StgInit (object[] parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig instance void StgInit(object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Speech.Recognition.Grammar.StgInit(System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub StgInit (parameters As Object())" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; void StgInit(cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.Object[]" />
+      </Parameters>
+      <Docs>
+        <param name="parameters">
+          <span data-ttu-id="6ed44-361">Параметры для передачи с целью инициализации строго типизированной грамматики. Этот параметр может быть нулевым.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-361">Parameters to be passed to initialize the strongly-typed grammar.This parameter may be null.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="6ed44-362">Метод <see langword="StgInit" /> инициализирует строго типизированную грамматику.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-362">The <see langword="StgInit" /> method initializes a strongly-typed grammar.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-363">Строго типизированный <xref:System.Speech.Recognition.Grammar> объекта (`IsStg` равняется `true`), могут возвращать результаты, строго типизированными (объекты, а не необработанный текст) клиентское приложение.</span><span class="sxs-lookup"><span data-stu-id="6ed44-363">A strongly-typed <xref:System.Speech.Recognition.Grammar> object (`IsStg` equals `true`) can return strongly-typed results (objects, rather than raw text) to a client application.</span></span> <span data-ttu-id="6ed44-364">Например, может возвращать Грамматика строго типизированных <xref:System.DateTime> объектов, а не необработанные распознанных входных данных.</span><span class="sxs-lookup"><span data-stu-id="6ed44-364">For example, a strongly-typed grammar might return <xref:System.DateTime> objects rather than raw recognized input.</span></span>  
+  
+ <span data-ttu-id="6ed44-365">Строго типизированный грамматик можно реализовать путем присоединения кода к правилам грамматики.</span><span class="sxs-lookup"><span data-stu-id="6ed44-365">You can implement strongly-typed grammars by attaching code to the rules of a grammar.</span></span> <span data-ttu-id="6ed44-366">По мере механизма распознавания обрабатывает любые данного правила, переводится в качестве входных данных текущего частичные результаты, выполняется соответствующий код и текстовые данные становится форматированного типа объектов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-366">As a recognition engine processes any given rule, taking as input the current partial results, the associated code is executed and the textual information becomes rich type objects.</span></span> <span data-ttu-id="6ed44-367">Это позволяет клиенту более легко использовать расширенную Семантическая проверка, поддержка нескольких языков и региональных параметров и грамматики внутренней логики.</span><span class="sxs-lookup"><span data-stu-id="6ed44-367">This allows a client to more easily make use of enhanced semantic checking, support for multiple cultures, and internal grammar logic.</span></span>  
+  
+ <span data-ttu-id="6ed44-368">Строго типизированные экземпляры <xref:System.Speech.Recognition.Grammar> объектов обычно извлекаются из ресурсов в сборке в виде <xref:System.Type> из Common Language Runtime (CLR).</span><span class="sxs-lookup"><span data-stu-id="6ed44-368">Instances of strongly-typed <xref:System.Speech.Recognition.Grammar> objects are typically obtained from resources in an assembly as a <xref:System.Type> of the Common Language Runtime (CLR).</span></span> <span data-ttu-id="6ed44-369">Локализованные типы, используемые для поддержки различных языков приведены примеры таких <xref:System.Speech.Recognition.Grammar> объектов.</span><span class="sxs-lookup"><span data-stu-id="6ed44-369">The localized types used to support different languages are examples of such <xref:System.Speech.Recognition.Grammar> objects.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="6ed44-370">Если грамматика строго типизированных требует инициализации, <see langword="StgInit" /> должен быть вызван в конструктор или метод инициализации.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="6ed44-370">If a strongly-typed grammar requires initialization, <see langword="StgInit" /> should be called in a constructor or an initialization method.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="Weight">
+      <MemberSignature Language="C#" Value="public float Weight { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance float32 Weight" />
+      <MemberSignature Language="DocId" Value="P:System.Speech.Recognition.Grammar.Weight" />
+      <MemberSignature Language="VB.NET" Value="Public Property Weight As Single" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property float Weight { float get(); void set(float value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Speech</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Single</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="6ed44-371">Получает или задает значение веса объекта <see cref="T:System.Speech.Recognition.Grammar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-371">Gets or sets the weight value of a <see cref="T:System.Speech.Recognition.Grammar" /> object.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="6ed44-372">
+            <see langword="Weight" /> Возвращает значение с плавающей запятой значение, указывающее, относительный вес, который следует назначить экземпляр ядра СУБД для распознавания грамматики при обработке ввода речи.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-372">The <see langword="Weight" /> property returns a floating point value indicating the relative weight that a recognition engine  instance should assign to the grammar when processing speech input.</span>
+          </span>
+          <span data-ttu-id="6ed44-373">Диапазон — от 0,0 до 1,0 включительно.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-373">The range is from 0.0 to 1.0 inclusive.</span>
+          </span>
+          <span data-ttu-id="6ed44-374">Значение по умолчанию — 1,0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="6ed44-374">The default is 1.0.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="6ed44-375">Из-за сложности использование механизма распознавания **вес**, его влияние на производительность конкретного грамматики не напрямую, как прогнозируемый, что и <xref:System.Speech.Recognition.Grammar.Priority%2A>.</span><span class="sxs-lookup"><span data-stu-id="6ed44-375">Because of the complexity of a recognition engine's use of **Weight**, its effect on a particular grammar's performance is not as directly predictable as that of <xref:System.Speech.Recognition.Grammar.Priority%2A>.</span></span>  
+  
+ <span data-ttu-id="6ed44-376">Распознавание речи поддерживается взвешенного системы.</span><span class="sxs-lookup"><span data-stu-id="6ed44-376">Speech recognition is a weighted system.</span></span> <span data-ttu-id="6ed44-377">Он возвращает все возможные распознавания пути, на основе сочетания вес грамматики, задается для вариантов в грамматике и вероятности определяются моделей речи.</span><span class="sxs-lookup"><span data-stu-id="6ed44-377">It evaluates all possible recognition paths based on a combination of the weight of the grammar, the weights defined for alternatives within the grammar, and the probabilities defined by speech models.</span></span> <span data-ttu-id="6ed44-378">Распознавание речи использует сочетание этих весовые коэффициенты и вероятности для ранжирования потенциальных альтернативных отзывы.</span><span class="sxs-lookup"><span data-stu-id="6ed44-378">The speech recognition engine uses the combination of these weights and probabilities to rank potential alternative recognitions.</span></span> <span data-ttu-id="6ed44-379">Грамматик со больших весов будет передавать несколько ранжировании альтернативы распознавания, чем грамматик с нижней весовые коэффициенты.</span><span class="sxs-lookup"><span data-stu-id="6ed44-379">Grammars with higher weights will contribute more to the ranking of recognition alternatives than grammars with lower weights.</span></span>  
+  
+ <span data-ttu-id="6ed44-380">Эффект <xref:System.Speech.Recognition.Grammar.Weight%2A> свойство распознавателя речи зависит от реализации распознавателя.</span><span class="sxs-lookup"><span data-stu-id="6ed44-380">The effect of the <xref:System.Speech.Recognition.Grammar.Weight%2A> property on a speech recognizer is dependent on the implementation of the recognizer.</span></span> <span data-ttu-id="6ed44-381">Несмотря на то что <xref:System.Speech.Recognition.Grammar.Weight%2A> свойство может использоваться для настройки точности распознавания речи для приложения, его следует использовать только после того, как управлять диагностики исследования распознавания конкретной среды и с полной информации о модуль распознавания в списке.</span><span class="sxs-lookup"><span data-stu-id="6ed44-381">Although the <xref:System.Speech.Recognition.Grammar.Weight%2A> property can be used to tune the accuracy of speech recognition for an application, it should be used only after controlled diagnostic study of a particular recognition environment and with full information about the recognition engine under use.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="6ed44-382">В следующем примере создается два <xref:System.Speech.Recognition.Grammar> объектов: цифр и для дробей.</span><span class="sxs-lookup"><span data-stu-id="6ed44-382">The following example creates two <xref:System.Speech.Recognition.Grammar> objects, one for digits and one for fractions.</span></span> <span data-ttu-id="6ed44-383"><xref:System.Speech.Recognition.Grammar> Объекты присвоения имен и относительные веса и приоритеты и распознавателем речи в процессе загрузки.</span><span class="sxs-lookup"><span data-stu-id="6ed44-383">The <xref:System.Speech.Recognition.Grammar> objects are assigned names and relative weights and priorities, and loaded by an in-process speech recognizer.</span></span> <span data-ttu-id="6ed44-384">`CreateDigitsGrammar`, `CreateFractionsGrammar`, И `recognizer_SpeechRecognized` методы здесь не показаны.</span><span class="sxs-lookup"><span data-stu-id="6ed44-384">The `CreateDigitsGrammar`, `CreateFractionsGrammar`, and `recognizer_SpeechRecognized` methods are not shown here.</span></span>  
+  
+```csharp  
+  
+// Create a Grammar for recognizing numeric digits.  
+Grammar digitsGrammar = CreateDigitsGrammar();  
+digitsGrammar.Name = "Digits Grammar";  
+digitsGrammar.Priority = 2;  
+digitsGrammar.Weight = 0.6f;  
+  
+// Create a Grammar for recognizing fractions.  
+Grammar fractionsGrammar = CreateFractionsGrammar();  
+fractionsGrammar.Name = "Fractions Grammar";  
+fractionsGrammar.Priority = 1;  
+fractionsGrammar.Weight = 1f;  
+  
+// Create an in-process speech recognizer.  
+SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine();  
+  
+recognizer.SpeechRecognized +=  
+  new EventHandler<SpeechRecognizedEventArgs>(  
+    recognizer_SpeechRecognized);  
+  
+// Load the digits and fractions Grammar objects.  
+recognizer.LoadGrammar(digitsGrammar);  
+recognizer.LoadGrammar(fractionsGrammar);  
+  
+// Start recognition.  
+recognizer.SetInputToDefaultAudioDevice();  
+recognizer.RecognizeAsync(RecognizeMode.Multiple);  
+```  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Speech.Recognition.Grammar.Loaded" />
+        <altmember cref="P:System.Speech.Recognition.Grammar.Enabled" />
+        <altmember cref="P:System.Speech.Recognition.Grammar.Priority" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognizer" />
+        <altmember cref="T:System.Speech.Recognition.SpeechRecognitionEngine" />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

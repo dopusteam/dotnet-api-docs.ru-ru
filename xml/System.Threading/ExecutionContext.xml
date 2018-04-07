@@ -1,0 +1,607 @@
+<Type Name="ExecutionContext" FullName="System.Threading.ExecutionContext">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="2d11eb2e08ac5047a81064d0fe34fde568252e1d" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class ExecutionContext : IDisposable, System.Runtime.Serialization.ISerializable" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit ExecutionContext extends System.Object implements class System.IDisposable, class System.Runtime.Serialization.ISerializable" />
+  <TypeSignature Language="DocId" Value="T:System.Threading.ExecutionContext" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class ExecutionContext&#xA;Implements IDisposable, ISerializable" />
+  <TypeSignature Language="C++ CLI" Value="public ref class ExecutionContext sealed : IDisposable, System::Runtime::Serialization::ISerializable" />
+  <AssemblyInfo>
+    <AssemblyName>System.Threading</AssemblyName>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.IDisposable</InterfaceName>
+    </Interface>
+    <Interface>
+      <InterfaceName>System.Runtime.Serialization.ISerializable</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>
+      <span data-ttu-id="e3932-101">Управляет контекстом выполнения текущего потока.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="e3932-101">Manages the execution context for the current thread.</span>
+      </span>
+      <span data-ttu-id="e3932-102">Этот класс не наследуется.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="e3932-102">This class cannot be inherited.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e3932-103"><xref:System.Threading.ExecutionContext> Класс предоставляет один контейнер для все сведения, относящиеся к логический поток выполнения.</span><span class="sxs-lookup"><span data-stu-id="e3932-103">The <xref:System.Threading.ExecutionContext> class provides a single container for all information relevant to a logical thread of execution.</span></span> <span data-ttu-id="e3932-104">Это включает в себя контекст безопасности, контекст вызовов и контекст синхронизации.</span><span class="sxs-lookup"><span data-stu-id="e3932-104">This includes security context, call context, and synchronization context.</span></span>  
+  
+ <span data-ttu-id="e3932-105"><xref:System.Threading.ExecutionContext> Класс предоставляет функции для пользовательского кода для сбора и передачи этого контекста между определенными пользователем асинхронными точками.</span><span class="sxs-lookup"><span data-stu-id="e3932-105">The <xref:System.Threading.ExecutionContext> class provides the functionality for user code to capture and transfer this context across user-defined asynchronous points.</span></span> <span data-ttu-id="e3932-106">Общеязыковая среда выполнения гарантирует, что <xref:System.Threading.ExecutionContext> согласованную передачу через определенные среды выполнения асинхронные точки в пределах управляемого процесса.</span><span class="sxs-lookup"><span data-stu-id="e3932-106">The common language runtime ensures that the <xref:System.Threading.ExecutionContext> is consistently transferred across runtime-defined asynchronous points within the managed process.</span></span>  
+  
+ <span data-ttu-id="e3932-107">Контекст выполнения является управляемым эквивалентом апартамента СОМ.</span><span class="sxs-lookup"><span data-stu-id="e3932-107">An execution context is the managed equivalent of a COM apartment.</span></span> <span data-ttu-id="e3932-108">Контекст выполнения всей внутри домена приложения, необходимо перенести всякий раз, когда передается поток.</span><span class="sxs-lookup"><span data-stu-id="e3932-108">Within an application domain, the entire execution context must be transferred whenever a thread is transferred.</span></span> <span data-ttu-id="e3932-109">Такая ситуация возникает при передаче внесенных <xref:System.Threading.Thread.Start%2A?displayProperty=nameWithType> метода, большинство операций пула потоков и Windows Forms потока маршалинге через конвейер сообщений Windows.</span><span class="sxs-lookup"><span data-stu-id="e3932-109">This situation occurs during transfers made by the <xref:System.Threading.Thread.Start%2A?displayProperty=nameWithType> method, most thread pool operations, and Windows Forms thread marshaling through the Windows message pump.</span></span> <span data-ttu-id="e3932-110">Этого не происходит в операциях небезопасный потоков пула (например, <xref:System.Threading.ThreadPool.UnsafeQueueUserWorkItem%2A> метод), не передают сжатый стек.</span><span class="sxs-lookup"><span data-stu-id="e3932-110">It does not occur in unsafe thread pool operations (such as the <xref:System.Threading.ThreadPool.UnsafeQueueUserWorkItem%2A> method), which do not transfer the compressed stack.</span></span> <span data-ttu-id="e3932-111">Везде, где сжатого стека потоков, управляемых участника, синхронизации, языкового стандарта и контекст пользователя также потока.</span><span class="sxs-lookup"><span data-stu-id="e3932-111">Wherever the compressed stack flows, the managed principal, synchronization, locale, and user context also flow.</span></span> <span data-ttu-id="e3932-112"><xref:System.Threading.ExecutionContext> Класс предоставляет <xref:System.Threading.ExecutionContext.Capture%2A> и <xref:System.Threading.ExecutionContext.CreateCopy%2A> способа получить контекст выполнения и <xref:System.Threading.ExecutionContext.Run%2A> метод, чтобы задать контекст выполнения для текущего потока.</span><span class="sxs-lookup"><span data-stu-id="e3932-112">The <xref:System.Threading.ExecutionContext> class provides the <xref:System.Threading.ExecutionContext.Capture%2A> and <xref:System.Threading.ExecutionContext.CreateCopy%2A> methods to get the execution context and the <xref:System.Threading.ExecutionContext.Run%2A> method to set the execution context for the current thread.</span></span>  
+  
+ <span data-ttu-id="e3932-113"><xref:System.Threading.ExecutionContext> Связанное с потоком, нельзя задать в другом потоке.</span><span class="sxs-lookup"><span data-stu-id="e3932-113">An <xref:System.Threading.ExecutionContext> that is associated with a thread cannot be set on another thread.</span></span> <span data-ttu-id="e3932-114">Попытка сделать это приведет к созданию исключения.</span><span class="sxs-lookup"><span data-stu-id="e3932-114">Attempting to do so will result in an exception being thrown.</span></span> <span data-ttu-id="e3932-115">Для распространения <xref:System.Threading.ExecutionContext> из одного потока в другой, создайте копию <xref:System.Threading.ExecutionContext>.</span><span class="sxs-lookup"><span data-stu-id="e3932-115">To propagate the <xref:System.Threading.ExecutionContext> from one thread to another, make a copy of the <xref:System.Threading.ExecutionContext>.</span></span>  
+  
+ <span data-ttu-id="e3932-116">На внутреннем уровне <xref:System.Threading.ExecutionContext> хранит все данные, связанные с <xref:System.Runtime.Remoting.Messaging.LogicalCallContext>.</span><span class="sxs-lookup"><span data-stu-id="e3932-116">Internally, the <xref:System.Threading.ExecutionContext> stores all data that is associated with the <xref:System.Runtime.Remoting.Messaging.LogicalCallContext>.</span></span> <span data-ttu-id="e3932-117">Это позволяет <xref:System.Runtime.Remoting.Messaging.LogicalCallContext> данных будет распространено при <xref:System.Threading.ExecutionContext> копируется и переносится.</span><span class="sxs-lookup"><span data-stu-id="e3932-117">This allows the <xref:System.Runtime.Remoting.Messaging.LogicalCallContext> data to be propagated when the <xref:System.Threading.ExecutionContext> is copied and transferred.</span></span>  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="Capture">
+      <MemberSignature Language="C#" Value="public static System.Threading.ExecutionContext Capture ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.ExecutionContext Capture() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.ExecutionContext.Capture" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function Capture () As ExecutionContext" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::ExecutionContext ^ Capture();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.ExecutionContext</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="e3932-118">Перехватывает контекст выполнения из текущего потока.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-118">Captures the execution context from the current thread.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="e3932-119">Объект <see cref="T:System.Threading.ExecutionContext" />, представляющий контекст выполнения хоста для текущего потока.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-119">An <see cref="T:System.Threading.ExecutionContext" /> object representing the execution context for the current thread.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e3932-120">Контекст выполнения, записанный можно использовать в качестве `executionContext` параметр <xref:System.Threading.ExecutionContext.Run%2A> метода.</span><span class="sxs-lookup"><span data-stu-id="e3932-120">The captured execution context can be used as the `executionContext` parameter for the <xref:System.Threading.ExecutionContext.Run%2A> method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateCopy">
+      <MemberSignature Language="C#" Value="public System.Threading.ExecutionContext CreateCopy ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Threading.ExecutionContext CreateCopy() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.ExecutionContext.CreateCopy" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateCopy () As ExecutionContext" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Threading::ExecutionContext ^ CreateCopy();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.ExecutionContext</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="e3932-121">Создает копию текущего контекста выполнения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-121">Creates a copy of the current execution context.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="e3932-122">Объект <see cref="T:System.Threading.ExecutionContext" />, представляющий контекст для текущего контекста выполнения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-122">An <see cref="T:System.Threading.ExecutionContext" /> object representing the current execution context.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e3932-123">Этот метод полезен для распространения контекста выполнения из одного потока в другой.</span><span class="sxs-lookup"><span data-stu-id="e3932-123">This method is useful for propagating an execution context from one thread to another.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="e3932-124">Данный контекст не может копироваться во время использования.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-124">This context cannot be copied because it is used.</span>
+          </span>
+          <span data-ttu-id="e3932-125">Могут быть скопированы только заново зарегистрированные контексты.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-125">Only newly captured contexts can be copied.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="public void Dispose ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Dispose() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.ExecutionContext.Dispose" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Dispose ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Dispose();" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.IDisposable.Dispose</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="e3932-126">Освобождает все ресурсы, используемые текущим экземпляром класса <see cref="T:System.Threading.ExecutionContext" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-126">Releases all resources used by the current instance of the <see cref="T:System.Threading.ExecutionContext" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e3932-127">Вызовите метод `Dispose` по окончании использования класса <xref:System.Threading.ExecutionContext>.</span><span class="sxs-lookup"><span data-stu-id="e3932-127">Call `Dispose` when you are finished using the <xref:System.Threading.ExecutionContext>.</span></span> <span data-ttu-id="e3932-128">Метод `Dispose` оставляет класс <xref:System.Threading.ExecutionContext> в непригодном для использования состоянии.</span><span class="sxs-lookup"><span data-stu-id="e3932-128">The `Dispose` method leaves the <xref:System.Threading.ExecutionContext> in an unusable state.</span></span> <span data-ttu-id="e3932-129">После вызова метода `Dispose`, необходимо освободить все ссылки на <xref:System.Threading.ExecutionContext> , сборщик мусора мог освободить память, <xref:System.Threading.ExecutionContext> занимаемую.</span><span class="sxs-lookup"><span data-stu-id="e3932-129">After calling `Dispose`, you must release all references to the <xref:System.Threading.ExecutionContext> so the garbage collector can reclaim the memory that the <xref:System.Threading.ExecutionContext> was occupying.</span></span>  
+  
+ <span data-ttu-id="e3932-130">Дополнительные сведения см. в разделе [очистки неуправляемых ресурсов](~/docs/standard/garbage-collection/unmanaged.md) и [метода](~/docs/standard/garbage-collection/implementing-dispose.md).</span><span class="sxs-lookup"><span data-stu-id="e3932-130">For more information, see [Cleaning Up Unmanaged Resources](~/docs/standard/garbage-collection/unmanaged.md) and [Implementing a Dispose Method](~/docs/standard/garbage-collection/implementing-dispose.md).</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="e3932-131">Всегда вызывайте метод `Dispose` перед освобождением последней ссылки на класс <xref:System.Threading.ExecutionContext>.</span><span class="sxs-lookup"><span data-stu-id="e3932-131">Always call `Dispose` before you release your last reference to the <xref:System.Threading.ExecutionContext>.</span></span> <span data-ttu-id="e3932-132">В противном случае используемые им ресурсы не будут освобождены до тех пор, пока сборщик мусора не вызовет для объекта <xref:System.Threading.ExecutionContext> метод `Finalize`.</span><span class="sxs-lookup"><span data-stu-id="e3932-132">Otherwise, the resources it is using will not be freed until the garbage collector calls the <xref:System.Threading.ExecutionContext> object's `Finalize` method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetObjectData">
+      <MemberSignature Language="C#" Value="public void GetObjectData (System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void GetObjectData(class System.Runtime.Serialization.SerializationInfo info, valuetype System.Runtime.Serialization.StreamingContext context) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.ExecutionContext.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub GetObjectData (info As SerializationInfo, context As StreamingContext)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void GetObjectData(System::Runtime::Serialization::SerializationInfo ^ info, System::Runtime::Serialization::StreamingContext context);" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Runtime.Serialization.ISerializable.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="info" Type="System.Runtime.Serialization.SerializationInfo" />
+        <Parameter Name="context" Type="System.Runtime.Serialization.StreamingContext" />
+      </Parameters>
+      <Docs>
+        <param name="info">
+          <span data-ttu-id="e3932-133">Объект <see cref="T:System.Runtime.Serialization.SerializationInfo" />, который будет заполняться сведениями о сериализации.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-133">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object to be populated with serialization information.</span>
+          </span>
+        </param>
+        <param name="context">
+          <span data-ttu-id="e3932-134">Структура <see cref="T:System.Runtime.Serialization.StreamingContext" />, представляющая контекст назначения сериализации.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-134">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> structure representing the destination context of the serialization.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e3932-135">Задает указанный объект <see cref="T:System.Runtime.Serialization.SerializationInfo" /> с информацией логического контекста необходимой для повторного создания экземпляра текущего контекста выполнения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-135">Sets the specified <see cref="T:System.Runtime.Serialization.SerializationInfo" /> object with the logical context information needed to recreate an instance of the current execution context.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e3932-136"><xref:System.Threading.ExecutionContext.GetObjectData%2A> Задает <xref:System.Runtime.Serialization.SerializationInfo> с логическим вызовов сведения о контексте.</span><span class="sxs-lookup"><span data-stu-id="e3932-136"><xref:System.Threading.ExecutionContext.GetObjectData%2A> sets a <xref:System.Runtime.Serialization.SerializationInfo> with the logical call context information.</span></span> <span data-ttu-id="e3932-137">Во время десериализации объекта контекста выполнения воссоздается из <xref:System.Runtime.Serialization.SerializationInfo> переданного в потоке.</span><span class="sxs-lookup"><span data-stu-id="e3932-137">During deserialization, the execution context object is reconstituted from the <xref:System.Runtime.Serialization.SerializationInfo> transmitted over the stream.</span></span>  
+  
+ <span data-ttu-id="e3932-138">Дополнительные сведения см. в разделе <xref:System.Runtime.Serialization.SerializationInfo>.</span><span class="sxs-lookup"><span data-stu-id="e3932-138">For more information, see <xref:System.Runtime.Serialization.SerializationInfo>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="e3932-139">Свойство <paramref name="info" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-139">
+              <paramref name="info" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="e3932-140">требуется полное доверие для непосредственно вызывающего метода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-140">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="e3932-141">Этот член не может использоваться частично доверенным или прозрачным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-141">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+        <altmember cref="T:System.Runtime.Serialization.SerializationInfo" />
+      </Docs>
+    </Member>
+    <Member MemberName="IsFlowSuppressed">
+      <MemberSignature Language="C#" Value="public static bool IsFlowSuppressed ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig bool IsFlowSuppressed() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.ExecutionContext.IsFlowSuppressed" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function IsFlowSuppressed () As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool IsFlowSuppressed();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="e3932-142">Указывает, подавляется ли в данное время переход контекста выполнения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-142">Indicates whether the flow of the execution context is currently suppressed.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="e3932-143">
+            <see langword="true" />, если переход подавляется; в противном случае <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-143">
+              <see langword="true" /> if the flow is suppressed; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e3932-144"><xref:System.Threading.ExecutionContext.IsFlowSuppressed%2A> Метод используется компонентами инфраструктуры, чтобы определить, следует ли переносить <xref:System.Threading.ExecutionContext> во время асинхронных операций.</span><span class="sxs-lookup"><span data-stu-id="e3932-144">The <xref:System.Threading.ExecutionContext.IsFlowSuppressed%2A> method is used by infrastructure components to determine whether to transfer the <xref:System.Threading.ExecutionContext> during asynchronous operations.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RestoreFlow">
+      <MemberSignature Language="C#" Value="public static void RestoreFlow ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void RestoreFlow() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.ExecutionContext.RestoreFlow" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Sub RestoreFlow ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void RestoreFlow();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="e3932-145">Восстанавливает перемещение контекста выполнения между асинхронными потоками.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-145">Restores the flow of the execution context across asynchronous threads.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e3932-146"><xref:System.Threading.ExecutionContext.RestoreFlow%2A> Отменяет эффект предыдущего <xref:System.Threading.ExecutionContext.SuppressFlow%2A> вызова метода.</span><span class="sxs-lookup"><span data-stu-id="e3932-146"><xref:System.Threading.ExecutionContext.RestoreFlow%2A> reverses the effect of a prior <xref:System.Threading.ExecutionContext.SuppressFlow%2A> method call.</span></span>  
+  
+ <span data-ttu-id="e3932-147">Этот метод вызывается методом <xref:System.Threading.AsyncFlowControl.Undo%2A> метод <xref:System.Threading.AsyncFlowControl> структуры, возвращенный <xref:System.Threading.ExecutionContext.SuppressFlow%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="e3932-147">This method is called by the <xref:System.Threading.AsyncFlowControl.Undo%2A> method of the <xref:System.Threading.AsyncFlowControl> structure returned by the <xref:System.Threading.ExecutionContext.SuppressFlow%2A> method.</span></span>  <span data-ttu-id="e3932-148">Следует использовать <xref:System.Threading.AsyncFlowControl.Undo%2A> метод, чтобы восстановить поток контекста выполнения, не <xref:System.Threading.ExecutionContext.RestoreFlow%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="e3932-148">You should use the <xref:System.Threading.AsyncFlowControl.Undo%2A> method to restore the flow of the execution context, not the <xref:System.Threading.ExecutionContext.RestoreFlow%2A> method.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="e3932-149">Перемещение контекста не может быть восстановлено, поскольку оно не было подавлено.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-149">The context flow cannot be restored because it is not being suppressed.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Run">
+      <MemberSignature Language="C#" Value="public static void Run (System.Threading.ExecutionContext executionContext, System.Threading.ContextCallback callback, object state);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Run(class System.Threading.ExecutionContext executionContext, class System.Threading.ContextCallback callback, object state) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext,System.Threading.ContextCallback,System.Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Run(System::Threading::ExecutionContext ^ executionContext, System::Threading::ContextCallback ^ callback, System::Object ^ state);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="executionContext" Type="System.Threading.ExecutionContext" />
+        <Parameter Name="callback" Type="System.Threading.ContextCallback" />
+        <Parameter Name="state" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="executionContext">
+          <span data-ttu-id="e3932-150">Записываемая задача <see cref="T:System.Threading.ExecutionContext" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-150">The <see cref="T:System.Threading.ExecutionContext" /> to set.</span>
+          </span>
+        </param>
+        <param name="callback">
+          <span data-ttu-id="e3932-151">Делегат <see cref="T:System.Threading.ContextCallback" />, представляющий выполняемый метод в предоставленном контексте выполнения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-151">A <see cref="T:System.Threading.ContextCallback" /> delegate that represents the method to be run in the provided execution context.</span>
+          </span>
+        </param>
+        <param name="state">
+          <span data-ttu-id="e3932-152">Данный объект передается в метод обратного вызова.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-152">The object to pass to the callback method.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="e3932-153">Выполняет метод в указанном контексте выполнения в текущем потоке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-153">Runs a method in a specified execution context on the current thread.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e3932-154">Контекст выполнения возвращается в предыдущее состояние, при завершении метода.</span><span class="sxs-lookup"><span data-stu-id="e3932-154">The execution context is returned to its previous state when the method completes.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="e3932-155">Свойство <paramref name="executionContext" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-155">
+              <paramref name="executionContext" /> is <see langword="null" />.</span>
+          </span>
+          <span data-ttu-id="e3932-156">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-156">-or-</span>
+          </span>
+          <span data-ttu-id="e3932-157">
+            <paramref name="executionContext" /> не был получен во время операции отслеживания.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-157">
+              <paramref name="executionContext" /> was not acquired through a capture operation.</span>
+          </span>
+          <span data-ttu-id="e3932-158">- или -</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-158">-or-</span>
+          </span>
+          <span data-ttu-id="e3932-159">
+            <paramref name="executionContext" /> уже использовался в качестве аргумента в вызове <see cref="M:System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext,System.Threading.ContextCallback,System.Object)" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-159">
+              <paramref name="executionContext" /> has already been used as the argument to a <see cref="M:System.Threading.ExecutionContext.Run(System.Threading.ExecutionContext,System.Threading.ContextCallback,System.Object)" /> call.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="e3932-160">требуется полное доверие для непосредственно вызывающего метода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-160">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="e3932-161">Этот член не может использоваться частично доверенным или прозрачным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-161">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+      </Docs>
+    </Member>
+    <Member MemberName="SuppressFlow">
+      <MemberSignature Language="C#" Value="public static System.Threading.AsyncFlowControl SuppressFlow ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig valuetype System.Threading.AsyncFlowControl SuppressFlow() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Threading.ExecutionContext.SuppressFlow" />
+      <MemberSignature Language="VB.NET" Value="Public Shared Function SuppressFlow () As AsyncFlowControl" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::AsyncFlowControl SuppressFlow();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.AsyncFlowControl</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="e3932-162">Подавляет перемещение контекста выполнения между асинхронными потоками.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-162">Suppresses the flow of the execution context across asynchronous threads.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="e3932-163">Структура <see cref="T:System.Threading.AsyncFlowControl" /> для восстановления перемещения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-163">An <see cref="T:System.Threading.AsyncFlowControl" /> structure for restoring the flow.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="e3932-164">Этот метод используется для подавления поток <xref:System.Threading.ExecutionContext> в текущем потоке.</span><span class="sxs-lookup"><span data-stu-id="e3932-164">Use this method to suppress the flow of the <xref:System.Threading.ExecutionContext> on the current thread.</span></span>  
+  
+ <span data-ttu-id="e3932-165">Необходимо использовать <xref:System.Threading.AsyncFlowControl.Undo%2A> метод в возвращенном <xref:System.Threading.AsyncFlowControl> структура для восстановления потока <xref:System.Threading.ExecutionContext>.</span><span class="sxs-lookup"><span data-stu-id="e3932-165">You must use the <xref:System.Threading.AsyncFlowControl.Undo%2A> method on the returned <xref:System.Threading.AsyncFlowControl> structure to restore the flow of the <xref:System.Threading.ExecutionContext>.</span></span>  
+  
+ <span data-ttu-id="e3932-166">Этот метод защищен с <xref:System.Security.Permissions.SecurityAction.LinkDemand?displayProperty=nameWithType> для <xref:System.Security.Permissions.SecurityPermissionFlag.Infrastructure?displayProperty=nameWithType> разрешение.</span><span class="sxs-lookup"><span data-stu-id="e3932-166">This method is protected with a <xref:System.Security.Permissions.SecurityAction.LinkDemand?displayProperty=nameWithType> for <xref:System.Security.Permissions.SecurityPermissionFlag.Infrastructure?displayProperty=nameWithType> permission.</span></span> <span data-ttu-id="e3932-167">Полностью доверенным компонентом можно вызвать этот метод для подавления поток <xref:System.Threading.ExecutionContext> во время асинхронных вызовов.</span><span class="sxs-lookup"><span data-stu-id="e3932-167">A fully trusted component can call this method to suppress the flow of the <xref:System.Threading.ExecutionContext> during asynchronous calls.</span></span> <span data-ttu-id="e3932-168">Хотя подавляется, <xref:System.Security.SecurityContext.Capture%2A> возвращает `null`.</span><span class="sxs-lookup"><span data-stu-id="e3932-168">While the flow is suppressed, the <xref:System.Security.SecurityContext.Capture%2A> method returns `null`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="e3932-169">Перемещение контекстов уже подавлено.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-169">The context flow is already suppressed.</span>
+          </span>
+        </exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">
+          <span data-ttu-id="e3932-170">требуется полное доверие для непосредственно вызывающего метода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-170">Requires full trust for the immediate caller.</span>
+          </span>
+          <span data-ttu-id="e3932-171">Этот член не может использоваться частично доверенным или прозрачным кодом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="e3932-171">This member cannot be used by partially trusted or transparent code.</span>
+          </span>
+        </permission>
+        <altmember cref="T:System.Threading.AsyncFlowControl" />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

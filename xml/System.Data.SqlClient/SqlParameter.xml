@@ -1,0 +1,2209 @@
+<Type Name="SqlParameter" FullName="System.Data.SqlClient.SqlParameter">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="b77abb964fc22cc3ca4ea5e480a7c854f8d4200f" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public sealed class SqlParameter : System.Data.Common.DbParameter, ICloneable" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed SqlParameter extends System.Data.Common.DbParameter implements class System.Data.IDataParameter, class System.Data.IDbDataParameter, class System.ICloneable" />
+  <TypeSignature Language="DocId" Value="T:System.Data.SqlClient.SqlParameter" />
+  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class SqlParameter&#xA;Inherits DbParameter&#xA;Implements ICloneable" />
+  <TypeSignature Language="C++ CLI" Value="public ref class SqlParameter sealed : System::Data::Common::DbParameter, ICloneable" />
+  <AssemblyInfo>
+    <AssemblyName>System.Data.SqlClient</AssemblyName>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Data</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Data.Common.DbParameter</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.ICloneable</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.ComponentModel.TypeConverter("System.Data.SqlClient.SqlParameter+SqlParameterConverter, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="98135-101">Предоставляет параметр для объекта <see cref="T:System.Data.SqlClient.SqlCommand" /> и, при необходимости, его отображение на <see cref="T:System.Data.DataSet" />.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="98135-101">Represents a parameter to a <see cref="T:System.Data.SqlClient.SqlCommand" /> and optionally its mapping to <see cref="T:System.Data.DataSet" /> columns.</span>
+      </span>
+      <span data-ttu-id="98135-102">Этот класс не наследуется.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="98135-102">This class cannot be inherited.</span>
+      </span>
+      <span data-ttu-id="98135-103">Дополнительные сведения о параметрах см. в разделе [Настройка параметров и типов данных параметров](~/docs/framework/data/adonet/configuring-parameters-and-parameter-data-types.md).</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="98135-103">For more information on parameters, see [Configuring Parameters and Parameter Data Types](~/docs/framework/data/adonet/configuring-parameters-and-parameter-data-types.md).</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-104">В именах параметров регистр символов не учитывается.</span><span class="sxs-lookup"><span data-stu-id="98135-104">Parameter names are not case sensitive.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="98135-105">Безымянные, также называемый порядковый номер, параметры не поддерживаются поставщиком данных .NET Framework для SQL Server.</span><span class="sxs-lookup"><span data-stu-id="98135-105">Nameless, also called ordinal, parameters are not supported by the .NET Framework Data Provider for SQL Server.</span></span>  
+  
+ <span data-ttu-id="98135-106">Дополнительные сведения, а также дополнительные примеры кода демонстрируются способы использования параметров, см [команд и параметров](~/docs/framework/data/adonet/commands-and-parameters.md).</span><span class="sxs-lookup"><span data-stu-id="98135-106">For more information, along with additional sample code demonstrating how to use parameters, see [Commands and Parameters](~/docs/framework/data/adonet/commands-and-parameters.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-107">В следующем примере создается несколько экземпляров <xref:System.Data.SqlClient.SqlParameter> через <xref:System.Data.SqlClient.SqlParameterCollection> коллекции в течение <xref:System.Data.SqlClient.SqlDataAdapter>.</span><span class="sxs-lookup"><span data-stu-id="98135-107">The following example creates multiple instances of <xref:System.Data.SqlClient.SqlParameter> through the <xref:System.Data.SqlClient.SqlParameterCollection> collection within the <xref:System.Data.SqlClient.SqlDataAdapter>.</span></span> <span data-ttu-id="98135-108">Эти параметры используются для выбора данных из источника данных и поместить данные в <xref:System.Data.DataSet>.</span><span class="sxs-lookup"><span data-stu-id="98135-108">These parameters are used to select data from the data source and put the data in the <xref:System.Data.DataSet>.</span></span> <span data-ttu-id="98135-109">В этом примере предполагается, что <xref:System.Data.DataSet> и <xref:System.Data.SqlClient.SqlDataAdapter> уже были созданы с помощью соответствующей схемы, команд и подключения.</span><span class="sxs-lookup"><span data-stu-id="98135-109">This example assumes that a <xref:System.Data.DataSet> and a <xref:System.Data.SqlClient.SqlDataAdapter> have already been created by using the appropriate schema, commands, and connection.</span></span> <span data-ttu-id="98135-110">Дополнительные сведения и примеры использования параметров см. в разделе [получение и изменение данных в ADO.NET](~/docs/framework/data/adonet/retrieving-and-modifying-data.md) и [Настройка параметров и типов данных параметров](~/docs/framework/data/adonet/configuring-parameters-and-parameter-data-types.md).</span><span class="sxs-lookup"><span data-stu-id="98135-110">For more information and additional examples on using parameters, see [Retrieving and Modifying Data in ADO.NET](~/docs/framework/data/adonet/retrieving-and-modifying-data.md) and [Configuring Parameters and Parameter Data Types](~/docs/framework/data/adonet/configuring-parameters-and-parameter-data-types.md).</span></span>  
+  
+ [!code-csharp[Classic WebData SqlParameter Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlParameter Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData SqlParameter Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlParameter Example/VB/source.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Data.SqlClient.SqlParameterCollection" />
+    <altmember cref="T:System.Data.SqlClient.SqlCommand" />
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-111">Инициализирует новый экземпляр класса <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-111">Initializes a new instance of the <see cref="T:System.Data.SqlClient.SqlParameter" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlParameter ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlParameter();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-112">Инициализирует новый экземпляр класса <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-112">Initializes a new instance of the <see cref="T:System.Data.SqlClient.SqlParameter" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="98135-113">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-113">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[Classic WebData SqlParameter.SqlParameter Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData SqlParameter.SqlParameter Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlParameter (string parameterName, System.Data.SqlDbType dbType);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string parameterName, valuetype System.Data.SqlDbType dbType) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.#ctor(System.String,System.Data.SqlDbType)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (parameterName As String, dbType As SqlDbType)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlParameter(System::String ^ parameterName, System::Data::SqlDbType dbType);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="parameterName" Type="System.String" />
+        <Parameter Name="dbType" Type="System.Data.SqlDbType" />
+      </Parameters>
+      <Docs>
+        <param name="parameterName">
+          <span data-ttu-id="98135-114">Имя сопоставляемого параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-114">The name of the parameter to map.</span>
+          </span>
+        </param>
+        <param name="dbType">
+          <span data-ttu-id="98135-115">Одно из значений перечисления <see cref="T:System.Data.SqlDbType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-115">One of the <see cref="T:System.Data.SqlDbType" /> values.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="98135-116">Инициализирует новый экземпляр класса <see cref="T:System.Data.SqlClient.SqlParameter" />, использующий имя параметра и тип данных.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-116">Initializes a new instance of the <see cref="T:System.Data.SqlClient.SqlParameter" /> class that uses the parameter name and the data type.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-117">Тип данных и при необходимости, **размер** и <xref:System.Data.SqlClient.SqlParameter.Precision%2A> выводятся из значения `dbType` параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-117">The data type and, if appropriate, **Size** and <xref:System.Data.SqlClient.SqlParameter.Precision%2A> are inferred from the value of the `dbType` parameter.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-118">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-118">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[Classic WebData SqlParameter.SqlParameter2 Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter2 Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData SqlParameter.SqlParameter2 Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter2 Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="98135-119">Значение, передаваемое в параметре <paramref name="dbType" />, имеет недопустимый тип внутренних данных.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-119">The value supplied in the <paramref name="dbType" /> parameter is an invalid back-end data type.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlParameter (string parameterName, object value);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string parameterName, object value) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.#ctor(System.String,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (parameterName As String, value As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlParameter(System::String ^ parameterName, System::Object ^ value);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="parameterName" Type="System.String" />
+        <Parameter Name="value" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="parameterName">
+          <span data-ttu-id="98135-120">Имя сопоставляемого параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-120">The name of the parameter to map.</span>
+          </span>
+        </param>
+        <param name="value">
+          <span data-ttu-id="98135-121">Объект <see cref="T:System.Object" />, который является значением <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-121">An <see cref="T:System.Object" /> that is the value of the <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="98135-122">Инициализирует новый экземпляр класса <see cref="T:System.Data.SqlClient.SqlParameter" />, использующий имя параметра и значение нового объекта <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-122">Initializes a new instance of the <see cref="T:System.Data.SqlClient.SqlParameter" /> class that uses the parameter name and a value of the new <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-123">При указании <xref:System.Object> в `value` параметр <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> выводится из типа Microsoft .NET Framework <xref:System.Object>.</span><span class="sxs-lookup"><span data-stu-id="98135-123">When you specify an <xref:System.Object> in the `value` parameter, the <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> is inferred from the Microsoft .NET Framework type of the <xref:System.Object>.</span></span>  
+  
+ <span data-ttu-id="98135-124">Соблюдайте осторожность при использовании перегруженного <xref:System.Data.SqlClient.SqlParameter> конструктор для задания целочисленных значений параметров.</span><span class="sxs-lookup"><span data-stu-id="98135-124">Use caution when you use this overload of the <xref:System.Data.SqlClient.SqlParameter> constructor to specify integer parameter values.</span></span> <span data-ttu-id="98135-125">Поскольку данная перегруженная версия принимает параметр `value` типа <xref:System.Object>, необходимо преобразовать целочисленное значение в тип <xref:System.Object>, когда значение равно нулю, как показано в следующем примере на C#.</span><span class="sxs-lookup"><span data-stu-id="98135-125">Because this overload takes a `value` of type <xref:System.Object>, you must convert the integral value to an <xref:System.Object> type when the value is zero, as the following C# example demonstrates.</span></span>  
+  
+```  
+Parameter = new SqlParameter("@pname", (object)0);  
+```  
+  
+ <span data-ttu-id="98135-126">Если такое преобразование не выполнено, компилятор предполагает, что вы пытаетесь вызвать `SqlParameter` (`string`, `SqlDbType`) перегрузку конструктора.</span><span class="sxs-lookup"><span data-stu-id="98135-126">If you do not perform this conversion, the compiler assumes that you are trying to call the `SqlParameter` (`string`, `SqlDbType`) constructor overload.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-127">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-127">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[Classic WebData SqlParameter.SqlParameter6 Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter6 Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData SqlParameter.SqlParameter6 Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter6 Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlParameter (string parameterName, System.Data.SqlDbType dbType, int size);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string parameterName, valuetype System.Data.SqlDbType dbType, int32 size) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.#ctor(System.String,System.Data.SqlDbType,System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (parameterName As String, dbType As SqlDbType, size As Integer)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlParameter(System::String ^ parameterName, System::Data::SqlDbType dbType, int size);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="parameterName" Type="System.String" />
+        <Parameter Name="dbType" Type="System.Data.SqlDbType" />
+        <Parameter Name="size" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="parameterName">
+          <span data-ttu-id="98135-128">Имя сопоставляемого параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-128">The name of the parameter to map.</span>
+          </span>
+        </param>
+        <param name="dbType">
+          <span data-ttu-id="98135-129">Одно из значений перечисления <see cref="T:System.Data.SqlDbType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-129">One of the <see cref="T:System.Data.SqlDbType" /> values.</span>
+          </span>
+        </param>
+        <param name="size">
+          <span data-ttu-id="98135-130">Длина параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-130">The length of the parameter.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="98135-131">Инициализирует новый экземпляр класса <see cref="T:System.Data.SqlClient.SqlParameter" />, использующий имя параметра, <see cref="T:System.Data.SqlDbType" /> и размер.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-131">Initializes a new instance of the <see cref="T:System.Data.SqlClient.SqlParameter" /> class that uses the parameter name, the <see cref="T:System.Data.SqlDbType" />, and the size.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-132">**Размер** выводится из значения `dbType` параметра, если оно не задано явно в `size` параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-132">The **Size** is inferred from the value of the `dbType` parameter if it is not explicitly set in the `size` parameter.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-133">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-133">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[Classic WebData SqlParameter.SqlParameter4 Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter4 Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData SqlParameter.SqlParameter4 Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter4 Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="98135-134">Значение, передаваемое в параметре <paramref name="dbType" />, имеет недопустимый тип внутренних данных.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-134">The value supplied in the <paramref name="dbType" /> parameter is an invalid back-end data type.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlParameter (string parameterName, System.Data.SqlDbType dbType, int size, string sourceColumn);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string parameterName, valuetype System.Data.SqlDbType dbType, int32 size, string sourceColumn) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.#ctor(System.String,System.Data.SqlDbType,System.Int32,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (parameterName As String, dbType As SqlDbType, size As Integer, sourceColumn As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlParameter(System::String ^ parameterName, System::Data::SqlDbType dbType, int size, System::String ^ sourceColumn);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="parameterName" Type="System.String" />
+        <Parameter Name="dbType" Type="System.Data.SqlDbType" />
+        <Parameter Name="size" Type="System.Int32" />
+        <Parameter Name="sourceColumn" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="parameterName">
+          <span data-ttu-id="98135-135">Имя сопоставляемого параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-135">The name of the parameter to map.</span>
+          </span>
+        </param>
+        <param name="dbType">
+          <span data-ttu-id="98135-136">Одно из значений перечисления <see cref="T:System.Data.SqlDbType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-136">One of the <see cref="T:System.Data.SqlDbType" /> values.</span>
+          </span>
+        </param>
+        <param name="size">
+          <span data-ttu-id="98135-137">Длина параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-137">The length of the parameter.</span>
+          </span>
+        </param>
+        <param name="sourceColumn">
+          <span data-ttu-id="98135-138">Имя исходного столбца (<see cref="P:System.Data.SqlClient.SqlParameter.SourceColumn" />), если этот <see cref="T:System.Data.SqlClient.SqlParameter" /> используется при вызове <see cref="Overload:System.Data.Common.DbDataAdapter.Update" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-138">The name of the source column (<see cref="P:System.Data.SqlClient.SqlParameter.SourceColumn" />) if this <see cref="T:System.Data.SqlClient.SqlParameter" /> is used in a call to <see cref="Overload:System.Data.Common.DbDataAdapter.Update" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="98135-139">Инициализирует новый экземпляр класса <see cref="T:System.Data.SqlClient.SqlParameter" />, использующий имя параметра, <see cref="T:System.Data.SqlDbType" />, размер и имя исходного столбца.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-139">Initializes a new instance of the <see cref="T:System.Data.SqlClient.SqlParameter" /> class that uses the parameter name, the <see cref="T:System.Data.SqlDbType" />, the size, and the source column name.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-140">**Размер** выводится из значения `dbType` параметра, если оно не задано явно в `size` параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-140">The **Size** is inferred from the value of the `dbType` parameter if it is not explicitly set in the `size` parameter.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-141">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-141">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[Classic WebData SqlParameter.SqlParameter5 Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter5 Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData SqlParameter.SqlParameter5 Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter5 Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="98135-142">Значение, передаваемое в параметре <paramref name="dbType" />, имеет недопустимый тип внутренних данных.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-142">The value supplied in the <paramref name="dbType" /> parameter is an invalid back-end data type.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlParameter (string parameterName, System.Data.SqlDbType dbType, int size, System.Data.ParameterDirection direction, bool isNullable, byte precision, byte scale, string sourceColumn, System.Data.DataRowVersion sourceVersion, object value);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string parameterName, valuetype System.Data.SqlDbType dbType, int32 size, valuetype System.Data.ParameterDirection direction, bool isNullable, unsigned int8 precision, unsigned int8 scale, string sourceColumn, valuetype System.Data.DataRowVersion sourceVersion, object value) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.#ctor(System.String,System.Data.SqlDbType,System.Int32,System.Data.ParameterDirection,System.Boolean,System.Byte,System.Byte,System.String,System.Data.DataRowVersion,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (parameterName As String, dbType As SqlDbType, size As Integer, direction As ParameterDirection, isNullable As Boolean, precision As Byte, scale As Byte, sourceColumn As String, sourceVersion As DataRowVersion, value As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlParameter(System::String ^ parameterName, System::Data::SqlDbType dbType, int size, System::Data::ParameterDirection direction, bool isNullable, System::Byte precision, System::Byte scale, System::String ^ sourceColumn, System::Data::DataRowVersion sourceVersion, System::Object ^ value);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="parameterName" Type="System.String" />
+        <Parameter Name="dbType" Type="System.Data.SqlDbType" />
+        <Parameter Name="size" Type="System.Int32" />
+        <Parameter Name="direction" Type="System.Data.ParameterDirection" />
+        <Parameter Name="isNullable" Type="System.Boolean" />
+        <Parameter Name="precision" Type="System.Byte" />
+        <Parameter Name="scale" Type="System.Byte" />
+        <Parameter Name="sourceColumn" Type="System.String" />
+        <Parameter Name="sourceVersion" Type="System.Data.DataRowVersion" />
+        <Parameter Name="value" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="parameterName">
+          <span data-ttu-id="98135-143">Имя сопоставляемого параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-143">The name of the parameter to map.</span>
+          </span>
+        </param>
+        <param name="dbType">
+          <span data-ttu-id="98135-144">Одно из значений перечисления <see cref="T:System.Data.SqlDbType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-144">One of the <see cref="T:System.Data.SqlDbType" /> values.</span>
+          </span>
+        </param>
+        <param name="size">
+          <span data-ttu-id="98135-145">Длина параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-145">The length of the parameter.</span>
+          </span>
+        </param>
+        <param name="direction">
+          <span data-ttu-id="98135-146">Одно из значений перечисления <see cref="T:System.Data.ParameterDirection" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-146">One of the <see cref="T:System.Data.ParameterDirection" /> values.</span>
+          </span>
+        </param>
+        <param name="isNullable">
+          <span data-ttu-id="98135-147">Значение <see langword="true" />, если поле допускает значение NULL, значение <see langword="false" /> — в противном случае.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-147">
+              <see langword="true" /> if the value of the field can be null; otherwise <see langword="false" />.</span>
+          </span>
+        </param>
+        <param name="precision">
+          <span data-ttu-id="98135-148">Общее число разрядов слева и справа от десятичной запятой, до которого вычисляется значения <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-148">The total number of digits to the left and right of the decimal point to which <see cref="P:System.Data.SqlClient.SqlParameter.Value" /> is resolved.</span>
+          </span>
+        </param>
+        <param name="scale">
+          <span data-ttu-id="98135-149">Общее число десятичных разрядов, до которого вычисляется значение <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-149">The total number of decimal places to which <see cref="P:System.Data.SqlClient.SqlParameter.Value" /> is resolved.</span>
+          </span>
+        </param>
+        <param name="sourceColumn">
+          <span data-ttu-id="98135-150">Имя исходного столбца (<see cref="P:System.Data.SqlClient.SqlParameter.SourceColumn" />), если этот <see cref="T:System.Data.SqlClient.SqlParameter" /> используется при вызове <see cref="Overload:System.Data.Common.DbDataAdapter.Update" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-150">The name of the source column (<see cref="P:System.Data.SqlClient.SqlParameter.SourceColumn" />) if this <see cref="T:System.Data.SqlClient.SqlParameter" /> is used in a call to <see cref="Overload:System.Data.Common.DbDataAdapter.Update" />.</span>
+          </span>
+        </param>
+        <param name="sourceVersion">
+          <span data-ttu-id="98135-151">Одно из значений перечисления <see cref="T:System.Data.DataRowVersion" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-151">One of the <see cref="T:System.Data.DataRowVersion" /> values.</span>
+          </span>
+        </param>
+        <param name="value">
+          <span data-ttu-id="98135-152">Объект <see cref="T:System.Object" />, который является значением <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-152">An <see cref="T:System.Object" /> that is the value of the <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="98135-153">Инициализирует новый экземпляр класса <see cref="T:System.Data.SqlClient.SqlParameter" />, использующий имя, тип, размер параметра, значение <see cref="T:System.Data.ParameterDirection" />, точность параметра, количество десятичных знаков, исходный столбец, используемое значение <see cref="T:System.Data.DataRowVersion" /> и значение параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-153">Initializes a new instance of the <see cref="T:System.Data.SqlClient.SqlParameter" /> class that uses the parameter name, the type of the parameter, the size of the parameter, a <see cref="T:System.Data.ParameterDirection" />, the precision of the parameter, the scale of the parameter, the source column, a <see cref="T:System.Data.DataRowVersion" /> to use, and the value of the parameter.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-154">**Размер** и <xref:System.Data.SqlClient.SqlParameter.Precision%2A> выводятся из значения `dbType` параметра, если они не заданы явным образом `size` и `precision` параметров.</span><span class="sxs-lookup"><span data-stu-id="98135-154">The **Size** and <xref:System.Data.SqlClient.SqlParameter.Precision%2A> are inferred from the value of the `dbType` parameter if they are not explicitly set in the `size` and `precision` parameters.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-155">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-155">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[Classic WebData SqlParameter.SqlParameter1 Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter1 Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData SqlParameter.SqlParameter1 Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlParameter.SqlParameter1 Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="98135-156">Значение, передаваемое в параметре <paramref name="dbType" />, имеет недопустимый тип внутренних данных.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-156">The value supplied in the <paramref name="dbType" /> parameter is an invalid back-end data type.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public SqlParameter (string parameterName, System.Data.SqlDbType dbType, int size, System.Data.ParameterDirection direction, byte precision, byte scale, string sourceColumn, System.Data.DataRowVersion sourceVersion, bool sourceColumnNullMapping, object value, string xmlSchemaCollectionDatabase, string xmlSchemaCollectionOwningSchema, string xmlSchemaCollectionName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string parameterName, valuetype System.Data.SqlDbType dbType, int32 size, valuetype System.Data.ParameterDirection direction, unsigned int8 precision, unsigned int8 scale, string sourceColumn, valuetype System.Data.DataRowVersion sourceVersion, bool sourceColumnNullMapping, object value, string xmlSchemaCollectionDatabase, string xmlSchemaCollectionOwningSchema, string xmlSchemaCollectionName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.#ctor(System.String,System.Data.SqlDbType,System.Int32,System.Data.ParameterDirection,System.Byte,System.Byte,System.String,System.Data.DataRowVersion,System.Boolean,System.Object,System.String,System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (parameterName As String, dbType As SqlDbType, size As Integer, direction As ParameterDirection, precision As Byte, scale As Byte, sourceColumn As String, sourceVersion As DataRowVersion, sourceColumnNullMapping As Boolean, value As Object, xmlSchemaCollectionDatabase As String, xmlSchemaCollectionOwningSchema As String, xmlSchemaCollectionName As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; SqlParameter(System::String ^ parameterName, System::Data::SqlDbType dbType, int size, System::Data::ParameterDirection direction, System::Byte precision, System::Byte scale, System::String ^ sourceColumn, System::Data::DataRowVersion sourceVersion, bool sourceColumnNullMapping, System::Object ^ value, System::String ^ xmlSchemaCollectionDatabase, System::String ^ xmlSchemaCollectionOwningSchema, System::String ^ xmlSchemaCollectionName);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="parameterName" Type="System.String" />
+        <Parameter Name="dbType" Type="System.Data.SqlDbType" />
+        <Parameter Name="size" Type="System.Int32" />
+        <Parameter Name="direction" Type="System.Data.ParameterDirection" />
+        <Parameter Name="precision" Type="System.Byte" />
+        <Parameter Name="scale" Type="System.Byte" />
+        <Parameter Name="sourceColumn" Type="System.String" />
+        <Parameter Name="sourceVersion" Type="System.Data.DataRowVersion" />
+        <Parameter Name="sourceColumnNullMapping" Type="System.Boolean" />
+        <Parameter Name="value" Type="System.Object" />
+        <Parameter Name="xmlSchemaCollectionDatabase" Type="System.String" />
+        <Parameter Name="xmlSchemaCollectionOwningSchema" Type="System.String" />
+        <Parameter Name="xmlSchemaCollectionName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="parameterName">
+          <span data-ttu-id="98135-157">Имя сопоставляемого параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-157">The name of the parameter to map.</span>
+          </span>
+        </param>
+        <param name="dbType">
+          <span data-ttu-id="98135-158">Одно из значений перечисления <see cref="T:System.Data.SqlDbType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-158">One of the <see cref="T:System.Data.SqlDbType" /> values.</span>
+          </span>
+        </param>
+        <param name="size">
+          <span data-ttu-id="98135-159">Длина параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-159">The length of the parameter.</span>
+          </span>
+        </param>
+        <param name="direction">
+          <span data-ttu-id="98135-160">Одно из значений перечисления <see cref="T:System.Data.ParameterDirection" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-160">One of the <see cref="T:System.Data.ParameterDirection" /> values.</span>
+          </span>
+        </param>
+        <param name="precision">
+          <span data-ttu-id="98135-161">Общее число разрядов слева и справа от десятичной запятой, до которого вычисляется значения <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-161">The total number of digits to the left and right of the decimal point to which <see cref="P:System.Data.SqlClient.SqlParameter.Value" /> is resolved.</span>
+          </span>
+        </param>
+        <param name="scale">
+          <span data-ttu-id="98135-162">Общее число десятичных разрядов, до которого вычисляется значение <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-162">The total number of decimal places to which <see cref="P:System.Data.SqlClient.SqlParameter.Value" /> is resolved.</span>
+          </span>
+        </param>
+        <param name="sourceColumn">
+          <span data-ttu-id="98135-163">Имя исходного столбца (<see cref="P:System.Data.SqlClient.SqlParameter.SourceColumn" />), если этот <see cref="T:System.Data.SqlClient.SqlParameter" /> используется при вызове <see cref="Overload:System.Data.Common.DbDataAdapter.Update" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-163">The name of the source column (<see cref="P:System.Data.SqlClient.SqlParameter.SourceColumn" />) if this <see cref="T:System.Data.SqlClient.SqlParameter" /> is used in a call to <see cref="Overload:System.Data.Common.DbDataAdapter.Update" />.</span>
+          </span>
+        </param>
+        <param name="sourceVersion">
+          <span data-ttu-id="98135-164">Одно из значений перечисления <see cref="T:System.Data.DataRowVersion" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-164">One of the <see cref="T:System.Data.DataRowVersion" /> values.</span>
+          </span>
+        </param>
+        <param name="sourceColumnNullMapping">
+          <span data-ttu-id="98135-165">Значение <see langword="true" />, если исходный столбец допускает значение NULL; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-165">
+              <see langword="true" /> if the source column is nullable; <see langword="false" /> if it is not.</span>
+          </span>
+        </param>
+        <param name="value">
+          <span data-ttu-id="98135-166">Объект <see cref="T:System.Object" />, который является значением <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-166">An <see cref="T:System.Object" /> that is the value of the <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          </span>
+        </param>
+        <param name="xmlSchemaCollectionDatabase">
+          <span data-ttu-id="98135-167">Имя базы данных, в которой находится коллекция схем для данного экземпляра XML.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-167">The name of the database where the schema collection for this XML instance is located.</span>
+          </span>
+        </param>
+        <param name="xmlSchemaCollectionOwningSchema">
+          <span data-ttu-id="98135-168">Реляционная схема-владелец, в которой находится коллекция схем для данного экземпляра XML.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-168">The owning relational schema where the schema collection for this XML instance is located.</span>
+          </span>
+        </param>
+        <param name="xmlSchemaCollectionName">
+          <span data-ttu-id="98135-169">Имя коллекции схем для данного параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-169">The name of the schema collection for this parameter.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="98135-170">Инициализирует новый экземпляр класса <see cref="T:System.Data.SqlClient.SqlParameter" />, использующий имя параметра, его тип, длину, направление, точность, число десятичных знаков, имя исходного столбца, одно из значений <see cref="T:System.Data.DataRowVersion" />, логическое значение для сопоставления столбцов источника, значение <see langword="SqlParameter" />, имя базы данных, содержащей коллекцию схемы для данного экземпляра XML, реляционную схему-владелец, в которой содержится коллекция схемы для данного экземпляра XML, а также имя коллекции схемы для этого параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-170">Initializes a new instance of the <see cref="T:System.Data.SqlClient.SqlParameter" /> class that uses the parameter name, the type of the parameter, the length of the parameter the direction, the precision, the scale, the name of the source column, one of the <see cref="T:System.Data.DataRowVersion" /> values, a Boolean for source column mapping, the value of the <see langword="SqlParameter" />, the name of the database where the schema collection for this XML instance is located, the owning relational schema where the schema collection for this XML instance is located, and the name of the schema collection for this parameter.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-171"><xref:System.Data.SqlClient.SqlParameter.Size%2A> И <xref:System.Data.SqlClient.SqlParameter.Precision%2A> выводятся из значения `dbType` параметра, если они не заданы явным образом `size` и `precision` параметров.</span><span class="sxs-lookup"><span data-stu-id="98135-171">The <xref:System.Data.SqlClient.SqlParameter.Size%2A> and <xref:System.Data.SqlClient.SqlParameter.Precision%2A> are inferred from the value of the `dbType` parameter if they are not explicitly set in the `size` and `precision` parameters.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CompareInfo">
+      <MemberSignature Language="C#" Value="public System.Data.SqlTypes.SqlCompareOptions CompareInfo { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Data.SqlTypes.SqlCompareOptions CompareInfo" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.CompareInfo" />
+      <MemberSignature Language="VB.NET" Value="Public Property CompareInfo As SqlCompareOptions" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Data::SqlTypes::SqlCompareOptions CompareInfo { System::Data::SqlTypes::SqlCompareOptions get(); void set(System::Data::SqlTypes::SqlCompareOptions value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Data.SqlTypes.SqlCompareOptions</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-172">Получает или задает объект <see cref="T:System.Globalization.CompareInfo" />, который определяет порядок сравнения строк для этого параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-172">Gets or sets the <see cref="T:System.Globalization.CompareInfo" /> object that defines how string comparisons should be performed for this parameter.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-173">Объект <see cref="T:System.Globalization.CompareInfo" />, который определяет сравнение строк для этого параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-173">A <see cref="T:System.Globalization.CompareInfo" /> object that defines string comparison for this parameter.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="DbType">
+      <MemberSignature Language="C#" Value="public override System.Data.DbType DbType { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Data.DbType DbType" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.DbType" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property DbType As DbType" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Data::DbType DbType { System::Data::DbType get(); void set(System::Data::DbType value); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Data.IDataParameter.DbType</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.DbType</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-174">Возвращает или устанавливает тип <see cref="T:System.Data.SqlDbType" /> параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-174">Gets or sets the <see cref="T:System.Data.SqlDbType" /> of the parameter.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-175">Одно из значений перечисления <see cref="T:System.Data.SqlDbType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-175">One of the <see cref="T:System.Data.SqlDbType" /> values.</span>
+          </span>
+          <span data-ttu-id="98135-176">Значение по умолчанию: <see langword="NVarChar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-176">The default is <see langword="NVarChar" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-177"><xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> И <xref:System.Data.SqlClient.SqlParameter.DbType%2A> связаны.</span><span class="sxs-lookup"><span data-stu-id="98135-177">The <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> and <xref:System.Data.SqlClient.SqlParameter.DbType%2A> are linked.</span></span> <span data-ttu-id="98135-178">Таким образом, задание <xref:System.Data.SqlClient.SqlParameter.DbType%2A> изменения <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> на поддерживаемый <xref:System.Data.SqlDbType>.</span><span class="sxs-lookup"><span data-stu-id="98135-178">Therefore, setting the <xref:System.Data.SqlClient.SqlParameter.DbType%2A> changes the <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> to a supporting <xref:System.Data.SqlDbType>.</span></span>  
+  
+ <span data-ttu-id="98135-179">Список поддерживаемых типов данных см. в разделе соответствующего <xref:System.Data.SqlDbType> член.</span><span class="sxs-lookup"><span data-stu-id="98135-179">For a list of the supported data types, see the appropriate <xref:System.Data.SqlDbType> member.</span></span> <span data-ttu-id="98135-180">Дополнительные сведения см. в разделе [параметры DataAdapter](~/docs/framework/data/adonet/dataadapter-parameters.md).</span><span class="sxs-lookup"><span data-stu-id="98135-180">For more information, see [DataAdapter Parameters](~/docs/framework/data/adonet/dataadapter-parameters.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-181">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-181">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[Classic WebData SqlParameter.IsNullable Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlParameter.IsNullable Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData SqlParameter.IsNullable Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlParameter.IsNullable Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Direction">
+      <MemberSignature Language="C#" Value="public override System.Data.ParameterDirection Direction { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Data.ParameterDirection Direction" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.Direction" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property Direction As ParameterDirection" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Data::ParameterDirection Direction { System::Data::ParameterDirection get(); void set(System::Data::ParameterDirection value); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Data.IDataParameter.Direction</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.RefreshProperties</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Data.ParameterDirection</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-182">Возвращает или задает значение, указывающее, является ли параметр только входным, только выходным, двунаправленным или параметром, возвращаемым хранимой процедурой.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-182">Gets or sets a value that indicates whether the parameter is input-only, output-only, bidirectional, or a stored procedure return value parameter.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-183">Одно из значений перечисления <see cref="T:System.Data.ParameterDirection" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-183">One of the <see cref="T:System.Data.ParameterDirection" /> values.</span>
+          </span>
+          <span data-ttu-id="98135-184">Значение по умолчанию: <see langword="Input" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-184">The default is <see langword="Input" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-185">Если <xref:System.Data.ParameterDirection> является выходным параметром, то при выполнении связанной <xref:System.Data.SqlClient.SqlCommand> не возвращает значение, <xref:System.Data.SqlClient.SqlParameter> содержит значение null.</span><span class="sxs-lookup"><span data-stu-id="98135-185">If the <xref:System.Data.ParameterDirection> is output, and execution of the associated <xref:System.Data.SqlClient.SqlCommand> does not return a value, the <xref:System.Data.SqlClient.SqlParameter> contains a null value.</span></span>  
+  
+ <span data-ttu-id="98135-186">`Output`, `InputOut`, и `ReturnValue` параметров, возвращенный при вызове <xref:System.Data.SqlClient.SqlCommand.ExecuteReader%2A> недоступны до закрытия <xref:System.Data.SqlClient.SqlDataReader>.</span><span class="sxs-lookup"><span data-stu-id="98135-186">`Output`, `InputOut`, and `ReturnValue` parameters returned by calling <xref:System.Data.SqlClient.SqlCommand.ExecuteReader%2A> cannot be accessed until you close the <xref:System.Data.SqlClient.SqlDataReader>.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-187">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-187">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [<span data-ttu-id="98135-188">Команды и параметры</span><span class="sxs-lookup"><span data-stu-id="98135-188">Commands and Parameters</span></span>](~/docs/framework/data/adonet/commands-and-parameters.md)  
+  
+ [<span data-ttu-id="98135-189">Параметры DataAdapter</span><span class="sxs-lookup"><span data-stu-id="98135-189">DataAdapter Parameters</span></span>](~/docs/framework/data/adonet/dataadapter-parameters.md)  
+  
+ [<span data-ttu-id="98135-190">SQL Server и ADO.NET</span><span class="sxs-lookup"><span data-stu-id="98135-190">SQL Server and ADO.NET</span></span>](http://msdn.microsoft.com/library/c18b1fb1-2af1-4de7-80a4-95e56fd976cb)  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="98135-191">Для свойства не задано одно из допустимых значений типа <see cref="T:System.Data.ParameterDirection" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-191">The property was not set to one of the valid <see cref="T:System.Data.ParameterDirection" /> values.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ForceColumnEncryption">
+      <MemberSignature Language="C#" Value="public bool ForceColumnEncryption { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool ForceColumnEncryption" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.ForceColumnEncryption" />
+      <MemberSignature Language="VB.NET" Value="Public Property ForceColumnEncryption As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool ForceColumnEncryption { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DefaultValue(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-192">Обеспечивает шифрование параметра при использовании функции [Always Encrypted](/sql/relational-databases/security/encryption/always-encrypted-database-engine).</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-192">Enforces encryption of a parameter when using [Always Encrypted](/sql/relational-databases/security/encryption/always-encrypted-database-engine).</span>
+          </span>
+          <span data-ttu-id="98135-193">Если SQL Server сообщает драйверу, что параметр шифровать не нужно, запрос, использующий этот параметр, завершится ошибкой.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-193">If SQL Server informs the driver that the parameter does not need to be encrypted, the query using the parameter will fail.</span>
+          </span>
+          <span data-ttu-id="98135-194">Это свойство обеспечивает дополнительную защиту от атак на систему безопасности, которые подразумевают предоставление скомпрометированным сервером SQL Server неверных метаданных шифрования клиенту, что может привести к раскрытию данных.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-194">This property provides additional protection against security attacks that involve a compromised SQL Server providing incorrect encryption metadata to the client, which may lead to data disclosure.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-195">
+            <see langword="true" /> Если для параметра задано принудительное шифрование столбца; в противном случае <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-195">
+              <see langword="true" /> if the parameter has a force column encryption; otherwise, <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsNullable">
+      <MemberSignature Language="C#" Value="public override bool IsNullable { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsNullable" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.IsNullable" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property IsNullable As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property bool IsNullable { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-196">Возвращает или задает значение, указывающее, принимает ли этот параметр значения NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-196">Gets or sets a value that indicates whether the parameter accepts null values.</span>
+          </span>
+          <span data-ttu-id="98135-197">
+            <see cref="P:System.Data.SqlClient.SqlParameter.IsNullable" /> не используется для проверки значения параметра и не препятствует отправке или получении значения NULL при выполнении команды.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-197">
+              <see cref="P:System.Data.SqlClient.SqlParameter.IsNullable" /> is not used to validate the parameter’s value and will not prevent sending or receiving a null value when executing a command.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-198">Значение <see langword="true" />, если допускаются значения NULL. В противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-198">
+              <see langword="true" /> if null values are accepted; otherwise <see langword="false" />.</span>
+          </span>
+          <span data-ttu-id="98135-199">Значение по умолчанию: <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-199">The default is <see langword="false" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-200">Значения NULL обрабатываются с помощью <xref:System.DBNull> класса.</span><span class="sxs-lookup"><span data-stu-id="98135-200">Null values are handled using the <xref:System.DBNull> class.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-201">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-201">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[DataWorks SqlParam.Properties#2](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/CS/source.cs#2)]
+ [!code-vb[DataWorks SqlParam.Properties#2](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/VB/source.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="LocaleId">
+      <MemberSignature Language="C#" Value="public int LocaleId { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 LocaleId" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.LocaleId" />
+      <MemberSignature Language="VB.NET" Value="Public Property LocaleId As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int LocaleId { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-202">Получает или задает идентификатор языкового стандарта, определяющий соглашения и язык для конкретного региона.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-202">Gets or sets the locale identifier that determines conventions and language for a particular region.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-203">Возвращает идентификатор языкового стандарта, связанный с параметром.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-203">Returns the locale identifier associated with the parameter.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-204">Языкового стандарта, определяющего соглашения и язык для конкретного географического региона.</span><span class="sxs-lookup"><span data-stu-id="98135-204">The locale identifies conventions and language for a particular geographical region.</span></span> <span data-ttu-id="98135-205">Кодовая страница, используемая для кодирования определенной строки (набор символов) основана на языковой стандарт, используемый с этой строкой или среды, который его создал.</span><span class="sxs-lookup"><span data-stu-id="98135-205">The codepage used to encode a specific string (the character set) is based on the locale used by that string or the environment that produced it.</span></span> <span data-ttu-id="98135-206">Это свойство задает (для входных параметров) или возвращает (для выходных параметров) язык, который будет присоединен к строке при обмене данными с сервером.</span><span class="sxs-lookup"><span data-stu-id="98135-206">This property sets (for input parameters) or gets (for output parameters) the locale to be attached to a string when exchanging data with the server.</span></span> <span data-ttu-id="98135-207">Это свойство обычно используется вместе с <xref:System.Data.SqlClient.SqlParameter.CompareInfo%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="98135-207">This property is typically used together with the <xref:System.Data.SqlClient.SqlParameter.CompareInfo%2A> property.</span></span>  
+  
+```  
+static void CreateSqlParameterLocaleId(){  
+   SqlParameter parameter = new SqlParameter("pName", SqlDbType.VarChar);  
+   parameter.LocaleId = 1033;   // English - United States  
+}  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Offset">
+      <MemberSignature Language="C#" Value="public int Offset { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 Offset" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.Offset" />
+      <MemberSignature Language="VB.NET" Value="Public Property Offset As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int Offset { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-208">Получает или задает смещение для свойства <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-208">Gets or sets the offset to the <see cref="P:System.Data.SqlClient.SqlParameter.Value" /> property.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-209">Смещение к <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-209">The offset to the <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          </span>
+          <span data-ttu-id="98135-210">Значение по умолчанию — 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-210">The default is 0.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-211">`Offset` Свойство используется для фрагментации двоичных и строковых данных на стороне клиента.</span><span class="sxs-lookup"><span data-stu-id="98135-211">The `Offset` property is used for client-side chunking of binary and string data.</span></span> <span data-ttu-id="98135-212">Например, чтобы вставить 10 МБ текста в столбец на сервере, пользователь может выполнить 10 параметризованных блоков размером 1 МБ, сдвигая значение `Offset` каждой итерации на 1 МБ.</span><span class="sxs-lookup"><span data-stu-id="98135-212">For example, in order to insert 10MB of text into a column on a server, a user might execute 10 parameterized inserts of 1MB chunks, shifting the value of `Offset` on each iteration by 1MB.</span></span>  
+  
+ <span data-ttu-id="98135-213">`Offset` Указывает число байтов для двоичных типов и количество символов в строках.</span><span class="sxs-lookup"><span data-stu-id="98135-213">`Offset` specifies the number of bytes for binary types, and the number of characters for strings.</span></span> <span data-ttu-id="98135-214">Число строк не включает завершающий символ.</span><span class="sxs-lookup"><span data-stu-id="98135-214">The count for strings does not include the terminating character.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-215">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-215">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[DataWorks SqlParam.Properties#3](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/CS/source.cs#3)]
+ [!code-vb[DataWorks SqlParam.Properties#3](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/VB/source.vb#3)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ParameterName">
+      <MemberSignature Language="C#" Value="public override string ParameterName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ParameterName" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.ParameterName" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property ParameterName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ ParameterName { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Data.IDataParameter.ParameterName</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-216">Возвращает или задает имя таблицы для объекта <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-216">Gets or sets the name of the <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-217">Имя <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-217">The name of the <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          </span>
+          <span data-ttu-id="98135-218">Значение по умолчанию - пустая строка.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-218">The default is an empty string.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-219"><xref:System.Data.SqlClient.SqlParameter.ParameterName%2A> Указывается в виде @paramname.</span><span class="sxs-lookup"><span data-stu-id="98135-219">The <xref:System.Data.SqlClient.SqlParameter.ParameterName%2A> is specified in the form @paramname.</span></span> <span data-ttu-id="98135-220">Необходимо задать <xref:System.Data.SqlClient.SqlParameter.ParameterName%2A> перед выполнением <xref:System.Data.SqlClient.SqlCommand> зависящей от параметров.</span><span class="sxs-lookup"><span data-stu-id="98135-220">You must set <xref:System.Data.SqlClient.SqlParameter.ParameterName%2A> before executing a <xref:System.Data.SqlClient.SqlCommand> that relies on parameters.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-221">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-221">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[Classic WebData SqlParameter.ParameterName Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlParameter.ParameterName Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData SqlParameter.ParameterName Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlParameter.ParameterName Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Precision">
+      <MemberSignature Language="C#" Value="public byte Precision { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance unsigned int8 Precision" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.Precision" />
+      <MemberSignature Language="VB.NET" Value="Public Property Precision As Byte" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Byte Precision { System::Byte get(); void set(System::Byte value); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Data.IDbDataParameter.Precision</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DefaultValue(0)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Byte</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-222">Возвращает или задает максимальное число разрядов, используемых для представления свойства <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-222">Gets or sets the maximum number of digits used to represent the <see cref="P:System.Data.SqlClient.SqlParameter.Value" /> property.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-223">Максимальное число разрядов, используемых для представления свойства <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-223">The maximum number of digits used to represent the <see cref="P:System.Data.SqlClient.SqlParameter.Value" /> property.</span>
+          </span>
+          <span data-ttu-id="98135-224">Значение по умолчанию — 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-224">The default value is 0.</span>
+          </span>
+          <span data-ttu-id="98135-225">Оно указывает, что точность значения <see cref="P:System.Data.SqlClient.SqlParameter.Value" /> задает поставщик данных.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-225">This indicates that the data provider sets the precision for <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-226"><xref:System.Data.SqlClient.SqlParameter.Precision%2A> Свойство используется с параметрами, имеющими <xref:System.Data.SqlDbType> из `Decimal`.</span><span class="sxs-lookup"><span data-stu-id="98135-226">The <xref:System.Data.SqlClient.SqlParameter.Precision%2A> property is used by parameters that have a <xref:System.Data.SqlDbType> of `Decimal`.</span></span>  
+  
+ <span data-ttu-id="98135-227">Необходимо указать значения для <xref:System.Data.SqlClient.SqlParameter.Precision%2A> и <xref:System.Data.SqlClient.SqlParameter.Scale%2A> свойства для входных параметров, как можно получить из значения параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-227">You do not need to specify values for the <xref:System.Data.SqlClient.SqlParameter.Precision%2A> and <xref:System.Data.SqlClient.SqlParameter.Scale%2A> properties for input parameters, as they can be inferred from the parameter value.</span></span> <span data-ttu-id="98135-228">`Precision` и `Scale` необходимы для выходных параметров и для сценариев, где необходимо указывать все метаданные для параметра без значения, например, указать значение null с определенной точности и масштаба.</span><span class="sxs-lookup"><span data-stu-id="98135-228">`Precision` and `Scale` are required for output parameters and for scenarios where you need to specify complete metadata for a parameter without indicating a value, such as specifying a null value with a specific precision and scale.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="98135-229">Использование этого свойства для принудительного ограничения данных, передаваемые в базу данных не поддерживается.</span><span class="sxs-lookup"><span data-stu-id="98135-229">Use of this property to coerce data passed to the database is not supported.</span></span> <span data-ttu-id="98135-230">Чтобы округлить, усечения или иного принудительного ограничения данных до его передачи в базу данных, используйте <xref:System.Math> класс, который является частью `System` имен до присвоения значения параметру `Value` свойство.</span><span class="sxs-lookup"><span data-stu-id="98135-230">To round, truncate, or otherwise coerce data before passing it to the database, use the <xref:System.Math> class that is part of the `System` namespace prior to assigning a value to the parameter's `Value` property.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="98135-231">Поставщики данных .NET Framework Майкрософт, включенные в .NET Framework версии 1.0 не проверять <xref:System.Data.SqlClient.SqlParameter.Precision%2A> или <xref:System.Data.SqlClient.SqlParameter.Scale%2A> из <xref:System.Decimal> значения параметров.</span><span class="sxs-lookup"><span data-stu-id="98135-231">Microsoft .NET Framework data providers that are included with the .NET Framework version 1.0 do not verify the <xref:System.Data.SqlClient.SqlParameter.Precision%2A> or <xref:System.Data.SqlClient.SqlParameter.Scale%2A> of <xref:System.Decimal> parameter values.</span></span> <span data-ttu-id="98135-232">Это может привести к усечению данных, добавляемых в источнике данных.</span><span class="sxs-lookup"><span data-stu-id="98135-232">This can cause truncated data being inserted at the data source.</span></span> <span data-ttu-id="98135-233">Если вы используете .NET Framework версии 1.0, проверить <xref:System.Data.SqlClient.SqlParameter.Precision%2A> и <xref:System.Data.SqlClient.SqlParameter.Scale%2A> из <xref:System.Decimal> значения, прежде чем устанавливать значение параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-233">If you are using .NET Framework version 1.0, validate the <xref:System.Data.SqlClient.SqlParameter.Precision%2A> and <xref:System.Data.SqlClient.SqlParameter.Scale%2A> of <xref:System.Decimal> values before setting the parameter value.</span></span> <span data-ttu-id="98135-234">При использовании .NET Framework версии 1.1 или более поздней версии, создается исключение, если <xref:System.Decimal> имеет значение с недопустимым <xref:System.Data.SqlClient.SqlParameter.Precision%2A>.</span><span class="sxs-lookup"><span data-stu-id="98135-234">When you use .NET Framework version 1.1 or a later version, an exception is thrown if a <xref:System.Decimal> parameter value is set with an invalid <xref:System.Data.SqlClient.SqlParameter.Precision%2A>.</span></span> <span data-ttu-id="98135-235"><xref:System.Data.SqlClient.SqlParameter.Scale%2A> значения, превышающие <xref:System.Decimal> Масштаб параметра по-прежнему усекаются.</span><span class="sxs-lookup"><span data-stu-id="98135-235"><xref:System.Data.SqlClient.SqlParameter.Scale%2A> values that exceed the <xref:System.Decimal> parameter scale are still truncated.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-236">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-236">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[Classic WebData SqlParameter.Precision Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlParameter.Precision Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData SqlParameter.Precision Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlParameter.Precision Example/VB/source.vb#1)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ResetDbType">
+      <MemberSignature Language="C#" Value="public override void ResetDbType ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void ResetDbType() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.ResetDbType" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub ResetDbType ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void ResetDbType();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-237">Сбрасывает тип, связанный с параметром <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-237">Resets the type associated with this <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-238">При выполнении команды, содержащей значения параметров, код может либо явно задавать тип параметра или параметра можно определить его тип, от его значения.</span><span class="sxs-lookup"><span data-stu-id="98135-238">When executing a command that includes parameter values, code can either set the type of a parameter explicitly, or the parameter can infer its type from its value.</span></span> <span data-ttu-id="98135-239">Вызов этого метода сбрасывает параметр, чтобы можно было повторно определить его тип из значения, передаваемые в качестве параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-239">Calling this method resets the parameter so that it can again infer its type from the value passed in the parameter.</span></span> <span data-ttu-id="98135-240">Вызов этого метода влияет на них <xref:System.Data.SqlClient.SqlParameter.DbType%2A> и <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> свойства <xref:System.Data.SqlClient.SqlParameter>.</span><span class="sxs-lookup"><span data-stu-id="98135-240">Calling this method affects both the <xref:System.Data.SqlClient.SqlParameter.DbType%2A> and <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> properties of the <xref:System.Data.SqlClient.SqlParameter>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ResetSqlDbType">
+      <MemberSignature Language="C#" Value="public void ResetSqlDbType ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void ResetSqlDbType() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.ResetSqlDbType" />
+      <MemberSignature Language="VB.NET" Value="Public Sub ResetSqlDbType ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void ResetSqlDbType();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-241">Сбрасывает тип, связанный с параметром <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-241">Resets the type associated with this <see cref="T:System.Data.SqlClient.SqlParameter" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-242">При выполнении команды, содержащей значения параметров, код может либо явно задавать тип параметра или параметра можно определить его тип, от его значения.</span><span class="sxs-lookup"><span data-stu-id="98135-242">When executing a command that includes parameter values, code can either set the type of a parameter explicitly, or the parameter can infer its type from its value.</span></span> <span data-ttu-id="98135-243">Вызов этого метода сбрасывает параметр, чтобы можно было повторно определить его тип из значения, передаваемые в качестве параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-243">Calling this method resets the parameter so that it can again infer its type from the value passed in the parameter.</span></span> <span data-ttu-id="98135-244">Вызов этого метода влияет на них <xref:System.Data.SqlClient.SqlParameter.DbType%2A> и <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> свойства <xref:System.Data.SqlClient.SqlParameter>.</span><span class="sxs-lookup"><span data-stu-id="98135-244">Calling this method affects both the <xref:System.Data.SqlClient.SqlParameter.DbType%2A> and <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> properties of the <xref:System.Data.SqlClient.SqlParameter>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Scale">
+      <MemberSignature Language="C#" Value="public byte Scale { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance unsigned int8 Scale" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.Scale" />
+      <MemberSignature Language="VB.NET" Value="Public Property Scale As Byte" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Byte Scale { System::Byte get(); void set(System::Byte value); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Data.IDbDataParameter.Scale</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DefaultValue(0)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Byte</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-245">Возвращает или задает число десятичных разрядов, до которых вычисляется значение <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-245">Gets or sets the number of decimal places to which <see cref="P:System.Data.SqlClient.SqlParameter.Value" /> is resolved.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-246">Число десятичных разрядов, до которых вычисляется значение <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-246">The number of decimal places to which <see cref="P:System.Data.SqlClient.SqlParameter.Value" /> is resolved.</span>
+          </span>
+          <span data-ttu-id="98135-247">Значение по умолчанию — 0.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-247">The default is 0.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-248"><xref:System.Data.SqlClient.SqlParameter.Scale%2A> Свойство используется с параметрами, имеющими <xref:System.Data.SqlDbType> из `Decimal`.</span><span class="sxs-lookup"><span data-stu-id="98135-248">The <xref:System.Data.SqlClient.SqlParameter.Scale%2A> property is used by parameters that have a <xref:System.Data.SqlDbType> of `Decimal`.</span></span>  
+  
+> [!WARNING]
+>  <span data-ttu-id="98135-249">Данные могут быть усечены, если <xref:System.Data.SqlClient.SqlParameter.Scale%2A> свойство не задано явно, и данные на сервере не помещается в масштаб 0 (по умолчанию).</span><span class="sxs-lookup"><span data-stu-id="98135-249">Data may be truncated if the <xref:System.Data.SqlClient.SqlParameter.Scale%2A> property is not explicitly specified and the data on the server does not fit in scale 0 (the default).</span></span>  
+  
+ <span data-ttu-id="98135-250">Необходимо указать значения для <xref:System.Data.SqlClient.SqlParameter.Precision%2A> и <xref:System.Data.SqlClient.SqlParameter.Scale%2A> свойства для входных параметров, как можно получить из значения параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-250">You do not need to specify values for the <xref:System.Data.SqlClient.SqlParameter.Precision%2A> and <xref:System.Data.SqlClient.SqlParameter.Scale%2A> properties for input parameters, as they can be inferred from the parameter value.</span></span> <span data-ttu-id="98135-251">`Precision` и `Scale` необходимы для выходных параметров и для сценариев, где необходимо указывать все метаданные для параметра без значения, например, указать значение null с определенной точности и масштаба.</span><span class="sxs-lookup"><span data-stu-id="98135-251">`Precision` and `Scale` are required for output parameters and for scenarios where you need to specify complete metadata for a parameter without indicating a value, such as specifying a null value with a specific precision and scale.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="98135-252">Использование этого свойства для принудительного ограничения данных, передаваемые в базу данных не поддерживается.</span><span class="sxs-lookup"><span data-stu-id="98135-252">Use of this property to coerce data passed to the database is not supported.</span></span> <span data-ttu-id="98135-253">Чтобы округлить, усечения или иного принудительного ограничения данных до его передачи в базу данных, используйте <xref:System.Math> класс, который является частью `System` имен до присвоения значения параметру `Value` свойство.</span><span class="sxs-lookup"><span data-stu-id="98135-253">To round, truncate, or otherwise coerce data before passing it to the database, use the <xref:System.Math> class that is part of the `System` namespace prior to assigning a value to the parameter's `Value` property.</span></span>  
+  
+> [!NOTE]
+>  <span data-ttu-id="98135-254">Поставщики данных .NET framework, которые входят в состав .NET Framework версии 1.0 не проверять <xref:System.Data.SqlClient.SqlParameter.Precision%2A> или <xref:System.Data.SqlClient.SqlParameter.Scale%2A> из <xref:System.Decimal> значения параметров.</span><span class="sxs-lookup"><span data-stu-id="98135-254">.NET Framework data providers that are included with the .NET Framework version 1.0 do not verify the <xref:System.Data.SqlClient.SqlParameter.Precision%2A> or <xref:System.Data.SqlClient.SqlParameter.Scale%2A> of <xref:System.Decimal> parameter values.</span></span> <span data-ttu-id="98135-255">Это может привести к усечению данных для вставки в источнике данных.</span><span class="sxs-lookup"><span data-stu-id="98135-255">This can cause truncated data to be inserted at the data source.</span></span> <span data-ttu-id="98135-256">Если вы используете .NET Framework версии 1.0, проверить <xref:System.Data.SqlClient.SqlParameter.Precision%2A> и <xref:System.Data.SqlClient.SqlParameter> из <xref:System.Decimal> значения, прежде чем устанавливать значение параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-256">If you are using .NET Framework version 1.0, validate the <xref:System.Data.SqlClient.SqlParameter.Precision%2A> and <xref:System.Data.SqlClient.SqlParameter> of <xref:System.Decimal> values before setting the parameter value.</span></span> <span data-ttu-id="98135-257"><xref:System.Data.SqlClient.SqlParameter.Scale%2A> значения, превышающие <xref:System.Decimal> Масштаб параметра по-прежнему усекаются.</span><span class="sxs-lookup"><span data-stu-id="98135-257"><xref:System.Data.SqlClient.SqlParameter.Scale%2A> values that exceed the <xref:System.Decimal> parameter scale are still truncated.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-258">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-258">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[DataWorks SqlParam.Properties#4](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/CS/source.cs#4)]
+ [!code-vb[DataWorks SqlParam.Properties#4](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/VB/source.vb#4)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Size">
+      <MemberSignature Language="C#" Value="public override int Size { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 Size" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.Size" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property Size As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property int Size { int get(); void set(int value); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Data.IDbDataParameter.Size</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-259">Возвращает или задает максимальную длину данных (в байтах) в столбце.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-259">Gets or sets the maximum size, in bytes, of the data within the column.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-260">Максимальная длина данных (в байтах) в столбце.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-260">The maximum size, in bytes, of the data within the column.</span>
+          </span>
+          <span data-ttu-id="98135-261">Значение по умолчанию определяется исходя из значения параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-261">The default value is inferred from the parameter value.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-262">Возвращаемые значения не затрагиваются этим свойством; возвращаемые параметры из хранимых процедур всегда являются целыми числами фиксированного размера.</span><span class="sxs-lookup"><span data-stu-id="98135-262">Return values are not affected by this property; return parameters from stored procedures are always fixed-size integers.</span></span>  
+  
+ <span data-ttu-id="98135-263">Для выходных параметров с типом данных переменной длины (например, nvarchar) размер параметра определяет размер буфера, удерживая выходного параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-263">For output parameters with a variable length type (nvarchar, for example), the size of the parameter defines the size of the buffer holding the output parameter.</span></span> <span data-ttu-id="98135-264">Выходной параметр может быть усечена до размера, указанного с помощью <xref:System.Data.SqlClient.SqlParameter.Size%2A>.</span><span class="sxs-lookup"><span data-stu-id="98135-264">The output parameter can be truncated to a size specified with <xref:System.Data.SqlClient.SqlParameter.Size%2A>.</span></span> <span data-ttu-id="98135-265">Для символьных типов, размер, указанный с <xref:System.Data.SqlClient.SqlParameter.Size%2A> выражается в символах.</span><span class="sxs-lookup"><span data-stu-id="98135-265">For character types, the size specified with <xref:System.Data.SqlClient.SqlParameter.Size%2A> is in characters.</span></span>  
+  
+ <span data-ttu-id="98135-266"><xref:System.Data.SqlClient.SqlParameter.Size%2A> Свойство используется для двоичных и строковых типов.</span><span class="sxs-lookup"><span data-stu-id="98135-266">The <xref:System.Data.SqlClient.SqlParameter.Size%2A> property is used for binary and string types.</span></span> <span data-ttu-id="98135-267">Для параметров типа `SqlType.String`, `Size` означает длина в символах Юникода.</span><span class="sxs-lookup"><span data-stu-id="98135-267">For parameters of type `SqlType.String`, `Size` means length in Unicode characters.</span></span> <span data-ttu-id="98135-268">Для параметров типа `SqlType.Xml`, `Size` учитывается.</span><span class="sxs-lookup"><span data-stu-id="98135-268">For parameters of type `SqlType.Xml`, `Size` is ignored.</span></span>  
+  
+ <span data-ttu-id="98135-269">Для нестроковых типов данных и строковых данных ANSI, <xref:System.Data.SqlClient.SqlParameter.Size%2A> свойство ссылается на число байтов.</span><span class="sxs-lookup"><span data-stu-id="98135-269">For nonstring data types and ANSI string data, the <xref:System.Data.SqlClient.SqlParameter.Size%2A> property refers to the number of bytes.</span></span> <span data-ttu-id="98135-270">Для строковых данных Юникода <xref:System.Data.SqlClient.SqlParameter.Size%2A> ссылается на число символов.</span><span class="sxs-lookup"><span data-stu-id="98135-270">For Unicode string data, <xref:System.Data.SqlClient.SqlParameter.Size%2A> refers to the number of characters.</span></span> <span data-ttu-id="98135-271">Число строк не включает завершающий символ.</span><span class="sxs-lookup"><span data-stu-id="98135-271">The count for strings does not include the terminating character.</span></span>  
+  
+ <span data-ttu-id="98135-272">Для типов данных переменной длины <xref:System.Data.SqlClient.SqlParameter.Size%2A> описывает максимальный объем данных для передачи на сервер.</span><span class="sxs-lookup"><span data-stu-id="98135-272">For variable-length data types, <xref:System.Data.SqlClient.SqlParameter.Size%2A> describes the maximum amount of data to transmit to the server.</span></span> <span data-ttu-id="98135-273">Например, для строкового значения Юникода <xref:System.Data.SqlClient.SqlParameter.Size%2A> может использоваться для ограничения объема данных, отправляемых на сервер до 100 символов.</span><span class="sxs-lookup"><span data-stu-id="98135-273">For example, for a Unicode string value, <xref:System.Data.SqlClient.SqlParameter.Size%2A> could be used to limit the amount of data sent to the server to the first one hundred characters.</span></span>  
+  
+ <span data-ttu-id="98135-274">Если явно не набор размер получается из фактического размера указанного значения параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-274">If not explicitly set, the size is inferred from the actual size of the specified parameter value.</span></span>  
+  
+ <span data-ttu-id="98135-275">Если дробная часть значения параметра больше, чем размер, то значение будет усечено в соответствии с размером.</span><span class="sxs-lookup"><span data-stu-id="98135-275">If the fractional part of the parameter value is greater than the size, then the value will be truncated to match the size.</span></span>  
+  
+ <span data-ttu-id="98135-276">Для типов с фиксированной длиной данных значение <xref:System.Data.SqlClient.SqlParameter.Size%2A> учитывается.</span><span class="sxs-lookup"><span data-stu-id="98135-276">For fixed length data types, the value of <xref:System.Data.SqlClient.SqlParameter.Size%2A> is ignored.</span></span> <span data-ttu-id="98135-277">Можно получить в информационных целях и возвращает максимальное количество байтов, используемых поставщиком при передаче значения параметра на сервер.</span><span class="sxs-lookup"><span data-stu-id="98135-277">It can be retrieved for informational purposes, and returns the maximum amount of bytes the provider uses when transmitting the value of the parameter to the server.</span></span>  
+  
+ <span data-ttu-id="98135-278">Сведения о потоковой передаче см. в разделе [поддержка потоковой передачи SqlClient](~/docs/framework/data/adonet/sqlclient-streaming-support.md).</span><span class="sxs-lookup"><span data-stu-id="98135-278">For information about streaming, see [SqlClient Streaming Support](~/docs/framework/data/adonet/sqlclient-streaming-support.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-279">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-279">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[DataWorks SqlParam.Properties#5](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/CS/source.cs#5)]
+ [!code-vb[DataWorks SqlParam.Properties#5](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/VB/source.vb#5)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SourceColumn">
+      <MemberSignature Language="C#" Value="public override string SourceColumn { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string SourceColumn" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.SourceColumn" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property SourceColumn As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ SourceColumn { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Data.IDataParameter.SourceColumn</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-280">Получает или задает имя исходного столбца, сопоставленного <see cref="T:System.Data.DataSet" /> и используемого для загрузки или возвращения значения <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-280">Gets or sets the name of the source column mapped to the <see cref="T:System.Data.DataSet" /> and used for loading or returning the <see cref="P:System.Data.SqlClient.SqlParameter.Value" /></span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-281">Имя исходного столбца, сопоставленного <see cref="T:System.Data.DataSet" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-281">The name of the source column mapped to the <see cref="T:System.Data.DataSet" />.</span>
+          </span>
+          <span data-ttu-id="98135-282">Значение по умолчанию - пустая строка.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-282">The default is an empty string.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-283">Когда <xref:System.Data.SqlClient.SqlParameter.SourceColumn%2A> имеет значение, отличное от пустой строки, значение параметра извлекается из столбца с <xref:System.Data.SqlClient.SqlParameter.SourceColumn%2A> имя.</span><span class="sxs-lookup"><span data-stu-id="98135-283">When <xref:System.Data.SqlClient.SqlParameter.SourceColumn%2A> is set to anything other than an empty string, the value of the parameter is retrieved from the column with the <xref:System.Data.SqlClient.SqlParameter.SourceColumn%2A> name.</span></span> <span data-ttu-id="98135-284">Если <xref:System.Data.SqlClient.SqlParameter.Direction%2A> равно `Input`, значение берется из <xref:System.Data.DataSet>.</span><span class="sxs-lookup"><span data-stu-id="98135-284">If <xref:System.Data.SqlClient.SqlParameter.Direction%2A> is set to `Input`, the value is taken from the <xref:System.Data.DataSet>.</span></span> <span data-ttu-id="98135-285">Если <xref:System.Data.SqlClient.SqlParameter.Direction%2A> равен `Output`, значение берется из источника данных.</span><span class="sxs-lookup"><span data-stu-id="98135-285">If <xref:System.Data.SqlClient.SqlParameter.Direction%2A> is set to `Output`, the value is taken from the data source.</span></span> <span data-ttu-id="98135-286">Объект <xref:System.Data.SqlClient.SqlParameter.Direction%2A> из `InputOutput` представляет собой комбинацию.</span><span class="sxs-lookup"><span data-stu-id="98135-286">A <xref:System.Data.SqlClient.SqlParameter.Direction%2A> of `InputOutput` is a combination of both.</span></span>  
+  
+ <span data-ttu-id="98135-287">Дополнительные сведения об использовании <xref:System.Data.SqlClient.SqlParameter.SourceColumn%2A> свойство, в разделе [параметры DataAdapter](~/docs/framework/data/adonet/dataadapter-parameters.md) и [обновление источников данных с помощью DataAdapter](~/docs/framework/data/adonet/updating-data-sources-with-dataadapters.md).</span><span class="sxs-lookup"><span data-stu-id="98135-287">For more information about how to use the <xref:System.Data.SqlClient.SqlParameter.SourceColumn%2A> property, see [DataAdapter Parameters](~/docs/framework/data/adonet/dataadapter-parameters.md) and [Updating Data Sources with DataAdapters](~/docs/framework/data/adonet/updating-data-sources-with-dataadapters.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-288">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-288">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[DataWorks SqlParam.Properties#6](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/CS/source.cs#6)]
+ [!code-vb[DataWorks SqlParam.Properties#6](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/VB/source.vb#6)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SourceColumnNullMapping">
+      <MemberSignature Language="C#" Value="public override bool SourceColumnNullMapping { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool SourceColumnNullMapping" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.SourceColumnNullMapping" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property SourceColumnNullMapping As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property bool SourceColumnNullMapping { bool get(); void set(bool value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-289">Возвращает или задает значение, показывающее, допускает ли исходный столбец значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-289">Sets or gets a value which indicates whether the source column is nullable.</span>
+          </span>
+          <span data-ttu-id="98135-290">Это позволяет <see cref="T:System.Data.SqlClient.SqlCommandBuilder" /> правильно создавать инструкции Update для столбцов со значением NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-290">This allows <see cref="T:System.Data.SqlClient.SqlCommandBuilder" /> to correctly generate Update statements for nullable columns.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-291">Значение <see langword="true" />, если исходный столбец допускает значение NULL; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-291">
+              <see langword="true" /> if the source column is nullable; <see langword="false" /> if it is not.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-292"><xref:System.Data.SqlClient.SqlParameter.SourceColumnNullMapping%2A> используется <xref:System.Data.SqlClient.SqlCommandBuilder> правильно создать команды обновления при работе со столбцами, допускающие значение NULL.</span><span class="sxs-lookup"><span data-stu-id="98135-292"><xref:System.Data.SqlClient.SqlParameter.SourceColumnNullMapping%2A> is used by the <xref:System.Data.SqlClient.SqlCommandBuilder> to correctly generate update commands when dealing with nullable columns.</span></span> <span data-ttu-id="98135-293">Как правило, использование <xref:System.Data.SqlClient.SqlParameter.SourceColumnNullMapping%2A> ограничена разработчикам, наследующим <xref:System.Data.SqlClient.SqlCommandBuilder>.</span><span class="sxs-lookup"><span data-stu-id="98135-293">Generally, use of <xref:System.Data.SqlClient.SqlParameter.SourceColumnNullMapping%2A> is limited to developers inheriting from <xref:System.Data.SqlClient.SqlCommandBuilder>.</span></span>  
+  
+ <span data-ttu-id="98135-294"><xref:System.Data.Common.DbCommandBuilder> использует это свойство, чтобы определить, является ли исходный столбец допускает значения NULL и задает для этого свойства `true` Если значение NULL, и `false` , если это не так.</span><span class="sxs-lookup"><span data-stu-id="98135-294"><xref:System.Data.Common.DbCommandBuilder> uses this property to determine whether the source column is nullable, and sets this property to `true` if it is nullable, and `false` if it is not.</span></span> <span data-ttu-id="98135-295">Когда <xref:System.Data.SqlClient.SqlCommandBuilder> является создание его инструкции Update, он проверяет <xref:System.Data.SqlClient.SqlParameter.SourceColumnNullMapping%2A> для каждого параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-295">When <xref:System.Data.SqlClient.SqlCommandBuilder> is generating its Update statement, it examines the <xref:System.Data.SqlClient.SqlParameter.SourceColumnNullMapping%2A> for each parameter.</span></span> <span data-ttu-id="98135-296">Если свойство `true`, <xref:System.Data.SqlClient.SqlCommandBuilder> создает предложение WHERE следующим образом (в следующее выражение запроса «FieldName» представляет имя поля):</span><span class="sxs-lookup"><span data-stu-id="98135-296">If the property is `true`, <xref:System.Data.SqlClient.SqlCommandBuilder> generates a WHERE clauses like the following (in this query expression, "FieldName" represents the name of the field):</span></span>  
+  
+```  
+((@IsNull_FieldName = 1 AND FieldName IS NULL) OR   
+  (FieldName = @Original_FieldName))  
+```  
+  
+ <span data-ttu-id="98135-297">Если <xref:System.Data.SqlClient.SqlParameter.SourceColumnNullMapping%2A> для поля имеет значение false, <xref:System.Data.SqlClient.SqlCommandBuilder> приводит к возникновению ошибки следующее предложение WHERE:</span><span class="sxs-lookup"><span data-stu-id="98135-297">If <xref:System.Data.SqlClient.SqlParameter.SourceColumnNullMapping%2A> for the field is false, <xref:System.Data.SqlClient.SqlCommandBuilder> generates the following WHERE clause:</span></span>  
+  
+```  
+FieldName = @OriginalFieldName  
+```  
+  
+ <span data-ttu-id="98135-298">Кроме того @IsNull_FieldName содержит 1, если поле источника содержит null и 0, если это не так.</span><span class="sxs-lookup"><span data-stu-id="98135-298">In addition, @IsNull_FieldName contains 1 if the source field contains null, and 0 if it does not.</span></span> <span data-ttu-id="98135-299">Этот механизм позволяет оптимизировать производительность в SQL Server и предоставляет общий код, который работает в нескольких поставщиков.</span><span class="sxs-lookup"><span data-stu-id="98135-299">This mechanism allows for a performance optimization in SQL Server, and provides for common code that works across multiple providers.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SourceVersion">
+      <MemberSignature Language="C#" Value="public override System.Data.DataRowVersion SourceVersion { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Data.DataRowVersion SourceVersion" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.SourceVersion" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property SourceVersion As DataRowVersion" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Data::DataRowVersion SourceVersion { System::Data::DataRowVersion get(); void set(System::Data::DataRowVersion value); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Data.IDataParameter.SourceVersion</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Data.DataRowVersion</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-300">Возвращает или задает значение <see cref="T:System.Data.DataRowVersion" /> при загрузке <see cref="P:System.Data.SqlClient.SqlParameter.Value" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-300">Gets or sets the <see cref="T:System.Data.DataRowVersion" /> to use when you load <see cref="P:System.Data.SqlClient.SqlParameter.Value" /></span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-301">Одно из значений перечисления <see cref="T:System.Data.DataRowVersion" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-301">One of the <see cref="T:System.Data.DataRowVersion" /> values.</span>
+          </span>
+          <span data-ttu-id="98135-302">Значение по умолчанию: <see langword="Current" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-302">The default is <see langword="Current" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-303">Это свойство используется `SqlDataAdapter.UpdateCommand` во время обновления, чтобы определить, используется ли значение исходного или текущего значения параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-303">This property is used by the `SqlDataAdapter.UpdateCommand` during an update to determine whether the original or current value is used for a parameter value.</span></span> <span data-ttu-id="98135-304">Это позволяет обновить первичные ключи.</span><span class="sxs-lookup"><span data-stu-id="98135-304">This lets primary keys be updated.</span></span> <span data-ttu-id="98135-305">Это свойство имеет значение версии <xref:System.Data.DataRow> используемые `DataRow.Item` свойства или одного из `DataRow.GetChildRows` методы <xref:System.Data.DataRow> объекта.</span><span class="sxs-lookup"><span data-stu-id="98135-305">This property is set to the version of the <xref:System.Data.DataRow> used by the `DataRow.Item` property, or one of the `DataRow.GetChildRows` methods of the <xref:System.Data.DataRow> object.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-306">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-306">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[DataWorks SqlParam.Properties#7](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/CS/source.cs#7)]
+ [!code-vb[DataWorks SqlParam.Properties#7](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/VB/source.vb#7)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SqlDbType">
+      <MemberSignature Language="C#" Value="public System.Data.SqlDbType SqlDbType { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Data.SqlDbType SqlDbType" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.SqlDbType" />
+      <MemberSignature Language="VB.NET" Value="Public Property SqlDbType As SqlDbType" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Data::SqlDbType SqlDbType { System::Data::SqlDbType get(); void set(System::Data::SqlDbType value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.RefreshProperties</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Data.Common.DbProviderSpecificTypeProperty(true)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Data.SqlDbType</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-307">Возвращает или устанавливает тип <see cref="T:System.Data.SqlDbType" /> параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-307">Gets or sets the <see cref="T:System.Data.SqlDbType" /> of the parameter.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-308">Одно из значений перечисления <see cref="T:System.Data.SqlDbType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-308">One of the <see cref="T:System.Data.SqlDbType" /> values.</span>
+          </span>
+          <span data-ttu-id="98135-309">Значение по умолчанию: <see langword="NVarChar" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-309">The default is <see langword="NVarChar" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-310"><xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> И <xref:System.Data.SqlClient.SqlParameter.DbType%2A> связаны.</span><span class="sxs-lookup"><span data-stu-id="98135-310">The <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> and <xref:System.Data.SqlClient.SqlParameter.DbType%2A> are linked.</span></span> <span data-ttu-id="98135-311">Таким образом, задание <xref:System.Data.SqlClient.SqlParameter.DbType%2A> изменения <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> на поддерживаемый <xref:System.Data.SqlDbType>.</span><span class="sxs-lookup"><span data-stu-id="98135-311">Therefore, setting the <xref:System.Data.SqlClient.SqlParameter.DbType%2A> changes the <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> to a supporting <xref:System.Data.SqlDbType>.</span></span>  
+  
+ <span data-ttu-id="98135-312">Список поддерживаемых типов данных см. в разделе соответствующего <xref:System.Data.SqlDbType> член.</span><span class="sxs-lookup"><span data-stu-id="98135-312">For a list of the supported data types, see the appropriate <xref:System.Data.SqlDbType> member.</span></span> <span data-ttu-id="98135-313">Дополнительные сведения см. в разделе [параметры DataAdapter](~/docs/framework/data/adonet/dataadapter-parameters.md).</span><span class="sxs-lookup"><span data-stu-id="98135-313">For more information, see [DataAdapter Parameters](~/docs/framework/data/adonet/dataadapter-parameters.md).</span></span>  
+  
+ <span data-ttu-id="98135-314">Сведения о потоковой передаче см. в разделе [поддержка потоковой передачи SqlClient](~/docs/framework/data/adonet/sqlclient-streaming-support.md).</span><span class="sxs-lookup"><span data-stu-id="98135-314">For information about streaming, see [SqlClient Streaming Support](~/docs/framework/data/adonet/sqlclient-streaming-support.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SqlValue">
+      <MemberSignature Language="C#" Value="public object SqlValue { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance object SqlValue" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.SqlValue" />
+      <MemberSignature Language="VB.NET" Value="Public Property SqlValue As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Object ^ SqlValue { System::Object ^ get(); void set(System::Object ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.ComponentModel.DesignerSerializationVisibility</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-315">Возвращает или задает значение параметра как тип SQL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-315">Gets or sets the value of the parameter as an SQL type.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-316">Объект <see cref="T:System.Object" />, который является значением параметра, использующего типы SQL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-316">An <see cref="T:System.Object" /> that is the value of the parameter, using SQL types.</span>
+          </span>
+          <span data-ttu-id="98135-317">Значение по умолчанию — null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-317">The default value is null.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-318">Для входных параметров значение, привязанное к <xref:System.Data.SqlClient.SqlCommand> , отправляемое на сервер.</span><span class="sxs-lookup"><span data-stu-id="98135-318">For input parameters, the value is bound to the <xref:System.Data.SqlClient.SqlCommand> that is sent to the server.</span></span> <span data-ttu-id="98135-319">Для вывода параметров и возвращаемых значений, имеет значение по завершении <xref:System.Data.SqlClient.SqlCommand> и после <xref:System.Data.SqlClient.SqlDataReader> закрыт.</span><span class="sxs-lookup"><span data-stu-id="98135-319">For output and return value parameters, the value is set on completion of the <xref:System.Data.SqlClient.SqlCommand> and after the <xref:System.Data.SqlClient.SqlDataReader> is closed.</span></span>  
+  
+ <span data-ttu-id="98135-320">Это свойство может быть задано значение null или <xref:System.DBNull.Value?displayProperty=nameWithType>.</span><span class="sxs-lookup"><span data-stu-id="98135-320">This property can be set to null or <xref:System.DBNull.Value?displayProperty=nameWithType>.</span></span> <span data-ttu-id="98135-321">Используйте <xref:System.DBNull.Value?displayProperty=nameWithType> для отправки значения NULL как значение параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-321">Use <xref:System.DBNull.Value?displayProperty=nameWithType> to send a NULL value as the value of the parameter.</span></span> <span data-ttu-id="98135-322">С помощью значения null или не задавайте <xref:System.Data.SqlClient.SqlParameter.SqlValue%2A?displayProperty=nameWithType> использовать значение по умолчанию для параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-322">Use null or do not set <xref:System.Data.SqlClient.SqlParameter.SqlValue%2A?displayProperty=nameWithType> to use the default value for the parameter.</span></span>  
+  
+ <span data-ttu-id="98135-323">Если приложение указывает тип базы данных, связанное значение преобразуется к этому типу, когда поставщик данных отправляет данные на сервер.</span><span class="sxs-lookup"><span data-stu-id="98135-323">If the application specifies the database type, the bound value is converted to that type when the provider sends the data to the server.</span></span> <span data-ttu-id="98135-324">Поставщик пытается преобразовать любой тип значения, если он поддерживает <xref:System.IConvertible> интерфейса.</span><span class="sxs-lookup"><span data-stu-id="98135-324">The provider tries to convert any type of value if it supports the <xref:System.IConvertible> interface.</span></span> <span data-ttu-id="98135-325">Если указанный тип не совместим со значением, могут возникнуть ошибки преобразования.</span><span class="sxs-lookup"><span data-stu-id="98135-325">Conversion errors may result if the specified type is not compatible with the value.</span></span>  
+  
+ <span data-ttu-id="98135-326">Как <xref:System.Data.SqlClient.SqlParameter.DbType%2A> и <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> заданы путем установки свойства <xref:System.Data.SqlClient.SqlParameter.Value%2A?displayProperty=nameWithType>.</span><span class="sxs-lookup"><span data-stu-id="98135-326">Both the <xref:System.Data.SqlClient.SqlParameter.DbType%2A> and <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> properties can be inferred by setting the <xref:System.Data.SqlClient.SqlParameter.Value%2A?displayProperty=nameWithType>.</span></span>  
+  
+ <span data-ttu-id="98135-327"><xref:System.Data.SqlClient.SqlParameter.Value%2A?displayProperty=nameWithType> Перезаписывается `SqlDataAdapter.UpdateCommand`.</span><span class="sxs-lookup"><span data-stu-id="98135-327">The <xref:System.Data.SqlClient.SqlParameter.Value%2A?displayProperty=nameWithType> property is overwritten by `SqlDataAdapter.UpdateCommand`.</span></span>  
+  
+ <span data-ttu-id="98135-328">Используйте <xref:System.Data.SqlClient.SqlParameter.Value%2A?displayProperty=nameWithType> свойство для возврата значения параметров как общий язык типов среды выполнения (CLR).</span><span class="sxs-lookup"><span data-stu-id="98135-328">Use the <xref:System.Data.SqlClient.SqlParameter.Value%2A?displayProperty=nameWithType> property to return parameter values as common language runtime (CLR) types.</span></span>  
+  
+ <span data-ttu-id="98135-329">Сведения о потоковой передаче см. в разделе [поддержка потоковой передачи SqlClient](~/docs/framework/data/adonet/sqlclient-streaming-support.md).</span><span class="sxs-lookup"><span data-stu-id="98135-329">For information about streaming, see [SqlClient Streaming Support](~/docs/framework/data/adonet/sqlclient-streaming-support.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.ICloneable.Clone">
+      <MemberSignature Language="C#" Value="object ICloneable.Clone ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance object System.ICloneable.Clone() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.System#ICloneable#Clone" />
+      <MemberSignature Language="VB.NET" Value="Function Clone () As Object Implements ICloneable.Clone" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::Object ^ System.ICloneable.Clone() = ICloneable::Clone;" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.ICloneable.Clone</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-330">Описание этого члена см. в разделе <see cref="M:System.ICloneable.Clone" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-330">For a description of this member, see <see cref="M:System.ICloneable.Clone" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="98135-331">Новый экземпляр <see cref="T:System.Object" />, являющийся копией данного экземпляра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-331">A new <see cref="T:System.Object" /> that is a copy of this instance.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-332">Этот член представляет собой явную реализацию члена интерфейса.</span><span class="sxs-lookup"><span data-stu-id="98135-332">This member is an explicit interface member implementation.</span></span> <span data-ttu-id="98135-333">Он может использоваться, только если экземпляр <xref:System.Data.SqlClient.SqlParameter> приведен к типу интерфейса <xref:System.ICloneable>.</span><span class="sxs-lookup"><span data-stu-id="98135-333">It can be used only when the <xref:System.Data.SqlClient.SqlParameter> instance is cast to an <xref:System.ICloneable> interface.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ToString">
+      <MemberSignature Language="C#" Value="public override string ToString ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string ToString() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlParameter.ToString" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ToString () As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::String ^ ToString();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-334">Возвращает строку, содержащую имя <see cref="P:System.Data.SqlClient.SqlParameter.ParameterName" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-334">Gets a string that contains the <see cref="P:System.Data.SqlClient.SqlParameter.ParameterName" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="98135-335">Строка, содержащая имя <see cref="P:System.Data.SqlClient.SqlParameter.ParameterName" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-335">A string that contains the <see cref="P:System.Data.SqlClient.SqlParameter.ParameterName" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TypeName">
+      <MemberSignature Language="C#" Value="public string TypeName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string TypeName" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.TypeName" />
+      <MemberSignature Language="VB.NET" Value="Public Property TypeName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ TypeName { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-336">Возвращает или задает имя типа для возвращающего табличное значение параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-336">Gets or sets the type name for a table-valued parameter.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-337">Имя типа для возвращающего табличное значение параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-337">The type name of the specified table-valued parameter.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="UdtTypeName">
+      <MemberSignature Language="C#" Value="public string UdtTypeName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string UdtTypeName" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.UdtTypeName" />
+      <MemberSignature Language="VB.NET" Value="Public Property UdtTypeName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ UdtTypeName { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.Browsable(false)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-338">Возвращает или задает значение типа <see langword="string" />, представляющее пользовательский тип, используемый в качестве параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-338">Gets or sets a <see langword="string" /> that represents a user-defined type as a parameter.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-339">Значение типа <see langword="string" />, представляющее полное имя пользовательского типа в базе данных.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-339">A <see langword="string" /> that represents the fully qualified name of a user-defined type in the database.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-340">Для демонстрации образец <xref:System.Data.SqlClient.SqlParameter.UdtTypeName%2A>, в разделе [извлечение данных определяемого пользователем ТИПА](http://msdn.microsoft.com/library/ms131080.aspx).</span><span class="sxs-lookup"><span data-stu-id="98135-340">For a sample demonstrating <xref:System.Data.SqlClient.SqlParameter.UdtTypeName%2A>, see [Retrieving UDT Data](http://msdn.microsoft.com/library/ms131080.aspx).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Value">
+      <MemberSignature Language="C#" Value="public override object Value { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance object Value" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.Value" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Property Value As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Object ^ Value { System::Object ^ get(); void set(System::Object ^ value); };" />
+      <MemberType>Property</MemberType>
+      <Implements>
+        <InterfaceMember>P:System.Data.IDataParameter.Value</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.RefreshProperties</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.ComponentModel.TypeConverter(typeof(System.ComponentModel.StringConverter))</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-341">Возвращает или задает значение параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-341">Gets or sets the value of the parameter.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-342">Объект <see cref="T:System.Object" />, который является значением параметра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-342">An <see cref="T:System.Object" /> that is the value of the parameter.</span>
+          </span>
+          <span data-ttu-id="98135-343">Значение по умолчанию — null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-343">The default value is null.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-344">Для входных параметров значение, привязанное к <xref:System.Data.SqlClient.SqlCommand> , отправляемое на сервер.</span><span class="sxs-lookup"><span data-stu-id="98135-344">For input parameters, the value is bound to the <xref:System.Data.SqlClient.SqlCommand> that is sent to the server.</span></span> <span data-ttu-id="98135-345">Для вывода параметров и возвращаемых значений, имеет значение по завершении <xref:System.Data.SqlClient.SqlCommand> и после <xref:System.Data.SqlClient.SqlDataReader> закрыт.</span><span class="sxs-lookup"><span data-stu-id="98135-345">For output and return value parameters, the value is set on completion of the <xref:System.Data.SqlClient.SqlCommand> and after the <xref:System.Data.SqlClient.SqlDataReader> is closed.</span></span>  
+  
+ <span data-ttu-id="98135-346">Это свойство может быть задано значение null или <xref:System.DBNull.Value>.</span><span class="sxs-lookup"><span data-stu-id="98135-346">This property can be set to null or <xref:System.DBNull.Value>.</span></span> <span data-ttu-id="98135-347">Используйте <xref:System.DBNull.Value> для отправки значения NULL как значение параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-347">Use <xref:System.DBNull.Value> to send a NULL value as the value of the parameter.</span></span> <span data-ttu-id="98135-348">С помощью значения null или не задавайте <xref:System.Data.SqlClient.SqlParameter.Value%2A> использовать значение по умолчанию для параметра.</span><span class="sxs-lookup"><span data-stu-id="98135-348">Use null or do not set <xref:System.Data.SqlClient.SqlParameter.Value%2A> to use the default value for the parameter.</span></span>  
+  
+ <span data-ttu-id="98135-349">Если данные Юникода XML передаются как строка исключение.</span><span class="sxs-lookup"><span data-stu-id="98135-349">An exception is thrown if non-Unicode XML data is passed as a string.</span></span>  
+  
+ <span data-ttu-id="98135-350">Если приложение указывает тип базы данных, связанное значение преобразуется к этому типу, когда поставщик данных отправляет данные на сервер.</span><span class="sxs-lookup"><span data-stu-id="98135-350">If the application specifies the database type, the bound value is converted to that type when the provider sends the data to the server.</span></span> <span data-ttu-id="98135-351">Поставщик пытается преобразовать любой тип значения, если он поддерживает <xref:System.IConvertible> интерфейса.</span><span class="sxs-lookup"><span data-stu-id="98135-351">The provider tries to convert any type of value if it supports the <xref:System.IConvertible> interface.</span></span> <span data-ttu-id="98135-352">Если указанный тип не совместим со значением, могут возникнуть ошибки преобразования.</span><span class="sxs-lookup"><span data-stu-id="98135-352">Conversion errors may result if the specified type is not compatible with the value.</span></span>  
+  
+ <span data-ttu-id="98135-353">Как <xref:System.Data.SqlClient.SqlParameter.DbType%2A> и <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> могут быть заданы путем установки значения свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-353">Both the <xref:System.Data.SqlClient.SqlParameter.DbType%2A> and <xref:System.Data.SqlClient.SqlParameter.SqlDbType%2A> properties can be inferred by setting the Value.</span></span>  
+  
+ <span data-ttu-id="98135-354"><xref:System.Data.SqlClient.SqlParameter.Value%2A> Перезаписывается `SqlDataAdapter.UpdateCommand`.</span><span class="sxs-lookup"><span data-stu-id="98135-354">The <xref:System.Data.SqlClient.SqlParameter.Value%2A> property is overwritten by `SqlDataAdapter.UpdateCommand`.</span></span>  
+  
+ <span data-ttu-id="98135-355">Сведения о потоковой передаче см. в разделе [поддержка потоковой передачи SqlClient](~/docs/framework/data/adonet/sqlclient-streaming-support.md).</span><span class="sxs-lookup"><span data-stu-id="98135-355">For information about streaming, see [SqlClient Streaming Support](~/docs/framework/data/adonet/sqlclient-streaming-support.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="98135-356">В следующем примере создается <xref:System.Data.SqlClient.SqlParameter> и задает некоторые его свойства.</span><span class="sxs-lookup"><span data-stu-id="98135-356">The following example creates a <xref:System.Data.SqlClient.SqlParameter> and sets some of its properties.</span></span>  
+  
+ [!code-csharp[DataWorks SqlParam.Properties#8](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/CS/source.cs#8)]
+ [!code-vb[DataWorks SqlParam.Properties#8](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DataWorks SqlParam.Properties/VB/source.vb#8)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="XmlSchemaCollectionDatabase">
+      <MemberSignature Language="C#" Value="public string XmlSchemaCollectionDatabase { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string XmlSchemaCollectionDatabase" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionDatabase" />
+      <MemberSignature Language="VB.NET" Value="Public Property XmlSchemaCollectionDatabase As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ XmlSchemaCollectionDatabase { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-357">Возвращает имя базы данных, в которой находится коллекция схем для данного экземпляра XML.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-357">Gets the name of the database where the schema collection for this XML instance is located.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-358">Имя базы данных, в которой находится коллекция схем для данного экземпляра XML.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-358">The name of the database where the schema collection for this XML instance is located.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-359">Это значение равно null (`Nothing` в Visual Basic), если коллекция определена в текущей базе данных.</span><span class="sxs-lookup"><span data-stu-id="98135-359">This value is null (`Nothing` in Microsoft Visual Basic) if the collection is defined within the current database.</span></span> <span data-ttu-id="98135-360">Он также имеет значение null, если нет коллекции схем, в этом случае <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionName%2A> и <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionOwningSchema%2A> также равны null.</span><span class="sxs-lookup"><span data-stu-id="98135-360">It is also null if there is no schema collection, in which case <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionName%2A> and <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionOwningSchema%2A> are also null.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="XmlSchemaCollectionName">
+      <MemberSignature Language="C#" Value="public string XmlSchemaCollectionName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string XmlSchemaCollectionName" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionName" />
+      <MemberSignature Language="VB.NET" Value="Public Property XmlSchemaCollectionName As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ XmlSchemaCollectionName { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-361">Возвращает имя коллекции схем для данного экземпляра XML.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-361">Gets the name of the schema collection for this XML instance.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-362">Имя коллекции схем для данного экземпляра XML.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-362">The name of the schema collection for this XML instance.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-363">Это значение равно null (`Nothing` в Visual Basic) при наличии связанной коллекции схем.</span><span class="sxs-lookup"><span data-stu-id="98135-363">This value is null (`Nothing` in Microsoft Visual Basic) if there is no associated schema collection.</span></span> <span data-ttu-id="98135-364">Если значение равно null, затем <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionDatabase%2A> и <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionOwningSchema%2A> также равны null.</span><span class="sxs-lookup"><span data-stu-id="98135-364">If the value is null, then <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionDatabase%2A> and <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionOwningSchema%2A> are also null.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="XmlSchemaCollectionOwningSchema">
+      <MemberSignature Language="C#" Value="public string XmlSchemaCollectionOwningSchema { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string XmlSchemaCollectionOwningSchema" />
+      <MemberSignature Language="DocId" Value="P:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionOwningSchema" />
+      <MemberSignature Language="VB.NET" Value="Public Property XmlSchemaCollectionOwningSchema As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ XmlSchemaCollectionOwningSchema { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Data.SqlClient</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="98135-365">Реляционная схема-владелец, в которой находится коллекция схем для данного экземпляра XML.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-365">The owning relational schema where the schema collection for this XML instance is located.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="98135-366">Реляционная схема-владелец для данного экземпляра XML.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="98135-366">The owning relational schema for this XML instance.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="98135-367">Это значение равно null (`Nothing` в Visual Basic), если коллекция определена в текущей базе данных.</span><span class="sxs-lookup"><span data-stu-id="98135-367">This value is null (`Nothing` in Microsoft Visual Basic) if the collection is defined within the current database.</span></span> <span data-ttu-id="98135-368">Он также имеет значение null, если нет коллекции схем, в этом случае <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionDatabase%2A> и <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionName%2A> также равны null.</span><span class="sxs-lookup"><span data-stu-id="98135-368">It is also null if there is no schema collection, in which case <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionDatabase%2A> and <xref:System.Data.SqlClient.SqlParameter.XmlSchemaCollectionName%2A> are also null.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

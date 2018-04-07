@@ -1,0 +1,391 @@
+<Type Name="DecoderFallbackBuffer" FullName="System.Text.DecoderFallbackBuffer">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="334e4a94e0c09dca04227f373df6acb3a69c9b91" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class DecoderFallbackBuffer" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit DecoderFallbackBuffer extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Text.DecoderFallbackBuffer" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class DecoderFallbackBuffer" />
+  <TypeSignature Language="C++ CLI" Value="public ref class DecoderFallbackBuffer abstract" />
+  <AssemblyInfo>
+    <AssemblyName>System.Text.Encoding</AssemblyName>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="c3764-101">Предоставляет буфер, позволяющий резервному обработчику возвращать в декодер альтернативную строку, если он не может декодировать входную последовательность байтов.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="c3764-101">Provides a buffer that allows a fallback handler to return an alternate string to a decoder when it cannot decode an input byte sequence.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3764-102">Кодирование определяет сопоставление между символом Юникода и закодированную последовательность байтов.</span><span class="sxs-lookup"><span data-stu-id="c3764-102">An encoding defines a mapping between a Unicode character and an encoded sequence of bytes.</span></span> <span data-ttu-id="c3764-103">Операции декодирования, который преобразует входную последовательность байтов в выходной символ, не выполняется, если сопоставление не определено для последовательности определенный байт.</span><span class="sxs-lookup"><span data-stu-id="c3764-103">A decoding operation, which converts an input byte sequence to an output character, fails if no mapping is defined for a particular byte sequence.</span></span>  
+  
+ <span data-ttu-id="c3764-104">.NET Framework предоставляет механизм обработки ошибок, называемый резервным вариантом, если преобразование выполнить невозможно.</span><span class="sxs-lookup"><span data-stu-id="c3764-104">The .NET Framework provides a failure handling mechanism, called a fallback, if a conversion cannot be performed.</span></span> <span data-ttu-id="c3764-105">Все обработчики резервной декодера необходимо реализовать следующие:</span><span class="sxs-lookup"><span data-stu-id="c3764-105">All decoder fallback handlers must implement the following:</span></span>  
+  
+-   <span data-ttu-id="c3764-106">Декодер отката, который представлен классом производным от <xref:System.Text.DecoderFallback> класса.</span><span class="sxs-lookup"><span data-stu-id="c3764-106">A decoder fallback, which is represented by a class derived from the <xref:System.Text.DecoderFallback> class.</span></span>  
+  
+-   <span data-ttu-id="c3764-107">Буфер резерва декодера, представленный объектом типа, производного от <xref:System.Text.DecoderFallbackBuffer> класс, который может возвращать строку в операцию преобразования.</span><span class="sxs-lookup"><span data-stu-id="c3764-107">A decoder fallback buffer, which is represented by a type derived from the <xref:System.Text.DecoderFallbackBuffer> class that can return a string to the conversion operation.</span></span>  
+  
+ <span data-ttu-id="c3764-108">В случае ошибки можно использовать три стратегии обработки ошибок преобразования:</span><span class="sxs-lookup"><span data-stu-id="c3764-108">Fallbacks can use three strategies to handle conversion failures:</span></span>  
+  
+-   <span data-ttu-id="c3764-109">Наилучшее сопоставление.</span><span class="sxs-lookup"><span data-stu-id="c3764-109">Best-fit mapping.</span></span> <span data-ttu-id="c3764-110">Буфер резерва декодера может возвращать строку, представляющую приближено к входной последовательности байтов.</span><span class="sxs-lookup"><span data-stu-id="c3764-110">The decoder fallback buffer can return a string that represents a close approximation to the input byte sequence.</span></span> <span data-ttu-id="c3764-111">Платформа .NET Framework не предоставляет открытый наилучшего <xref:System.Text.DecoderFallbackBuffer> реализации.</span><span class="sxs-lookup"><span data-stu-id="c3764-111">The .NET Framework does not provide a public best-fit <xref:System.Text.DecoderFallbackBuffer> implementation.</span></span>  
+  
+-   <span data-ttu-id="c3764-112">Замена.</span><span class="sxs-lookup"><span data-stu-id="c3764-112">Replacement.</span></span> <span data-ttu-id="c3764-113">Буфер резерва декодера может вернуть строку, таких как знак вопроса ("?»), которое указывает, что не удалось декодировать последовательность байтов.</span><span class="sxs-lookup"><span data-stu-id="c3764-113">The decoder fallback buffer can return a string, such as a question mark ("?"), that indicates that a byte sequence could not be decoded.</span></span> <span data-ttu-id="c3764-114">В платформе .NET Framework <xref:System.Text.DecoderReplacementFallback> и <xref:System.Text.DecoderReplacementFallbackBuffer> классы предоставляют реализацию резервный буфер открытый замены.</span><span class="sxs-lookup"><span data-stu-id="c3764-114">In the .NET Framework, the <xref:System.Text.DecoderReplacementFallback> and <xref:System.Text.DecoderReplacementFallbackBuffer> classes provide a public replacement fallback buffer implementation.</span></span> <span data-ttu-id="c3764-115">Конструктор <xref:System.Text.DecoderReplacementFallback> позволяет определить строку замены.</span><span class="sxs-lookup"><span data-stu-id="c3764-115">The constructor of the <xref:System.Text.DecoderReplacementFallback> class enables you to define the replacement string.</span></span>  
+  
+-   <span data-ttu-id="c3764-116">Исключение.</span><span class="sxs-lookup"><span data-stu-id="c3764-116">Exception.</span></span> <span data-ttu-id="c3764-117"><xref:System.Text.DecoderFallbackBuffer> Реализация вызывает исключение, которое указывает, что не удается декодировать последовательность байтов и завершает операцию декодирования.</span><span class="sxs-lookup"><span data-stu-id="c3764-117">The <xref:System.Text.DecoderFallbackBuffer> implementation throws an exception, which indicates that a byte sequence cannot be decoded, and terminates the decoding operation.</span></span> <span data-ttu-id="c3764-118">В этом случае необходимо предоставить резервному обработчику <xref:System.Text.DecoderFallbackBuffer> реализацию, несмотря на то, что он не возвращает строки для декодера.</span><span class="sxs-lookup"><span data-stu-id="c3764-118">In this case, the fallback handler must provide a <xref:System.Text.DecoderFallbackBuffer> implementation, although it does not return a string to the decoder.</span></span> <span data-ttu-id="c3764-119">В платформе .NET Framework <xref:System.Text.DecoderExceptionFallback> и <xref:System.Text.DecoderExceptionFallbackBuffer> классы предоставляют реализацию резервной стратегии исключения открытый, которой создается <xref:System.Text.DecoderFallbackException> когда не удается декодировать последовательность байтов.</span><span class="sxs-lookup"><span data-stu-id="c3764-119">In the .NET Framework, the <xref:System.Text.DecoderExceptionFallback> and <xref:System.Text.DecoderExceptionFallbackBuffer> classes provide a public exception fallback implementation that throws a <xref:System.Text.DecoderFallbackException> when a byte sequence cannot be decoded.</span></span>  
+  
+ <span data-ttu-id="c3764-120">Буфер, в <xref:System.Text.DecoderFallbackBuffer> реализации представляет всю строку, должны быть возвращены декодер в ответ на декодер резервной.</span><span class="sxs-lookup"><span data-stu-id="c3764-120">The buffer in a <xref:System.Text.DecoderFallbackBuffer> implementation represents the entire string to be returned to the decoder in response to a decoder fallback.</span></span> <span data-ttu-id="c3764-121">Как правило реализации также включают сведения о состоянии, например индекса следующего символа, вернуться к декодера и количество оставшихся символов, должны быть возвращены.</span><span class="sxs-lookup"><span data-stu-id="c3764-121">Generally, implementations also include state information, such as the index of the next character to return to the decoder and the number of remaining characters to be returned.</span></span> <span data-ttu-id="c3764-122">Поскольку <xref:System.Text.DecoderFallbackBuffer> — это абстрактный класс, требуется производным классам реализовывать по крайней мере следующие члены:</span><span class="sxs-lookup"><span data-stu-id="c3764-122">Because <xref:System.Text.DecoderFallbackBuffer> is an abstract class, it requires derived classes to implement the following members at a minimum:</span></span>  
+  
+-   <span data-ttu-id="c3764-123"><xref:System.Text.DecoderFallbackBuffer.Fallback%2A> Метод, который вызывается декодером, когда он не может декодировать последовательность байтов.</span><span class="sxs-lookup"><span data-stu-id="c3764-123">The <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method, which is called by the decoder when it cannot decode a byte sequence.</span></span> <span data-ttu-id="c3764-124">Реализация резервный буфер декодера передает два блока данных: массив, содержащий байты, которые не удается декодировать и индекс первого байта в входного массива байтов.</span><span class="sxs-lookup"><span data-stu-id="c3764-124">The decoder passes two pieces of information to the fallback buffer implementation: an array containing the bytes that could not be decoded and the index of the first byte in the input byte array.</span></span> <span data-ttu-id="c3764-125">В обработчике исключений резервной декодер исключение в этом методе.</span><span class="sxs-lookup"><span data-stu-id="c3764-125">In a decoder fallback exception handler, the exception is thrown in this method.</span></span> <span data-ttu-id="c3764-126">В противном случае метод возвращает `true` если оно предоставляет переход на резервный ресурс или `false` Если это не так.</span><span class="sxs-lookup"><span data-stu-id="c3764-126">Otherwise, the method returns `true` if it provides a fallback, or `false` if it does not.</span></span>  
+  
+-   <span data-ttu-id="c3764-127"><xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> Метод, который повторно вызывается декодером, если <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> возвращает `true`.</span><span class="sxs-lookup"><span data-stu-id="c3764-127">The <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> method, which is called repeatedly by the decoder if the <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method returns `true`.</span></span> <span data-ttu-id="c3764-128">При последующих вызовах обработчик должен возвращать каждый символ в буфере.</span><span class="sxs-lookup"><span data-stu-id="c3764-128">In successive calls, the handler should return each character in its buffer.</span></span> <span data-ttu-id="c3764-129">Вернув все символы, он должен возвращать U + 0000.</span><span class="sxs-lookup"><span data-stu-id="c3764-129">When it has returned all characters, it should return U+0000.</span></span> <span data-ttu-id="c3764-130">Обработчик исключений резервной всегда возвращает U + 0000.</span><span class="sxs-lookup"><span data-stu-id="c3764-130">An exception fallback handler always returns U+0000.</span></span>  
+  
+-   <span data-ttu-id="c3764-131"><xref:System.Text.DecoderFallbackBuffer.MovePrevious%2A> Метод, который пытается переместить указатель в предыдущее расположение в буфере и указывает, успешно ли выполнено перемещение.</span><span class="sxs-lookup"><span data-stu-id="c3764-131">The <xref:System.Text.DecoderFallbackBuffer.MovePrevious%2A> method, which tries to move the pointer to the previous position in the buffer and indicates whether the move was successful.</span></span> <span data-ttu-id="c3764-132">Всегда возвращает обработчик исключений `false`.</span><span class="sxs-lookup"><span data-stu-id="c3764-132">An exception handler always returns `false`.</span></span>  
+  
+-   <span data-ttu-id="c3764-133"><xref:System.Text.DecoderFallbackBuffer.Remaining%2A> Свойство, которое указывает количество оставшихся символов, возвращаемых для декодера.</span><span class="sxs-lookup"><span data-stu-id="c3764-133">The <xref:System.Text.DecoderFallbackBuffer.Remaining%2A> property, which indicates the number of remaining characters to be returned to the decoder.</span></span> <span data-ttu-id="c3764-134">Обработчик исключений резервной всегда возвращает ноль.</span><span class="sxs-lookup"><span data-stu-id="c3764-134">An exception fallback handler always returns zero.</span></span>  
+  
+ ]]></format>
+    </remarks>
+    <altmember cref="T:System.Text.DecoderFallback" />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected DecoderFallbackBuffer ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.DecoderFallbackBuffer.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; DecoderFallbackBuffer();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3764-135">Инициализирует новый экземпляр класса <see cref="T:System.Text.DecoderFallbackBuffer" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-135">Initializes a new instance of the <see cref="T:System.Text.DecoderFallbackBuffer" /> class.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Fallback">
+      <MemberSignature Language="C#" Value="public abstract bool Fallback (byte[] bytesUnknown, int index);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool Fallback(unsigned int8[] bytesUnknown, int32 index) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.DecoderFallbackBuffer.Fallback(System.Byte[],System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function Fallback (bytesUnknown As Byte(), index As Integer) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract bool Fallback(cli::array &lt;System::Byte&gt; ^ bytesUnknown, int index);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="bytesUnknown" Type="System.Byte[]" />
+        <Parameter Name="index" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="bytesUnknown">
+          <span data-ttu-id="c3764-136">Входной массив байтов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-136">An input array of bytes.</span>
+          </span>
+        </param>
+        <param name="index">
+          <span data-ttu-id="c3764-137">Позиция индекса байта в <c>bytesUnknown</c>.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-137">The index position of a byte in <c>bytesUnknown</c>.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="c3764-138">При переопределении в производном классе готовит резервный буфер для обработки указанной входной последовательности байтов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-138">When overridden in a derived class, prepares the fallback buffer to handle the specified input byte sequence.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3764-139">
+            <see langword="true" />, если резервный буфер может обработать <paramref name="bytesUnknown" />; <see langword="false" />, если резервный буфер игнорирует <paramref name="bytesUnknown" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-139">
+              <see langword="true" /> if the fallback buffer can process <paramref name="bytesUnknown" />; <see langword="false" /> if the fallback buffer ignores <paramref name="bytesUnknown" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3764-140"><xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType>, <xref:System.Text.Encoding.GetString%2A?displayProperty=nameWithType>, И <xref:System.Text.Decoder.Convert%2A?displayProperty=nameWithType> вызов методов <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> при обнаружении неизвестного входную последовательность байтов, не может быть декодирована.</span><span class="sxs-lookup"><span data-stu-id="c3764-140">The <xref:System.Text.Encoding.GetChars%2A?displayProperty=nameWithType>, <xref:System.Text.Encoding.GetString%2A?displayProperty=nameWithType>, and <xref:System.Text.Decoder.Convert%2A?displayProperty=nameWithType> methods call <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> if they encounter an unknown input byte sequence that cannot be decoded.</span></span> <span data-ttu-id="c3764-141">Возвращаемое значение `true` указывает, что резервный буфер может обрабатывать входной последовательности байтов, вследствие чего вызывающий метод, вызываемый <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> метод для получения каждого символа из резервного буфера.</span><span class="sxs-lookup"><span data-stu-id="c3764-141">A return value of `true` indicates that the fallback buffer can process the input byte sequence, which causes the calling method to call the <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> method to obtain each character of the fallback buffer.</span></span> <span data-ttu-id="c3764-142">Так как он не обрабатывает отдельных байтов <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> метод в резервный обработчик исключений вызывает исключение.</span><span class="sxs-lookup"><span data-stu-id="c3764-142">Because it does not process individual bytes, the <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method in an exception fallback handler throws an exception.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetNextChar">
+      <MemberSignature Language="C#" Value="public abstract char GetNextChar ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance char GetNextChar() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.DecoderFallbackBuffer.GetNextChar" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function GetNextChar () As Char" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract char GetNextChar();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Char</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3764-143">При переопределении в производном классе извлекает следующий символ в резервном буфере.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-143">When overridden in a derived class, retrieves the next character in the fallback buffer.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3764-144">Следующий символ в резервном буфере.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-144">The next character in the fallback buffer.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3764-145">Вызывает операции декодирования <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> метод, если операция обнаруживает в последовательность неизвестных байтов во входных данных.</span><span class="sxs-lookup"><span data-stu-id="c3764-145">A decoding operation calls the <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method if the operation encounters an unknown byte sequence in the input.</span></span> <span data-ttu-id="c3764-146">Если <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> возвращает `true`, существует замещающую строку, которая может быть вставлен в выходных данных вместо декодирования неизвестные входные данные.</span><span class="sxs-lookup"><span data-stu-id="c3764-146">If the <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method returns `true`, a substitute string exists that can be inserted in the output instead of decoding the unknown input.</span></span> <span data-ttu-id="c3764-147">Вызов операции декодирования <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> метода несколько раз и получает один символ замены строки одновременно.</span><span class="sxs-lookup"><span data-stu-id="c3764-147">The decoding operation calls the <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> method repeatedly and obtains the substitute string one character at a time.</span></span> <span data-ttu-id="c3764-148">При возвращении всех символов в буфере резерва декодера метод должен вернуть U + 0000.</span><span class="sxs-lookup"><span data-stu-id="c3764-148">When all characters in the fallback buffer have been returned to the decoder, the method should return U+0000.</span></span>  
+  
+ <span data-ttu-id="c3764-149">Для обработчика исключений резервной <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> метод должен возвращать U + 0000.</span><span class="sxs-lookup"><span data-stu-id="c3764-149">For an exception fallback handler, the <xref:System.Text.DecoderFallbackBuffer.GetNextChar%2A> method should return U+0000.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="MovePrevious">
+      <MemberSignature Language="C#" Value="public abstract bool MovePrevious ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool MovePrevious() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.DecoderFallbackBuffer.MovePrevious" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function MovePrevious () As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract bool MovePrevious();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3764-150">При переопределении в производный класс становится причиной того, что в следующем вызове метод <see cref="M:System.Text.DecoderFallbackBuffer.GetNextChar" /> получает доступ к позиции символа в буфере данных, предшествующей текущей позиции символа.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-150">When overridden in a derived class, causes the next call to the <see cref="M:System.Text.DecoderFallbackBuffer.GetNextChar" /> method to access the data buffer character position that is prior to the current character position.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="c3764-151">Значение <see langword="true" />, если операция <see cref="M:System.Text.DecoderFallbackBuffer.MovePrevious" /> выполнена успешно; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-151">
+              <see langword="true" /> if the <see cref="M:System.Text.DecoderFallbackBuffer.MovePrevious" /> operation was successful; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3764-152">Резервный обработчик исключений должен возвращать `false`.</span><span class="sxs-lookup"><span data-stu-id="c3764-152">An exception fallback handler should return `false`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Remaining">
+      <MemberSignature Language="C#" Value="public abstract int Remaining { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance int32 Remaining" />
+      <MemberSignature Language="DocId" Value="P:System.Text.DecoderFallbackBuffer.Remaining" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride ReadOnly Property Remaining As Integer" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract property int Remaining { int get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3764-153">При переопределении в производном классе возвращает максимальное число символов в текущем объекте <see cref="T:System.Text.DecoderFallbackBuffer" />, которые остаются для обработки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-153">When overridden in a derived class, gets the number of characters in the current <see cref="T:System.Text.DecoderFallbackBuffer" /> object that remain to be processed.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="c3764-154">Количество символов в текущем резервном буфере, которые еще не были обработаны.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-154">The number of characters in the current fallback buffer that have not yet been processed.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="c3764-155"><xref:System.Text.DecoderFallbackBuffer.Fallback%2A> Возвращает `true` Если <xref:System.Text.DecoderFallbackBuffer.Remaining%2A> имеет ненулевое значение.</span><span class="sxs-lookup"><span data-stu-id="c3764-155">The <xref:System.Text.DecoderFallbackBuffer.Fallback%2A> method returns `true` if <xref:System.Text.DecoderFallbackBuffer.Remaining%2A> is a nonzero value.</span></span>  
+  
+ <span data-ttu-id="c3764-156">Для обработчика исключений резервной <xref:System.Text.DecoderFallbackBuffer.Remaining%2A> метод должен возвращать нуль.</span><span class="sxs-lookup"><span data-stu-id="c3764-156">For an exception fallback handler, the <xref:System.Text.DecoderFallbackBuffer.Remaining%2A> method should return zero.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Reset">
+      <MemberSignature Language="C#" Value="public virtual void Reset ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Reset() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Text.DecoderFallbackBuffer.Reset" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Sub Reset ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void Reset();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Text.Encoding</AssemblyName>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="c3764-157">Инициализирует все данные и сведения о состоянии, относящиеся к этому резервному буферу.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="c3764-157">Initializes all data and state information pertaining to this fallback buffer.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="c3764-158">После вызова метода <see cref="M:System.Text.DecoderFallbackBuffer.Reset" /> метода <see cref="P:System.Text.DecoderFallbackBuffer.Remaining" /> свойство должно возвращать 0, <see cref="M:System.Text.DecoderFallbackBuffer.GetNextChar" /> метод должен возвращать U + 0000 и <see cref="M:System.Text.DecoderFallbackBuffer.MovePrevious" /> метод должен возвращать <see langword="false" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="c3764-158">After calling the <see cref="M:System.Text.DecoderFallbackBuffer.Reset" /> method, the <see cref="P:System.Text.DecoderFallbackBuffer.Remaining" /> property should return 0, the <see cref="M:System.Text.DecoderFallbackBuffer.GetNextChar" /> method should return U+0000, and the <see cref="M:System.Text.DecoderFallbackBuffer.MovePrevious" /> method should return <see langword="false" />.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
