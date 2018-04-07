@@ -1,0 +1,783 @@
+<Type Name="XamlTypeInvoker" FullName="System.Xaml.Schema.XamlTypeInvoker">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="504f5574033cb4de7a3c6a42e6208306d4dd86e5" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class XamlTypeInvoker" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit XamlTypeInvoker extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Xaml.Schema.XamlTypeInvoker" />
+  <TypeSignature Language="VB.NET" Value="Public Class XamlTypeInvoker" />
+  <TypeSignature Language="C++ CLI" Value="public ref class XamlTypeInvoker" />
+  <AssemblyInfo>
+    <AssemblyName>System.Xaml</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="d9c29-101">Предоставляет точку расширения, которая может осуществлять построение экземпляров типа XAML с использованием методик, отличных от отражения и конструкторов.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="d9c29-101">Provides an extension point that can construct instances of a XAML type through techniques other than reflection and constructors.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d9c29-102">Назначение <xref:System.Xaml.Schema.XamlTypeInvoker> является расширяемой системой типов XAML, схемы и рабочего времени, который как полностью зависит от функций среды CLR, такие как атрибуты среды CLR, отражения сведений с помощью выполнения <xref:System.Type> и <xref:System.Reflection.MemberInfo>, и т. д.</span><span class="sxs-lookup"><span data-stu-id="d9c29-102">The purpose of <xref:System.Xaml.Schema.XamlTypeInvoker> is to enable an extensible XAML type system, schema, and a working run time that does not rely as fully on CLR features such as CLR attributes, reflection information through <xref:System.Type> and <xref:System.Reflection.MemberInfo>, and so on.</span></span> <span data-ttu-id="d9c29-103">Подклассы <xref:System.Xaml.Schema.XamlTypeInvoker> используются в качестве входных параметров для альтернативного конструкторы классов схемы XAML например <xref:System.Xaml.XamlType>.</span><span class="sxs-lookup"><span data-stu-id="d9c29-103">Subclasses of <xref:System.Xaml.Schema.XamlTypeInvoker> are used as input parameters for the alternate constructors of XAML schema classes such as <xref:System.Xaml.XamlType>.</span></span> <span data-ttu-id="d9c29-104">Подкласс вы <xref:System.Xaml.XamlType> и передать <xref:System.Xaml.Schema.XamlTypeInvoker> через конструктора базового класса.</span><span class="sxs-lookup"><span data-stu-id="d9c29-104">You subclass <xref:System.Xaml.XamlType> and pass the <xref:System.Xaml.Schema.XamlTypeInvoker> through to the base constructor.</span></span> <span data-ttu-id="d9c29-105">А также определение <xref:System.Xaml.Schema.XamlTypeInvoker> конструктора, необходимо также указать переопределения для по крайней мере часть `Lookup` методы <xref:System.Xaml.XamlType>.</span><span class="sxs-lookup"><span data-stu-id="d9c29-105">Along with defining a <xref:System.Xaml.Schema.XamlTypeInvoker> for the constructor, you must also provide overrides for at least some of the `Lookup` methods of <xref:System.Xaml.XamlType>.</span></span>  
+  
+ <span data-ttu-id="d9c29-106"><xref:System.Xaml.Schema.XamlTypeInvoker> имеет реализацию по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="d9c29-106"><xref:System.Xaml.Schema.XamlTypeInvoker> has a default implementation.</span></span> <span data-ttu-id="d9c29-107">Реализация по умолчанию соответствует аналогичной модели в реализации типов схемы XAML по умолчанию <xref:System.Xaml.XamlType> и <xref:System.Xaml.XamlMember>: в системе типов среды CLR используется для создания экземпляра, значения и уточняющие запросы, включая использование атрибутов CLR <xref:System.Type> и <xref:System.Reflection.MemberInfo>, и т. д.</span><span class="sxs-lookup"><span data-stu-id="d9c29-107">The default implementation follows a similar model to the default implementation of XAML schema types <xref:System.Xaml.XamlType> and <xref:System.Xaml.XamlMember>: the CLR type system is used for instantiation, values and lookups, including using CLR attributes, <xref:System.Type> and <xref:System.Reflection.MemberInfo>, and so on.</span></span>  
+  
+ <span data-ttu-id="d9c29-108"><xref:System.Xaml.Schema.XamlTypeInvoker> Предоставляет методы для создания экземпляров basic (<xref:System.Xaml.Schema.XamlTypeInvoker.CreateInstance%2A>) и методы, которые являются значимыми для типов где <xref:System.Xaml.XamlType> представляет коллекцию, словарь или массив (<xref:System.Xaml.Schema.XamlTypeInvoker.AddToCollection%2A>; <xref:System.Xaml.Schema.XamlTypeInvoker.AddToDictionary%2A>; <xref:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod%2A>; <xref:System.Xaml.Schema.XamlTypeInvoker.GetEnumeratorMethod%2A>; <xref:System.Xaml.Schema.XamlTypeInvoker.GetItems%2A>).</span><span class="sxs-lookup"><span data-stu-id="d9c29-108"><xref:System.Xaml.Schema.XamlTypeInvoker> provides methods for basic instantiation (<xref:System.Xaml.Schema.XamlTypeInvoker.CreateInstance%2A>) and methods that are relevant for types where the <xref:System.Xaml.XamlType> represents a collection, dictionary or array (<xref:System.Xaml.Schema.XamlTypeInvoker.AddToCollection%2A>; <xref:System.Xaml.Schema.XamlTypeInvoker.AddToDictionary%2A>; <xref:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod%2A>; <xref:System.Xaml.Schema.XamlTypeInvoker.GetEnumeratorMethod%2A>; <xref:System.Xaml.Schema.XamlTypeInvoker.GetItems%2A>).</span></span>  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="d9c29-109">Инициализирует новый экземпляр класса <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-109">Initializes a new instance of the <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected XamlTypeInvoker ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.Schema.XamlTypeInvoker.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; XamlTypeInvoker();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="d9c29-110">Инициализирует новый экземпляр класса <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-110">Initializes a new instance of the <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d9c29-111">Реализация по умолчанию является пустой.</span><span class="sxs-lookup"><span data-stu-id="d9c29-111">The default implementation is empty.</span></span>  
+  
+ <span data-ttu-id="d9c29-112">Этот конструктор вызывается внутренним образом для предоставления значения для <xref:System.Xaml.Schema.XamlTypeInvoker.UnknownInvoker%2A>.</span><span class="sxs-lookup"><span data-stu-id="d9c29-112">This constructor is invoked internally to provide a value for <xref:System.Xaml.Schema.XamlTypeInvoker.UnknownInvoker%2A>.</span></span> <span data-ttu-id="d9c29-113">Для <xref:System.Xaml.Schema.XamlTypeInvoker> подкласс, он должен либо использовать <xref:System.Xaml.Schema.XamlTypeInvoker.%23ctor%28System.Xaml.XamlType%29> подпись для построения или переопределить, вызывающий <xref:System.Xaml.Schema.XamlTypeInvoker.%23ctor%28System.Xaml.XamlType%29> базовым.</span><span class="sxs-lookup"><span data-stu-id="d9c29-113">For a <xref:System.Xaml.Schema.XamlTypeInvoker> subclass, it is expected that you either use the <xref:System.Xaml.Schema.XamlTypeInvoker.%23ctor%28System.Xaml.XamlType%29> signature for construction or provide an override that calls <xref:System.Xaml.Schema.XamlTypeInvoker.%23ctor%28System.Xaml.XamlType%29> as base.</span></span> <span data-ttu-id="d9c29-114">Предоставление <xref:System.Xaml.XamlType> реализует по умолчанию шаблон where <xref:System.Xaml.Schema.XamlTypeInvoker> является неизменяемым.</span><span class="sxs-lookup"><span data-stu-id="d9c29-114">Providing the <xref:System.Xaml.XamlType> implements a default pattern where <xref:System.Xaml.Schema.XamlTypeInvoker> is immutable.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XamlTypeInvoker (System.Xaml.XamlType type);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Xaml.XamlType type) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.Schema.XamlTypeInvoker.#ctor(System.Xaml.XamlType)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (type As XamlType)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XamlTypeInvoker(System::Xaml::XamlType ^ type);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="type" Type="System.Xaml.XamlType" />
+      </Parameters>
+      <Docs>
+        <param name="type">
+          <span data-ttu-id="d9c29-115">Значение <see cref="T:System.Xaml.XamlType" /> для определенного XAML-типа, соответствующего данному объекту <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-115">The <see cref="T:System.Xaml.XamlType" /> value for the specific XAML type relevant to this <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d9c29-116">Инициализирует новый экземпляр <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> на основе заданного <see cref="T:System.Xaml.XamlType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-116">Initializes a new instance of the <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> class, based on a provided <see cref="T:System.Xaml.XamlType" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d9c29-117">Данный конструктор вызывается внутренним образом на основе <xref:System.Xaml.XamlType> где <xref:System.Xaml.Schema.XamlTypeInvoker> используется для построения.</span><span class="sxs-lookup"><span data-stu-id="d9c29-117">This constructor is called internally based on the <xref:System.Xaml.XamlType> where the <xref:System.Xaml.Schema.XamlTypeInvoker> is used for construction.</span></span> <span data-ttu-id="d9c29-118">`type` Раздел представляет собой относится к другой метод вызывает для <xref:System.Xaml.Schema.XamlTypeInvoker>.</span><span class="sxs-lookup"><span data-stu-id="d9c29-118">The `type` provided here is relevant to all other method calls for <xref:System.Xaml.Schema.XamlTypeInvoker>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d9c29-119">Свойство <paramref name="type" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-119">
+              <paramref name="type" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="AddToCollection">
+      <MemberSignature Language="C#" Value="public virtual void AddToCollection (object instance, object item);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void AddToCollection(object instance, object item) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.Schema.XamlTypeInvoker.AddToCollection(System.Object,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Sub AddToCollection (instance As Object, item As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void AddToCollection(System::Object ^ instance, System::Object ^ item);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="instance" Type="System.Object" />
+        <Parameter Name="item" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="instance">
+          <span data-ttu-id="d9c29-120">Экземпляр типа, указанного параметром <see cref="T:System.Xaml.XamlType" />, который используется для создания этого объекта <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-120">An instance of the type specified by the <see cref="T:System.Xaml.XamlType" /> used for constructing this <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          </span>
+        </param>
+        <param name="item">
+          <span data-ttu-id="d9c29-121">Добавляемый элемент.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-121">The item to add.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d9c29-122">Добавляет указанный элемент в экземпляр типа, относящегося к этому объекту <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-122">Adds the provided item to an instance of the type that is relevant to this <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d9c29-123">Этот метод следует вызывать только на <xref:System.Xaml.XamlType> , представляющий коллекцию.</span><span class="sxs-lookup"><span data-stu-id="d9c29-123">You should only call this method on a <xref:System.Xaml.XamlType> that represents a collection.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="d9c29-124">Вызывает этот метод в объекте <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />, основанном на неизвестном типе <see cref="T:System.Xaml.XamlType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-124">Invoked this method on a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> that is based on an unknown <see cref="T:System.Xaml.XamlType" />.</span>
+          </span>
+          <span data-ttu-id="d9c29-125">**-или-**</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-125">**-or-**</span>
+          </span>
+          <span data-ttu-id="d9c29-126">Вызывает этот метод в объекте <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />, где соответствующий тип не является коллекцией.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-126">Invoked this method on a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> where the relevant type is not a collection.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d9c29-127">Свойство <paramref name="instance" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-127">
+              <paramref name="instance" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Xaml.XamlSchemaException">
+          <span data-ttu-id="d9c29-128">Метод <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> для этого объекта <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> возвращает значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-128">
+              <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> for this <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> returns <see langword="null" />.</span>
+          </span>
+        </exception>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="d9c29-129">Базовая реализация включает вызов внутренний вспомогательный <c>ThrowIfUnknown</c>.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-129">The base implementation includes a call to the internal helper <c>ThrowIfUnknown</c>.</span>
+            </span>
+            <span data-ttu-id="d9c29-130">Этого вспомогательного объекта всегда создает исключение для случаев, где <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> основан на неизвестном <see cref="T:System.Xaml.XamlType" />, включая ситуации, когда <see cref="P:System.Xaml.XamlType.UnderlyingType" /> из <see cref="T:System.Xaml.XamlType" /> — <see langword="null" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-130">This helper always throws for cases where a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> is based on an unknown <see cref="T:System.Xaml.XamlType" />, which includes cases where the <see cref="P:System.Xaml.XamlType.UnderlyingType" /> of the <see cref="T:System.Xaml.XamlType" /> is <see langword="null" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-131">На внутреннем уровне вызывает базовую реализацию <see cref="P:System.Xaml.XamlType.IsCollection" />и возникает исключение, если результат равен <see langword="false" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-131">Internally, the base implementation calls <see cref="P:System.Xaml.XamlType.IsCollection" />, and throws if the result is <see langword="false" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-132">Базовая реализация не обязательно использовать свой собственный <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> реализации.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-132">The base implementation does not necessarily use its own <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> implementation.</span>
+            </span>
+            <span data-ttu-id="d9c29-133">Во-первых, приведение <paramref name="instance" /> для <see cref="T:System.Collections.IList" /> выполняется.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-133">First, a cast of <paramref name="instance" /> to <see cref="T:System.Collections.IList" /> is attempted.</span>
+            </span>
+            <span data-ttu-id="d9c29-134">В случае успеха вызов <see cref="M:System.Collections.IList.Add(System.Object)" /> выполняется, а метод возвращает.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-134">If this succeeds, a call to <see cref="M:System.Collections.IList.Add(System.Object)" /> is made and the method returns.</span>
+            </span>
+            <span data-ttu-id="d9c29-135">Базовая реализация по умолчанию используется CLR <see cref="M:System.Reflection.MethodBase.Invoke(System.Object,System.Object[])" /> вызывать базовый <see langword="Add" /> , полученный из вызова метода <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> для этого <paramref name="" /><see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-135">Otherwise, the base implementation uses CLR <see cref="M:System.Reflection.MethodBase.Invoke(System.Object,System.Object[])" /> to invoke the underlying <see langword="Add" /> method, as obtained from a call to <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> for this <paramref name="" /><see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-136">В базовой реализации исключение не вызывается с этого уровня, если <paramref name="item" /> — <see langword="null" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-136">In the base implementation no exception is raised at this level if <paramref name="item" /> is <see langword="null" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-137">По-прежнему возможно, базовый <see langword="Add" /> метод вызывает исключение при вызове.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-137">It is still possible that the underlying <see langword="Add" /> method will raise an exception when invoked.</span>
+            </span>
+            <span data-ttu-id="d9c29-138">Возможны и другие исключения во время выполнения при <see cref="P:System.Xaml.XamlType.ItemType" /> не возвращает допустимый результат.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-138">Other run time exceptions are possible if <see cref="P:System.Xaml.XamlType.ItemType" /> does not return a valid result.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="AddToDictionary">
+      <MemberSignature Language="C#" Value="public virtual void AddToDictionary (object instance, object key, object item);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void AddToDictionary(object instance, object key, object item) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.Schema.XamlTypeInvoker.AddToDictionary(System.Object,System.Object,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Sub AddToDictionary (instance As Object, key As Object, item As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void AddToDictionary(System::Object ^ instance, System::Object ^ key, System::Object ^ item);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="instance" Type="System.Object" />
+        <Parameter Name="key" Type="System.Object" />
+        <Parameter Name="item" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="instance">
+          <span data-ttu-id="d9c29-139">Экземпляр типа, указанного параметром <see cref="T:System.Xaml.XamlType" />, который используется для создания этого объекта <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-139">An instance of the type specified by the <see cref="T:System.Xaml.XamlType" /> used for constructing this <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          </span>
+        </param>
+        <param name="key">
+          <span data-ttu-id="d9c29-140">Ключ словаря для добавления элемента.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-140">Dictionary key for the item to add.</span>
+          </span>
+        </param>
+        <param name="item">
+          <span data-ttu-id="d9c29-141">Значение элемента для добавления.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-141">The item value to add.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d9c29-142">Добавляет предоставленный ключ и значение элемента в экземпляр типа, который относится к этому элементу <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-142">Adds the provided key and item value to an instance of the type that is relevant to this <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d9c29-143">Этот метод следует вызывать только на <xref:System.Xaml.XamlType> , представляющий словарь.</span><span class="sxs-lookup"><span data-stu-id="d9c29-143">You should only call this method on a <xref:System.Xaml.XamlType> that represents a dictionary.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="d9c29-144">Вызывает этот метод в объекте <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />, основанном на неизвестном типе <see cref="T:System.Xaml.XamlType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-144">Invoked this method on a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> that is based on an unknown <see cref="T:System.Xaml.XamlType" />.</span>
+          </span>
+          <span data-ttu-id="d9c29-145">**-или-**</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-145">**-or-**</span>
+          </span>
+          <span data-ttu-id="d9c29-146">Вызывает этот метод в <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> (где соответствующий тип не является словарем).</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-146">Invoked this method on a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> where the relevant type is not a dictionary.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d9c29-147">Свойство <paramref name="instance" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-147">
+              <paramref name="instance" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Xaml.XamlSchemaException">
+          <span data-ttu-id="d9c29-148">Метод <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> для этого объекта <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> возвращает значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-148">
+              <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> for this <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> returns <see langword="null" />.</span>
+          </span>
+        </exception>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="d9c29-149">Базовая реализация включает вызов внутренний вспомогательный <c>ThrowIfUnknown</c>.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-149">The base implementation includes a call to the internal helper <c>ThrowIfUnknown</c>.</span>
+            </span>
+            <span data-ttu-id="d9c29-150">Этого вспомогательного объекта всегда создает исключение для случаев, где <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> основан на неизвестном <see cref="T:System.Xaml.XamlType" />, включая ситуации, когда <see cref="P:System.Xaml.XamlType.UnderlyingType" /> из <see cref="T:System.Xaml.XamlType" /> — <see langword="null" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-150">This helper always throws for cases where a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> is based on an unknown <see cref="T:System.Xaml.XamlType" />, which includes cases where the <see cref="P:System.Xaml.XamlType.UnderlyingType" /> of the <see cref="T:System.Xaml.XamlType" /> is <see langword="null" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-151">На внутреннем уровне вызывает базовую реализацию <see cref="P:System.Xaml.XamlType.IsDictionary" />и возникает исключение, если результат равен <see langword="false" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-151">Internally, the base implementation calls <see cref="P:System.Xaml.XamlType.IsDictionary" />, and throws if the result is <see langword="false" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-152">Базовая реализация не обязательно использовать свой собственный <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> реализации.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-152">The base implementation does not necessarily use its own <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> implementation.</span>
+            </span>
+            <span data-ttu-id="d9c29-153">Во-первых, приведение <paramref name="instance" /> для <see cref="T:System.Collections.IDictionary" /> выполняется.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-153">First, a cast of <paramref name="instance" /> to <see cref="T:System.Collections.IDictionary" /> is attempted.</span>
+            </span>
+            <span data-ttu-id="d9c29-154">В случае успеха вызов <see cref="M:System.Collections.IDictionary.Add(System.Object,System.Object)" /> выполняется, а метод возвращает.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-154">If this succeeds, a call to <see cref="M:System.Collections.IDictionary.Add(System.Object,System.Object)" /> is made and the method returns.</span>
+            </span>
+            <span data-ttu-id="d9c29-155">Базовая реализация по умолчанию используется CLR <see cref="M:System.Reflection.MethodBase.Invoke(System.Object,System.Object[])" /> вызывать базовый <see langword="Add" /> , полученный из вызова метода <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> для этого <paramref name="" /><see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-155">Otherwise, the base implementation uses CLR <see cref="M:System.Reflection.MethodBase.Invoke(System.Object,System.Object[])" /> to invoke the underlying <see langword="Add" /> method, as obtained from a call to <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" /> for this <paramref name="" /><see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-156">В базовой реализации исключение не вызывается с этого уровня, если <paramref name="item" /> или <paramref name="key" /> являются <see langword="null" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-156">In the base implementation no exception is raised at this level if <paramref name="item" /> or <paramref name="key" /> are <see langword="null" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-157">По-прежнему возможно, базовый <see langword="Add" /> метод вызывает исключение при вызове.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-157">It is still possible that the underlying <see langword="Add" /> method will raise an exception when invoked.</span>
+            </span>
+            <span data-ttu-id="d9c29-158">Возможны и другие исключения во время выполнения при <see cref="P:System.Xaml.XamlType.ItemType" /> не возвращает допустимый результат.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-158">Other run time exceptions are possible if <see cref="P:System.Xaml.XamlType.ItemType" /> does not return a valid result.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateInstance">
+      <MemberSignature Language="C#" Value="public virtual object CreateInstance (object[] arguments);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance object CreateInstance(object[] arguments) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.Schema.XamlTypeInvoker.CreateInstance(System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function CreateInstance (arguments As Object()) As Object" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Object ^ CreateInstance(cli::array &lt;System::Object ^&gt; ^ arguments);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="arguments" Type="System.Object[]" />
+      </Parameters>
+      <Docs>
+        <param name="arguments">
+          <span data-ttu-id="d9c29-159">Массив объектов, которые предоставляют аргументы <see langword="x:ConstructorArgs" /> для экземпляра.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-159">An array of objects that supply the <see langword="x:ConstructorArgs" /> for the instance.</span>
+          </span>
+          <span data-ttu-id="d9c29-160">Может быть <see langword="null" /> для типов, не требующих использования <see langword="x:ConstructorArgs" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-160">May be <see langword="null" /> for types that do not require or use <see langword="x:ConstructorArgs" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d9c29-161">Создает экземпляр объекта на основе <see cref="T:System.Xaml.XamlType" />, инициируемого при конструкции для данного <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-161">Creates an object instance based on the construction-initiated <see cref="T:System.Xaml.XamlType" /> for this <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d9c29-162">Созданный экземпляр объекта на основе <see cref="T:System.Xaml.XamlType" />, инициируемого при конструкции для данного <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-162">The created instance based on the construction-initiated <see cref="T:System.Xaml.XamlType" /> for this <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.MissingMethodException">
+          <span data-ttu-id="d9c29-163">Не удалось разрешить конструктор.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-163">Could not resolve a constructor.</span>
+          </span>
+        </exception>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="d9c29-164">Базовая реализация включает вызов внутренний вспомогательный <c>ThrowIfUnknown</c>.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-164">The base implementation includes a call to the internal helper <c>ThrowIfUnknown</c>.</span>
+            </span>
+            <span data-ttu-id="d9c29-165">Этого вспомогательного объекта всегда создает исключение для случаев, где <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> основан на неизвестном <see cref="T:System.Xaml.XamlType" />, включая ситуации, когда <see cref="P:System.Xaml.XamlType.UnderlyingType" /> из <see cref="T:System.Xaml.XamlType" /> — <see langword="null" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-165">This helper always throws for cases where a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> is based on an unknown <see cref="T:System.Xaml.XamlType" />, which includes cases where the <see cref="P:System.Xaml.XamlType.UnderlyingType" /> of the <see cref="T:System.Xaml.XamlType" /> is <see langword="null" />.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="GetAddMethod">
+      <MemberSignature Language="C#" Value="public virtual System.Reflection.MethodInfo GetAddMethod (System.Xaml.XamlType contentType);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Reflection.MethodInfo GetAddMethod(class System.Xaml.XamlType contentType) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.Schema.XamlTypeInvoker.GetAddMethod(System.Xaml.XamlType)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetAddMethod (contentType As XamlType) As MethodInfo" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Reflection::MethodInfo ^ GetAddMethod(System::Xaml::XamlType ^ contentType);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Reflection.MethodInfo</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="contentType" Type="System.Xaml.XamlType" />
+      </Parameters>
+      <Docs>
+        <param name="contentType">
+          <span data-ttu-id="d9c29-166">
+            <see cref="T:System.Xaml.XamlType" /> для типа элемента, используемого методом <see langword="Add" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-166">
+              <see cref="T:System.Xaml.XamlType" /> for the item type that is used by the <see langword="Add" /> method.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d9c29-167">Возвращает соответствующий метод <see langword="Add" /> для объекта <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />, соответствующего коллекции или словарю.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-167">Returns the relevant <see langword="Add" /> method for a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> that is relevant to a collection or dictionary.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d9c29-168">Сведения <see cref="T:System.Reflection.MethodInfo" /> в среде CLR для метода <see langword="Add" />, или null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-168">CLR <see cref="T:System.Reflection.MethodInfo" /> information for the <see langword="Add" /> method, or null.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d9c29-169">Этот метод должен возвращать `null` для случаев, где <xref:System.Xaml.XamlType> для этого <xref:System.Xaml.Schema.XamlTypeInvoker> не является доступным для записи коллекции или словаря.</span><span class="sxs-lookup"><span data-stu-id="d9c29-169">This method should return `null` for cases where the <xref:System.Xaml.XamlType> for this <xref:System.Xaml.Schema.XamlTypeInvoker> is not a writeable collection or dictionary.</span></span> <span data-ttu-id="d9c29-170">В частности, должны возвращать `null` для случаев, где <xref:System.Xaml.XamlType.LookupCollectionKind%2A?displayProperty=nameWithType> возвращает `None`.</span><span class="sxs-lookup"><span data-stu-id="d9c29-170">Specifically, should return `null` for cases where <xref:System.Xaml.XamlType.LookupCollectionKind%2A?displayProperty=nameWithType> returns `None`.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="d9c29-171">Если вы обращаетесь не полностью доверенной системы типов XAML, этот метод имеет возможность false отчетов <xref:System.Reflection.MethodInfo> сведения вызывающим объектам.</span><span class="sxs-lookup"><span data-stu-id="d9c29-171">If you are not accessing a fully trusted XAML type system, this method has the potential to report false <xref:System.Reflection.MethodInfo> information to callers.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d9c29-172">Свойство <paramref name="contentType" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-172">
+              <paramref name="contentType" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="d9c29-173">Возвращает базовую реализацию <see langword="null" /> для случаев, где <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> основан на неизвестном <see cref="T:System.Xaml.XamlType" />, включая ситуации, когда <see cref="P:System.Xaml.XamlType.UnderlyingType" /> из <see cref="T:System.Xaml.XamlType" /> — <see langword="null" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-173">The base implementation returns <see langword="null" /> for cases where a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> is based on an unknown <see cref="T:System.Xaml.XamlType" />, which includes cases where the <see cref="P:System.Xaml.XamlType.UnderlyingType" /> of the <see cref="T:System.Xaml.XamlType" /> is <see langword="null" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-174">Он также возвращает <see langword="null" /> Если <see cref="P:System.Xaml.XamlType.ItemType" /> — <see langword="null" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-174">It also returns <see langword="null" /> if <see cref="P:System.Xaml.XamlType.ItemType" /> is <see langword="null" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-175">Потенциально коллекциями XAML имеется несколько <see langword="Add" /> метод, так как коллекция XAML может поддерживать несколько типов содержимого (см. <see cref="P:System.Xaml.XamlType.AllowedContentTypes" />, или в разделе <see cref="T:System.Windows.Markup.ContentWrapperAttribute" /> сведения о одну реализацию этой концепции в WPF).</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-175">XAML collections potentially have more than one <see langword="Add" /> method, because a XAML collection can potentially support more than one content type (see <see cref="P:System.Xaml.XamlType.AllowedContentTypes" />, or see <see cref="T:System.Windows.Markup.ContentWrapperAttribute" /> for information about one implementation of this concept in WPF).</span>
+            </span>
+            <span data-ttu-id="d9c29-176">Реализация по умолчанию использует внутреннюю логику для возврата наилучшего соответствия на основе сигнатур и типа предоставленного <paramref name="contentType" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-176">The default implementation uses internal logic to return the best match based on the signatures and the type of the supplied <paramref name="contentType" />.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="GetEnumeratorMethod">
+      <MemberSignature Language="C#" Value="public virtual System.Reflection.MethodInfo GetEnumeratorMethod ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Reflection.MethodInfo GetEnumeratorMethod() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.Schema.XamlTypeInvoker.GetEnumeratorMethod" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetEnumeratorMethod () As MethodInfo" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Reflection::MethodInfo ^ GetEnumeratorMethod();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Reflection.MethodInfo</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="d9c29-177">Возвращает объект, представляющий метод, который может осуществлять перечисление по элементам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-177">Returns an object representing a method that can enumerate over items.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d9c29-178">
+            <see cref="T:System.Reflection.MethodInfo" /> для метода перечислителя, или <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-178">
+              <see cref="T:System.Reflection.MethodInfo" /> for an enumerator method, or <see langword="null" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d9c29-179">Должен возвращать `null` для случаев, где <xref:System.Xaml.XamlType.LookupCollectionKind%2A?displayProperty=nameWithType> возвращает `None`.</span><span class="sxs-lookup"><span data-stu-id="d9c29-179">Should return `null` for cases where <xref:System.Xaml.XamlType.LookupCollectionKind%2A?displayProperty=nameWithType> returns `None`.</span></span>  
+  
+> [!IMPORTANT]
+>  <span data-ttu-id="d9c29-180">Если вы обращаетесь не полностью доверенной системы типов XAML, этот метод имеет возможность false отчетов <xref:System.Reflection.MethodInfo> сведения вызывающим объектам.</span><span class="sxs-lookup"><span data-stu-id="d9c29-180">If you are not accessing a fully trusted XAML type system, this method has the potential to report false <xref:System.Reflection.MethodInfo> information to callers.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="d9c29-181">Базовая реализация вызывает внутренний вспомогательный метод.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-181">The base implementation calls an internal helper method.</span>
+            </span>
+            <span data-ttu-id="d9c29-182">Возвращает этой вспомогательной <see langword="null" /> для случаев, где <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> основан на неизвестном <see cref="T:System.Xaml.XamlType" />, включая ситуации, когда <see cref="P:System.Xaml.XamlType.UnderlyingType" /> из <see cref="T:System.Xaml.XamlType" /> — <see langword="null" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-182">That helper returns <see langword="null" /> for cases where a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> is based on an unknown <see cref="T:System.Xaml.XamlType" />, which includes cases where the <see cref="P:System.Xaml.XamlType.UnderlyingType" /> of the <see cref="T:System.Xaml.XamlType" /> is <see langword="null" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-183">Он также возвращает <see langword="null" /> для случаев, где <see cref="M:System.Xaml.XamlType.LookupCollectionKind" /> возвращает <see langword="None" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-183">It also returns <see langword="null" /> for cases where <see cref="M:System.Xaml.XamlType.LookupCollectionKind" /> returns <see langword="None" />.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="GetItems">
+      <MemberSignature Language="C#" Value="public virtual System.Collections.IEnumerator GetItems (object instance);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Collections.IEnumerator GetItems(object instance) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xaml.Schema.XamlTypeInvoker.GetItems(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function GetItems (instance As Object) As IEnumerator" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Collections::IEnumerator ^ GetItems(System::Object ^ instance);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.IEnumerator</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="instance" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="instance">
+          <span data-ttu-id="d9c29-184">Экземпляр типа, указанного параметром <see cref="T:System.Xaml.XamlType" />, который используется для создания этого объекта <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-184">An instance of the type specified by the <see cref="T:System.Xaml.XamlType" /> used for constructing this <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="d9c29-185">Возвращает объект <see cref="T:System.Collections.IEnumerator" />, представляющий набор элементов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-185">Returns an <see cref="T:System.Collections.IEnumerator" /> object representing the set of items.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="d9c29-186">Объект <see cref="T:System.Collections.IEnumerator" /> или <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-186">An <see cref="T:System.Collections.IEnumerator" /> object, or <see langword="null" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="d9c29-187">Вызывает этот метод в объекте <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />, основанном на неизвестном типе <see cref="T:System.Xaml.XamlType" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-187">Invoked this method on a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> that is based on an unknown <see cref="T:System.Xaml.XamlType" />.</span>
+          </span>
+          <span data-ttu-id="d9c29-188">**-или-**</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-188">**-or-**</span>
+          </span>
+          <span data-ttu-id="d9c29-189">Этот метод вызван для <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />, где соответствующий тип не является коллекцией или словарем.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-189">Invoked this method on a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> where the relevant type is not a collection or dictionary.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="d9c29-190">Свойство <paramref name="instance" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-190">
+              <paramref name="instance" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+        <block subset="none" type="overrides">
+          <para>
+            <span data-ttu-id="d9c29-191">Базовая реализация включает вызов внутренний вспомогательный <c>ThrowIfUnknown</c>.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-191">The base implementation includes a call to the internal helper <c>ThrowIfUnknown</c>.</span>
+            </span>
+            <span data-ttu-id="d9c29-192">Этого вспомогательного объекта всегда создает исключение для случаев, где <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> основан на неизвестном <see cref="T:System.Xaml.XamlType" />, включая ситуации, когда <see cref="P:System.Xaml.XamlType.UnderlyingType" /> из <see cref="T:System.Xaml.XamlType" /> — <see langword="null" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-192">This helper always throws for cases where a <see cref="T:System.Xaml.Schema.XamlTypeInvoker" /> is based on an unknown <see cref="T:System.Xaml.XamlType" />, which includes cases where the <see cref="P:System.Xaml.XamlType.UnderlyingType" /> of the <see cref="T:System.Xaml.XamlType" /> is <see langword="null" />.</span>
+            </span>
+            <span data-ttu-id="d9c29-193">Базовая реализация не обязательно использовать свой собственный <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetEnumeratorMethod" /> реализации.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-193">The base implementation does not necessarily use its own <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetEnumeratorMethod" /> implementation.</span>
+            </span>
+            <span data-ttu-id="d9c29-194">Во-первых, приведение <paramref name="instance" /> для <see cref="T:System.Collections.IEnumerable" /> выполняется.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-194">First, a cast of <paramref name="instance" /> to <see cref="T:System.Collections.IEnumerable" /> is attempted.</span>
+            </span>
+            <span data-ttu-id="d9c29-195">В случае успеха вызов <see cref="M:System.Collections.IEnumerable.GetEnumerator" /> выполняется и возвращает метод, которые возвращают значение.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-195">If this succeeds, a call to <see cref="M:System.Collections.IEnumerable.GetEnumerator" /> is made and the method returns that return value.</span>
+            </span>
+            <span data-ttu-id="d9c29-196">Базовая реализация по умолчанию используется CLR <see cref="M:System.Reflection.MethodBase.Invoke(System.Object,System.Object[])" /> вызывать базовый <see langword="GetEnumerator" /> , полученный из вызова метода <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetEnumeratorMethod" /> для этого <paramref name="" /><see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+            <span class="sxs-lookup">
+              <span data-stu-id="d9c29-196">Otherwise, the base implementation uses CLR <see cref="M:System.Reflection.MethodBase.Invoke(System.Object,System.Object[])" /> to invoke the underlying <see langword="GetEnumerator" /> method, as obtained from a call to <see cref="M:System.Xaml.Schema.XamlTypeInvoker.GetEnumeratorMethod" /> for this <paramref name="" /><see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+            </span>
+          </para>
+        </block>
+      </Docs>
+    </Member>
+    <Member MemberName="SetMarkupExtensionHandler">
+      <MemberSignature Language="C#" Value="public EventHandler&lt;System.Windows.Markup.XamlSetMarkupExtensionEventArgs&gt; SetMarkupExtensionHandler { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.EventHandler`1&lt;class System.Windows.Markup.XamlSetMarkupExtensionEventArgs&gt; SetMarkupExtensionHandler" />
+      <MemberSignature Language="DocId" Value="P:System.Xaml.Schema.XamlTypeInvoker.SetMarkupExtensionHandler" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property SetMarkupExtensionHandler As EventHandler(Of XamlSetMarkupExtensionEventArgs)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property EventHandler&lt;System::Windows::Markup::XamlSetMarkupExtensionEventArgs ^&gt; ^ SetMarkupExtensionHandler { EventHandler&lt;System::Windows::Markup::XamlSetMarkupExtensionEventArgs ^&gt; ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.EventHandler&lt;System.Windows.Markup.XamlSetMarkupExtensionEventArgs&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="d9c29-197">Получает обработчик, который необходимо использовать при вызове реализованного объекта <see cref="T:System.Xaml.XamlObjectWriter" /> объектом <see cref="T:System.Windows.Markup.MarkupExtension" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-197">Gets the handler to use when a <see cref="T:System.Xaml.XamlObjectWriter" /> calls into an implemented <see cref="T:System.Windows.Markup.MarkupExtension" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="d9c29-198">Реализация обработчика, обрабатывающая такой случай.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-198">A handler implementation that handles this case.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d9c29-199">Обработчик событий на основе <xref:System.EventHandler%601> ограниченного без <xref:System.Windows.Markup.XamlSetMarkupExtensionEventArgs> данные события.</span><span class="sxs-lookup"><span data-stu-id="d9c29-199">The event handler is based on <xref:System.EventHandler%601> constrained with <xref:System.Windows.Markup.XamlSetMarkupExtensionEventArgs> event data.</span></span>  
+  
+ <span data-ttu-id="d9c29-200">Возвращаемое значение вызывает <xref:System.Xaml.XamlType.LookupSetMarkupExtensionHandler%2A> поведение <xref:System.Xaml.XamlType> , <xref:System.Xaml.Schema.XamlTypeInvoker> на основе.</span><span class="sxs-lookup"><span data-stu-id="d9c29-200">The value returned invokes the <xref:System.Xaml.XamlType.LookupSetMarkupExtensionHandler%2A> behavior of the <xref:System.Xaml.XamlType> that the <xref:System.Xaml.Schema.XamlTypeInvoker> is based on.</span></span>  
+  
+ <span data-ttu-id="d9c29-201">Возвращает значение `null` для <xref:System.Xaml.Schema.XamlTypeInvoker> , основанный на неизвестном <xref:System.Xaml.XamlType>.</span><span class="sxs-lookup"><span data-stu-id="d9c29-201">The return value is `null` for a <xref:System.Xaml.Schema.XamlTypeInvoker> that is based on an unknown <xref:System.Xaml.XamlType>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SetTypeConverterHandler">
+      <MemberSignature Language="C#" Value="public EventHandler&lt;System.Windows.Markup.XamlSetTypeConverterEventArgs&gt; SetTypeConverterHandler { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.EventHandler`1&lt;class System.Windows.Markup.XamlSetTypeConverterEventArgs&gt; SetTypeConverterHandler" />
+      <MemberSignature Language="DocId" Value="P:System.Xaml.Schema.XamlTypeInvoker.SetTypeConverterHandler" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property SetTypeConverterHandler As EventHandler(Of XamlSetTypeConverterEventArgs)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property EventHandler&lt;System::Windows::Markup::XamlSetTypeConverterEventArgs ^&gt; ^ SetTypeConverterHandler { EventHandler&lt;System::Windows::Markup::XamlSetTypeConverterEventArgs ^&gt; ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.EventHandler&lt;System.Windows.Markup.XamlSetTypeConverterEventArgs&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="d9c29-202">Получает обработчик, используемый, когда <see cref="T:System.Xaml.XamlObjectWriter" /> вызывает реализованный в среде CLR метод <see cref="T:System.ComponentModel.TypeConverter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-202">Gets the handler to use when a <see cref="T:System.Xaml.XamlObjectWriter" /> calls into a CLR-implemented <see cref="T:System.ComponentModel.TypeConverter" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="d9c29-203">Реализация обработчика, обрабатывающая такой случай.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-203">A handler implementation that handles this case.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d9c29-204">Обработчик событий на основе <xref:System.EventHandler%601> ограниченного без <xref:System.Windows.Markup.XamlSetMarkupExtensionEventArgs> данные события.</span><span class="sxs-lookup"><span data-stu-id="d9c29-204">The event handler is based on <xref:System.EventHandler%601> constrained with <xref:System.Windows.Markup.XamlSetMarkupExtensionEventArgs> event data.</span></span>  
+  
+ <span data-ttu-id="d9c29-205">Возвращаемое значение вызывает <xref:System.Xaml.XamlType.LookupSetTypeConverterHandler%2A> поведение <xref:System.Xaml.XamlType> , <xref:System.Xaml.Schema.XamlTypeInvoker> на основе.</span><span class="sxs-lookup"><span data-stu-id="d9c29-205">The value returned invokes the <xref:System.Xaml.XamlType.LookupSetTypeConverterHandler%2A> behavior of the <xref:System.Xaml.XamlType> that the <xref:System.Xaml.Schema.XamlTypeInvoker> is based on.</span></span>  
+  
+ <span data-ttu-id="d9c29-206">Возвращает значение `null` для <xref:System.Xaml.Schema.XamlTypeInvoker> , основанный на неизвестном <xref:System.Xaml.XamlType>.</span><span class="sxs-lookup"><span data-stu-id="d9c29-206">The return value is `null` for a <xref:System.Xaml.Schema.XamlTypeInvoker> that is based on an unknown <xref:System.Xaml.XamlType>.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="UnknownInvoker">
+      <MemberSignature Language="C#" Value="public static System.Xaml.Schema.XamlTypeInvoker UnknownInvoker { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property class System.Xaml.Schema.XamlTypeInvoker UnknownInvoker" />
+      <MemberSignature Language="DocId" Value="P:System.Xaml.Schema.XamlTypeInvoker.UnknownInvoker" />
+      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property UnknownInvoker As XamlTypeInvoker" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::Xaml::Schema::XamlTypeInvoker ^ UnknownInvoker { System::Xaml::Schema::XamlTypeInvoker ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xaml</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xaml.Schema.XamlTypeInvoker</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="d9c29-207">Предоставляет статическое значение, представляющее неизвестный, не реализованный полностью <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-207">Provides a static value that represents an unknown, not fully implemented <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="d9c29-208">Статическое значение, представляющее неизвестный, не реализованный полностью <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="d9c29-208">A static value that represents an unknown, not fully implemented <see cref="T:System.Xaml.Schema.XamlTypeInvoker" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="d9c29-209">Это значение для указания <xref:System.Xaml.Schema.XamlTypeInvoker> API определен параметр System.Xaml обычно вызывает выполнение вызываемого кода могут вызывать исключения.</span><span class="sxs-lookup"><span data-stu-id="d9c29-209">Supplying this value for a <xref:System.Xaml.Schema.XamlTypeInvoker> parameter of System.Xaml defined API will typically cause the called code to throw exceptions.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
