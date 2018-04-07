@@ -1,0 +1,984 @@
+<Type Name="AggregateException" FullName="System.AggregateException">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="a408cd8c65b6a1872bbc7ecc28fd7106d4fe9897" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class AggregateException : Exception" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit AggregateException extends System.Exception" />
+  <TypeSignature Language="DocId" Value="T:System.AggregateException" />
+  <TypeSignature Language="VB.NET" Value="Public Class AggregateException&#xA;Inherits Exception" />
+  <TypeSignature Language="C++ CLI" Value="public ref class AggregateException : Exception" />
+  <AssemblyInfo>
+    <AssemblyName>System.Threading.Tasks</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Runtime</AssemblyName>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+    <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Exception</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.Diagnostics.DebuggerDisplay("Count = {InnerExceptionCount}")</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>
+      <span data-ttu-id="f0077-101">Представляет одну или несколько ошибок, возникающих во время выполнения приложения.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="f0077-101">Represents one or more errors that occur during application execution.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f0077-102"><xref:System.AggregateException> используется для объединения нескольких сбоев в один объект исключения, объект.</span><span class="sxs-lookup"><span data-stu-id="f0077-102"><xref:System.AggregateException> is used to consolidate multiple failures into a single, throwable exception object.</span></span> <span data-ttu-id="f0077-103">Он используется в основном в [библиотека параллельных задач (TPL)](~/docs/standard/parallel-programming/task-parallel-library-tpl.md) и [Parallel LINQ (PLINQ)](~/docs/standard/parallel-programming/parallel-linq-plinq.md).</span><span class="sxs-lookup"><span data-stu-id="f0077-103">It is used extensively in the [Task Parallel Library (TPL)](~/docs/standard/parallel-programming/task-parallel-library-tpl.md) and [Parallel LINQ (PLINQ)](~/docs/standard/parallel-programming/parallel-linq-plinq.md).</span></span> <span data-ttu-id="f0077-104">Дополнительные сведения см. в разделе [статистической обработки исключений](http://go.microsoft.com/fwlink/p/?LinkId=259617) запись в блоге .NET: вопросы и ответы.</span><span class="sxs-lookup"><span data-stu-id="f0077-104">For additional information, see the [Aggregating Exceptions](http://go.microsoft.com/fwlink/p/?LinkId=259617) entry in the .NET Matters blog.</span></span> <span data-ttu-id="f0077-105">Пример см. в разделе [NIB: Практическое: обработки исключений, создаваемых задачами](http://msdn.microsoft.com/library/d6c47ec8-9de9-4880-beb3-ff19ae51565d) и [как: обработка исключений в запросе PLINQ](~/docs/standard/parallel-programming/how-to-handle-exceptions-in-a-plinq-query.md).</span><span class="sxs-lookup"><span data-stu-id="f0077-105">For an example, see [NIB: How to: Handle Exceptions Thrown by Tasks](http://msdn.microsoft.com/library/d6c47ec8-9de9-4880-beb3-ff19ae51565d) and [How to: Handle Exceptions in a PLINQ Query](~/docs/standard/parallel-programming/how-to-handle-exceptions-in-a-plinq-query.md).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f0077-106">Следующий пример перехватывает <xref:System.AggregateException> исключение и вызывает метод <xref:System.AggregateException.Handle%2A> метод для обработки каждого исключения, он содержит.</span><span class="sxs-lookup"><span data-stu-id="f0077-106">The following example catches the <xref:System.AggregateException> exception and calls the <xref:System.AggregateException.Handle%2A> method to handle each exception it contains.</span></span> <span data-ttu-id="f0077-107">Компиляция и выполнение примера с помощью первого `task1` переменная, приводить к <xref:System.AggregateException> , содержащий <xref:System.UnauthorizedAccessException> исключение.</span><span class="sxs-lookup"><span data-stu-id="f0077-107">Compiling and running the example with the first `task1` variable should result in an <xref:System.AggregateException> object that contains an <xref:System.UnauthorizedAccessException> exception.</span></span> <span data-ttu-id="f0077-108">Преобразование в комментарий этой строки, Раскомментировать второй `task1` переменной, компиляцию и выполнение примера создает <xref:System.AggregateException> , содержащий <xref:System.IndexOutOfRangeException> исключение.</span><span class="sxs-lookup"><span data-stu-id="f0077-108">Commenting out that line, uncommenting the second `task1` variable, and compiling and running the example produces an <xref:System.AggregateException> object that contains an <xref:System.IndexOutOfRangeException> exception.</span></span>  
+  
+ [!code-csharp[System.AggregateException.Class#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.aggregateexception.class/cs/exception1.cs#1)]
+ [!code-vb[System.AggregateException.Class#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.aggregateexception.class/vb/exception1.vb#1)]  
+  
+ ]]></format>
+    </remarks>
+    <threadsafe>
+      <span data-ttu-id="f0077-109">Все открытые и защищенные члены <see cref="T:System.AggregateException" /> являются потокобезопасными и могут быть использованы одновременно из нескольких потоков.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="f0077-109">All public and protected members of <see cref="T:System.AggregateException" /> are thread-safe and may be used concurrently from multiple threads.</span>
+      </span>
+    </threadsafe>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="f0077-110">Инициализирует новый экземпляр класса <see cref="T:System.AggregateException" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-110">Initializes a new instance of the <see cref="T:System.AggregateException" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AggregateException ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AggregateException();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="f0077-111">Инициализирует новый экземпляр класса <see cref="T:System.AggregateException" /> с системным сообщением, содержащим описание ошибки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-111">Initializes a new instance of the <see cref="T:System.AggregateException" /> class with a system-supplied message that describes the error.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f0077-112">Этот конструктор инициализирует <xref:System.Exception.Message%2A> свойств нового экземпляра системным сообщением, содержащим описание ошибки, такие как «System.AggregateException: Произошла одна или несколько ошибок.»</span><span class="sxs-lookup"><span data-stu-id="f0077-112">This constructor initializes the <xref:System.Exception.Message%2A> property of the new instance to a system-supplied message that describes the error, such as "System.AggregateException: One or more errors occurred."</span></span> <span data-ttu-id="f0077-113">Это сообщение учитывает текущую культуру системы.</span><span class="sxs-lookup"><span data-stu-id="f0077-113">This message takes into account the current system culture.</span></span>  
+  
+ <span data-ttu-id="f0077-114">В следующей таблице представлены исходные значения свойств экземпляра класса <xref:System.AggregateException>.</span><span class="sxs-lookup"><span data-stu-id="f0077-114">The following table shows the initial property values for an instance of <xref:System.AggregateException>.</span></span>  
+  
+|<span data-ttu-id="f0077-115">Свойство.</span><span class="sxs-lookup"><span data-stu-id="f0077-115">Property</span></span>|<span data-ttu-id="f0077-116">Значение</span><span class="sxs-lookup"><span data-stu-id="f0077-116">Value</span></span>|  
+|--------------|-----------|  
+|<xref:System.Exception.InnerException%2A>|<span data-ttu-id="f0077-117">`null`.</span><span class="sxs-lookup"><span data-stu-id="f0077-117">`null`.</span></span>|  
+|<xref:System.Exception.Message%2A>|<span data-ttu-id="f0077-118">Строка локализованного сообщения об ошибке.</span><span class="sxs-lookup"><span data-stu-id="f0077-118">The localized error message string.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AggregateException (System.Collections.Generic.IEnumerable&lt;Exception&gt; innerExceptions);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Collections.Generic.IEnumerable`1&lt;class System.Exception&gt; innerExceptions) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.#ctor(System.Collections.Generic.IEnumerable{System.Exception})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (innerExceptions As IEnumerable(Of Exception))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AggregateException(System::Collections::Generic::IEnumerable&lt;Exception ^&gt; ^ innerExceptions);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="innerExceptions" Type="System.Collections.Generic.IEnumerable&lt;System.Exception&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="innerExceptions">
+          <span data-ttu-id="f0077-119">Исключения, являющиеся причиной текущего исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-119">The exceptions that are the cause of the current exception.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f0077-120">Инициализирует новый экземпляр класса <see cref="T:System.AggregateException" /> со ссылками на внутренние исключения, вызвавшие данное исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-120">Initializes a new instance of the <see cref="T:System.AggregateException" /> class with references to the inner exceptions that are the cause of this exception.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="f0077-121">Аргумент <paramref name="innerExceptions" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-121">The <paramref name="innerExceptions" /> argument is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="f0077-122">Элемент <paramref name="innerExceptions" /> равен null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-122">An element of <paramref name="innerExceptions" /> is null.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AggregateException (params Exception[] innerExceptions);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Exception[] innerExceptions) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.#ctor(System.Exception[])" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (ParamArray innerExceptions As Exception())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AggregateException(... cli::array &lt;Exception ^&gt; ^ innerExceptions);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="innerExceptions" Type="System.Exception[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="innerExceptions">
+          <span data-ttu-id="f0077-123">Исключения, являющиеся причиной текущего исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-123">The exceptions that are the cause of the current exception.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f0077-124">Инициализирует новый экземпляр класса <see cref="T:System.AggregateException" /> со ссылками на внутренние исключения, вызвавшие данное исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-124">Initializes a new instance of the <see cref="T:System.AggregateException" /> class with references to the inner exceptions that are the cause of this exception.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="f0077-125">Аргумент <paramref name="innerExceptions" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-125">The <paramref name="innerExceptions" /> argument is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="f0077-126">Элемент <paramref name="innerExceptions" /> равен null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-126">An element of <paramref name="innerExceptions" /> is null.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AggregateException (string message);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string message) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.#ctor(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (message As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AggregateException(System::String ^ message);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="message" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="message">
+          <span data-ttu-id="f0077-127">Сообщение с описанием исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-127">The message that describes the exception.</span>
+          </span>
+          <span data-ttu-id="f0077-128">Код, вызывающий этот конструктор, должен обеспечить локализацию данной строки в соответствии с текущим языком и региональными параметрами системы.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-128">The caller of this constructor is required to ensure that this string has been localized for the current system culture.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f0077-129">Инициализирует новый экземпляр класса <see cref="T:System.AggregateException" /> с использованием заданного сообщения, содержащего описание ошибки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-129">Initializes a new instance of the <see cref="T:System.AggregateException" /> class with a specified message that describes the error.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f0077-130">В следующей таблице представлены исходные значения свойств экземпляра класса <xref:System.AggregateException>.</span><span class="sxs-lookup"><span data-stu-id="f0077-130">The following table shows the initial property values for an instance of <xref:System.AggregateException>.</span></span>  
+  
+|<span data-ttu-id="f0077-131">Свойство.</span><span class="sxs-lookup"><span data-stu-id="f0077-131">Property</span></span>|<span data-ttu-id="f0077-132">Значение</span><span class="sxs-lookup"><span data-stu-id="f0077-132">Value</span></span>|  
+|--------------|-----------|  
+|<xref:System.Exception.InnerException%2A>|<span data-ttu-id="f0077-133">`null`.</span><span class="sxs-lookup"><span data-stu-id="f0077-133">`null`.</span></span>|  
+|<xref:System.Exception.Message%2A>|<span data-ttu-id="f0077-134">Строка сообщения об ошибке, указанная в `message`.</span><span class="sxs-lookup"><span data-stu-id="f0077-134">The error message string specified in `message`.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected AggregateException (System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor(class System.Runtime.Serialization.SerializationInfo info, valuetype System.Runtime.Serialization.StreamingContext context) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New (info As SerializationInfo, context As StreamingContext)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; AggregateException(System::Runtime::Serialization::SerializationInfo ^ info, System::Runtime::Serialization::StreamingContext context);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="info" Type="System.Runtime.Serialization.SerializationInfo" />
+        <Parameter Name="context" Type="System.Runtime.Serialization.StreamingContext" />
+      </Parameters>
+      <Docs>
+        <param name="info">
+          <span data-ttu-id="f0077-135">Объект, содержащий сериализованные данные объекта.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-135">The object that holds the serialized object data.</span>
+          </span>
+        </param>
+        <param name="context">
+          <span data-ttu-id="f0077-136">Контекстные сведения об источнике или назначении.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-136">The contextual information about the source or destination.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f0077-137">Инициализирует новый экземпляр класса <see cref="T:System.AggregateException" /> с сериализованными данными.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-137">Initializes a new instance of the <see cref="T:System.AggregateException" /> class with serialized data.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f0077-138">Данный конструктор вызывается в процессе десериализации для воссоздания объекта исключения, переданного в потоке.</span><span class="sxs-lookup"><span data-stu-id="f0077-138">This constructor is called during deserialization to reconstitute the exception object transmitted over a stream.</span></span> <span data-ttu-id="f0077-139">Дополнительные сведения см. в разделе [сериализации XML и SOAP](~/docs/standard/serialization/xml-and-soap-serialization.md).</span><span class="sxs-lookup"><span data-stu-id="f0077-139">For more information, see [XML and SOAP Serialization](~/docs/standard/serialization/xml-and-soap-serialization.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="f0077-140">Аргумент <paramref name="info" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-140">The <paramref name="info" /> argument is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.Runtime.Serialization.SerializationException">
+          <span data-ttu-id="f0077-141">Не удалось правильно выполнить десериализацию исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-141">The exception could not be deserialized correctly.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AggregateException (string message, System.Collections.Generic.IEnumerable&lt;Exception&gt; innerExceptions);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string message, class System.Collections.Generic.IEnumerable`1&lt;class System.Exception&gt; innerExceptions) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.#ctor(System.String,System.Collections.Generic.IEnumerable{System.Exception})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (message As String, innerExceptions As IEnumerable(Of Exception))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AggregateException(System::String ^ message, System::Collections::Generic::IEnumerable&lt;Exception ^&gt; ^ innerExceptions);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="message" Type="System.String" />
+        <Parameter Name="innerExceptions" Type="System.Collections.Generic.IEnumerable&lt;System.Exception&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="message">
+          <span data-ttu-id="f0077-142">Сообщение об ошибке, указывающее причину создания исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-142">The error message that explains the reason for the exception.</span>
+          </span>
+        </param>
+        <param name="innerExceptions">
+          <span data-ttu-id="f0077-143">Исключения, являющиеся причиной текущего исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-143">The exceptions that are the cause of the current exception.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f0077-144">Инициализирует новый экземпляр класса <see cref="T:System.AggregateException" /> с заданным сообщением об ошибке и ссылками на внутренние исключения, вызвавшие данное исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-144">Initializes a new instance of the <see cref="T:System.AggregateException" /> class with a specified error message and references to the inner exceptions that are the cause of this exception.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="f0077-145">Аргумент <paramref name="innerExceptions" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-145">The <paramref name="innerExceptions" /> argument is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="f0077-146">Элемент <paramref name="innerExceptions" /> равен null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-146">An element of <paramref name="innerExceptions" /> is null.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AggregateException (string message, Exception innerException);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string message, class System.Exception innerException) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.#ctor(System.String,System.Exception)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (message As String, innerException As Exception)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AggregateException(System::String ^ message, Exception ^ innerException);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="message" Type="System.String" />
+        <Parameter Name="innerException" Type="System.Exception" />
+      </Parameters>
+      <Docs>
+        <param name="message">
+          <span data-ttu-id="f0077-147">Сообщение с описанием исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-147">The message that describes the exception.</span>
+          </span>
+          <span data-ttu-id="f0077-148">Код, вызывающий этот конструктор, должен обеспечить локализацию данной строки в соответствии с текущим языком и региональными параметрами системы.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-148">The caller of this constructor is required to ensure that this string has been localized for the current system culture.</span>
+          </span>
+        </param>
+        <param name="innerException">
+          <span data-ttu-id="f0077-149">Исключение, которое является причиной текущего исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-149">The exception that is the cause of the current exception.</span>
+          </span>
+          <span data-ttu-id="f0077-150">Если значение параметра <c>innerException</c> не равно <see langword="null" />, текущее исключение возникает в блоке <see langword="catch" />, обрабатывающем внутреннее исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-150">If the <c>innerException</c> parameter is not <see langword="null" />, the current exception is raised in a <see langword="catch" /> block that handles the inner exception.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f0077-151">Инициализирует новый экземпляр класса <see cref="T:System.AggregateException" /> указанным сообщением об ошибке и ссылкой на внутреннее исключение, вызвавшее данное исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-151">Initializes a new instance of the <see cref="T:System.AggregateException" /> class with a specified error message and a reference to the inner exception that is the cause of this exception.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f0077-152">Исключение, созданное как прямой результат предыдущего исключения, должно содержать в свойстве <xref:System.Exception.InnerException%2A> ссылку на предыдущее исключение.</span><span class="sxs-lookup"><span data-stu-id="f0077-152">An exception that is thrown as a direct result of a previous exception should include a reference to the previous exception in the <xref:System.Exception.InnerException%2A> property.</span></span> <span data-ttu-id="f0077-153">Свойство <xref:System.Exception.InnerException%2A> возвращает значение, переданное конструктору, или значение `null`, если свойство <xref:System.Exception.InnerException%2A> не передает конструктору значение внутреннего исключения.</span><span class="sxs-lookup"><span data-stu-id="f0077-153">The <xref:System.Exception.InnerException%2A> property returns the same value that is passed into the constructor, or `null` if the <xref:System.Exception.InnerException%2A> property does not supply the inner exception value to the constructor.</span></span>  
+  
+ <span data-ttu-id="f0077-154">В следующей таблице представлены исходные значения свойств экземпляра класса <xref:System.AggregateException>.</span><span class="sxs-lookup"><span data-stu-id="f0077-154">The following table shows the initial property values for an instance of <xref:System.AggregateException>.</span></span>  
+  
+|<span data-ttu-id="f0077-155">Свойство.</span><span class="sxs-lookup"><span data-stu-id="f0077-155">Property</span></span>|<span data-ttu-id="f0077-156">Значение</span><span class="sxs-lookup"><span data-stu-id="f0077-156">Value</span></span>|  
+|--------------|-----------|  
+|<xref:System.Exception.InnerException%2A>|<span data-ttu-id="f0077-157">`null`.</span><span class="sxs-lookup"><span data-stu-id="f0077-157">`null`.</span></span>|  
+|<xref:System.Exception.Message%2A>|<span data-ttu-id="f0077-158">Строка сообщения об ошибке, указанная в `message`.</span><span class="sxs-lookup"><span data-stu-id="f0077-158">The error message string specified in `message`.</span></span>|  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="f0077-159">Аргумент <paramref name="innerException" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-159">The <paramref name="innerException" /> argument is null.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AggregateException (string message, params Exception[] innerExceptions);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string message, class System.Exception[] innerExceptions) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.#ctor(System.String,System.Exception[])" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (message As String, ParamArray innerExceptions As Exception())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AggregateException(System::String ^ message, ... cli::array &lt;Exception ^&gt; ^ innerExceptions);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="message" Type="System.String" />
+        <Parameter Name="innerExceptions" Type="System.Exception[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="message">
+          <span data-ttu-id="f0077-160">Сообщение об ошибке, указывающее причину создания исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-160">The error message that explains the reason for the exception.</span>
+          </span>
+        </param>
+        <param name="innerExceptions">
+          <span data-ttu-id="f0077-161">Исключения, являющиеся причиной текущего исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-161">The exceptions that are the cause of the current exception.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f0077-162">Инициализирует новый экземпляр класса <see cref="T:System.AggregateException" /> с заданным сообщением об ошибке и ссылками на внутренние исключения, вызвавшие данное исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-162">Initializes a new instance of the <see cref="T:System.AggregateException" /> class with a specified error message and references to the inner exceptions that are the cause of this exception.</span>
+          </span>
+        </summary>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="f0077-163">Аргумент <paramref name="innerExceptions" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-163">The <paramref name="innerExceptions" /> argument is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="f0077-164">Элемент <paramref name="innerExceptions" /> равен null.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-164">An element of <paramref name="innerExceptions" /> is null.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Flatten">
+      <MemberSignature Language="C#" Value="public AggregateException Flatten ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.AggregateException Flatten() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.Flatten" />
+      <MemberSignature Language="VB.NET" Value="Public Function Flatten () As AggregateException" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; AggregateException ^ Flatten();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.AggregateException</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="f0077-165">Объединяет экземпляры <see cref="T:System.AggregateException" /> в один новый экземпляр.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-165">Flattens an <see cref="T:System.AggregateException" /> instances into a single, new instance.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f0077-166">Новый объединенный объект <see cref="T:System.AggregateException" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-166">A new, flattened <see cref="T:System.AggregateException" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f0077-167">Если задача имеет присоединенную дочернюю задачу, которая создает исключение, это исключение заключается в <xref:System.AggregateException> исключение перед распространением в родительскую задачу, которая заключает его в собственное исключение <xref:System.AggregateException> исключение перед распространением обратно в вызывающий поток.</span><span class="sxs-lookup"><span data-stu-id="f0077-167">If a task has an attached child task that throws an exception, that exception is wrapped in an <xref:System.AggregateException> exception before it is propagated to the parent task, which wraps that exception in its own <xref:System.AggregateException> exception before it propagates it back to the calling thread.</span></span> <span data-ttu-id="f0077-168">В таких случаях <xref:System.AggregateException.InnerExceptions%2A> свойство <xref:System.AggregateException> исключение, перехваченное блоком <xref:System.Threading.Tasks.Task.Wait%2A?displayProperty=nameWithType>, <xref:System.Threading.Tasks.Task.Wait*>, <xref:System.Threading.Tasks.Task.WaitAny%2A?displayProperty=nameWithType> или <xref:System.Threading.Tasks.Task.WaitAll%2A?displayProperty=nameWithType> метод содержит один или несколько <xref:System.AggregateException> экземпляров не исходные исключения, вызвало сбой.</span><span class="sxs-lookup"><span data-stu-id="f0077-168">In such cases, the <xref:System.AggregateException.InnerExceptions%2A> property of the <xref:System.AggregateException> exception that is caught by the <xref:System.Threading.Tasks.Task.Wait%2A?displayProperty=nameWithType>, <xref:System.Threading.Tasks.Task.Wait*>, <xref:System.Threading.Tasks.Task.WaitAny%2A?displayProperty=nameWithType> or <xref:System.Threading.Tasks.Task.WaitAll%2A?displayProperty=nameWithType> method contains one or more <xref:System.AggregateException> instances, not the original exceptions that caused the fault.</span></span> <span data-ttu-id="f0077-169">Чтобы избежать необходимости выполнения итерации по вложенным <xref:System.AggregateException> исключения, можно использовать <xref:System.AggregateException.Flatten%2A> метод для удаления всех вложенного <xref:System.AggregateException> исключения, чтобы <xref:System.AggregateException.InnerExceptions%2A> свойство возвращаемого <xref:System.AggregateException> содержит исходный объект исключения.</span><span class="sxs-lookup"><span data-stu-id="f0077-169">To avoid having to iterate over nested <xref:System.AggregateException> exceptions, you can use the <xref:System.AggregateException.Flatten%2A> method to remove all the nested <xref:System.AggregateException> exceptions, so that the <xref:System.AggregateException.InnerExceptions%2A> property of the returned <xref:System.AggregateException> object contains the original exceptions.</span></span>  
+  
+ <span data-ttu-id="f0077-170">Этот метод рекурсивно выполняет сведение всех экземпляров <xref:System.AggregateException> исключения, которые являются внутренние исключения текущего <xref:System.AggregateException> экземпляра.</span><span class="sxs-lookup"><span data-stu-id="f0077-170">This method recursively flattens all instances of  <xref:System.AggregateException> exceptions that are inner exceptions of the current <xref:System.AggregateException> instance .</span></span> <span data-ttu-id="f0077-171">Внутренние исключения возвращается в новом <xref:System.AggregateException> объединение всех внутренних исключений из исключения дерева, корнем текущего являются <xref:System.AggregateException> экземпляра.</span><span class="sxs-lookup"><span data-stu-id="f0077-171">The inner exceptions returned in the new <xref:System.AggregateException> are the union of all the inner exceptions from exception tree rooted at the current <xref:System.AggregateException> instance.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f0077-172">В следующем примере вложенные экземпляры <xref:System.AggregateException> сглаживаются и обрабатываются всего в одном цикле.</span><span class="sxs-lookup"><span data-stu-id="f0077-172">In the following example, nested <xref:System.AggregateException> instances are flattened and handled in just one loop.</span></span>  
+  
+ [!code-csharp[TPL_Exceptions#22](~/samples/snippets/csharp/VS_Snippets_Misc/tpl_exceptions/cs/flatten2.cs#22)]
+ [!code-vb[TPL_Exceptions#22](~/samples/snippets/visualbasic/VS_Snippets_Misc/tpl_exceptions/vb/flatten2.vb#22)]  
+  
+ <span data-ttu-id="f0077-173">Вы также можете использовать метод <xref:System.AggregateException.Flatten%2A?displayProperty=nameWithType>, чтобы повторно создать в одном экземпляре <xref:System.AggregateException> все вложенные исключения, полученные в нескольких экземплярах <xref:System.AggregateException> от нескольких задач, как показано в следующем примере.</span><span class="sxs-lookup"><span data-stu-id="f0077-173">You can also use the <xref:System.AggregateException.Flatten%2A?displayProperty=nameWithType> method to rethrow the inner exceptions from multiple <xref:System.AggregateException> instances thrown by multiple tasks in a single <xref:System.AggregateException> instance, as the following example shows.</span></span>  
+  
+ [!code-csharp[TPL_Exceptions#13](~/samples/snippets/csharp/VS_Snippets_Misc/tpl_exceptions/cs/taskexceptions2.cs#13)]
+ [!code-vb[TPL_Exceptions#13](~/samples/snippets/visualbasic/VS_Snippets_Misc/tpl_exceptions/vb/taskexceptions2.vb#13)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetBaseException">
+      <MemberSignature Language="C#" Value="public override Exception GetBaseException ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Exception GetBaseException() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.GetBaseException" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function GetBaseException () As Exception" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override Exception ^ GetBaseException();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Exception</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="f0077-174">Возвращает объект <see cref="T:System.AggregateException" />, являющийся первопричиной данного исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-174">Returns the <see cref="T:System.AggregateException" /> that is the root cause of this exception.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f0077-175">Возвращает объект <see cref="T:System.AggregateException" />, являющийся первопричиной данного исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-175">Returns the <see cref="T:System.AggregateException" /> that is the root cause of this exception.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetObjectData">
+      <MemberSignature Language="C#" Value="public override void GetObjectData (System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void GetObjectData(class System.Runtime.Serialization.SerializationInfo info, valuetype System.Runtime.Serialization.StreamingContext context) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Sub GetObjectData (info As SerializationInfo, context As StreamingContext)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override void GetObjectData(System::Runtime::Serialization::SerializationInfo ^ info, System::Runtime::Serialization::StreamingContext context);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="info" Type="System.Runtime.Serialization.SerializationInfo" />
+        <Parameter Name="context" Type="System.Runtime.Serialization.StreamingContext" />
+      </Parameters>
+      <Docs>
+        <param name="info">
+          <span data-ttu-id="f0077-176">Объект, содержащий сериализованные данные объекта.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-176">The object that holds the serialized object data.</span>
+          </span>
+        </param>
+        <param name="context">
+          <span data-ttu-id="f0077-177">Контекстные сведения об источнике или назначении.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-177">The contextual information about the source or destination.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f0077-178">Инициализирует новый экземпляр класса <see cref="T:System.AggregateException" /> с сериализованными данными.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-178">Initializes a new instance of the <see cref="T:System.AggregateException" /> class with serialized data.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f0077-179">Данный конструктор вызывается в процессе десериализации для воссоздания объекта исключения, переданного в потоке.</span><span class="sxs-lookup"><span data-stu-id="f0077-179">This constructor is called during deserialization to reconstitute the exception object transmitted over a stream.</span></span> <span data-ttu-id="f0077-180">Дополнительные сведения см. в разделе [сериализации XML и SOAP](~/docs/standard/serialization/xml-and-soap-serialization.md).</span><span class="sxs-lookup"><span data-stu-id="f0077-180">For more information, see [XML and SOAP Serialization](~/docs/standard/serialization/xml-and-soap-serialization.md).</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="f0077-181">Аргумент <paramref name="info" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-181">The <paramref name="info" /> argument is null.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Handle">
+      <MemberSignature Language="C#" Value="public void Handle (Func&lt;Exception,bool&gt; predicate);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Handle(class System.Func`2&lt;class System.Exception, bool&gt; predicate) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.Handle(System.Func{System.Exception,System.Boolean})" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Handle (predicate As Func(Of Exception, Boolean))" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Handle(Func&lt;Exception ^, bool&gt; ^ predicate);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="predicate" Type="System.Func&lt;System.Exception,System.Boolean&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="predicate">
+          <span data-ttu-id="f0077-182">Предикат, который необходимо выполнить для каждого исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-182">The predicate to execute for each exception.</span>
+          </span>
+          <span data-ttu-id="f0077-183">Предикат принимает в качестве аргумента подлежащий обработке объект <see cref="T:System.Exception" /> и возвращает логическое значение, указывающее, было ли обработано исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-183">The predicate accepts as an argument the <see cref="T:System.Exception" /> to be processed and returns a Boolean to indicate whether the exception was handled.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="f0077-184">Вызывает обработчик для каждого объекта <see cref="T:System.Exception" />, содержащегося в данном объекте <see cref="T:System.AggregateException" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-184">Invokes a handler on each <see cref="T:System.Exception" /> contained by this <see cref="T:System.AggregateException" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="f0077-185">Каждый вызов `predicate` возвращает значение true или false, чтобы указать ли <xref:System.Exception> было обработано.</span><span class="sxs-lookup"><span data-stu-id="f0077-185">Each invocation of the `predicate` returns true or false to indicate whether the <xref:System.Exception> was handled.</span></span> <span data-ttu-id="f0077-186">После всех вызовов, если любые исключения остались необработанными, все необработанные исключения будут помещены в новый <xref:System.AggregateException> которого будет создано.</span><span class="sxs-lookup"><span data-stu-id="f0077-186">After all invocations, if any exceptions went unhandled, all unhandled exceptions will be put into a new <xref:System.AggregateException> which will be thrown.</span></span> <span data-ttu-id="f0077-187">В противном случае <xref:System.AggregateException.Handle%2A> метод просто возвращает.</span><span class="sxs-lookup"><span data-stu-id="f0077-187">Otherwise, the <xref:System.AggregateException.Handle%2A> method simply returns.</span></span> <span data-ttu-id="f0077-188">Если любые вызовы `predicate` создает исключение, оно Остановка обработки любых дополнительных исключений и распространять немедленно исключения как-является.</span><span class="sxs-lookup"><span data-stu-id="f0077-188">If any invocations of the `predicate` throws an exception, it will halt the processing of any more exceptions and immediately propagate the thrown exception as-is.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="f0077-189">Как правило, обработчик исключений, который перехватывает <xref:System.AggregateException> использует исключение `foreach` (в C#) или `For Each` цикла (в Visual Basic) для обработки каждое исключение в его <xref:System.AggregateException.InnerExceptions%2A> коллекции.</span><span class="sxs-lookup"><span data-stu-id="f0077-189">Ordinarily, an exception handler that catches an <xref:System.AggregateException> exception uses a `foreach` loop (in C#) or `For Each` loop (in Visual Basic) to handle each exception in its <xref:System.AggregateException.InnerExceptions%2A> collection.</span></span> <span data-ttu-id="f0077-190">Вместо этого, в следующем примере используется <xref:System.AggregateException.Handle%2A> метод для обработки каждого исключения и только повторно создает исключения, которые не являются `CustomException` экземпляров.</span><span class="sxs-lookup"><span data-stu-id="f0077-190">Instead, the following example uses the <xref:System.AggregateException.Handle%2A> method to handle each exception, and only re-throws exceptions that are not `CustomException` instances.</span></span>  
+  
+ [!code-csharp[TPL_Exceptions#16](~/samples/snippets/csharp/VS_Snippets_Misc/tpl_exceptions/cs/handlemethod2.cs#16)]
+ [!code-vb[TPL_Exceptions#16](~/samples/snippets/visualbasic/VS_Snippets_Misc/tpl_exceptions/vb/handlemethod2.vb#16)]  
+  
+ <span data-ttu-id="f0077-191">Ниже приведен более полный пример, использующий <xref:System.AggregateException.Handle%2A> метод, чтобы выполнить специальную обработку <xref:System.UnauthorizedAccessException> при перечислении файлов.</span><span class="sxs-lookup"><span data-stu-id="f0077-191">The following is a more complete example that uses the <xref:System.AggregateException.Handle%2A> method to provide special handling for an <xref:System.UnauthorizedAccessException> when enumerating files.</span></span>  
+  
+ [!code-csharp[TPL_Exceptions#12](~/samples/snippets/csharp/VS_Snippets_Misc/tpl_exceptions/cs/taskexceptions.cs#12)]
+ [!code-vb[TPL_Exceptions#12](~/samples/snippets/visualbasic/VS_Snippets_Misc/tpl_exceptions/vb/taskexceptions.vb#12)]  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="f0077-192">Аргумент <paramref name="predicate" /> имеет значение NULL.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-192">The <paramref name="predicate" /> argument is null.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.AggregateException">
+          <span data-ttu-id="f0077-193">Не обработано исключение, содержащихся в этом <see cref="T:System.AggregateException" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-193">An exception contained by this <see cref="T:System.AggregateException" /> was not handled.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="InnerExceptions">
+      <MemberSignature Language="C#" Value="public System.Collections.ObjectModel.ReadOnlyCollection&lt;Exception&gt; InnerExceptions { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.ObjectModel.ReadOnlyCollection`1&lt;class System.Exception&gt; InnerExceptions" />
+      <MemberSignature Language="DocId" Value="P:System.AggregateException.InnerExceptions" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property InnerExceptions As ReadOnlyCollection(Of Exception)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Collections::ObjectModel::ReadOnlyCollection&lt;Exception ^&gt; ^ InnerExceptions { System::Collections::ObjectModel::ReadOnlyCollection&lt;Exception ^&gt; ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.ObjectModel.ReadOnlyCollection&lt;System.Exception&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="f0077-194">Получает доступную только для чтения коллекцию экземпляров <see cref="T:System.Exception" />, вызывавших текущее исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-194">Gets a read-only collection of the <see cref="T:System.Exception" /> instances that caused the current exception.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="f0077-195">Возвращает доступную только для чтения коллекцию экземпляров <see cref="T:System.Exception" />, вызывавших текущее исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-195">Returns a read-only collection of the <see cref="T:System.Exception" /> instances that caused the current exception.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Message">
+      <MemberSignature Language="C#" Value="public override string Message { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Message" />
+      <MemberSignature Language="DocId" Value="P:System.AggregateException.Message" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides ReadOnly Property Message As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ Message { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ToString">
+      <MemberSignature Language="C#" Value="public override string ToString ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string ToString() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.AggregateException.ToString" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ToString () As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::String ^ ToString();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Threading.Tasks</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Runtime</AssemblyName>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="f0077-196">Создает и возвращает строковое представление текущего <see cref="T:System.AggregateException" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-196">Creates and returns a string representation of the current <see cref="T:System.AggregateException" />.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="f0077-197">Строковое представление текущего исключения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="f0077-197">A string representation of the current exception.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

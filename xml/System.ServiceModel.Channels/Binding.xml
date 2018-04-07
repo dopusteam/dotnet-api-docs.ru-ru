@@ -1,0 +1,1829 @@
+<Type Name="Binding" FullName="System.ServiceModel.Channels.Binding">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="630007e527e101ae8481dd494854a9504be92cfb" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public abstract class Binding : System.ServiceModel.IDefaultCommunicationTimeouts" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit Binding extends System.Object implements class System.ServiceModel.IDefaultCommunicationTimeouts" />
+  <TypeSignature Language="DocId" Value="T:System.ServiceModel.Channels.Binding" />
+  <TypeSignature Language="VB.NET" Value="Public MustInherit Class Binding&#xA;Implements IDefaultCommunicationTimeouts" />
+  <TypeSignature Language="C++ CLI" Value="public ref class Binding abstract : System::ServiceModel::IDefaultCommunicationTimeouts" />
+  <AssemblyInfo>
+    <AssemblyName>System.ServiceModel</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+    <AssemblyVersion>4.2.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.ServiceModel.IDefaultCommunicationTimeouts</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>
+      <span data-ttu-id="3744a-101">Содержит элементы привязки, которые задают протоколы, транспорты и кодировщики сообщений, используемые для взаимодействия между клиентами и службами.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="3744a-101">Contains the binding elements that specify the protocols, transports, and message encoders used for communication between clients and services.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-102">Представляет коллекцию элементов привязки, каждый из которых описывает определенный аспект взаимодействия конечной точки с другими конечными точками; все эти аспекты единообразно встроены в фабрику каналов на стороне клиента и в прослушиватель каналов на стороне службы.</span><span class="sxs-lookup"><span data-stu-id="3744a-102">Represents a collection of binding elements, each of which describes an aspect of how an endpoint communicates with other endpoints and that are built, consistently, into a channel factory on the client and into a channel listener on the service.</span></span> <span data-ttu-id="3744a-103">Привязка содержит коллекцию элементов привязки, соответствующих каналам протоколов, каналам транспортов и кодировщикам сообщений.</span><span class="sxs-lookup"><span data-stu-id="3744a-103">A binding contains a collection of binding elements that correspond to protocol channels, transport channels, and message encoders.</span></span> <span data-ttu-id="3744a-104">Для каналов протоколов допускается любое количество элементов привязки, но для каждого кодировщика сообщения и транспорта — только один.</span><span class="sxs-lookup"><span data-stu-id="3744a-104">There can be any number of binding elements for protocol channels but one and only one binding element for each the transport and message encoder.</span></span> <span data-ttu-id="3744a-105">Обычно привязка содержит шесть уровней элементов привязки.</span><span class="sxs-lookup"><span data-stu-id="3744a-105">There are commonly six layers of binding elements in a binding.</span></span> <span data-ttu-id="3744a-106">В нижней части стека требуются только элементы привязки кодирования и транспорта.</span><span class="sxs-lookup"><span data-stu-id="3744a-106">Only the transport and encoding binding elements at the bottom of the stack are required.</span></span> <span data-ttu-id="3744a-107">Поскольку кодирование обязательно для каждой привязки, если элемент кодирования не задан, то [!INCLUDE[indigo1](~/includes/indigo1-md.md)] добавляет параметр для кодирования по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="3744a-107">Because an encoding is required for each binding, if an encoding is not specified, [!INCLUDE[indigo1](~/includes/indigo1-md.md)] adds a default encoding for you.</span></span> <span data-ttu-id="3744a-108">По умолчанию для транспортов HTTP и HTTPS используется текстовое/XML-кодирование, для остальных — двоичное.</span><span class="sxs-lookup"><span data-stu-id="3744a-108">The default is Text/XML for the HTTP and HTTPS transports, and Binary for other transports.</span></span>  
+  
+ <span data-ttu-id="3744a-109">В следующей таблице приведены сводные данные по параметрам каждого уровня.</span><span class="sxs-lookup"><span data-stu-id="3744a-109">The following table summarizes the options for each layer.</span></span>  
+  
+|<span data-ttu-id="3744a-110">Уровень</span><span class="sxs-lookup"><span data-stu-id="3744a-110">Layer</span></span>|<span data-ttu-id="3744a-111">Параметры</span><span class="sxs-lookup"><span data-stu-id="3744a-111">Options</span></span>|<span data-ttu-id="3744a-112">Обязательно</span><span class="sxs-lookup"><span data-stu-id="3744a-112">Required</span></span>|  
+|-----------|-------------|--------------|  
+|<span data-ttu-id="3744a-113">Поток транзакций</span><span class="sxs-lookup"><span data-stu-id="3744a-113">Transaction Flow</span></span>|<xref:System.ServiceModel.Channels.TransactionFlowBindingElement>|<span data-ttu-id="3744a-114">Нет</span><span class="sxs-lookup"><span data-stu-id="3744a-114">No</span></span>|  
+|<span data-ttu-id="3744a-115">Надежность</span><span class="sxs-lookup"><span data-stu-id="3744a-115">Reliability</span></span>|<xref:System.ServiceModel.Channels.ReliableSessionBindingElement>|<span data-ttu-id="3744a-116">Нет</span><span class="sxs-lookup"><span data-stu-id="3744a-116">No</span></span>|  
+|<span data-ttu-id="3744a-117">Безопасность</span><span class="sxs-lookup"><span data-stu-id="3744a-117">Security</span></span>|<span data-ttu-id="3744a-118">Симметричный, асимметричный, транспортного уровня</span><span class="sxs-lookup"><span data-stu-id="3744a-118">Symmetric, Asymmetric, Transport-Level</span></span>|<span data-ttu-id="3744a-119">Нет</span><span class="sxs-lookup"><span data-stu-id="3744a-119">No</span></span>|  
+|<span data-ttu-id="3744a-120">Изменение формы</span><span class="sxs-lookup"><span data-stu-id="3744a-120">Shape Change</span></span>|<xref:System.ServiceModel.Channels.CompositeDuplexBindingElement>|<span data-ttu-id="3744a-121">Нет</span><span class="sxs-lookup"><span data-stu-id="3744a-121">No</span></span>|  
+|<span data-ttu-id="3744a-122">Обновления транспорта</span><span class="sxs-lookup"><span data-stu-id="3744a-122">Transport Upgrades</span></span>|<span data-ttu-id="3744a-123">Поток SSL, поток Windows, распознаватель одноранговых узлов</span><span class="sxs-lookup"><span data-stu-id="3744a-123">SSL stream, Windows stream, Peer Resolver</span></span>|<span data-ttu-id="3744a-124">Нет</span><span class="sxs-lookup"><span data-stu-id="3744a-124">No</span></span>|  
+|<span data-ttu-id="3744a-125">кодировка</span><span class="sxs-lookup"><span data-stu-id="3744a-125">Encoding</span></span>|<span data-ttu-id="3744a-126">Текстовая, двоичная, MTOM, пользовательская</span><span class="sxs-lookup"><span data-stu-id="3744a-126">Text, Binary, MTOM, Custom</span></span>|<span data-ttu-id="3744a-127">Да</span><span class="sxs-lookup"><span data-stu-id="3744a-127">Yes</span></span>|  
+|<span data-ttu-id="3744a-128">Transport</span><span class="sxs-lookup"><span data-stu-id="3744a-128">Transport</span></span>|<span data-ttu-id="3744a-129">TCP, именованные каналы, HTTP, HTTPS, MSMQ, определенный пользователем</span><span class="sxs-lookup"><span data-stu-id="3744a-129">TCP, Named Pipes, HTTP, HTTPS, MSMQ, Custom</span></span>|<span data-ttu-id="3744a-130">Да</span><span class="sxs-lookup"><span data-stu-id="3744a-130">Yes</span></span>|  
+  
+ <span data-ttu-id="3744a-131">Каждый элемент привязки предоставляет спецификации для создания фабрики канала на клиенте, а также прослушивателя канала в службе.</span><span class="sxs-lookup"><span data-stu-id="3744a-131">Each binding element provides the specification for building a channel factory on the client and a channel listener on the service.</span></span> <span data-ttu-id="3744a-132">Например, когда создан стек фабрики канала, у каждого элемента привязки в данной привязке есть одна фабрика канала.</span><span class="sxs-lookup"><span data-stu-id="3744a-132">When the channel factory stack is constructed, for example, there is one channel factory in the stack for each binding element in the binding.</span></span> <span data-ttu-id="3744a-133">Такой же тип сопоставления применим к прослушивателям канала в стеке службы.</span><span class="sxs-lookup"><span data-stu-id="3744a-133">The same sort of mapping applies to the channel listeners in the stack on the service.</span></span> <span data-ttu-id="3744a-134">Согласованность клиента и службы критически важна для установления соединения, основанного на каналах, между этими конечными точками.</span><span class="sxs-lookup"><span data-stu-id="3744a-134">Consistency on the client and service is critical for establishing the channel-based connection between these endpoints.</span></span> <span data-ttu-id="3744a-135">В свою очередь каждая фабрика и прослушиватель выполняют отправку и прием соответствующих каналов в соединяющем их стеке канала, а затем эти каналы могут отправлять и получать сообщения, используемые для взаимодействия.</span><span class="sxs-lookup"><span data-stu-id="3744a-135">Each factory and listener, in turn, processes the sending and accepting of the corresponding channels in the channel stack that connects them, and these channels can then send and receive the messages used to communicate.</span></span>  
+  
+ <span data-ttu-id="3744a-136">Каждый экземпляр <xref:System.ServiceModel.Channels.Binding> имеет атрибуты <xref:System.ServiceModel.Channels.Binding.Name%2A> и <xref:System.ServiceModel.Channels.Binding.Namespace%2A>, которые совместно однозначно идентифицируют привязку в метаданных службы.</span><span class="sxs-lookup"><span data-stu-id="3744a-136">Each instance of a <xref:System.ServiceModel.Channels.Binding> has a <xref:System.ServiceModel.Channels.Binding.Name%2A> and <xref:System.ServiceModel.Channels.Binding.Namespace%2A> that together uniquely identify it in the metadata of the service.</span></span> <span data-ttu-id="3744a-137">Если не задано имя или пространство имен, [!INCLUDE[indigo2](~/includes/indigo2-md.md)] добавляет значения по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="3744a-137">If no name or namespace is specified, [!INCLUDE[indigo2](~/includes/indigo2-md.md)] adds a default values for you.</span></span> <span data-ttu-id="3744a-138">Имя по умолчанию — `null` и пространство имен по умолчанию http://tempuri.org/.</span><span class="sxs-lookup"><span data-stu-id="3744a-138">The default name is `null` and the default namespace is http://tempuri.org/.</span></span> <span data-ttu-id="3744a-139">Данное имя пользователя привязки отличается от спецификации имени протокола, которая задана в свойстве <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span><span class="sxs-lookup"><span data-stu-id="3744a-139">This user name for the binding is distinct from the specification of the protocol name, which is specified by the <xref:System.ServiceModel.Channels.Binding.Scheme%2A> property.</span></span> <span data-ttu-id="3744a-140">Например, если требуется добавить еще несколько привязок HTTP, можно задать им любые имена, а их схемам задать значение «http».</span><span class="sxs-lookup"><span data-stu-id="3744a-140">If you want to add more HTTP bindings, for example, you can name them whatever you want and set all of their schemes to "http".</span></span> <span data-ttu-id="3744a-141">Не существует собственного приложения или компьютерной диспетчеризации, основанной на <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span><span class="sxs-lookup"><span data-stu-id="3744a-141">There is no inherent application or machine dispatch based on the <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span></span> <span data-ttu-id="3744a-142">Тем самым можно избежать распространенной проблемы, когда невозможно зарегистрировать дополнительные обработчики для хорошо известных протоколов.</span><span class="sxs-lookup"><span data-stu-id="3744a-142">So you avoid the common problem of being unable to register additional handlers for well-known protocols.</span></span> <span data-ttu-id="3744a-143">Также можно параллельно работать с несколькими версиями привязки, задав каждой из них различное имя.</span><span class="sxs-lookup"><span data-stu-id="3744a-143">You can also easily work with multiple versions of a binding side-by-side by giving each version a different name.</span></span>  
+  
+ <span data-ttu-id="3744a-144">Класс <xref:System.ServiceModel.Channels.Binding> реализует интерфейс <xref:System.ServiceModel.IDefaultCommunicationTimeouts> для ослабления эффекта атак типа "отказ в обслуживании" (DoS), при которых ресурсы блокируются на продолжительный период времени.</span><span class="sxs-lookup"><span data-stu-id="3744a-144">The <xref:System.ServiceModel.Channels.Binding> class implements the <xref:System.ServiceModel.IDefaultCommunicationTimeouts> interface to mitigate Denial of Service (DOS) attacks that rely on tying up resources for extended intervals of time.</span></span> <span data-ttu-id="3744a-145">Реализация задает значения времени ожидания связи для открытия и закрытия соединений и для чтения и записи операций, связанных с получением и отправкой сообщений.</span><span class="sxs-lookup"><span data-stu-id="3744a-145">The implementation specifies the communication timeouts values for opening and closing connections and for the reading and writing operations associated with receiving and sending messages.</span></span> <span data-ttu-id="3744a-146">Свойства, используемые для получения и установки времени ожидания и значений по умолчанию, приведены в следующей таблице.</span><span class="sxs-lookup"><span data-stu-id="3744a-146">The properties used to get and set these timeouts and their default values operations are summarized in the following table.</span></span>  
+  
+|<span data-ttu-id="3744a-147">Свойство времени ожидания</span><span class="sxs-lookup"><span data-stu-id="3744a-147">Timeout Property</span></span>|<span data-ttu-id="3744a-148">Значение по умолчанию</span><span class="sxs-lookup"><span data-stu-id="3744a-148">Default Value</span></span>|  
+|----------------------|-------------------|  
+|<xref:System.ServiceModel.Channels.Binding.OpenTimeout%2A>|<span data-ttu-id="3744a-149">1 минута</span><span class="sxs-lookup"><span data-stu-id="3744a-149">1 minute</span></span>|  
+|<xref:System.ServiceModel.Channels.Binding.CloseTimeout%2A>|<span data-ttu-id="3744a-150">1 минута</span><span class="sxs-lookup"><span data-stu-id="3744a-150">1 minute</span></span>|  
+|<xref:System.ServiceModel.Channels.Binding.SendTimeout%2A>|<span data-ttu-id="3744a-151">1 минута</span><span class="sxs-lookup"><span data-stu-id="3744a-151">1 minute</span></span>|  
+|<xref:System.ServiceModel.Channels.Binding.ReceiveTimeout%2A>|<span data-ttu-id="3744a-152">10 минут</span><span class="sxs-lookup"><span data-stu-id="3744a-152">10 minutes</span></span>|  
+  
+ <span data-ttu-id="3744a-153">При создании привязки путем наследования от класса <xref:System.ServiceModel.Channels.Binding> необходимо переопределить метод <xref:System.ServiceModel.Channels.Binding.CreateBindingElements%2A>.</span><span class="sxs-lookup"><span data-stu-id="3744a-153">When you create a binding by inheriting from <xref:System.ServiceModel.Channels.Binding>, you must override <xref:System.ServiceModel.Channels.Binding.CreateBindingElements%2A>.</span></span>  
+  
+ <span data-ttu-id="3744a-154">Кроме того, можно определить собственные элементы привязки и вставить их между любыми определенными уровнями из приведенной выше таблицы.</span><span class="sxs-lookup"><span data-stu-id="3744a-154">In addition, you can define your own binding elements and insert them between any of the defined layers in the preceding table.</span></span> <span data-ttu-id="3744a-155">Дополнительные сведения см. в описании класса <xref:System.ServiceModel.Channels.CustomBinding>.</span><span class="sxs-lookup"><span data-stu-id="3744a-155">For more information, see the <xref:System.ServiceModel.Channels.CustomBinding> class.</span></span>  
+  
+   
+  
+## Examples  
+ [!code-csharp[S_UEBinding#11](~/samples/snippets/csharp/VS_Snippets_CFX/s_uebinding/cs/service.cs#11)]  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-156">Инициализирует новый экземпляр класса <see cref="T:System.ServiceModel.Channels.Binding" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-156">Initializes a new instance of the <see cref="T:System.ServiceModel.Channels.Binding" /> class.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected Binding ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.#ctor" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New ()" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; Binding();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-157">Инициализирует новый экземпляр класса <see cref="T:System.ServiceModel.Channels.Binding" /> с именем и пространством имен по умолчанию.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-157">Initializes a new instance of the <see cref="T:System.ServiceModel.Channels.Binding" /> class with a default name and namespace.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-158">Имя по умолчанию — `null` и пространство имен по умолчанию http://tempuri.org/.</span><span class="sxs-lookup"><span data-stu-id="3744a-158">The default name is `null` and the default namespace is http://tempuri.org/.</span></span>  
+  
+   
+  
+## Examples  
+ [!code-csharp[S_UEBinding#2](~/samples/snippets/csharp/VS_Snippets_CFX/s_uebinding/cs/service.cs#2)]
+ [!code-vb[S_UEBinding#2](~/samples/snippets/visualbasic/VS_Snippets_CFX/s_uebinding/vb/service.vb#2)]  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected Binding (string name, string ns);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor(string name, string ns) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.#ctor(System.String,System.String)" />
+      <MemberSignature Language="VB.NET" Value="Protected Sub New (name As String, ns As String)" />
+      <MemberSignature Language="C++ CLI" Value="protected:&#xA; Binding(System::String ^ name, System::String ^ ns);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="name" Type="System.String" />
+        <Parameter Name="ns" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="3744a-159">Пространство имен привязки (свойство <see cref="P:System.ServiceModel.Channels.Binding.Name" />).</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-159">The <see cref="P:System.ServiceModel.Channels.Binding.Name" /> of the binding.</span>
+          </span>
+        </param>
+        <param name="ns">
+          <span data-ttu-id="3744a-160">Пространство имен привязки (свойство <see cref="P:System.ServiceModel.Channels.Binding.Namespace" />).</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-160">The <see cref="P:System.ServiceModel.Channels.Binding.Namespace" /> of the binding.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-161">Инициализирует новый экземпляр класса <see cref="T:System.ServiceModel.Channels.Binding" /> из заданной привязки службы.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-161">Initializes a new instance of the <see cref="T:System.ServiceModel.Channels.Binding" /> class from a specified binding of the service.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-162"><xref:System.ServiceModel.Channels.Binding.Name%2A> и <xref:System.ServiceModel.Channels.Binding.Namespace%2A> совместно однозначно идентифицируют экземпляр <xref:System.ServiceModel.Channels.Binding> в метаданных службы.</span><span class="sxs-lookup"><span data-stu-id="3744a-162">The <xref:System.ServiceModel.Channels.Binding.Name%2A> and <xref:System.ServiceModel.Channels.Binding.Namespace%2A> together uniquely identify an instance of a <xref:System.ServiceModel.Channels.Binding> in the metadata of the service.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="3744a-163">Параметр <paramref name="name" /> имеет значение <see langword="null" /> или является пустой строкой.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-163">
+              <paramref name="name" /> is <see langword="null" /> or an empty string.</span>
+          </span>
+        </exception>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="3744a-164">Свойство <paramref name="ns" /> имеет значение <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-164">
+              <paramref name="ns" /> is <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="BuildChannelFactory&lt;TChannel&gt;">
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-165">Выполняет построение на клиенте стека фабрики каналов, заданного привязкой.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-165">Builds the channel factory stack on the client specified by the binding.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="BuildChannelFactory&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public System.ServiceModel.Channels.IChannelFactory&lt;TChannel&gt; BuildChannelFactory&lt;TChannel&gt; (params object[] parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.ServiceModel.Channels.IChannelFactory`1&lt;!!TChannel&gt; BuildChannelFactory&lt;TChannel&gt;(object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.BuildChannelFactory``1(System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Function BuildChannelFactory(Of TChannel) (ParamArray parameters As Object()) As IChannelFactory(Of TChannel)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; System::ServiceModel::Channels::IChannelFactory&lt;TChannel&gt; ^ BuildChannelFactory(... cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.IChannelFactory&lt;TChannel&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel" />
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-166">Тип канала, создаваемого фабрикой каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-166">The type of channel the channel factory produces.</span>
+          </span>
+        </typeparam>
+        <param name="parameters">
+          <span data-ttu-id="3744a-167">Массив объектов, задающий требования для фабрики каналов, построение которой выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-167">The object array that specifies requirements for the channel factory that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-168">Выполняет построение на клиенте стека фабрики каналов, создающего каналы заданного типа и удовлетворяющего заданным массивом объектов параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-168">Builds the channel factory stack on the client that creates a specified type of channel and that satisfies the features specified by an object array.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-169">Объект <see cref="T:System.ServiceModel.Channels.IChannelFactory`1" /> типа <paramref name="TChannel" />, удовлетворяющий заданным коллекцией параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-169">An <see cref="T:System.ServiceModel.Channels.IChannelFactory`1" /> of type <paramref name="TChannel" /> that satisfies the features specified by the collection.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="3744a-170">Отсутствует или является неисправным элемент транспорта, либо используется недопустимая схема, либо не задана версия сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-170">Transport element is missing or out of order or scheme is invalid or the message version is not specified.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BuildChannelFactory&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelFactory&lt;TChannel&gt; BuildChannelFactory&lt;TChannel&gt; (System.ServiceModel.Channels.BindingParameterCollection parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelFactory`1&lt;!!TChannel&gt; BuildChannelFactory&lt;TChannel&gt;(class System.ServiceModel.Channels.BindingParameterCollection parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.BuildChannelFactory``1(System.ServiceModel.Channels.BindingParameterCollection)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function BuildChannelFactory(Of TChannel) (parameters As BindingParameterCollection) As IChannelFactory(Of TChannel)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; virtual System::ServiceModel::Channels::IChannelFactory&lt;TChannel&gt; ^ BuildChannelFactory(System::ServiceModel::Channels::BindingParameterCollection ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.IChannelFactory&lt;TChannel&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel" />
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.ServiceModel.Channels.BindingParameterCollection" />
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-171">Тип канала, создаваемого фабрикой каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-171">The type of channel the channel factory produces.</span>
+          </span>
+        </typeparam>
+        <param name="parameters">
+          <span data-ttu-id="3744a-172">Объект <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" />, задающий требования для фабрики каналов, построение которой выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-172">The <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" /> that specifies requirements for the channel factory built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-173">Выполняет построение на клиенте стека фабрики каналов, создающего каналы заданного типа и удовлетворяющего заданным коллекцией привязки параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-173">Builds the channel factory stack on the client that creates a specified type of channel and that satisfies the features specified by a collection of binding parameters.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-174">Объект <see cref="T:System.ServiceModel.Channels.IChannelFactory`1" /> типа <paramref name="TChannel" />, удовлетворяющий заданным коллекцией параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-174">An <see cref="T:System.ServiceModel.Channels.IChannelFactory`1" /> of type <paramref name="TChannel" /> that satisfies the features specified by the collection.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="3744a-175">Отсутствует или является неисправным элемент транспорта, либо используется недопустимая схема, либо не задана версия сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-175">Transport element is missing or out of order or scheme is invalid or the message version is not specified.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="BuildChannelListener&lt;TChannel&gt;">
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-176">Выполняет построение на стороне службы прослушивателя каналов, принимающего каналы заданного типа и удовлетворяющего заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-176">Builds the channel listener on the service that accepts a specified type of channel and that satisfies the features specified.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="BuildChannelListener&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListener&lt;TChannel&gt; (params object[] parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.BuildChannelListener``1(System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function BuildChannelListener(Of TChannel As {Class, IChannel}) (ParamArray parameters As Object()) As IChannelListener(Of TChannel)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListener(... cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-177">Тип канала, принимаемого прослушивателем каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-177">The type of channel the channel listener accepts.</span>
+          </span>
+        </typeparam>
+        <param name="parameters">
+          <span data-ttu-id="3744a-178">Массив объектов, задающий требования для фабрики каналов, построение которой выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-178">The object array that specifies requirements for the channel factory built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-179">Выполняет построение на стороне службы прослушивателя каналов, принимающего каналы заданного типа и удовлетворяющего заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-179">Builds the channel listener on the service that accepts a specified type of channel and that satisfies the features specified.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-180">Объект <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> типа <paramref name="TChannel" />, удовлетворяющий заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-180">An <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> of type <paramref name="TChannel" /> that satisfies the features specified.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="3744a-181">Отсутствует или является неисправным элемент транспорта, либо используется недопустимая схема, либо не задана версия сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-181">Transport element is missing or out of order or scheme is invalid or the message version is not specified.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BuildChannelListener&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListener&lt;TChannel&gt; (System.ServiceModel.Channels.BindingParameterCollection parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.ServiceModel.Channels.BindingParameterCollection parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.BuildChannelListener``1(System.ServiceModel.Channels.BindingParameterCollection)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function BuildChannelListener(Of TChannel As {Class, IChannel}) (parameters As BindingParameterCollection) As IChannelListener(Of TChannel)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListener(System::ServiceModel::Channels::BindingParameterCollection ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.ServiceModel.Channels.BindingParameterCollection" />
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-182">Тип канала, принимаемого прослушивателем каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-182">The type of channel the channel listener accepts.</span>
+          </span>
+        </typeparam>
+        <param name="parameters">
+          <span data-ttu-id="3744a-183">Объект <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" />, задающий требования для прослушивателя каналов, построение которого выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-183">The <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" /> that specifies requirements for the channel listener that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-184">Выполняет построение на стороне службы прослушивателя каналов, принимающего каналы заданного типа и удовлетворяющего заданным коллекцией привязки параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-184">Builds the channel listener on the service that accepts a specified type of channel and that satisfies the features specified by a collection of binding parameters.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-185">Объект <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> типа <paramref name="TChannel" />, удовлетворяющий заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-185">An <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> of type <paramref name="TChannel" /> that satisfies the features specified.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="3744a-186">Отсутствует или является неисправным элемент транспорта, либо используется недопустимая схема, либо не задана версия сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-186">Transport element is missing or out of order or scheme is invalid or the message version is not specified.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BuildChannelListener&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListener&lt;TChannel&gt; (Uri listenUriBaseAddress, string listenUriRelativeAddress, params object[] parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.Uri listenUriBaseAddress, string listenUriRelativeAddress, object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.BuildChannelListener``1(System.Uri,System.String,System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function BuildChannelListener(Of TChannel As {Class, IChannel}) (listenUriBaseAddress As Uri, listenUriRelativeAddress As String, ParamArray parameters As Object()) As IChannelListener(Of TChannel)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListener(Uri ^ listenUriBaseAddress, System::String ^ listenUriRelativeAddress, ... cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="listenUriBaseAddress" Type="System.Uri" />
+        <Parameter Name="listenUriRelativeAddress" Type="System.String" />
+        <Parameter Name="parameters" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-187">Тип канала, принимаемого прослушивателем каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-187">The type of channel the channel listener accepts.</span>
+          </span>
+        </typeparam>
+        <param name="listenUriBaseAddress">
+          <span data-ttu-id="3744a-188">Объект <see cref="T:System.Uri" />, предоставляющий базовый адрес, по которому служба производит прослушивание.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-188">The <see cref="T:System.Uri" /> that provides the base address on which the service listens.</span>
+          </span>
+        </param>
+        <param name="listenUriRelativeAddress">
+          <span data-ttu-id="3744a-189">Адрес, относящийся к базовому адресу, по которому служба производит прослушивание.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-189">The address, relative to the base address, on which the service listens.</span>
+          </span>
+        </param>
+        <param name="parameters">
+          <span data-ttu-id="3744a-190">Массив объектов, задающий требования для фабрики каналов, построение которой выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-190">The object array that specifies requirements for the channel factory that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-191">Выполняет построение на стороне службы прослушивателя каналов, принимающего каналы заданного типа и удовлетворяющего заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-191">Builds the channel listener on the service that accepts a specified type of channel and that satisfies the features specified.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-192">Объект <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> типа <paramref name="TChannel" />, удовлетворяющий заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-192">An <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> of type <paramref name="TChannel" /> that satisfies the features specified.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="3744a-193">Отсутствует или является неисправным элемент транспорта, либо используется недопустимая схема, либо не задана версия сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-193">Transport element is missing or out of order or scheme is invalid or the message version is not specified.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BuildChannelListener&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListener&lt;TChannel&gt; (Uri listenUriBaseAddress, string listenUriRelativeAddress, System.ServiceModel.Channels.BindingParameterCollection parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.Uri listenUriBaseAddress, string listenUriRelativeAddress, class System.ServiceModel.Channels.BindingParameterCollection parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.BuildChannelListener``1(System.Uri,System.String,System.ServiceModel.Channels.BindingParameterCollection)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function BuildChannelListener(Of TChannel As {Class, IChannel}) (listenUriBaseAddress As Uri, listenUriRelativeAddress As String, parameters As BindingParameterCollection) As IChannelListener(Of TChannel)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListener(Uri ^ listenUriBaseAddress, System::String ^ listenUriRelativeAddress, System::ServiceModel::Channels::BindingParameterCollection ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="listenUriBaseAddress" Type="System.Uri" />
+        <Parameter Name="listenUriRelativeAddress" Type="System.String" />
+        <Parameter Name="parameters" Type="System.ServiceModel.Channels.BindingParameterCollection" />
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-194">Тип канала, принимаемого прослушивателем каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-194">The type of channel the channel listener accepts.</span>
+          </span>
+        </typeparam>
+        <param name="listenUriBaseAddress">
+          <span data-ttu-id="3744a-195">Объект <see cref="T:System.Uri" />, предоставляющий базовый адрес, по которому служба производит прослушивание.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-195">The <see cref="T:System.Uri" /> that provides the base address on which the service listens.</span>
+          </span>
+        </param>
+        <param name="listenUriRelativeAddress">
+          <span data-ttu-id="3744a-196">Адрес, относящийся к базовому адресу, по которому служба производит прослушивание.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-196">The address, relative to the base address, on which the service listens.</span>
+          </span>
+        </param>
+        <param name="parameters">
+          <span data-ttu-id="3744a-197">Объект <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" />, задающий требования для прослушивателя каналов, построение которого выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-197">The <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" /> that specifies requirements for the channel listener that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-198">Выполняет построение на стороне службы прослушивателя каналов, принимающего каналы заданного типа и удовлетворяющего заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-198">Builds the channel listener on the service that accepts a specified type of channel and that satisfies the features specified.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-199">Объект <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> типа <paramref name="TChannel" />, удовлетворяющий заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-199">An <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> of type <paramref name="TChannel" /> that satisfies the features specified.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="3744a-200">Отсутствует или является неисправным элемент транспорта, либо используется недопустимая схема, либо не задана версия сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-200">Transport element is missing or out of order or scheme is invalid or the message version is not specified.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BuildChannelListener&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListener&lt;TChannel&gt; (Uri listenUriBaseAddress, params object[] parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;xamarinandroid-7.1;xamarinios-10.8" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.Uri listenUriBaseAddress, object[] parameters) cil managed" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;xamarinandroid-7.1;xamarinios-10.8" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.BuildChannelListener``1(System.Uri,System.Object[])" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function BuildChannelListener(Of TChannel As {Class, IChannel}) (listenUriBaseAddress As Uri, ParamArray parameters As Object()) As IChannelListener(Of TChannel)" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;xamarinandroid-7.1;xamarinios-10.8" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListener(Uri ^ listenUriBaseAddress, ... cli::array &lt;System::Object ^&gt; ^ parameters);" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;xamarinandroid-7.1;xamarinios-10.8" />
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListener&lt;TChannel&gt; (Uri listenUri, params object[] parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" FrameworkAlternate="xamarinmac-3.0" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.Uri listenUri, object[] parameters) cil managed" FrameworkAlternate="xamarinmac-3.0" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function BuildChannelListener(Of TChannel As {Class, IChannel}) (listenUri As Uri, ParamArray parameters As Object()) As IChannelListener(Of TChannel)" FrameworkAlternate="xamarinmac-3.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListener(Uri ^ listenUri, ... cli::array &lt;System::Object ^&gt; ^ parameters);" FrameworkAlternate="xamarinmac-3.0" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="listenUriBaseAddress" Type="System.Uri" Index="0" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;xamarinandroid-7.1;xamarinios-10.8" />
+        <Parameter Name="listenUri" Type="System.Uri" Index="0" FrameworkAlternate="xamarinmac-3.0" />
+        <Parameter Name="parameters" Type="System.Object[]" Index="1">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-201">Тип канала, принимаемого прослушивателем каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-201">The type of channel the channel listener accepts.</span>
+          </span>
+        </typeparam>
+        <param name="listenUriBaseAddress">To be added.</param>
+        <param name="listenUri">To be added.</param>
+        <param name="parameters">
+          <span data-ttu-id="3744a-202">Массив объектов, задающий требования для фабрики каналов, построение которой выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-202">The object array that specifies requirements for the channel factory that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-203">Выполняет построение на стороне службы прослушивателя каналов, принимающего каналы заданного типа и удовлетворяющего заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-203">Builds the channel listener on the service that accepts a specified type of channel and that satisfies the features specified.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-204">Объект <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> типа <paramref name="TChannel" />, удовлетворяющий заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-204">An <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> of type <paramref name="TChannel" /> that satisfies the features specified.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="3744a-205">Отсутствует или является неисправным элемент транспорта, либо используется недопустимая схема, либо не задана версия сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-205">Transport element is missing or out of order or scheme is invalid or the message version is not specified.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BuildChannelListener&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListener&lt;TChannel&gt; (Uri listenUriBaseAddress, System.ServiceModel.Channels.BindingParameterCollection parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;xamarinandroid-7.1;xamarinios-10.8" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.Uri listenUriBaseAddress, class System.ServiceModel.Channels.BindingParameterCollection parameters) cil managed" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;xamarinandroid-7.1;xamarinios-10.8" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.BuildChannelListener``1(System.Uri,System.ServiceModel.Channels.BindingParameterCollection)" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function BuildChannelListener(Of TChannel As {Class, IChannel}) (listenUriBaseAddress As Uri, parameters As BindingParameterCollection) As IChannelListener(Of TChannel)" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;xamarinandroid-7.1;xamarinios-10.8" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListener(Uri ^ listenUriBaseAddress, System::ServiceModel::Channels::BindingParameterCollection ^ parameters);" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;xamarinandroid-7.1;xamarinios-10.8" />
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListener&lt;TChannel&gt; (Uri listenUri, System.ServiceModel.Channels.BindingParameterCollection parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" FrameworkAlternate="xamarinmac-3.0" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.Uri listenUri, class System.ServiceModel.Channels.BindingParameterCollection parameters) cil managed" FrameworkAlternate="xamarinmac-3.0" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function BuildChannelListener(Of TChannel As {Class, IChannel}) (listenUri As Uri, parameters As BindingParameterCollection) As IChannelListener(Of TChannel)" FrameworkAlternate="xamarinmac-3.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListener(Uri ^ listenUri, System::ServiceModel::Channels::BindingParameterCollection ^ parameters);" FrameworkAlternate="xamarinmac-3.0" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="listenUriBaseAddress" Type="System.Uri" Index="0" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;xamarinandroid-7.1;xamarinios-10.8" />
+        <Parameter Name="listenUri" Type="System.Uri" Index="0" FrameworkAlternate="xamarinmac-3.0" />
+        <Parameter Name="parameters" Type="System.ServiceModel.Channels.BindingParameterCollection" Index="1" />
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-206">Тип канала, принимаемого прослушивателем каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-206">The type of channel the channel listener accepts.</span>
+          </span>
+        </typeparam>
+        <param name="listenUriBaseAddress">To be added.</param>
+        <param name="listenUri">To be added.</param>
+        <param name="parameters">
+          <span data-ttu-id="3744a-207">Объект <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" />, задающий требования для прослушивателя каналов, построение которого выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-207">The <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" /> that specifies requirements for the channel listener that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-208">Выполняет построение на стороне службы прослушивателя каналов, принимающего каналы заданного типа и удовлетворяющего заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-208">Builds the channel listener on the service that accepts a specified type of channel and that satisfies the features specified.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-209">Объект <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> типа <paramref name="TChannel" />, удовлетворяющий заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-209">An <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> of type <paramref name="TChannel" /> that satisfies the features specified.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="3744a-210">Отсутствует или является неисправным элемент транспорта, либо используется недопустимая схема, либо не задана версия сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-210">Transport element is missing or out of order or scheme is invalid or the message version is not specified.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BuildChannelListener&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListener&lt;TChannel&gt; (Uri listenUriBaseAddress, string listenUriRelativeAddress, System.ServiceModel.Description.ListenUriMode listenUriMode, params object[] parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.Uri listenUriBaseAddress, string listenUriRelativeAddress, valuetype System.ServiceModel.Description.ListenUriMode listenUriMode, object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.BuildChannelListener``1(System.Uri,System.String,System.ServiceModel.Description.ListenUriMode,System.Object[])" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListener(Uri ^ listenUriBaseAddress, System::String ^ listenUriRelativeAddress, System::ServiceModel::Description::ListenUriMode listenUriMode, ... cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="listenUriBaseAddress" Type="System.Uri" />
+        <Parameter Name="listenUriRelativeAddress" Type="System.String" />
+        <Parameter Name="listenUriMode" Type="System.ServiceModel.Description.ListenUriMode" />
+        <Parameter Name="parameters" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-211">Тип канала, принимаемого прослушивателем каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-211">The type of channel the channel listener accepts.</span>
+          </span>
+        </typeparam>
+        <param name="listenUriBaseAddress">
+          <span data-ttu-id="3744a-212">Объект <see cref="T:System.Uri" />, предоставляющий базовый адрес, по которому служба производит прослушивание.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-212">The <see cref="T:System.Uri" /> that provides the base address on which the service listens.</span>
+          </span>
+        </param>
+        <param name="listenUriRelativeAddress">
+          <span data-ttu-id="3744a-213">Адрес, относящийся к базовому адресу, по которому служба производит прослушивание.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-213">The address, relative to the base address, on which the service listens.</span>
+          </span>
+        </param>
+        <param name="listenUriMode">
+          <span data-ttu-id="3744a-214">Значение <see cref="T:System.ServiceModel.Description.ListenUriMode" />, которое указывает, должен ли транспорт обеспечить уникальность универсального кода ресурса (URI), предоставляемого для службы, ожидающей передачи данных, или URI может быть использован без изменений.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-214">A value of the <see cref="T:System.ServiceModel.Description.ListenUriMode" /> that indicates whether the transport must ensure that the URI provided for the service to listen on is unique or can be used exactly as provided.</span>
+          </span>
+        </param>
+        <param name="parameters">
+          <span data-ttu-id="3744a-215">Массив объектов, задающий требования для фабрики каналов, построение которой выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-215">The object array that specifies requirements for the channel factory that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-216">Выполняет построение на стороне службы прослушивателя каналов, принимающего каналы заданного типа и удовлетворяющего заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-216">Builds the channel listener on the service that accepts a specified type of channel and that satisfies the features specified.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-217">Объект <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> типа <paramref name="TChannel" />, удовлетворяющий заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-217">An <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> of type <paramref name="TChannel" /> that satisfies the features specified.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="3744a-218">Отсутствует или является неисправным элемент транспорта, либо используется недопустимая схема, либо не задана версия сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-218">Transport element is missing or out of order or scheme is invalid or the message version is not specified.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="BuildChannelListener&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt; BuildChannelListener&lt;TChannel&gt; (Uri listenUriBaseAddress, string listenUriRelativeAddress, System.ServiceModel.Description.ListenUriMode listenUriMode, System.ServiceModel.Channels.BindingParameterCollection parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.IChannelListener`1&lt;!!TChannel&gt; BuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.Uri listenUriBaseAddress, string listenUriRelativeAddress, valuetype System.ServiceModel.Description.ListenUriMode listenUriMode, class System.ServiceModel.Channels.BindingParameterCollection parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.BuildChannelListener``1(System.Uri,System.String,System.ServiceModel.Description.ListenUriMode,System.ServiceModel.Channels.BindingParameterCollection)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual System::ServiceModel::Channels::IChannelListener&lt;TChannel&gt; ^ BuildChannelListener(Uri ^ listenUriBaseAddress, System::String ^ listenUriRelativeAddress, System::ServiceModel::Description::ListenUriMode listenUriMode, System::ServiceModel::Channels::BindingParameterCollection ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.IChannelListener&lt;TChannel&gt;</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="listenUriBaseAddress" Type="System.Uri" />
+        <Parameter Name="listenUriRelativeAddress" Type="System.String" />
+        <Parameter Name="listenUriMode" Type="System.ServiceModel.Description.ListenUriMode" />
+        <Parameter Name="parameters" Type="System.ServiceModel.Channels.BindingParameterCollection" />
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-219">Тип канала, принимаемого прослушивателем каналов.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-219">The type of channel the channel listener accepts.</span>
+          </span>
+        </typeparam>
+        <param name="listenUriBaseAddress">
+          <span data-ttu-id="3744a-220">Объект <see cref="T:System.Uri" />, предоставляющий базовый адрес, по которому служба производит прослушивание.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-220">The <see cref="T:System.Uri" /> that provides the base address on which the service listens.</span>
+          </span>
+        </param>
+        <param name="listenUriRelativeAddress">
+          <span data-ttu-id="3744a-221">Адрес, относящийся к базовому адресу, по которому служба производит прослушивание.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-221">The address, relative to the base address, on which the service listens.</span>
+          </span>
+        </param>
+        <param name="listenUriMode">
+          <span data-ttu-id="3744a-222">Значение <see cref="T:System.ServiceModel.Description.ListenUriMode" />, которое указывает, должен ли транспорт обеспечить уникальность универсального кода ресурса (URI), предоставляемого для службы, ожидающей передачи данных, или URI может быть использован без изменений.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-222">A value of the <see cref="T:System.ServiceModel.Description.ListenUriMode" /> that indicates whether the transport must ensure that the URI provided for the service to listen on is unique or can be used exactly as provided.</span>
+          </span>
+        </param>
+        <param name="parameters">
+          <span data-ttu-id="3744a-223">Объект <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" />, задающий требования для прослушивателя каналов, построение которого выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-223">The <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" /> that specifies requirements for the channel listener that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-224">Выполняет построение на стороне службы прослушивателя каналов, принимающего каналы заданного типа и удовлетворяющего заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-224">Builds the channel listener on the service that accepts a specified type of channel and that satisfies the features specified.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-225">Объект <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> типа <paramref name="TChannel" />, удовлетворяющий заданным параметрам.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-225">An <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> of type <paramref name="TChannel" /> that satisfies the features specified.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+        <exception cref="T:System.InvalidOperationException">
+          <span data-ttu-id="3744a-226">Отсутствует или является неисправным элемент транспорта, либо используется недопустимая схема, либо не задана версия сообщения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-226">Transport element is missing or out of order or scheme is invalid or the message version is not specified.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="CanBuildChannelFactory&lt;TChannel&gt;">
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-227">Возвращает значение, указывающее, может ли текущая привязка выполнить построение на клиенте стека фабрики каналов, удовлетворяющего определенным критериям.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-227">Returns a value that indicates whether the current binding can build a channel factory stack on the client that satisfies some specific criteria.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-228">Используйте этот метод, чтобы убедиться, что прежде чем пытаться построить фабрику, можно построить фабрику каналов для каналов типа `TChannel` для предоставленного параметра `context`.</span><span class="sxs-lookup"><span data-stu-id="3744a-228">Use this method if you want to check that the channel factory for channels of type `TChannel` can be build for the `context` provided before attempting to actually build the factory.</span></span> <span data-ttu-id="3744a-229">Если фабрику каналов нельзя построить вышеописанным образом, можно вызвать метод <xref:System.ServiceModel.Channels.BindingElement.BuildChannelFactory%2A> и перехватить созданное исключение.</span><span class="sxs-lookup"><span data-stu-id="3744a-229">Alternatively, try to build the channel factory by calling <xref:System.ServiceModel.Channels.BindingElement.BuildChannelFactory%2A> and catch the exception generated if it cannot be built.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="CanBuildChannelFactory&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public bool CanBuildChannelFactory&lt;TChannel&gt; (params object[] parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool CanBuildChannelFactory&lt;TChannel&gt;(object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.CanBuildChannelFactory``1(System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Function CanBuildChannelFactory(Of TChannel) (ParamArray parameters As Object()) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; bool CanBuildChannelFactory(... cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel" />
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-230">Тип канала, для которого тестируется фабрика.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-230">The type of channel for which the factory is being tested.</span>
+          </span>
+        </typeparam>
+        <param name="parameters">
+          <span data-ttu-id="3744a-231">Массив объектов, задающий требования для фабрики каналов, построение которой выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-231">The object array that specifies requirements for the channel factory that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-232">Возвращает значение, указывающее, может ли текущая привязка выполнить построение на клиенте стека фабрики каналов, удовлетворяющего заданным массивом объектов требованиям.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-232">Returns a value that indicates whether the current binding can build a channel factory stack on the client that satisfies the requirements specified by an object array.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-233">Значение <see langword="true" />, если заданный стек фабрики каналов может быть построен на клиенте; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-233">
+              <see langword="true" /> if the specified channel factory stack can be build on the client; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-234">Используйте этот метод, чтобы убедиться, что прежде чем пытаться построить фабрику, можно построить фабрику каналов для каналов типа `TChannel` для заданных параметров привязки `parameters`.</span><span class="sxs-lookup"><span data-stu-id="3744a-234">Use this method if you want to check that the channel factory for channels of type `TChannel` can be build for the binding `parameters` specified before attempting to actually build the factory.</span></span> <span data-ttu-id="3744a-235">Если фабрику каналов нельзя построить вышеописанным образом, можно вызвать метод <xref:System.ServiceModel.Channels.Binding.BuildChannelFactory%60%601%28System.Object%5B%5D%29> и перехватить созданное исключение.</span><span class="sxs-lookup"><span data-stu-id="3744a-235">Alternatively, try to build the channel factory by calling <xref:System.ServiceModel.Channels.Binding.BuildChannelFactory%60%601%28System.Object%5B%5D%29> and catch the exception generated if it cannot be built.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CanBuildChannelFactory&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual bool CanBuildChannelFactory&lt;TChannel&gt; (System.ServiceModel.Channels.BindingParameterCollection parameters);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool CanBuildChannelFactory&lt;TChannel&gt;(class System.ServiceModel.Channels.BindingParameterCollection parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.CanBuildChannelFactory``1(System.ServiceModel.Channels.BindingParameterCollection)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function CanBuildChannelFactory(Of TChannel) (parameters As BindingParameterCollection) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; virtual bool CanBuildChannelFactory(System::ServiceModel::Channels::BindingParameterCollection ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel" />
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.ServiceModel.Channels.BindingParameterCollection" />
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-236">Тип канала, для которого тестируется фабрика.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-236">The type of channel for which the factory is being tested.</span>
+          </span>
+        </typeparam>
+        <param name="parameters">
+          <span data-ttu-id="3744a-237">Объект <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" />, задающий требования для фабрики каналов, построение которой выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-237">The <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" /> that specifies requirements for the channel factory that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-238">Возвращает значение, указывающее, может ли текущая привязка выполнить построение на клиенте стека фабрики каналов, удовлетворяющего заданной коллекции параметров привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-238">Returns a value that indicates whether the current binding can build a channel factory stack on the client that satisfies the collection of binding parameters specified.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-239">Значение <see langword="true" />, если заданный стек фабрики каналов может быть построен на клиенте; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-239">
+              <see langword="true" /> if the specified channel factory stack can be build on the client; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-240">Используйте этот метод, чтобы убедиться, что прежде чем пытаться построить фабрику, можно построить фабрику каналов для каналов типа `TChannel` для заданных параметров привязки `parameters`.</span><span class="sxs-lookup"><span data-stu-id="3744a-240">Use this method if you want to check that the channel factory for channels of type `TChannel` can be build for the binding `parameters` specified before attempting to actually build the factory.</span></span> <span data-ttu-id="3744a-241">Если фабрику каналов нельзя построить вышеописанным образом, можно вызвать метод <xref:System.ServiceModel.Channels.Binding.BuildChannelFactory%60%601%28System.ServiceModel.Channels.BindingParameterCollection%29> и перехватить созданное исключение.</span><span class="sxs-lookup"><span data-stu-id="3744a-241">Alternatively, try to build the channel factory by calling <xref:System.ServiceModel.Channels.Binding.BuildChannelFactory%60%601%28System.ServiceModel.Channels.BindingParameterCollection%29> and catch the exception generated if it cannot be built.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="CanBuildChannelListener&lt;TChannel&gt;">
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-242">Возвращает значение, указывающее, может ли текущая привязка выполнить построение на стороне службы стека прослушивателя каналов, удовлетворяющего заданным критериям.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-242">Returns a value that indicates whether the current binding can build a channel listener stack on the service that satisfies some specified criteria.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="CanBuildChannelListener&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public bool CanBuildChannelListener&lt;TChannel&gt; (params object[] parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool CanBuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(object[] parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.CanBuildChannelListener``1(System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Function CanBuildChannelListener(Of TChannel As {Class, IChannel}) (ParamArray parameters As Object()) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel bool CanBuildChannelListener(... cli::array &lt;System::Object ^&gt; ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-243">Тип канала, для которого тестируется прослушиватель.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-243">The type of channel for which the listener is being tested.</span>
+          </span>
+        </typeparam>
+        <param name="parameters">
+          <span data-ttu-id="3744a-244">Массив объектов, задающий требования для фабрики каналов, построение которой выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-244">The object array that specifies requirements for the channel factory that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-245">Возвращает значение, указывающее, может ли текущая привязка выполнить построение на стороне службы стека прослушивателя каналов, удовлетворяющего заданным в массиве объектов критериям.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-245">Returns a value that indicates whether the current binding can build a channel listener stack on the service that satisfies the criteria specified in an array of objects.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-246">Значение <see langword="true" />, если заданный стек прослушивателей каналов может быть построен на стороне службы; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-246">
+              <see langword="true" /> if the specified channel listener stack can be build on the service; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-247">Используйте этот метод, чтобы убедиться, что прежде чем пытаться построить прослушиватель, можно построить прослушиватель каналов для каналов типа `TChannel` для заданных параметров привязки `parameters`.</span><span class="sxs-lookup"><span data-stu-id="3744a-247">Use this method if you want to check that the channel listener for channels of type `TChannel` can be build for the binding `parameters` specified before attempting to actually build the listener.</span></span> <span data-ttu-id="3744a-248">Если прослушиватель каналов нельзя построить вышеописанным образом, можно вызвать метод <xref:System.ServiceModel.Channels.Binding.BuildChannelListener%60%601%28System.Object%5B%5D%29> и перехватить созданное исключение.</span><span class="sxs-lookup"><span data-stu-id="3744a-248">Alternatively, try to build the channel listener by calling <xref:System.ServiceModel.Channels.Binding.BuildChannelListener%60%601%28System.Object%5B%5D%29> and catch the exception generated if it cannot be built.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CanBuildChannelListener&lt;TChannel&gt;">
+      <MemberSignature Language="C#" Value="public virtual bool CanBuildChannelListener&lt;TChannel&gt; (System.ServiceModel.Channels.BindingParameterCollection parameters) where TChannel : class, System.ServiceModel.Channels.IChannel;" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance bool CanBuildChannelListener&lt;class (class System.ServiceModel.Channels.IChannel) TChannel&gt;(class System.ServiceModel.Channels.BindingParameterCollection parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.CanBuildChannelListener``1(System.ServiceModel.Channels.BindingParameterCollection)" />
+      <MemberSignature Language="VB.NET" Value="Public Overridable Function CanBuildChannelListener(Of TChannel As {Class, IChannel}) (parameters As BindingParameterCollection) As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename TChannel&gt;&#xA; where TChannel : class, System::ServiceModel::Channels::IChannel virtual bool CanBuildChannelListener(System::ServiceModel::Channels::BindingParameterCollection ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="TChannel">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+            <InterfaceName>System.ServiceModel.Channels.IChannel</InterfaceName>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.ServiceModel.Channels.BindingParameterCollection" />
+      </Parameters>
+      <Docs>
+        <typeparam name="TChannel">
+          <span data-ttu-id="3744a-249">Тип канала, для которого тестируется прослушиватель.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-249">The type of channel for which the listener is being tested.</span>
+          </span>
+        </typeparam>
+        <param name="parameters">
+          <span data-ttu-id="3744a-250">Объект <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" />, задающий требования для прослушивателя каналов, построение которого выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-250">The <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" /> that specifies requirements for the channel listener that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-251">Возвращает значение, указывающее, может ли текущая привязка выполнить построение на стороне службы стека прослушивателя каналов, удовлетворяющего заданной коллекции параметров привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-251">Returns a value that indicates whether the current binding can build a channel listener stack on the service that satisfies the collection of binding parameters specified.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-252">Значение <see langword="true" />, если заданный стек прослушивателей каналов может быть построен на стороне службы; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-252">
+              <see langword="true" /> if the specified channel listener stack can be build on the service; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-253">Используйте этот метод, чтобы убедиться, что прежде чем пытаться построить прослушиватель, можно построить прослушиватель каналов для каналов типа `TChannel` для заданных параметров привязки `parameters`.</span><span class="sxs-lookup"><span data-stu-id="3744a-253">Use this method if you want to check that the channel listener for channels of type `TChannel` can be build for the binding `parameters` specified before attempting to actually build the listener.</span></span> <span data-ttu-id="3744a-254">Если прослушиватель каналов нельзя построить вышеописанным образом, можно вызвать метод <xref:System.ServiceModel.Channels.Binding.BuildChannelListener%60%601%28System.ServiceModel.Channels.BindingParameterCollection%29> и перехватить созданное исключение.</span><span class="sxs-lookup"><span data-stu-id="3744a-254">Alternatively, try to build the channel listener by calling <xref:System.ServiceModel.Channels.Binding.BuildChannelListener%60%601%28System.ServiceModel.Channels.BindingParameterCollection%29> and catch the exception generated if it cannot be built.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CloseTimeout">
+      <MemberSignature Language="C#" Value="public TimeSpan CloseTimeout { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.TimeSpan CloseTimeout" />
+      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.Binding.CloseTimeout" />
+      <MemberSignature Language="VB.NET" Value="Public Property CloseTimeout As TimeSpan" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property TimeSpan CloseTimeout { TimeSpan get(); void set(TimeSpan value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.TimeSpan</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-255">Возвращает или задает интервал времени для закрытия подключения до того, как транспорт создаст исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-255">Gets or sets the interval of time provided for a connection to close before the transport raises an exception.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="3744a-256">Значение <see cref="T:System.TimeSpan" />, которое задает время, выделенное для завершения операции закрытия до истечения времени ожидания. Значение по умолчанию - 1 минута.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-256">The <see cref="T:System.TimeSpan" /> that specifies how long the close operation has to complete before timing out. The default value is 1 minute.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-257">Значение данного свойства используется каналами и прослушивателями, создаваемыми фабриками привязки.</span><span class="sxs-lookup"><span data-stu-id="3744a-257">The value of this property is used by the channels and listeners produced by the factories of the binding.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="3744a-258">Заданное значение меньше нуля или слишком велико.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-258">The value is less than zero or too large.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateBindingElements">
+      <MemberSignature Language="C#" Value="public abstract System.ServiceModel.Channels.BindingElementCollection CreateBindingElements ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.ServiceModel.Channels.BindingElementCollection CreateBindingElements() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.CreateBindingElements" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride Function CreateBindingElements () As BindingElementCollection" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract System::ServiceModel::Channels::BindingElementCollection ^ CreateBindingElements();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.BindingElementCollection</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-259">При переопределении в производном классе создает коллекцию, содержащую элементы привязки, которые являются частью текущей привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-259">When overridden in a derived class, creates a collection that contains the binding elements that are part of the current binding.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-260">Объект <see cref="T:System.Collections.Generic.ICollection`1" /> типа <see cref="T:System.ServiceModel.Channels.BindingElement" />, содержащий элементы привязки из текущего объекта привязки в правильном порядке.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-260">A <see cref="T:System.Collections.Generic.ICollection`1" /> object of type <see cref="T:System.ServiceModel.Channels.BindingElement" /> that contains the binding elements from the current binding object in the correct order.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-261">Элементы не должны ссылаться на какие-либо внутренние элементы, используемые объектом <xref:System.ServiceModel.Channels.Binding>.</span><span class="sxs-lookup"><span data-stu-id="3744a-261">The elements should not reference any internal elements that the <xref:System.ServiceModel.Channels.Binding> object uses.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetProperty&lt;T&gt;">
+      <MemberSignature Language="C#" Value="public T GetProperty&lt;T&gt; (System.ServiceModel.Channels.BindingParameterCollection parameters) where T : class;" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance !!T GetProperty&lt;class T&gt;(class System.ServiceModel.Channels.BindingParameterCollection parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.GetProperty``1(System.ServiceModel.Channels.BindingParameterCollection)" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetProperty(Of T As Class) (parameters As BindingParameterCollection) As T" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA;generic &lt;typename T&gt;&#xA; where T : class T GetProperty(System::ServiceModel::Channels::BindingParameterCollection ^ parameters);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>T</ReturnType>
+      </ReturnValue>
+      <TypeParameters>
+        <TypeParameter Name="T">
+          <Constraints>
+            <ParameterAttribute>ReferenceTypeConstraint</ParameterAttribute>
+          </Constraints>
+        </TypeParameter>
+      </TypeParameters>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.ServiceModel.Channels.BindingParameterCollection" />
+      </Parameters>
+      <Docs>
+        <typeparam name="T">
+          <span data-ttu-id="3744a-262">Типизированный объект, запрашиваемый методом.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-262">The typed object for which the method is querying.</span>
+          </span>
+        </typeparam>
+        <param name="parameters">
+          <span data-ttu-id="3744a-263">Объект <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" />, задающий требования для прослушивателя каналов, построение которого выполняется.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-263">The <see cref="T:System.ServiceModel.Channels.BindingParameterCollection" /> that specifies requirements for the channel listener that is built.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="3744a-264">Возвращает запрошенный типизированный объект, если он имеется, из соответствующего уровня стека привязок.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-264">Returns a typed object requested, if present, from the appropriate layer in the binding stack.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-265">Запрашиваемый типизированный объект <paramref name="T" />, если он имеется, или значение <see langword="null" />, если он отсутствует.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-265">The typed object <paramref name="T" /> requested if it is present or <see langword="null" /> if it is not.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-266">Если уровень поддерживает возврат запрошенного объекта, он возвращает его.</span><span class="sxs-lookup"><span data-stu-id="3744a-266">If a layer supports returning the requested object, it returns it.</span></span> <span data-ttu-id="3744a-267">В противном случае вызов делегируется на следующий более низкий уровень стека.</span><span class="sxs-lookup"><span data-stu-id="3744a-267">If not, it delegates the call down to the next layer in the stack.</span></span> <span data-ttu-id="3744a-268">Если достигнуто дно стека и уровень, поддерживающий запрошенный объект, не найден, метод возвращает значение `null`.</span><span class="sxs-lookup"><span data-stu-id="3744a-268">If it gets to the bottom of the stack and no layer supported the requested object, then the method returns `null`.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="MessageVersion">
+      <MemberSignature Language="C#" Value="public System.ServiceModel.Channels.MessageVersion MessageVersion { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.ServiceModel.Channels.MessageVersion MessageVersion" />
+      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.Binding.MessageVersion" />
+      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property MessageVersion As MessageVersion" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::ServiceModel::Channels::MessageVersion ^ MessageVersion { System::ServiceModel::Channels::MessageVersion ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.ServiceModel.Channels.MessageVersion</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-269">Возвращает версию сообщения, используемую клиентами и службами, настроенными с использованием привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-269">Gets the message version used by clients and services configured with the binding.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="3744a-270">Объект <see cref="T:System.ServiceModel.Channels.MessageVersion" />, используемый клиентами и службами, настроенными с использованием привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-270">The <see cref="T:System.ServiceModel.Channels.MessageVersion" /> used by clients and services configured with the binding.</span>
+          </span>
+        </value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Name">
+      <MemberSignature Language="C#" Value="public string Name { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Name" />
+      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.Binding.Name" />
+      <MemberSignature Language="VB.NET" Value="Public Property Name As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ Name { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-271">Возвращает или задает имя привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-271">Gets or sets the name of the binding.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="3744a-272">Имя привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-272">The name of the binding.</span>
+          </span>
+          <span data-ttu-id="3744a-273">Имя по умолчанию — <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-273">The default name is <see langword="null" />.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-274">У каждого экземпляра <xref:System.ServiceModel.Channels.Binding> есть свойства <xref:System.ServiceModel.Channels.Binding.Name%2A> и <xref:System.ServiceModel.Channels.Binding.Namespace%2A>, которые совместно однозначно идентифицируют имя пользователя для привязки в метаданных службы.</span><span class="sxs-lookup"><span data-stu-id="3744a-274">Each instance of a <xref:System.ServiceModel.Channels.Binding> has a <xref:System.ServiceModel.Channels.Binding.Name%2A> and <xref:System.ServiceModel.Channels.Binding.Namespace%2A> that together uniquely identify the user name for the binding in the metadata of the service.</span></span>  
+  
+ <span data-ttu-id="3744a-275">Данное имя пользователя привязки отличается от спецификации имени протокола, которая задана в свойстве <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span><span class="sxs-lookup"><span data-stu-id="3744a-275">This user name for the binding is distinct from the specification of the protocol name, which is specified by the <xref:System.ServiceModel.Channels.Binding.Scheme%2A> property.</span></span> <span data-ttu-id="3744a-276">Например, если требуется добавить еще несколько привязок HTTP, можно задать им любые имена, а их схемам задать значение «http».</span><span class="sxs-lookup"><span data-stu-id="3744a-276">If you want to add more HTTP bindings, for example, you can name them whatever you want and set all of their schemes to "http".</span></span> <span data-ttu-id="3744a-277">Не существует собственного приложения или компьютерной диспетчеризации, основанной на <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span><span class="sxs-lookup"><span data-stu-id="3744a-277">There is no inherent application or machine dispatch based on the <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span></span> <span data-ttu-id="3744a-278">Тем самым можно избежать распространенной проблемы, когда невозможно зарегистрировать дополнительные обработчики для хорошо известных протоколов.</span><span class="sxs-lookup"><span data-stu-id="3744a-278">So you avoid the common problem of being unable to register additional handlers for well-known protocols.</span></span> <span data-ttu-id="3744a-279">Также можно параллельно работать с несколькими версиями привязки, задав каждой из них различное имя.</span><span class="sxs-lookup"><span data-stu-id="3744a-279">You can also easily work with multiple versions of a binding side-by-side by giving each version a different name.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">
+          <span data-ttu-id="3744a-280">Заданным значением не может быть <see langword="null" /> или пустая строка.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-280">The value set cannot be <see langword="null" /> or an empty string.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Namespace">
+      <MemberSignature Language="C#" Value="public string Namespace { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Namespace" />
+      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.Binding.Namespace" />
+      <MemberSignature Language="VB.NET" Value="Public Property Namespace As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ Namespace { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-281">Возвращает или задает пространство имен XML привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-281">Gets or sets the XML namespace of the binding.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="3744a-282">Пространство имен XML привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-282">The XML namespace of the binding.</span>
+          </span>
+          <span data-ttu-id="3744a-283">Значение по умолчанию — http://tempuri.org/.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-283">The default value is "http://tempuri.org/".</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-284">У каждого экземпляра <xref:System.ServiceModel.Channels.Binding> есть свойства <xref:System.ServiceModel.Channels.Binding.Name%2A> и <xref:System.ServiceModel.Channels.Binding.Namespace%2A>, которые совместно однозначно идентифицируют имя пользователя для привязки в метаданных службы.</span><span class="sxs-lookup"><span data-stu-id="3744a-284">Each instance of a <xref:System.ServiceModel.Channels.Binding> has a <xref:System.ServiceModel.Channels.Binding.Name%2A> and <xref:System.ServiceModel.Channels.Binding.Namespace%2A> that together uniquely identify the user name for the binding in the metadata of the service.</span></span>  
+  
+ <span data-ttu-id="3744a-285">Данное имя пользователя привязки отличается от спецификации имени протокола, которая задана в свойстве <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span><span class="sxs-lookup"><span data-stu-id="3744a-285">This user name for the binding is distinct from the specification of the protocol name, which is specified by the <xref:System.ServiceModel.Channels.Binding.Scheme%2A> property.</span></span> <span data-ttu-id="3744a-286">Например, если требуется добавить еще несколько привязок HTTP, можно задать им любые имена, а их схемам задать значение «http».</span><span class="sxs-lookup"><span data-stu-id="3744a-286">If you want to add more HTTP bindings, for example, you can name them whatever you want and set all of their schemes to "http".</span></span> <span data-ttu-id="3744a-287">Не существует собственного приложения или компьютерной диспетчеризации, основанной на <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span><span class="sxs-lookup"><span data-stu-id="3744a-287">There is no inherent application or machine dispatch based on the <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span></span> <span data-ttu-id="3744a-288">Тем самым можно избежать распространенной проблемы, когда невозможно зарегистрировать дополнительные обработчики для хорошо известных протоколов.</span><span class="sxs-lookup"><span data-stu-id="3744a-288">So you avoid the common problem of being unable to register additional handlers for well-known protocols.</span></span> <span data-ttu-id="3744a-289">Также можно параллельно работать с несколькими версиями привязки, задав каждой из них различное имя.</span><span class="sxs-lookup"><span data-stu-id="3744a-289">You can also easily work with multiple versions of a binding side-by-side by giving each version a different name.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException">
+          <span data-ttu-id="3744a-290">Заданным значением не может быть <see langword="null" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-290">The value set cannot be <see langword="null" />.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="OpenTimeout">
+      <MemberSignature Language="C#" Value="public TimeSpan OpenTimeout { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.TimeSpan OpenTimeout" />
+      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.Binding.OpenTimeout" />
+      <MemberSignature Language="VB.NET" Value="Public Property OpenTimeout As TimeSpan" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property TimeSpan OpenTimeout { TimeSpan get(); void set(TimeSpan value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.TimeSpan</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-291">Возвращает или задает интервал времени для открытия подключения до того, как транспорт создаст исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-291">Gets or sets the interval of time provided for a connection to open before the transport raises an exception.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="3744a-292">Значение <see cref="T:System.TimeSpan" />, которое задает время, выделенное для завершения операции открытия до превышения времени ожидания. Значение по умолчанию - 1 минута.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-292">The <see cref="T:System.TimeSpan" /> that specifies how long the open operation has to complete before timing out. The default value is 1 minute.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-293">Значение данного свойства используется каналами и прослушивателями, создаваемыми фабриками привязки.</span><span class="sxs-lookup"><span data-stu-id="3744a-293">The value of this property is used by the channels and listeners produced by the factories of the binding.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="3744a-294">Заданное значение меньше нуля или слишком велико.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-294">The value is less than zero or too large.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ReceiveTimeout">
+      <MemberSignature Language="C#" Value="public TimeSpan ReceiveTimeout { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.TimeSpan ReceiveTimeout" />
+      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.Binding.ReceiveTimeout" />
+      <MemberSignature Language="VB.NET" Value="Public Property ReceiveTimeout As TimeSpan" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property TimeSpan ReceiveTimeout { TimeSpan get(); void set(TimeSpan value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.TimeSpan</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-295">Возвращает или задает интервал времени бездействия подключения, в течение которого сообщения приложения не получаются, до его сброса.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-295">Gets or sets the interval of time that a connection can remain inactive, during which no application messages are received, before it is dropped.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="3744a-296">Значение <see cref="T:System.TimeSpan" />, которое задает время, выделенное для получения приложением сообщения до истечения времени ожидания. Значение по умолчанию — 10 минут.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-296">The <see cref="T:System.TimeSpan" /> that specifies how long the application has to receive a message before timing out. The default value is 10 minute.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-297">При работе с надежным сеансом используются два разных таймера периода бездействия, значениям которых необходимо следовать для поддержки подключения.</span><span class="sxs-lookup"><span data-stu-id="3744a-297">When using a reliable session, there are two different inactivity timers that must be satisfied to keep the connection alive.</span></span> <span data-ttu-id="3744a-298">По истечении времени любого из таймеров периода бездействия соединение сбрасывается.</span><span class="sxs-lookup"><span data-stu-id="3744a-298">If either of these inactivity timers goes off, then the connection is dropped.</span></span>  
+  
+-   <span data-ttu-id="3744a-299">Первый таймер периода бездействия находится в надежном сеансе и называется <xref:System.ServiceModel.ReliableSession.InactivityTimeout%2A>.</span><span class="sxs-lookup"><span data-stu-id="3744a-299">The first inactivity timer is on the reliable session and is called the <xref:System.ServiceModel.ReliableSession.InactivityTimeout%2A>.</span></span> <span data-ttu-id="3744a-300">Этот таймер периода бездействия запускается, если в течение времени ожидания сообщения приложения или инфраструктуры не были получены.</span><span class="sxs-lookup"><span data-stu-id="3744a-300">This inactivity timer fires if no messages, either application or infrastructure, are received within the timeout period.</span></span> <span data-ttu-id="3744a-301">Сообщение инфраструктуры — это сообщение, созданное для одного из протоколов в стеке каналов, например поддержки активности или подтверждения, оно не содержит данные приложения.</span><span class="sxs-lookup"><span data-stu-id="3744a-301">An infrastructure message is a message that is generated for the purpose of one of the protocols in the channel stack, such as a keep alive or an acknowledgment, rather than containing application data.</span></span>  
+  
+-   <span data-ttu-id="3744a-302">Второй таймер периода бездействия находится в службе и использует параметр <xref:System.ServiceModel.Channels.Binding.ReceiveTimeout%2A> привязки.</span><span class="sxs-lookup"><span data-stu-id="3744a-302">The second inactivity timer is on the service and uses the <xref:System.ServiceModel.Channels.Binding.ReceiveTimeout%2A> setting of the binding.</span></span> <span data-ttu-id="3744a-303">Этот таймер периода бездействия запускается, если в течение времени ожидания сообщения приложения не были получены.</span><span class="sxs-lookup"><span data-stu-id="3744a-303">This inactivity timer fires if no application messages are received within the timeout period.</span></span> <span data-ttu-id="3744a-304">Этим задается, например, максимальное время для отправки по крайней мере одного сообщения клиентом серверу до закрытия им канала, используемого сеансом.</span><span class="sxs-lookup"><span data-stu-id="3744a-304">This specifies, for example, the maximum time a client may take to send at least one message to the server before the server will close the channel used by a session.</span></span> <span data-ttu-id="3744a-305">Такое поведение гарантирует, что клиенты не смогут удерживать ресурсы сервера довольно продолжительное время.</span><span class="sxs-lookup"><span data-stu-id="3744a-305">This behavior ensures that clients cannot hold on to server resources for arbitrary long periods.</span></span>  
+  
+ <span data-ttu-id="3744a-306">Поскольку подключение сбрасывается, когда включается любой из таймеров, увеличение значения <xref:System.ServiceModel.ReliableSession.InactivityTimeout%2A>, если оно больше значения <xref:System.ServiceModel.Channels.Binding.ReceiveTimeout%2A>, не оказывает никакого влияния.</span><span class="sxs-lookup"><span data-stu-id="3744a-306">Since the connection is dropped if either inactivity timer fires, increasing <xref:System.ServiceModel.ReliableSession.InactivityTimeout%2A> once it is greater than <xref:System.ServiceModel.Channels.Binding.ReceiveTimeout%2A> has no effect.</span></span> <span data-ttu-id="3744a-307">Значение по умолчанию для обоих таймеров составляет 10 минут, поэтому всегда следует увеличивать значения обоих таймеров, чтобы провести различие при использовании надежного сеанса.</span><span class="sxs-lookup"><span data-stu-id="3744a-307">The default for both of these timeouts is 10 minutes, so you always have to increase both of them to make a difference when using a reliable session.</span></span>  
+  
+ <span data-ttu-id="3744a-308">Если поток транзакций разрешен в привязке или канале, выполнение операции может занять больше времени, чем заданное время ожидания.</span><span class="sxs-lookup"><span data-stu-id="3744a-308">If transaction flow is enabled on the binding or the channel, the operation may take longer to execute than the specified timeout.</span></span> <span data-ttu-id="3744a-309">В этом случае выполнение операции завершается с ошибкой в связи с истечением времени ожидания и транзакция прерывается автоматически.</span><span class="sxs-lookup"><span data-stu-id="3744a-309">In these circumstances the operation fails due to the expired timeout and the transaction aborts appropriately.</span></span>  
+  
+ <span data-ttu-id="3744a-310">Если используется безопасность с сеансами, <xref:System.ServiceModel.Channels.Binding.ReceiveTimeout%2A> значение, заданное в привязке также используется в качестве времени ожидания сеанса.</span><span class="sxs-lookup"><span data-stu-id="3744a-310">When security is used with sessions, the <xref:System.ServiceModel.Channels.Binding.ReceiveTimeout%2A> value set on the binding is also used as the session timeout.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="3744a-311">Заданное значение меньше нуля или слишком велико.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-311">The value is less than zero or too large.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="Scheme">
+      <MemberSignature Language="C#" Value="public abstract string Scheme { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Scheme" />
+      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.Binding.Scheme" />
+      <MemberSignature Language="VB.NET" Value="Public MustOverride ReadOnly Property Scheme As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract property System::String ^ Scheme { System::String ^ get(); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-312">При реализации в производном классе задает схему URI, которая указывает транспорт, используемый фабриками каналов и прослушивателей, построенными привязками.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-312">When implemented in a derived class, sets the URI scheme that specifies the transport used by the channel and listener factories that are built by the bindings.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="3744a-313">Схема URI, используемая каналами и прослушивателями, которые созданы фабриками, построенными текущей привязкой.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-313">The URI scheme that is used by the channels or listeners that are created by the factories built by the current binding.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-314">Данное имя пользователя привязки отличается от спецификации имени протокола, которая задана в свойстве <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span><span class="sxs-lookup"><span data-stu-id="3744a-314">This user name for the binding is distinct from the specification of the protocol name, which is specified by the <xref:System.ServiceModel.Channels.Binding.Scheme%2A> property.</span></span> <span data-ttu-id="3744a-315">У каждого экземпляра <xref:System.ServiceModel.Channels.Binding> есть свойства <xref:System.ServiceModel.Channels.Binding.Name%2A> и <xref:System.ServiceModel.Channels.Binding.Namespace%2A>, которые совместно однозначно идентифицируют имя пользователя для привязки в метаданных службы.</span><span class="sxs-lookup"><span data-stu-id="3744a-315">Each instance of a <xref:System.ServiceModel.Channels.Binding> has a <xref:System.ServiceModel.Channels.Binding.Name%2A> and <xref:System.ServiceModel.Channels.Binding.Namespace%2A> that together uniquely identify the user name for the binding in the metadata of the service.</span></span> <span data-ttu-id="3744a-316">Например, если требуется добавить еще несколько привязок HTTP, можно задать им любые имена, а их схемам задать значение «http».</span><span class="sxs-lookup"><span data-stu-id="3744a-316">If you want to add more HTTP bindings, for example, you can name them whatever you want and set all of their schemes to "http".</span></span> <span data-ttu-id="3744a-317">Не существует собственного приложения или компьютерной диспетчеризации, основанной на <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span><span class="sxs-lookup"><span data-stu-id="3744a-317">There is no inherent application or machine dispatch based on the <xref:System.ServiceModel.Channels.Binding.Scheme%2A>.</span></span> <span data-ttu-id="3744a-318">Тем самым можно избежать распространенной проблемы, когда невозможно зарегистрировать дополнительные обработчики для хорошо известных протоколов.</span><span class="sxs-lookup"><span data-stu-id="3744a-318">So you avoid the common problem of being unable to register additional handlers for well-known protocols.</span></span> <span data-ttu-id="3744a-319">Также можно параллельно работать с несколькими версиями привязки, задав каждой из них различное имя.</span><span class="sxs-lookup"><span data-stu-id="3744a-319">You can also easily work with multiple versions of a binding side-by-side by giving each version a different name.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SendTimeout">
+      <MemberSignature Language="C#" Value="public TimeSpan SendTimeout { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype System.TimeSpan SendTimeout" />
+      <MemberSignature Language="DocId" Value="P:System.ServiceModel.Channels.Binding.SendTimeout" />
+      <MemberSignature Language="VB.NET" Value="Public Property SendTimeout As TimeSpan" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property TimeSpan SendTimeout { TimeSpan get(); void set(TimeSpan value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel.Primitives</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+        <AssemblyVersion>4.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.TimeSpan</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-320">Возвращает или задает интервал времени для завершения операции записи до того, как транспорт создаст исключение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-320">Gets or sets the interval of time provided for a write operation to complete before the transport raises an exception.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="3744a-321">Значение <see cref="T:System.TimeSpan" />, которое задает время, выделенное для завершения операции записи до истечения времени ожидания. Значение по умолчанию - 1 минута.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-321">The <see cref="T:System.TimeSpan" /> that specifies how long the write operation has to complete before timing out. The default value is 1 minute.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="3744a-322">Если поток транзакций разрешен в привязке или канале, выполнение операции может занять больше времени, чем заданное время ожидания.</span><span class="sxs-lookup"><span data-stu-id="3744a-322">If transaction flow is enabled on the binding or the channel, the operation may take longer to execute than the specified timeout.</span></span> <span data-ttu-id="3744a-323">В этом случае выполнение операции завершается с ошибкой в связи с истечением времени ожидания и транзакция прерывается автоматически.</span><span class="sxs-lookup"><span data-stu-id="3744a-323">In these circumstances the operation fails due to the expired timeout and the transaction aborts appropriately.</span></span>  
+  
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <span data-ttu-id="3744a-324">Заданное значение меньше нуля или слишком велико.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-324">The value is less than zero or too large.</span>
+          </span>
+        </exception>
+      </Docs>
+    </Member>
+    <Member MemberName="ShouldSerializeName">
+      <MemberSignature Language="C#" Value="public bool ShouldSerializeName ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool ShouldSerializeName() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.ShouldSerializeName" />
+      <MemberSignature Language="VB.NET" Value="Public Function ShouldSerializeName () As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool ShouldSerializeName();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-325">Возвращает значение, которое указывает, должно ли быть сериализовано имя привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-325">Returns whether the name of the binding should be serialized.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-326">Значение <see langword="true" />, если имя привязки должно сериализовываться; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-326">
+              <see langword="true" /> if the binding name should be serialized; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ShouldSerializeNamespace">
+      <MemberSignature Language="C#" Value="public bool ShouldSerializeNamespace ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool ShouldSerializeNamespace() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.ServiceModel.Channels.Binding.ShouldSerializeNamespace" />
+      <MemberSignature Language="VB.NET" Value="Public Function ShouldSerializeNamespace () As Boolean" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; bool ShouldSerializeNamespace();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="3744a-327">Возвращает значение, которое указывает, должно ли быть сериализовано пространство имен привязки.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-327">Returns whether the namespace of the binding should be serialized.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="3744a-328">Значение <see langword="true" />, если пространство имен должно сериализовываться; в противном случае — значение <see langword="false" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="3744a-328">
+              <see langword="true" /> if the binding namespace should be serialized; otherwise, <see langword="false" />.</span>
+          </span>
+        </returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
