@@ -1,0 +1,2208 @@
+<Type Name="XStreamingElement" FullName="System.Xml.Linq.XStreamingElement">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="b0336162d5331cff04e4eb89149363780070c382" />
+    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
+  </Metadata>
+  <TypeSignature Language="C#" Value="public class XStreamingElement" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit XStreamingElement extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:System.Xml.Linq.XStreamingElement" />
+  <TypeSignature Language="VB.NET" Value="Public Class XStreamingElement" />
+  <TypeSignature Language="C++ CLI" Value="public ref class XStreamingElement" />
+  <AssemblyInfo>
+    <AssemblyName>System.Xml.XDocument</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <AssemblyVersion>4.0.10.0</AssemblyVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <AssemblyVersion>4.1.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Xml.Linq</AssemblyName>
+    <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>netstandard</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>
+      <span data-ttu-id="4bc32-101">Представляет элементы в дереве XML, поддерживающем отложенный потоковый выход.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="4bc32-101">Represents elements in an XML tree that supports deferred streaming output.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-102">Этот класс позволяет создавать дерево XML, поддерживающем отложенный потоковый выход.</span><span class="sxs-lookup"><span data-stu-id="4bc32-102">This class allows you to create an XML tree that supports deferred streaming output.</span></span> <span data-ttu-id="4bc32-103">Этот класс используется для создания XML-дерева в очень похоже на создание XML-дерева при помощи <xref:System.Xml.Linq.XElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-103">You use this class to create an XML tree in a very similar fashion to creating an XML tree using <xref:System.Xml.Linq.XElement>.</span></span> <span data-ttu-id="4bc32-104">Однако есть фундаментальное отличие.</span><span class="sxs-lookup"><span data-stu-id="4bc32-104">However, there is a fundamental difference.</span></span> <span data-ttu-id="4bc32-105">При использовании запроса LINQ для указания содержимого при Создание XML-дерева с помощью <xref:System.Xml.Linq.XElement>, переменная запроса проходит во время построения XML-дерева, а результаты запроса добавляются к XML-дереву.</span><span class="sxs-lookup"><span data-stu-id="4bc32-105">When you use a LINQ query to specify content when creating an XML tree using <xref:System.Xml.Linq.XElement>, the query variable is iterated at the time of construction of the XML tree, and the results of the query are added to the XML tree.</span></span> <span data-ttu-id="4bc32-106">В противоположность этому при создании XML-дерева при помощи <xref:System.Xml.Linq.XStreamingElement>, ссылку на переменную запроса хранятся в XML-дерева без выполняется итерация.</span><span class="sxs-lookup"><span data-stu-id="4bc32-106">In contrast, when you create an XML tree using <xref:System.Xml.Linq.XStreamingElement>, a reference to the query variable is stored in the XML tree without being iterated.</span></span> <span data-ttu-id="4bc32-107">Запросы осуществляется только при сериализации.</span><span class="sxs-lookup"><span data-stu-id="4bc32-107">Queries are iterated only upon serialization.</span></span> <span data-ttu-id="4bc32-108">Это позволяет создавать большие деревья XML при использовании меньшего объема памяти.</span><span class="sxs-lookup"><span data-stu-id="4bc32-108">This allows you to create larger XML trees while maintaining a smaller memory footprint.</span></span>  
+  
+ <span data-ttu-id="4bc32-109">При использовании потока из входного источника, например текстовый файл может чтения очень большой текстовый файл и создания очень больших XML-документ при незначительном памяти.</span><span class="sxs-lookup"><span data-stu-id="4bc32-109">If you are streaming from an input source, such as a text file, then you can read a very large text file, and generate a very large XML document while maintaining a small memory footprint.</span></span>  
+  
+ <span data-ttu-id="4bc32-110">Еще один сценарий: у вас есть большой XML-дерева, который был загружен в память, что вы хотите создать преобразованную версию документа.</span><span class="sxs-lookup"><span data-stu-id="4bc32-110">Another scenario is that you have a large XML tree that has been loaded into memory, and you want to create a transformed version of the document.</span></span> <span data-ttu-id="4bc32-111">При создании нового документа с помощью <xref:System.Xml.Linq.XElement>, будет иметь два больших XML-дерева в памяти после завершения преобразования.</span><span class="sxs-lookup"><span data-stu-id="4bc32-111">If you create a new document using <xref:System.Xml.Linq.XElement>, then you will have two large XML trees in memory upon completion of the transformation.</span></span> <span data-ttu-id="4bc32-112">Тем не менее при создании нового дерева XML с помощью <xref:System.Xml.Linq.XStreamingElement>, то будет эффективно вырезать рабочего набора на две части.</span><span class="sxs-lookup"><span data-stu-id="4bc32-112">However, if you create the new XML tree using <xref:System.Xml.Linq.XStreamingElement>, then your working set will be effectively cut in half.</span></span>  
+  
+ <span data-ttu-id="4bc32-113">Обратите внимание, что при отладке программы, использующей <xref:System.Xml.Linq.XStreamingElement>, отображение значения объекта вызывает его <xref:System.Xml.Linq.XStreamingElement.ToString%2A> вызываемого метода.</span><span class="sxs-lookup"><span data-stu-id="4bc32-113">Note that when debugging a program that uses <xref:System.Xml.Linq.XStreamingElement>, displaying the value of an object causes its <xref:System.Xml.Linq.XStreamingElement.ToString%2A> method to be called.</span></span> <span data-ttu-id="4bc32-114">Это приводит к сериализации XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-114">This causes the XML to be serialized.</span></span> <span data-ttu-id="4bc32-115">Если семантика запроса потокового элемента таким образом, что потоковый элемент может передаваться только один раз, это может вызвать нежелательное поведение отладку.</span><span class="sxs-lookup"><span data-stu-id="4bc32-115">If the semantics of your streaming element query are such that the streaming element can only be streamed once, this may cause undesirable behavior in your debugging experience.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-116">В следующем примере сначала создается в исходном XML-дерево.</span><span class="sxs-lookup"><span data-stu-id="4bc32-116">The following example first creates a source XML tree.</span></span> <span data-ttu-id="4bc32-117">Затем он создает преобразования дерева XML источника, используя <xref:System.Xml.Linq.XElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-117">It then creates a transform of the source XML tree using <xref:System.Xml.Linq.XElement>.</span></span> <span data-ttu-id="4bc32-118">Это преобразование создает нового дерева в памяти.</span><span class="sxs-lookup"><span data-stu-id="4bc32-118">This transform creates a new tree in memory.</span></span> <span data-ttu-id="4bc32-119">Затем он создает преобразования дерева XML источника, используя <xref:System.Xml.Linq.XStreamingElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-119">It then creates a transform of the source XML tree using <xref:System.Xml.Linq.XStreamingElement>.</span></span> <span data-ttu-id="4bc32-120">Данное преобразование не выполняет запрос, пока преобразованное дерево сериализовано в консоль.</span><span class="sxs-lookup"><span data-stu-id="4bc32-120">This transform doesn't execute the query until the transformed tree is serialized to the console.</span></span> <span data-ttu-id="4bc32-121">Использование памяти меньше.</span><span class="sxs-lookup"><span data-stu-id="4bc32-121">Its memory usage is less.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XElement dstTree1 = new XElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el >= 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+XStreamingElement dstTree2 = new XStreamingElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el >= 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+Console.WriteLine(dstTree1);  
+Console.WriteLine("------");  
+Console.WriteLine(dstTree2);  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+        <Root>  
+            <Child>1</Child>  
+            <Child>2</Child>  
+            <Child>3</Child>  
+            <Child>4</Child>  
+            <Child>5</Child>  
+        </Root>  
+  
+Dim dstTree1 As XElement = _  
+    <NewRoot>  
+        <%= From el In srcTree.Elements _  
+            Where (el.Value >= 3) _  
+            Select <DifferentChild><%= el.Value %></DifferentChild> %>  
+    </NewRoot>  
+  
+Dim dstTree2 As XStreamingElement = New XStreamingElement("NewRoot", _  
+                From el In srcTree.Elements _  
+                Where el.Value >= 3 _  
+                Select <DifferentChild><%= el.Value %></DifferentChild> _  
+            )  
+  
+Console.WriteLine(dstTree1)  
+Console.WriteLine("------")  
+Console.WriteLine(dstTree2)  
+```  
+  
+ <span data-ttu-id="4bc32-122">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-122">This example produces the following output:</span></span>  
+  
+```  
+<NewRoot>  
+  <DifferentChild>3</DifferentChild>  
+  <DifferentChild>4</DifferentChild>  
+  <DifferentChild>5</DifferentChild>  
+</NewRoot>  
+------  
+<NewRoot>  
+  <DifferentChild>3</DifferentChild>  
+  <DifferentChild>4</DifferentChild>  
+  <DifferentChild>5</DifferentChild>  
+</NewRoot>  
+```  
+  
+ <span data-ttu-id="4bc32-123">Одним из вариантов обработки текстового файла является написание метода расширения, который обрабатывает текстовый файл построчно при помощи конструкции `yield return`.</span><span class="sxs-lookup"><span data-stu-id="4bc32-123">One approach to processing a text file is to write an extension method that streams the text file a line at a time using the `yield return` construct.</span></span> <span data-ttu-id="4bc32-124">Затем можно будет написать запрос LINQ, обрабатывающий текстовый файл в отложенной манере.</span><span class="sxs-lookup"><span data-stu-id="4bc32-124">You then can write a LINQ query that processes the text file in a lazy deferred fashion.</span></span> <span data-ttu-id="4bc32-125">При использовании <xref:System.Xml.Linq.XStreamingElement> для формирования выходного потока можно создать преобразование из текстового файла в XML, которое использует минимальный объем памяти независимо от размера исходного текстового файла.</span><span class="sxs-lookup"><span data-stu-id="4bc32-125">If you then use the <xref:System.Xml.Linq.XStreamingElement> to stream output, you then can create a transform from the text file to XML that uses a minimal amount of memory, regardless of the size of the source text file.</span></span>  
+  
+ <span data-ttu-id="4bc32-126">В качестве исходного для этого примера используется текстовый файл People.txt.</span><span class="sxs-lookup"><span data-stu-id="4bc32-126">The following text file, People.txt, is the source for this example.</span></span>  
+  
+```  
+#This is a comment  
+1,Tai,Yee,Writer  
+2,Nikolay,Grachev,Programmer  
+3,David,Wright,Inventor  
+```  
+  
+ <span data-ttu-id="4bc32-127">Следующий код содержит метод расширения, который обрабатывает строки текстового файла в отложенной манере.</span><span class="sxs-lookup"><span data-stu-id="4bc32-127">The following code contains an extension method that streams the lines of the text file in a deferred fashion.</span></span>  
+  
+```csharp  
+public static class StreamReaderSequence  
+{  
+    public static IEnumerable<string> Lines(this StreamReader source)  
+    {  
+        String line;  
+  
+        if (source == null)  
+            throw new ArgumentNullException("source");  
+        while ((line = source.ReadLine()) != null)  
+        {  
+            yield return line;  
+        }  
+    }  
+}  
+  
+class Program  
+{  
+    static void Main(string[] args)  
+    {  
+        StreamReader sr = new StreamReader("People.txt");  
+        XStreamingElement xmlTree = new XStreamingElement("Root",  
+            from line in sr.Lines()  
+            let items = line.Split(',')  
+            where !line.StartsWith("#")  
+            select new XElement("Person",  
+                       new XAttribute("ID", items[0]),  
+                       new XElement("First", items[1]),  
+                       new XElement("Last", items[2]),  
+                       new XElement("Occupation", items[3])  
+                   )  
+        );  
+        Console.WriteLine(xmlTree);  
+        sr.Close();  
+    }  
+}  
+```  
+  
+```vb  
+Module StreamReaderSequence  
+  
+    <Runtime.CompilerServices.Extension>  
+    Public Iterator Function Lines(source As IO.StreamReader) As IEnumerable(Of String)  
+        If source Is Nothing Then Throw New ArgumentNullException("source")  
+        Dim line As String = source.ReadLine()  
+        While (line <> Nothing)  
+            Yield line  
+            line = source.ReadLine()  
+        End While  
+    End Function  
+  
+End Module  
+  
+Module Module1  
+    Sub Main()  
+        Dim sr As New IO.StreamReader("People.txt")  
+        Dim xmlTree As New XStreamingElement("Root",  
+            From line In sr.Lines()  
+            Let items = line.Split(","c)  
+            Where Not line.StartsWith("#")  
+            Select <Person ID=<%= items(0) %>>  
+                       <First><%= items(1) %></First>  
+                       <Last><%= items(2) %></Last>  
+                       <Occupation><%= items(3) %></Occupation>  
+                   </Person>)  
+        Console.WriteLine(xmlTree)  
+        sr.Close()  
+    End Sub  
+End Module  
+```  
+  
+ <span data-ttu-id="4bc32-128">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-128">This example produces the following output:</span></span>  
+  
+```xml  
+<Root>  
+  <Person ID="1">  
+    <First>Tai</First>  
+    <Last>Yee</Last>  
+    <Occupation>Writer</Occupation>  
+  </Person>  
+  <Person ID="2">  
+    <First>Nikolay</First>  
+    <Last>Grachev</Last>  
+    <Occupation>Programmer</Occupation>  
+  </Person>  
+  <Person ID="3">  
+    <First>David</First>  
+    <Last>Wright</Last>  
+    <Occupation>Inventor</Occupation>  
+  </Person>  
+</Root>  
+```  
+  
+ <span data-ttu-id="4bc32-129">Иногда необходимо преобразовывать большие XML-файлы, при этом приложение должно быть написано так, чтобы используемый им объем памяти был прогнозируемым.</span><span class="sxs-lookup"><span data-stu-id="4bc32-129">Sometimes you have to transform large XML files, and write your application so that the memory footprint of the application is predictable.</span></span> <span data-ttu-id="4bc32-130">Если вставить в XML-дерево очень большой XML-файл, то объем используемой памяти будет пропорциональным размеру файла (то есть чрезмерным).</span><span class="sxs-lookup"><span data-stu-id="4bc32-130">If you try to populate an XML tree with a very large XML file, your memory usage will be proportional to the size of the file (that is, excessive).</span></span> <span data-ttu-id="4bc32-131">Поэтому следует вместо этого использовать потоки.</span><span class="sxs-lookup"><span data-stu-id="4bc32-131">Therefore, you should use a streaming technique instead.</span></span>  
+  
+ <span data-ttu-id="4bc32-132">Некоторые стандартные операторы запросов, например <xref:System.Linq.Enumerable.OrderBy%2A>, проходят через источник, собирают все данные, сортируют их и выдают первый элемент последовательности.</span><span class="sxs-lookup"><span data-stu-id="4bc32-132">Certain standard query operators, such as <xref:System.Linq.Enumerable.OrderBy%2A>, iterate their source, collect all of the data, sort it, and then finally yield the first item in the sequence.</span></span> <span data-ttu-id="4bc32-133">Отметим, что при использовании оператора запроса, который материализует свой источник перед тем, как выдать первый элемент, приложение снова будет использовать большой объем памяти.</span><span class="sxs-lookup"><span data-stu-id="4bc32-133">Note that if you use a query operator that materializes its source before yielding the first item, you will not retain a small memory footprint for your application.</span></span>  
+  
+ <span data-ttu-id="4bc32-134">Даже при использовании метода, описанного в, при попытке сборки XML-дерева, содержащего преобразованный документ, использование памяти может быть слишком большим.</span><span class="sxs-lookup"><span data-stu-id="4bc32-134">Even if you use the technique described in , if you try to assemble an XML tree that contains the transformed document, memory usage may be too great.</span></span>  
+  
+ <span data-ttu-id="4bc32-135">Следующий пример основан на примере в [как: поток XML-фрагментов с доступом к сведениям заголовка](http://msdn.microsoft.com/library/01311522-9d03-4977-8641-2932c6f56092).</span><span class="sxs-lookup"><span data-stu-id="4bc32-135">The following example builds on the example in [How to: Stream XML Fragments with Access to Header Information](http://msdn.microsoft.com/library/01311522-9d03-4977-8641-2932c6f56092).</span></span>  
+  
+ <span data-ttu-id="4bc32-136">В этом примере возможности отложенной обработки объекта <xref:System.Xml.Linq.XStreamingElement> используются для создания выходного потока.</span><span class="sxs-lookup"><span data-stu-id="4bc32-136">This example uses the deferred execution capabilities of <xref:System.Xml.Linq.XStreamingElement> to stream the output.</span></span>  
+  
+ <span data-ttu-id="4bc32-137">Заметьте, что пользовательская ось (`StreamCustomerItem`) специально написана таким образом, что ожидает документа с элементами `Customer`, `Name` и `Item`, упорядоченными, как в следующем документе Source.xml.</span><span class="sxs-lookup"><span data-stu-id="4bc32-137">Note that the custom axis (`StreamCustomerItem`) is specifically written so that it expects a document that has `Customer`, `Name`, and `Item` elements, and that those elements will be arranged as in the following Source.xml document.</span></span> <span data-ttu-id="4bc32-138">Однако при более надежной реализации должна быть либо выполнена проверка правильности исходного документа с помощью XSD, либо проведена подготовка на тот случай, что при проведении синтаксического анализа встретится документ, не прошедший проверку правильности.</span><span class="sxs-lookup"><span data-stu-id="4bc32-138">A more robust implementation, however, would either validate the source document with an XSD, or would be prepared to parse an invalid document.</span></span>  
+  
+ <span data-ttu-id="4bc32-139">Далее показан исходный документ, Source.xml:</span><span class="sxs-lookup"><span data-stu-id="4bc32-139">The following is the source document, Source.xml:</span></span>  
+  
+```xml  
+<?xml version="1.0" encoding="utf-8" ?>   
+<Root>  
+  <Customer>  
+    <Name>A. Datum Corporation</Name>  
+    <Item>  
+      <Key>0001</Key>  
+    </Item>  
+    <Item>  
+      <Key>0002</Key>  
+    </Item>  
+    <Item>  
+      <Key>0003</Key>  
+    </Item>  
+    <Item>  
+      <Key>0004</Key>  
+    </Item>  
+  </Customer>  
+  <Customer>  
+    <Name>Fabrikam, Inc.</Name>  
+    <Item>  
+      <Key>0005</Key>  
+    </Item>  
+    <Item>  
+      <Key>0006</Key>  
+    </Item>  
+    <Item>  
+      <Key>0007</Key>  
+    </Item>  
+    <Item>  
+      <Key>0008</Key>  
+    </Item>  
+  </Customer>  
+  <Customer>  
+    <Name>Southridge Video</Name>  
+    <Item>  
+      <Key>0009</Key>  
+    </Item>  
+    <Item>  
+      <Key>0010</Key>  
+    </Item>  
+  </Customer>  
+</Root>  
+```  
+  
+ <span data-ttu-id="4bc32-140">Следующий код содержит метод, который использует <xref:System.Xml.XmlReader> в поток XML-источник.</span><span class="sxs-lookup"><span data-stu-id="4bc32-140">The following code contains a method that uses an <xref:System.Xml.XmlReader> to stream the source XML.</span></span> <span data-ttu-id="4bc32-141">Она использует <xref:System.Xml.Linq.XStreamingElement> для потоковой передачи нового XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-141">It uses <xref:System.Xml.Linq.XStreamingElement> to stream the new XML.</span></span>  
+  
+```csharp  
+static IEnumerable<XElement> StreamCustomerItem(string uri)  
+{  
+    using (XmlReader reader = XmlReader.Create(uri))  
+    {  
+        XElement name = null;  
+        XElement item = null;  
+  
+        reader.MoveToContent();  
+  
+        // Parse the file, save header information when encountered, and yield the  
+        // Item XElement objects as they are created.  
+  
+        // loop through Customer elements  
+        while (reader.Read())  
+        {  
+            if (reader.NodeType == XmlNodeType.Element  
+                && reader.Name == "Customer")  
+            {  
+                // move to Name element  
+                while (reader.Read())  
+                {  
+                    if (reader.NodeType == XmlNodeType.Element &&  
+                        reader.Name == "Name")  
+                    {  
+                        name = XElement.ReadFrom(reader) as XElement;  
+                        break;  
+                    }  
+                }  
+  
+                // loop through Item elements  
+                while (reader.Read())  
+                {  
+                    if (reader.NodeType == XmlNodeType.EndElement)  
+                        break;  
+                    if (reader.NodeType == XmlNodeType.Element  
+                        && reader.Name == "Item")  
+                    {  
+                        item = XElement.ReadFrom(reader) as XElement;  
+                        if (item != null)  
+                        {  
+                            XElement tempRoot = new XElement("Root",  
+                                new XElement(name)  
+                            );  
+                            tempRoot.Add(item);  
+                            yield return item;  
+                        }  
+                    }  
+                }  
+            }  
+        }  
+    }  
+}  
+  
+static void Main(string[] args)  
+{  
+    XStreamingElement root = new XStreamingElement("Root",  
+        from el in StreamCustomerItem("Source.xml")  
+        select new XElement("Item",  
+            new XElement("Customer", (string)el.Parent.Element("Name")),  
+            new XElement(el.Element("Key"))  
+        )  
+    );  
+    root.Save("Test.xml");  
+    Console.WriteLine(File.ReadAllText("Test.xml"));  
+}  
+```  
+  
+```vb  
+Iterator Function StreamCustomerItem(uri As String) As IEnumerable(Of XElement)  
+  
+    Dim name As XElement = Nothing  
+    Dim item As XElement = Nothing  
+  
+    Dim reader As XmlReader = XmlReader.Create(uri)  
+    reader.MoveToContent()  
+  
+    ' Parse the file, save header information when encountered, and yield the  
+    ' Item XElement objects as they are created.  
+  
+    ' Loop through Customer elements.  
+    While (reader.Read())  
+        If (reader.NodeType = XmlNodeType.Element And reader.Name = "Customer") Then  
+            While (reader.Read())  
+                ' Move to Name element  
+                If (reader.NodeType = XmlNodeType.Element And reader.Name = "Name") Then  
+                    name = CType(XElement.ReadFrom(reader), XElement)  
+                    Exit While  
+                End If  
+            End While  
+  
+            ' Loop through Item elements  
+            While (reader.Read())  
+                If (reader.NodeType = XmlNodeType.EndElement) Then  
+                    Exit While  
+                End If  
+  
+                If (reader.NodeType = XmlNodeType.Element And reader.Name = "Item") Then  
+                    item = CType(XElement.ReadFrom(reader), XElement)  
+                    If (Not (item Is Nothing)) Then  
+                        Dim tempRoot = New XElement("Root",  
+                            New XElement(name)  
+                        )  
+                        tempRoot.Add(item)  
+                        Yield item  
+                     End If  
+                End If  
+            End While  
+        End If  
+     End While  
+    reader.Close()  
+End Function  
+  
+Sub Main()  
+    Dim root As New XStreamingElement("Root",  
+        From el In StreamCustomerItem("c:\trash\Source.xml")  
+        Select New XElement("Item",  
+            New XElement("Customer", CStr(el.Parent.Element("Name"))),  
+            New XElement(el.Element("Key"))))  
+    root.Save("c:\trash\Test.xml")  
+    Console.WriteLine(System.IO.File.ReadAllText("c:\trash\Test.xml"))  
+End Sub  
+```  
+  
+ <span data-ttu-id="4bc32-142">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-142">This example produces the following output:</span></span>  
+  
+```xml  
+<?xml version="1.0" encoding="utf-8"?>  
+<Root>  
+  <Item>  
+    <Customer>A. Datum Corporation</Customer>  
+    <Key>0001</Key>  
+  </Item>  
+  <Item>  
+    <Customer>A. Datum Corporation</Customer>  
+    <Key>0002</Key>  
+  </Item>  
+  <Item>  
+    <Customer>A. Datum Corporation</Customer>  
+    <Key>0003</Key>  
+  </Item>  
+  <Item>  
+    <Customer>A. Datum Corporation</Customer>  
+    <Key>0004</Key>  
+  </Item>  
+  <Item>  
+    <Customer>Fabrikam, Inc.</Customer>  
+    <Key>0005</Key>  
+  </Item>  
+  <Item>  
+    <Customer>Fabrikam, Inc.</Customer>  
+    <Key>0006</Key>  
+  </Item>  
+  <Item>  
+    <Customer>Fabrikam, Inc.</Customer>  
+    <Key>0007</Key>  
+  </Item>  
+  <Item>  
+    <Customer>Fabrikam, Inc.</Customer>  
+    <Key>0008</Key>  
+  </Item>  
+  <Item>  
+    <Customer>Southridge Video</Customer>  
+    <Key>0009</Key>  
+  </Item>  
+  <Item>  
+    <Customer>Southridge Video</Customer>  
+    <Key>0010</Key>  
+  </Item>  
+</Root>  
+```  
+  
+ ]]></format>
+    </remarks>
+  </Docs>
+  <Members>
+    <MemberGroup MemberName=".ctor">
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="4bc32-143">Инициализирует новый экземпляр класса <see cref="T:System.Xml.Linq.XStreamingElement" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-143">Initializes a new instance of the <see cref="T:System.Xml.Linq.XStreamingElement" /> class.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-144">Запросы не осуществляется до <xref:System.Xml.Linq.XStreamingElement> сериализуется.</span><span class="sxs-lookup"><span data-stu-id="4bc32-144">Queries are not iterated until the <xref:System.Xml.Linq.XStreamingElement> is serialized.</span></span> <span data-ttu-id="4bc32-145">Это отличается от того, с помощью запросов содержимого для <xref:System.Xml.Linq.XElement>, где осуществляется итерация запросов во время создания нового <xref:System.Xml.Linq.XElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-145">This is in contrast to using queries for content for an <xref:System.Xml.Linq.XElement>, where queries are iterated at the time of construction of the new <xref:System.Xml.Linq.XElement>.</span></span>  
+  
+ <span data-ttu-id="4bc32-146">Дополнительные сведения о допустимом содержимом, которое можно передать в этот конструктор, в разделе [объектов допустимое содержимое XElement и XDocument](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span><span class="sxs-lookup"><span data-stu-id="4bc32-146">For details about the valid content that can be passed to this constructor, see [Valid Content of XElement and XDocument Objects](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XStreamingElement (System.Xml.Linq.XName name);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Xml.Linq.XName name) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.#ctor(System.Xml.Linq.XName)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (name As XName)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XStreamingElement(System::Xml::Linq::XName ^ name);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="name" Type="System.Xml.Linq.XName" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="4bc32-147">
+            <see cref="T:System.Xml.Linq.XName" />, содержащий имя элемента.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-147">An <see cref="T:System.Xml.Linq.XName" /> that contains the name of the element.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-148">Инициализирует новый экземпляр класса <see cref="T:System.Xml.Linq.XElement" /> из указанного потока <see cref="T:System.Xml.Linq.XName" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-148">Initializes a new instance of the <see cref="T:System.Xml.Linq.XElement" /> class from the specified <see cref="T:System.Xml.Linq.XName" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-149">Этот конструктор создает потоковый элемент без содержимого и без атрибутов.</span><span class="sxs-lookup"><span data-stu-id="4bc32-149">This constructor creates a streaming element with no content and no attributes.</span></span>  
+  
+ <span data-ttu-id="4bc32-150">Неявное преобразование из строки в <xref:System.Xml.Linq.XName>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-150">There is an implicit conversion from string to <xref:System.Xml.Linq.XName>.</span></span> <span data-ttu-id="4bc32-151">Обычно этот конструктор используется для указания строки в качестве параметра вместо создания нового <xref:System.Xml.Linq.XName>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-151">Typical use of this constructor is to specify a string as the parameter instead of creating a new <xref:System.Xml.Linq.XName>.</span></span>  
+  
+   
+  
+## Examples  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el >= 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+Console.WriteLine(dstTree);  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+        <Root>  
+            <Child>1</Child>  
+            <Child>2</Child>  
+            <Child>3</Child>  
+            <Child>4</Child>  
+            <Child>5</Child>  
+        </Root>  
+  
+Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot", _  
+                From el In srcTree.Elements _  
+                Where el.Value >= 3 _  
+                Select <DifferentChild><%= el.Value %></DifferentChild> _  
+            )  
+  
+Console.WriteLine(dstTree)  
+```  
+  
+ <span data-ttu-id="4bc32-152">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-152">This example produces the following output:</span></span>  
+  
+```  
+<NewRoot>  
+  <DifferentChild>3</DifferentChild>  
+  <DifferentChild>4</DifferentChild>  
+  <DifferentChild>5</DifferentChild>  
+</NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XStreamingElement (System.Xml.Linq.XName name, object content);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Xml.Linq.XName name, object content) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.#ctor(System.Xml.Linq.XName,System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (name As XName, content As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XStreamingElement(System::Xml::Linq::XName ^ name, System::Object ^ content);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="name" Type="System.Xml.Linq.XName" />
+        <Parameter Name="content" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="4bc32-153">
+            <see cref="T:System.Xml.Linq.XName" />, содержащий имя элемента.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-153">An <see cref="T:System.Xml.Linq.XName" /> that contains the element name.</span>
+          </span>
+        </param>
+        <param name="content">
+          <span data-ttu-id="4bc32-154">Содержимое элемента.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-154">The contents of the element.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-155">Инициализирует новый экземпляр класса <see cref="T:System.Xml.Linq.XStreamingElement" /> с указанными именем и содержимым.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-155">Initializes a new instance of the <see cref="T:System.Xml.Linq.XStreamingElement" /> class with the specified name and content.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-156">Этот конструктор создает потоковый элемент с указанным содержимым и атрибутами.</span><span class="sxs-lookup"><span data-stu-id="4bc32-156">This constructor creates a streaming element with the specified content and attributes.</span></span>  
+  
+ <span data-ttu-id="4bc32-157">Неявное преобразование из строки в <xref:System.Xml.Linq.XName>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-157">There is an implicit conversion from string to <xref:System.Xml.Linq.XName>.</span></span> <span data-ttu-id="4bc32-158">Обычно этот конструктор используется для указания строки в качестве параметра вместо создания нового <xref:System.Xml.Linq.XName>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-158">Typical use of this constructor is to specify a string as the parameter instead of creating a new <xref:System.Xml.Linq.XName>.</span></span>  
+  
+ <span data-ttu-id="4bc32-159">Запросы не осуществляется до <xref:System.Xml.Linq.XStreamingElement> сериализуется.</span><span class="sxs-lookup"><span data-stu-id="4bc32-159">Queries are not iterated until the <xref:System.Xml.Linq.XStreamingElement> is serialized.</span></span> <span data-ttu-id="4bc32-160">Это отличается от того, с помощью запросов содержимого для <xref:System.Xml.Linq.XElement>, где осуществляется итерация запросов во время создания нового <xref:System.Xml.Linq.XElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-160">This is in contrast to using queries for content for an <xref:System.Xml.Linq.XElement>, where queries are iterated at the time of construction of the new <xref:System.Xml.Linq.XElement>.</span></span>  
+  
+ <span data-ttu-id="4bc32-161">Дополнительные сведения о допустимом содержимом, которое можно передать в этот конструктор, в разделе [объектов допустимое содержимое XElement и XDocument](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span><span class="sxs-lookup"><span data-stu-id="4bc32-161">For details about the valid content that can be passed to this constructor, see [Valid Content of XElement and XDocument Objects](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-162">В этом примере используется следующий XML-файл, с именем Source.xml:</span><span class="sxs-lookup"><span data-stu-id="4bc32-162">This example uses the following XML file, named Source.xml:</span></span>  
+  
+```xml  
+<?xml version="1.0" encoding="utf-8" ?>   
+<Root>  
+  <Child Key="01">  
+    <GrandChild>aaa</GrandChild>  
+  </Child>  
+  <Child Key="02">  
+    <GrandChild>bbb</GrandChild>  
+  </Child>  
+  <Child Key="03">  
+    <GrandChild>ccc</GrandChild>  
+  </Child>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XStreamingElement (System.Xml.Linq.XName name, params object[] content);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Xml.Linq.XName name, object[] content) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.#ctor(System.Xml.Linq.XName,System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Sub New (name As XName, ParamArray content As Object())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; XStreamingElement(System::Xml::Linq::XName ^ name, ... cli::array &lt;System::Object ^&gt; ^ content);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="name" Type="System.Xml.Linq.XName" />
+        <Parameter Name="content" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="name">
+          <span data-ttu-id="4bc32-163">
+            <see cref="T:System.Xml.Linq.XName" />, содержащий имя элемента.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-163">An <see cref="T:System.Xml.Linq.XName" /> that contains the element name.</span>
+          </span>
+        </param>
+        <param name="content">
+          <span data-ttu-id="4bc32-164">Содержимое элемента.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-164">The contents of the element.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-165">Инициализирует новый экземпляр класса <see cref="T:System.Xml.Linq.XStreamingElement" /> с указанными именем и содержимым.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-165">Initializes a new instance of the <see cref="T:System.Xml.Linq.XStreamingElement" /> class with the specified name and content.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-166">Этот конструктор создает потоковый элемент с указанным содержимым и атрибутами.</span><span class="sxs-lookup"><span data-stu-id="4bc32-166">This constructor creates a streaming element with the specified content and attributes.</span></span>  
+  
+ <span data-ttu-id="4bc32-167">Неявное преобразование из строки в <xref:System.Xml.Linq.XName>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-167">There is an implicit conversion from string to <xref:System.Xml.Linq.XName>.</span></span> <span data-ttu-id="4bc32-168">Обычно этот конструктор используется для указания строки в качестве параметра вместо создания нового <xref:System.Xml.Linq.XName>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-168">Typical use of this constructor is to specify a string as the parameter instead of creating a new <xref:System.Xml.Linq.XName>.</span></span>  
+  
+ <span data-ttu-id="4bc32-169">Запросы не осуществляется до <xref:System.Xml.Linq.XStreamingElement> сериализуется.</span><span class="sxs-lookup"><span data-stu-id="4bc32-169">Queries are not iterated until the <xref:System.Xml.Linq.XStreamingElement> is serialized.</span></span> <span data-ttu-id="4bc32-170">Это отличается от того, с помощью запросов содержимого для <xref:System.Xml.Linq.XElement>, где осуществляется итерация запросов во время создания нового <xref:System.Xml.Linq.XElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-170">This is in contrast to using queries for content for an <xref:System.Xml.Linq.XElement>, where queries are iterated at the time of construction of the new <xref:System.Xml.Linq.XElement>.</span></span>  
+  
+ <span data-ttu-id="4bc32-171">Дополнительные сведения о допустимом содержимом, которое может быть передан этой функции см. в разделе [объектов допустимое содержимое XElement и XDocument](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span><span class="sxs-lookup"><span data-stu-id="4bc32-171">For details about the valid content that can be passed to this function, see [Valid Content of XElement and XDocument Objects](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-172">В этом примере используется следующий XML-файл, с именем Source.xml:</span><span class="sxs-lookup"><span data-stu-id="4bc32-172">This example uses the following XML file, named Source.xml:</span></span>  
+  
+```xml  
+<?xml version="1.0" encoding="utf-8" ?>   
+<Root>  
+  <Child Key="01">  
+    <GrandChild>aaa</GrandChild>  
+  </Child>  
+  <Child Key="02">  
+    <GrandChild>bbb</GrandChild>  
+  </Child>  
+  <Child Key="03">  
+    <GrandChild>ccc</GrandChild>  
+  </Child>  
+</Root>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Add">
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="4bc32-173">Добавляет указанное содержимое в качестве дочерних элементов в данный объект <see cref="T:System.Xml.Linq.XStreamingElement" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-173">Adds the specified content as children to this <see cref="T:System.Xml.Linq.XStreamingElement" />.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Add">
+      <MemberSignature Language="C#" Value="public void Add (object content);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Add(object content) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.Add(System.Object)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Add (content As Object)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Add(System::Object ^ content);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="content" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="content">
+          <span data-ttu-id="4bc32-174">Содержимое для добавления к потоковому элементу.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-174">Content to be added to the streaming element.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-175">Добавляет указанное содержимое в качестве дочерних элементов в данный объект <see cref="T:System.Xml.Linq.XStreamingElement" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-175">Adds the specified content as children to this <see cref="T:System.Xml.Linq.XStreamingElement" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-176">Этот конструктор добавляет указанное содержимое и атрибуты <xref:System.Xml.Linq.XStreamingElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-176">This constructor adds the specified content and attributes to the <xref:System.Xml.Linq.XStreamingElement>.</span></span> <span data-ttu-id="4bc32-177">Хотя часто можно создавать <xref:System.Xml.Linq.XStreamingElement> в одной инструкции, иногда бывает более удобный для добавления содержимого в потоковый элемент постепенно.</span><span class="sxs-lookup"><span data-stu-id="4bc32-177">While it is often possible to construct the <xref:System.Xml.Linq.XStreamingElement> in a single statement, it is sometimes more convenient to add content to the streaming element incrementally.</span></span>  
+  
+ <span data-ttu-id="4bc32-178">Запросы не осуществляется до <xref:System.Xml.Linq.XStreamingElement> сериализуется.</span><span class="sxs-lookup"><span data-stu-id="4bc32-178">Queries are not iterated until the <xref:System.Xml.Linq.XStreamingElement> is serialized.</span></span> <span data-ttu-id="4bc32-179">Это отличается от того, с помощью запросов содержимого для <xref:System.Xml.Linq.XElement>, где осуществляется итерация запросов во время создания нового <xref:System.Xml.Linq.XElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-179">This is in contrast to using queries for content for an <xref:System.Xml.Linq.XElement>, where queries are iterated at the time of construction of the new <xref:System.Xml.Linq.XElement>.</span></span>  
+  
+ <span data-ttu-id="4bc32-180">Дополнительные сведения о допустимом содержимом, которое может быть передан этой функции см. в разделе [объектов допустимое содержимое XElement и XDocument](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span><span class="sxs-lookup"><span data-stu-id="4bc32-180">For details about the valid content that can be passed to this function, see [Valid Content of XElement and XDocument Objects](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-181">В следующем примере создается новый <xref:System.Xml.Linq.XStreamingElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-181">The following example creates a new <xref:System.Xml.Linq.XStreamingElement>.</span></span> <span data-ttu-id="4bc32-182">Затем он добавляет два запроса потоковый элемент.</span><span class="sxs-lookup"><span data-stu-id="4bc32-182">It then adds two queries to the streaming element.</span></span> <span data-ttu-id="4bc32-183">Запросы не осуществляется, пока сериализуется потоковый элемент.</span><span class="sxs-lookup"><span data-stu-id="4bc32-183">The queries are not iterated until the streaming element is serialized.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot");  
+  
+dstTree.Add(  
+    from el in srcTree.Elements()  
+    where (int)el <= 1  
+    select new XElement("Child", (int)el)  
+);  
+  
+dstTree.Add(  
+    from el in srcTree.Elements()  
+    where (int)el >= 3  
+    select new XElement("DifferentChild", (int)el)  
+);  
+  
+Console.WriteLine(dstTree);  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+    <Root>  
+        <Child>1</Child>  
+        <Child>2</Child>  
+        <Child>3</Child>  
+        <Child>4</Child>  
+        <Child>5</Child>  
+    </Root>  
+  
+Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot")  
+  
+dstTree.Add( _  
+    From el In srcTree.Elements() _  
+    Where el.Value <= 1 _  
+    Select <Child><%= el.Value %></Child> _  
+)  
+  
+dstTree.Add( _  
+    From el In srcTree.Elements() _  
+    Where el.Value >= 3 _  
+    Select <DifferentChild><%= el.Value %></DifferentChild> _  
+)  
+  
+Console.WriteLine(dstTree)  
+```  
+  
+ <span data-ttu-id="4bc32-184">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-184">This example produces the following output:</span></span>  
+  
+```xml  
+<NewRoot>  
+  <Child>1</Child>  
+  <DifferentChild>3</DifferentChild>  
+  <DifferentChild>4</DifferentChild>  
+  <DifferentChild>5</DifferentChild>  
+</NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Add">
+      <MemberSignature Language="C#" Value="public void Add (params object[] content);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Add(object[] content) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.Add(System.Object[])" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Add (ParamArray content As Object())" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Add(... cli::array &lt;System::Object ^&gt; ^ content);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="content" Type="System.Object[]">
+          <Attributes>
+            <Attribute>
+              <AttributeName>System.ParamArray</AttributeName>
+            </Attribute>
+          </Attributes>
+        </Parameter>
+      </Parameters>
+      <Docs>
+        <param name="content">
+          <span data-ttu-id="4bc32-185">Содержимое для добавления к потоковому элементу.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-185">Content to be added to the streaming element.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-186">Добавляет указанное содержимое в качестве дочерних элементов в данный объект <see cref="T:System.Xml.Linq.XStreamingElement" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-186">Adds the specified content as children to this <see cref="T:System.Xml.Linq.XStreamingElement" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-187">Этот конструктор добавляет указанное содержимое и атрибуты <xref:System.Xml.Linq.XStreamingElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-187">This constructor adds the specified content and attributes to the <xref:System.Xml.Linq.XStreamingElement>.</span></span> <span data-ttu-id="4bc32-188">Хотя часто можно создавать <xref:System.Xml.Linq.XStreamingElement> в одной инструкции, иногда бывает более удобный для добавления содержимого в потоковый элемент постепенно.</span><span class="sxs-lookup"><span data-stu-id="4bc32-188">While it is often possible to construct the <xref:System.Xml.Linq.XStreamingElement> in a single statement, it is sometimes more convenient to add content to the streaming element incrementally.</span></span>  
+  
+ <span data-ttu-id="4bc32-189">Запросы не осуществляется до <xref:System.Xml.Linq.XStreamingElement> сериализуется.</span><span class="sxs-lookup"><span data-stu-id="4bc32-189">Queries are not iterated until the <xref:System.Xml.Linq.XStreamingElement> is serialized.</span></span> <span data-ttu-id="4bc32-190">Это отличается от того, с помощью запросов содержимого для <xref:System.Xml.Linq.XElement>, где осуществляется итерация запросов во время создания нового <xref:System.Xml.Linq.XElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-190">This is in contrast to using queries for content for an <xref:System.Xml.Linq.XElement>, where queries are iterated at the time of construction of the new <xref:System.Xml.Linq.XElement>.</span></span>  
+  
+ <span data-ttu-id="4bc32-191">Дополнительные сведения о допустимом содержимом, которое может быть передан этой функции см. в разделе [объектов допустимое содержимое XElement и XDocument](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span><span class="sxs-lookup"><span data-stu-id="4bc32-191">For details about the valid content that can be passed to this function, see [Valid Content of XElement and XDocument Objects](http://msdn.microsoft.com/library/aee2d319-5c5f-4b99-9bb4-2f58232577ae).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-192">В следующем примере создается новый <xref:System.Xml.Linq.XStreamingElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-192">The following example creates a new <xref:System.Xml.Linq.XStreamingElement>.</span></span> <span data-ttu-id="4bc32-193">Затем он добавляет два запроса потоковый элемент.</span><span class="sxs-lookup"><span data-stu-id="4bc32-193">It then adds two queries to the streaming element.</span></span> <span data-ttu-id="4bc32-194">Запросы не осуществляется, пока сериализуется потоковый элемент.</span><span class="sxs-lookup"><span data-stu-id="4bc32-194">The queries are not iterated until the streaming element is serialized.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot");  
+  
+dstTree.Add(  
+    from el in srcTree.Elements()  
+    where (int)el <= 1  
+    select new XElement("Child", (int)el)  
+);  
+  
+dstTree.Add(  
+    from el in srcTree.Elements()  
+    where (int)el >= 3  
+    select new XElement("DifferentChild", (int)el)  
+);  
+  
+Console.WriteLine(dstTree);  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+    <Root>  
+        <Child>1</Child>  
+        <Child>2</Child>  
+        <Child>3</Child>  
+        <Child>4</Child>  
+        <Child>5</Child>  
+    </Root>  
+  
+Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot")  
+  
+dstTree.Add( _  
+    From el In srcTree.Elements() _  
+    Where el.Value <= 1 _  
+    Select <Child><%= el.Value %></Child> _  
+)  
+  
+dstTree.Add( _  
+    From el In srcTree.Elements() _  
+    Where el.Value >= 3 _  
+    Select <DifferentChild><%= el.Value %></DifferentChild> _  
+)  
+  
+Console.WriteLine(dstTree)  
+```  
+  
+ <span data-ttu-id="4bc32-195">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-195">This example produces the following output:</span></span>  
+  
+```xml  
+<NewRoot>  
+  <Child>1</Child>  
+  <DifferentChild>3</DifferentChild>  
+  <DifferentChild>4</DifferentChild>  
+  <DifferentChild>5</DifferentChild>  
+</NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Name">
+      <MemberSignature Language="C#" Value="public System.Xml.Linq.XName Name { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Xml.Linq.XName Name" />
+      <MemberSignature Language="DocId" Value="P:System.Xml.Linq.XStreamingElement.Name" />
+      <MemberSignature Language="VB.NET" Value="Public Property Name As XName" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Xml::Linq::XName ^ Name { System::Xml::Linq::XName ^ get(); void set(System::Xml::Linq::XName ^ value); };" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Xml.Linq.XName</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>
+          <span data-ttu-id="4bc32-196">Получает или задает имя данного потокового элемента.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-196">Gets or sets the name of this streaming element.</span>
+          </span>
+        </summary>
+        <value>
+          <span data-ttu-id="4bc32-197">Объект <see cref="T:System.Xml.Linq.XName" />, содержащий имя данного потокового элемента.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-197">An <see cref="T:System.Xml.Linq.XName" /> that contains the name of this streaming element.</span>
+          </span>
+        </value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="4bc32-198">В этом примере создается новый элемент потоковой передачи, а затем выводит имя элемента.</span><span class="sxs-lookup"><span data-stu-id="4bc32-198">This example creates a new streaming element, and then prints the name of the element.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el >= 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+Console.WriteLine(dstTree.Name);  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+        <Root>  
+            <Child>1</Child>  
+            <Child>2</Child>  
+            <Child>3</Child>  
+            <Child>4</Child>  
+            <Child>5</Child>  
+        </Root>  
+  
+Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot", _  
+                From el In srcTree.Elements _  
+                Where el.Value >= 3 _  
+                Select <DifferentChild><%= el.Value %></DifferentChild> _  
+            )  
+  
+Console.WriteLine(dstTree.Name)  
+```  
+  
+ <span data-ttu-id="4bc32-199">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-199">This example produces the following output:</span></span>  
+  
+```  
+NewRoot  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="Save">
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="4bc32-200">Сериализует данный потоковый элемент.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-200">Serialize this streaming element.</span>
+          </span>
+          <span data-ttu-id="4bc32-201">Результат может быть сохранен в файле (<see cref="T:System.Xml.XmlTextWriter" />, <see cref="T:System.IO.TextWriter" /> или <see cref="T:System.Xml.XmlWriter" />).</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-201">The output can be saved to a file, an <see cref="T:System.Xml.XmlTextWriter" />, a <see cref="T:System.IO.TextWriter" />, or an <see cref="T:System.Xml.XmlWriter" />.</span>
+          </span>
+          <span data-ttu-id="4bc32-202">Если требуется, форматирование (отступ) можно отключить.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-202">Optionally, formatting (indenting) can be disabled.</span>
+          </span>
+        </summary>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (System.IO.Stream stream);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(class System.IO.Stream stream) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.Save(System.IO.Stream)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::IO::Stream ^ stream);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="4bc32-203">Поток для вывода данного элемента <see cref="T:System.Xml.Linq.XDocument" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-203">The stream to output this <see cref="T:System.Xml.Linq.XDocument" /> to.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-204">Выводит этот документ <see cref="T:System.Xml.Linq.XStreamingElement" /> в указанный поток <see cref="T:System.IO.Stream" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-204">Outputs this <see cref="T:System.Xml.Linq.XStreamingElement" /> to the specified <see cref="T:System.IO.Stream" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-205">Будет иметь отступ сериализованный XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-205">The serialized XML will be indented.</span></span> <span data-ttu-id="4bc32-206">Будут удалены все незначащие пробельные символы и будут добавлены дополнительные пробелы, чтобы были правильными XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-206">All insignificant white space will be removed, and additional white space will be added so that the XML will be properly indented.</span></span> <span data-ttu-id="4bc32-207">Поведение данного метода заключается в том, незначащий пробел не сохраняется.</span><span class="sxs-lookup"><span data-stu-id="4bc32-207">The behavior of this method is that insignificant white space will not be preserved.</span></span>  
+  
+ <span data-ttu-id="4bc32-208">Если вы хотите управлять пробелов, используйте перегруженный <xref:System.Xml.Linq.XStreamingElement.Save%2A> , который принимает <xref:System.Xml.Linq.SaveOptions> как параметр.</span><span class="sxs-lookup"><span data-stu-id="4bc32-208">If you want to control white space, use the overload of <xref:System.Xml.Linq.XStreamingElement.Save%2A> that takes <xref:System.Xml.Linq.SaveOptions> as a parameter.</span></span> <span data-ttu-id="4bc32-209">Используйте <xref:System.Xml.Linq.SaveOptions.DisableFormatting> можно сохранить выровненных XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-209">Use the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> option to save unindented XML.</span></span> <span data-ttu-id="4bc32-210">Это вызовет в результате все пробелы в точности так, как представлено в дереве XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-210">This will cause the writer to write all white spaces exactly as represented in the XML tree.</span></span>  
+  
+ <span data-ttu-id="4bc32-211">Используйте <xref:System.Xml.Linq.SaveOptions.OmitDuplicateNamespaces> вариант, если требуется удалить дубликаты объявлений пространств имен.</span><span class="sxs-lookup"><span data-stu-id="4bc32-211">Use <xref:System.Xml.Linq.SaveOptions.OmitDuplicateNamespaces> option if you want to remove duplicate namespace declarations.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (System.IO.TextWriter textWriter);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(class System.IO.TextWriter textWriter) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.Save(System.IO.TextWriter)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::IO::TextWriter ^ textWriter);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="textWriter" Type="System.IO.TextWriter" />
+      </Parameters>
+      <Docs>
+        <param name="textWriter">
+          <span data-ttu-id="4bc32-212">Объект <see cref="T:System.IO.TextWriter" />, в который будет записан элемент <see cref="T:System.Xml.Linq.XStreamingElement" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-212">A <see cref="T:System.IO.TextWriter" /> that the <see cref="T:System.Xml.Linq.XStreamingElement" /> will be written to.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-213">Сериализует данный потоковый элемент в <see cref="T:System.IO.TextWriter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-213">Serialize this streaming element to a <see cref="T:System.IO.TextWriter" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-214">Будет иметь отступ сериализованный XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-214">The serialized XML will be indented.</span></span> <span data-ttu-id="4bc32-215">Будут удалены все незначащие пробельные символы и будут добавлены дополнительные пробелы, чтобы были правильными XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-215">All insignificant white space will be removed, and additional white space will be added so that the XML will be properly indented.</span></span> <span data-ttu-id="4bc32-216">Этот метод выполняется, незначащие пробельные символы, которые узлов в XML-дереве не сохраняются.</span><span class="sxs-lookup"><span data-stu-id="4bc32-216">The behavior of this method is that insignificant white space nodes in the XML tree will not be preserved.</span></span>  
+  
+ <span data-ttu-id="4bc32-217">Если вы хотите управлять пробелов, используйте одну из перегрузок <xref:System.Xml.Linq.XStreamingElement.Save%2A> , которые принимают <xref:System.Xml.Linq.SaveOptions> как параметр.</span><span class="sxs-lookup"><span data-stu-id="4bc32-217">If you want to control white space, use one of the overloads of <xref:System.Xml.Linq.XStreamingElement.Save%2A> that take <xref:System.Xml.Linq.SaveOptions> as a parameter.</span></span> <span data-ttu-id="4bc32-218">Дополнительные сведения см. в разделе [сохранения пробелов при загрузке или синтаксическом анализе XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) и [Сохранение пробелов при сериализации](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span><span class="sxs-lookup"><span data-stu-id="4bc32-218">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-219">Следующий пример создает в исходном XML-дерево, а затем создает <xref:System.Xml.Linq.XStreamingElement> с помощью запроса источника XML-дереву.</span><span class="sxs-lookup"><span data-stu-id="4bc32-219">The following example creates a source XML tree, then instantiates an <xref:System.Xml.Linq.XStreamingElement> using a query on the source XML tree.</span></span> <span data-ttu-id="4bc32-220">Затем он записывает потоковый элемент <xref:System.IO.StringWriter>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-220">It then writes the streaming element to a <xref:System.IO.StringWriter>.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el >= 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+StringBuilder sb = new StringBuilder();  
+dstTree.Save(new StringWriter(sb));  
+Console.WriteLine(sb.ToString());  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+    <Root>  
+        <Child>1</Child>  
+        <Child>2</Child>  
+        <Child>3</Child>  
+        <Child>4</Child>  
+        <Child>5</Child>  
+    </Root>  
+  
+Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot", _  
+                        From el In srcTree.Elements() _  
+                        Where el.Value >= 3 _  
+                        Select <DifferentChild><%= el.Value %></DifferentChild> _  
+                    )  
+  
+Dim sb As StringBuilder = New StringBuilder()  
+dstTree.Save(New StringWriter(sb))  
+Console.WriteLine(sb.ToString())  
+```  
+  
+ <span data-ttu-id="4bc32-221">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-221">This example produces the following output:</span></span>  
+  
+```xml  
+<?xml version="1.0" encoding="utf-16"?>  
+<NewRoot>  
+  <DifferentChild>3</DifferentChild>  
+  <DifferentChild>4</DifferentChild>  
+  <DifferentChild>5</DifferentChild>  
+</NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (string fileName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(string fileName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.Save(System.String)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Save (fileName As String)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::String ^ fileName);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="fileName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="fileName">
+          <span data-ttu-id="4bc32-222">Объект <see cref="T:System.String" />, содержащий имя файла.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-222">A <see cref="T:System.String" /> that contains the name of the file.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-223">Сериализует данный потоковый элемент в файл.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-223">Serialize this streaming element to a file.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-224">Будет иметь отступ сериализованный XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-224">The serialized XML will be indented.</span></span> <span data-ttu-id="4bc32-225">Будут удалены все незначащие пробельные символы и будут добавлены дополнительные пробелы, чтобы были правильными XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-225">All insignificant white space will be removed, and additional white space will be added so that the XML will be properly indented.</span></span> <span data-ttu-id="4bc32-226">Этот метод выполняется, незначащие пробельные символы, которые узлов в XML-дереве не сохраняются.</span><span class="sxs-lookup"><span data-stu-id="4bc32-226">The behavior of this method is that insignificant white space nodes in the XML tree will not be preserved.</span></span>  
+  
+ <span data-ttu-id="4bc32-227">Если вы хотите управлять пробелов, используйте одну из перегрузок <xref:System.Xml.Linq.XStreamingElement.Save%2A> , которые принимают <xref:System.Xml.Linq.SaveOptions> как параметр.</span><span class="sxs-lookup"><span data-stu-id="4bc32-227">If you want to control white space, use one of the overloads of <xref:System.Xml.Linq.XStreamingElement.Save%2A> that take <xref:System.Xml.Linq.SaveOptions> as a parameter.</span></span> <span data-ttu-id="4bc32-228">Дополнительные сведения см. в разделе [сохранения пробелов при загрузке или синтаксическом анализе XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) и [Сохранение пробелов при сериализации](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span><span class="sxs-lookup"><span data-stu-id="4bc32-228">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-229">В следующем примере создается потоковое дерево XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-229">The following example creates a streaming XML tree.</span></span> <span data-ttu-id="4bc32-230">Затем выполняется десериализация потокового дерева XML в файл.</span><span class="sxs-lookup"><span data-stu-id="4bc32-230">It then serializes the streaming XML tree to a file.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el >= 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+dstTree.Save("Test.xml");  
+Console.WriteLine(File.ReadAllText("Test.xml"));  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+    <Root>  
+        <Child>1</Child>  
+        <Child>2</Child>  
+        <Child>3</Child>  
+        <Child>4</Child>  
+        <Child>5</Child>  
+    </Root>  
+  
+Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot", _  
+                        From el In srcTree.Elements() _  
+                        Where el.Value >= 3 _  
+                        Select <DifferentChild><%= el.Value %></DifferentChild> _  
+                    )  
+  
+dstTree.Save("Test.xml")  
+Console.WriteLine(File.ReadAllText("Test.xml"))  
+```  
+  
+ <span data-ttu-id="4bc32-231">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-231">This example produces the following output:</span></span>  
+  
+```xml  
+<?xml version="1.0" encoding="utf-8"?>  
+<NewRoot>  
+  <DifferentChild>3</DifferentChild>  
+  <DifferentChild>4</DifferentChild>  
+  <DifferentChild>5</DifferentChild>  
+</NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (System.Xml.XmlWriter writer);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(class System.Xml.XmlWriter writer) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.Save(System.Xml.XmlWriter)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Save (writer As XmlWriter)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::Xml::XmlWriter ^ writer);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Xml.XmlWriter" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="4bc32-232">Объект <see cref="T:System.Xml.XmlWriter" />, в который будет записан элемент <see cref="T:System.Xml.Linq.XElement" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-232">A <see cref="T:System.Xml.XmlWriter" /> that the <see cref="T:System.Xml.Linq.XElement" /> will be written to.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-233">Сериализует данный потоковый элемент в объект <see cref="T:System.Xml.XmlWriter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-233">Serialize this streaming element to an <see cref="T:System.Xml.XmlWriter" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="4bc32-234">В следующем примере создается <xref:System.Xml.Linq.XStreamingElement> и записывает его в <xref:System.Xml.XmlWriter>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-234">The following example creates an <xref:System.Xml.Linq.XStreamingElement> and writes it to an <xref:System.Xml.XmlWriter>.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+StringBuilder sb = new StringBuilder();  
+XmlWriterSettings xws = new XmlWriterSettings();  
+xws.OmitXmlDeclaration = true;  
+using (XmlWriter xw = XmlWriter.Create(sb, xws))  
+{  
+    XStreamingElement dstTree = new XStreamingElement("NewRoot",  
+                            from el in srcTree.Elements()  
+                            where (int)el == 5  
+                            select new XElement("DifferentChild", (int)el)  
+                        );  
+  
+    dstTree.Save(xw);  
+}  
+Console.WriteLine(sb.ToString());  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+    <Root>  
+        <Child>1</Child>  
+        <Child>2</Child>  
+        <Child>3</Child>  
+        <Child>4</Child>  
+        <Child>5</Child>  
+    </Root>  
+  
+Dim sb As StringBuilder = New StringBuilder()  
+Dim xws As XmlWriterSettings = New XmlWriterSettings()  
+xws.OmitXmlDeclaration = True  
+Using xw As XmlWriter = XmlWriter.Create(sb, xws)  
+    Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot", _  
+                            From el In srcTree.Elements() _  
+                            Where el.Value = 5 _  
+                            Select <DifferentChild><%= el.Value %></DifferentChild> _  
+                        )  
+    dstTree.Save(xw)  
+End Using  
+Console.WriteLine(sb.ToString())  
+```  
+  
+ <span data-ttu-id="4bc32-235">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-235">This example produces the following output:</span></span>  
+  
+```xml  
+<NewRoot><DifferentChild>5</DifferentChild></NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (System.IO.Stream stream, System.Xml.Linq.SaveOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(class System.IO.Stream stream, valuetype System.Xml.Linq.SaveOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.Save(System.IO.Stream,System.Xml.Linq.SaveOptions)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::IO::Stream ^ stream, System::Xml::Linq::SaveOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="stream" Type="System.IO.Stream" />
+        <Parameter Name="options" Type="System.Xml.Linq.SaveOptions" />
+      </Parameters>
+      <Docs>
+        <param name="stream">
+          <span data-ttu-id="4bc32-236">Поток для вывода данного элемента <see cref="T:System.Xml.Linq.XDocument" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-236">The stream to output this <see cref="T:System.Xml.Linq.XDocument" /> to.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="4bc32-237">Объект <see cref="T:System.Xml.Linq.SaveOptions" />, определяющий форматирование.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-237">A <see cref="T:System.Xml.Linq.SaveOptions" /> object that specifies formatting behavior.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-238">Выводит данный элемент <see cref="T:System.Xml.Linq.XStreamingElement" /> в указанный поток <see cref="T:System.IO.Stream" />, при необходимости задавая поведение форматирования.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-238">Outputs this <see cref="T:System.Xml.Linq.XStreamingElement" /> to the specified <see cref="T:System.IO.Stream" />, optionally specifying formatting behavior.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-239">По умолчанию `options` присваиваются <xref:System.Xml.Linq.SaveOptions.None>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-239">By default the `options` are set to <xref:System.Xml.Linq.SaveOptions.None>.</span></span> <span data-ttu-id="4bc32-240">Этот параметр, удалите все лишние незначащие пробельные символы и добавить соответствующие незначащие пробелы, чтобы правильно структурированный XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-240">This option will remove all extraneous insignificant white space, and add appropriate insignificant white space so that the XML is properly indented.</span></span>  
+  
+ <span data-ttu-id="4bc32-241">Если вы хотите сохранить выровненных XML, укажите <xref:System.Xml.Linq.SaveOptions.DisableFormatting> флаг, указывающий `options`.</span><span class="sxs-lookup"><span data-stu-id="4bc32-241">If you want to save unindented XML, specify the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> flag for `options`.</span></span> <span data-ttu-id="4bc32-242">Это вызовет в результате все пробелы в точности так, как представлено в дереве XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-242">This will cause the writer to write all white spaces exactly as represented in the XML tree.</span></span>  
+  
+ <span data-ttu-id="4bc32-243">Используйте <xref:System.Xml.Linq.SaveOptions.OmitDuplicateNamespaces> вариант, если требуется удалить дубликаты объявлений пространств имен.</span><span class="sxs-lookup"><span data-stu-id="4bc32-243">Use <xref:System.Xml.Linq.SaveOptions.OmitDuplicateNamespaces> option if you want to remove duplicate namespace declarations.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (System.IO.TextWriter textWriter, System.Xml.Linq.SaveOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(class System.IO.TextWriter textWriter, valuetype System.Xml.Linq.SaveOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.Save(System.IO.TextWriter,System.Xml.Linq.SaveOptions)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::IO::TextWriter ^ textWriter, System::Xml::Linq::SaveOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="textWriter" Type="System.IO.TextWriter" />
+        <Parameter Name="options" Type="System.Xml.Linq.SaveOptions" />
+      </Parameters>
+      <Docs>
+        <param name="textWriter">
+          <span data-ttu-id="4bc32-244">
+            <see cref="T:System.IO.TextWriter" />, в который выводится XML.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-244">The <see cref="T:System.IO.TextWriter" /> to output the XML to.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="4bc32-245">Объект <see cref="T:System.Xml.Linq.SaveOptions" />, указывающий поведение форматирования.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-245">A <see cref="T:System.Xml.Linq.SaveOptions" /> that specifies formatting behavior.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-246">Сериализует данный потоковый элемент в объект <see cref="T:System.IO.TextWriter" />, дополнительно отключая форматирование.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-246">Serialize this streaming element to a <see cref="T:System.IO.TextWriter" />, optionally disabling formatting.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-247">Если вы хотите сохранить выровненных XML, укажите <xref:System.Xml.Linq.SaveOptions.DisableFormatting> флаг, указывающий `options`.</span><span class="sxs-lookup"><span data-stu-id="4bc32-247">If you want to save unindented XML, specify the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> flag for `options`.</span></span> <span data-ttu-id="4bc32-248">Это вызовет в результате все пробелы точно так, как представлено в дереве XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-248">This will cause the writer to write all white space exactly as represented in the XML tree.</span></span>  
+  
+ <span data-ttu-id="4bc32-249">Если вы хотите сохранить XML с отступами, не указывайте <xref:System.Xml.Linq.SaveOptions.DisableFormatting> флаг, указывающий `options`.</span><span class="sxs-lookup"><span data-stu-id="4bc32-249">If you want to save indented XML, do not specify the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> flag for `options`.</span></span> <span data-ttu-id="4bc32-250">Это удалит лишние незначащие пробельные символы и добавить соответствующие незначащие пробелы, чтобы правильно структурированный XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-250">This will remove all extraneous insignificant white space, and add appropriate insignificant white space so that the XML is properly indented.</span></span> <span data-ttu-id="4bc32-251">Это поведение по умолчанию и поведение перегрузки <xref:System.Xml.Linq.XElement.Save%2A> методы, которые не принимают `options` как параметр.</span><span class="sxs-lookup"><span data-stu-id="4bc32-251">This is the default behavior, and the behavior of the overloads of the <xref:System.Xml.Linq.XElement.Save%2A> methods that do not take `options` as a parameter.</span></span>  
+  
+ <span data-ttu-id="4bc32-252">Дополнительные сведения см. в разделе [сохранения пробелов при загрузке или синтаксическом анализе XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) и [Сохранение пробелов при сериализации](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span><span class="sxs-lookup"><span data-stu-id="4bc32-252">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-253">В следующем примере показано два способа использования этого метода.</span><span class="sxs-lookup"><span data-stu-id="4bc32-253">The following example shows two uses of this method.</span></span> <span data-ttu-id="4bc32-254">В первом сохраняется пустое пространство.</span><span class="sxs-lookup"><span data-stu-id="4bc32-254">The first use preserves white space.</span></span> <span data-ttu-id="4bc32-255">Сериализует второй <xref:System.Xml.Linq.XStreamingElement> с форматированием.</span><span class="sxs-lookup"><span data-stu-id="4bc32-255">The second one serializes the <xref:System.Xml.Linq.XStreamingElement> with formatting.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el == 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+StringBuilder sb = new StringBuilder();  
+dstTree.Save(new StringWriter(sb), SaveOptions.DisableFormatting);  
+Console.WriteLine(sb.ToString());  
+Console.WriteLine("------");  
+sb = new StringBuilder();  
+dstTree.Save(new StringWriter(sb), SaveOptions.None);  
+Console.WriteLine(sb.ToString());  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+    <Root>  
+        <Child>1</Child>  
+        <Child>2</Child>  
+        <Child>3</Child>  
+        <Child>4</Child>  
+        <Child>5</Child>  
+    </Root>  
+  
+Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot", _  
+                        From el In srcTree.Elements() _  
+                        Where el.Value = 3 _  
+                        Select <DifferentChild><%= el.Value %></DifferentChild> _  
+                    )  
+  
+Dim sb As StringBuilder = New StringBuilder()  
+dstTree.Save(New StringWriter(sb), SaveOptions.DisableFormatting)  
+Console.WriteLine(sb.ToString())  
+Console.WriteLine("------")  
+sb = New StringBuilder()  
+dstTree.Save(New StringWriter(sb), SaveOptions.None)  
+Console.WriteLine(sb.ToString())  
+```  
+  
+ <span data-ttu-id="4bc32-256">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-256">This example produces the following output:</span></span>  
+  
+```xml  
+<?xml version="1.0" encoding="utf-16"?><NewRoot><DifferentChild>3</DifferentChild></NewRoot>  
+------  
+<?xml version="1.0" encoding="utf-16"?>  
+<NewRoot>  
+  <DifferentChild>3</DifferentChild>  
+</NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public void Save (string fileName, System.Xml.Linq.SaveOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Save(string fileName, valuetype System.Xml.Linq.SaveOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.Save(System.String,System.Xml.Linq.SaveOptions)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub Save (fileName As String, options As SaveOptions)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void Save(System::String ^ fileName, System::Xml::Linq::SaveOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="fileName" Type="System.String" />
+        <Parameter Name="options" Type="System.Xml.Linq.SaveOptions" />
+      </Parameters>
+      <Docs>
+        <param name="fileName">
+          <span data-ttu-id="4bc32-257">Объект <see cref="T:System.String" />, содержащий имя файла.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-257">A <see cref="T:System.String" /> that contains the name of the file.</span>
+          </span>
+        </param>
+        <param name="options">
+          <span data-ttu-id="4bc32-258">Объект <see cref="T:System.Xml.Linq.SaveOptions" />, определяющий форматирование.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-258">A <see cref="T:System.Xml.Linq.SaveOptions" /> object that specifies formatting behavior.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-259">Сериализует данный потоковый элемент в файл, дополнительно отключая форматирование.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-259">Serialize this streaming element to a file, optionally disabling formatting.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-260">Если вы хотите сохранить выровненных XML, укажите <xref:System.Xml.Linq.SaveOptions.DisableFormatting> флаг, указывающий `options`.</span><span class="sxs-lookup"><span data-stu-id="4bc32-260">If you want to save unindented XML, specify the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> flag for `options`.</span></span> <span data-ttu-id="4bc32-261">Это вызовет в результате все пробелы точно так, как представлено в дереве XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-261">This will cause the writer to write all white space exactly as represented in the XML tree.</span></span>  
+  
+ <span data-ttu-id="4bc32-262">Если вы хотите сохранить XML с отступами, не указывайте <xref:System.Xml.Linq.SaveOptions.DisableFormatting> флаг, указывающий `options`.</span><span class="sxs-lookup"><span data-stu-id="4bc32-262">If you want to save indented XML, do not specify the <xref:System.Xml.Linq.SaveOptions.DisableFormatting> flag for `options`.</span></span> <span data-ttu-id="4bc32-263">Это удалит лишние незначащие пробельные символы и добавить соответствующие незначащие пробелы, чтобы правильно структурированный XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-263">This will remove all extraneous insignificant white space, and add appropriate insignificant white space so that the XML is properly indented.</span></span> <span data-ttu-id="4bc32-264">Это поведение по умолчанию и поведение перегрузки <xref:System.Xml.Linq.XElement.Save%2A> методы, которые не принимают `options` как параметр.</span><span class="sxs-lookup"><span data-stu-id="4bc32-264">This is the default behavior, and the behavior of the overloads of the <xref:System.Xml.Linq.XElement.Save%2A> methods that do not take `options` as a parameter.</span></span>  
+  
+ <span data-ttu-id="4bc32-265">Дополнительные сведения см. в разделе [сохранения пробелов при загрузке или синтаксическом анализе XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) и [Сохранение пробелов при сериализации](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span><span class="sxs-lookup"><span data-stu-id="4bc32-265">For more information, see [Preserving White Space while Loading or Parsing XML](http://msdn.microsoft.com/library/093a7169-a04e-4638-b08c-d1cb98aa650d) and [Preserving White Space While Serializing](http://msdn.microsoft.com/library/fb146217-0a49-4efc-ac84-7265b91d3939).</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-266">В следующем примере показано два способа использования этого метода.</span><span class="sxs-lookup"><span data-stu-id="4bc32-266">The following example shows two uses of this method.</span></span> <span data-ttu-id="4bc32-267">В первом сохраняется пустое пространство.</span><span class="sxs-lookup"><span data-stu-id="4bc32-267">The first use preserves white space.</span></span> <span data-ttu-id="4bc32-268">Сериализует второй <xref:System.Xml.Linq.XStreamingElement> с форматированием.</span><span class="sxs-lookup"><span data-stu-id="4bc32-268">The second one serializes the <xref:System.Xml.Linq.XStreamingElement> with formatting.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el == 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+dstTree.Save("Test1.xml", SaveOptions.DisableFormatting);  
+dstTree.Save("Test2.xml", SaveOptions.None);  
+Console.WriteLine(File.ReadAllText("Test1.xml"));  
+Console.WriteLine("------");  
+Console.WriteLine(File.ReadAllText("Test2.xml"));  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+    <Root>  
+        <Child>1</Child>  
+        <Child>2</Child>  
+        <Child>3</Child>  
+        <Child>4</Child>  
+        <Child>5</Child>  
+    </Root>  
+  
+Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot", _  
+                        From el In srcTree.Elements() _  
+                        Where el.Value = 3 _  
+                        Select <DifferentChild><%= el.Value %></DifferentChild> _  
+                    )  
+  
+dstTree.Save("Test1.xml", SaveOptions.DisableFormatting)  
+dstTree.Save("Test2.xml", SaveOptions.None)  
+Console.WriteLine(File.ReadAllText("Test1.xml"))  
+Console.WriteLine("------")  
+Console.WriteLine(File.ReadAllText("Test2.xml"))  
+```  
+  
+ <span data-ttu-id="4bc32-269">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-269">This example produces the following output:</span></span>  
+  
+```  
+<?xml version="1.0" encoding="utf-8"?><NewRoot><DifferentChild>3</DifferentChild></NewRoot>  
+------  
+<?xml version="1.0" encoding="utf-8"?>  
+<NewRoot>  
+  <DifferentChild>3</DifferentChild>  
+</NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <MemberGroup MemberName="ToString">
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Docs>
+        <summary>
+          <span data-ttu-id="4bc32-270">Возвращает XML для данного потокового элемента, дополнительно отключая форматирование.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-270">Returns the XML for this streaming element, optionally disabling formatting.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-271">Обратите внимание, что при отладке программы, использующей <xref:System.Xml.Linq.XStreamingElement>, отображение значения объекта вызывает его <xref:System.Xml.Linq.XStreamingElement.ToString%2A> вызываемого метода.</span><span class="sxs-lookup"><span data-stu-id="4bc32-271">Note that when debugging a program that uses <xref:System.Xml.Linq.XStreamingElement>, displaying the value of an object causes its <xref:System.Xml.Linq.XStreamingElement.ToString%2A> method to be called.</span></span> <span data-ttu-id="4bc32-272">Это приводит к сериализации XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-272">This causes the XML to be serialized.</span></span> <span data-ttu-id="4bc32-273">Если семантика запроса потокового элемента таким образом, что потоковый элемент может передаваться только один раз, это может вызвать нежелательное поведение отладку.</span><span class="sxs-lookup"><span data-stu-id="4bc32-273">If the semantics of your streaming element query are such that the streaming element can only be streamed once, this may cause undesirable behavior in your debugging experience.</span></span>  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </MemberGroup>
+    <Member MemberName="ToString">
+      <MemberSignature Language="C#" Value="public override string ToString ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string ToString() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.ToString" />
+      <MemberSignature Language="VB.NET" Value="Public Overrides Function ToString () As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; override System::String ^ ToString();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>
+          <span data-ttu-id="4bc32-274">Возвращает форматированный (с отступом) XML для данного потокового элемента.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-274">Returns the formatted (indented) XML for this streaming element.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="4bc32-275">Объект <see cref="T:System.String" />, содержащий XML с отступами.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-275">A <see cref="T:System.String" /> containing the indented XML.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-276">Обратите внимание, что при отладке программы, использующей <xref:System.Xml.Linq.XStreamingElement>, отображение значения объекта вызывает его <xref:System.Xml.Linq.XStreamingElement.ToString%2A> вызываемого метода.</span><span class="sxs-lookup"><span data-stu-id="4bc32-276">Note that when debugging a program that uses <xref:System.Xml.Linq.XStreamingElement>, displaying the value of an object causes its <xref:System.Xml.Linq.XStreamingElement.ToString%2A> method to be called.</span></span> <span data-ttu-id="4bc32-277">Это приводит к сериализации XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-277">This causes the XML to be serialized.</span></span> <span data-ttu-id="4bc32-278">Если семантика запроса потокового элемента таким образом, что потоковый элемент может передаваться только один раз, это может вызвать нежелательное поведение отладку.</span><span class="sxs-lookup"><span data-stu-id="4bc32-278">If the semantics of your streaming element query are such that the streaming element can only be streamed once, this may cause undesirable behavior in your debugging experience.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-279">В следующем примере показано два способа использования <xref:System.Xml.Linq.XStreamingElement.ToString%2A>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-279">The following example shows two uses of <xref:System.Xml.Linq.XStreamingElement.ToString%2A>.</span></span> <span data-ttu-id="4bc32-280">В первом сохраняется пустое пространство.</span><span class="sxs-lookup"><span data-stu-id="4bc32-280">The first use preserves white space.</span></span> <span data-ttu-id="4bc32-281">Сериализует второй <xref:System.Xml.Linq.XStreamingElement> с форматированием.</span><span class="sxs-lookup"><span data-stu-id="4bc32-281">The second one serializes the <xref:System.Xml.Linq.XStreamingElement> with formatting.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el == 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+Console.WriteLine(dstTree.ToString(SaveOptions.DisableFormatting));  
+Console.WriteLine("------");  
+Console.WriteLine(dstTree.ToString());  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+    <Root>  
+        <Child>1</Child>  
+        <Child>2</Child>  
+        <Child>3</Child>  
+        <Child>4</Child>  
+        <Child>5</Child>  
+    </Root>  
+  
+Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot", _  
+                        From el In srcTree.Elements() _  
+                        Where el.Value = 3 _  
+                        Select <DifferentChild><%= el.Value %></DifferentChild> _  
+                    )  
+  
+Console.WriteLine(dstTree.ToString(SaveOptions.DisableFormatting))  
+Console.WriteLine("------")  
+Console.WriteLine(dstTree.ToString())  
+```  
+  
+ <span data-ttu-id="4bc32-282">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-282">This example produces the following output:</span></span>  
+  
+```  
+<NewRoot><DifferentChild>3</DifferentChild></NewRoot>  
+------  
+<NewRoot>  
+  <DifferentChild>3</DifferentChild>  
+</NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ToString">
+      <MemberSignature Language="C#" Value="public string ToString (System.Xml.Linq.SaveOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string ToString(valuetype System.Xml.Linq.SaveOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.ToString(System.Xml.Linq.SaveOptions)" />
+      <MemberSignature Language="VB.NET" Value="Public Function ToString (options As SaveOptions) As String" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::String ^ ToString(System::Xml::Linq::SaveOptions options);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="options" Type="System.Xml.Linq.SaveOptions" />
+      </Parameters>
+      <Docs>
+        <param name="options">
+          <span data-ttu-id="4bc32-283">Объект <see cref="T:System.Xml.Linq.SaveOptions" />, указывающий поведение форматирования.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-283">A <see cref="T:System.Xml.Linq.SaveOptions" /> that specifies formatting behavior.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-284">Возвращает XML для данного потокового элемента, дополнительно отключая форматирование.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-284">Returns the XML for this streaming element, optionally disabling formatting.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="4bc32-285">Объект <see cref="T:System.String" />, содержащий XML.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-285">A <see cref="T:System.String" /> containing the XML.</span>
+          </span>
+        </returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <span data-ttu-id="4bc32-286">Обратите внимание, что при отладке программы, использующей <xref:System.Xml.Linq.XStreamingElement>, отображение значения объекта вызывает его <xref:System.Xml.Linq.XStreamingElement.ToString%2A> вызываемого метода.</span><span class="sxs-lookup"><span data-stu-id="4bc32-286">Note that when debugging a program that uses <xref:System.Xml.Linq.XStreamingElement>, displaying the value of an object causes its <xref:System.Xml.Linq.XStreamingElement.ToString%2A> method to be called.</span></span> <span data-ttu-id="4bc32-287">Это приводит к сериализации XML.</span><span class="sxs-lookup"><span data-stu-id="4bc32-287">This causes the XML to be serialized.</span></span> <span data-ttu-id="4bc32-288">Если семантика запроса потокового элемента таким образом, что потоковый элемент может передаваться только один раз, это может вызвать нежелательное поведение отладку.</span><span class="sxs-lookup"><span data-stu-id="4bc32-288">If the semantics of your streaming element query are such that the streaming element can only be streamed once, this may cause undesirable behavior in your debugging experience.</span></span>  
+  
+   
+  
+## Examples  
+ <span data-ttu-id="4bc32-289">В следующем примере показано два способа использования <xref:System.Xml.Linq.XStreamingElement.ToString%2A>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-289">The following example shows two uses of <xref:System.Xml.Linq.XStreamingElement.ToString%2A>.</span></span> <span data-ttu-id="4bc32-290">В первом сохраняется пустое пространство.</span><span class="sxs-lookup"><span data-stu-id="4bc32-290">The first use preserves white space.</span></span> <span data-ttu-id="4bc32-291">Сериализует второй <xref:System.Xml.Linq.XStreamingElement> с форматированием.</span><span class="sxs-lookup"><span data-stu-id="4bc32-291">The second one serializes the <xref:System.Xml.Linq.XStreamingElement> with formatting.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el == 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+Console.WriteLine(dstTree.ToString(SaveOptions.DisableFormatting));  
+Console.WriteLine("------");  
+Console.WriteLine(dstTree.ToString());  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+    <Root>  
+        <Child>1</Child>  
+        <Child>2</Child>  
+        <Child>3</Child>  
+        <Child>4</Child>  
+        <Child>5</Child>  
+    </Root>  
+  
+Dim dstTree As XStreamingElement = New XStreamingElement("NewRoot", _  
+                        From el In srcTree.Elements() _  
+                        Where el.Value = 3 _  
+                        Select <DifferentChild><%= el.Value %></DifferentChild> _  
+                    )  
+  
+Console.WriteLine(dstTree.ToString(SaveOptions.DisableFormatting))  
+Console.WriteLine("------")  
+Console.WriteLine(dstTree.ToString())  
+```  
+  
+ <span data-ttu-id="4bc32-292">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-292">This example produces the following output:</span></span>  
+  
+```  
+<NewRoot><DifferentChild>3</DifferentChild></NewRoot>  
+------  
+<NewRoot>  
+  <DifferentChild>3</DifferentChild>  
+</NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="WriteTo">
+      <MemberSignature Language="C#" Value="public void WriteTo (System.Xml.XmlWriter writer);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void WriteTo(class System.Xml.XmlWriter writer) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Xml.Linq.XStreamingElement.WriteTo(System.Xml.XmlWriter)" />
+      <MemberSignature Language="VB.NET" Value="Public Sub WriteTo (writer As XmlWriter)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void WriteTo(System::Xml::XmlWriter ^ writer);" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.XDocument</AssemblyName>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <AssemblyVersion>4.0.10.0</AssemblyVersion>
+        <AssemblyVersion>4.1.0.0</AssemblyVersion>
+        <AssemblyVersion>4.1.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Xml.Linq</AssemblyName>
+        <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="writer" Type="System.Xml.XmlWriter" />
+      </Parameters>
+      <Docs>
+        <param name="writer">
+          <span data-ttu-id="4bc32-293">Объект <see cref="T:System.Xml.XmlWriter" />, в который данный метод будет выполнять запись.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-293">An <see cref="T:System.Xml.XmlWriter" /> into which this method will write.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="4bc32-294">Записывает данный потоковый элемент в объект <see cref="T:System.Xml.XmlWriter" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="4bc32-294">Writes this streaming element to an <see cref="T:System.Xml.XmlWriter" />.</span>
+          </span>
+        </summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Examples  
+ <span data-ttu-id="4bc32-295">В следующем примере создается XML-дерево с помощью <xref:System.Xml.Linq.XStreamingElement>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-295">The following example creates an XML tree using <xref:System.Xml.Linq.XStreamingElement>.</span></span> <span data-ttu-id="4bc32-296">Затем он записывает потоковый элемент <xref:System.Xml.XmlWriter>.</span><span class="sxs-lookup"><span data-stu-id="4bc32-296">It then writes the streaming element to an <xref:System.Xml.XmlWriter>.</span></span>  
+  
+```csharp  
+XElement srcTree = new XElement("Root",  
+                       new XElement("Child", 1),  
+                       new XElement("Child", 2),  
+                       new XElement("Child", 3),  
+                       new XElement("Child", 4),  
+                       new XElement("Child", 5)  
+                   );  
+  
+XStreamingElement dstTree = new XStreamingElement("NewRoot",  
+                        from el in srcTree.Elements()  
+                        where (int)el == 3  
+                        select new XElement("DifferentChild", (int)el)  
+                    );  
+  
+StringBuilder sb = new StringBuilder();  
+XmlWriterSettings xws = new XmlWriterSettings();  
+xws.OmitXmlDeclaration = true;  
+xws.Indent = true;  
+  
+using (XmlWriter xw = XmlWriter.Create(sb, xws))  
+{  
+    dstTree.WriteTo(xw);  
+}  
+Console.WriteLine(sb.ToString());  
+```  
+  
+```vb  
+Dim srcTree As XElement = _  
+    <Root>  
+        <Child>1</Child>  
+        <Child>2</Child>  
+        <Child>3</Child>  
+        <Child>4</Child>  
+        <Child>5</Child>  
+    </Root>  
+  
+Dim dstTree As XStreamingElement = _   
+    New XStreamingElement("NewRoot", _  
+        From el In srcTree.Elements() _  
+        Where el.Value = 3 _  
+        Select <DifferentChild><%= el.Value %></DifferentChild> )  
+  
+Dim sb As StringBuilder = New StringBuilder()  
+Dim xws As XmlWriterSettings = New XmlWriterSettings()  
+xws.OmitXmlDeclaration = True  
+xws.Indent = True  
+  
+Using xw As XmlWriter = XmlWriter.Create(sb, xws)  
+    dstTree.WriteTo(xw)  
+End Using  
+Console.WriteLine(sb.ToString())  
+```  
+  
+ <span data-ttu-id="4bc32-297">В этом примере выводятся следующие данные:</span><span class="sxs-lookup"><span data-stu-id="4bc32-297">This example produces the following output:</span></span>  
+  
+```xml  
+<NewRoot>  
+  <DifferentChild>3</DifferentChild>  
+</NewRoot>  
+```  
+  
+ ]]></format>
+        </remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
