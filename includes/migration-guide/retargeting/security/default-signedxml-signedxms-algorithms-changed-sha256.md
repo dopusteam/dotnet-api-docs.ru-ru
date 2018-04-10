@@ -1,0 +1,11 @@
+### <a name="default-signedxml-and-signedxms-algorithms-changed-to-sha256"></a>По умолчанию SignedXML и SignedXMS алгоритмы, изменен на SHA256
+
+|   |   |
+|---|---|
+|Подробные сведения|В .NET Framework 4.7 и более ранних версиях SignedXML и SignedCMS по умолчанию SHA1 для некоторых операций. Начиная с .NET Framework 4.7.1 SHA256 включен по умолчанию для этих операций. Это изменение не требуется, так как SHA1, больше не считается безопасным.|
+|Предложение|Существует два новых значения коммутатора контекста для элемента управления по умолчанию используемый SHA1 (небезопасно) или SHA256:<ul><li>Switch.System.Security.Cryptography.Xml.UseInsecureHashAlgorithms</li><li>Switch.System.Security.Cryptography.Pkcs.UseInsecureHashAlgorithms</li></ul>Для приложений, предназначенных для .NET Framework 4.7.1 и более поздних версиях, если использование SHA256 нежелательно, можно восстановить значение по умолчанию значение SHA1, добавив следующую конфигурацию, перейдите в [среды выполнения](~/docs/framework/configure-apps/file-schema/runtime/runtime-element.md) раздел в файл конфигурации приложения файл:<pre><code class="language-xml">&lt;AppContextSwitchOverrides value=&quot;Switch.System.Security.Cryptography.Xml.UseInsecureHashAlgorithms=true;Switch.System.Security.Cryptography.Pkcs.UseInsecureHashAlgorithms=true&quot; /&gt;&#13;&#10;</code></pre>Для приложений, ориентированных на .NET Framework 4.7 и более ранних версий, можно выбрать в это изменение, добавив следующий параметр конфигурации для [среды выполнения](~/docs/framework/configure-apps/file-schema/runtime/runtime-element.md) раздел файла конфигурации приложения:<pre><code class="language-xml">&lt;AppContextSwitchOverrides value=&quot;Switch.System.Security.Cryptography.Xml.UseInsecureHashAlgorithms=false;Switch.System.Security.Cryptography.Pkcs.UseInsecureHashAlgorithms=false&quot; /&gt;&#13;&#10;</code></pre>|
+|Область|Дополнительный номер|
+|Версия|4.7.1|
+|Тип|Изменение целевой платформы|
+|Затронутые API|<ul><li><xref:System.Security.Cryptography.Pkcs.CmsSigner?displayProperty=nameWithType></li><li><xref:System.Security.Cryptography.Xml.SignedXml?displayProperty=nameWithType></li><li><xref:System.Security.Cryptography.Xml.Reference?displayProperty=nameWithType></li></ul>|
+

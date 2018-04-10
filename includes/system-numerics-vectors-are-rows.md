@@ -1,0 +1,1 @@
+Для преобразования <xref:System.Numerics.Vector2>, <xref:System.Numerics.Vector3>, и <xref:System.Numerics.Vector4> экземпляров отображаются в виде строк: вектор *v* преобразуется по матрице *M* с *виртуальной машины*  умножения.

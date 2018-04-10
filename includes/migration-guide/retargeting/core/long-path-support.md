@@ -1,0 +1,10 @@
+### <a name="long-path-support"></a>Поддержка длинных путей
+
+|   |   |
+|---|---|
+|Подробные сведения|Начиная с приложений, ориентированных на .NET Framework 4.6.2 длинные пути (до 32 символов K) поддерживаются и 260 символов (или <code>MAX_PATH</code>) было удалено ограничение на длину пути. Для приложений, которые перекомпилируются для использования в .NET Framework 4.6.2 кодовые пути, которые ранее вызвал <xref:System.IO.PathTooLongException?displayProperty=name> из-за превышения путь 260 символов, теперь будет вызывать <xref:System.IO.PathTooLongException?displayProperty=name> только при следующих условиях:<ul><li>Длина пути превышает <xref:System.Int16.MaxValue> (32 767) символов.</li><li>операционная система возвращает <code>COR_E_PATHTOOLONG</code> или его эквивалент;</li></ul>Для приложений, ориентированных на .NET Framework 4.6.1 и более ранних версий, среда выполнения автоматически создает <xref:System.IO.PathTooLongException?displayProperty=name> каждый раз, когда путь превышает 260 символов.|
+|Предложение|Для приложений, ориентированных на .NET Framework 4.6.2, можно отказаться от поддержки длинного полного пути, если она нежелательна, добавив следующую команду, чтобы <code>&lt;runtime&gt;</code> части вашего <code>app.config</code> файла:<pre><code class="language-xml">&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides value=&quot;Switch.System.IO.BlockLongPaths=true&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;</code></pre>Для приложений, предназначенных для более ранних версий платформы .NET Framework, но выполнить на платформе .NET Framework 4.6.2 или более поздней версии, можно выбрать в длинные пути поддержки, добавив следующую команду, чтобы <code>&lt;runtime&gt;</code> части вашего <code>app.config</code> файла:<pre><code class="language-xml">&lt;runtime&gt;&#13;&#10;&lt;AppContextSwitchOverrides value=&quot;Switch.System.IO.BlockLongPaths=false&quot; /&gt;&#13;&#10;&lt;/runtime&gt;&#13;&#10;</code></pre>|
+|Область|Дополнительный номер|
+|Версия|4.6.2|
+|Тип|Изменение целевой платформы|
+

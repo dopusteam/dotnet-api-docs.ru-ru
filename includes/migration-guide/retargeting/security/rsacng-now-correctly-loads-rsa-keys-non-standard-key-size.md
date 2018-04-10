@@ -1,0 +1,11 @@
+### <a name="rsacng-now-correctly-loads-rsa-keys-of-non-standard-key-size"></a>RSACng теперь правильно загружает ключи RSA стандартным размер ключа
+
+|   |   |
+|---|---|
+|Подробные сведения|В версиях .NET Framework до 4.6.2, клиентов с нестандартным размером ключа для сертификатов RSA не удается получить доступ через эти ключи <xref:System.Security.Cryptography.X509Certificates.RSACertificateExtensions.GetRSAPublicKey(System.Security.Cryptography.X509Certificates.X509Certificate2)?displayProperty=name> и <xref:System.Security.Cryptography.X509Certificates.RSACertificateExtensions.GetRSAPrivateKey(System.Security.Cryptography.X509Certificates.X509Certificate2)?displayProperty=name> методы расширения.  Объект <xref:System.Security.Cryptography.CryptographicException?displayProperty=name> с сообщением &quot;запрошенный размер ключа не поддерживается&quot; возникает исключение. Эта проблема была устранена в .NET Framework 4.6.2. Аналогичным образом <xref:System.Security.Cryptography.RSA.ImportParameters(System.Security.Cryptography.RSAParameters)> и <xref:System.Security.Cryptography.RSACng.ImportParameters(System.Security.Cryptography.RSAParameters)> теперь работать с нестандартным размером ключа без формирования <xref:System.Security.Cryptography.CryptographicException?displayProperty=name>s.|
+|Предложение|Если логика, которая зависит от предыдущего поведения обработку исключений где <xref:System.Security.Cryptography.CryptographicException?displayProperty=name> возникает, когда используются нестандартные размеры ключа, рассмотрите возможность удаления логику.|
+|Область|Пограничный случай|
+|Версия|4.6.2|
+|Тип|Изменение целевой платформы|
+|Затронутые API|<ul><li><xref:System.Security.Cryptography.RSA.ImportParameters(System.Security.Cryptography.RSAParameters)?displayProperty=nameWithType></li><li><xref:System.Security.Cryptography.RSACng.ImportParameters(System.Security.Cryptography.RSAParameters)?displayProperty=nameWithType></li><li><xref:System.Security.Cryptography.X509Certificates.RSACertificateExtensions.GetRSAPrivateKey(System.Security.Cryptography.X509Certificates.X509Certificate2)?displayProperty=nameWithType></li><li><xref:System.Security.Cryptography.X509Certificates.RSACertificateExtensions.GetRSAPublicKey(System.Security.Cryptography.X509Certificates.X509Certificate2)?displayProperty=nameWithType></li></ul>|
+
