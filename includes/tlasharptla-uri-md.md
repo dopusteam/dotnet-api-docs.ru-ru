@@ -1,0 +1,1 @@
+<span data-ttu-id="7104b-101">универсальный идентификатор ресурса (URI)</span><span class="sxs-lookup"><span data-stu-id="7104b-101">uniform resource identifier (URI)</span></span>

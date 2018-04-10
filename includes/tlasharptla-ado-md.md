@@ -1,0 +1,1 @@
+<span data-ttu-id="8cc94-101">Объекты данных Microsoft ActiveX (ADO)</span><span class="sxs-lookup"><span data-stu-id="8cc94-101">Microsoft ActiveX Data Objects (ADO)</span></span>

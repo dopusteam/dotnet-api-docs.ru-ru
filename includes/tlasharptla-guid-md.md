@@ -1,0 +1,1 @@
+<span data-ttu-id="90220-101">глобальный уникальный идентификатор (GUID)</span><span class="sxs-lookup"><span data-stu-id="90220-101">globally unique identifier (GUID)</span></span>

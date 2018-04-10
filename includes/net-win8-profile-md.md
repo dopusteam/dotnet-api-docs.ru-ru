@@ -1,0 +1,1 @@
+<span data-ttu-id="fe8af-101">.NET для приложений Магазина Windows 8.x</span><span class="sxs-lookup"><span data-stu-id="fe8af-101">.NET for Windows 8.x Store apps</span></span>

@@ -1,0 +1,1 @@
+<span data-ttu-id="335f6-101">.NET Framework 2.0 с пакетом обновления 1 (SP1)</span><span class="sxs-lookup"><span data-stu-id="335f6-101">.NET Framework 2.0 SP1</span></span>

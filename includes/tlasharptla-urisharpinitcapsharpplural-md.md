@@ -1,0 +1,1 @@
+<span data-ttu-id="3762d-101">URI (uniform resource identifiers — универсальные коды ресурса)</span><span class="sxs-lookup"><span data-stu-id="3762d-101">Uniform resource identifiers (URIs)</span></span>

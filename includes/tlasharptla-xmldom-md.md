@@ -1,0 +1,1 @@
+<span data-ttu-id="ad126-101">Модель объектов XML-документов (DOM)</span><span class="sxs-lookup"><span data-stu-id="ad126-101">XML Document Object Model (DOM)</span></span>

@@ -1,0 +1,1 @@
+<span data-ttu-id="aee3e-101">язык XAML</span><span class="sxs-lookup"><span data-stu-id="aee3e-101">XAML</span></span>

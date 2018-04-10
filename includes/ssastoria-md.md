@@ -1,0 +1,1 @@
+<span data-ttu-id="7685f-101">Службы данных WCF</span><span class="sxs-lookup"><span data-stu-id="7685f-101">WCF Data Services</span></span>

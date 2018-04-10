@@ -1,0 +1,1 @@
+<span data-ttu-id="f29ca-101">среда выполнения Windows</span><span class="sxs-lookup"><span data-stu-id="f29ca-101">Windows Runtime</span></span>
