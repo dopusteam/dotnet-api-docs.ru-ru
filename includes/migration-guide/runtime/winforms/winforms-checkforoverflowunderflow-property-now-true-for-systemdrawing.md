@@ -1,0 +1,10 @@
+### <a name="winforms-checkforoverflowunderflow-property-is-now-true-for-systemdrawing"></a><span data-ttu-id="44039-101">Свойство CheckForOverflowUnderflow WinForm больше не относится к System.Drawing</span><span class="sxs-lookup"><span data-stu-id="44039-101">WinForm's CheckForOverflowUnderflow property is now true for System.Drawing</span></span>
+
+|   |   |
+|---|---|
+|<span data-ttu-id="44039-102">Подробные сведения</span><span class="sxs-lookup"><span data-stu-id="44039-102">Details</span></span>|<span data-ttu-id="44039-103">CheckForOverflowUnderflow для сборки System.Drawing.dll свойству значение true.</span><span class="sxs-lookup"><span data-stu-id="44039-103">The CheckForOverflowUnderflow property for the System.Drawing.dll assembly is set to true.</span></span>|
+|<span data-ttu-id="44039-104">Предложение</span><span class="sxs-lookup"><span data-stu-id="44039-104">Suggestion</span></span>|<span data-ttu-id="44039-105">Раньше при переполнениях результат усекался без уведомления.</span><span class="sxs-lookup"><span data-stu-id="44039-105">Previously when overflows occurred, the result would be silently truncated.</span></span> <span data-ttu-id="44039-106">Теперь создается исключение <xref:System.OverflowException?displayProperty=name>,</span><span class="sxs-lookup"><span data-stu-id="44039-106">Now an <xref:System.OverflowException?displayProperty=name> exception is thrown.</span></span>|
+|<span data-ttu-id="44039-107">Область</span><span class="sxs-lookup"><span data-stu-id="44039-107">Scope</span></span>|<span data-ttu-id="44039-108">Пограничный случай</span><span class="sxs-lookup"><span data-stu-id="44039-108">Edge</span></span>|
+|<span data-ttu-id="44039-109">Версия</span><span class="sxs-lookup"><span data-stu-id="44039-109">Version</span></span>|<span data-ttu-id="44039-110">4.5</span><span class="sxs-lookup"><span data-stu-id="44039-110">4.5</span></span>|
+|<span data-ttu-id="44039-111">Тип</span><span class="sxs-lookup"><span data-stu-id="44039-111">Type</span></span>|<span data-ttu-id="44039-112">Среда выполнения</span><span class="sxs-lookup"><span data-stu-id="44039-112">Runtime</span></span>|
+

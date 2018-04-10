@@ -1,0 +1,10 @@
+### <a name="wpf-spawns-a-wisptisexe-process-which-can-freeze-the-mouse"></a><span data-ttu-id="26200-101">WPF создает wisptis.exe процесс, который можно закрепить мыши</span><span class="sxs-lookup"><span data-stu-id="26200-101">WPF spawns a wisptis.exe process which can freeze the mouse</span></span>
+
+|   |   |
+|---|---|
+|<span data-ttu-id="26200-102">Подробные сведения</span><span class="sxs-lookup"><span data-stu-id="26200-102">Details</span></span>|<span data-ttu-id="26200-103">Проблема появилась в 4.5.2, которое вызывает <code>wisptis.exe</code> для быть порожден, можно закрепить ввод данных мышью.</span><span class="sxs-lookup"><span data-stu-id="26200-103">An issue was introduced in 4.5.2 that causes <code>wisptis.exe</code> to be spawned that can freeze mouse input.</span></span>|
+|<span data-ttu-id="26200-104">Предложение</span><span class="sxs-lookup"><span data-stu-id="26200-104">Suggestion</span></span>|<span data-ttu-id="26200-105">Доступно исправление для этой проблемы в обслуживания версии платформы .NET Framework 4.5.2 (накопительный пакет исправлений 3026376) или после обновления для .NET Framework 4.6</span><span class="sxs-lookup"><span data-stu-id="26200-105">A fix for this issue is available in a servicing release of the .NET Framework 4.5.2 (hotfix rollup 3026376), or by upgrading to the .NET Framework 4.6</span></span>|
+|<span data-ttu-id="26200-106">Область</span><span class="sxs-lookup"><span data-stu-id="26200-106">Scope</span></span>|<span data-ttu-id="26200-107">Значительно</span><span class="sxs-lookup"><span data-stu-id="26200-107">Major</span></span>|
+|<span data-ttu-id="26200-108">Версия</span><span class="sxs-lookup"><span data-stu-id="26200-108">Version</span></span>|<span data-ttu-id="26200-109">4.5.2</span><span class="sxs-lookup"><span data-stu-id="26200-109">4.5.2</span></span>|
+|<span data-ttu-id="26200-110">Тип</span><span class="sxs-lookup"><span data-stu-id="26200-110">Type</span></span>|<span data-ttu-id="26200-111">Среда выполнения</span><span class="sxs-lookup"><span data-stu-id="26200-111">Runtime</span></span>|
+
