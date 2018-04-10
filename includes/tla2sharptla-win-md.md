@@ -1,0 +1,1 @@
+<span data-ttu-id="a760c-101">Окна</span><span class="sxs-lookup"><span data-stu-id="a760c-101">Windows</span></span>

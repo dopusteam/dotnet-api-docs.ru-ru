@@ -1,0 +1,1 @@
+<span data-ttu-id="b083f-101">графический процессор (GPU)</span><span class="sxs-lookup"><span data-stu-id="b083f-101">graphics processing unit (GPU)</span></span>

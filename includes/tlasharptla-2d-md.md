@@ -1,0 +1,1 @@
+<span data-ttu-id="ee72c-101">Двумерный</span><span class="sxs-lookup"><span data-stu-id="ee72c-101">2-D</span></span>

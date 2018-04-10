@@ -1,0 +1,1 @@
+<span data-ttu-id="b7762-101">Конструктор WPF</span><span class="sxs-lookup"><span data-stu-id="b7762-101">WPF Designer</span></span>

@@ -1,0 +1,1 @@
+<span data-ttu-id="36e28-101">IIS 6,0</span><span class="sxs-lookup"><span data-stu-id="36e28-101">IIS 6.0</span></span>

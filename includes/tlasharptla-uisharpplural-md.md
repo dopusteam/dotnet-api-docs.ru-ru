@@ -1,0 +1,1 @@
+<span data-ttu-id="e12ec-101">пользовательские интерфейсы (UI)</span><span class="sxs-lookup"><span data-stu-id="e12ec-101">user interfaces (UIs)</span></span>

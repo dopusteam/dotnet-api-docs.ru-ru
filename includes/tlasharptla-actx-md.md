@@ -1,0 +1,1 @@
+<span data-ttu-id="be3fa-101">Microsoft ActiveX</span><span class="sxs-lookup"><span data-stu-id="be3fa-101">Microsoft ActiveX</span></span>

@@ -1,0 +1,1 @@
+<span data-ttu-id="2b878-101">Спецификации OPC (Open Packaging Conventions)</span><span class="sxs-lookup"><span data-stu-id="2b878-101">Open Packaging Conventions (OPC)</span></span>

@@ -1,0 +1,1 @@
+<span data-ttu-id="3c170-101">функции размещения</span><span class="sxs-lookup"><span data-stu-id="3c170-101">hosting features</span></span>

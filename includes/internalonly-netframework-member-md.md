@@ -1,0 +1,1 @@
+<span data-ttu-id="9f52b-101">Этот элемент поддерживает инфраструктуру .NET Framework и не предназначен для непосредственного использования из кода.</span><span class="sxs-lookup"><span data-stu-id="9f52b-101">This member supports the .NET Framework infrastructure and is not intended to be used directly from your code.</span></span>

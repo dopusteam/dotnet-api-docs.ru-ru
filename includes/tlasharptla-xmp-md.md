@@ -1,0 +1,1 @@
+<span data-ttu-id="5cc77-101">Платформа расширяемых метаданных (XMP)</span><span class="sxs-lookup"><span data-stu-id="5cc77-101">Extensible Metadata Platform (XMP)</span></span>

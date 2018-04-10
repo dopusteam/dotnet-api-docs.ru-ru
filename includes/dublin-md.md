@@ -1,0 +1,1 @@
+<span data-ttu-id="df280-101">функции размещения Windows Server AppFabric</span><span class="sxs-lookup"><span data-stu-id="df280-101">hosting features of Windows Server AppFabric</span></span>

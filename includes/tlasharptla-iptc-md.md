@@ -1,0 +1,1 @@
+<span data-ttu-id="0a4d1-101">Международный совет по прессе и телекоммуникациям (International Press Telecommunications Council, IPTC)</span><span class="sxs-lookup"><span data-stu-id="0a4d1-101">International Press Telecommunications Council (IPTC)</span></span>

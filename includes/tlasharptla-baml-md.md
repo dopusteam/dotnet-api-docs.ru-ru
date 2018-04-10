@@ -1,0 +1,1 @@
+<span data-ttu-id="17d60-101">двоичный XAML (BAML)</span><span class="sxs-lookup"><span data-stu-id="17d60-101">binary XAML (BAML)</span></span>

@@ -1,0 +1,1 @@
+<span data-ttu-id="f0992-101">Microsoft Visual Basic .NET</span><span class="sxs-lookup"><span data-stu-id="f0992-101">Microsoft Visual Basic .NET</span></span>

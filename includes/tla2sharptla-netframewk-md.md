@@ -1,0 +1,1 @@
+<span data-ttu-id="44173-101">Платформа</span><span class="sxs-lookup"><span data-stu-id="44173-101">Framework</span></span>
