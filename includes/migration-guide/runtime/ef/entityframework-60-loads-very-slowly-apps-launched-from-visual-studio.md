@@ -1,4 +1,4 @@
-### <a name="entityframework-60-loads-very-slowly-in-apps-launched-from-visual-studio"></a>EntityFramework 6.0 очень медленно загружается в приложениях, которые запущены из Visual Studio
+### <a name="entityframework-60-loads-very-slowly-in-apps-launched-from-visual-studio"></a>EntityFramework 6.0 очень медленно загружается в приложениях, запускаемых из Visual Studio
 
 |   |   |
 |---|---|

@@ -1,9 +1,9 @@
-### <a name="xmlserializer-fails-while-serializing-a-type-that-hides-an-accessible-member-with-an-inaccessible-one"></a>XmlSerializer завершается неудачно при сериализации типа, скрывает член недоступен, доступен
+### <a name="xmlserializer-fails-while-serializing-a-type-that-hides-an-accessible-member-with-an-inaccessible-one"></a>XmlSerializer завершается сбоем при сериализации типа, который скрывает доступный член недоступным
 
 |   |   |
 |---|---|
-|Подробные сведения|При сериализации производному типу, <xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> может завершиться ошибкой, если тип содержит недоступным поле или свойство, которое скрывает (с помощью ключевого слова «new») в поле или свойство с тем же именем, которое было ранее доступ (например, public), для базового типа.|
-|Предложение|Эту проблему можно устранить, предоставление доступа для нового члена скрывает <xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> (пометив его открытым, например). Кроме того, следующий параметр конфигурации будет понижен до 4.0 <xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> поведение, которое устранит эту проблему:<pre><code class="language-xml">&lt;system.xml.serialization&gt;&#13;&#10;&lt;xmlSerializer useLegacySerializerGeneration=&quot;true&quot; /&gt;&#13;&#10;&lt;/system.xml.serialization&gt;&#13;&#10;</code></pre>|
+|Подробные сведения|При сериализации производного типа <xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> может завершаться сбоем, если тип содержит недоступное поле или свойство, которое скрывает (посредством ключевого слова "new") ранее доступное поле или свойство с тем же именем (например, public) в базовом типе.|
+|Предложение|Чтобы устранить эту проблему, можно сделать новый скрывающий член доступным для <xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> (например, для этого можно пометить его как public). Кроме того, можно использовать следующий параметр конфигурации, который возвращает поведение <xref:System.Xml.Serialization.XmlSerializer?displayProperty=name> версии 4.0 и устраняет эту проблему:<pre><code class="language-xml">&lt;system.xml.serialization&gt;&#13;&#10;&lt;xmlSerializer useLegacySerializerGeneration=&quot;true&quot; /&gt;&#13;&#10;&lt;/system.xml.serialization&gt;&#13;&#10;</code></pre>|
 |Область|Дополнительный номер|
 |Версия|4.5|
 |Тип|Среда выполнения|

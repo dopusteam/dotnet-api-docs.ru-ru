@@ -1,9 +1,9 @@
-### <a name="xmltextreader-dtd-entity-expansion-is-limited-to-10000000-characters"></a>Развертывание сущностей XmlTextReader DTD ограничено до 10 000 000 символов
+### <a name="xmltextreader-dtd-entity-expansion-is-limited-to-10000000-characters"></a>Развертывание сущностей DTD XmlTextReader не может превышать 10 000 000 символов
 
 |   |   |
 |---|---|
 |Подробные сведения|Развертывание сущностей DTD теперь не может превышать 10 000 000 символов. Загрузка XML-файлов без развертывания сущностей DTD или с ограниченным развертыванием сущностей DTD не изменяется. Файлы с сущностями DTD, которые развертываются до более чем 10 000 000 символов, не загружаются и теперь вызывают исключение.|
-|Предложение|Если ограничение раскрытия сущности DTD слишком мало 10 000 000, значение может быть заменено <xref:System.Xml.XmlReaderSettings.MaxCharactersFromEntities> свойство. <xref:System.Xml.XmlReaderSettings?displayProperty=name> С соответствующим <xref:System.Xml.XmlReaderSettings.MaxCharactersFromEntities?displayProperty=name> значение может быть передано в <code>XmlReader.Create</code> , который принимает <xref:System.Xml.XmlReaderSettings?displayProperty=name> (т. е. <xref:System.Xml.XmlReader.Create(System.String,System.Xml.XmlReaderSettings)>)|
+|Предложение|Если ограничение развертывания сущностей DTD существенно ниже 10 000 000, значение может быть переопределено с помощью свойства <xref:System.Xml.XmlReaderSettings.MaxCharactersFromEntities>. <xref:System.Xml.XmlReaderSettings?displayProperty=name> с соответствующим значением <xref:System.Xml.XmlReaderSettings.MaxCharactersFromEntities?displayProperty=name> может передаваться в <code>XmlReader.Create</code>, который принимает <xref:System.Xml.XmlReaderSettings?displayProperty=name> (т. е. <xref:System.Xml.XmlReader.Create(System.String,System.Xml.XmlReaderSettings)>)|
 |Область|Пограничный случай|
 |Версия|4.5|
 |Тип|Среда выполнения|

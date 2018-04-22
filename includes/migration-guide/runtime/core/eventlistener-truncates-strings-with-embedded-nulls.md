@@ -3,7 +3,7 @@
 |   |   |
 |---|---|
 |Подробные сведения|<xref:System.Diagnostics.Tracing.EventListener?displayProperty=name> усекает строки с внедренными значениями NULL. Символы NULL не поддерживаются классом <xref:System.Diagnostics.Tracing.EventSource?displayProperty=name>. Изменение влияет только на приложения, использующие <xref:System.Diagnostics.Tracing.EventListener?displayProperty=name> для чтения данных <xref:System.Diagnostics.Tracing.EventSource?displayProperty=name> в процессе и значения NULL в качестве разделителей.|
-|Предложение|<xref:System.Diagnostics.Tracing.EventSource?displayProperty=name> данные должны обновляться, если это возможно, чтобы не использовать внедренные символы null.|
+|Предложение|Если возможно, следует обновить данные <xref:System.Diagnostics.Tracing.EventSource?displayProperty=name>, чтобы не использовать внедренные символы NULL.|
 |Область|Пограничный случай|
 |Версия|4.5.1|
 |Тип|Среда выполнения|

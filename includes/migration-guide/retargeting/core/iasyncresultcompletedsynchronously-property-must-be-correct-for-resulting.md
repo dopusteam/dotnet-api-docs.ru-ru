@@ -1,9 +1,9 @@
-### <a name="iasyncresultcompletedsynchronously-property-must-be-correct-for-the-resulting-task-to-complete"></a>Свойство IAsyncResult.CompletedSynchronously должна быть правильной результирующая задача завершилась
+### <a name="iasyncresultcompletedsynchronously-property-must-be-correct-for-the-resulting-task-to-complete"></a>Чтобы результирующая задача завершилась, реализация свойства IAsyncResult.CompletedSynchronously должна быть правильной
 
 |   |   |
 |---|---|
-|Подробные сведения|При вызове TaskFactory.FromAsync реализация <xref:System.IAsyncResult.CompletedSynchronously> свойство должна быть правильной результирующая задача завершилась. То есть свойство должно возвращать значение true, если (и только если) реализация завершилась синхронно. Раньше свойство не проверялось.|
-|Предложение|Если <xref:System.IAsyncResult?displayProperty=name> реализации правильно возвращают true для <xref:System.IAsyncResult.CompletedSynchronously?displayProperty=name> свойства только тогда, когда задача завершилась синхронно, то будет наблюдаться без разрыва. Пользователи должны проверить <xref:System.IAsyncResult?displayProperty=name> реализации они владеют (если таковые имеются), чтобы убедиться, что они правильно оценить, выполнен ли задача завершена синхронно или нет.|
+|Подробные сведения|При вызове TaskFactory.FromAsync реализация свойства <xref:System.IAsyncResult.CompletedSynchronously> должна быть правильной, чтобы результирующая задача завершилась. То есть свойство должно возвращать значение true, если (и только если) реализация завершилась синхронно. Раньше свойство не проверялось.|
+|Предложение|Если реализация <xref:System.IAsyncResult?displayProperty=name> правильно возвращает значение true для свойства <xref:System.IAsyncResult.CompletedSynchronously?displayProperty=name> только тогда, когда задача завершилась синхронно, нарушения работы не будет. Пользователи должны проверять принадлежащие им реализации <xref:System.IAsyncResult?displayProperty=name> (если таковые имеются), чтобы убедиться, что они правильно определяют синхронное завершение задачи.|
 |Область|Пограничный случай|
 |Версия|4.5|
 |Тип|Изменение целевой платформы|

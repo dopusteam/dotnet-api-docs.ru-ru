@@ -1,18 +1,18 @@
-С помощью символьных индексирование с <xref:System.Text.StringBuilder.Chars%2A> свойство может быть резко снизит скорость обработки при следующих условиях:
+Индексирование на основе символов со свойством <xref:System.Text.StringBuilder.Chars%2A> может работать очень медленно при следующих условиях:
 
-- <xref:System.Text.StringBuilder> Экземпляр велико (например, он состоит из нескольких десятков тысяч символов).
-- <xref:System.Text.StringBuilder> — «Фрагментированных». То есть, таких как повторные вызовы методов <xref:System.Text.StringBuilder.Append%2A?displayProperty=nameWithType> которых автоматически увеличен объекта <xref:System.Text.StringBuilder.Capacity%2A?displayProperty=nameWithType> свойства и выделенный новые блоки памяти, к нему.
+- Экземпляр <xref:System.Text.StringBuilder> очень большой (например, состоит из нескольких десятков тысяч символов).
+- <xref:System.Text.StringBuilder> имеет блоки. То есть повторные вызовы методов, например <xref:System.Text.StringBuilder.Append%2A?displayProperty=nameWithType>, автоматически расширили свойство <xref:System.Text.StringBuilder.Capacity%2A?displayProperty=nameWithType> объекта и выделили для него новые блоки памяти.
 
-Поскольку каждый символ доступа проходит весь связанный список блоков данных, чтобы найти правильные буфера индекса в серьезно влияет на производительность.
+Это значительно влияет на производительность, поскольку при каждом доступе к символу проходится весь связанный список блоков с целью найти правильный буфер для индексации.
 
 > [!NOTE]
->  Даже для большого «фрагментированных» <xref:System.Text.StringBuilder> объекту с помощью <xref:System.Text.StringBuilder.Chars%2A> свойство для доступа на основе индекса для одного или небольшое число символов может повлиять на производительность незначительно; как правило, это **0(n)** операции. Значительно снижает производительность происходит во время итерации символов в <xref:System.Text.StringBuilder> объекта, имеющего **O(n^2)** операции. 
+>  Даже когда большой объект <xref:System.Text.StringBuilder> с блоками использует свойство <xref:System.Text.StringBuilder.Chars%2A> для доступа на основе индекса к одному символу или небольшому количеству символов, это оказывает незначительное влияние на производительность. Как правило, это операция **0(n)**. Производительность серьезно снижается во время итерации символов в объекте <xref:System.Text.StringBuilder> — операция **O(n^2)**. 
 
-Если возникли проблемы с производительностью при использовании символьного индексирование с <xref:System.Text.StringBuilder> объектов, которые можно использовать любой из следующих действий:
+Если возникают проблемы с производительностью при использовании символьного индексирования с объектами <xref:System.Text.StringBuilder>, попробуйте выполнить одно из следующих действий:
 
-- Преобразовать <xref:System.Text.StringBuilder> экземпляр <xref:System.String> путем вызова <xref:System.Text.StringBuilder.ToString%2A> метод, затем получить доступ к символов в строке.
+- Преобразуйте экземпляр <xref:System.Text.StringBuilder> в <xref:System.String> путем вызова метода <xref:System.Text.StringBuilder.ToString%2A>, а затем получите доступ к символам в строке.
 
-- Скопируйте содержимое существующего <xref:System.Text.StringBuilder> новый выделенный размер <xref:System.Text.StringBuilder> объекта. Повышает производительность, так как новый <xref:System.Text.StringBuilder> объект не фрагментированных. Пример:
+- Скопируйте содержимое существующего объекта <xref:System.Text.StringBuilder> в новый объект <xref:System.Text.StringBuilder> с заданным размером. Производительность повышается, так как новый объект <xref:System.Text.StringBuilder> не содержит блоков. Пример:
 
    ```csharp
    // sbOriginal is the existing StringBuilder object
@@ -22,4 +22,4 @@
    ' sbOriginal is the existing StringBuilder object
    Dim sbNew = New StringBuilder(sbOriginal.ToString(), sbOriginal.Length)
    ```
-- Установить начальную вместимость из <xref:System.Text.StringBuilder> в значение, равное примерно до ожидаемого размера путем вызова <xref:System.Text.StringBuilder.%23ctor(System.Int32)> конструктор. Обратите внимание, что это выделяет весь блок памяти, даже если <xref:System.Text.StringBuilder> редко достигает своего максимального размера.
+- Установите для начальной вместимости объекта <xref:System.Text.StringBuilder> значение, примерно равное максимальному ожидаемому размеру, путем вызова конструктора <xref:System.Text.StringBuilder.%23ctor(System.Int32)>. Имейте в виду, что будет выделен целый блок памяти, даже если <xref:System.Text.StringBuilder> редко достигает своего максимального размера.

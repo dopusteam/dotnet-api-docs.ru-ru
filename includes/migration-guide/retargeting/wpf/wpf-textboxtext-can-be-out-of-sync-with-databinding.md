@@ -1,4 +1,4 @@
-### <a name="wpf-textboxtext-can-be-out-of-sync-with-databinding"></a>WPF TextBox.Text может быть ожидания для синхронизации с помощью привязки данных
+### <a name="wpf-textboxtext-can-be-out-of-sync-with-databinding"></a>WPF TextBox.Text может быть не синхронизирован с привязкой данных
 
 |   |   |
 |---|---|

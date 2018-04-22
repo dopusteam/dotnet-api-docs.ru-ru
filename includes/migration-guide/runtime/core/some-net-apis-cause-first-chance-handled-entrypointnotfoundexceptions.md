@@ -1,9 +1,9 @@
-### <a name="some-net-apis-cause-first-chance-handled-entrypointnotfoundexceptions"></a>Некоторые API-интерфейсы .NET причина первый шанс обработки (обрабатывать) EntryPointNotFoundExceptions
+### <a name="some-net-apis-cause-first-chance-handled-entrypointnotfoundexceptions"></a>Некоторые интерфейсы API .NET создают первый экземпляр (обрабатываемый) EntryPointNotFoundExceptions
 
 |   |   |
 |---|---|
-|Подробные сведения|В платформе .NET Framework 4.5 небольшое количество методов .NET начала генерации первый шанс обработки <xref:System.EntryPointNotFoundException?displayProperty=name>s. Эти исключения обрабатывались в .NET Framework, но могли нарушать работу службы автоматизации тестирования, которая не ожидала первых экземпляров исключений. Те же интерфейсы API препятствуют работе некоторых сценариев ApiVerifier, если включен тест HighVersionLie.|
-|Предложение|Этой ошибки можно избежать путем обновления до .NET Framework 4.5.1. Кроме того, можно обновить автоматизации тестирования, чтобы не будет прерывать при первичном <xref:System.EntryPointNotFoundException?displayProperty=name>s.|
+|Подробные сведения|В .NET Framework 4.5 несколько методов .NET начали создавать первый экземпляр <xref:System.EntryPointNotFoundException?displayProperty=name>. Эти исключения обрабатывались в .NET Framework, но могли нарушать работу службы автоматизации тестирования, которая не ожидала первых экземпляров исключений. Те же интерфейсы API препятствуют работе некоторых сценариев ApiVerifier, если включен тест HighVersionLie.|
+|Предложение|Этой ошибки можно избежать путем обновления до .NET Framework 4.5.1. Кроме того, службу автоматизации тестирования можно обновить, чтобы она не прерывала свое выполнение при создании первого экземпляра <xref:System.EntryPointNotFoundException?displayProperty=name>.|
 |Область|Пограничный случай|
 |Версия|4.5|
 |Тип|Среда выполнения|

@@ -1,9 +1,9 @@
-### <a name="exception-message-has-changed-for-failed-datacontract-serialization-in-case-of-an-unknown-type"></a>Сообщение об исключении было изменено для неудачных сериализации DataContract, в случае неизвестного типа
+### <a name="exception-message-has-changed-for-failed-datacontract-serialization-in-case-of-an-unknown-type"></a>Изменилось сообщение об исключении для неудавшейся сериализации DataContract в случае неизвестного типа
 
 |   |   |
 |---|---|
-|Подробные сведения|Начиная с .NET Framework 4.6, сообщение об исключении, если имеются <xref:System.Runtime.Serialization.DataContractSerializer?displayProperty=name> или <xref:System.Runtime.Serialization.Json.DataContractJsonSerializer?displayProperty=name> было добавлено пояснение завершается с ошибкой для сериализации или десериализации из-за отсутствия «известных типов».|
-|Предложение|Приложения не должны зависеть от конкретного исключения сообщений. Если приложение в зависимости от того, это сообщение, необходимо либо обновить эту информацию следует ожидать нового сообщения или (предпочтительно), измените его, чтобы зависеть только от типа исключения.|
+|Подробные сведения|Начиная с .NET Framework 4.6 уточнено сообщение об исключении, отображающееся в случае, если <xref:System.Runtime.Serialization.DataContractSerializer?displayProperty=name> или <xref:System.Runtime.Serialization.Json.DataContractJsonSerializer?displayProperty=name> не может выполнить сериализацию или десериализацию из-за отсутствия "известных типов".|
+|Предложение|Приложения не должны зависеть от конкретных сообщений об исключениях. Если приложение зависит от этого сообщения, обновите его, чтобы оно ожидало новое сообщение, или (предпочтительно) измените его, чтобы оно зависело только от типа исключения.|
 |Область|Пограничный случай|
 |Версия|4.6|
 |Тип|Среда выполнения|

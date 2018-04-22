@@ -1,9 +1,9 @@
-### <a name="systemservicemodelwebwebservicehost-object-no-longer-adds-a-default-endpoint"></a>System.ServiceModel.Web.WebServiceHost больше не добавляет конечную точку по умолчанию
+### <a name="systemservicemodelwebwebservicehost-object-no-longer-adds-a-default-endpoint"></a>Объект System.ServiceModel.Web.WebServiceHost больше не добавляет конечную точку по умолчанию
 
 |   |   |
 |---|---|
 |Подробные сведения|Объект <xref:System.ServiceModel.Web.WebServiceHost> теперь не добавляет конечную точку по умолчанию, если в коде приложения явным образом добавлена конечная точка.|
-|Предложение|Если пользователи ожидают, что возможность подключаться к конечной точке по умолчанию и другие явно заданные конечные точки были добавлены к <xref:System.ServiceModel.Web.WebServiceHost?displayProperty=name>, конечные точки по умолчанию также должны быть добавлены явно (с помощью <xref:System.ServiceModel.ServiceHostBase.AddDefaultEndpoints?displayProperty=name>).|
+|Предложение|Если пользователи хотят иметь возможность подключаться к конечной точке по умолчанию и другие явные конечные точки были добавлены в <xref:System.ServiceModel.Web.WebServiceHost?displayProperty=name>, конечные точки по умолчанию необходимо также добавить явным образом (с помощью <xref:System.ServiceModel.ServiceHostBase.AddDefaultEndpoints?displayProperty=name>).|
 |Область|Дополнительный номер|
 |Версия|4.5|
 |Тип|Среда выполнения|

@@ -1,9 +1,9 @@
-### <a name="sharing-session-state-with-aspnet-stateserver-requires-all-servers-in-the-web-farm-to-use-the-same-net-framework-version"></a>Предоставление состояния сеанса с Asp.Net StateServer требуется всех серверов в веб-фермы, чтобы использовать ту же версию .NET Framework
+### <a name="sharing-session-state-with-aspnet-stateserver-requires-all-servers-in-the-web-farm-to-use-the-same-net-framework-version"></a>Для совместного доступа к состоянию сеанса с Asp.Net StateServer все серверы на веб-ферме должны использовать одинаковую версию .NET Framework
 
 |   |   |
 |---|---|
-|Подробные сведения|При включении <xref:System.Web.SessionState.SessionStateMode.StateServer?displayProperty=name> состояние сеанса, все серверы в данной веб-фермы необходимо используют ту же версию платформы .NET Framework в порядке для состояния для совместного использования должным образом.|
-|Предложение|Убедитесь, что обновление версии платформы .NET Framework на веб-серверах, которые совместно используют состояние, в то же время.|
+|Подробные сведения|При включении состояния сеанса <xref:System.Web.SessionState.SessionStateMode.StateServer?displayProperty=name> все серверы на данной веб-ферме должны использовать одинаковую версию платформы .NET Framework, чтобы состояние передавалось должным образом.|
+|Предложение|Обновите версии платформы .NET Framework на веб-серверах, которые совместно и одновременно используют состояние.|
 |Область|Пограничный случай|
 |Версия|4.5|
 |Тип|Среда выполнения|

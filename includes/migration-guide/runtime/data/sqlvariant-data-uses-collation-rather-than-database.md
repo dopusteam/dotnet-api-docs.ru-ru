@@ -1,4 +1,4 @@
-### <a name="sqlvariant-data-uses-sqlvariant-collation-rather-than-database-collation"></a>Данные типа Sql_variant используются параметры сортировки sql_variant, а не параметры сортировки базы данных
+### <a name="sqlvariant-data-uses-sqlvariant-collation-rather-than-database-collation"></a>В данных Sql_variant используется сортировка sql_variant, а не сортировка базы данных
 
 |   |   |
 |---|---|

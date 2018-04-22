@@ -2,8 +2,8 @@
 
 |   |   |
 |---|---|
-|Подробные сведения|<xref:System.Windows.Controls.DataGrid.ScrollIntoView(System.Object)> будет работать асинхронно, если включена виртуализация столбцов, но ширина столбцов еще не было определено.  Если столбцы удаляются до выполнения асинхронной работы, <xref:System.ArgumentOutOfRangeException?displayProperty=name> может произойти.|
-|Предложение|Одно из следующих действий:<ol><li>Обновление до .NET 4.7.</li><li>Установите обновление, последняя версия обслуживания для .NET 4.6.2.</li><li>Избежание удаления столбцов до асинхронный ответ <xref:System.Windows.Controls.DataGrid.ScrollIntoView(System.Object)> завершена.</li></ol>|
+|Подробные сведения|Метод <xref:System.Windows.Controls.DataGrid.ScrollIntoView(System.Object)> будет выполняться асинхронно, если виртуализация столбцов включена, но ширина столбцов еще не определена.  Если столбцы удаляются до завершения асинхронной операции, может возникнуть исключение <xref:System.ArgumentOutOfRangeException?displayProperty=name>.|
+|Предложение|Выполните одно из следующих действий:<ol><li>Выполнить обновление до .NET 4.7.</li><li>Установить новейшее служебное исправление для .NET 4.6.2.</li><li>Избегать удаления столбцов до завершения асинхронного ответа на метод <xref:System.Windows.Controls.DataGrid.ScrollIntoView(System.Object)>.</li></ol>|
 |Область|Пограничный случай|
 |Версия|4.6.2|
 |Тип|Среда выполнения|

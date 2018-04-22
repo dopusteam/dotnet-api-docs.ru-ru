@@ -1,9 +1,9 @@
-### <a name="right-clicking-on-a-wpf-datagrid-row-header-changes-the-datagrid-selection"></a>Щелкните правой кнопкой мыши элемент управления DataGrid WPF заголовок строки изменения выделения DataGrid
+### <a name="right-clicking-on-a-wpf-datagrid-row-header-changes-the-datagrid-selection"></a>При щелчке правой кнопкой мыши на заголовке строки WPF DataGrid изменяется выделение DataGrid
 
 |   |   |
 |---|---|
-|Подробные сведения|Щелкните правой кнопкой мыши выбранные <xref:System.Windows.Controls.DataGrid?displayProperty=name> заголовок строки при выбранные результаты в несколько строк <xref:System.Windows.Controls.DataGrid?displayProperty=name>изменение выделения только этой строки.|
-|Предложение|Эта проблема была устранена в платформе .NET Framework 4.6 и можно обращаться путем обновления для этой версии платформы .NET Framework.|
+|Подробные сведения|Если щелкнуть правой кнопкой мыши выделенный заголовок строки <xref:System.Windows.Controls.DataGrid?displayProperty=name> при наличии нескольких выделенных строк, выделение <xref:System.Windows.Controls.DataGrid?displayProperty=name> изменится таким образом, что будет выделена только эта строка.|
+|Предложение|Эта проблема была устранена в .NET Framework 4.6 и может быть решена путем обновления до этой версии платформы .NET Framework.|
 |Область|Пограничный случай|
 |Версия|4.5|
 |Тип|Среда выполнения|

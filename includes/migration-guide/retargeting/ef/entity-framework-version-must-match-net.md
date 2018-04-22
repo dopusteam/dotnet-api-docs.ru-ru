@@ -1,9 +1,9 @@
-### <a name="entity-framework-version-must-match-the-net-framework-version"></a>Версии Entity Framework должна соответствовать версии платформы .NET Framework
+### <a name="entity-framework-version-must-match-the-net-framework-version"></a>Версия Entity Framework должна соответствовать версии .NET Framework
 
 |   |   |
 |---|---|
-|Подробные сведения|Версии платформы entity framework должны совпадать с версией платформы .NET framework. Entity Framework 5 рекомендуется .NET 4.5. Существуют некоторые известные проблемы с EF 4.x в проекте .NET 4.5 вокруг <xref:System.ComponentModel.DataAnnotations>. В .NET 4.5 эти были перемещены в другой сборке, поэтому существуют проблемы, определение которого заметок для использования.|
-|Предложение|Обновление до платформы Entity Framework 5 для .NET Framework 4.5|
+|Подробные сведения|Версия Entity Framework должна соответствовать версии платформы .NET Framework. Для .NET 4.5 рекомендуется Entity Framework 5. Существуют некоторые известные проблемы с EF 4.x в проекте .NET 4.5, связанные с <xref:System.ComponentModel.DataAnnotations>. В .NET 4.5 они были перемещены в другую сборку, поэтому существуют проблемы с выбором заметок для использования.|
+|Предложение|Обновление до версии Entity Framework 5 для .NET Framework 4.5|
 |Область|Значительно|
 |Версия|4.5|
 |Тип|Изменение целевой платформы|

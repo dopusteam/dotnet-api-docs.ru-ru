@@ -1,9 +1,9 @@
-### <a name="appdomainsetupdynamicbase-is-no-longer-randomized-by-userandomizedstringhashalgorithm"></a>AppDomainSetup.DynamicBase больше не задается произвольно, UseRandomizedStringHashAlgorithm
+### <a name="appdomainsetupdynamicbase-is-no-longer-randomized-by-userandomizedstringhashalgorithm"></a>AppDomainSetup.DynamicBase больше не задается случайно с помощью UseRandomizedStringHashAlgorithm
 
 |   |   |
 |---|---|
-|Подробные сведения|До .NET Framework 4.6, значение <xref:System.AppDomainSetup.DynamicBase> может быть произвольно между доменами приложений или между процессами, если UseRandomizedStringHashAlgorithm был включен в файле конфигурации приложения. Начиная с .NET Framework 4.6 <xref:System.AppDomainSetup.DynamicBase> вернет значение стабильный между различными экземплярами работающего приложения, а также между различных доменов приложений. Динамические базовых классов по-прежнему будут различаться для разных приложений; Это изменение удаляет только случайный элемент именования для различных экземпляров одного приложения.|
-|Предложение|Имейте в виду, что разрешение <code>UseRandomizedStringHashAlgorithm</code> не приводит к <xref:System.AppDomainSetup.DynamicBase> произвольно. Требуется случайных базы, должна быть произведена в коде приложения, а не через этот интерфейс API.|
+|Подробные сведения|В версиях до .NET Framework 4.6 значение <xref:System.AppDomainSetup.DynamicBase> задавалось случайным образом между доменами приложений или между процессами, если в файле конфигурации приложения был включен UseRandomizedStringHashAlgorithm. Начиная с версии .NET Framework 4.6, <xref:System.AppDomainSetup.DynamicBase> будет возвращать постоянный результат между различными выполняющимися экземплярами приложения и между различными доменами приложений. Динамические основания при этом по-прежнему будут различаться для разных приложений. Это изменение исключает только случайный элемент именования для различных экземпляров одного приложения.|
+|Предложение|Обратите внимание, что включение <code>UseRandomizedStringHashAlgorithm</code> не приведет к случайной установке <xref:System.AppDomainSetup.DynamicBase>. Если требуется случайное основание, для его получения необходимо использовать код приложения, а не этот API.|
 |Область|Пограничный случай|
 |Версия|4.6|
 |Тип|Среда выполнения|

@@ -1,8 +1,8 @@
-### <a name="compiler-support-for-type-forwarding-when-multi-targeting-mscorlib"></a>Поддержка компилятором при пересылки типа mscorlib для различных версий
+### <a name="compiler-support-for-type-forwarding-when-multi-targeting-mscorlib"></a>Поддержка переадресации типов компилятором при настройке для различных версий mscorlib
 
 |   |   |
 |---|---|
-|Подробные сведения|Новая функция CodeDOM позволяет компилятору выполнять компиляцию для целевой версии mscorlib.dll вместо версии mscorlib.dll .NET Framework 4.5.|
+|Подробные сведения|Новая функция CodeDOM позволяет компилятору выполнять компиляцию для целевой версии mscorlib.dll вместо версии mscorlib.dll, соответствующей .NET Framework 4.5.|
 |Область|Пограничный случай|
 |Версия|4.5|
 |Тип|Среда выполнения|

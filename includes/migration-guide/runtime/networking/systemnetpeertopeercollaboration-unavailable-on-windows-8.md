@@ -1,4 +1,4 @@
-### <a name="systemnetpeertopeercollaboration-unavailable-on-windows-8"></a>System.Net.PeerToPeer.Collaboration недоступна в Windows 8
+### <a name="systemnetpeertopeercollaboration-unavailable-on-windows-8"></a>Пространство имен System.Net.PeerToPeer.Collaboration недоступно в Windows 8
 
 |   |   |
 |---|---|

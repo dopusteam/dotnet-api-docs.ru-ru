@@ -1,4 +1,4 @@
-### <a name="vbnet-no-longer-supports-partial-namespace-qualification-for-systemwindows-apis"></a>VB.NET больше не поддерживает квалификации частичные пространства имен System.Windows API-интерфейсы
+### <a name="vbnet-no-longer-supports-partial-namespace-qualification-for-systemwindows-apis"></a>VB.NET больше не поддерживает частичные квалификации пространства имен для API-интерфейсов System.Windows
 
 |   |   |
 |---|---|

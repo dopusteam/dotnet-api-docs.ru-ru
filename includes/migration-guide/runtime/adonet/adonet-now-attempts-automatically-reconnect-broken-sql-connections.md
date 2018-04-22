@@ -1,9 +1,9 @@
-### <a name="adonet-now-attempts-to-automatically-reconnect-broken-sql-connections"></a>Теперь пытается автоматически подключиться прерванных соединений SQL ADO.NET
+### <a name="adonet-now-attempts-to-automatically-reconnect-broken-sql-connections"></a>ADO.NET теперь пытается автоматически восстановить прерванное соединение SQL
 
 |   |   |
 |---|---|
-|Подробные сведения|Начиная с .NET Framework 4.5.1, .NET Framework будет пытаться автоматически переподключаться прерванных соединений SQL. Несмотря на то, что обычно станет приложений более надежным, существуют крайние случаи, в которых приложение должно быть известно, что соединение было потеряно, что может занять какое-либо действие после восстановления подключения.|
-|Предложение|Если эта функция нежелательно из-за проблем совместимости, его можно отключить, задав <xref:System.Data.SqlClient.SqlConnectionStringBuilder.ConnectRetryCount?displayProperty=name> свойстве строки соединения (или <xref:System.Data.SqlClient.SqlConnectionStringBuilder?displayProperty=name>) значение 0.|
+|Подробные сведения|Начиная с .NET Framework 4.5.1 .NET Framework будет пытаться автоматически восстанавливать прерванные соединения SQL. Хотя это повысит надежность приложений, существуют крайние случаи, в которых приложению должно быть известно, что соединение было потеряно, чтобы можно было выполнить определенное действие после восстановления подключения.|
+|Предложение|Если эта функция нежелательна из-за проблем совместимости, ее можно отключить, установив для свойства <xref:System.Data.SqlClient.SqlConnectionStringBuilder.ConnectRetryCount?displayProperty=name> строки соединения (или <xref:System.Data.SqlClient.SqlConnectionStringBuilder?displayProperty=name>) значение 0.|
 |Область|Пограничный случай|
 |Версия|4.5.1|
 |Тип|Среда выполнения|

@@ -1,9 +1,9 @@
-### <a name="xmlschemaexception-now-sets-line-positions-properly"></a>XmlSchemaException теперь задает позиции строки должным образом
+### <a name="xmlschemaexception-now-sets-line-positions-properly"></a>Свойство XmlSchemaException теперь правильно задает позиции строк
 
 |   |   |
 |---|---|
-|Подробные сведения|Если <xref:System.Xml.Linq.LoadOptions.SetLineInfo> значение передается в метод Load и возникновении ошибки проверки, <xref:System.Xml.Schema.XmlSchemaException.LineNumber> и <xref:System.Xml.Schema.XmlSchemaException.LinePosition> теперь содержат сведения о строке.|
-|Предложение|Код обработки исключений, который предполагается <xref:System.Xml.Schema.XmlSchemaException.LineNumber> и <xref:System.Xml.Schema.XmlSchemaException.LinePosition> не будет набора должны быть обновлены, поскольку эти свойства будет установлено должным образом при использовании SetLineInfo при загрузке XML.|
+|Подробные сведения|Если значение <xref:System.Xml.Linq.LoadOptions.SetLineInfo> передается методу Load и возникает ошибка проверки, свойства <xref:System.Xml.Schema.XmlSchemaException.LineNumber> и <xref:System.Xml.Schema.XmlSchemaException.LinePosition> теперь содержат сведения о строке.|
+|Предложение|Код обработки исключений, который предполагает, что свойства <xref:System.Xml.Schema.XmlSchemaException.LineNumber> и <xref:System.Xml.Schema.XmlSchemaException.LinePosition> не будут задаваться, необходимо обновить, поскольку эти свойства теперь задаются правильно при использовании SetLineInfo во время загрузки XML.|
 |Область|Пограничный случай|
 |Версия|4.5|
 |Тип|Среда выполнения|

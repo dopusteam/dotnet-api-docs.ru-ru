@@ -1,4 +1,4 @@
-### <a name="workflow-30-types-are-obsolete"></a>Типы рабочих процессов 3.0 устарели
+### <a name="workflow-30-types-are-obsolete"></a>Типы WorkFlow 3.0 устарели
 
 |   |   |
 |---|---|
