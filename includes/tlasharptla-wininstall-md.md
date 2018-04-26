@@ -1,1 +1,0 @@
-Установщик Microsoft Windows

@@ -1,1 +1,0 @@
-Компонент обработки изображений Microsoft Windows Presentation Foundation

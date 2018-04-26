@@ -1,1 +1,0 @@
-Спецификации OPC (Open Packaging Conventions)

@@ -1,1 +1,0 @@
-Microsoft Windows Server 2003 с пакетом обновления 1 (SP1)

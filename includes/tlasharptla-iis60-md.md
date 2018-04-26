@@ -1,1 +1,0 @@
-Службы Microsoft IIS 6.0
