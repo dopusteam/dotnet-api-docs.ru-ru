@@ -1,1030 +1,405 @@
-<Type Name="TreeWalker" FullName="System.Windows.Automation.TreeWalker">
-  <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="61873dfe9a01ccdb7f30eb829a35531cff02bff1" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
-    <Meta Name="ms.translationtype" Value="HT" />
-    <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-  </Metadata>
-  <TypeSignature Language="C#" Value="public sealed class TreeWalker" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit TreeWalker extends System.Object" />
-  <TypeSignature Language="DocId" Value="T:System.Windows.Automation.TreeWalker" />
-  <TypeSignature Language="VB.NET" Value="Public NotInheritable Class TreeWalker" />
-  <TypeSignature Language="C++ CLI" Value="public ref class TreeWalker sealed" />
-  <AssemblyInfo>
-    <AssemblyName>UIAutomationClient</AssemblyName>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-  </AssemblyInfo>
-  <Base>
-    <BaseTypeName>System.Object</BaseTypeName>
-  </Base>
-  <Interfaces />
-  <Docs>
-    <summary>
-      <span data-ttu-id="2257b-101">Предоставляет методы и свойства, используемые для перемещения по дереву UI Automation.</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="2257b-101">Provides methods and properties used to navigate the UI Automation tree.</span>
-      </span>
-    </summary>
-    <remarks>
-      <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-102">Клиенты автоматизации пользовательского интерфейса просматривать [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] элементами на рабочем столе в виде набора <xref:System.Windows.Automation.AutomationElement> объектов, расположенных в структуре дерева.</span><span class="sxs-lookup"><span data-stu-id="2257b-102">UI Automation clients view the [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] elements on the desktop as a set of <xref:System.Windows.Automation.AutomationElement> objects arranged in a tree structure.</span></span>  
-  
- <span data-ttu-id="2257b-103">С помощью <xref:System.Windows.Automation.TreeWalker> класса, можно перейти в клиентском приложении [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] дерево, выбрав представление дерева и переход от одного <xref:System.Windows.Automation.AutomationElement> в другую в указанном направлении с помощью <xref:System.Windows.Automation.TreeWalker.GetFirstChild%2A>, <xref:System.Windows.Automation.TreeWalker.GetLastChild%2A>, <xref:System.Windows.Automation.TreeWalker.GetPreviousSibling%2A>, <xref:System.Windows.Automation.TreeWalker.GetNextSibling%2A>, и <xref:System.Windows.Automation.TreeWalker.GetParent%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="2257b-103">Using the <xref:System.Windows.Automation.TreeWalker> class, a client application can navigate the [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] tree by selecting a view of the tree and stepping from one <xref:System.Windows.Automation.AutomationElement> to another in a specified direction using the <xref:System.Windows.Automation.TreeWalker.GetFirstChild%2A>, <xref:System.Windows.Automation.TreeWalker.GetLastChild%2A>, <xref:System.Windows.Automation.TreeWalker.GetPreviousSibling%2A>, <xref:System.Windows.Automation.TreeWalker.GetNextSibling%2A>, and <xref:System.Windows.Automation.TreeWalker.GetParent%2A> methods.</span></span>  
-  
- <span data-ttu-id="2257b-104">Навигация по [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] дерева с помощью <xref:System.Windows.Automation.TreeWalker> может привести к вызовов между процессами и не является столь же эффективна, как размещение элемента с помощью <xref:System.Windows.Automation.AutomationElement.FindAll%2A> или <xref:System.Windows.Automation.AutomationElement.FindFirst%2A> методы.</span><span class="sxs-lookup"><span data-stu-id="2257b-104">Navigating the [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] tree using <xref:System.Windows.Automation.TreeWalker> can result in cross-process calls and is not as efficient as locating an element using the <xref:System.Windows.Automation.AutomationElement.FindAll%2A> or <xref:System.Windows.Automation.AutomationElement.FindFirst%2A> methods.</span></span>  
-  
- <span data-ttu-id="2257b-105">Если клиентское приложение может попытаться найти элементы в свой собственный интерфейс пользователя, необходимо выполнять все [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] вызывает в отдельном потоке.</span><span class="sxs-lookup"><span data-stu-id="2257b-105">If your client application might try to find elements in its own user interface, you must make all [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] calls on a separate thread.</span></span>  
-  
- ]]></format>
-    </remarks>
-  </Docs>
-  <Members>
-    <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public TreeWalker (System.Windows.Automation.Condition condition);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Windows.Automation.Condition condition) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.#ctor(System.Windows.Automation.Condition)" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; TreeWalker(System::Windows::Automation::Condition ^ condition);" />
-      <MemberType>Constructor</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Parameters>
-        <Parameter Name="condition" Type="System.Windows.Automation.Condition" />
-      </Parameters>
-      <Docs>
-        <param name="condition">
-          <span data-ttu-id="2257b-106">Представление дерева элементов [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)], по которому может переходить объект <see cref="T:System.Windows.Automation.TreeWalker" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-106">The view of the [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] element tree that <see cref="T:System.Windows.Automation.TreeWalker" /> will navigate.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-107">Инициализирует новый экземпляр класса <see cref="T:System.Windows.Automation.TreeWalker" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-107">Initializes a new instance of the <see cref="T:System.Windows.Automation.TreeWalker" /> class.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]<span data-ttu-id="2257b-108"> элементы, которые не соответствуют `condition` пропущен при <xref:System.Windows.Automation.TreeWalker> используется для навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-108"> elements that do not match `condition` are skipped over when <xref:System.Windows.Automation.TreeWalker> is used to navigate the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-109">Если клиентское приложение может попытаться найти элементы в свой собственный интерфейс пользователя, необходимо выполнять все [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] вызывает в отдельном потоке.</span><span class="sxs-lookup"><span data-stu-id="2257b-109">If your client application might try to find elements in its own user interface, you must make all [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] calls on a separate thread.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="2257b-110">В следующем примере показано, как можно построить <xref:System.Windows.Automation.TreeWalker> , осуществляющий переход только между элементами включена.</span><span class="sxs-lookup"><span data-stu-id="2257b-110">The following example shows how you can construct a <xref:System.Windows.Automation.TreeWalker> that navigates only among enabled elements.</span></span>  
-  
- [!code-csharp[UIAClient_snip#174](~/samples/snippets/csharp/VS_Snippets_Wpf/UIAClient_snip/CSharp/ClientForm.cs#174)]
- [!code-vb[UIAClient_snip#174](~/samples/snippets/visualbasic/VS_Snippets_Wpf/UIAClient_snip/VisualBasic/ClientForm.vb#174)]  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="Condition">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.Condition Condition { get; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance class System.Windows.Automation.Condition Condition" />
-      <MemberSignature Language="DocId" Value="P:System.Windows.Automation.TreeWalker.Condition" />
-      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Condition As Condition" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Windows::Automation::Condition ^ Condition { System::Windows::Automation::Condition ^ get(); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.Condition</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="2257b-111">Возвращает объект, который определяет представление объекта <see cref="T:System.Windows.Automation.TreeWalker" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-111">Gets the object that defines the view for the <see cref="T:System.Windows.Automation.TreeWalker" /> object.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="2257b-112">Условие, определяющее представление.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-112">The condition that defines the view.</span>
-          </span>
-          <span data-ttu-id="2257b-113">Это значение, передаваемое в конструктор.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-113">This is the value that was passed to the constructor.</span>
-          </span>
-        </value>
-        <remarks>To be added.</remarks>
-        <altmember cref="M:System.Windows.Automation.TreeWalker.#ctor(System.Windows.Automation.Condition)" />
-      </Docs>
-    </Member>
-    <Member MemberName="ContentViewWalker">
-      <MemberSignature Language="C#" Value="public static readonly System.Windows.Automation.TreeWalker ContentViewWalker;" />
-      <MemberSignature Language="ILAsm" Value=".field public static initonly class System.Windows.Automation.TreeWalker ContentViewWalker" />
-      <MemberSignature Language="DocId" Value="F:System.Windows.Automation.TreeWalker.ContentViewWalker" />
-      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly ContentViewWalker As TreeWalker " />
-      <MemberSignature Language="C++ CLI" Value="public: static initonly System::Windows::Automation::TreeWalker ^ ContentViewWalker;" />
-      <MemberType>Field</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.TreeWalker</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="2257b-114">Представляет заранее определенный объект <see cref="T:System.Windows.Automation.TreeWalker" />, который содержит представление элементов дерева, обозначенных как элементы управления содержимым.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-114">Represents a predefined <see cref="T:System.Windows.Automation.TreeWalker" /> containing a view of elements in the tree that are marked as content controls.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-115">Если клиентское приложение может попытаться найти элементы в свой собственный интерфейс пользователя, необходимо выполнять все [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] вызывает в отдельном потоке.</span><span class="sxs-lookup"><span data-stu-id="2257b-115">If your client application might try to find elements in its own user interface, you must make all [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] calls on a separate thread.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="2257b-116">В следующем примере показан <xref:System.Windows.Automation.TreeWalker.ControlViewWalker> , используемого для создания дерева элементов в поддереве.</span><span class="sxs-lookup"><span data-stu-id="2257b-116">The following example shows <xref:System.Windows.Automation.TreeWalker.ControlViewWalker> being used to construct a tree view of elements in a subtree.</span></span> <span data-ttu-id="2257b-117">Использование <xref:System.Windows.Automation.TreeWalker.ContentViewWalker> идентичны.</span><span class="sxs-lookup"><span data-stu-id="2257b-117">The usage for <xref:System.Windows.Automation.TreeWalker.ContentViewWalker> is identical.</span></span>  
-  
- [!code-csharp[UIAClient_snip#171](~/samples/snippets/csharp/VS_Snippets_Wpf/UIAClient_snip/CSharp/ClientForm.cs#171)]
- [!code-vb[UIAClient_snip#171](~/samples/snippets/visualbasic/VS_Snippets_Wpf/UIAClient_snip/VisualBasic/ClientForm.vb#171)]  
-  
- ]]></format>
-        </remarks>
-        <altmember cref="F:System.Windows.Automation.AutomationElement.IsContentElementProperty" />
-        <altmember cref="F:System.Windows.Automation.AutomationElement.IsControlElementProperty" />
-      </Docs>
-    </Member>
-    <Member MemberName="ControlViewWalker">
-      <MemberSignature Language="C#" Value="public static readonly System.Windows.Automation.TreeWalker ControlViewWalker;" />
-      <MemberSignature Language="ILAsm" Value=".field public static initonly class System.Windows.Automation.TreeWalker ControlViewWalker" />
-      <MemberSignature Language="DocId" Value="F:System.Windows.Automation.TreeWalker.ControlViewWalker" />
-      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly ControlViewWalker As TreeWalker " />
-      <MemberSignature Language="C++ CLI" Value="public: static initonly System::Windows::Automation::TreeWalker ^ ControlViewWalker;" />
-      <MemberType>Field</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.TreeWalker</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="2257b-118">Представляет заранее определенный объект <see cref="T:System.Windows.Automation.TreeWalker" />, который содержит представление элементов дерева, обозначенных как элементы управления.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-118">Represents a predefined <see cref="T:System.Windows.Automation.TreeWalker" /> containing a view of elements in the tree that are marked as controls.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-119">Если клиентское приложение может попытаться найти элементы в свой собственный интерфейс пользователя, необходимо выполнять все [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] вызывает в отдельном потоке.</span><span class="sxs-lookup"><span data-stu-id="2257b-119">If your client application might try to find elements in its own user interface, you must make all [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] calls on a separate thread.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="2257b-120">В следующем примере показан <xref:System.Windows.Automation.TreeWalker.ControlViewWalker> , используемого для создания дерева элементов в поддереве.</span><span class="sxs-lookup"><span data-stu-id="2257b-120">The following example shows <xref:System.Windows.Automation.TreeWalker.ControlViewWalker> being used to construct a tree view of elements in a subtree.</span></span>  
-  
- [!code-csharp[UIAClient_snip#171](~/samples/snippets/csharp/VS_Snippets_Wpf/UIAClient_snip/CSharp/ClientForm.cs#171)]
- [!code-vb[UIAClient_snip#171](~/samples/snippets/visualbasic/VS_Snippets_Wpf/UIAClient_snip/VisualBasic/ClientForm.vb#171)]  
-  
- ]]></format>
-        </remarks>
-        <altmember cref="F:System.Windows.Automation.AutomationElement.IsControlElementProperty" />
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="GetFirstChild">
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="2257b-121">Извлекает первый дочерний элемент заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-121">Retrieves the first child element of the specified <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-122"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-122">An <xref:System.Windows.Automation.AutomationElement> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-123">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-123">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-124">Не гарантируется, что элемент, возвращается как первый дочерний элемент будет возвращен как первый дочерний элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-124">It is not guaranteed that an element returned as the first child element will be returned as the first child on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="GetFirstChild">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement GetFirstChild (System.Windows.Automation.AutomationElement element);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement GetFirstChild(class System.Windows.Automation.AutomationElement element) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement)" />
-      <MemberSignature Language="VB.NET" Value="Public Function GetFirstChild (element As AutomationElement) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ GetFirstChild(System::Windows::Automation::AutomationElement ^ element);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-125">Элемент, из которого необходимо извлечь первый дочерний элемент.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-125">The element from which to retrieve the first child.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-126">Извлекает первый дочерний элемент заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-126">Retrieves the first child element of the specified <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-127">Первый дочерний элемент или пустая ссылка (<see langword="Nothing" /> в [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]), если такой элемент отсутствует.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-127">The first child element, or a null reference (<see langword="Nothing" /> in [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]) if there is no such element.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-128"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-128">An <xref:System.Windows.Automation.AutomationElement> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-129">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-129">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-130">Не гарантируется, что элемент, возвращается как первый дочерний элемент будет возвращен как первый дочерний элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-130">It is not guaranteed that an element returned as the first child element will be returned as the first child on subsequent passes.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="2257b-131">В следующем примере показан <xref:System.Windows.Automation.TreeWalker.GetFirstChild%2A> , используемого для создания дерева элементов в поддереве.</span><span class="sxs-lookup"><span data-stu-id="2257b-131">The following example shows <xref:System.Windows.Automation.TreeWalker.GetFirstChild%2A> being used to construct a tree view of elements in a subtree.</span></span>  
-  
- [!code-csharp[UIAClient_snip#171](~/samples/snippets/csharp/VS_Snippets_Wpf/UIAClient_snip/CSharp/ClientForm.cs#171)]
- [!code-vb[UIAClient_snip#171](~/samples/snippets/visualbasic/VS_Snippets_Wpf/UIAClient_snip/VisualBasic/ClientForm.vb#171)]  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="GetFirstChild">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement GetFirstChild (System.Windows.Automation.AutomationElement element, System.Windows.Automation.CacheRequest request);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement GetFirstChild(class System.Windows.Automation.AutomationElement element, class System.Windows.Automation.CacheRequest request) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)" />
-      <MemberSignature Language="VB.NET" Value="Public Function GetFirstChild (element As AutomationElement, request As CacheRequest) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ GetFirstChild(System::Windows::Automation::AutomationElement ^ element, System::Windows::Automation::CacheRequest ^ request);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-        <Parameter Name="request" Type="System.Windows.Automation.CacheRequest" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-132">Элемент, из которого необходимо извлечь первый дочерний элемент.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-132">The element from which to retrieve the first child.</span>
-          </span>
-        </param>
-        <param name="request">
-          <span data-ttu-id="2257b-133">Объект запроса кэша, который указывает свойства и шаблоны возвращенного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> для кэширования.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-133">A cache request object specifying properties and patterns on the returned <see cref="T:System.Windows.Automation.AutomationElement" /> to cache.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-134">Извлекает первый дочерний элемент заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> и кэширует свойства и шаблоны.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-134">Retrieves the first child element of the specified <see cref="T:System.Windows.Automation.AutomationElement" /> and caches properties and patterns.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-135">Первый дочерний элемент или пустая ссылка (<see langword="Nothing" /> в [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]), если такой элемент отсутствует.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-135">The first child element, or a null reference (<see langword="Nothing" /> in [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]) if there is no such element.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-136"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-136">An <xref:System.Windows.Automation.AutomationElement> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-137">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-137">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-138">Не гарантируется, что элемент, возвращается как первый дочерний элемент будет возвращен как первый дочерний элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-138">It is not guaranteed that an element returned as the first child element will be returned as the first child on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="GetLastChild">
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="2257b-139">Извлекает последний дочерний элемент заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-139">Retrieves the last child element of the specified <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-140"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-140">An <xref:System.Windows.Automation.AutomationElement> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-141">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-141">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-142">Не гарантируется, что элемент, возвращается как последний дочерний элемент будет возвращен как последний дочерний элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-142">It is not guaranteed that an element returned as the last child element will be returned as the last child on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="GetLastChild">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement GetLastChild (System.Windows.Automation.AutomationElement element);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement GetLastChild(class System.Windows.Automation.AutomationElement element) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement)" />
-      <MemberSignature Language="VB.NET" Value="Public Function GetLastChild (element As AutomationElement) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ GetLastChild(System::Windows::Automation::AutomationElement ^ element);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-143">Элемент, из которого необходимо извлечь последний дочерний элемент.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-143">The element from which to retrieve the last child.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-144">Извлекает последний дочерний элемент заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-144">Retrieves the last child element of the specified <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-145">Последний дочерний элемент <see cref="T:System.Windows.Automation.AutomationElement" /> или пустая ссылка (<see langword="Nothing" /> в [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]), если такой элемент отсутствует.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-145">The <see cref="T:System.Windows.Automation.AutomationElement" /> that is the last child element, or a null reference (<see langword="Nothing" /> in [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]) if there is no such element.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-146"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-146">An <xref:System.Windows.Automation.AutomationElement> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-147">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-147">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-148">Не гарантируется, что элемент, возвращается как последний дочерний элемент будет возвращен как последний дочерний элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-148">It is not guaranteed that an element returned as the last child element will be returned as the last child on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="GetLastChild">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement GetLastChild (System.Windows.Automation.AutomationElement element, System.Windows.Automation.CacheRequest request);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement GetLastChild(class System.Windows.Automation.AutomationElement element, class System.Windows.Automation.CacheRequest request) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)" />
-      <MemberSignature Language="VB.NET" Value="Public Function GetLastChild (element As AutomationElement, request As CacheRequest) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ GetLastChild(System::Windows::Automation::AutomationElement ^ element, System::Windows::Automation::CacheRequest ^ request);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-        <Parameter Name="request" Type="System.Windows.Automation.CacheRequest" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-149">Элемент, из которого необходимо извлечь последний дочерний элемент.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-149">The element from which to retrieve the last child.</span>
-          </span>
-        </param>
-        <param name="request">
-          <span data-ttu-id="2257b-150">Объект запроса кэша, который указывает свойства и шаблоны возвращенного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> для кэширования.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-150">A cache request object specifying properties and patterns on the returned <see cref="T:System.Windows.Automation.AutomationElement" /> to cache.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-151">Извлекает последний дочерний элемент заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> и кэширует свойства и шаблоны.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-151">Retrieves the last child element of the specified <see cref="T:System.Windows.Automation.AutomationElement" /> and caches properties and patterns.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-152">Последний элемент или пустая ссылка (<see langword="Nothing" /> в [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]), если такой элемент отсутствует.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-152">The last element, or a null reference (<see langword="Nothing" /> in [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]) if there is no such element.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-153"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-153">An <xref:System.Windows.Automation.AutomationElement> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-154">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-154">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-155">Не гарантируется, что элемент, возвращается как последний дочерний элемент будет возвращен как последний дочерний элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-155">It is not guaranteed that an element returned as the last child element will be returned as the last child on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="GetNextSibling">
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="2257b-156">Извлекает следующий элемент того же уровня заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-156">Retrieves the next sibling element of the specified <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-157"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-157">An <xref:System.Windows.Automation.AutomationElement> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-158">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-158">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-159">Не гарантируется, что элемент, возвращается как следующий одноуровневый элемент будет возвращен как следующий одноуровневый элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-159">It is not guaranteed that an element returned as the next sibling element will be returned as the next sibling on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="GetNextSibling">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement GetNextSibling (System.Windows.Automation.AutomationElement element);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement GetNextSibling(class System.Windows.Automation.AutomationElement element) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement)" />
-      <MemberSignature Language="VB.NET" Value="Public Function GetNextSibling (element As AutomationElement) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ GetNextSibling(System::Windows::Automation::AutomationElement ^ element);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-160">Объект <see cref="T:System.Windows.Automation.AutomationElement" />, из которого извлекается следующий элемент того же уровня.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-160">The <see cref="T:System.Windows.Automation.AutomationElement" /> from which to retrieve the next sibling.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-161">Извлекает следующий элемент того же уровня заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-161">Retrieves the next sibling element of the specified <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-162">Следующий элемент того же уровня или пустая ссылка (<see langword="Nothing" /> в [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]), если такой элемент отсутствует.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-162">The next sibling element, or a null reference (<see langword="Nothing" /> in [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]) if there is no such element.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-163"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-163">An <xref:System.Windows.Automation.AutomationElement> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-164">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-164">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-165">Не гарантируется, что элемент, возвращается как следующий одноуровневый элемент будет возвращен как следующий одноуровневый элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-165">It is not guaranteed that an element returned as the next sibling element will be returned as the next sibling on subsequent passes.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="2257b-166">В следующем примере показан <xref:System.Windows.Automation.TreeWalker.GetNextSibling%2A> , используемого для создания дерева элементов в поддереве.</span><span class="sxs-lookup"><span data-stu-id="2257b-166">The following example shows <xref:System.Windows.Automation.TreeWalker.GetNextSibling%2A> being used to construct a tree view of elements in a subtree.</span></span>  
-  
- [!code-csharp[UIAClient_snip#171](~/samples/snippets/csharp/VS_Snippets_Wpf/UIAClient_snip/CSharp/ClientForm.cs#171)]
- [!code-vb[UIAClient_snip#171](~/samples/snippets/visualbasic/VS_Snippets_Wpf/UIAClient_snip/VisualBasic/ClientForm.vb#171)]  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="GetNextSibling">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement GetNextSibling (System.Windows.Automation.AutomationElement element, System.Windows.Automation.CacheRequest request);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement GetNextSibling(class System.Windows.Automation.AutomationElement element, class System.Windows.Automation.CacheRequest request) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)" />
-      <MemberSignature Language="VB.NET" Value="Public Function GetNextSibling (element As AutomationElement, request As CacheRequest) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ GetNextSibling(System::Windows::Automation::AutomationElement ^ element, System::Windows::Automation::CacheRequest ^ request);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-        <Parameter Name="request" Type="System.Windows.Automation.CacheRequest" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-167">Элемент, из которого извлекается следующий элемент того же уровня.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-167">The element from which to retrieve the next sibling.</span>
-          </span>
-        </param>
-        <param name="request">
-          <span data-ttu-id="2257b-168">Объект запроса кэша, который указывает свойства и шаблоны возвращенного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> для кэширования.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-168">A cache request object specifying properties and patterns on the returned <see cref="T:System.Windows.Automation.AutomationElement" /> to cache.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-169">Извлекает следующий элемент того же уровня заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> и кэширует свойства и шаблоны.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-169">Retrieves the next sibling element of the specified <see cref="T:System.Windows.Automation.AutomationElement" /> and caches properties and patterns.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-170">Следующий элемент того же уровня или пустая ссылка (<see langword="Nothing" /> в [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]), если такой элемент отсутствует.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-170">The next sibling element, or a null reference (<see langword="Nothing" /> in [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]) if there is no such element.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-171"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-171">An <xref:System.Windows.Automation.AutomationElement> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-172">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-172">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-173">Не гарантируется, что элемент, возвращается как следующий одноуровневый элемент будет возвращен как следующий одноуровневый элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-173">It is not guaranteed that an element returned as the next sibling element will be returned as the next sibling on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="GetParent">
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="2257b-174">Извлекает родительский элемент заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-174">Retrieves the parent element of the specified <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-175">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-175">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-176">Не гарантируется, что элемент, возвращается как родительский элемент будет возвращен как родительский элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-176">It is not guaranteed that an element returned as the parent element will be returned as the parent on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="GetParent">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement GetParent (System.Windows.Automation.AutomationElement element);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement GetParent(class System.Windows.Automation.AutomationElement element) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement)" />
-      <MemberSignature Language="VB.NET" Value="Public Function GetParent (element As AutomationElement) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ GetParent(System::Windows::Automation::AutomationElement ^ element);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-177">Элемент, для которого нужно возвратить родительский элемент.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-177">The element whose parent is to be returned.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-178">Извлекает родительский элемент заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-178">Retrieves the parent element of the specified <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-179">Родительский элемент или пустая ссылка (<see langword="Nothing" /> в [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]), если указанный элемент является корневым элементом дерева или если родительский элемент не отображается в текущем представлении.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-179">The parent element, or a null reference (<see langword="Nothing" /> in [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]) if the specified element is the root element in the tree, or if the parent element is not visible in the current view.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Examples  
- <span data-ttu-id="2257b-180">В следующем примере показан <xref:System.Windows.Automation.TreeWalker.GetParent%2A> , используемому для поиска элемента окна, содержащего указанный элемент.</span><span class="sxs-lookup"><span data-stu-id="2257b-180">The following example shows <xref:System.Windows.Automation.TreeWalker.GetParent%2A> being used to find the window element that contains a specified element.</span></span>  
-  
- [!code-csharp[UIAFocusTracker_snip#102](~/samples/snippets/csharp/VS_Snippets_Wpf/UIAFocusTracker_snip/CSharp/FocusTracker.cs#102)]
- [!code-vb[UIAFocusTracker_snip#102](~/samples/snippets/visualbasic/VS_Snippets_Wpf/UIAFocusTracker_snip/VisualBasic/FocusTracker.vb#102)]  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="GetParent">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement GetParent (System.Windows.Automation.AutomationElement element, System.Windows.Automation.CacheRequest request);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement GetParent(class System.Windows.Automation.AutomationElement element, class System.Windows.Automation.CacheRequest request) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)" />
-      <MemberSignature Language="VB.NET" Value="Public Function GetParent (element As AutomationElement, request As CacheRequest) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ GetParent(System::Windows::Automation::AutomationElement ^ element, System::Windows::Automation::CacheRequest ^ request);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-        <Parameter Name="request" Type="System.Windows.Automation.CacheRequest" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-181">Элемент, для которого нужно возвратить родительский элемент.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-181">The element whose parent is to be returned.</span>
-          </span>
-        </param>
-        <param name="request">
-          <span data-ttu-id="2257b-182">Объект запроса кэша, который указывает элементы возвращенного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> для кэширования.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-182">A cache request object specifying members on the returned <see cref="T:System.Windows.Automation.AutomationElement" /> to cache.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-183">Извлекает родительский элемент заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> и кэширует свойства и шаблоны.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-183">Retrieves the parent element of the specified <see cref="T:System.Windows.Automation.AutomationElement" /> and caches properties and patterns.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-184">Родительский элемент или пустая ссылка (<see langword="Nothing" /> в [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]), если указанный элемент является корневым элементом дерева или если родительский элемент не отображается в данном представлении.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-184">The parent element, or a null reference (<see langword="Nothing" /> in [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]) if the specified element is the root element in the tree, or the parent element is not visible in this view.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-185">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-185">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-186">Не гарантируется, что элемент, возвращается как родительский элемент будет возвращен как родительский элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-186">It is not guaranteed that an element returned as the parent element will be returned as the parent on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="GetPreviousSibling">
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="2257b-187">Извлекает предыдущий элемент того же уровня заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-187">Retrieves the previous sibling of the specified <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-188"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-188">An <xref:System.Windows.Automation.AutomationElement> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-189">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-189">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-190">Не гарантируется, что элемент, возвращается как предыдущий одноуровневый элемент будет возвращен как предыдущий дочерний элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-190">It is not guaranteed that an element returned as the previous sibling element will be returned as the previous sibling on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="GetPreviousSibling">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement GetPreviousSibling (System.Windows.Automation.AutomationElement element);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement GetPreviousSibling(class System.Windows.Automation.AutomationElement element) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement)" />
-      <MemberSignature Language="VB.NET" Value="Public Function GetPreviousSibling (element As AutomationElement) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ GetPreviousSibling(System::Windows::Automation::AutomationElement ^ element);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-191">Элемент, из которого извлекается предыдущий элемент того же уровня.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-191">The element from which to retrieve the previous sibling.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-192">Извлекает предыдущий элемент того же уровня заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-192">Retrieves the previous sibling of the specified <see cref="T:System.Windows.Automation.AutomationElement" />.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-193">Предыдущий элемент того же уровня или пустая ссылка (<see langword="Nothing" /> в [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]), если такой элемент отсутствует.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-193">The previous sibling element, or a null reference (<see langword="Nothing" /> in [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]) if there is no such element.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-194"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-194">An <xref:System.Windows.Automation.AutomationElement> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-195">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-195">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-196">Не гарантируется, что элемент, возвращается как предыдущий одноуровневый элемент будет возвращен как предыдущий дочерний элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-196">It is not guaranteed that an element returned as the previous sibling element will be returned as the previous sibling on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="GetPreviousSibling">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement GetPreviousSibling (System.Windows.Automation.AutomationElement element, System.Windows.Automation.CacheRequest request);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement GetPreviousSibling(class System.Windows.Automation.AutomationElement element, class System.Windows.Automation.CacheRequest request) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)" />
-      <MemberSignature Language="VB.NET" Value="Public Function GetPreviousSibling (element As AutomationElement, request As CacheRequest) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ GetPreviousSibling(System::Windows::Automation::AutomationElement ^ element, System::Windows::Automation::CacheRequest ^ request);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-        <Parameter Name="request" Type="System.Windows.Automation.CacheRequest" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-197">Элемент, из которого извлекается предыдущий элемент того же уровня.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-197">The element from which to retrieve the previous sibling.</span>
-          </span>
-        </param>
-        <param name="request">
-          <span data-ttu-id="2257b-198">Объект запроса кэша, который указывает свойства и шаблоны возвращенного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> для кэширования.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-198">A cache request object specifying properties and patterns on the returned <see cref="T:System.Windows.Automation.AutomationElement" /> to cache.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-199">Извлекает предыдущий элемент того же уровня заданного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> и кэширует свойства и шаблоны.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-199">Retrieves the previous sibling of the specified <see cref="T:System.Windows.Automation.AutomationElement" /> and caches properties and patterns.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-200">Предыдущий элемент того же уровня или пустая ссылка (<see langword="Nothing" /> в [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]), если такой элемент отсутствует.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-200">The previous sibling element, or a null reference (<see langword="Nothing" /> in [!INCLUDE[TLA#tla_visualbnet](~/includes/tlasharptla-visualbnet-md.md)]) if there is no such element.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-201"><xref:System.Windows.Automation.AutomationElement> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</span><span class="sxs-lookup"><span data-stu-id="2257b-201">An <xref:System.Windows.Automation.AutomationElement> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</span></span>  
-  
- <span data-ttu-id="2257b-202">Структура <xref:System.Windows.Automation.AutomationElement> дерева как видимый [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] элементов на изменение рабочего стола.</span><span class="sxs-lookup"><span data-stu-id="2257b-202">The structure of the <xref:System.Windows.Automation.AutomationElement> tree changes as the visible [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] elements on the desktop change.</span></span> <span data-ttu-id="2257b-203">Не гарантируется, что элемент, возвращается как предыдущий одноуровневый элемент будет возвращен как предыдущий дочерний элемент на последующих этапах.</span><span class="sxs-lookup"><span data-stu-id="2257b-203">It is not guaranteed that an element returned as the previous sibling element will be returned as the previous sibling on subsequent passes.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="Normalize">
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="2257b-204">Извлекает предок, ближайший к заданному элементу <see cref="T:System.Windows.Automation.AutomationElement" /> в представлении дерева, которое используется данным экземпляром <see cref="T:System.Windows.Automation.TreeWalker" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-204">Retrieves the ancestor element nearest to the specified <see cref="T:System.Windows.Automation.AutomationElement" /> in the tree view used by this instance of <see cref="T:System.Windows.Automation.TreeWalker" />.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-205">Элемент нормализуется с помощью перехода вверх по цепочке предков в дереве, пока элемент, удовлетворяющий условию представления для <xref:System.Windows.Automation.TreeWalker> достигается объекта.</span><span class="sxs-lookup"><span data-stu-id="2257b-205">The element is normalized by navigating up the ancestor chain in the tree until an element that satisfies the view condition for the <xref:System.Windows.Automation.TreeWalker> object is reached.</span></span> <span data-ttu-id="2257b-206">При достижении корневой элемент корневой элемент возвращается, даже если не удовлетворяет условию представления.</span><span class="sxs-lookup"><span data-stu-id="2257b-206">If the root element is reached, the root element is returned even if it does not satisfy the view condition.</span></span>  
-  
- <span data-ttu-id="2257b-207">Этот метод полезен для приложений, которые получать ссылки на [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] элементов путем проверки нажатия.</span><span class="sxs-lookup"><span data-stu-id="2257b-207">This method is useful for applications that obtain references to [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] elements by hit-testing.</span></span> <span data-ttu-id="2257b-208">Приложение может потребоваться работать только с определенными типами элементов, а также можно использовать <xref:System.Windows.Automation.TreeWalker.Normalize%2A> для убедитесь, что независимо от того, какой элемент извлекается изначально (например, если полоса прокрутки получает фокус ввода), только требуемого элемента (например, содержимого в конечном счете извлекаются элемент).</span><span class="sxs-lookup"><span data-stu-id="2257b-208">The application might want to work only with specific types of elements, and can use <xref:System.Windows.Automation.TreeWalker.Normalize%2A> to make sure that no matter what element is initially retrieved (for example, when a scroll bar gets the input focus), only the element of interest (such as a content element) is ultimately retrieved.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="Normalize">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement Normalize (System.Windows.Automation.AutomationElement element);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement Normalize(class System.Windows.Automation.AutomationElement element) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement)" />
-      <MemberSignature Language="VB.NET" Value="Public Function Normalize (element As AutomationElement) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ Normalize(System::Windows::Automation::AutomationElement ^ element);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-209">Элемент, с которого начинается нормализация.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-209">The element from which to start the normalization.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-210">Извлекает сам узел, если он соответствует свойству <see cref="P:System.Windows.Automation.TreeWalker.Condition" />, или ближайший родительский узел или узел предка, который соответствует свойству <see cref="P:System.Windows.Automation.TreeWalker.Condition" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-210">Retrieves the node itself, if it satisfies the <see cref="P:System.Windows.Automation.TreeWalker.Condition" />, or the nearest parent or ancestor node that satisfies the <see cref="P:System.Windows.Automation.TreeWalker.Condition" />.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-211">Ближайший элемент <see cref="T:System.Windows.Automation.AutomationElement" /> в текущем представлении.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-211">The nearest <see cref="T:System.Windows.Automation.AutomationElement" /> in the current view.</span>
-          </span>
-          <span data-ttu-id="2257b-212">Если при переходе вверх по цепочке предков достигается корневой элемент, возвращается сам корневой элемент.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-212">If the navigation up the ancestor chain reaches the root element, the root element is returned.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-213">Элемент нормализуется с помощью перехода вверх по цепочке предков в дереве, пока элемент, удовлетворяющий условию представления для <xref:System.Windows.Automation.TreeWalker> достигается объекта.</span><span class="sxs-lookup"><span data-stu-id="2257b-213">The element is normalized by navigating up the ancestor chain in the tree until an element that satisfies the view condition for the <xref:System.Windows.Automation.TreeWalker> object is reached.</span></span> <span data-ttu-id="2257b-214">При достижении корневой элемент корневой элемент возвращается, даже если не удовлетворяет условию представления.</span><span class="sxs-lookup"><span data-stu-id="2257b-214">If the root element is reached, the root element is returned even if it does not satisfy the view condition.</span></span>  
-  
- <span data-ttu-id="2257b-215">Этот метод полезен для приложений, которые получать ссылки на [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] элементов путем проверки нажатия.</span><span class="sxs-lookup"><span data-stu-id="2257b-215">This method is useful for applications that obtain references to [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] elements by hit-testing.</span></span> <span data-ttu-id="2257b-216">Приложение может потребоваться работать только с определенными типами элементов, а также можно использовать <xref:System.Windows.Automation.TreeWalker.Normalize%2A> для убедитесь, что независимо от того, какой элемент извлекается изначально (например, если полоса прокрутки получает фокус ввода), только требуемого элемента (например, содержимого в конечном счете извлекаются элемент).</span><span class="sxs-lookup"><span data-stu-id="2257b-216">The application might want to work only with specific types of elements, and can use <xref:System.Windows.Automation.TreeWalker.Normalize%2A> to make sure that no matter what element is initially retrieved (for example, when a scroll bar gets the input focus), only the element of interest (such as a content element) is ultimately retrieved.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="Normalize">
-      <MemberSignature Language="C#" Value="public System.Windows.Automation.AutomationElement Normalize (System.Windows.Automation.AutomationElement element, System.Windows.Automation.CacheRequest request);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Windows.Automation.AutomationElement Normalize(class System.Windows.Automation.AutomationElement element, class System.Windows.Automation.CacheRequest request) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)" />
-      <MemberSignature Language="VB.NET" Value="Public Function Normalize (element As AutomationElement, request As CacheRequest) As AutomationElement" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Windows::Automation::AutomationElement ^ Normalize(System::Windows::Automation::AutomationElement ^ element, System::Windows::Automation::CacheRequest ^ request);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.AutomationElement</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="element" Type="System.Windows.Automation.AutomationElement" />
-        <Parameter Name="request" Type="System.Windows.Automation.CacheRequest" />
-      </Parameters>
-      <Docs>
-        <param name="element">
-          <span data-ttu-id="2257b-217">Элемент, с которого начинается нормализация.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-217">The element from which to start the normalization.</span>
-          </span>
-        </param>
-        <param name="request">
-          <span data-ttu-id="2257b-218">Объект запроса кэша, который указывает свойства и шаблоны возвращенного элемента <see cref="T:System.Windows.Automation.AutomationElement" /> для кэширования.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-218">A cache request object specifying properties and patterns on the returned <see cref="T:System.Windows.Automation.AutomationElement" /> to cache.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="2257b-219">Извлекает сам узел, если он соответствует свойству <see cref="P:System.Windows.Automation.TreeWalker.Condition" />, или ближайший родительский или узел-предок, который соответствует свойству <see cref="P:System.Windows.Automation.TreeWalker.Condition" />, и кэширует свойства и шаблоны.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-219">Retrieves the node itself, if it satisfies the <see cref="P:System.Windows.Automation.TreeWalker.Condition" />, or the nearest parent or ancestor node that satisfies the <see cref="P:System.Windows.Automation.TreeWalker.Condition" />, and caches properties and patterns.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="2257b-220">Ближайший элемент <see cref="T:System.Windows.Automation.AutomationElement" /> в текущем представлении.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-220">The nearest <see cref="T:System.Windows.Automation.AutomationElement" /> in the current view.</span>
-          </span>
-          <span data-ttu-id="2257b-221">Если при переходе вверх по цепочке предков достигается корневой элемент, возвращается сам корневой элемент.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-221">If the navigation up the ancestor chain reaches the root element, the root element is returned.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-222">Элемент нормализуется с помощью перехода вверх по цепочке предков в дереве, пока элемент, удовлетворяющий условию представления для <xref:System.Windows.Automation.TreeWalker> достигается объекта.</span><span class="sxs-lookup"><span data-stu-id="2257b-222">The element is normalized by navigating up the ancestor chain in the tree until an element that satisfies the view condition for the <xref:System.Windows.Automation.TreeWalker> object is reached.</span></span> <span data-ttu-id="2257b-223">При достижении корневой элемент корневой элемент возвращается, даже если не удовлетворяет условию представления.</span><span class="sxs-lookup"><span data-stu-id="2257b-223">If the root element is reached, the root element is returned even if it does not satisfy the view condition.</span></span>  
-  
- <span data-ttu-id="2257b-224">Этот метод полезен для приложений, которые получать ссылки на [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] элементов путем проверки нажатия.</span><span class="sxs-lookup"><span data-stu-id="2257b-224">This method is useful for applications that obtain references to [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] elements by hit-testing.</span></span> <span data-ttu-id="2257b-225">Приложение может потребоваться работать только с определенными типами элементов, а также можно использовать <xref:System.Windows.Automation.TreeWalker.Normalize%2A> для убедитесь, что независимо от того, какой элемент извлекается изначально (например, если полоса прокрутки получает фокус ввода), только требуемого элемента (например, содержимого в конечном счете извлекаются элемент).</span><span class="sxs-lookup"><span data-stu-id="2257b-225">The application might want to work only with specific types of elements, and can use <xref:System.Windows.Automation.TreeWalker.Normalize%2A> to make sure that no matter what element is initially retrieved (for example, when a scroll bar gets the input focus), only the element of interest (such as a content element) is ultimately retrieved.</span></span>  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="RawViewWalker">
-      <MemberSignature Language="C#" Value="public static readonly System.Windows.Automation.TreeWalker RawViewWalker;" />
-      <MemberSignature Language="ILAsm" Value=".field public static initonly class System.Windows.Automation.TreeWalker RawViewWalker" />
-      <MemberSignature Language="DocId" Value="F:System.Windows.Automation.TreeWalker.RawViewWalker" />
-      <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly RawViewWalker As TreeWalker " />
-      <MemberSignature Language="C++ CLI" Value="public: static initonly System::Windows::Automation::TreeWalker ^ RawViewWalker;" />
-      <MemberType>Field</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>UIAutomationClient</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Windows.Automation.TreeWalker</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="2257b-226">Представляет заранее определенный объект <see cref="T:System.Windows.Automation.TreeWalker" />, который содержит представление всех элементов дерева.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="2257b-226">Represents a predefined <see cref="T:System.Windows.Automation.TreeWalker" /> containing a view of all the elements in the tree.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="2257b-227">Если клиентское приложение может попытаться найти элементы в свой собственный интерфейс пользователя, необходимо выполнять все [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] вызывает в отдельном потоке.</span><span class="sxs-lookup"><span data-stu-id="2257b-227">If your client application might try to find elements in its own user interface, you must make all [!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)] calls on a separate thread.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="2257b-228">В следующем примере показан <xref:System.Windows.Automation.TreeWalker.ControlViewWalker> , используемого для создания дерева элементов в поддереве.</span><span class="sxs-lookup"><span data-stu-id="2257b-228">The following example shows <xref:System.Windows.Automation.TreeWalker.ControlViewWalker> being used to construct a tree view of elements in a subtree.</span></span> <span data-ttu-id="2257b-229">Использование <xref:System.Windows.Automation.TreeWalker.RawViewWalker> идентичны.</span><span class="sxs-lookup"><span data-stu-id="2257b-229">The usage for <xref:System.Windows.Automation.TreeWalker.RawViewWalker> is identical.</span></span>  
-  
- [!code-csharp[UIAClient_snip#171](~/samples/snippets/csharp/VS_Snippets_Wpf/UIAClient_snip/CSharp/ClientForm.cs#171)]
- [!code-vb[UIAClient_snip#171](~/samples/snippets/visualbasic/VS_Snippets_Wpf/UIAClient_snip/VisualBasic/ClientForm.vb#171)]  
-  
- ]]></format>
-        </remarks>
-      </Docs>
-    </Member>
-  </Members>
-</Type>
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" original="TreeWalker.xml" source-language="en-US" target-language="ru-RU">
+    <header>
+      <tool tool-id="mdxliff" tool-name="mdxliff" tool-version="1.0-81070f4" tool-company="Microsoft" />
+      <xliffext:skl_file_name xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">1e344e59-9d8e-481b-978a-09f2e01be86c1f1967a0be38a07f0c7aa7eef3a4d6314adac314.skl</xliffext:skl_file_name>
+      <xliffext:version xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">1.2</xliffext:version>
+      <xliffext:ms.openlocfilehash xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">1f1967a0be38a07f0c7aa7eef3a4d6314adac314</xliffext:ms.openlocfilehash>
+      <xliffext:ms.sourcegitcommit xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">f9e3295b6cc303a611a73a84c4b27f9da792ad0d</xliffext:ms.sourcegitcommit>
+      <xliffext:ms.lasthandoff xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">04/26/2018</xliffext:ms.lasthandoff>
+      <xliffext:moniker_ids xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">netframework-4.5.1,netframework-4.5.2,netframework-4.5,netframework-4.6.1,netframework-4.6.2,netframework-4.6,netframework-4.7.1,netframework-4.7.2,netframework-4.7</xliffext:moniker_ids>
+    </header>
+    <body>
+      <group id="content" extype="content">
+        <trans-unit id="101" translate="yes" xml:space="preserve" uid="T:System.Windows.Automation.TreeWalker">
+          <source>Provides methods and properties used to navigate the UI Automation tree.</source>
+          <target state="translated">Предоставляет методы и свойства, используемые для перемещения по дереву UI Automation.</target>       </trans-unit>
+        <trans-unit id="102" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>UI Automation clients view the <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> elements on the desktop as a set of <ph id="ph2">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> objects arranged in a tree structure.</source>
+          <target state="translated">Клиенты автоматизации пользовательского интерфейса просматривать <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> элементами на рабочем столе в виде набора <ph id="ph2">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> объектов, расположенных в структуре дерева.</target>       </trans-unit>
+        <trans-unit id="103" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>Using the <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> class, a client application can navigate the <ph id="ph2">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> tree by selecting a view of the tree and stepping from one <ph id="ph3">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> to another in a specified direction using the <ph id="ph4">&lt;xref:System.Windows.Automation.TreeWalker.GetFirstChild%2A&gt;</ph>, <ph id="ph5">&lt;xref:System.Windows.Automation.TreeWalker.GetLastChild%2A&gt;</ph>, <ph id="ph6">&lt;xref:System.Windows.Automation.TreeWalker.GetPreviousSibling%2A&gt;</ph>, <ph id="ph7">&lt;xref:System.Windows.Automation.TreeWalker.GetNextSibling%2A&gt;</ph>, and <ph id="ph8">&lt;xref:System.Windows.Automation.TreeWalker.GetParent%2A&gt;</ph> methods.</source>
+          <target state="translated">С помощью <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> класса, можно перейти в клиентском приложении <ph id="ph2">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> дерево, выбрав представление дерева и переход от одного <ph id="ph3">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> в другую в указанном направлении с помощью <ph id="ph4">&lt;xref:System.Windows.Automation.TreeWalker.GetFirstChild%2A&gt;</ph>, <ph id="ph5">&lt;xref:System.Windows.Automation.TreeWalker.GetLastChild%2A&gt;</ph>, <ph id="ph6">&lt;xref:System.Windows.Automation.TreeWalker.GetPreviousSibling%2A&gt;</ph>, <ph id="ph7">&lt;xref:System.Windows.Automation.TreeWalker.GetNextSibling%2A&gt;</ph>, и <ph id="ph8">&lt;xref:System.Windows.Automation.TreeWalker.GetParent%2A&gt;</ph> методы.</target>       </trans-unit>
+        <trans-unit id="104" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>Navigating the <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> tree using <ph id="ph2">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> can result in cross-process calls and is not as efficient as locating an element using the <ph id="ph3">&lt;xref:System.Windows.Automation.AutomationElement.FindAll%2A&gt;</ph> or <ph id="ph4">&lt;xref:System.Windows.Automation.AutomationElement.FindFirst%2A&gt;</ph> methods.</source>
+          <target state="translated">Навигация по <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> дерева с помощью <ph id="ph2">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> может привести к вызовов между процессами и не является столь же эффективна, как размещение элемента с помощью <ph id="ph3">&lt;xref:System.Windows.Automation.AutomationElement.FindAll%2A&gt;</ph> или <ph id="ph4">&lt;xref:System.Windows.Automation.AutomationElement.FindFirst%2A&gt;</ph> методы.</target>       </trans-unit>
+        <trans-unit id="105" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>If your client application might try to find elements in its own user interface, you must make all <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> calls on a separate thread.</source>
+          <target state="translated">Если клиентское приложение может попытаться найти элементы в свой собственный интерфейс пользователя, необходимо выполнять все <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> вызывает в отдельном потоке.</target>       </trans-unit>
+        <trans-unit id="106" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.#ctor(System.Windows.Automation.Condition)">
+          <source>The view of the <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> element tree that <ph id="ph2">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph> will navigate.</source>
+          <target state="translated">Представление дерева элементов <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph>, по которому может переходить объект <ph id="ph2">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="107" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.#ctor(System.Windows.Automation.Condition)">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph> class.</source>
+          <target state="translated">Инициализирует новый экземпляр класса <ph id="ph1">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="108" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.#ctor(System.Windows.Automation.Condition)">
+          <source><ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> elements that do not match <ph id="ph2">`condition`</ph> are skipped over when <ph id="ph3">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> is used to navigate the element tree.</source>
+          <target state="translated"><ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> элементы, которые не соответствуют <ph id="ph2">`condition`</ph> пропущен при <ph id="ph3">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> используется для навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="109" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.#ctor(System.Windows.Automation.Condition)">
+          <source>If your client application might try to find elements in its own user interface, you must make all <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> calls on a separate thread.</source>
+          <target state="translated">Если клиентское приложение может попытаться найти элементы в свой собственный интерфейс пользователя, необходимо выполнять все <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> вызывает в отдельном потоке.</target>       </trans-unit>
+        <trans-unit id="110" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.#ctor(System.Windows.Automation.Condition)">
+          <source>The following example shows how you can construct a <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> that navigates only among enabled elements.</source>
+          <target state="translated">В следующем примере показано, как можно построить <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> , осуществляющий переход только между элементами включена.</target>       </trans-unit>
+        <trans-unit id="111" translate="yes" xml:space="preserve" uid="P:System.Windows.Automation.TreeWalker.Condition">
+          <source>Gets the object that defines the view for the <ph id="ph1">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph> object.</source>
+          <target state="translated">Возвращает объект, который определяет представление объекта <ph id="ph1">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="112" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Windows.Automation.TreeWalker.Condition">
+          <source>The condition that defines the view.</source>
+          <target state="translated">Условие, определяющее представление.</target>       </trans-unit>
+        <trans-unit id="113" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Windows.Automation.TreeWalker.Condition">
+          <source>This is the value that was passed to the constructor.</source>
+          <target state="translated">Это значение, передаваемое в конструктор.</target>       </trans-unit>
+        <trans-unit id="114" translate="yes" xml:space="preserve" uid="F:System.Windows.Automation.TreeWalker.ContentViewWalker">
+          <source>Represents a predefined <ph id="ph1">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph> containing a view of elements in the tree that are marked as content controls.</source>
+          <target state="translated">Представляет заранее определенный объект <ph id="ph1">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph>, который содержит представление элементов дерева, обозначенных как элементы управления содержимым.</target>       </trans-unit>
+        <trans-unit id="115" translate="yes" xml:space="preserve" extradata="MT" uid="F:System.Windows.Automation.TreeWalker.ContentViewWalker">
+          <source>If your client application might try to find elements in its own user interface, you must make all <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> calls on a separate thread.</source>
+          <target state="translated">Если клиентское приложение может попытаться найти элементы в свой собственный интерфейс пользователя, необходимо выполнять все <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> вызывает в отдельном потоке.</target>       </trans-unit>
+        <trans-unit id="116" translate="yes" xml:space="preserve" extradata="MT" uid="F:System.Windows.Automation.TreeWalker.ContentViewWalker">
+          <source>The following example shows <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.ControlViewWalker&gt;</ph> being used to construct a tree view of elements in a subtree.</source>
+          <target state="translated">В следующем примере показан <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.ControlViewWalker&gt;</ph> , используемого для создания дерева элементов в поддереве.</target>       </trans-unit>
+        <trans-unit id="117" translate="yes" xml:space="preserve" extradata="MT" uid="F:System.Windows.Automation.TreeWalker.ContentViewWalker">
+          <source>The usage for <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.ContentViewWalker&gt;</ph> is identical.</source>
+          <target state="translated">Использование <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.ContentViewWalker&gt;</ph> идентичны.</target>       </trans-unit>
+        <trans-unit id="118" translate="yes" xml:space="preserve" uid="F:System.Windows.Automation.TreeWalker.ControlViewWalker">
+          <source>Represents a predefined <ph id="ph1">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph> containing a view of elements in the tree that are marked as controls.</source>
+          <target state="translated">Представляет заранее определенный объект <ph id="ph1">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph>, который содержит представление элементов дерева, обозначенных как элементы управления.</target>       </trans-unit>
+        <trans-unit id="119" translate="yes" xml:space="preserve" extradata="MT" uid="F:System.Windows.Automation.TreeWalker.ControlViewWalker">
+          <source>If your client application might try to find elements in its own user interface, you must make all <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> calls on a separate thread.</source>
+          <target state="translated">Если клиентское приложение может попытаться найти элементы в свой собственный интерфейс пользователя, необходимо выполнять все <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> вызывает в отдельном потоке.</target>       </trans-unit>
+        <trans-unit id="120" translate="yes" xml:space="preserve" extradata="MT" uid="F:System.Windows.Automation.TreeWalker.ControlViewWalker">
+          <source>The following example shows <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.ControlViewWalker&gt;</ph> being used to construct a tree view of elements in a subtree.</source>
+          <target state="translated">В следующем примере показан <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.ControlViewWalker&gt;</ph> , используемого для создания дерева элементов в поддереве.</target>       </trans-unit>
+        <trans-unit id="121" translate="yes" xml:space="preserve" uid="T:System.Windows.Automation.TreeWalker">
+          <source>Retrieves the first child element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</source>
+          <target state="translated">Извлекает первый дочерний элемент заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="122" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="123" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="124" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>It is not guaranteed that an element returned as the first child element will be returned as the first child on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как первый дочерний элемент будет возвращен как первый дочерний элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="125" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement)">
+          <source>The element from which to retrieve the first child.</source>
+          <target state="translated">Элемент, из которого необходимо извлечь первый дочерний элемент.</target>       </trans-unit>
+        <trans-unit id="126" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement)">
+          <source>Retrieves the first child element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</source>
+          <target state="translated">Извлекает первый дочерний элемент заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="127" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement)">
+          <source>The first child element, or a null reference (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> in Visual Basic) if there is no such element.</source>
+          <target state="translated">Первый дочерний элемент или пустая ссылка (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> в Visual Basic), если такой элемент отсутствует.</target>       </trans-unit>
+        <trans-unit id="128" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement)">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="129" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement)">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="130" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement)">
+          <source>It is not guaranteed that an element returned as the first child element will be returned as the first child on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как первый дочерний элемент будет возвращен как первый дочерний элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="131" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement)">
+          <source>The following example shows <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.GetFirstChild%2A&gt;</ph> being used to construct a tree view of elements in a subtree.</source>
+          <target state="translated">В следующем примере показан <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.GetFirstChild%2A&gt;</ph> , используемого для создания дерева элементов в поддереве.</target>       </trans-unit>
+        <trans-unit id="132" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The element from which to retrieve the first child.</source>
+          <target state="translated">Элемент, из которого необходимо извлечь первый дочерний элемент.</target>       </trans-unit>
+        <trans-unit id="133" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>A cache request object specifying properties and patterns on the returned <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> to cache.</source>
+          <target state="translated">Объект запроса кэша, который указывает свойства и шаблоны возвращенного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> для кэширования.</target>       </trans-unit>
+        <trans-unit id="134" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>Retrieves the first child element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> and caches properties and patterns.</source>
+          <target state="translated">Извлекает первый дочерний элемент заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> и кэширует свойства и шаблоны.</target>       </trans-unit>
+        <trans-unit id="135" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The first child element, or a null reference (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> in Visual Basic) if there is no such element.</source>
+          <target state="translated">Первый дочерний элемент или пустая ссылка (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> в Visual Basic), если такой элемент отсутствует.</target>       </trans-unit>
+        <trans-unit id="136" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="137" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="138" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetFirstChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>It is not guaranteed that an element returned as the first child element will be returned as the first child on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как первый дочерний элемент будет возвращен как первый дочерний элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="139" translate="yes" xml:space="preserve" uid="T:System.Windows.Automation.TreeWalker">
+          <source>Retrieves the last child element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</source>
+          <target state="translated">Извлекает последний дочерний элемент заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="140" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="141" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="142" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>It is not guaranteed that an element returned as the last child element will be returned as the last child on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как последний дочерний элемент будет возвращен как последний дочерний элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="143" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement)">
+          <source>The element from which to retrieve the last child.</source>
+          <target state="translated">Элемент, из которого необходимо извлечь последний дочерний элемент.</target>       </trans-unit>
+        <trans-unit id="144" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement)">
+          <source>Retrieves the last child element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</source>
+          <target state="translated">Извлекает последний дочерний элемент заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="145" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement)">
+          <source>The <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> that is the last child element, or a null reference (<ph id="ph2">&lt;see langword="Nothing" /&gt;</ph> in Visual Basic) if there is no such element.</source>
+          <target state="translated">Последний дочерний элемент <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> или пустая ссылка (<ph id="ph2">&lt;see langword="Nothing" /&gt;</ph> в Visual Basic), если такой элемент отсутствует.</target>       </trans-unit>
+        <trans-unit id="146" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement)">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="147" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement)">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="148" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement)">
+          <source>It is not guaranteed that an element returned as the last child element will be returned as the last child on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как последний дочерний элемент будет возвращен как последний дочерний элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="149" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The element from which to retrieve the last child.</source>
+          <target state="translated">Элемент, из которого необходимо извлечь последний дочерний элемент.</target>       </trans-unit>
+        <trans-unit id="150" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>A cache request object specifying properties and patterns on the returned <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> to cache.</source>
+          <target state="translated">Объект запроса кэша, который указывает свойства и шаблоны возвращенного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> для кэширования.</target>       </trans-unit>
+        <trans-unit id="151" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>Retrieves the last child element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> and caches properties and patterns.</source>
+          <target state="translated">Извлекает последний дочерний элемент заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> и кэширует свойства и шаблоны.</target>       </trans-unit>
+        <trans-unit id="152" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The last element, or a null reference (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> in Visual Basic) if there is no such element.</source>
+          <target state="translated">Последний элемент или пустая ссылка (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> в Visual Basic), если такой элемент отсутствует.</target>       </trans-unit>
+        <trans-unit id="153" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional child elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные дочерние элементы, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="154" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="155" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetLastChild(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>It is not guaranteed that an element returned as the last child element will be returned as the last child on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как последний дочерний элемент будет возвращен как последний дочерний элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="156" translate="yes" xml:space="preserve" uid="T:System.Windows.Automation.TreeWalker">
+          <source>Retrieves the next sibling element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</source>
+          <target state="translated">Извлекает следующий элемент того же уровня заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="157" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="158" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="159" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>It is not guaranteed that an element returned as the next sibling element will be returned as the next sibling on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как следующий одноуровневый элемент будет возвращен как следующий одноуровневый элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="160" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement)">
+          <source>The <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> from which to retrieve the next sibling.</source>
+          <target state="translated">Объект <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>, из которого извлекается следующий элемент того же уровня.</target>       </trans-unit>
+        <trans-unit id="161" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement)">
+          <source>Retrieves the next sibling element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</source>
+          <target state="translated">Извлекает следующий элемент того же уровня заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="162" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement)">
+          <source>The next sibling element, or a null reference (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> in Visual Basic) if there is no such element.</source>
+          <target state="translated">Следующий элемент того же уровня или пустая ссылка (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> в Visual Basic), если такой элемент отсутствует.</target>       </trans-unit>
+        <trans-unit id="163" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement)">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="164" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement)">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="165" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement)">
+          <source>It is not guaranteed that an element returned as the next sibling element will be returned as the next sibling on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как следующий одноуровневый элемент будет возвращен как следующий одноуровневый элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="166" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement)">
+          <source>The following example shows <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.GetNextSibling%2A&gt;</ph> being used to construct a tree view of elements in a subtree.</source>
+          <target state="translated">В следующем примере показан <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.GetNextSibling%2A&gt;</ph> , используемого для создания дерева элементов в поддереве.</target>       </trans-unit>
+        <trans-unit id="167" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The element from which to retrieve the next sibling.</source>
+          <target state="translated">Элемент, из которого извлекается следующий элемент того же уровня.</target>       </trans-unit>
+        <trans-unit id="168" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>A cache request object specifying properties and patterns on the returned <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> to cache.</source>
+          <target state="translated">Объект запроса кэша, который указывает свойства и шаблоны возвращенного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> для кэширования.</target>       </trans-unit>
+        <trans-unit id="169" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>Retrieves the next sibling element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> and caches properties and patterns.</source>
+          <target state="translated">Извлекает следующий элемент того же уровня заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> и кэширует свойства и шаблоны.</target>       </trans-unit>
+        <trans-unit id="170" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The next sibling element, or a null reference (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> in Visual Basic) if there is no such element.</source>
+          <target state="translated">Следующий элемент того же уровня или пустая ссылка (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> в Visual Basic), если такой элемент отсутствует.</target>       </trans-unit>
+        <trans-unit id="171" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="172" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="173" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetNextSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>It is not guaranteed that an element returned as the next sibling element will be returned as the next sibling on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как следующий одноуровневый элемент будет возвращен как следующий одноуровневый элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="174" translate="yes" xml:space="preserve" uid="T:System.Windows.Automation.TreeWalker">
+          <source>Retrieves the parent element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</source>
+          <target state="translated">Извлекает родительский элемент заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="175" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="176" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>It is not guaranteed that an element returned as the parent element will be returned as the parent on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как родительский элемент будет возвращен как родительский элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="177" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement)">
+          <source>The element whose parent is to be returned.</source>
+          <target state="translated">Элемент, для которого нужно возвратить родительский элемент.</target>       </trans-unit>
+        <trans-unit id="178" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement)">
+          <source>Retrieves the parent element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</source>
+          <target state="translated">Извлекает родительский элемент заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="179" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement)">
+          <source>The parent element, or a null reference (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> in Visual Basic) if the specified element is the root element in the tree, or if the parent element is not visible in the current view.</source>
+          <target state="translated">Родительский элемент или пустая ссылка (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> в Visual Basic), если указанный элемент является корневым элементом дерева или родительский элемент не отображается в текущем представлении.</target>       </trans-unit>
+        <trans-unit id="180" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement)">
+          <source>The following example shows <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.GetParent%2A&gt;</ph> being used to find the window element that contains a specified element.</source>
+          <target state="translated">В следующем примере показан <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.GetParent%2A&gt;</ph> , используемому для поиска элемента окна, содержащего указанный элемент.</target>       </trans-unit>
+        <trans-unit id="181" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The element whose parent is to be returned.</source>
+          <target state="translated">Элемент, для которого нужно возвратить родительский элемент.</target>       </trans-unit>
+        <trans-unit id="182" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>A cache request object specifying members on the returned <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> to cache.</source>
+          <target state="translated">Объект запроса кэша, который указывает элементы возвращенного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> для кэширования.</target>       </trans-unit>
+        <trans-unit id="183" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>Retrieves the parent element of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> and caches properties and patterns.</source>
+          <target state="translated">Извлекает родительский элемент заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> и кэширует свойства и шаблоны.</target>       </trans-unit>
+        <trans-unit id="184" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The parent element, or a null reference (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> in Visual Basic) if the specified element is the root element in the tree, or the parent element is not visible in this view.</source>
+          <target state="translated">Родительский элемент или пустая ссылка (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> в Visual Basic), если указанный элемент является корневым элементом дерева или родительский элемент не отображается в этом представлении.</target>       </trans-unit>
+        <trans-unit id="185" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="186" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetParent(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>It is not guaranteed that an element returned as the parent element will be returned as the parent on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как родительский элемент будет возвращен как родительский элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="187" translate="yes" xml:space="preserve" uid="T:System.Windows.Automation.TreeWalker">
+          <source>Retrieves the previous sibling of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</source>
+          <target state="translated">Извлекает предыдущий элемент того же уровня заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="188" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="189" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="190" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>It is not guaranteed that an element returned as the previous sibling element will be returned as the previous sibling on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как предыдущий одноуровневый элемент будет возвращен как предыдущий дочерний элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="191" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement)">
+          <source>The element from which to retrieve the previous sibling.</source>
+          <target state="translated">Элемент, из которого извлекается предыдущий элемент того же уровня.</target>       </trans-unit>
+        <trans-unit id="192" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement)">
+          <source>Retrieves the previous sibling of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</source>
+          <target state="translated">Извлекает предыдущий элемент того же уровня заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="193" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement)">
+          <source>The previous sibling element, or a null reference (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> in Visual Basic) if there is no such element.</source>
+          <target state="translated">Предыдущий элемент того же уровня или пустая ссылка (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> в Visual Basic), если такой элемент отсутствует.</target>       </trans-unit>
+        <trans-unit id="194" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement)">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="195" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement)">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="196" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement)">
+          <source>It is not guaranteed that an element returned as the previous sibling element will be returned as the previous sibling on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как предыдущий одноуровневый элемент будет возвращен как предыдущий дочерний элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="197" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The element from which to retrieve the previous sibling.</source>
+          <target state="translated">Элемент, из которого извлекается предыдущий элемент того же уровня.</target>       </trans-unit>
+        <trans-unit id="198" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>A cache request object specifying properties and patterns on the returned <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> to cache.</source>
+          <target state="translated">Объект запроса кэша, который указывает свойства и шаблоны возвращенного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> для кэширования.</target>       </trans-unit>
+        <trans-unit id="199" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>Retrieves the previous sibling of the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> and caches properties and patterns.</source>
+          <target state="translated">Извлекает предыдущий элемент того же уровня заданного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> и кэширует свойства и шаблоны.</target>       </trans-unit>
+        <trans-unit id="200" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The previous sibling element, or a null reference (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> in Visual Basic) if there is no such element.</source>
+          <target state="translated">Предыдущий элемент того же уровня или пустая ссылка (<ph id="ph1">&lt;see langword="Nothing" /&gt;</ph> в Visual Basic), если такой элемент отсутствует.</target>       </trans-unit>
+        <trans-unit id="201" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>An <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> can have additional sibling elements that do not match the current view condition and thus are not returned when navigating the element tree.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> Может иметь дополнительные одноуровневых элементов, которые не соответствуют текущему условию представления и потому не возвращаются при навигации по дереву элементов.</target>       </trans-unit>
+        <trans-unit id="202" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The structure of the <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> tree changes as the visible <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> elements on the desktop change.</source>
+          <target state="translated">Структура <ph id="ph1">&lt;xref:System.Windows.Automation.AutomationElement&gt;</ph> дерева как видимый <ph id="ph2">[!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)]</ph> элементов на изменение рабочего стола.</target>       </trans-unit>
+        <trans-unit id="203" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.GetPreviousSibling(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>It is not guaranteed that an element returned as the previous sibling element will be returned as the previous sibling on subsequent passes.</source>
+          <target state="translated">Не гарантируется, что элемент, возвращается как предыдущий одноуровневый элемент будет возвращен как предыдущий дочерний элемент на последующих этапах.</target>       </trans-unit>
+        <trans-unit id="204" translate="yes" xml:space="preserve" uid="T:System.Windows.Automation.TreeWalker">
+          <source>Retrieves the ancestor element nearest to the specified <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> in the tree view used by this instance of <ph id="ph2">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph>.</source>
+          <target state="translated">Извлекает предок, ближайший к заданному элементу <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> в представлении дерева, которое используется данным экземпляром <ph id="ph2">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="205" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>The element is normalized by navigating up the ancestor chain in the tree until an element that satisfies the view condition for the <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> object is reached.</source>
+          <target state="translated">Элемент нормализуется с помощью перехода вверх по цепочке предков в дереве, пока элемент, удовлетворяющий условию представления для <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> достигается объекта.</target>       </trans-unit>
+        <trans-unit id="206" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>If the root element is reached, the root element is returned even if it does not satisfy the view condition.</source>
+          <target state="translated">При достижении корневой элемент корневой элемент возвращается, даже если не удовлетворяет условию представления.</target>       </trans-unit>
+        <trans-unit id="207" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>This method is useful for applications that obtain references to <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> elements by hit-testing.</source>
+          <target state="translated">Этот метод полезен для приложений, которые получать ссылки на <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> элементов путем проверки нажатия.</target>       </trans-unit>
+        <trans-unit id="208" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Windows.Automation.TreeWalker">
+          <source>The application might want to work only with specific types of elements, and can use <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.Normalize%2A&gt;</ph> to make sure that no matter what element is initially retrieved (for example, when a scroll bar gets the input focus), only the element of interest (such as a content element) is ultimately retrieved.</source>
+          <target state="translated">Приложение может потребоваться работать только с определенными типами элементов, а также можно использовать <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.Normalize%2A&gt;</ph> для убедитесь, что независимо от того, какой элемент извлекается изначально (например, если полоса прокрутки получает фокус ввода), только требуемого элемента (например, содержимого в конечном счете извлекаются элемент).</target>       </trans-unit>
+        <trans-unit id="209" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement)">
+          <source>The element from which to start the normalization.</source>
+          <target state="translated">Элемент, с которого начинается нормализация.</target>       </trans-unit>
+        <trans-unit id="210" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement)">
+          <source>Retrieves the node itself, if it satisfies the <ph id="ph1">&lt;see cref="P:System.Windows.Automation.TreeWalker.Condition" /&gt;</ph>, or the nearest parent or ancestor node that satisfies the <ph id="ph2">&lt;see cref="P:System.Windows.Automation.TreeWalker.Condition" /&gt;</ph>.</source>
+          <target state="translated">Извлекает сам узел, если он соответствует свойству <ph id="ph1">&lt;see cref="P:System.Windows.Automation.TreeWalker.Condition" /&gt;</ph>, или ближайший родительский узел или узел предка, который соответствует свойству <ph id="ph2">&lt;see cref="P:System.Windows.Automation.TreeWalker.Condition" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="211" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement)">
+          <source>The nearest <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> in the current view.</source>
+          <target state="translated">Ближайший элемент <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> в текущем представлении.</target>       </trans-unit>
+        <trans-unit id="212" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement)">
+          <source>If the navigation up the ancestor chain reaches the root element, the root element is returned.</source>
+          <target state="translated">Если при переходе вверх по цепочке предков достигается корневой элемент, возвращается сам корневой элемент.</target>       </trans-unit>
+        <trans-unit id="213" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement)">
+          <source>The element is normalized by navigating up the ancestor chain in the tree until an element that satisfies the view condition for the <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> object is reached.</source>
+          <target state="translated">Элемент нормализуется с помощью перехода вверх по цепочке предков в дереве, пока элемент, удовлетворяющий условию представления для <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> достигается объекта.</target>       </trans-unit>
+        <trans-unit id="214" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement)">
+          <source>If the root element is reached, the root element is returned even if it does not satisfy the view condition.</source>
+          <target state="translated">При достижении корневой элемент корневой элемент возвращается, даже если не удовлетворяет условию представления.</target>       </trans-unit>
+        <trans-unit id="215" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement)">
+          <source>This method is useful for applications that obtain references to <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> elements by hit-testing.</source>
+          <target state="translated">Этот метод полезен для приложений, которые получать ссылки на <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> элементов путем проверки нажатия.</target>       </trans-unit>
+        <trans-unit id="216" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement)">
+          <source>The application might want to work only with specific types of elements, and can use <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.Normalize%2A&gt;</ph> to make sure that no matter what element is initially retrieved (for example, when a scroll bar gets the input focus), only the element of interest (such as a content element) is ultimately retrieved.</source>
+          <target state="translated">Приложение может потребоваться работать только с определенными типами элементов, а также можно использовать <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.Normalize%2A&gt;</ph> для убедитесь, что независимо от того, какой элемент извлекается изначально (например, если полоса прокрутки получает фокус ввода), только требуемого элемента (например, содержимого в конечном счете извлекаются элемент).</target>       </trans-unit>
+        <trans-unit id="217" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The element from which to start the normalization.</source>
+          <target state="translated">Элемент, с которого начинается нормализация.</target>       </trans-unit>
+        <trans-unit id="218" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>A cache request object specifying properties and patterns on the returned <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> to cache.</source>
+          <target state="translated">Объект запроса кэша, который указывает свойства и шаблоны возвращенного элемента <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> для кэширования.</target>       </trans-unit>
+        <trans-unit id="219" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>Retrieves the node itself, if it satisfies the <ph id="ph1">&lt;see cref="P:System.Windows.Automation.TreeWalker.Condition" /&gt;</ph>, or the nearest parent or ancestor node that satisfies the <ph id="ph2">&lt;see cref="P:System.Windows.Automation.TreeWalker.Condition" /&gt;</ph>, and caches properties and patterns.</source>
+          <target state="translated">Извлекает сам узел, если он соответствует свойству <ph id="ph1">&lt;see cref="P:System.Windows.Automation.TreeWalker.Condition" /&gt;</ph>, или ближайший родительский или узел-предок, который соответствует свойству <ph id="ph2">&lt;see cref="P:System.Windows.Automation.TreeWalker.Condition" /&gt;</ph>, и кэширует свойства и шаблоны.</target>       </trans-unit>
+        <trans-unit id="220" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The nearest <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> in the current view.</source>
+          <target state="translated">Ближайший элемент <ph id="ph1">&lt;see cref="T:System.Windows.Automation.AutomationElement" /&gt;</ph> в текущем представлении.</target>       </trans-unit>
+        <trans-unit id="221" translate="yes" xml:space="preserve" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>If the navigation up the ancestor chain reaches the root element, the root element is returned.</source>
+          <target state="translated">Если при переходе вверх по цепочке предков достигается корневой элемент, возвращается сам корневой элемент.</target>       </trans-unit>
+        <trans-unit id="222" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The element is normalized by navigating up the ancestor chain in the tree until an element that satisfies the view condition for the <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> object is reached.</source>
+          <target state="translated">Элемент нормализуется с помощью перехода вверх по цепочке предков в дереве, пока элемент, удовлетворяющий условию представления для <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker&gt;</ph> достигается объекта.</target>       </trans-unit>
+        <trans-unit id="223" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>If the root element is reached, the root element is returned even if it does not satisfy the view condition.</source>
+          <target state="translated">При достижении корневой элемент корневой элемент возвращается, даже если не удовлетворяет условию представления.</target>       </trans-unit>
+        <trans-unit id="224" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>This method is useful for applications that obtain references to <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> elements by hit-testing.</source>
+          <target state="translated">Этот метод полезен для приложений, которые получать ссылки на <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> элементов путем проверки нажатия.</target>       </trans-unit>
+        <trans-unit id="225" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Windows.Automation.TreeWalker.Normalize(System.Windows.Automation.AutomationElement,System.Windows.Automation.CacheRequest)">
+          <source>The application might want to work only with specific types of elements, and can use <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.Normalize%2A&gt;</ph> to make sure that no matter what element is initially retrieved (for example, when a scroll bar gets the input focus), only the element of interest (such as a content element) is ultimately retrieved.</source>
+          <target state="translated">Приложение может потребоваться работать только с определенными типами элементов, а также можно использовать <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.Normalize%2A&gt;</ph> для убедитесь, что независимо от того, какой элемент извлекается изначально (например, если полоса прокрутки получает фокус ввода), только требуемого элемента (например, содержимого в конечном счете извлекаются элемент).</target>       </trans-unit>
+        <trans-unit id="226" translate="yes" xml:space="preserve" uid="F:System.Windows.Automation.TreeWalker.RawViewWalker">
+          <source>Represents a predefined <ph id="ph1">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph> containing a view of all the elements in the tree.</source>
+          <target state="translated">Представляет заранее определенный объект <ph id="ph1">&lt;see cref="T:System.Windows.Automation.TreeWalker" /&gt;</ph>, который содержит представление всех элементов дерева.</target>       </trans-unit>
+        <trans-unit id="227" translate="yes" xml:space="preserve" extradata="MT" uid="F:System.Windows.Automation.TreeWalker.RawViewWalker">
+          <source>If your client application might try to find elements in its own user interface, you must make all <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> calls on a separate thread.</source>
+          <target state="translated">Если клиентское приложение может попытаться найти элементы в свой собственный интерфейс пользователя, необходимо выполнять все <ph id="ph1">[!INCLUDE[TLA2#tla_uiautomation](~/includes/tla2sharptla-uiautomation-md.md)]</ph> вызывает в отдельном потоке.</target>       </trans-unit>
+        <trans-unit id="228" translate="yes" xml:space="preserve" extradata="MT" uid="F:System.Windows.Automation.TreeWalker.RawViewWalker">
+          <source>The following example shows <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.ControlViewWalker&gt;</ph> being used to construct a tree view of elements in a subtree.</source>
+          <target state="translated">В следующем примере показан <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.ControlViewWalker&gt;</ph> , используемого для создания дерева элементов в поддереве.</target>       </trans-unit>
+        <trans-unit id="229" translate="yes" xml:space="preserve" extradata="MT" uid="F:System.Windows.Automation.TreeWalker.RawViewWalker">
+          <source>The usage for <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.RawViewWalker&gt;</ph> is identical.</source>
+          <target state="translated">Использование <ph id="ph1">&lt;xref:System.Windows.Automation.TreeWalker.RawViewWalker&gt;</ph> идентичны.</target>       </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
