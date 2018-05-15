@@ -1,1117 +1,522 @@
-<Type Name="StringInfo" FullName="System.Globalization.StringInfo">
-  <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="8b5036f65cb27e101515e7c29074c5f48fc631dd" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
-    <Meta Name="ms.translationtype" Value="HT" />
-    <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-  </Metadata>
-  <TypeSignature Language="C#" Value="public class StringInfo" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit StringInfo extends System.Object" />
-  <TypeSignature Language="DocId" Value="T:System.Globalization.StringInfo" />
-  <TypeSignature Language="VB.NET" Value="Public Class StringInfo" />
-  <TypeSignature Language="C++ CLI" Value="public ref class StringInfo" />
-  <AssemblyInfo>
-    <AssemblyName>System.Globalization</AssemblyName>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-    <AssemblyVersion>4.0.10.0</AssemblyVersion>
-  </AssemblyInfo>
-  <AssemblyInfo>
-    <AssemblyName>mscorlib</AssemblyName>
-    <AssemblyVersion>2.0.5.0</AssemblyVersion>
-    <AssemblyVersion>4.0.0.0</AssemblyVersion>
-  </AssemblyInfo>
-  <AssemblyInfo>
-    <AssemblyName>netstandard</AssemblyName>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-  </AssemblyInfo>
-  <AssemblyInfo>
-    <AssemblyName>System.Runtime</AssemblyName>
-    <AssemblyVersion>4.2.0.0</AssemblyVersion>
-    <AssemblyVersion>4.2.1.0</AssemblyVersion>
-  </AssemblyInfo>
-  <Base>
-    <BaseTypeName>System.Object</BaseTypeName>
-  </Base>
-  <Interfaces />
-  <Attributes>
-    <Attribute>
-      <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
-    </Attribute>
-  </Attributes>
-  <Docs>
-    <summary>
-      <span data-ttu-id="e9f0f-101">Предоставляет функциональные возможности для разбиения строки на текстовые элементы и их последующего перебора.</span>
-      <span class="sxs-lookup">
-        <span data-stu-id="e9f0f-101">Provides functionality to split a string into text elements and to iterate through those text elements.</span>
-      </span>
-    </summary>
-    <remarks>
-      <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-102">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-102">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="e9f0f-103">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-103">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="e9f0f-104">[Стандарт Юникод](http://go.microsoft.com/fwlink/?linkid=37123) определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-104">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="e9f0f-105">В стандарте Юникода определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-105">The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="e9f0f-106">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-106">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="e9f0f-107"><xref:System.Globalization.StringInfo> Позволяет работать со строкой в качестве ряд текстовые элементы, а не отдельных <xref:System.Char> объектов.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-107">The <xref:System.Globalization.StringInfo> class enables you to work with a string as a series of textual elements rather than individual <xref:System.Char> objects.</span></span>  
-  
- <span data-ttu-id="e9f0f-108">Для создания экземпляра <xref:System.Globalization.StringInfo> , представляющий указанную строку, можно выполнить одно из следующих действий:</span><span class="sxs-lookup"><span data-stu-id="e9f0f-108">To instantiate a <xref:System.Globalization.StringInfo> object that represents a specified string, you can do either of the following:</span></span>  
-  
--   <span data-ttu-id="e9f0f-109">Вызовите <xref:System.Globalization.StringInfo.%23ctor%28System.String%29> конструктор и передайте ему строку, <xref:System.Globalization.StringInfo> объектов — для представления в качестве аргумента.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-109">Call the <xref:System.Globalization.StringInfo.%23ctor%28System.String%29> constructor and pass it the string that the <xref:System.Globalization.StringInfo> object is to represent as an argument.</span></span>  
-  
--   <span data-ttu-id="e9f0f-110">Вызов по умолчанию <xref:System.Globalization.StringInfo.%23ctor> конструктор и назначить строку <xref:System.Globalization.StringInfo> должен представлять <xref:System.Globalization.StringInfo.String%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-110">Call the default <xref:System.Globalization.StringInfo.%23ctor> constructor, and assign the string that the <xref:System.Globalization.StringInfo> object is to represent to the <xref:System.Globalization.StringInfo.String%2A> property.</span></span>  
-  
- <span data-ttu-id="e9f0f-111">Можно работать с отдельными текстовые элементы строки двумя способами:</span><span class="sxs-lookup"><span data-stu-id="e9f0f-111">You can work with the individual text elements in a string in two ways:</span></span>  
-  
--   <span data-ttu-id="e9f0f-112">При перечислении каждый текстовый элемент.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-112">By enumerating each text element.</span></span> <span data-ttu-id="e9f0f-113">Чтобы сделать это, следует вызвать <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> метод и несколько раз вызвать <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> метод в возвращенном <xref:System.Globalization.TextElementEnumerator> объекта, пока метод возвращает `false`.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-113">To do this, you call the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> method, and then repeatedly call the <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> method on the returned <xref:System.Globalization.TextElementEnumerator> object until the method returns `false`.</span></span>  
-  
--   <span data-ttu-id="e9f0f-114">Путем вызова <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> метод, чтобы получить массив, содержащий начальный индекс каждого элемента текста.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-114">By calling the <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> method to retrieve an array that contains the starting index of each text element.</span></span> <span data-ttu-id="e9f0f-115">После этого можно получать отдельные текстовые элементы, передав эти индексы для <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-115">You can then retrieve individual text elements by passing these indexes to the <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> method.</span></span>  
-  
- <span data-ttu-id="e9f0f-116">В следующем примере оба способа работы с элементами текста в строке.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-116">The following example illustrates both ways of working with the text elements in a string.</span></span> <span data-ttu-id="e9f0f-117">Создает две строки:</span><span class="sxs-lookup"><span data-stu-id="e9f0f-117">It creates two strings:</span></span>  
-  
--   <span data-ttu-id="e9f0f-118">`strCombining`, которое представляет собой строку символов арабского языка, включает три элемента текста с несколькими <xref:System.Char> объектов.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-118">`strCombining`, which is a string of Arabic characters that includes three text elements with multiple <xref:System.Char> objects.</span></span> <span data-ttu-id="e9f0f-119">Первым текстовым элементом является базового символа ARABIC АЛИФ буквы (U +-627) следуют ARABIC ГАМЗА ниже (U +-655) и арабского языка КАЗРА (U + 0650).</span><span class="sxs-lookup"><span data-stu-id="e9f0f-119">The first text element is the base character ARABIC LETTER ALEF (U+-627) followed by ARABIC HAMZA BELOW (U+-655) and ARABIC KASRA (U+0650).</span></span> <span data-ttu-id="e9f0f-120">Второй элемент текста — АРАБСКИЙ HEH буквы (U + 0647) следуют FATHA АРАБСКИЙ (U +-64E).</span><span class="sxs-lookup"><span data-stu-id="e9f0f-120">The second text element is ARABIC LETTER HEH (U+0647) followed by ARABIC FATHA (U+-64E).</span></span> <span data-ttu-id="e9f0f-121">Третий элемент текста является ARABIC БА LETTTER (U + 0628) следуют DAMMATAN АРАБСКИЙ (U + 064C).</span><span class="sxs-lookup"><span data-stu-id="e9f0f-121">The third text element is ARABIC LETTTER BEH (U+0628) followed by ARABIC DAMMATAN (U+064C).</span></span>  
-  
--   <span data-ttu-id="e9f0f-122">`strSurrogates`, который является строкой, которая включает в себя три пары символов-заместителей: ГРЕЧЕСКОЙ ACROPHONIC пять ТАЛАНТЫ (U + 10148) из дополнительных многоязычное, U + 20026 из дополнительных идеографический плоскости, а U + F1001 из частной пользовательской области.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-122">`strSurrogates`, which is a string that includes three surrogate pairs: GREEK ACROPHONIC FIVE TALENTS (U+10148) from the Supplementary Multilingual Plane, U+20026 from the Supplementary Ideographic Plane, and U+F1001 from the private user area.</span></span> <span data-ttu-id="e9f0f-123">Кодировка UTF-16 каждый символ является суррогатную пару, состоящую из старшим символом-заместителем следуют младшим символом-заместителем.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-123">The UTF-16 encoding of each character is a surrogate pair that consists of a high surrogate followed by a low surrogate.</span></span>  
-  
- <span data-ttu-id="e9f0f-124">Каждая строка анализируется один раз с <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> метода и затем по <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-124">Each string is parsed once by the <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> method and then by the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> method.</span></span> <span data-ttu-id="e9f0f-125">Оба метода правильно анализируют текстовые элементы в двух строк и отображает результаты анализа.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-125">Both methods correctly parse the text elements in the two strings and display the results of the parsing operation.</span></span>  
-  
- [!code-csharp[System.Globalization.StringInfo.Class#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.globalization.stringinfo.class/cs/indexing1.cs#1)]
- [!code-vb[System.Globalization.StringInfo.Class#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.globalization.stringinfo.class/vb/indexing1.vb#1)]  
-  
-   
-  
-## Examples  
- <span data-ttu-id="e9f0f-126">В этом примере показано, как использовать <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> и <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> методы <xref:System.Globalization.StringInfo> класса для управления Строка, содержащая символ-заместитель и комбинированные символы.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-126">This example shows how to use the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> and <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> methods of the <xref:System.Globalization.StringInfo> class to manipulate a string that contains surrogate and combining characters.</span></span>  
-  
- [!code-cpp[stringinfo#1](~/samples/snippets/cpp/VS_Snippets_CLR/StringInfo/cpp/StringInfo.cpp#1)]
- [!code-csharp[stringinfo#1](~/samples/snippets/csharp/VS_Snippets_CLR/StringInfo/CS/StringInfo.cs#1)]
- [!code-vb[stringinfo#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StringInfo/vb/stringinfo.vb#1)]  
-  
- ]]></format>
-    </remarks>
-    <block subset="none" type="usage">
-      <para>
-        <span data-ttu-id="e9f0f-127">На внутреннем уровне методы <see cref="T:System.Globalization.StringInfo" /> класса вызывать методы <see cref="T:System.Globalization.CharUnicodeInfo" /> класс, чтобы определить категории символов.</span>
-        <span class="sxs-lookup">
-          <span data-stu-id="e9f0f-127">Internally, the methods of the <see cref="T:System.Globalization.StringInfo" /> class call the methods of the <see cref="T:System.Globalization.CharUnicodeInfo" /> class to determine character categories.</span>
-        </span>
-        <span data-ttu-id="e9f0f-128">Начиная с [!INCLUDE[net_v462](~/includes/net-v462-md.md)], на основе классификации символов [Юникод, версия 8.0.0](http://unicode.org/versions/Unicode8.0.0).</span>
-        <span class="sxs-lookup">
-          <span data-stu-id="e9f0f-128">Starting with the [!INCLUDE[net_v462](~/includes/net-v462-md.md)], character classification is based on [The Unicode Standard, Version 8.0.0](http://unicode.org/versions/Unicode8.0.0).</span>
-        </span>
-        <span data-ttu-id="e9f0f-129">Для [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)] через [!INCLUDE[net_v461](~/includes/net-v461-md.md)], на основе [Юникод, версия 6.3.0](http://www.unicode.org/versions/Unicode6.3.0/).</span>
-        <span class="sxs-lookup">
-          <span data-stu-id="e9f0f-129">For the [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)] through the [!INCLUDE[net_v461](~/includes/net-v461-md.md)], it is based on [The Unicode Standard, Version 6.3.0](http://www.unicode.org/versions/Unicode6.3.0/).</span>
-        </span>
-      </para>
-    </block>
-  </Docs>
-  <Members>
-    <MemberGroup MemberName=".ctor">
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="e9f0f-130">Инициализирует новый экземпляр класса <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-130">Initializes a new instance of the <see cref="T:System.Globalization.StringInfo" /> class.</span>
-          </span>
-        </summary>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public StringInfo ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.#ctor" />
-      <MemberSignature Language="VB.NET" Value="Public Sub New ()" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; StringInfo();" />
-      <MemberType>Constructor</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Parameters />
-      <Docs>
-        <summary>
-          <span data-ttu-id="e9f0f-131">Инициализирует новый экземпляр класса <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-131">Initializes a new instance of the <see cref="T:System.Globalization.StringInfo" /> class.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-132">Значение нового <xref:System.Globalization.StringInfo> инициализируется с пустой строкой (»»).</span><span class="sxs-lookup"><span data-stu-id="e9f0f-132">The value of the new <xref:System.Globalization.StringInfo> object is initialized to the empty string ("").</span></span> <span data-ttu-id="e9f0f-133">Можно назначить другую строку к нему с помощью <xref:System.Globalization.StringInfo.String%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-133">You can assign another string to it by using the <xref:System.Globalization.StringInfo.String%2A> property.</span></span>  <span data-ttu-id="e9f0f-134">Можно также создать экземпляр <xref:System.Globalization.StringInfo> , представляющий указанной строки в рамках одного шага, вызвав <xref:System.Globalization.StringInfo.%23ctor%28System.String%29> конструктор.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-134">You can also instantiate a <xref:System.Globalization.StringInfo> object that represents a specified string in a single step by calling the <xref:System.Globalization.StringInfo.%23ctor%28System.String%29> constructor.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <altmember cref="F:System.String.Empty" />
-      </Docs>
-    </Member>
-    <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public StringInfo (string value);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string value) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.#ctor(System.String)" />
-      <MemberSignature Language="VB.NET" Value="Public Sub New (value As String)" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; StringInfo(System::String ^ value);" />
-      <MemberType>Constructor</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Parameters>
-        <Parameter Name="value" Type="System.String" />
-      </Parameters>
-      <Docs>
-        <param name="value">
-          <span data-ttu-id="e9f0f-135">Строка для инициализации этого объекта <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-135">A string to initialize this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="e9f0f-136">Инициализирует новый экземпляр класса <see cref="T:System.Globalization.StringInfo" /> с в указанную строку.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-136">Initializes a new instance of the <see cref="T:System.Globalization.StringInfo" /> class to a specified string.</span>
-          </span>
-        </summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-137">Этот конструктор присваивает значение аргумента в объект <xref:System.Globalization.StringInfo.String%2A> свойство.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-137">This constructor assigns the value argument to the object's <xref:System.Globalization.StringInfo.String%2A> property.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="e9f0f-138">Свойство <paramref name="value" /> имеет значение <see langword="null" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-138">
-              <paramref name="value" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-    <Member MemberName="Equals">
-      <MemberSignature Language="C#" Value="public override bool Equals (object value);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance bool Equals(object value) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.Equals(System.Object)" />
-      <MemberSignature Language="VB.NET" Value="Public Overrides Function Equals (value As Object) As Boolean" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; override bool Equals(System::Object ^ value);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Attributes>
-        <Attribute>
-          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
-        </Attribute>
-      </Attributes>
-      <ReturnValue>
-        <ReturnType>System.Boolean</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="value" Type="System.Object" />
-      </Parameters>
-      <Docs>
-        <param name="value">
-          <span data-ttu-id="e9f0f-139">Объект.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-139">An object.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="e9f0f-140">Указывает, равен ли текущий объект <see cref="T:System.Globalization.StringInfo" /> указанному объекту.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-140">Indicates whether the current <see cref="T:System.Globalization.StringInfo" /> object is equal to a specified object.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="e9f0f-141">
-            <see langword="true" />, если параметр <paramref name="value" /> является объектом <see cref="T:System.Globalization.StringInfo" /> и его свойство <see cref="P:System.Globalization.StringInfo.String" /> равняется свойству <see cref="P:System.Globalization.StringInfo.String" /> этого объекта <see cref="T:System.Globalization.StringInfo" />; в противном случае — <see langword="false" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-141">
-              <see langword="true" /> if the <paramref name="value" /> parameter is a <see cref="T:System.Globalization.StringInfo" /> object and its <see cref="P:System.Globalization.StringInfo.String" /> property equals the <see cref="P:System.Globalization.StringInfo.String" /> property of this <see cref="T:System.Globalization.StringInfo" /> object; otherwise, <see langword="false" />.</span>
-          </span>
-        </returns>
-        <remarks>To be added.</remarks>
-        <altmember cref="Overload:System.String.Equals" />
-      </Docs>
-    </Member>
-    <Member MemberName="GetHashCode">
-      <MemberSignature Language="C#" Value="public override int GetHashCode ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 GetHashCode() cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.GetHashCode" />
-      <MemberSignature Language="VB.NET" Value="Public Overrides Function GetHashCode () As Integer" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; override int GetHashCode();" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Attributes>
-        <Attribute>
-          <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
-        </Attribute>
-      </Attributes>
-      <ReturnValue>
-        <ReturnType>System.Int32</ReturnType>
-      </ReturnValue>
-      <Parameters />
-      <Docs>
-        <summary>
-          <span data-ttu-id="e9f0f-142">Рассчитывает хэш-код для значения текущего объекта <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-142">Calculates a hash code for the value of the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="e9f0f-143">32-битное целое число хэш-кода со знаком, основанное на значении строки этого объекта <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-143">A 32-bit signed integer hash code based on the string value of this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-144">Поведение <xref:System.Globalization.StringInfo.GetHashCode%2A> зависит от его реализации, которая может изменяться от одной версии среды CLR в другой.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-144">The behavior of <xref:System.Globalization.StringInfo.GetHashCode%2A> is dependent on its implementation, which might change from one version of the common language runtime to another.</span></span> <span data-ttu-id="e9f0f-145">Возможно, для повышения производительности <xref:System.Globalization.StringInfo.GetHashCode%2A>.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-145">This might happen to improve the performance of <xref:System.Globalization.StringInfo.GetHashCode%2A>.</span></span> <span data-ttu-id="e9f0f-146">Чтобы сделать поведение <xref:System.Globalization.StringInfo.GetHashCode%2A> константой, приложения должны переопределять реализацию среды <xref:System.Globalization.StringInfo.GetHashCode%2A> с реализацией известно, никогда не изменений.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-146">To make the behavior of <xref:System.Globalization.StringInfo.GetHashCode%2A> constant, the application should override the runtime implementation of <xref:System.Globalization.StringInfo.GetHashCode%2A> with an implementation known to never change.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <altmember cref="M:System.String.GetHashCode" />
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="GetNextTextElement">
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="e9f0f-147">Возвращает первый текстовый элемент в заданной строке.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-147">Gets the first text element in a specified string.</span>
-          </span>
-        </summary>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="GetNextTextElement">
-      <MemberSignature Language="C#" Value="public static string GetNextTextElement (string str);" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig string GetNextTextElement(string str) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.GetNextTextElement(System.String)" />
-      <MemberSignature Language="VB.NET" Value="Public Shared Function GetNextTextElement (str As String) As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::String ^ GetNextTextElement(System::String ^ str);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="str" Type="System.String" />
-      </Parameters>
-      <Docs>
-        <param name="str">
-          <span data-ttu-id="e9f0f-148">Строка, из которой нужно получить элемент текста.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-148">The string from which to get the text element.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="e9f0f-149">Возвращает первый текстовый элемент в заданной строке.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-149">Gets the first text element in a specified string.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="e9f0f-150">Строка, содержащая первый текстовый элемент в заданной строке.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-150">A string containing the first text element in the specified string.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-151">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-151">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="e9f0f-152">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-152">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="e9f0f-153">[Стандарт Юникод](http://go.microsoft.com/fwlink/?linkid=37123) определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-153">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="e9f0f-154">[Стандарт Юникод](http://go.microsoft.com/fwlink/?linkid=37123) определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-154">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="e9f0f-155">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-155">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="e9f0f-156">Этот метод возвращает только первый текстовый элемент.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-156">This method only returns the first text element.</span></span> <span data-ttu-id="e9f0f-157">Для перебора элементов текста в строке, приложение должно использовать <xref:System.Globalization.TextElementEnumerator> объектов, созданных <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-157">To iterate through the text elements of the string, the application should use the <xref:System.Globalization.TextElementEnumerator> object generated by the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> method.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="e9f0f-158">Свойство <paramref name="str" /> имеет значение <see langword="null" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-158">
-              <paramref name="str" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-        <altmember cref="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)" />
-        <altmember cref="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)" />
-      </Docs>
-    </Member>
-    <Member MemberName="GetNextTextElement">
-      <MemberSignature Language="C#" Value="public static string GetNextTextElement (string str, int index);" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig string GetNextTextElement(string str, int32 index) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)" />
-      <MemberSignature Language="VB.NET" Value="Public Shared Function GetNextTextElement (str As String, index As Integer) As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::String ^ GetNextTextElement(System::String ^ str, int index);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="str" Type="System.String" />
-        <Parameter Name="index" Type="System.Int32" />
-      </Parameters>
-      <Docs>
-        <param name="str">
-          <span data-ttu-id="e9f0f-159">Строка, из которой нужно получить элемент текста.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-159">The string from which to get the text element.</span>
-          </span>
-        </param>
-        <param name="index">
-          <span data-ttu-id="e9f0f-160">Отсчитываемый от нуля индекс, с которого начинается элемент текста.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-160">The zero-based index at which the text element starts.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="e9f0f-161">Возвращает элемент текста по указанному индексу заданной строки.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-161">Gets the text element at the specified index of the specified string.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="e9f0f-162">Строка, содержащая элемент текста по указанному индексу заданной строки.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-162">A string containing the text element at the specified index of the specified string.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-163">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-163">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="e9f0f-164">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-164">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="e9f0f-165">[Стандарт Юникод](http://go.microsoft.com/fwlink/?linkid=37123) определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-165">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="e9f0f-166">В стандарте Юникода определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-166">The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="e9f0f-167">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-167">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="e9f0f-168">Этот метод возвращает только первый текстовый элемент подстроке, которая начинается с указанного индекса.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-168">This method only returns the first text element of the substring that starts at the specified index.</span></span> <span data-ttu-id="e9f0f-169">Для перебора элементов текста в строке, приложение должно использовать <xref:System.Globalization.TextElementEnumerator> созданные <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-169">To iterate through the text elements of the string, the application should use the <xref:System.Globalization.TextElementEnumerator> generated by the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> method.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="e9f0f-170">Свойство <paramref name="str" /> имеет значение <see langword="null" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-170">
-              <paramref name="str" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="e9f0f-171">
-            <paramref name="index" /> находится вне диапазона допустимых индексов для <paramref name="str" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-171">
-              <paramref name="index" /> is outside the range of valid indexes for <paramref name="str" />.</span>
-          </span>
-        </exception>
-        <altmember cref="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)" />
-        <altmember cref="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)" />
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="GetTextElementEnumerator">
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="e9f0f-172">Возвращает перечислитель, который выполняет итерацию по текстовым элементам строки.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-172">Returns an enumerator that iterates through the text elements of a string.</span>
-          </span>
-        </summary>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="GetTextElementEnumerator">
-      <MemberSignature Language="C#" Value="public static System.Globalization.TextElementEnumerator GetTextElementEnumerator (string str);" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Globalization.TextElementEnumerator GetTextElementEnumerator(string str) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)" />
-      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTextElementEnumerator (str As String) As TextElementEnumerator" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Globalization::TextElementEnumerator ^ GetTextElementEnumerator(System::String ^ str);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Globalization.TextElementEnumerator</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="str" Type="System.String" />
-      </Parameters>
-      <Docs>
-        <param name="str">
-          <span data-ttu-id="e9f0f-173">Строка, в выполняется итерация.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-173">The string to iterate through.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="e9f0f-174">Возвращает перечислитель, который выполняет итерацию по текстовым элементам всей строки.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-174">Returns an enumerator that iterates through the text elements of the entire string.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="e9f0f-175">Объект <see cref="T:System.Globalization.TextElementEnumerator" /> для всей строки.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-175">A <see cref="T:System.Globalization.TextElementEnumerator" /> for the entire string.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-176">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-176">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="e9f0f-177">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-177">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="e9f0f-178">[Стандарт Юникод](http://go.microsoft.com/fwlink/?linkid=37123) определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-178">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="e9f0f-179">В стандарте Юникода определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-179">The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="e9f0f-180">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-180">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="e9f0f-181">Перечислитель текстовых элементов используется только для чтения данных в строке; он не может изменить основной строки.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-181">The text element enumerator is used only to read data in the string; it cannot modify the underlying string.</span></span> <span data-ttu-id="e9f0f-182">Перечислитель не имеет монопольного доступа к строке.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-182">The enumerator does not have exclusive access to the string.</span></span>  
-  
- <span data-ttu-id="e9f0f-183">Перечислитель находится в недопустимом состоянии, если он располагается перед первым текстовым элементом в строке или после последнего элемента текста в строке.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-183">The enumerator is in an invalid state if it is positioned before the first text element in the string or after the last text element in the string.</span></span> <span data-ttu-id="e9f0f-184">Когда перечислитель находится в недопустимом состоянии, вызов <xref:System.Globalization.TextElementEnumerator.Current%2A> приводит к возникновению исключения.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-184">When the enumerator is in an invalid state, calling <xref:System.Globalization.TextElementEnumerator.Current%2A> throws an exception.</span></span>  
-  
- <span data-ttu-id="e9f0f-185">Изначально перечислитель располагается перед первым текстовым элементом в строке.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-185">Initially, the enumerator is positioned before the first text element in the string.</span></span> <span data-ttu-id="e9f0f-186">Метод <xref:System.Globalization.TextElementEnumerator.Reset%2A> также переводит перечислитель в эту позицию.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-186"><xref:System.Globalization.TextElementEnumerator.Reset%2A> also brings the enumerator back to this position.</span></span> <span data-ttu-id="e9f0f-187">Поэтому после создания перечислителя или после <xref:System.Globalization.TextElementEnumerator.Reset%2A> вызове <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> необходимо вызвать, чтобы переместить перечислитель на первый текстовый элемент строки до считывания значения свойства <xref:System.Globalization.TextElementEnumerator.Current%2A>.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-187">Therefore, after an enumerator is created or after <xref:System.Globalization.TextElementEnumerator.Reset%2A> is called, <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> must be called to advance the enumerator to the first text element of the string before reading the value of <xref:System.Globalization.TextElementEnumerator.Current%2A>.</span></span>  
-  
- <span data-ttu-id="e9f0f-188"><xref:System.Globalization.TextElementEnumerator.Current%2A> возвращает тот же объект, пока не будет вызван метод <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> или <xref:System.Globalization.TextElementEnumerator.Reset%2A>.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-188"><xref:System.Globalization.TextElementEnumerator.Current%2A> returns the same object until either <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> or <xref:System.Globalization.TextElementEnumerator.Reset%2A> is called.</span></span>  
-  
- <span data-ttu-id="e9f0f-189">После прохождения конца строки перечислитель снова находится в недопустимом состоянии <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> возвращает `false`.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-189">After the end of the string is passed, the enumerator is again in an invalid state and calling <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> returns `false`.</span></span> <span data-ttu-id="e9f0f-190">Вызов <xref:System.Globalization.TextElementEnumerator.Current%2A> вызывает исключение, если последний вызов метода <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> возвращается `false`.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-190">Calling <xref:System.Globalization.TextElementEnumerator.Current%2A> throws an exception if the last call to <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> returned `false`.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="e9f0f-191">В следующем примере кода демонстрируется вызов <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-191">The following code example demonstrates calling the <xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A> method.</span></span> <span data-ttu-id="e9f0f-192">Данный пример кода является частью большего примера, приведенного для <xref:System.Globalization.StringInfo> класса.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-192">This code example is part of a larger example provided for the <xref:System.Globalization.StringInfo> class.</span></span>  
-  
- [!code-cpp[stringinfo#1](~/samples/snippets/cpp/VS_Snippets_CLR/StringInfo/cpp/StringInfo.cpp#1)]
- [!code-csharp[stringinfo#1](~/samples/snippets/csharp/VS_Snippets_CLR/StringInfo/CS/StringInfo.cs#1)]
- [!code-vb[stringinfo#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StringInfo/vb/stringinfo.vb#1)]  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="e9f0f-193">Свойство <paramref name="str" /> имеет значение <see langword="null" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-193">
-              <paramref name="str" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-        <altmember cref="T:System.Globalization.TextElementEnumerator" />
-      </Docs>
-    </Member>
-    <Member MemberName="GetTextElementEnumerator">
-      <MemberSignature Language="C#" Value="public static System.Globalization.TextElementEnumerator GetTextElementEnumerator (string str, int index);" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Globalization.TextElementEnumerator GetTextElementEnumerator(string str, int32 index) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)" />
-      <MemberSignature Language="VB.NET" Value="Public Shared Function GetTextElementEnumerator (str As String, index As Integer) As TextElementEnumerator" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Globalization::TextElementEnumerator ^ GetTextElementEnumerator(System::String ^ str, int index);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Globalization.TextElementEnumerator</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="str" Type="System.String" />
-        <Parameter Name="index" Type="System.Int32" />
-      </Parameters>
-      <Docs>
-        <param name="str">
-          <span data-ttu-id="e9f0f-194">Строка, в выполняется итерация.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-194">The string to iterate through.</span>
-          </span>
-        </param>
-        <param name="index">
-          <span data-ttu-id="e9f0f-195">Отсчитываемый от нуля индекс, с которого необходимо начать итерацию.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-195">The zero-based index at which to start iterating.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="e9f0f-196">Возвращает перечислитель, который может выполнять итерацию по текстовым элементам строки, начиная с указанного индекса.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-196">Returns an enumerator that iterates through the text elements of the string, starting at the specified index.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="e9f0f-197">Параметр <see cref="T:System.Globalization.TextElementEnumerator" /> для всей строки, начиная с индекса <paramref name="index" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-197">A <see cref="T:System.Globalization.TextElementEnumerator" /> for the string starting at <paramref name="index" />.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-198">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-198">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="e9f0f-199">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-199">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="e9f0f-200">[Стандарт Юникод](http://go.microsoft.com/fwlink/?linkid=37123) определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-200">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="e9f0f-201">В стандарте Юникода определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-201">The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="e9f0f-202">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-202">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="e9f0f-203">Перечислитель текстовых элементов используется только для чтения данных в строке; он не может изменить основной строки.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-203">The text element enumerator is used only to read data in the string; it cannot modify the underlying string.</span></span> <span data-ttu-id="e9f0f-204">Перечислитель не имеет монопольного доступа к строке.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-204">The enumerator does not have exclusive access to the string.</span></span>  
-  
- <span data-ttu-id="e9f0f-205">Перечислитель находится в недопустимом состоянии, если он располагается перед первым текстовым элементом в строке или после последнего элемента текста в строке.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-205">The enumerator is in an invalid state if it is positioned before the first text element in the string or after the last text element in the string.</span></span> <span data-ttu-id="e9f0f-206">Когда перечислитель находится в недопустимом состоянии, вызов <xref:System.Globalization.TextElementEnumerator.Current%2A> приводит к возникновению исключения.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-206">When the enumerator is in an invalid state, calling <xref:System.Globalization.TextElementEnumerator.Current%2A> throws an exception.</span></span>  
-  
- <span data-ttu-id="e9f0f-207">Изначально перечислитель располагается перед первым текстовым элементом в строке.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-207">Initially, the enumerator is positioned before the first text element in the string.</span></span> <span data-ttu-id="e9f0f-208">Метод <xref:System.Globalization.TextElementEnumerator.Reset%2A> также переводит перечислитель в эту позицию.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-208"><xref:System.Globalization.TextElementEnumerator.Reset%2A> also brings the enumerator back to this position.</span></span> <span data-ttu-id="e9f0f-209">Поэтому после создания перечислителя или после <xref:System.Globalization.TextElementEnumerator.Reset%2A> вызове <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> необходимо вызвать, чтобы переместить перечислитель на первый текстовый элемент строки до считывания значения свойства <xref:System.Globalization.TextElementEnumerator.Current%2A>.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-209">Therefore, after an enumerator is created or after <xref:System.Globalization.TextElementEnumerator.Reset%2A> is called, <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> must be called to advance the enumerator to the first text element of the string before reading the value of <xref:System.Globalization.TextElementEnumerator.Current%2A>.</span></span>  
-  
- <span data-ttu-id="e9f0f-210"><xref:System.Globalization.TextElementEnumerator.Current%2A> возвращает тот же объект, пока не будет вызван метод <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> или <xref:System.Globalization.TextElementEnumerator.Reset%2A>.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-210"><xref:System.Globalization.TextElementEnumerator.Current%2A> returns the same object until either <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> or <xref:System.Globalization.TextElementEnumerator.Reset%2A> is called.</span></span>  
-  
- <span data-ttu-id="e9f0f-211">После прохождения конца строки перечислитель снова находится в недопустимом состоянии <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> возвращает `false`.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-211">After the end of the string is passed, the enumerator is again in an invalid state and calling <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> returns `false`.</span></span> <span data-ttu-id="e9f0f-212">Вызов <xref:System.Globalization.TextElementEnumerator.Current%2A> вызывает исключение, если последний вызов метода <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> возвращается `false`.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-212">Calling <xref:System.Globalization.TextElementEnumerator.Current%2A> throws an exception if the last call to <xref:System.Globalization.TextElementEnumerator.MoveNext%2A> returned `false`.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="e9f0f-213">Свойство <paramref name="str" /> имеет значение <see langword="null" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-213">
-              <paramref name="str" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="e9f0f-214">
-            <paramref name="index" /> находится вне диапазона допустимых индексов для <paramref name="str" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-214">
-              <paramref name="index" /> is outside the range of valid indexes for <paramref name="str" />.</span>
-          </span>
-        </exception>
-        <altmember cref="T:System.Globalization.TextElementEnumerator" />
-      </Docs>
-    </Member>
-    <Member MemberName="LengthInTextElements">
-      <MemberSignature Language="C#" Value="public int LengthInTextElements { get; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance int32 LengthInTextElements" />
-      <MemberSignature Language="DocId" Value="P:System.Globalization.StringInfo.LengthInTextElements" />
-      <MemberSignature Language="VB.NET" Value="Public ReadOnly Property LengthInTextElements As Integer" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property int LengthInTextElements { int get(); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Int32</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="e9f0f-215">Получает число текстовых элементов в текущем объекте <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-215">Gets the number of text elements in the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="e9f0f-216">Количество базовых символов, суррогатных пар и последовательностей несамостоятельных знаков в этом объекте <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-216">The number of base characters, surrogate pairs, and combining character sequences in this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </value>
-        <remarks>To be added.</remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="ParseCombiningCharacters">
-      <MemberSignature Language="C#" Value="public static int[] ParseCombiningCharacters (string str);" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig int32[] ParseCombiningCharacters(string str) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)" />
-      <MemberSignature Language="VB.NET" Value="Public Shared Function ParseCombiningCharacters (str As String) As Integer()" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static cli::array &lt;int&gt; ^ ParseCombiningCharacters(System::String ^ str);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Int32[]</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="str" Type="System.String" />
-      </Parameters>
-      <Docs>
-        <param name="str">
-          <span data-ttu-id="e9f0f-217">Строка для поиска.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-217">The string to search.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="e9f0f-218">Возвращает индексы каждого базового знака, старший символ-заместитель или знак элемента управления в пределах указанной строки.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-218">Returns the indexes of each base character, high surrogate, or control character within the specified string.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="e9f0f-219">Массив целочисленных чисел, который содержит отсчитываемые с нуля индексы каждого базового знака, старший символ-заместитель или знак элемента управления в пределах указанной строки.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-219">An array of integers that contains the zero-based indexes of each base character, high surrogate, or control character within the specified string.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-220">[Стандарт Юникод](http://go.microsoft.com/fwlink/?linkid=37123) определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-220">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</span></span> <span data-ttu-id="e9f0f-221">Старший символ-заместитель кодовую точку Юникода в диапазоне от U + D800 до U + DBFF, а кодовую точку Юникода в диапазоне от U + DC00 до U + DFFF является младшим символом-заместителем.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-221">A high surrogate is a Unicode code point in the range U+D800 through U+DBFF and a low surrogate is a Unicode code point in the range U+DC00 through U+DFFF.</span></span>  
-  
- <span data-ttu-id="e9f0f-222">Управляющий символ — символ, для которого значение Юникода U + 007F либо находящемся в диапазоне U + 0000 до U + 001F или от U + 0080 до U + 009F.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-222">A control character is a character for which the Unicode value is U+007F or in the range U+0000 through U+001F or U+0080 through U+009F.</span></span>  
-  
- <span data-ttu-id="e9f0f-223">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-223">The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</span></span> <span data-ttu-id="e9f0f-224">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-224">A text element can be a base character, a surrogate pair, or a combining character sequence.</span></span> <span data-ttu-id="e9f0f-225">[Стандарт Юникод](http://go.microsoft.com/fwlink/?linkid=37123) определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-225">The [Unicode Standard](http://go.microsoft.com/fwlink/?linkid=37123) defines a combining character sequence as a combination of a base character and one or more combining characters.</span></span> <span data-ttu-id="e9f0f-226">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-226">A surrogate pair can represent a base character or a combining character.</span></span>  
-  
- <span data-ttu-id="e9f0f-227">Если объединение Недопустимая последовательность символов, каждый присоединяемый знак в этой последовательности также возвращается.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-227">If a combining character sequence is invalid, every combining character in that sequence is also returned.</span></span>  
-  
- <span data-ttu-id="e9f0f-228">Каждый индекс в полученном массиве является началом текстового элемента, то есть индекс базового символа или старшим символом-заместителем.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-228">Each index in the resulting array is the beginning of a text element, that is, the index of the base character or the high surrogate.</span></span>  
-  
- <span data-ttu-id="e9f0f-229">Длина каждого элемента легко вычисляется как разница между последовательными индексами.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-229">The length of each element is easily computed as the difference between successive indexes.</span></span> <span data-ttu-id="e9f0f-230">Длина массива всегда будет меньше или равным длине строки.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-230">The length of the array will always be less than or equal to the length of the string.</span></span> <span data-ttu-id="e9f0f-231">Например имея строка «\u4f00\u302a\ud800\udc00\u4f01», этот метод возвращает индексы 0, 2 и 4.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-231">For example, given the string "\u4f00\u302a\ud800\udc00\u4f01", this method returns the indexes 0, 2, and 4.</span></span>  
-  
-## <a name="equivalent-members"></a><span data-ttu-id="e9f0f-232">Эквивалентные элементы</span><span class="sxs-lookup"><span data-stu-id="e9f0f-232">Equivalent Members</span></span>  
- <span data-ttu-id="e9f0f-233">Начиная с .NET Framework версии 2.0 <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> метод и <xref:System.Globalization.StringInfo.LengthInTextElements%2A> свойство предоставляют удобные реализация функциональных возможностей, предоставляемых <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-233">Starting in version 2.0 of the .NET Framework, the <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> method and <xref:System.Globalization.StringInfo.LengthInTextElements%2A> property provide an easy to use implementation of the functionality offered by the <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> method.</span></span>  
-  
-   
-  
-## Examples  
- <span data-ttu-id="e9f0f-234">В следующем примере кода демонстрируется вызов <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> метод.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-234">The following code example demonstrates calling the <xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A> method.</span></span> <span data-ttu-id="e9f0f-235">Данный пример кода является частью большего примера, приведенного для <xref:System.Globalization.StringInfo> класса.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-235">This code example is part of a larger example provided for the <xref:System.Globalization.StringInfo> class.</span></span>  
-  
- [!code-cpp[stringinfo#1](~/samples/snippets/cpp/VS_Snippets_CLR/StringInfo/cpp/StringInfo.cpp#1)]
- [!code-csharp[stringinfo#1](~/samples/snippets/csharp/VS_Snippets_CLR/StringInfo/CS/StringInfo.cs#1)]
- [!code-vb[stringinfo#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/StringInfo/vb/stringinfo.vb#1)]  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="e9f0f-236">Свойство <paramref name="str" /> имеет значение <see langword="null" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-236">
-              <paramref name="str" /> is <see langword="null" />.</span>
-          </span>
-        </exception>
-        <altmember cref="Overload:System.Globalization.StringInfo.SubstringByTextElements" />
-        <altmember cref="P:System.Globalization.StringInfo.LengthInTextElements" />
-      </Docs>
-    </Member>
-    <Member MemberName="String">
-      <MemberSignature Language="C#" Value="public string String { get; set; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance string String" />
-      <MemberSignature Language="DocId" Value="P:System.Globalization.StringInfo.String" />
-      <MemberSignature Language="VB.NET" Value="Public Property String As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::String ^ String { System::String ^ get(); void set(System::String ^ value); };" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>System.Globalization</AssemblyName>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-        <AssemblyVersion>4.0.10.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>
-          <span data-ttu-id="e9f0f-237">Возвращает или задает значение текущего объекта <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-237">Gets or sets the value of the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </summary>
-        <value>
-          <span data-ttu-id="e9f0f-238">Строка, являющаяся значением текущего объекта <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-238">The string that is the value of the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-239">Когда <xref:System.Globalization.StringInfo> экземпляра объекта его <xref:System.Globalization.StringInfo.String%2A> свойству присвоено одно из следующих значений:</span><span class="sxs-lookup"><span data-stu-id="e9f0f-239">When a <xref:System.Globalization.StringInfo> object is instantiated, its <xref:System.Globalization.StringInfo.String%2A> property is set to one of the following values:</span></span>  
-  
--   <span data-ttu-id="e9f0f-240"><xref:System.String.Empty?displayProperty=nameWithType> Если значение по умолчанию <xref:System.Globalization.StringInfo.%23ctor> вызывается.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-240"><xref:System.String.Empty?displayProperty=nameWithType> if the default  <xref:System.Globalization.StringInfo.%23ctor> is called.</span></span> <span data-ttu-id="e9f0f-241">Затем следует использовать <xref:System.Globalization.StringInfo.String%2A> свойство, присваиваемое строке этим <xref:System.Globalization.StringInfo> rperesents объекта.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-241">You should then use the <xref:System.Globalization.StringInfo.String%2A> property to assign the string that this <xref:System.Globalization.StringInfo> object rperesents.</span></span>  
-  
--   <span data-ttu-id="e9f0f-242">Строка, заданная как `value` аргумент <xref:System.Globalization.StringInfo.%23ctor%28System.String%29> конструктор.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-242">The string supplied as the `value` argument to the <xref:System.Globalization.StringInfo.%23ctor%28System.String%29> constructor.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <span data-ttu-id="e9f0f-243">Для данного свойства задано значение <see langword="null" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-243">The value in a set operation is <see langword="null" />.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-    <MemberGroup MemberName="SubstringByTextElements">
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <Docs>
-        <summary>
-          <span data-ttu-id="e9f0f-244">Извлекает подстроку текстовых элементов из текущего объекта <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-244">Retrieves a substring of text elements from the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </summary>
-      </Docs>
-    </MemberGroup>
-    <Member MemberName="SubstringByTextElements">
-      <MemberSignature Language="C#" Value="public string SubstringByTextElements (int startingTextElement);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string SubstringByTextElements(int32 startingTextElement) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)" />
-      <MemberSignature Language="VB.NET" Value="Public Function SubstringByTextElements (startingTextElement As Integer) As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::String ^ SubstringByTextElements(int startingTextElement);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="startingTextElement" Type="System.Int32" />
-      </Parameters>
-      <Docs>
-        <param name="startingTextElement">
-          <span data-ttu-id="e9f0f-245">Отсчитываемый от нуля индекс текстового элемента в этом объекте <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-245">The zero-based index of a text element in this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="e9f0f-246">Получает подстроку элементов текста из текущего объекта <see cref="T:System.Globalization.StringInfo" />, начиная с указанного элемента текста и продолжая до самого последнего элемента.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-246">Retrieves a substring of text elements from the current <see cref="T:System.Globalization.StringInfo" /> object starting from a specified text element and continuing through the last text element.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="e9f0f-247">Подстрока элементов текста в этом объекте <see cref="T:System.Globalization.StringInfo" />, начиная с индекса элементов текста, указанного в параметре <paramref name="startingTextElement" /> и продолжая до последнего элемента текста в этом объекте.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-247">A substring of text elements in this <see cref="T:System.Globalization.StringInfo" /> object, starting from the text element index specified by the <paramref name="startingTextElement" /> parameter and continuing through the last text element in this object.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-248">Рассмотрим строку, которая состоит из пяти элементов текста с индексами от 0 до 4.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-248">Consider a string that consists of five text elements, indexed from 0 through 4.</span></span> <span data-ttu-id="e9f0f-249">Если `startingTextElement` параметр равен 1, <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> метод возвращает подстроку, который состоит из элементов текста, для которых индексы являются 1, 2, 3 и 4.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-249">If the `startingTextElement` parameter is 1, the  <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> method returns a substring that consists of the text elements for which the indexes are 1, 2, 3, and 4.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="e9f0f-250">Значение параметра <paramref name="startingTextElement" /> меньше нуля.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-250">
-              <paramref name="startingTextElement" /> is less than zero.</span>
-          </span>
-          <span data-ttu-id="e9f0f-251">- или -</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-251">-or-</span>
-          </span>
-          <span data-ttu-id="e9f0f-252">Строка, являющаяся значением текущего объекта <see cref="T:System.Globalization.StringInfo" />, является пустой строкой ("").</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-252">The string that is the value of the current <see cref="T:System.Globalization.StringInfo" /> object is the empty string ("").</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-    <Member MemberName="SubstringByTextElements">
-      <MemberSignature Language="C#" Value="public string SubstringByTextElements (int startingTextElement, int lengthInTextElements);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string SubstringByTextElements(int32 startingTextElement, int32 lengthInTextElements) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)" />
-      <MemberSignature Language="VB.NET" Value="Public Function SubstringByTextElements (startingTextElement As Integer, lengthInTextElements As Integer) As String" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::String ^ SubstringByTextElements(int startingTextElement, int lengthInTextElements);" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>mscorlib</AssemblyName>
-        <AssemblyVersion>2.0.5.0</AssemblyVersion>
-        <AssemblyVersion>4.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>netstandard</AssemblyName>
-        <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <AssemblyInfo>
-        <AssemblyName>System.Runtime</AssemblyName>
-        <AssemblyVersion>4.2.0.0</AssemblyVersion>
-        <AssemblyVersion>4.2.1.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.String</ReturnType>
-      </ReturnValue>
-      <Parameters>
-        <Parameter Name="startingTextElement" Type="System.Int32" />
-        <Parameter Name="lengthInTextElements" Type="System.Int32" />
-      </Parameters>
-      <Docs>
-        <param name="startingTextElement">
-          <span data-ttu-id="e9f0f-253">Отсчитываемый от нуля индекс текстового элемента в этом объекте <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-253">The zero-based index of a text element in this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </param>
-        <param name="lengthInTextElements">
-          <span data-ttu-id="e9f0f-254">Количество извлекаемых элементов текста.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-254">The number of text elements to retrieve.</span>
-          </span>
-        </param>
-        <summary>
-          <span data-ttu-id="e9f0f-255">Получает подстроку элементов текста из текущего объекта <see cref="T:System.Globalization.StringInfo" />, начиная с указанного элемента текста и продолжая до указанного количества элементов текста.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-255">Retrieves a substring of text elements from the current <see cref="T:System.Globalization.StringInfo" /> object starting from a specified text element and continuing through the specified number of text elements.</span>
-          </span>
-        </summary>
-        <returns>
-          <span data-ttu-id="e9f0f-256">Подстрока элементов текста в этом объекте <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-256">A substring of text elements in this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-          <span data-ttu-id="e9f0f-257">Подстрока состоит из некоторого количества элементов текста, определенных параметром <paramref name="lengthInTextElements" />, начиная с индекса элемента текста, указанного в параметре <paramref name="startingTextElement" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-257">The substring consists of the number of text elements specified by the <paramref name="lengthInTextElements" /> parameter and starts from the text element index specified by the <paramref name="startingTextElement" /> parameter.</span>
-          </span>
-        </returns>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <span data-ttu-id="e9f0f-258">Рассмотрим строку, которая состоит из пяти элементов текста с индексами от 0 до 4.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-258">Consider a string that consists of five text elements, indexed from 0 through 4.</span></span> <span data-ttu-id="e9f0f-259">Если `startingTextElement` параметр равен 1 и `lengthInTextElements` параметра равно 3, <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> метод возвращает подстроку, который состоит из элементов текста, для которых индексы являются 1, 2 и 3.</span><span class="sxs-lookup"><span data-stu-id="e9f0f-259">If the `startingTextElement` parameter is 1 and the `lengthInTextElements` parameter is 3, the <xref:System.Globalization.StringInfo.SubstringByTextElements%2A> method returns a substring that consists of the text elements for which the indexes are 1, 2, and 3.</span></span>  
-  
- ]]></format>
-        </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <span data-ttu-id="e9f0f-260">Значение параметра <paramref name="startingTextElement" /> меньше нуля.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-260">
-              <paramref name="startingTextElement" /> is less than zero.</span>
-          </span>
-          <span data-ttu-id="e9f0f-261">- или -</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-261">-or-</span>
-          </span>
-          <span data-ttu-id="e9f0f-262">
-            <paramref name="startingTextElement" /> больше или равен длине строки, которая является значением текущего объекта <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-262">
-              <paramref name="startingTextElement" /> is greater than or equal to the length of the string that is the value of the current <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-          <span data-ttu-id="e9f0f-263">- или -</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-263">-or-</span>
-          </span>
-          <span data-ttu-id="e9f0f-264">Значение параметра <paramref name="lengthInTextElements" /> меньше нуля.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-264">
-              <paramref name="lengthInTextElements" /> is less than zero.</span>
-          </span>
-          <span data-ttu-id="e9f0f-265">- или -</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-265">-or-</span>
-          </span>
-          <span data-ttu-id="e9f0f-266">Строка, являющаяся значением текущего объекта <see cref="T:System.Globalization.StringInfo" />, является пустой строкой ("").</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-266">The string that is the value of the current <see cref="T:System.Globalization.StringInfo" /> object is the empty string ("").</span>
-          </span>
-          <span data-ttu-id="e9f0f-267">- или -</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-267">-or-</span>
-          </span>
-          <span data-ttu-id="e9f0f-268">
-            <paramref name="startingTextElement" /> + <paramref name="lengthInTextElements" /> определяет индекс, который больше количества элементов текста в этом объекте <see cref="T:System.Globalization.StringInfo" />.</span>
-          <span class="sxs-lookup">
-            <span data-stu-id="e9f0f-268">
-              <paramref name="startingTextElement" /> + <paramref name="lengthInTextElements" /> specify an index that is greater than the number of text elements in this <see cref="T:System.Globalization.StringInfo" /> object.</span>
-          </span>
-        </exception>
-      </Docs>
-    </Member>
-  </Members>
-</Type>
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" original="StringInfo.xml" source-language="en-US" target-language="ru-RU">
+    <header>
+      <tool tool-id="mdxliff" tool-name="mdxliff" tool-version="1.0-efd8310" tool-company="Microsoft" />
+      <xliffext:skl_file_name xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">5e05b5b2-d481-4262-b7b7-7de7ac2afe07dfcadf1280b7a99ae67ace6278f0fb80976a6481.skl</xliffext:skl_file_name>
+      <xliffext:version xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">1.2</xliffext:version>
+      <xliffext:ms.openlocfilehash xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">dfcadf1280b7a99ae67ace6278f0fb80976a6481</xliffext:ms.openlocfilehash>
+      <xliffext:ms.sourcegitcommit xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">df6cf590aa3087f6c7c202712eee781c6a3c8f96</xliffext:ms.sourcegitcommit>
+      <xliffext:ms.lasthandoff xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">05/07/2018</xliffext:ms.lasthandoff>
+      <xliffext:moniker_ids xmlns:xliffext="urn:microsoft:content:schema:xliffextensions">netcore-1.0,netcore-1.1,netcore-2.0,netcore-2.1,netframework-4.5.1,netframework-4.5.2,netframework-4.5,netframework-4.6.1,netframework-4.6.2,netframework-4.6,netframework-4.7.1,netframework-4.7.2,netframework-4.7,netstandard-1.0,netstandard-1.1,netstandard-1.2,netstandard-1.3,netstandard-1.4,netstandard-1.6,netstandard-2.0,xamarinandroid-7.1,xamarinios-10.8,xamarinmac-3.0</xliffext:moniker_ids>
+    </header>
+    <body>
+      <group id="content" extype="content">
+        <trans-unit id="101" translate="yes" xml:space="preserve" uid="T:System.Globalization.StringInfo">
+          <source>Provides functionality to split a string into text elements and to iterate through those text elements.</source>
+          <target state="translated">Предоставляет функциональные возможности для разбиения строки на текстовые элементы и их последующего перебора.</target>       </trans-unit>
+        <trans-unit id="102" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</target>       </trans-unit>
+        <trans-unit id="103" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</target>       </trans-unit>
+        <trans-unit id="104" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Стандарт Юникод<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</target>       </trans-unit>
+        <trans-unit id="105" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated">В стандарте Юникода определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</target>       </trans-unit>
+        <trans-unit id="106" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</target>       </trans-unit>
+        <trans-unit id="107" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> class enables you to work with a string as a series of textual elements rather than individual <ph id="ph2">&lt;xref:System.Char&gt;</ph> objects.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> Позволяет работать со строкой в качестве ряд текстовые элементы, а не отдельных <ph id="ph2">&lt;xref:System.Char&gt;</ph> объектов.</target>       </trans-unit>
+        <trans-unit id="108" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>To instantiate a <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> object that represents a specified string, you can do either of the following:</source>
+          <target state="translated">Для создания экземпляра <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> , представляющий указанную строку, можно выполнить одно из следующих действий:</target>       </trans-unit>
+        <trans-unit id="109" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Call the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph> constructor and pass it the string that the <ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph> object is to represent as an argument.</source>
+          <target state="translated">Вызовите <ph id="ph1">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph> конструктор и передайте ему строку, <ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph> объектов — для представления в качестве аргумента.</target>       </trans-unit>
+        <trans-unit id="110" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Call the default <ph id="ph1">&lt;xref:System.Globalization.StringInfo.%23ctor&gt;</ph> constructor, and assign the string that the <ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph> object is to represent to the <ph id="ph3">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> property.</source>
+          <target state="translated">Вызов по умолчанию <ph id="ph1">&lt;xref:System.Globalization.StringInfo.%23ctor&gt;</ph> конструктор и назначить строку <ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph> должен представлять <ph id="ph3">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> свойство.</target>       </trans-unit>
+        <trans-unit id="111" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>You can work with the individual text elements in a string in two ways:</source>
+          <target state="translated">Можно работать с отдельными текстовые элементы строки двумя способами:</target>       </trans-unit>
+        <trans-unit id="112" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>By enumerating each text element.</source>
+          <target state="translated">При перечислении каждый текстовый элемент.</target>       </trans-unit>
+        <trans-unit id="113" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>To do this, you call the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> method, and then repeatedly call the <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> method on the returned <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph> object until the method returns <ph id="ph4">`false`</ph>.</source>
+          <target state="translated">Чтобы сделать это, следует вызвать <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> метод и несколько раз вызвать <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> метод в возвращенном <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph> объекта, пока метод возвращает <ph id="ph4">`false`</ph>.</target>       </trans-unit>
+        <trans-unit id="114" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>By calling the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> method to retrieve an array that contains the starting index of each text element.</source>
+          <target state="translated">Путем вызова <ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> метод, чтобы получить массив, содержащий начальный индекс каждого элемента текста.</target>       </trans-unit>
+        <trans-unit id="115" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>You can then retrieve individual text elements by passing these indexes to the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> method.</source>
+          <target state="translated">После этого можно получать отдельные текстовые элементы, передав эти индексы для <ph id="ph1">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> метод.</target>       </trans-unit>
+        <trans-unit id="116" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The following example illustrates both ways of working with the text elements in a string.</source>
+          <target state="translated">В следующем примере оба способа работы с элементами текста в строке.</target>       </trans-unit>
+        <trans-unit id="117" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>It creates two strings:</source>
+          <target state="translated">Создает две строки:</target>       </trans-unit>
+        <trans-unit id="118" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source><ph id="ph1">`strCombining`</ph>, which is a string of Arabic characters that includes three text elements with multiple <ph id="ph2">&lt;xref:System.Char&gt;</ph> objects.</source>
+          <target state="translated"><ph id="ph1">`strCombining`</ph>, которое представляет собой строку символов арабского языка, включает три элемента текста с несколькими <ph id="ph2">&lt;xref:System.Char&gt;</ph> объектов.</target>       </trans-unit>
+        <trans-unit id="119" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The first text element is the base character ARABIC LETTER ALEF (U+-627) followed by ARABIC HAMZA BELOW (U+-655) and ARABIC KASRA (U+0650).</source>
+          <target state="translated">Первым текстовым элементом является базового символа ARABIC АЛИФ буквы (U +-627) следуют ARABIC ГАМЗА ниже (U +-655) и арабского языка КАЗРА (U + 0650).</target>       </trans-unit>
+        <trans-unit id="120" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The second text element is ARABIC LETTER HEH (U+0647) followed by ARABIC FATHA (U+-64E).</source>
+          <target state="translated">Второй элемент текста — АРАБСКИЙ HEH буквы (U + 0647) следуют FATHA АРАБСКИЙ (U +-64E).</target>       </trans-unit>
+        <trans-unit id="121" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The third text element is ARABIC LETTTER BEH (U+0628) followed by ARABIC DAMMATAN (U+064C).</source>
+          <target state="translated">Третий элемент текста является ARABIC БА LETTTER (U + 0628) следуют DAMMATAN АРАБСКИЙ (U + 064C).</target>       </trans-unit>
+        <trans-unit id="122" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source><ph id="ph1">`strSurrogates`</ph>, which is a string that includes three surrogate pairs: GREEK ACROPHONIC FIVE TALENTS (U+10148) from the Supplementary Multilingual Plane, U+20026 from the Supplementary Ideographic Plane, and U+F1001 from the private user area.</source>
+          <target state="translated"><ph id="ph1">`strSurrogates`</ph>, который является строкой, которая включает в себя три пары символов-заместителей: ГРЕЧЕСКОЙ ACROPHONIC пять ТАЛАНТЫ (U + 10148) из дополнительных многоязычное, U + 20026 из дополнительных идеографический плоскости, а U + F1001 из частной пользовательской области.</target>       </trans-unit>
+        <trans-unit id="123" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>The UTF-16 encoding of each character is a surrogate pair that consists of a high surrogate followed by a low surrogate.</source>
+          <target state="translated">Кодировка UTF-16 каждый символ является суррогатную пару, состоящую из старшим символом-заместителем следуют младшим символом-заместителем.</target>       </trans-unit>
+        <trans-unit id="124" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Each string is parsed once by the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> method and then by the <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> method.</source>
+          <target state="translated">Каждая строка анализируется один раз с <ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> метода и затем по <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> метод.</target>       </trans-unit>
+        <trans-unit id="125" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Both methods correctly parse the text elements in the two strings and display the results of the parsing operation.</source>
+          <target state="translated">Оба метода правильно анализируют текстовые элементы в двух строк и отображает результаты анализа.</target>       </trans-unit>
+        <trans-unit id="126" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>This example shows how to use the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> and <ph id="ph2">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> methods of the <ph id="ph3">&lt;xref:System.Globalization.StringInfo&gt;</ph> class to manipulate a string that contains surrogate and combining characters.</source>
+          <target state="translated">В этом примере показано, как использовать <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> и <ph id="ph2">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> методы <ph id="ph3">&lt;xref:System.Globalization.StringInfo&gt;</ph> класса для управления Строка, содержащая символ-заместитель и комбинированные символы.</target>       </trans-unit>
+        <trans-unit id="127" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Internally, the methods of the <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> class call the methods of the <ph id="ph2">&lt;see cref="T:System.Globalization.CharUnicodeInfo" /&gt;</ph> class to determine character categories.</source>
+          <target state="translated">На внутреннем уровне методы <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> класса вызывать методы <ph id="ph2">&lt;see cref="T:System.Globalization.CharUnicodeInfo" /&gt;</ph> класс, чтобы определить категории символов.</target>       </trans-unit>
+        <trans-unit id="128" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>Starting with the <ph id="ph1">[!INCLUDE[net_v462](~/includes/net-v462-md.md)]</ph>, character classification is based on <bpt id="p1">[</bpt>The Unicode Standard, Version 8.0.0<ept id="p1">](https://unicode.org/versions/Unicode8.0.0)</ept>.</source>
+          <target state="translated">Начиная с <ph id="ph1">[!INCLUDE[net_v462](~/includes/net-v462-md.md)]</ph>, на основе классификации символов <bpt id="p1">[</bpt>Юникод, версия 8.0.0<ept id="p1">](https://unicode.org/versions/Unicode8.0.0)</ept>.</target>       </trans-unit>
+        <trans-unit id="129" translate="yes" xml:space="preserve" extradata="MT" uid="T:System.Globalization.StringInfo">
+          <source>For the <ph id="ph1">[!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]</ph> through the <ph id="ph2">[!INCLUDE[net_v461](~/includes/net-v461-md.md)]</ph>, it is based on <bpt id="p1">[</bpt>The Unicode Standard, Version 6.3.0<ept id="p1">](https://www.unicode.org/versions/Unicode6.3.0/)</ept>.</source>
+          <target state="translated">Для <ph id="ph1">[!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]</ph> через <ph id="ph2">[!INCLUDE[net_v461](~/includes/net-v461-md.md)]</ph>, на основе <bpt id="p1">[</bpt>Юникод, версия 6.3.0<ept id="p1">](https://www.unicode.org/versions/Unicode6.3.0/)</ept>.</target>       </trans-unit>
+        <trans-unit id="130" translate="yes" xml:space="preserve" uid="T:System.Globalization.StringInfo">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> class.</source>
+          <target state="translated">Инициализирует новый экземпляр класса <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="131" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.#ctor">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> class.</source>
+          <target state="translated">Инициализирует новый экземпляр класса <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="132" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.#ctor">
+          <source>The value of the new <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> object is initialized to the empty string ("").</source>
+          <target state="translated">Значение нового <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> инициализируется с пустой строкой (»»).</target>       </trans-unit>
+        <trans-unit id="133" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.#ctor">
+          <source>You can assign another string to it by using the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> property.</source>
+          <target state="translated">Можно назначить другую строку к нему с помощью <ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> свойство.</target>       </trans-unit>
+        <trans-unit id="134" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.#ctor">
+          <source>You can also instantiate a <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> object that represents a specified string in a single step by calling the <ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph> constructor.</source>
+          <target state="translated">Можно также создать экземпляр <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> , представляющий указанной строки в рамках одного шага, вызвав <ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph> конструктор.</target>       </trans-unit>
+        <trans-unit id="135" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.#ctor(System.String)">
+          <source>A string to initialize this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">Строка для инициализации этого объекта <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="136" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.#ctor(System.String)">
+          <source>Initializes a new instance of the <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> class to a specified string.</source>
+          <target state="translated">Инициализирует новый экземпляр класса <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> с в указанную строку.</target>       </trans-unit>
+        <trans-unit id="137" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.#ctor(System.String)">
+          <source>This constructor assigns the value argument to the object's <ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> property.</source>
+          <target state="translated">Этот конструктор присваивает значение аргумента в объект <ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> свойство.</target>       </trans-unit>
+        <trans-unit id="138" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.#ctor(System.String)">
+          <source><ph id="ph1">&lt;paramref name="value" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated">Свойство <ph id="ph1">&lt;paramref name="value" /&gt;</ph> имеет значение <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="139" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.Equals(System.Object)">
+          <source>An object.</source>
+          <target state="translated">Объект.</target>       </trans-unit>
+        <trans-unit id="140" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.Equals(System.Object)">
+          <source>Indicates whether the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object is equal to a specified object.</source>
+          <target state="translated">Указывает, равен ли текущий объект <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> указанному объекту.</target>       </trans-unit>
+        <trans-unit id="141" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.Equals(System.Object)">
+          <source><ph id="ph1">&lt;see langword="true" /&gt;</ph> if the <ph id="ph2">&lt;paramref name="value" /&gt;</ph> parameter is a <ph id="ph3">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object and its <ph id="ph4">&lt;see cref="P:System.Globalization.StringInfo.String" /&gt;</ph> property equals the <ph id="ph5">&lt;see cref="P:System.Globalization.StringInfo.String" /&gt;</ph> property of this <ph id="ph6">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object; otherwise, <ph id="ph7">&lt;see langword="false" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;see langword="true" /&gt;</ph>, если параметр <ph id="ph2">&lt;paramref name="value" /&gt;</ph> является объектом <ph id="ph3">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> и его свойство <ph id="ph4">&lt;see cref="P:System.Globalization.StringInfo.String" /&gt;</ph> равняется свойству <ph id="ph5">&lt;see cref="P:System.Globalization.StringInfo.String" /&gt;</ph> этого объекта <ph id="ph6">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>; в противном случае — <ph id="ph7">&lt;see langword="false" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="142" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetHashCode">
+          <source>Calculates a hash code for the value of the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">Рассчитывает хэш-код для значения текущего объекта <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="143" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetHashCode">
+          <source>A 32-bit signed integer hash code based on the string value of this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">32-битное целое число хэш-кода со знаком, основанное на значении строки этого объекта <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="144" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetHashCode">
+          <source>The behavior of <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph> is dependent on its implementation, which might change from one version of the common language runtime to another.</source>
+          <target state="translated">Поведение <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph> зависит от его реализации, которая может изменяться от одной версии среды CLR в другой.</target>       </trans-unit>
+        <trans-unit id="145" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetHashCode">
+          <source>This might happen to improve the performance of <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph>.</source>
+          <target state="translated">Возможно, для повышения производительности <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="146" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetHashCode">
+          <source>To make the behavior of <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph> constant, the application should override the runtime implementation of <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph> with an implementation known to never change.</source>
+          <target state="translated">Чтобы сделать поведение <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph> константой, приложения должны переопределять реализацию среды <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetHashCode%2A&gt;</ph> с реализацией известно, никогда не изменений.</target>       </trans-unit>
+        <trans-unit id="147" translate="yes" xml:space="preserve" uid="T:System.Globalization.StringInfo">
+          <source>Gets the first text element in a specified string.</source>
+          <target state="translated">Возвращает первый текстовый элемент в заданной строке.</target>       </trans-unit>
+        <trans-unit id="148" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>The string from which to get the text element.</source>
+          <target state="translated">Строка, из которой нужно получить элемент текста.</target>       </trans-unit>
+        <trans-unit id="149" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>Gets the first text element in a specified string.</source>
+          <target state="translated">Возвращает первый текстовый элемент в заданной строке.</target>       </trans-unit>
+        <trans-unit id="150" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>A string containing the first text element in the specified string.</source>
+          <target state="translated">Строка, содержащая первый текстовый элемент в заданной строке.</target>       </trans-unit>
+        <trans-unit id="151" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</target>       </trans-unit>
+        <trans-unit id="152" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</target>       </trans-unit>
+        <trans-unit id="153" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Стандарт Юникод<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</target>       </trans-unit>
+        <trans-unit id="154" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Стандарт Юникод<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</target>       </trans-unit>
+        <trans-unit id="155" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</target>       </trans-unit>
+        <trans-unit id="156" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>This method only returns the first text element.</source>
+          <target state="translated">Этот метод возвращает только первый текстовый элемент.</target>       </trans-unit>
+        <trans-unit id="157" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source>To iterate through the text elements of the string, the application should use the <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph> object generated by the <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> method.</source>
+          <target state="translated">Для перебора элементов текста в строке, приложение должно использовать <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph> объектов, созданных <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> метод.</target>       </trans-unit>
+        <trans-unit id="158" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String)">
+          <source><ph id="ph1">&lt;paramref name="str" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated">Свойство <ph id="ph1">&lt;paramref name="str" /&gt;</ph> имеет значение <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="159" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>The string from which to get the text element.</source>
+          <target state="translated">Строка, из которой нужно получить элемент текста.</target>       </trans-unit>
+        <trans-unit id="160" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>The zero-based index at which the text element starts.</source>
+          <target state="translated">Отсчитываемый от нуля индекс, с которого начинается элемент текста.</target>       </trans-unit>
+        <trans-unit id="161" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>Gets the text element at the specified index of the specified string.</source>
+          <target state="translated">Возвращает элемент текста по указанному индексу заданной строки.</target>       </trans-unit>
+        <trans-unit id="162" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>A string containing the text element at the specified index of the specified string.</source>
+          <target state="translated">Строка, содержащая элемент текста по указанному индексу заданной строки.</target>       </trans-unit>
+        <trans-unit id="163" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</target>       </trans-unit>
+        <trans-unit id="164" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</target>       </trans-unit>
+        <trans-unit id="165" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Стандарт Юникод<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</target>       </trans-unit>
+        <trans-unit id="166" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated">В стандарте Юникода определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</target>       </trans-unit>
+        <trans-unit id="167" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</target>       </trans-unit>
+        <trans-unit id="168" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>This method only returns the first text element of the substring that starts at the specified index.</source>
+          <target state="translated">Этот метод возвращает только первый текстовый элемент подстроке, которая начинается с указанного индекса.</target>       </trans-unit>
+        <trans-unit id="169" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source>To iterate through the text elements of the string, the application should use the <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph> generated by the <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> method.</source>
+          <target state="translated">Для перебора элементов текста в строке, приложение должно использовать <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator&gt;</ph> созданные <ph id="ph2">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> метод.</target>       </trans-unit>
+        <trans-unit id="170" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="str" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated">Свойство <ph id="ph1">&lt;paramref name="str" /&gt;</ph> имеет значение <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="171" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetNextTextElement(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="index" /&gt;</ph> is outside the range of valid indexes for <ph id="ph2">&lt;paramref name="str" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="index" /&gt;</ph> находится вне диапазона допустимых индексов для <ph id="ph2">&lt;paramref name="str" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="172" translate="yes" xml:space="preserve" uid="T:System.Globalization.StringInfo">
+          <source>Returns an enumerator that iterates through the text elements of a string.</source>
+          <target state="translated">Возвращает перечислитель, который выполняет итерацию по текстовым элементам строки.</target>       </trans-unit>
+        <trans-unit id="173" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The string to iterate through.</source>
+          <target state="translated">Строка, в выполняется итерация.</target>       </trans-unit>
+        <trans-unit id="174" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>Returns an enumerator that iterates through the text elements of the entire string.</source>
+          <target state="translated">Возвращает перечислитель, который выполняет итерацию по текстовым элементам всей строки.</target>       </trans-unit>
+        <trans-unit id="175" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>A <ph id="ph1">&lt;see cref="T:System.Globalization.TextElementEnumerator" /&gt;</ph> for the entire string.</source>
+          <target state="translated">Объект <ph id="ph1">&lt;see cref="T:System.Globalization.TextElementEnumerator" /&gt;</ph> для всей строки.</target>       </trans-unit>
+        <trans-unit id="176" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</target>       </trans-unit>
+        <trans-unit id="177" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</target>       </trans-unit>
+        <trans-unit id="178" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Стандарт Юникод<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</target>       </trans-unit>
+        <trans-unit id="179" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated">В стандарте Юникода определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</target>       </trans-unit>
+        <trans-unit id="180" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</target>       </trans-unit>
+        <trans-unit id="181" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The text element enumerator is used only to read data in the string; it cannot modify the underlying string.</source>
+          <target state="translated">Перечислитель текстовых элементов используется только для чтения данных в строке; он не может изменить основной строки.</target>       </trans-unit>
+        <trans-unit id="182" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The enumerator does not have exclusive access to the string.</source>
+          <target state="translated">Перечислитель не имеет монопольного доступа к строке.</target>       </trans-unit>
+        <trans-unit id="183" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The enumerator is in an invalid state if it is positioned before the first text element in the string or after the last text element in the string.</source>
+          <target state="translated">Перечислитель находится в недопустимом состоянии, если он располагается перед первым текстовым элементом в строке или после последнего элемента текста в строке.</target>       </trans-unit>
+        <trans-unit id="184" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>When the enumerator is in an invalid state, calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> throws an exception.</source>
+          <target state="translated">Когда перечислитель находится в недопустимом состоянии, вызов <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> приводит к возникновению исключения.</target>       </trans-unit>
+        <trans-unit id="185" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>Initially, the enumerator is positioned before the first text element in the string.</source>
+          <target state="translated">Изначально перечислитель располагается перед первым текстовым элементом в строке.</target>       </trans-unit>
+        <trans-unit id="186" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> also brings the enumerator back to this position.</source>
+          <target state="translated">Метод <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> также переводит перечислитель в эту позицию.</target>       </trans-unit>
+        <trans-unit id="187" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>Therefore, after an enumerator is created or after <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> is called, <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> must be called to advance the enumerator to the first text element of the string before reading the value of <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>.</source>
+          <target state="translated">Поэтому после создания перечислителя или после <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> вызове <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> необходимо вызвать, чтобы переместить перечислитель на первый текстовый элемент строки до считывания значения свойства <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="188" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> returns the same object until either <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> or <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> is called.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> возвращает тот же объект, пока не будет вызван метод <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> или <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="189" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>After the end of the string is passed, the enumerator is again in an invalid state and calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> returns <ph id="ph2">`false`</ph>.</source>
+          <target state="translated">После прохождения конца строки перечислитель снова находится в недопустимом состоянии <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> возвращает <ph id="ph2">`false`</ph>.</target>       </trans-unit>
+        <trans-unit id="190" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>Calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> throws an exception if the last call to <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> returned <ph id="ph3">`false`</ph>.</source>
+          <target state="translated">Вызов <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> вызывает исключение, если последний вызов метода <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> возвращается <ph id="ph3">`false`</ph>.</target>       </trans-unit>
+        <trans-unit id="191" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>The following code example demonstrates calling the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> method.</source>
+          <target state="translated">В следующем примере кода демонстрируется вызов <ph id="ph1">&lt;xref:System.Globalization.StringInfo.GetTextElementEnumerator%2A&gt;</ph> метод.</target>       </trans-unit>
+        <trans-unit id="192" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source>This code example is part of a larger example provided for the <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> class.</source>
+          <target state="translated">Данный пример кода является частью большего примера, приведенного для <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> класса.</target>       </trans-unit>
+        <trans-unit id="193" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String)">
+          <source><ph id="ph1">&lt;paramref name="str" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated">Свойство <ph id="ph1">&lt;paramref name="str" /&gt;</ph> имеет значение <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="194" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The string to iterate through.</source>
+          <target state="translated">Строка, в выполняется итерация.</target>       </trans-unit>
+        <trans-unit id="195" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The zero-based index at which to start iterating.</source>
+          <target state="translated">Отсчитываемый от нуля индекс, с которого необходимо начать итерацию.</target>       </trans-unit>
+        <trans-unit id="196" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>Returns an enumerator that iterates through the text elements of the string, starting at the specified index.</source>
+          <target state="translated">Возвращает перечислитель, который может выполнять итерацию по текстовым элементам строки, начиная с указанного индекса.</target>       </trans-unit>
+        <trans-unit id="197" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>A <ph id="ph1">&lt;see cref="T:System.Globalization.TextElementEnumerator" /&gt;</ph> for the string starting at <ph id="ph2">&lt;paramref name="index" /&gt;</ph>.</source>
+          <target state="translated">Параметр <ph id="ph1">&lt;see cref="T:System.Globalization.TextElementEnumerator" /&gt;</ph> для всей строки, начиная с индекса <ph id="ph2">&lt;paramref name="index" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="198" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</target>       </trans-unit>
+        <trans-unit id="199" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</target>       </trans-unit>
+        <trans-unit id="200" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Стандарт Юникод<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</target>       </trans-unit>
+        <trans-unit id="201" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The Unicode Standard defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated">В стандарте Юникода определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</target>       </trans-unit>
+        <trans-unit id="202" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</target>       </trans-unit>
+        <trans-unit id="203" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The text element enumerator is used only to read data in the string; it cannot modify the underlying string.</source>
+          <target state="translated">Перечислитель текстовых элементов используется только для чтения данных в строке; он не может изменить основной строки.</target>       </trans-unit>
+        <trans-unit id="204" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The enumerator does not have exclusive access to the string.</source>
+          <target state="translated">Перечислитель не имеет монопольного доступа к строке.</target>       </trans-unit>
+        <trans-unit id="205" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>The enumerator is in an invalid state if it is positioned before the first text element in the string or after the last text element in the string.</source>
+          <target state="translated">Перечислитель находится в недопустимом состоянии, если он располагается перед первым текстовым элементом в строке или после последнего элемента текста в строке.</target>       </trans-unit>
+        <trans-unit id="206" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>When the enumerator is in an invalid state, calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> throws an exception.</source>
+          <target state="translated">Когда перечислитель находится в недопустимом состоянии, вызов <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> приводит к возникновению исключения.</target>       </trans-unit>
+        <trans-unit id="207" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>Initially, the enumerator is positioned before the first text element in the string.</source>
+          <target state="translated">Изначально перечислитель располагается перед первым текстовым элементом в строке.</target>       </trans-unit>
+        <trans-unit id="208" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> also brings the enumerator back to this position.</source>
+          <target state="translated">Метод <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> также переводит перечислитель в эту позицию.</target>       </trans-unit>
+        <trans-unit id="209" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>Therefore, after an enumerator is created or after <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> is called, <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> must be called to advance the enumerator to the first text element of the string before reading the value of <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>.</source>
+          <target state="translated">Поэтому после создания перечислителя или после <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> вызове <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> необходимо вызвать, чтобы переместить перечислитель на первый текстовый элемент строки до считывания значения свойства <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="210" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> returns the same object until either <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> or <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph> is called.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> возвращает тот же объект, пока не будет вызван метод <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> или <ph id="ph3">&lt;xref:System.Globalization.TextElementEnumerator.Reset%2A&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="211" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>After the end of the string is passed, the enumerator is again in an invalid state and calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> returns <ph id="ph2">`false`</ph>.</source>
+          <target state="translated">После прохождения конца строки перечислитель снова находится в недопустимом состоянии <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> возвращает <ph id="ph2">`false`</ph>.</target>       </trans-unit>
+        <trans-unit id="212" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source>Calling <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> throws an exception if the last call to <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> returned <ph id="ph3">`false`</ph>.</source>
+          <target state="translated">Вызов <ph id="ph1">&lt;xref:System.Globalization.TextElementEnumerator.Current%2A&gt;</ph> вызывает исключение, если последний вызов метода <ph id="ph2">&lt;xref:System.Globalization.TextElementEnumerator.MoveNext%2A&gt;</ph> возвращается <ph id="ph3">`false`</ph>.</target>       </trans-unit>
+        <trans-unit id="213" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="str" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated">Свойство <ph id="ph1">&lt;paramref name="str" /&gt;</ph> имеет значение <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="214" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.GetTextElementEnumerator(System.String,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="index" /&gt;</ph> is outside the range of valid indexes for <ph id="ph2">&lt;paramref name="str" /&gt;</ph>.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="index" /&gt;</ph> находится вне диапазона допустимых индексов для <ph id="ph2">&lt;paramref name="str" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="215" translate="yes" xml:space="preserve" uid="P:System.Globalization.StringInfo.LengthInTextElements">
+          <source>Gets the number of text elements in the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">Получает число текстовых элементов в текущем объекте <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="216" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.LengthInTextElements">
+          <source>The number of base characters, surrogate pairs, and combining character sequences in this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">Количество базовых символов, суррогатных пар и последовательностей несамостоятельных знаков в этом объекте <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="217" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The string to search.</source>
+          <target state="translated">Строка для поиска.</target>       </trans-unit>
+        <trans-unit id="218" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>Returns the indexes of each base character, high surrogate, or control character within the specified string.</source>
+          <target state="translated">Возвращает индексы каждого базового знака, старший символ-заместитель или знак элемента управления в пределах указанной строки.</target>       </trans-unit>
+        <trans-unit id="219" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>An array of integers that contains the zero-based indexes of each base character, high surrogate, or control character within the specified string.</source>
+          <target state="translated">Массив целочисленных чисел, который содержит отсчитываемые с нуля индексы каждого базового знака, старший символ-заместитель или знак элемента управления в пределах указанной строки.</target>       </trans-unit>
+        <trans-unit id="220" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a surrogate pair as a coded character representation for a single abstract character that consists of a sequence of two code units, where the first unit of the pair is a high surrogate and the second is a low surrogate.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Стандарт Юникод<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> определяет суррогатную пару как кодовое представление знака для одного обобщенного знака, состоящего из двух частей кода, где первый пары измеряются старшим символом-заместителем, а второй — низкого уровня символ-заместитель.</target>       </trans-unit>
+        <trans-unit id="221" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>A high surrogate is a Unicode code point in the range U+D800 through U+DBFF and a low surrogate is a Unicode code point in the range U+DC00 through U+DFFF.</source>
+          <target state="translated">Старший символ-заместитель кодовую точку Юникода в диапазоне от U + D800 до U + DBFF, а кодовую точку Юникода в диапазоне от U + DC00 до U + DFFF является младшим символом-заместителем.</target>       </trans-unit>
+        <trans-unit id="222" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>A control character is a character for which the Unicode value is U+007F or in the range U+0000 through U+001F or U+0080 through U+009F.</source>
+          <target state="translated">Управляющий символ — символ, для которого значение Юникода U + 007F либо находящемся в диапазоне U + 0000 до U + 001F или от U + 0080 до U + 009F.</target>       </trans-unit>
+        <trans-unit id="223" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The .NET Framework defines a text element as a unit of text that is displayed as a single character, that is, a grapheme.</source>
+          <target state="translated">Платформа .NET Framework определяет текстовый элемент как единое текст, отображаемый как один символ, то есть графем.</target>       </trans-unit>
+        <trans-unit id="224" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>A text element can be a base character, a surrogate pair, or a combining character sequence.</source>
+          <target state="translated">Текстовый элемент может быть базового символа, пара символов-заместителей или несамостоятельный знак последовательности.</target>       </trans-unit>
+        <trans-unit id="225" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The <bpt id="p1">[</bpt>Unicode Standard<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> defines a combining character sequence as a combination of a base character and one or more combining characters.</source>
+          <target state="translated"><bpt id="p1">[</bpt>Стандарт Юникод<ept id="p1">](http://go.microsoft.com/fwlink/?linkid=37123)</ept> определяет присоединяемую последовательность знаков как сочетание базового символа и одного или более несамостоятельных знаков.</target>       </trans-unit>
+        <trans-unit id="226" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>A surrogate pair can represent a base character or a combining character.</source>
+          <target state="translated">Пара символов-заместителей может представлять базовый или несамостоятельный знак.</target>       </trans-unit>
+        <trans-unit id="227" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>If a combining character sequence is invalid, every combining character in that sequence is also returned.</source>
+          <target state="translated">Если объединение Недопустимая последовательность символов, каждый присоединяемый знак в этой последовательности также возвращается.</target>       </trans-unit>
+        <trans-unit id="228" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>Each index in the resulting array is the beginning of a text element, that is, the index of the base character or the high surrogate.</source>
+          <target state="translated">Каждый индекс в полученном массиве является началом текстового элемента, то есть индекс базового символа или старшим символом-заместителем.</target>       </trans-unit>
+        <trans-unit id="229" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The length of each element is easily computed as the difference between successive indexes.</source>
+          <target state="translated">Длина каждого элемента легко вычисляется как разница между последовательными индексами.</target>       </trans-unit>
+        <trans-unit id="230" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The length of the array will always be less than or equal to the length of the string.</source>
+          <target state="translated">Длина массива всегда будет меньше или равным длине строки.</target>       </trans-unit>
+        <trans-unit id="231" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>For example, given the string "\u4f00\u302a\ud800\udc00\u4f01", this method returns the indexes 0, 2, and 4.</source>
+          <target state="translated">Например имея строка «\u4f00\u302a\ud800\udc00\u4f01», этот метод возвращает индексы 0, 2 и 4.</target>       </trans-unit>
+        <trans-unit id="232" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>Equivalent Members</source>
+          <target state="translated">Эквивалентные элементы</target>       </trans-unit>
+        <trans-unit id="233" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>Starting in version 2.0 of the .NET Framework, the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> method and <ph id="ph2">&lt;xref:System.Globalization.StringInfo.LengthInTextElements%2A&gt;</ph> property provide an easy to use implementation of the functionality offered by the <ph id="ph3">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> method.</source>
+          <target state="translated">Начиная с .NET Framework версии 2.0 <ph id="ph1">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> метод и <ph id="ph2">&lt;xref:System.Globalization.StringInfo.LengthInTextElements%2A&gt;</ph> свойство предоставляют удобные реализация функциональных возможностей, предоставляемых <ph id="ph3">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> метод.</target>       </trans-unit>
+        <trans-unit id="234" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>The following code example demonstrates calling the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> method.</source>
+          <target state="translated">В следующем примере кода демонстрируется вызов <ph id="ph1">&lt;xref:System.Globalization.StringInfo.ParseCombiningCharacters%2A&gt;</ph> метод.</target>       </trans-unit>
+        <trans-unit id="235" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source>This code example is part of a larger example provided for the <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> class.</source>
+          <target state="translated">Данный пример кода является частью большего примера, приведенного для <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> класса.</target>       </trans-unit>
+        <trans-unit id="236" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.ParseCombiningCharacters(System.String)">
+          <source><ph id="ph1">&lt;paramref name="str" /&gt;</ph> is <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated">Свойство <ph id="ph1">&lt;paramref name="str" /&gt;</ph> имеет значение <ph id="ph2">&lt;see langword="null" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="237" translate="yes" xml:space="preserve" uid="P:System.Globalization.StringInfo.String">
+          <source>Gets or sets the value of the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">Возвращает или задает значение текущего объекта <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</target>       </trans-unit>
+        <trans-unit id="238" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.String">
+          <source>The string that is the value of the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">Строка, являющаяся значением текущего объекта <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="239" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.String">
+          <source>When a <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> object is instantiated, its <ph id="ph2">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> property is set to one of the following values:</source>
+          <target state="translated">Когда <ph id="ph1">&lt;xref:System.Globalization.StringInfo&gt;</ph> экземпляра объекта его <ph id="ph2">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> свойству присвоено одно из следующих значений:</target>       </trans-unit>
+        <trans-unit id="240" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.String">
+          <source><ph id="ph1">&lt;xref:System.String.Empty?displayProperty=nameWithType&gt;</ph> if the default  <ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor&gt;</ph> is called.</source>
+          <target state="translated"><ph id="ph1">&lt;xref:System.String.Empty?displayProperty=nameWithType&gt;</ph> Если значение по умолчанию <ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor&gt;</ph> вызывается.</target>       </trans-unit>
+        <trans-unit id="241" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.String">
+          <source>You should then use the <ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> property to assign the string that this <ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph> object rperesents.</source>
+          <target state="translated">Затем следует использовать <ph id="ph1">&lt;xref:System.Globalization.StringInfo.String%2A&gt;</ph> свойство, присваиваемое строке этим <ph id="ph2">&lt;xref:System.Globalization.StringInfo&gt;</ph> rperesents объекта.</target>       </trans-unit>
+        <trans-unit id="242" translate="yes" xml:space="preserve" extradata="MT" uid="P:System.Globalization.StringInfo.String">
+          <source>The string supplied as the <ph id="ph1">`value`</ph> argument to the <ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph> constructor.</source>
+          <target state="translated">Строка, заданная как <ph id="ph1">`value`</ph> аргумент <ph id="ph2">&lt;xref:System.Globalization.StringInfo.%23ctor%28System.String%29&gt;</ph> конструктор.</target>       </trans-unit>
+        <trans-unit id="243" translate="yes" xml:space="preserve" uid="P:System.Globalization.StringInfo.String">
+          <source>The value in a set operation is <ph id="ph1">&lt;see langword="null" /&gt;</ph>.</source>
+          <target state="translated">Для данного свойства задано значение <ph id="ph1">&lt;see langword="null" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="244" translate="yes" xml:space="preserve" uid="T:System.Globalization.StringInfo">
+          <source>Retrieves a substring of text elements from the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">Извлекает подстроку текстовых элементов из текущего объекта <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="245" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>The zero-based index of a text element in this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">Отсчитываемый от нуля индекс текстового элемента в этом объекте <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="246" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>Retrieves a substring of text elements from the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object starting from a specified text element and continuing through the last text element.</source>
+          <target state="translated">Получает подстроку элементов текста из текущего объекта <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>, начиная с указанного элемента текста и продолжая до самого последнего элемента.</target>       </trans-unit>
+        <trans-unit id="247" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>A substring of text elements in this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object, starting from the text element index specified by the <ph id="ph2">&lt;paramref name="startingTextElement" /&gt;</ph> parameter and continuing through the last text element in this object.</source>
+          <target state="translated">Подстрока элементов текста в этом объекте <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>, начиная с индекса элементов текста, указанного в параметре <ph id="ph2">&lt;paramref name="startingTextElement" /&gt;</ph> и продолжая до последнего элемента текста в этом объекте.</target>       </trans-unit>
+        <trans-unit id="248" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>Consider a string that consists of five text elements, indexed from 0 through 4.</source>
+          <target state="translated">Рассмотрим строку, которая состоит из пяти элементов текста с индексами от 0 до 4.</target>       </trans-unit>
+        <trans-unit id="249" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>If the <ph id="ph1">`startingTextElement`</ph> parameter is 1, the  <ph id="ph2">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> method returns a substring that consists of the text elements for which the indexes are 1, 2, 3, and 4.</source>
+          <target state="translated">Если <ph id="ph1">`startingTextElement`</ph> параметр равен 1, <ph id="ph2">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> метод возвращает подстроку, который состоит из элементов текста, для которых индексы являются 1, 2, 3 и 4.</target>       </trans-unit>
+        <trans-unit id="250" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> is less than zero.</source>
+          <target state="translated">Значение параметра <ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> меньше нуля.</target>       </trans-unit>
+        <trans-unit id="251" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>-or-</source>
+          <target state="translated">- или -</target>       </trans-unit>
+        <trans-unit id="252" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32)">
+          <source>The string that is the value of the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object is the empty string ("").</source>
+          <target state="translated">Строка, являющаяся значением текущего объекта <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>, является пустой строкой ("").</target>       </trans-unit>
+        <trans-unit id="253" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>The zero-based index of a text element in this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">Отсчитываемый от нуля индекс текстового элемента в этом объекте <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="254" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>The number of text elements to retrieve.</source>
+          <target state="translated">Количество извлекаемых элементов текста.</target>       </trans-unit>
+        <trans-unit id="255" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>Retrieves a substring of text elements from the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object starting from a specified text element and continuing through the specified number of text elements.</source>
+          <target state="translated">Получает подстроку элементов текста из текущего объекта <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>, начиная с указанного элемента текста и продолжая до указанного количества элементов текста.</target>       </trans-unit>
+        <trans-unit id="256" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>A substring of text elements in this <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated">Подстрока элементов текста в этом объекте <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="257" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>The substring consists of the number of text elements specified by the <ph id="ph1">&lt;paramref name="lengthInTextElements" /&gt;</ph> parameter and starts from the text element index specified by the <ph id="ph2">&lt;paramref name="startingTextElement" /&gt;</ph> parameter.</source>
+          <target state="translated">Подстрока состоит из некоторого количества элементов текста, определенных параметром <ph id="ph1">&lt;paramref name="lengthInTextElements" /&gt;</ph>, начиная с индекса элемента текста, указанного в параметре <ph id="ph2">&lt;paramref name="startingTextElement" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="258" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>Consider a string that consists of five text elements, indexed from 0 through 4.</source>
+          <target state="translated">Рассмотрим строку, которая состоит из пяти элементов текста с индексами от 0 до 4.</target>       </trans-unit>
+        <trans-unit id="259" translate="yes" xml:space="preserve" extradata="MT" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>If the <ph id="ph1">`startingTextElement`</ph> parameter is 1 and the <ph id="ph2">`lengthInTextElements`</ph> parameter is 3, the <ph id="ph3">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> method returns a substring that consists of the text elements for which the indexes are 1, 2, and 3.</source>
+          <target state="translated">Если <ph id="ph1">`startingTextElement`</ph> параметр равен 1 и <ph id="ph2">`lengthInTextElements`</ph> параметра равно 3, <ph id="ph3">&lt;xref:System.Globalization.StringInfo.SubstringByTextElements%2A&gt;</ph> метод возвращает подстроку, который состоит из элементов текста, для которых индексы являются 1, 2 и 3.</target>       </trans-unit>
+        <trans-unit id="260" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> is less than zero.</source>
+          <target state="translated">Значение параметра <ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> меньше нуля.</target>       </trans-unit>
+        <trans-unit id="261" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>-or-</source>
+          <target state="translated">- или -</target>       </trans-unit>
+        <trans-unit id="262" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> is greater than or equal to the length of the string that is the value of the current <ph id="ph2">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph> больше или равен длине строки, которая является значением текущего объекта <ph id="ph2">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+        <trans-unit id="263" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>-or-</source>
+          <target state="translated">- или -</target>       </trans-unit>
+        <trans-unit id="264" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="lengthInTextElements" /&gt;</ph> is less than zero.</source>
+          <target state="translated">Значение параметра <ph id="ph1">&lt;paramref name="lengthInTextElements" /&gt;</ph> меньше нуля.</target>       </trans-unit>
+        <trans-unit id="265" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>-or-</source>
+          <target state="translated">- или -</target>       </trans-unit>
+        <trans-unit id="266" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>The string that is the value of the current <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object is the empty string ("").</source>
+          <target state="translated">Строка, являющаяся значением текущего объекта <ph id="ph1">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>, является пустой строкой ("").</target>       </trans-unit>
+        <trans-unit id="267" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source>-or-</source>
+          <target state="translated">- или -</target>       </trans-unit>
+        <trans-unit id="268" translate="yes" xml:space="preserve" uid="M:System.Globalization.StringInfo.SubstringByTextElements(System.Int32,System.Int32)">
+          <source><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph><ph id="ph2"> + </ph><ph id="ph3">&lt;paramref name="lengthInTextElements" /&gt;</ph> specify an index that is greater than the number of text elements in this <ph id="ph4">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph> object.</source>
+          <target state="translated"><ph id="ph1">&lt;paramref name="startingTextElement" /&gt;</ph><ph id="ph2"> + </ph><ph id="ph3">&lt;paramref name="lengthInTextElements" /&gt;</ph> определяет индекс, который больше количества элементов текста в этом объекте <ph id="ph4">&lt;see cref="T:System.Globalization.StringInfo" /&gt;</ph>.</target>       </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
