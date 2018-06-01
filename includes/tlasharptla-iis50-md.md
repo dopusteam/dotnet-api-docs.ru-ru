@@ -1,1 +1,0 @@
-<span data-ttu-id="93fb3-101">Службы Microsoft IIS 5.0</span><span class="sxs-lookup"><span data-stu-id="93fb3-101">Microsoft Internet Information Services (IIS) 5.0</span></span>

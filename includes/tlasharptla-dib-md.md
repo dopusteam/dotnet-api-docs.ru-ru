@@ -1,1 +1,0 @@
-<span data-ttu-id="c53e1-101">аппаратно-независимый точечный рисунок (DIB)</span><span class="sxs-lookup"><span data-stu-id="c53e1-101">device-independent bitmap (DIB)</span></span>

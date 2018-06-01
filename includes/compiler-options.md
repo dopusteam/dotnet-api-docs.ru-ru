@@ -1,2 +1,0 @@
-
-<span data-ttu-id="8713d-101">Каждый параметр компилятора можно использовать в двух формах записи: **-параметр** или **/параметр**.</span><span class="sxs-lookup"><span data-stu-id="8713d-101">Every compiler option is available in two forms: **-option** and **/option**.</span></span> <span data-ttu-id="8713d-102">В документации показана только форма -<параметр>.</span><span class="sxs-lookup"><span data-stu-id="8713d-102">The documentation only shows the -option form.</span></span> 

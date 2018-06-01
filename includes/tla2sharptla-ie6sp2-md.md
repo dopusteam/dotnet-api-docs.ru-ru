@@ -1,1 +1,0 @@
-<span data-ttu-id="db2a1-101">IE6 с пакетом обновления 2 (SP2)</span><span class="sxs-lookup"><span data-stu-id="db2a1-101">IE6 SP2</span></span>

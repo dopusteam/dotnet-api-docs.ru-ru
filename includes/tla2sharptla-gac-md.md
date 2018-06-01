@@ -1,1 +1,0 @@
- <span data-ttu-id="6fd21-101">Глобальный кэш сборок</span><span class="sxs-lookup"><span data-stu-id="6fd21-101">GAC</span></span> 

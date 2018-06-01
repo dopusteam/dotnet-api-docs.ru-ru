@@ -1,1 +1,0 @@
-<span data-ttu-id="af957-101">Управление жизненным циклом приложений Visual Studio</span><span class="sxs-lookup"><span data-stu-id="af957-101">Visual Studio Application Lifecycle Management</span></span>

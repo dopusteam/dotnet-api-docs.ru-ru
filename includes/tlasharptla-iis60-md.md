@@ -1,1 +1,0 @@
-<span data-ttu-id="64bef-101">Службы Microsoft IIS 6.0</span><span class="sxs-lookup"><span data-stu-id="64bef-101">Microsoft Internet Information Services (IIS) 6.0</span></span>

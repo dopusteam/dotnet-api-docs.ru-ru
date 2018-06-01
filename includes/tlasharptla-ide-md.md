@@ -1,1 +1,0 @@
-<span data-ttu-id="cfb5a-101">Интегрированная среда разработки (IDE)</span><span class="sxs-lookup"><span data-stu-id="cfb5a-101">Integrated Development Environment (IDE)</span></span>

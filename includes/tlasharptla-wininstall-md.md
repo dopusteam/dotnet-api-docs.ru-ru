@@ -1,1 +1,0 @@
-<span data-ttu-id="ab69a-101">Установщик Microsoft Windows</span><span class="sxs-lookup"><span data-stu-id="ab69a-101">Microsoft Windows Installer</span></span>

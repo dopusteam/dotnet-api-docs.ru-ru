@@ -1,1 +1,0 @@
-<span data-ttu-id="6945b-101">Microsoft Windows XP с пакетом обновления 2 (SP2)</span><span class="sxs-lookup"><span data-stu-id="6945b-101">Microsoft Windows XP Service Pack 2 (SP2)</span></span>
