@@ -1,11 +1,11 @@
 <Type Name="SslStream" FullName="System.Net.Security.SslStream">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="bada0e51ffc8032cc2a85028ad35057a90420171" />
-    <Meta Name="ms.sourcegitcommit" Value="f9e3295b6cc303a611a73a84c4b27f9da792ad0d" />
+    <Meta Name="ms.openlocfilehash" Value="595c8b079b56e602a81ac703884f6eee7a00231b" />
+    <Meta Name="ms.sourcegitcommit" Value="b3480b6208c3cad466469e76294a96f5ab1ef04c" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="04/26/2018" />
-    <Meta Name="ms.locfileid" Value="31911406" />
+    <Meta Name="ms.lasthandoff" Value="06/16/2018" />
+    <Meta Name="ms.locfileid" Value="35691850" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class SslStream : System.Net.Security.AuthenticatedStream" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit SslStream extends System.Net.Security.AuthenticatedStream implements class System.IDisposable" />
@@ -32,7 +32,7 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>Предоставляет поток, который служит для взаимодействия между клиентом и сервером и использует протокол безопасности SSL для проверки подлинности сервера и при необходимости клиента.</summary>
+    <summary>Предоставляет поток, используемый для обмена данными между клиентом и сервером, использующий протокол безопасности SSL для проверки подлинности сервера и, при необходимости, клиента.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -51,7 +51,7 @@
   
  После успешного завершения процесса проверки подлинности, также известные как SSL-подтверждения установить удостоверение сервера (и, при необходимости, клиента) и <xref:System.Net.Security.SslStream> может использоваться клиентом и сервером для обмена сообщениями. До отправки или получения сведений, клиент и сервер должны проверить службы и уровни безопасности, предоставляемые <xref:System.Net.Security.SslStream> для определения, является ли протокол, алгоритмы и стойкости требования для обеспечения целостности и конфиденциальности. Если текущие настройки недостаточно, поток должен быть закрыт. Вы можете проверить службы безопасности, предоставляемые <xref:System.Net.Security.SslStream> с помощью <xref:System.Net.Security.SslStream.IsEncrypted%2A> и <xref:System.Net.Security.SslStream.IsSigned%2A> свойства. Ниже приведены элементы, отображающие криптографические параметры, используемые для проверки подлинности, шифрования и подписывания данных.  
   
-|Элемент|Участники|  
+|Элемент|Члены|  
 |-------------|-------------|  
 |Протокол безопасности, используемый для проверки подлинности сервера и, возможно, клиент.|<xref:System.Net.Security.SslStream.SslProtocol%2A> Свойство и связанное с ним <xref:System.Security.Authentication.SslProtocols> перечисления.|  
 |Алгоритм обмена ключами.|<xref:System.Net.Security.SslStream.KeyExchangeAlgorithm%2A> Свойство и связанное с ним <xref:System.Security.Authentication.ExchangeAlgorithmType> перечисления.|  
@@ -72,7 +72,9 @@
   
  Разработчики имеют возможность отказаться от этого поведения для обеспечения взаимодействия с имеющиеся SSL3 услуги или TLS с служб RC4. [В этой статье](https://support.microsoft.com/kb/3069494) объясняется, как изменить код таким образом, чтобы отключить новое поведение.  
   
- .NET Framework 4.7 добавлены новые перегрузки для методов, которые проходят проверку подлинности, не указан версии TLS, но вместо этого использовать версию TLS, заданную по умолчанию в системе SslStreams [SCHANNEL](https://msdn.microsoft.com/library/windows/desktop/aa380123.aspx). Эти методы можно использовать в приложении, чтобы иметь возможность изменить значения по умолчанию как изменения лучший подход TLS версии со временем, без необходимости перестроения и повторного развертывания приложения.  
+ .NET Framework 4.7 добавлены новые перегрузки для методов, которые проходят проверку подлинности, не указан версии TLS, но вместо этого использовать версию TLS, заданную по умолчанию в системе SslStreams [SCHANNEL](https://msdn.microsoft.com/library/windows/desktop/aa380123.aspx). Эти методы можно использовать в приложении, чтобы иметь возможность изменить значения по умолчанию как изменения лучший подход TLS версии со временем, без необходимости перестроения и повторного развертывания приложения.
+
+ См. также [Transport Layer Security (TLS) рекомендации с платформой .NET Framework](~/docs/framework/network-programming/tls.md).
   
    
   
@@ -138,7 +140,7 @@
         <Parameter Name="innerStream" Type="System.IO.Stream" />
       </Parameters>
       <Docs>
-        <param name="innerStream">Объект <see cref="T:System.IO.Stream" />, используемый потоком <see cref="T:System.Net.Security.SslStream" /> для отправки и получения данных.</param>
+        <param name="innerStream">Объект <see cref="T:System.IO.Stream" />, используемый потоком <see cref="T:System.Net.Security.SslStream" /> для отправления и получения данных.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.Security.SslStream" /> с использованием указанного объекта <see cref="T:System.IO.Stream" />.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -150,18 +152,9 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">
-          <paramref name="innerStream" /> недоступно для чтения.  
-  
- - или -  
-  
- <paramref name="innerStream" /> недоступно для записи.</exception>
+        <exception cref="T:System.ArgumentException">Чтение из потока, заданного параметром <paramref name="innerStream" />, запрещено.  -или-  <paramref name="innerStream" /> недоступно для записи.</exception>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="innerStream" /> имеет значение <see langword="null" />.  
-  
- - или -  
-  
- <paramref name="innerStream" /> равно <see cref="F:System.IO.Stream.Null" />.</exception>
+          <paramref name="innerStream" /> — <see langword="null" />.  -или-  Значение <paramref name="innerStream" /> равно <see cref="F:System.IO.Stream.Null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -191,7 +184,7 @@
         <Parameter Name="leaveInnerStreamOpen" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="innerStream">Объект <see cref="T:System.IO.Stream" />, используемый потоком <see cref="T:System.Net.Security.SslStream" /> для отправки и получения данных.</param>
+        <param name="innerStream">Объект <see cref="T:System.IO.Stream" />, используемый потоком <see cref="T:System.Net.Security.SslStream" /> для отправления и получения данных.</param>
         <param name="leaveInnerStreamOpen">Логическое значение, указывающее поведение при закрытии объекта <see cref="T:System.IO.Stream" />, который используется объектом <see cref="T:System.Net.Security.SslStream" /> для отправки и получения данных. Данный параметр указывает, оставлен ли открытым внутренний поток.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.Security.SslStream" />, используя заданный поток <see cref="T:System.IO.Stream" /> и параметр, указывающий поведение потока при закрытии.</summary>
         <remarks>
@@ -214,18 +207,9 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">
-          <paramref name="innerStream" /> недоступно для чтения.  
-  
- - или -  
-  
- <paramref name="innerStream" /> недоступно для записи.</exception>
+        <exception cref="T:System.ArgumentException">Чтение из потока, заданного параметром <paramref name="innerStream" />, запрещено.  -или-  <paramref name="innerStream" /> недоступно для записи.</exception>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="innerStream" /> имеет значение <see langword="null" />.  
-  
- - или -  
-  
- <paramref name="innerStream" /> равно <see cref="F:System.IO.Stream.Null" />.</exception>
+          <paramref name="innerStream" /> — <see langword="null" />.  -или-  Значение <paramref name="innerStream" /> равно <see cref="F:System.IO.Stream.Null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -256,7 +240,7 @@
         <Parameter Name="userCertificateValidationCallback" Type="System.Net.Security.RemoteCertificateValidationCallback" />
       </Parameters>
       <Docs>
-        <param name="innerStream">Объект <see cref="T:System.IO.Stream" />, используемый потоком <see cref="T:System.Net.Security.SslStream" /> для отправки и получения данных.</param>
+        <param name="innerStream">Объект <see cref="T:System.IO.Stream" />, используемый потоком <see cref="T:System.Net.Security.SslStream" /> для отправления и получения данных.</param>
         <param name="leaveInnerStreamOpen">Логическое значение, указывающее поведение при закрытии объекта <see cref="T:System.IO.Stream" />, который используется объектом <see cref="T:System.Net.Security.SslStream" /> для отправки и получения данных. Данный параметр указывает, оставлен ли открытым внутренний поток.</param>
         <param name="userCertificateValidationCallback">Делегат <see cref="T:System.Net.Security.RemoteCertificateValidationCallback" />, отвечающий за проверку сертификата, представленного удаленной стороной.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.Security.SslStream" />, используя заданный поток <see cref="T:System.IO.Stream" />, параметр, указывающий поведение потока при закрытии, и делегат проверки сертификата.</summary>
@@ -290,18 +274,9 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">
-          <paramref name="innerStream" /> недоступно для чтения.  
-  
- - или -  
-  
- <paramref name="innerStream" /> недоступно для записи.</exception>
+        <exception cref="T:System.ArgumentException">Чтение из потока, заданного параметром <paramref name="innerStream" />, запрещено.  -или-  <paramref name="innerStream" /> недоступно для записи.</exception>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="innerStream" /> имеет значение <see langword="null" />.  
-  
- - или -  
-  
- <paramref name="innerStream" /> равно <see cref="F:System.IO.Stream.Null" />.</exception>
+          <paramref name="innerStream" /> — <see langword="null" />.  -или-  Значение <paramref name="innerStream" /> равно <see cref="F:System.IO.Stream.Null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -333,7 +308,7 @@
         <Parameter Name="userCertificateSelectionCallback" Type="System.Net.Security.LocalCertificateSelectionCallback" />
       </Parameters>
       <Docs>
-        <param name="innerStream">Объект <see cref="T:System.IO.Stream" />, используемый потоком <see cref="T:System.Net.Security.SslStream" /> для отправки и получения данных.</param>
+        <param name="innerStream">Объект <see cref="T:System.IO.Stream" />, используемый потоком <see cref="T:System.Net.Security.SslStream" /> для отправления и получения данных.</param>
         <param name="leaveInnerStreamOpen">Логическое значение, указывающее поведение при закрытии объекта <see cref="T:System.IO.Stream" />, который используется объектом <see cref="T:System.Net.Security.SslStream" /> для отправки и получения данных. Данный параметр указывает, оставлен ли открытым внутренний поток.</param>
         <param name="userCertificateValidationCallback">Делегат <see cref="T:System.Net.Security.RemoteCertificateValidationCallback" />, отвечающий за проверку сертификата, представленного удаленной стороной.</param>
         <param name="userCertificateSelectionCallback">Делегат <see cref="T:System.Net.Security.LocalCertificateSelectionCallback" />, отвечающий за выбор сертификата, используемого для проверки подлинности.</param>
@@ -367,18 +342,9 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">
-          <paramref name="innerStream" /> недоступно для чтения.  
-  
- - или -  
-  
- <paramref name="innerStream" /> недоступно для записи.</exception>
+        <exception cref="T:System.ArgumentException">Чтение из потока, заданного параметром <paramref name="innerStream" />, запрещено.  -или-  <paramref name="innerStream" /> недоступно для записи.</exception>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="innerStream" /> имеет значение <see langword="null" />.  
-  
- - или -  
-  
- <paramref name="innerStream" /> равно <see cref="F:System.IO.Stream.Null" />.</exception>
+          <paramref name="innerStream" /> — <see langword="null" />.  -или-  Значение <paramref name="innerStream" /> равно <see cref="F:System.IO.Stream.Null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -415,11 +381,11 @@
         <Parameter Name="encryptionPolicy" Type="System.Net.Security.EncryptionPolicy" />
       </Parameters>
       <Docs>
-        <param name="innerStream">Объект <see cref="T:System.IO.Stream" />, используемый потоком <see cref="T:System.Net.Security.SslStream" /> для отправки и получения данных.</param>
+        <param name="innerStream">Объект <see cref="T:System.IO.Stream" />, используемый потоком <see cref="T:System.Net.Security.SslStream" /> для отправления и получения данных.</param>
         <param name="leaveInnerStreamOpen">Логическое значение, указывающее поведение при закрытии объекта <see cref="T:System.IO.Stream" />, который используется объектом <see cref="T:System.Net.Security.SslStream" /> для отправки и получения данных. Данный параметр указывает, оставлен ли открытым внутренний поток.</param>
         <param name="userCertificateValidationCallback">Делегат <see cref="T:System.Net.Security.RemoteCertificateValidationCallback" />, отвечающий за проверку сертификата, представленного удаленной стороной.</param>
         <param name="userCertificateSelectionCallback">Делегат <see cref="T:System.Net.Security.LocalCertificateSelectionCallback" />, отвечающий за выбор сертификата, используемого для проверки подлинности.</param>
-        <param name="encryptionPolicy">Используемый <see cref="T:System.Net.Security.EncryptionPolicy" />.</param>
+        <param name="encryptionPolicy">Используемое средство записи <see cref="T:System.Net.Security.EncryptionPolicy" />.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.Security.SslStream" /> с использованием указанного объекта <see cref="T:System.IO.Stream" />.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -429,22 +395,9 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">
-          <paramref name="innerStream" /> недоступно для чтения.  
-  
- - или -  
-  
- <paramref name="innerStream" /> недоступно для записи.  
-  
- - или -  
-  
- Недопустимый параметр <paramref name="encryptionPolicy" />.</exception>
+        <exception cref="T:System.ArgumentException">Чтение из потока, заданного параметром <paramref name="innerStream" />, запрещено.  -или-  <paramref name="innerStream" /> недоступно для записи.  -или-  <paramref name="encryptionPolicy" /> является недопустимым.</exception>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="innerStream" /> имеет значение <see langword="null" />.  
-  
- - или -  
-  
- <paramref name="innerStream" /> равно <see cref="F:System.IO.Stream.Null" />.</exception>
+          <paramref name="innerStream" /> — <see langword="null" />.  -или-  Значение <paramref name="innerStream" /> равно <see cref="F:System.IO.Stream.Null" />.</exception>
       </Docs>
     </Member>
     <MemberGroup MemberName="AuthenticateAsClient">
@@ -488,8 +441,8 @@
         <Parameter Name="targetHost" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="targetHost">Имя сервера, который совместно использует <see cref="T:System.Net.Security.SslStream" />.</param>
-        <summary>Вызывается клиентами для проверки подлинности сервера и, при необходимости, клиента в подключении "клиент-сервер".</summary>
+        <param name="targetHost">Имя сервера, совместно использующего данный поток <see cref="T:System.Net.Security.SslStream" />.</param>
+        <summary>Вызывается клиентами для проверки подлинности сервера и, при необходимости, клиента в соединении клиент-сервер.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -503,18 +456,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="targetHost" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности сервера с использованием <see cref="T:System.Net.Security.SslStream" /> уже выполнена.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
+          <paramref name="targetHost" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности сервера с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
       </Docs>
     </Member>
     <Member MemberName="AuthenticateAsClient">
@@ -542,10 +487,10 @@
         <Parameter Name="checkCertificateRevocation" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="targetHost">Имя сервера, который будет совместно использовать <see cref="T:System.Net.Security.SslStream" />.</param>
+        <param name="targetHost">Имя сервера, который будет совместно использовать данный поток <see cref="T:System.Net.Security.SslStream" />.</param>
         <param name="clientCertificates">Объект <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />, который содержит сертификаты клиента.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
-        <summary>Вызывается клиентами для проверки подлинности сервера и, при необходимости, клиента в подключении "клиент-сервер". Процесс проверки подлинности использует указанную коллекцию сертификатов и протокол SSL системы по умолчанию.</summary>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
+        <summary>Вызывается клиентами для проверки подлинности сервера и, при необходимости, клиента в соединении клиент-сервер. Процесс проверки подлинности использует указанную коллекцию сертификатов и протокол SSL системы по умолчанию.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -597,11 +542,11 @@
         <Parameter Name="checkCertificateRevocation" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="targetHost">Имя сервера, который будет совместно использовать <see cref="T:System.Net.Security.SslStream" />.</param>
-        <param name="clientCertificates">Объект <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />, который содержит сертификаты клиента.</param>
+        <param name="targetHost">Имя сервера, который будет совместно использовать данный поток <see cref="T:System.Net.Security.SslStream" />.</param>
+        <param name="clientCertificates">Коллекция <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />, которая содержит клиентские сертификаты.</param>
         <param name="enabledSslProtocols">Значение из перечисления <see cref="T:System.Security.Authentication.SslProtocols" />, представляющее протокол, используемый для проверки подлинности.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
-        <summary>Вызывается клиентами для проверки подлинности сервера и, при необходимости, клиента в подключении "клиент-сервер". Процесс проверки подлинности использует заданную коллекцию сертификатов и протокол SSL.</summary>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
+        <summary>Вызывается клиентами для проверки подлинности сервера и, при необходимости, клиента в соединении клиент-сервер. Процесс проверки подлинности использует заданную коллекцию сертификатов и протокол SSL.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -661,11 +606,9 @@
         <Parameter Name="targetHost" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="targetHost">Имя сервера, который совместно использует <see cref="T:System.Net.Security.SslStream" />.</param>
-        <summary>Вызывается клиентами для проверки подлинности сервера и, при необходимости, клиента в подключении "клиент-сервер" в рамках асинхронной операции.</summary>
-        <returns>Возвращает <see cref="T:System.Threading.Tasks.Task" />.  
-  
- Объект задачи, представляющий асинхронную операцию.</returns>
+        <param name="targetHost">Имя сервера, совместно использующего данный поток <see cref="T:System.Net.Security.SslStream" />.</param>
+        <summary>Вызывается клиентами аутентификации сервера, и, при необходимости, клиента в соединении клиент-сервер как асинхронная операция.</summary>
+        <returns>Возвращает <see cref="T:System.Threading.Tasks.Task" />  Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -679,18 +622,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="targetHost" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности сервера с использованием <see cref="T:System.Net.Security.SslStream" /> уже выполнена.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
+          <paramref name="targetHost" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности сервера с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
       </Docs>
     </Member>
     <Member MemberName="AuthenticateAsClientAsync">
@@ -743,10 +678,10 @@
         <Parameter Name="checkCertificateRevocation" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="targetHost">Имя сервера, который будет совместно использовать <see cref="T:System.Net.Security.SslStream" />.</param>
+        <param name="targetHost">Имя сервера, который будет совместно использовать данный поток <see cref="T:System.Net.Security.SslStream" />.</param>
         <param name="clientCertificates">Объект <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />, который содержит сертификаты клиента.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
-        <summary>Вызывается клиентами для проверки подлинности сервера и, при необходимости, клиента в подключении "клиент-сервер" в рамках асинхронной операции. Процесс проверки подлинности использует указанную коллекцию сертификатов и протокол SSL системы по умолчанию.</summary>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
+        <summary>Вызывается клиентами аутентификации сервера, и, при необходимости, клиента в соединении клиент-сервер как асинхронная операция. Процесс проверки подлинности использует указанную коллекцию сертификатов и протокол SSL системы по умолчанию.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -800,14 +735,12 @@
         <Parameter Name="checkCertificateRevocation" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="targetHost">Имя сервера, который будет совместно использовать <see cref="T:System.Net.Security.SslStream" />.</param>
-        <param name="clientCertificates">Объект <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />, который содержит сертификаты клиента.</param>
+        <param name="targetHost">Имя сервера, который будет совместно использовать данный поток <see cref="T:System.Net.Security.SslStream" />.</param>
+        <param name="clientCertificates">Коллекция <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />, которая содержит клиентские сертификаты.</param>
         <param name="enabledSslProtocols">Значение из перечисления <see cref="T:System.Security.Authentication.SslProtocols" />, представляющее протокол, используемый для проверки подлинности.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
-        <summary>Вызывается клиентами для проверки подлинности сервера и, при необходимости, клиента в подключении "клиент-сервер" в рамках асинхронной операции. Процесс проверки подлинности использует заданную коллекцию сертификатов и протокол SSL.</summary>
-        <returns>Возвращает <see cref="T:System.Threading.Tasks.Task" />.  
-  
- Объект задачи, представляющий асинхронную операцию.</returns>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
+        <summary>Вызывается клиентами аутентификации сервера, и, при необходимости, клиента в соединении клиент-сервер как асинхронная операция. Процесс проверки подлинности использует заданную коллекцию сертификатов и протокол SSL.</summary>
+        <returns>Возвращает <see cref="T:System.Threading.Tasks.Task" />  Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -881,19 +814,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="serverCertificate" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности клиента с помощью этого параметра <see cref="T:System.Net.Security.SslStream" /> уже выполнена ранее.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
-        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.AuthenticateAsServer" /> не поддерживается в Windows 95, Windows 98 и Windows Millennium.</exception>
+          <paramref name="serverCertificate" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности клиента с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
+        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.AuthenticateAsServer" /> не поддерживается в системах Windows 95, Windows 98 и Windows Millennium.</exception>
       </Docs>
     </Member>
     <Member MemberName="AuthenticateAsServer">
@@ -921,9 +846,9 @@
         <Parameter Name="checkCertificateRevocation" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="serverCertificate">Сертификат X509, который используется для проверки подлинности сервера.</param>
+        <param name="serverCertificate">Объект X509Certificate, используемый для проверки подлинности сервера.</param>
         <param name="clientCertificateRequired">Значение <see cref="T:System.Boolean" />, которое указывает, получает ли клиент запрос на сертификат для проверки подлинности. Обратите внимание, что это — только запрос. Если сертификат не предоставляется, сервер продолжает принимать запрос на подключение.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
         <summary>Вызывается серверами для проверки подлинности сервера и, при необходимости, клиента в подключении между клиентом и сервером с использованием указанных сертификатов, требований и протокола безопасности системы по умолчанию.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -938,19 +863,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="serverCertificate" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности клиента с помощью этого параметра <see cref="T:System.Net.Security.SslStream" /> уже выполнена ранее.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
-        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.AuthenticateAsServer" /> не поддерживается в Windows 95, Windows 98 и Windows Millennium.</exception>
+          <paramref name="serverCertificate" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности клиента с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
+        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.AuthenticateAsServer" /> не поддерживается в системах Windows 95, Windows 98 и Windows Millennium.</exception>
       </Docs>
     </Member>
     <Member MemberName="AuthenticateAsServer">
@@ -987,11 +904,11 @@
         <Parameter Name="checkCertificateRevocation" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="serverCertificate">Сертификат X509, который используется для проверки подлинности сервера.</param>
+        <param name="serverCertificate">Объект X509Certificate, используемый для проверки подлинности сервера.</param>
         <param name="clientCertificateRequired">Значение <see cref="T:System.Boolean" />, которое указывает, получает ли клиент запрос на сертификат для проверки подлинности. Обратите внимание, что это — только запрос. Если сертификат не предоставляется, сервер продолжает принимать запрос на подключение.</param>
         <param name="enabledSslProtocols">Значение из перечисления <see cref="T:System.Security.Authentication.SslProtocols" />, представляющее протокол, используемый для проверки подлинности.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
-        <summary>Вызывается серверами для проверки подлинности сервера и при необходимости клиента в подключении между клиентом и сервером с использованием указанных сертификатов, требований и протокола безопасности.</summary>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
+        <summary>Вызывается серверами для аутентификации сервера, и, при необходимости, клиента в соединении клиент-сервер с использованием указанных сертификатов, требований и протокола безопасности.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1005,21 +922,12 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="serverCertificate" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">
-          <paramref name="enabledSslProtocols" /> не является допустимым значением <see cref="T:System.Security.Authentication.SslProtocols" />.</exception>
+          <paramref name="serverCertificate" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Параметр <paramref name="enabledSslProtocols" /> не является допустимым значением <see cref="T:System.Security.Authentication.SslProtocols" />.</exception>
         <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности клиента с помощью этого параметра <see cref="T:System.Net.Security.SslStream" /> уже выполнена ранее.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
-        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.AuthenticateAsServer" /> не поддерживается в Windows 95, Windows 98 и Windows Millennium.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности клиента с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
+        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.AuthenticateAsServer" /> не поддерживается в системах Windows 95, Windows 98 и Windows Millennium.</exception>
       </Docs>
     </Member>
     <MemberGroup MemberName="AuthenticateAsServerAsync">
@@ -1066,9 +974,7 @@
       <Docs>
         <param name="serverCertificate">Сертификат используется для проверки подлинности сервера.</param>
         <summary>Вызывается серверами для проверки подлинности сервера и, при необходимости, клиента в соединении клиент-сервер с использованием заданного сертификата как асинхронная операция.</summary>
-        <returns>Возвращает <see cref="T:System.Threading.Tasks.Task" />.  
-  
- Объект задачи, представляющий асинхронную операцию.</returns>
+        <returns>Возвращает <see cref="T:System.Threading.Tasks.Task" />  Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1082,19 +988,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="serverCertificate" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности клиента с помощью этого параметра <see cref="T:System.Net.Security.SslStream" /> уже выполнена ранее.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
-        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.AuthenticateAsServerAsync" /> не поддерживается в Windows 95, Windows 98 и Windows Millennium.</exception>
+          <paramref name="serverCertificate" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности клиента с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
+        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.AuthenticateAsServerAsync" /> не поддерживается в системах Windows 95, Windows 98 и Windows Millennium.</exception>
       </Docs>
     </Member>
     <Member MemberName="AuthenticateAsServerAsync">
@@ -1147,10 +1045,10 @@
         <Parameter Name="checkCertificateRevocation" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="serverCertificate">Сертификат X509, который используется для проверки подлинности сервера.</param>
+        <param name="serverCertificate">Объект X509Certificate, используемый для проверки подлинности сервера.</param>
         <param name="clientCertificateRequired">Значение <see cref="T:System.Boolean" />, которое указывает, получает ли клиент запрос на сертификат для проверки подлинности. Обратите внимание, что это — только запрос. Если сертификат не предоставляется, сервер продолжает принимать запрос на подключение.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
-        <summary>Вызывается серверами для проверки подлинности сервера и при необходимости клиента при подключении между клиентом и сервером с использованием указанных сертификатов, требований и протокола безопасности в рамках асинхронной операции.</summary>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
+        <summary>Вызывается серверами аутентификации сервера, и, при необходимости, клиента в соединении клиент-сервер с использованием указанных сертификатов, требований и протокола безопасности как асинхронная операция.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1199,14 +1097,12 @@
         <Parameter Name="checkCertificateRevocation" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="serverCertificate">Сертификат X509, который используется для проверки подлинности сервера.</param>
+        <param name="serverCertificate">Объект X509Certificate, используемый для проверки подлинности сервера.</param>
         <param name="clientCertificateRequired">Значение <see cref="T:System.Boolean" />, которое указывает, получает ли клиент запрос на сертификат для проверки подлинности. Обратите внимание, что это — только запрос. Если сертификат не предоставляется, сервер продолжает принимать запрос на подключение.</param>
         <param name="enabledSslProtocols">Значение из перечисления <see cref="T:System.Security.Authentication.SslProtocols" />, представляющее протокол, используемый для проверки подлинности.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
-        <summary>Вызывается серверами для проверки подлинности сервера и при необходимости клиента при подключении между клиентом и сервером с использованием указанных сертификатов, требований и протокола безопасности в рамках асинхронной операции.</summary>
-        <returns>Возвращает <see cref="T:System.Threading.Tasks.Task" />.  
-  
- Объект задачи, представляющий асинхронную операцию.</returns>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
+        <summary>Вызывается серверами аутентификации сервера, и, при необходимости, клиента в соединении клиент-сервер с использованием указанных сертификатов, требований и протокола безопасности как асинхронная операция.</summary>
+        <returns>Возвращает <see cref="T:System.Threading.Tasks.Task" />  Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1269,9 +1165,9 @@
         <Parameter Name="asyncState" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="targetHost">Имя сервера, который совместно использует <see cref="T:System.Net.Security.SslStream" />.</param>
-        <param name="asyncCallback">Делегат <see cref="T:System.AsyncCallback" />, который ссылается на метод, вызываемый после выполнения проверки подлинности.</param>
-        <param name="asyncState">Пользовательский объект, содержащий сведения об операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
+        <param name="targetHost">Имя сервера, совместно использующего данный поток <see cref="T:System.Net.Security.SslStream" />.</param>
+        <param name="asyncCallback">Делегат <see cref="T:System.AsyncCallback" />, указывающий на метод, который следует вызвать после завершения проверки подлинности.</param>
+        <param name="asyncState">Пользовательский объект, содержащий сведения о данной операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
         <summary>Вызывается клиентами для запуска асинхронной операции проверки подлинности сервера и, при необходимости, клиента.</summary>
         <returns>Объект <see cref="T:System.IAsyncResult" />, представляющий состояние асинхронной операции.</returns>
         <remarks>
@@ -1293,18 +1189,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="targetHost" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности сервера с использованием <see cref="T:System.Net.Security.SslStream" /> уже выполнена.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
+          <paramref name="targetHost" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности сервера с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
       </Docs>
     </Member>
     <Member MemberName="BeginAuthenticateAsClient">
@@ -1333,11 +1221,11 @@
         <Parameter Name="asyncState" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="targetHost">Имя сервера, который совместно использует <see cref="T:System.Net.Security.SslStream" />.</param>
+        <param name="targetHost">Имя сервера, совместно использующего данный поток <see cref="T:System.Net.Security.SslStream" />.</param>
         <param name="clientCertificates">Коллекция <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />, содержащая сертификаты клиента.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
         <param name="asyncCallback">Делегат <see cref="T:System.AsyncCallback" />, который ссылается на метод, вызываемый после выполнения проверки подлинности.</param>
-        <param name="asyncState">Пользовательский объект, содержащий сведения об операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
+        <param name="asyncState">Пользовательский объект, содержащий сведения о данной операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
         <summary>Вызывается клиентами для запуска асинхронной операции проверки подлинности сервера и (при необходимости) клиента с использованием указанных сертификатов и протокола безопасности системы по умолчанию.</summary>
         <returns>Объект <see cref="T:System.IAsyncResult" />, представляющий состояние асинхронной операции.</returns>
         <remarks>
@@ -1362,18 +1250,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="targetHost" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности сервера с использованием <see cref="T:System.Net.Security.SslStream" /> уже выполнена.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
+          <paramref name="targetHost" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности сервера с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
       </Docs>
     </Member>
     <Member MemberName="BeginAuthenticateAsClient">
@@ -1411,12 +1291,12 @@
         <Parameter Name="asyncState" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="targetHost">Имя сервера, который совместно использует <see cref="T:System.Net.Security.SslStream" />.</param>
-        <param name="clientCertificates">Коллекция <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />, содержащая сертификаты клиента.</param>
+        <param name="targetHost">Имя сервера, совместно использующего данный поток <see cref="T:System.Net.Security.SslStream" />.</param>
+        <param name="clientCertificates">Коллекция <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection" />, которая содержит клиентские сертификаты.</param>
         <param name="enabledSslProtocols">Значение из перечисления <see cref="T:System.Security.Authentication.SslProtocols" />, представляющее протокол, используемый для проверки подлинности.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
         <param name="asyncCallback">Делегат <see cref="T:System.AsyncCallback" />, который ссылается на метод, вызываемый после выполнения проверки подлинности.</param>
-        <param name="asyncState">Пользовательский объект, содержащий сведения об операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
+        <param name="asyncState">Пользовательский объект, содержащий сведения о данной операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
         <summary>Вызывается клиентами для запуска асинхронной операции проверки подлинности сервера, и, при необходимости, клиента с использованием указанных сертификатов и протокола безопасности.</summary>
         <returns>Объект <see cref="T:System.IAsyncResult" />, представляющий состояние асинхронной операции.</returns>
         <remarks>
@@ -1441,20 +1321,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="targetHost" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">
-          <paramref name="enabledSslProtocols" /> не является допустимым значением <see cref="T:System.Security.Authentication.SslProtocols" />.</exception>
+          <paramref name="targetHost" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Параметр <paramref name="enabledSslProtocols" /> не является допустимым значением <see cref="T:System.Security.Authentication.SslProtocols" />.</exception>
         <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности сервера с использованием <see cref="T:System.Net.Security.SslStream" /> уже выполнена.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности сервера с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
       </Docs>
     </Member>
     <MemberGroup MemberName="BeginAuthenticateAsServer">
@@ -1507,9 +1378,9 @@
         <Parameter Name="asyncState" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="serverCertificate">Сертификат X509, который используется для проверки подлинности сервера.</param>
-        <param name="asyncCallback">Делегат <see cref="T:System.AsyncCallback" />, который ссылается на метод, вызываемый после выполнения проверки подлинности.</param>
-        <param name="asyncState">Пользовательский объект, содержащий сведения об операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
+        <param name="serverCertificate">Объект X509Certificate, используемый для проверки подлинности сервера.</param>
+        <param name="asyncCallback">Делегат <see cref="T:System.AsyncCallback" />, указывающий на метод, который следует вызвать после завершения проверки подлинности.</param>
+        <param name="asyncState">Пользовательский объект, содержащий сведения о данной операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
         <summary>Вызывается серверами для начала асинхронной операции проверки подлинности клиента, и, при необходимости, сервера в соединении клиент-сервер.</summary>
         <returns>Объект <see cref="T:System.IAsyncResult" />, указывающий состояние асинхронной операции.</returns>
         <remarks>
@@ -1529,19 +1400,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="serverCertificate" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности клиента с помощью этого параметра <see cref="T:System.Net.Security.SslStream" /> уже выполнена ранее.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
-        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.BeginAuthenticateAsServer" /> не поддерживается в Windows 95, Windows 98 и Windows Millennium.</exception>
+          <paramref name="serverCertificate" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности клиента с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
+        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.BeginAuthenticateAsServer" /> не поддерживается в системах Windows 95, Windows 98 и Windows Millennium.</exception>
       </Docs>
     </Member>
     <Member MemberName="BeginAuthenticateAsServer">
@@ -1570,11 +1433,11 @@
         <Parameter Name="asyncState" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="serverCertificate">Сертификат X509, который используется для проверки подлинности сервера.</param>
+        <param name="serverCertificate">Объект X509Certificate, используемый для проверки подлинности сервера.</param>
         <param name="clientCertificateRequired">Значение <see cref="T:System.Boolean" />, которое указывает, получает ли клиент запрос на сертификат для проверки подлинности. Обратите внимание, что это — только запрос. Если сертификат не предоставляется, сервер продолжает принимать запрос на подключение.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
         <param name="asyncCallback">Делегат <see cref="T:System.AsyncCallback" />, который ссылается на метод, вызываемый после выполнения проверки подлинности.</param>
-        <param name="asyncState">Пользовательский объект, содержащий сведения об операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
+        <param name="asyncState">Пользовательский объект, содержащий сведения о данной операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
         <summary>Вызывается серверами для запуска асинхронной операции проверки подлинности сервера и (при необходимости) клиента с использованием указанных сертификатов, требований и протокола безопасности системы по умолчанию.</summary>
         <returns>Объект <see cref="T:System.IAsyncResult" />, представляющий состояние асинхронной операции.</returns>
         <remarks>
@@ -1594,19 +1457,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="serverCertificate" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности сервера с использованием <see cref="T:System.Net.Security.SslStream" /> уже выполнена.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
-        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.BeginAuthenticateAsServer" /> не поддерживается в Windows 95, Windows 98 и Windows Millennium.</exception>
+          <paramref name="serverCertificate" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности сервера с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
+        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.BeginAuthenticateAsServer" /> не поддерживается в системах Windows 95, Windows 98 и Windows Millennium.</exception>
       </Docs>
     </Member>
     <Member MemberName="BeginAuthenticateAsServer">
@@ -1644,13 +1499,13 @@
         <Parameter Name="asyncState" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="serverCertificate">Сертификат X509, который используется для проверки подлинности сервера.</param>
+        <param name="serverCertificate">Объект X509Certificate, используемый для проверки подлинности сервера.</param>
         <param name="clientCertificateRequired">Значение <see cref="T:System.Boolean" />, которое указывает, получает ли клиент запрос на сертификат для проверки подлинности. Обратите внимание, что это — только запрос. Если сертификат не предоставляется, сервер продолжает принимать запрос на подключение.</param>
         <param name="enabledSslProtocols">Значение из перечисления <see cref="T:System.Security.Authentication.SslProtocols" />, представляющее протокол, используемый для проверки подлинности.</param>
-        <param name="checkCertificateRevocation">Значение <see cref="T:System.Boolean" />, которое указывает, проверяется ли список отзыва сертификатов при проверке подлинности.</param>
+        <param name="checkCertificateRevocation">Значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время проверки подлинности.</param>
         <param name="asyncCallback">Делегат <see cref="T:System.AsyncCallback" />, который ссылается на метод, вызываемый после выполнения проверки подлинности.</param>
-        <param name="asyncState">Пользовательский объект, содержащий сведения об операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
-        <summary>Вызывается серверами для запуска асинхронной операции проверки подлинности сервера и (при необходимости) клиента с использованием указанных сертификатов, требований и протокола безопасности.</summary>
+        <param name="asyncState">Пользовательский объект, содержащий сведения о данной операции. Этот объект передается делегату <c>asyncCallback</c> после завершения операции.</param>
+        <summary>Вызывается серверами для начала асинхронной операции для проверки подлинности сервера, и, при необходимости, клиента с использованием указанных сертификатов, требований и протокола безопасности.</summary>
         <returns>Объект <see cref="T:System.IAsyncResult" />, представляющий состояние асинхронной операции.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1669,21 +1524,12 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="serverCertificate" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">
-          <paramref name="enabledSslProtocols" /> не является допустимым значением <see cref="T:System.Security.Authentication.SslProtocols" />.</exception>
+          <paramref name="serverCertificate" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Параметр <paramref name="enabledSslProtocols" /> не является допустимым значением <see cref="T:System.Security.Authentication.SslProtocols" />.</exception>
         <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
-        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнена.  
-  
- - или -  
-  
- Попытка проверки подлинности сервера с использованием <see cref="T:System.Net.Security.SslStream" /> уже выполнена.  
-  
- - или -  
-  
- Проверка подлинности уже выполняется.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
-        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.BeginAuthenticateAsServer" /> не поддерживается в Windows 95, Windows 98 и Windows Millennium.</exception>
+        <exception cref="T:System.InvalidOperationException">Проверка подлинности уже выполнялась.  -или-  Попытка проверки подлинности сервера с использованием данного потока <see cref="T:System.Net.Security.SslStream" /> уже производилась.  -или-  Проверка подлинности уже выполняется в данный момент.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
+        <exception cref="T:System.PlatformNotSupportedException">Метод <see cref="Overload:System.Net.Security.SslStream.BeginAuthenticateAsServer" /> не поддерживается в системах Windows 95, Windows 98 и Windows Millennium.</exception>
       </Docs>
     </Member>
     <Member MemberName="BeginRead">
@@ -1760,24 +1606,16 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="buffer" /> имеет значение <see langword="null" />.</exception>
+          <paramref name="buffer" /> — <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="offset" />
           <paramref name="&lt;" />
           <paramref name="0" />.  
   
- <paramref name="-or-" /><paramref name="offset" /> &gt; длины <paramref name="buffer" />.  
-  
- - или -  
-  
- <paramref name="offset" /> + число &gt; длины <paramref name="buffer" />.</exception>
-        <exception cref="T:System.IO.IOException">Сбой операции чтения.  
-  
- - или -  
-  
- Используется шифрование, но не удается расшифровать данные.</exception>
+ <paramref name="-or-" /><paramref name="offset" /> &gt; длины <paramref name="buffer" />.  -или-  <paramref name="offset" /> + число &gt; длины <paramref name="buffer" />.</exception>
+        <exception cref="T:System.IO.IOException">Сбой операции чтения.  -или-  Используется шифрование, но не удается расшифровать данные.</exception>
         <exception cref="T:System.NotSupportedException">Уже существует выполняющаяся операция чтения.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
         <exception cref="T:System.InvalidOperationException">Проверка подлинности не выполнялась.</exception>
       </Docs>
     </Member>
@@ -1834,20 +1672,16 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="buffer" /> имеет значение <see langword="null" />.</exception>
+          <paramref name="buffer" /> — <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="offset" />
           <paramref name="&lt;" />
           <paramref name="0" />.  
   
- <paramref name="-or-" /><paramref name="offset" /> &gt; длины <paramref name="buffer" />.  
-  
- - или -  
-  
- <paramref name="offset" /> + число &gt; длины <paramref name="buffer" />.</exception>
+ <paramref name="-or-" /><paramref name="offset" /> &gt; длины <paramref name="buffer" />.  -или-  <paramref name="offset" /> + число &gt; длины <paramref name="buffer" />.</exception>
         <exception cref="T:System.IO.IOException">Не удалось выполнить операцию записи.</exception>
         <exception cref="T:System.NotSupportedException">Уже существует выполняющаяся операция записи.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
         <exception cref="T:System.InvalidOperationException">Проверка подлинности не выполнялась.</exception>
       </Docs>
     </Member>
@@ -1881,8 +1715,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает значение типа <see cref="T:System.Boolean" />, указывающее, разрешено ли чтение из базового потока.</summary>
-        <value>
-          Значение <see langword="true" />, если проверка подлинности выполнена, а чтение из базового потока разрешено; иначе — <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если проверка подлинности выполнена, а чтение из базового потока разрешено; иначе — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1975,8 +1808,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает значение типа <see cref="T:System.Boolean" />, указывающее, поддерживает ли базовый поток использование времени ожидания.</summary>
-        <value>
-          Значение <see langword="true" />, если базовый поток поддерживает время ожидания; иначе — <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если базовый поток поддерживает время ожидания; иначе — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2027,8 +1859,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает значение типа <see cref="T:System.Boolean" />, указывающее, разрешена ли запись в базовый поток.</summary>
-        <value>
-          Значение <see langword="true" />, если проверка подлинности выполнена, а запись в базовый поток разрешена; иначе — <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если проверка подлинности выполнена, а запись в базовый поток разрешена; иначе — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2079,8 +1910,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает значение типа <see cref="T:System.Boolean" />, указывающее, проверяется ли список отзыва сертификатов во время процесса проверки сертификатов.</summary>
-        <value>
-          Значение <see langword="true" />, если проверяется список отзыва сертификатов; в противном случае — <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если проверяется список отзыва сертификатов; в противном случае — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2246,8 +2076,7 @@
         <Parameter Name="disposing" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="disposing">
-          Значение <see langword="true" /> позволяет освободить как управляемые, так и неуправляемые ресурсы; значение <see langword="false" /> освобождает только неуправляемые ресурсы.</param>
+        <param name="disposing">Значение <see langword="true" /> позволяет освободить управляемые и неуправляемые ресурсы; значение <see langword="false" /> позволяет освободить только неуправляемые ресурсы.</param>
         <summary>Освобождает неуправляемые ресурсы, используемые объектом <see cref="T:System.Net.Security.SslStream" />, а при необходимости освобождает также управляемые ресурсы.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -2261,9 +2090,7 @@
         </remarks>
         <block subset="none" type="overrides">
           <para>
-            Метод <see langword="Dispose" /> может вызываться несколько раз другими объектами. При переопределении метода <see langword="Dispose(Boolean)" /> нужно избегать ссылок на объекты, которые были уничтожены предыдущими вызовами метода <see langword="Dispose" />. Дополнительные сведения о реализации <see langword="Dispose(Boolean)" />, в разделе [метода](~/docs/standard/garbage-collection/implementing-dispose.md).  
-  
- Дополнительные сведения о <see langword="Dispose" /> и <see cref="M:System.Object.Finalize" />, в разделе [очистки неуправляемых ресурсов](~/docs/standard/garbage-collection/unmanaged.md) и [переопределение метода Finalize](http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3).</para>
+            <see langword="Dispose" /> может вызываться несколько раз другими объектами. При переопределении метода <see langword="Dispose(Boolean)" /> нужно избегать ссылок на объекты, которые были уничтожены предыдущими вызовами метода <see langword="Dispose" />. Дополнительные сведения о реализации <see langword="Dispose(Boolean)" />, в разделе [реализация Method](~/docs/standard/garbage-collection/implementing-dispose.md) Dispose.  Дополнительные сведения о <see langword="Dispose" /> и <see cref="M:System.Object.Finalize" />, в разделе [очистки неуправляемых Resources](~/docs/standard/garbage-collection/unmanaged.md) и [переопределение метода Finalize] (http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3).</para>
         </block>
       </Docs>
     </Member>
@@ -2313,10 +2140,9 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="asyncResult" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">
-          Параметр <paramref name="asyncResult" /> не был создан вызовом метода <see cref="Overload:System.Net.Security.SslStream.BeginAuthenticateAsServer" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
+          <paramref name="asyncResult" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Параметр <paramref name="asyncResult" /> не был создан вызовом метода <see cref="Overload:System.Net.Security.SslStream.BeginAuthenticateAsServer" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
         <exception cref="T:System.InvalidOperationException">Нет ожидающей завершения операции проверки подлинности сервера.</exception>
       </Docs>
     </Member>
@@ -2366,10 +2192,9 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="asyncResult" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">
-          Параметр <paramref name="asyncResult" /> не был создан вызовом метода <see cref="Overload:System.Net.Security.SslStream.BeginAuthenticateAsClient" />.</exception>
-        <exception cref="T:System.Security.Authentication.AuthenticationException">Произошел сбой проверки подлинности, и этот объект остался в неработоспособном состоянии.</exception>
+          <paramref name="asyncResult" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Параметр <paramref name="asyncResult" /> не был создан вызовом метода <see cref="Overload:System.Net.Security.SslStream.BeginAuthenticateAsClient" />.</exception>
+        <exception cref="T:System.Security.Authentication.AuthenticationException">Проверка подлинности завершилась неудачно, и данный объект остался в состоянии, когда его использование невозможно.</exception>
         <exception cref="T:System.InvalidOperationException">Нет ожидающей завершения операции проверки подлинности клиента.</exception>
       </Docs>
     </Member>
@@ -2428,9 +2253,8 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="asyncResult" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">
-          Параметр <paramref name="asyncResult" /> не был создан вызовом метода <see cref="M:System.Net.Security.SslStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" />.</exception>
+          <paramref name="asyncResult" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Параметр <paramref name="asyncResult" /> не был создан вызовом метода <see cref="M:System.Net.Security.SslStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" />.</exception>
         <exception cref="T:System.InvalidOperationException">Проверка подлинности не выполнялась.</exception>
         <exception cref="T:System.IO.IOException">Сбой операции чтения.</exception>
       </Docs>
@@ -2489,9 +2313,8 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="asyncResult" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">
-          Параметр <paramref name="asyncResult" /> не был создан вызовом метода <see cref="M:System.Net.Security.SslStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" />.</exception>
+          <paramref name="asyncResult" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Параметр <paramref name="asyncResult" /> не был создан вызовом метода <see cref="M:System.Net.Security.SslStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)" />.</exception>
         <exception cref="T:System.InvalidOperationException">Проверка подлинности не выполнялась.</exception>
         <exception cref="T:System.IO.IOException">Не удалось выполнить операцию записи.</exception>
       </Docs>
@@ -2698,8 +2521,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает значение типа <see cref="T:System.Boolean" />, указывающее, была ли проверка подлинности успешной.</summary>
-        <value>
-          Значение <see langword="true" />, если произошла успешная проверка подлинности; в противном случае — <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если произошла успешная проверка подлинности; в противном случае — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2748,8 +2570,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает значение типа <see cref="T:System.Boolean" />, указывающее, использует ли данный поток <see cref="T:System.Net.Security.SslStream" /> шифрование данных.</summary>
-        <value>
-          Значение <see langword="true" />, если данные шифруются до передачи по сети и дешифруются при достижении удаленной конечной точки; иначе — <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если данные шифруются до передачи по сети и дешифруются при достижении удаленной конечной точки; иначе — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2798,8 +2619,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает значение типа <see cref="T:System.Boolean" />, указывающее, была ли проведена проверка подлинности как для сервера, так и для клиента.</summary>
-        <value>
-          Значение <see langword="true" />, если подлинность сервера была проверена, иначе — <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если подлинность сервера была проверена, иначе — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2850,8 +2670,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает значение типа <see cref="T:System.Boolean" />, указывающее, прошла ли локальная сторона соединения, используемого данным потоком <see cref="T:System.Net.Security.SslStream" />, проверку подлинности как сервер.</summary>
-        <value>
-          Значение <see langword="true" />, если локальная конечная точка успешно прошла проверку подлинности как серверная сторона соединения с проверкой подлинности; иначе — <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если локальная конечная точка успешно прошла проверку подлинности как серверная сторона соединения с проверкой подлинности; иначе — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2902,8 +2721,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает значение типа <see cref="T:System.Boolean" />, указывающее, подписаны ли данные, отправленные с помощью данного потока.</summary>
-        <value>
-          Значение <see langword="true" />, если данные были подписаны перед передачей; иначе — <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если данные были подписаны перед передачей; иначе — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3062,9 +2880,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает длину данных в базовом потоке.</summary>
-        <value>Объект <see cref="T:System.Int64" />.  
-  
- Длина базового потока.</value>
+        <value>Объект <see cref="T:System.Int64" />.  Длина базового потока.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3168,9 +2984,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает или задает текущую позицию в базовом потоке.</summary>
-        <value>Объект <see cref="T:System.Int64" />.  
-  
- Текущая позиция в базовом потоке.</value>
+        <value>Объект <see cref="T:System.Int64" />.  Текущая позиция в базовом потоке.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3179,11 +2993,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">Задание данного свойства не поддерживается.  
-  
- - или -  
-  
- Возвращение значения данного свойства не поддерживается, если базовый поток является экземпляром класса <see cref="T:System.Net.Sockets.NetworkStream" />.</exception>
+        <exception cref="T:System.NotSupportedException">Задание данного свойства не поддерживается.  -или-  Возвращение значения данного свойства не поддерживается, если базовый поток является экземпляром класса <see cref="T:System.Net.Sockets.NetworkStream" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="Read">
@@ -3246,20 +3056,16 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="buffer" /> имеет значение <see langword="null" />.</exception>
+          <paramref name="buffer" /> — <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="offset" />
           <paramref name="&lt;" />
           <paramref name="0" />.  
   
- <paramref name="-or-" /><paramref name="offset" /> &gt; длины <paramref name="buffer" />.  
-  
- - или -  
-  
- <paramref name="offset" /> + число &gt; длины <paramref name="buffer" />.</exception>
+ <paramref name="-or-" /><paramref name="offset" /> &gt; длины <paramref name="buffer" />.  -или-  <paramref name="offset" /> + число &gt; длины <paramref name="buffer" />.</exception>
         <exception cref="T:System.IO.IOException">Сбой операции чтения. Проверьте внутреннее исключение, если такое присутствует, чтобы определить причину сбоя.</exception>
         <exception cref="T:System.NotSupportedException">Уже существует выполняющаяся операция чтения.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
         <exception cref="T:System.InvalidOperationException">Проверка подлинности не выполнялась.</exception>
       </Docs>
     </Member>
@@ -3623,10 +3429,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="buffer" /> имеет значение <see langword="null" />.</exception>
+          <paramref name="buffer" /> — <see langword="null" />.</exception>
         <exception cref="T:System.IO.IOException">Не удалось выполнить операцию записи.</exception>
         <exception cref="T:System.NotSupportedException">Уже существует выполняющаяся операция записи.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
         <exception cref="T:System.InvalidOperationException">Проверка подлинности не выполнялась.</exception>
       </Docs>
     </Member>
@@ -3681,20 +3487,16 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="buffer" /> имеет значение <see langword="null" />.</exception>
+          <paramref name="buffer" /> — <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentException">
           <paramref name="offset" />
           <paramref name="&lt;" />
           <paramref name="0" />.  
   
- <paramref name="-or-" /><paramref name="offset" /> &gt; длины <paramref name="buffer" />.  
-  
- - или -  
-  
- <paramref name="offset" /> + число &gt; длины <paramref name="buffer" />.</exception>
+ <paramref name="-or-" /><paramref name="offset" /> &gt; длины <paramref name="buffer" />.  -или-  <paramref name="offset" /> + число &gt; длины <paramref name="buffer" />.</exception>
         <exception cref="T:System.IO.IOException">Не удалось выполнить операцию записи.</exception>
         <exception cref="T:System.NotSupportedException">Уже существует выполняющаяся операция записи.</exception>
-        <exception cref="T:System.ObjectDisposedException">Объект закрыт.</exception>
+        <exception cref="T:System.ObjectDisposedException">Данный объект закрыт.</exception>
         <exception cref="T:System.InvalidOperationException">Проверка подлинности не выполнялась.</exception>
       </Docs>
     </Member>
