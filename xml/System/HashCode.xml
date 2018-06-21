@@ -1,4 +1,12 @@
 <Type Name="HashCode" FullName="System.HashCode">
+  <Metadata>
+    <Meta Name="ms.openlocfilehash" Value="6ec9b9967ed8e825beef88a77ef6b05aa5e741f6" />
+    <Meta Name="ms.sourcegitcommit" Value="0503fec247e4360491273ae4e3e506bbb7c7ed41" />
+    <Meta Name="ms.translationtype" Value="HT" />
+    <Meta Name="ms.contentlocale" Value="ru-RU" />
+    <Meta Name="ms.lasthandoff" Value="06/06/2018" />
+    <Meta Name="ms.locfileid" Value="34805795" />
+  </Metadata>
   <TypeSignature Language="C#" Value="public struct HashCode" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit HashCode extends System.ValueType" />
   <TypeSignature Language="DocId" Value="T:System.HashCode" />
@@ -13,8 +21,54 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <summary>
+      <span data-ttu-id="025db-101">Объединяет хэш-код для нескольких значений в один хэш-код.</span>
+      <span class="sxs-lookup">
+        <span data-stu-id="025db-101">Combines the hash code for multiple values into a single hash code.</span>
+      </span>
+    </summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[
+
+## Remarks
+
+<span data-ttu-id="025db-102">Можно использовать <xref:System.HashCode> для объединения нескольких значений (например, поля класса или структуры) в один хэш-код.</span><span class="sxs-lookup"><span data-stu-id="025db-102">You can use <xref:System.HashCode> to combine multiple values (for example, fields on a structure or class) into a single hash code.</span></span> <span data-ttu-id="025db-103">Эта структура может работать в одном из двух способов:</span><span class="sxs-lookup"><span data-stu-id="025db-103">This structure operates in one of two ways:</span></span>
+
+ * <span data-ttu-id="025db-104">Статические методы, принимающие набор до восьми значений для объединения.</span><span class="sxs-lookup"><span data-stu-id="025db-104">Static methods that accept a set of up to eight values to combine.</span></span>
+ * <span data-ttu-id="025db-105">Два экземпляра методов, которые работают в потоковом стиле, приняв значения одной за раз.</span><span class="sxs-lookup"><span data-stu-id="025db-105">Two instance methods that operate in a streaming fashion, accepting values one at a time.</span></span>
+
+> [!WARNING]
+> <span data-ttu-id="025db-106">Это рекомендуется для рассмотрения в качестве реализации хэш-коды также реализация может измениться и всех версий сборки.</span><span class="sxs-lookup"><span data-stu-id="025db-106">It is best-practice to consider hash codes as an implementation detail, as the implementation may change across assembly versions.</span></span> <span data-ttu-id="025db-107">Не хранить хэш-коды, созданные <xref:System.HashCode> в сериализованной структуры, например, на диске.</span><span class="sxs-lookup"><span data-stu-id="025db-107">Do not store hash codes produced by <xref:System.HashCode> in serialized structures, for example, on-disk.</span></span> <span data-ttu-id="025db-108"><xref:System.HashCode> использует статически инициализированные случайное начальное значение для применения этой рекомендации, это означает, что хэш-кодов детерминированы только в пределах процесс операционной системы.</span><span class="sxs-lookup"><span data-stu-id="025db-108"><xref:System.HashCode> uses a statically initialized random seed to enforce this best practice, meaning that the hash codes are only deterministic within the scope of an operating system process.</span></span>
+
+### <a name="static-methods"></a><span data-ttu-id="025db-109">Статические методы</span><span class="sxs-lookup"><span data-stu-id="025db-109">Static Methods</span></span>
+
+<span data-ttu-id="025db-110">Статические методы объединить хэш-кодов по умолчанию до восьми значений.</span><span class="sxs-lookup"><span data-stu-id="025db-110">The static methods combine the default hash codes of up to eight values.</span></span>
+ 
+ [!code-csharp[System.HashCode.Structure#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.hashcode.structure/cs/example1.cs#1)]
+ [!code-vb[System.HashCode.Structure#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.hashcode.structure/vb/example1.vb#1)] 
+
+### <a name="instance-methods"></a><span data-ttu-id="025db-111">Методы экземпляра</span><span class="sxs-lookup"><span data-stu-id="025db-111">Instance Methods</span></span>
+
+> [!IMPORTANT]
+> <span data-ttu-id="025db-112"><xref:System.HashCode.ToHashCode> должен вызываться только один раз на каждый экземпляр <xref:System.HashCode>.</span><span class="sxs-lookup"><span data-stu-id="025db-112"><xref:System.HashCode.ToHashCode> must be called at most once per instance of <xref:System.HashCode>.</span></span>
+
+<span data-ttu-id="025db-113">Методы экземпляра объединять более чем восьми значений хэш-кодов.</span><span class="sxs-lookup"><span data-stu-id="025db-113">The instance methods combine the hash codes of more than eight values.</span></span>
+ 
+ [!code-csharp[System.HashCode.Structure#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.hashcode.structure/cs/example2.cs#1)]
+ [!code-vb[System.HashCode.Structure#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.hashcode.structure/vb/example2.vb#1)]
+
+<span data-ttu-id="025db-114">Методы экземпляра также объединять хэш-коды, созданные конкретным классом <xref:System.Collections.Generic.IEqualityComparer%601> реализации.</span><span class="sxs-lookup"><span data-stu-id="025db-114">The instance methods also combine the hash codes produced by a specific <xref:System.Collections.Generic.IEqualityComparer%601> implementation.</span></span>
+
+ [!code-csharp[System.HashCode.Structure#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.hashcode.structure/cs/example3.cs#1)]
+ [!code-vb[System.HashCode.Structure#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.hashcode.structure/vb/example3.vb#1)]
+
+<span data-ttu-id="025db-115"><xref:System.HashCode> Структуры должны передаваться по ссылке в другие методы, как он является типом значения.</span><span class="sxs-lookup"><span data-stu-id="025db-115">The <xref:System.HashCode> structure must be passed by-reference to other methods, as it is a value type.</span></span>
+ 
+ [!code-csharp[System.HashCode.Structure#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.hashcode.structure/cs/example4.cs#1)]
+ [!code-vb[System.HashCode.Structure#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.hashcode.structure/vb/example4.vb#1)]
+
+      ]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName="Add&lt;T&gt;">
@@ -38,10 +92,24 @@
         <Parameter Name="value" Type="T" />
       </Parameters>
       <Docs>
-        <typeparam name="T">To be added.</typeparam>
-        <param name="value">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <typeparam name="T">
+          <span data-ttu-id="025db-116">Тип значения для добавления в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-116">The type of the value to add to the hash code.</span>
+          </span>
+        </typeparam>
+        <param name="value">
+          <span data-ttu-id="025db-117">Значение для добавления в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-117">The value to add to the hash code.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-118">Добавляет одно значение в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-118">Adds a single value to the hash code.</span>
+          </span>
+        </summary>
       </Docs>
     </Member>
     <Member MemberName="Add&lt;T&gt;">
@@ -66,11 +134,35 @@
         <Parameter Name="comparer" Type="System.Collections.Generic.IEqualityComparer&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <typeparam name="T">To be added.</typeparam>
-        <param name="value">To be added.</param>
-        <param name="comparer">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <typeparam name="T">
+          <span data-ttu-id="025db-119">Тип значения для добавления в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-119">The type of the value to add to the hash code.</span>
+          </span>
+        </typeparam>
+        <param name="value">
+          <span data-ttu-id="025db-120">Значение для добавления в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-120">The value to add to the hash code.</span>
+          </span>
+        </param>
+        <param name="comparer">
+          <span data-ttu-id="025db-121">
+            <see cref="T:System.Collections.Generic.IEqualityComparer&lt;T&gt;" /> для вычисления хэш-кода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-121">The <see cref="T:System.Collections.Generic.IEqualityComparer&lt;T&gt;" /> to use to calculate the hash code.</span>
+          </span>
+          <span data-ttu-id="025db-122">Это значение может быть пустой ссылкой (Nothing в Visual Basic), которая будет использовать для компаратор проверки на равенство по умолчанию <typeparamref name="T" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-122">This value can be a null reference (Nothing in Visual Basic), which will use the default equality comparer for <typeparamref name="T" />.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-123">Добавляет одно значение в хэш-код, указав тип, который предоставляет функции хэш-кода.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-123">Adds a single value to the hash code, specifying the type that provides the hash code function.</span>
+          </span>
+        </summary>
       </Docs>
     </Member>
     <Member MemberName="Combine&lt;T1&gt;">
@@ -94,11 +186,40 @@
         <Parameter Name="value1" Type="T1" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">To be added.</typeparam>
-        <param name="value1">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="T1">
+          <span data-ttu-id="025db-124">Тип значения, чтобы добавить хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-124">The type of the value to add the the hash code.</span>
+          </span>
+        </typeparam>
+        <param name="value1">
+          <span data-ttu-id="025db-125">Значение для добавления в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-125">The value to add to the hash code.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-126">Рассеивает хэш-код, возвращенный указанным значением.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-126">Diffuses the hash code returned by the specified value.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-127">Хэш-код, представляющий одно значение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-127">The hash code that represents the single value.</span>
+          </span>
+        </returns>
+        <remarks>
+          <span data-ttu-id="025db-128">Некоторые структуры данных предполагается, что хэш-кодов случайным образом распределяется между большой диапазон.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-128">Some data structures assume that hash codes are diffused across a large range.</span>
+          </span>
+          <span data-ttu-id="025db-129">Этот метод повышает качество хэш-код, возвращаемые значения и полезно, если базовый тип данных является простым, например, целочисленное значение.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-129">This method improves the quality of the hash code returned by the value and is useful when the underlying data type is simple, for example, an integer value.</span>
+          </span>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Combine&lt;T1,T2&gt;">
@@ -124,13 +245,42 @@
         <Parameter Name="value2" Type="T2" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">To be added.</typeparam>
-        <typeparam name="T2">To be added.</typeparam>
-        <param name="value1">To be added.</param>
-        <param name="value2">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="T1">
+          <span data-ttu-id="025db-130">Тип первого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-130">The type of the first value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T2">
+          <span data-ttu-id="025db-131">Тип второго значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-131">The type of the second value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <param name="value1">
+          <span data-ttu-id="025db-132">Первое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-132">The first value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value2">
+          <span data-ttu-id="025db-133">Второе значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-133">The second value to combine into the hash code.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-134">Объединяет два значения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-134">Combines two values into a hash code.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-135">Хэш-код, представляющий два значения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-135">The hash code that represents the two values.</span>
+          </span>
+        </returns>
       </Docs>
     </Member>
     <Member MemberName="Combine&lt;T1,T2,T3&gt;">
@@ -158,15 +308,54 @@
         <Parameter Name="value3" Type="T3" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">To be added.</typeparam>
-        <typeparam name="T2">To be added.</typeparam>
-        <typeparam name="T3">To be added.</typeparam>
-        <param name="value1">To be added.</param>
-        <param name="value2">To be added.</param>
-        <param name="value3">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="T1">
+          <span data-ttu-id="025db-136">Тип первого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-136">The type of the first value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T2">
+          <span data-ttu-id="025db-137">Тип второго значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-137">The type of the second value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T3">
+          <span data-ttu-id="025db-138">Тип третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-138">The type of the third value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <param name="value1">
+          <span data-ttu-id="025db-139">Первое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-139">The first value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value2">
+          <span data-ttu-id="025db-140">Второе значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-140">The second value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value3">
+          <span data-ttu-id="025db-141">Третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-141">The third value to combine into the hash code.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-142">Объединяет три значения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-142">Combines three values into a hash code.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-143">Хэш-код, представляющий три значения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-143">The hash code that represents the three values.</span>
+          </span>
+        </returns>
       </Docs>
     </Member>
     <Member MemberName="Combine&lt;T1,T2,T3,T4&gt;">
@@ -196,17 +385,66 @@
         <Parameter Name="value4" Type="T4" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">To be added.</typeparam>
-        <typeparam name="T2">To be added.</typeparam>
-        <typeparam name="T3">To be added.</typeparam>
-        <typeparam name="T4">To be added.</typeparam>
-        <param name="value1">To be added.</param>
-        <param name="value2">To be added.</param>
-        <param name="value3">To be added.</param>
-        <param name="value4">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="T1">
+          <span data-ttu-id="025db-144">Тип первого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-144">The type of the first value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T2">
+          <span data-ttu-id="025db-145">Тип второго значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-145">The type of the second value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T3">
+          <span data-ttu-id="025db-146">Тип третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-146">The type of the third value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T4">
+          <span data-ttu-id="025db-147">Тип четвертого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-147">The type of the fourth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <param name="value1">
+          <span data-ttu-id="025db-148">Первое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-148">The first value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value2">
+          <span data-ttu-id="025db-149">Второе значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-149">The second value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value3">
+          <span data-ttu-id="025db-150">Третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-150">The third value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value4">
+          <span data-ttu-id="025db-151">Четвертое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-151">The fourth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-152">Объединяет четыре значения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-152">Combines four values into a hash code.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-153">Хэш-код, представляющий четыре значения.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-153">The hash code that represents the four values.</span>
+          </span>
+        </returns>
       </Docs>
     </Member>
     <Member MemberName="Combine&lt;T1,T2,T3,T4,T5&gt;">
@@ -238,19 +476,78 @@
         <Parameter Name="value5" Type="T5" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">To be added.</typeparam>
-        <typeparam name="T2">To be added.</typeparam>
-        <typeparam name="T3">To be added.</typeparam>
-        <typeparam name="T4">To be added.</typeparam>
-        <typeparam name="T5">To be added.</typeparam>
-        <param name="value1">To be added.</param>
-        <param name="value2">To be added.</param>
-        <param name="value3">To be added.</param>
-        <param name="value4">To be added.</param>
-        <param name="value5">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="T1">
+          <span data-ttu-id="025db-154">Тип первого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-154">The type of the first value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T2">
+          <span data-ttu-id="025db-155">Тип второго значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-155">The type of the second value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T3">
+          <span data-ttu-id="025db-156">Тип третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-156">The type of the third value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T4">
+          <span data-ttu-id="025db-157">Тип четвертого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-157">The type of the fourth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T5">
+          <span data-ttu-id="025db-158">Тип пятого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-158">The type of the fifth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <param name="value1">
+          <span data-ttu-id="025db-159">Первое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-159">The first value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value2">
+          <span data-ttu-id="025db-160">Второе значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-160">The second value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value3">
+          <span data-ttu-id="025db-161">Третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-161">The third value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value4">
+          <span data-ttu-id="025db-162">Четвертое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-162">The fourth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value5">
+          <span data-ttu-id="025db-163">Пятое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-163">The fifth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-164">Объединяет пять значений в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-164">Combines five values into a hash code.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-165">Хэш-код, представляющий пять значений.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-165">The hash code that represents the five values.</span>
+          </span>
+        </returns>
       </Docs>
     </Member>
     <Member MemberName="Combine&lt;T1,T2,T3,T4,T5,T6&gt;">
@@ -284,21 +581,90 @@
         <Parameter Name="value6" Type="T6" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">To be added.</typeparam>
-        <typeparam name="T2">To be added.</typeparam>
-        <typeparam name="T3">To be added.</typeparam>
-        <typeparam name="T4">To be added.</typeparam>
-        <typeparam name="T5">To be added.</typeparam>
-        <typeparam name="T6">To be added.</typeparam>
-        <param name="value1">To be added.</param>
-        <param name="value2">To be added.</param>
-        <param name="value3">To be added.</param>
-        <param name="value4">To be added.</param>
-        <param name="value5">To be added.</param>
-        <param name="value6">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="T1">
+          <span data-ttu-id="025db-166">Тип первого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-166">The type of the first value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T2">
+          <span data-ttu-id="025db-167">Тип второго значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-167">The type of the second value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T3">
+          <span data-ttu-id="025db-168">Тип третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-168">The type of the third value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T4">
+          <span data-ttu-id="025db-169">Тип четвертого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-169">The type of the fourth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T5">
+          <span data-ttu-id="025db-170">Тип пятого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-170">The type of the fifth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T6">
+          <span data-ttu-id="025db-171">Тип шестого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-171">The type of the sixth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <param name="value1">
+          <span data-ttu-id="025db-172">Первое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-172">The first value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value2">
+          <span data-ttu-id="025db-173">Второе значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-173">The second value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value3">
+          <span data-ttu-id="025db-174">Третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-174">The third value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value4">
+          <span data-ttu-id="025db-175">Четвертое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-175">The fourth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value5">
+          <span data-ttu-id="025db-176">Пятое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-176">The fifth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value6">
+          <span data-ttu-id="025db-177">Шестое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-177">The sixth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-178">Объединяет шесть значений в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-178">Combines six values into a hash code.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-179">Хэш-код, представляющий шесть значений.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-179">The hash code that represents the six values.</span>
+          </span>
+        </returns>
       </Docs>
     </Member>
     <Member MemberName="Combine&lt;T1,T2,T3,T4,T5,T6,T7&gt;">
@@ -334,23 +700,102 @@
         <Parameter Name="value7" Type="T7" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">To be added.</typeparam>
-        <typeparam name="T2">To be added.</typeparam>
-        <typeparam name="T3">To be added.</typeparam>
-        <typeparam name="T4">To be added.</typeparam>
-        <typeparam name="T5">To be added.</typeparam>
-        <typeparam name="T6">To be added.</typeparam>
-        <typeparam name="T7">To be added.</typeparam>
-        <param name="value1">To be added.</param>
-        <param name="value2">To be added.</param>
-        <param name="value3">To be added.</param>
-        <param name="value4">To be added.</param>
-        <param name="value5">To be added.</param>
-        <param name="value6">To be added.</param>
-        <param name="value7">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="T1">
+          <span data-ttu-id="025db-180">Тип первого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-180">The type of the first value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T2">
+          <span data-ttu-id="025db-181">Тип второго значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-181">The type of the second value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T3">
+          <span data-ttu-id="025db-182">Тип третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-182">The type of the third value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T4">
+          <span data-ttu-id="025db-183">Тип четвертого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-183">The type of the fourth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T5">
+          <span data-ttu-id="025db-184">Тип пятого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-184">The type of the fifth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T6">
+          <span data-ttu-id="025db-185">Тип шестого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-185">The type of the sixth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T7">
+          <span data-ttu-id="025db-186">Тип седьмого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-186">The type of the seventh value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <param name="value1">
+          <span data-ttu-id="025db-187">Первое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-187">The first value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value2">
+          <span data-ttu-id="025db-188">Второе значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-188">The second value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value3">
+          <span data-ttu-id="025db-189">Третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-189">The third value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value4">
+          <span data-ttu-id="025db-190">Четвертое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-190">The fourth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value5">
+          <span data-ttu-id="025db-191">Пятое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-191">The fifth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value6">
+          <span data-ttu-id="025db-192">Шестое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-192">The sixth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value7">
+          <span data-ttu-id="025db-193">Седьмое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-193">The seventh value to combine into the hash code.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-194">Объединяет шесть значений в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-194">Combines six values into a hash code.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-195">Хэш-код, представляющий семь значений.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-195">The hash code that represents the seven values.</span>
+          </span>
+        </returns>
       </Docs>
     </Member>
     <Member MemberName="Combine&lt;T1,T2,T3,T4,T5,T6,T7,T8&gt;">
@@ -388,25 +833,114 @@
         <Parameter Name="value8" Type="T8" />
       </Parameters>
       <Docs>
-        <typeparam name="T1">To be added.</typeparam>
-        <typeparam name="T2">To be added.</typeparam>
-        <typeparam name="T3">To be added.</typeparam>
-        <typeparam name="T4">To be added.</typeparam>
-        <typeparam name="T5">To be added.</typeparam>
-        <typeparam name="T6">To be added.</typeparam>
-        <typeparam name="T7">To be added.</typeparam>
-        <typeparam name="T8">To be added.</typeparam>
-        <param name="value1">To be added.</param>
-        <param name="value2">To be added.</param>
-        <param name="value3">To be added.</param>
-        <param name="value4">To be added.</param>
-        <param name="value5">To be added.</param>
-        <param name="value6">To be added.</param>
-        <param name="value7">To be added.</param>
-        <param name="value8">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="T1">
+          <span data-ttu-id="025db-196">Тип первого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-196">The type of the first value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T2">
+          <span data-ttu-id="025db-197">Тип второго значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-197">The type of the second value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T3">
+          <span data-ttu-id="025db-198">Тип третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-198">The type of the third value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T4">
+          <span data-ttu-id="025db-199">Тип четвертого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-199">The type of the fourth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T5">
+          <span data-ttu-id="025db-200">Тип пятого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-200">The type of the fifth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T6">
+          <span data-ttu-id="025db-201">Тип шестого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-201">The type of the sixth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T7">
+          <span data-ttu-id="025db-202">Тип седьмого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-202">The type of the seventh value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <typeparam name="T8">
+          <span data-ttu-id="025db-203">Тип восьмого значения для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-203">The type of the eighth value to combine into the hash code.</span>
+          </span>
+        </typeparam>
+        <param name="value1">
+          <span data-ttu-id="025db-204">Первое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-204">The first value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value2">
+          <span data-ttu-id="025db-205">Второе значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-205">The second value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value3">
+          <span data-ttu-id="025db-206">Третье значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-206">The third value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value4">
+          <span data-ttu-id="025db-207">Четвертое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-207">The fourth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value5">
+          <span data-ttu-id="025db-208">Пятое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-208">The fifth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value6">
+          <span data-ttu-id="025db-209">Шестое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-209">The sixth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value7">
+          <span data-ttu-id="025db-210">Седьмое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-210">The seventh value to combine into the hash code.</span>
+          </span>
+        </param>
+        <param name="value8">
+          <span data-ttu-id="025db-211">Восьмое значение для объединения в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-211">The eighth value to combine into the hash code.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-212">Объединяет восемь значений в хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-212">Combines eight values into a hash code.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-213">Хэш-код, представляющий восемь значений.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-213">The hash code that represents the eight values.</span>
+          </span>
+        </returns>
       </Docs>
     </Member>
     <Member MemberName="Equals">
@@ -435,10 +969,30 @@
         <Parameter Name="obj" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="obj">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="obj">
+          <span data-ttu-id="025db-214">Не обрабатывается.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-214">Ignored.</span>
+          </span>
+        </param>
+        <summary>
+          <span data-ttu-id="025db-215">Этот метод не поддерживается и не должен вызываться.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-215">This method is not supported and should not be called.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-216">Этот метод всегда возвращает вызывает исключение <see cref="T:System.NotSupportedException" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-216">This method will always throw a <see cref="T:System.NotSupportedException" />.</span>
+          </span>
+        </returns>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="025db-217">Всегда возникает, когда вызывается этот метод.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-217">Always thrown when this method is called.</span>
+          </span>
+        </exception>
       </Docs>
     </Member>
     <Member MemberName="GetHashCode">
@@ -465,9 +1019,24 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>
+          <span data-ttu-id="025db-218">Этот метод не поддерживается и не должен вызываться.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-218">This method is not supported and should not be called.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-219">Этот метод всегда возвращает вызывает исключение <see cref="T:System.NotSupportedException" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-219">This method will always throw a <see cref="T:System.NotSupportedException" />.</span>
+          </span>
+        </returns>
+        <exception cref="T:System.NotSupportedException">
+          <span data-ttu-id="025db-220">Всегда возникает, когда вызывается этот метод.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-220">Always thrown when this method is called.</span>
+          </span>
+        </exception>
       </Docs>
     </Member>
     <Member MemberName="ToHashCode">
@@ -486,9 +1055,24 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>
+          <span data-ttu-id="025db-221">Вычисляет окончательный хэш-код после последовательных вызовов <see cref="M:System.HashCode.Add" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-221">Calculates the final hash code after consecutive <see cref="M:System.HashCode.Add" /> invocations.</span>
+          </span>
+        </summary>
+        <returns>
+          <span data-ttu-id="025db-222">Вычисленный хэш-код.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-222">The calculated hash code.</span>
+          </span>
+        </returns>
+        <remarks>
+          <span data-ttu-id="025db-223">Этот метод должен вызываться только один раз на каждый экземпляр <see cref="T:System.HashCode" />.</span>
+          <span class="sxs-lookup">
+            <span data-stu-id="025db-223">This method must be called at most once per instance of <see cref="T:System.HashCode" />.</span>
+          </span>
+        </remarks>
       </Docs>
     </Member>
   </Members>
