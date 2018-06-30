@@ -1,17 +1,18 @@
 <Type Name="IClientMessageInspector" FullName="System.ServiceModel.Dispatcher.IClientMessageInspector">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="d1feefd5799d09bf0c4a9e11586ef9f36a7d225d" />
-    <Meta Name="ms.sourcegitcommit" Value="cc0c87a2e12b0fb9ba9ecdd3d4950f0572524db8" />
+    <Meta Name="ms.openlocfilehash" Value="a91725c4814fdb8a0e3543bbc61d74c9d0b7d187" />
+    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="05/03/2018" />
-    <Meta Name="ms.locfileid" Value="32691504" />
+    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.locfileid" Value="36415678" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IClientMessageInspector" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IClientMessageInspector" />
   <TypeSignature Language="DocId" Value="T:System.ServiceModel.Dispatcher.IClientMessageInspector" />
   <TypeSignature Language="VB.NET" Value="Public Interface IClientMessageInspector" />
   <TypeSignature Language="C++ CLI" Value="public interface class IClientMessageInspector" />
+  <TypeSignature Language="F#" Value="type IClientMessageInspector = interface" />
   <AssemblyInfo>
     <AssemblyName>System.ServiceModel</AssemblyName>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
@@ -25,7 +26,7 @@
   </AssemblyInfo>
   <Interfaces />
   <Docs>
-    <summary>Определяет объект инспектора сообщений, который можно добавить в коллекцию <see cref="P:System.ServiceModel.Dispatcher.ClientRuntime.MessageInspectors" /> для просмотра или изменения сообщений.</summary>
+    <summary>Defines a message inspector object that can be added to the <see cref="P:System.ServiceModel.Dispatcher.ClientRuntime.MessageInspectors" /> collection to view or modify messages.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -59,6 +60,7 @@
       <MemberSignature Language="DocId" Value="M:System.ServiceModel.Dispatcher.IClientMessageInspector.AfterReceiveReply(System.ServiceModel.Channels.Message@,System.Object)" />
       <MemberSignature Language="VB.NET" Value="Public Sub AfterReceiveReply (ByRef reply As Message, correlationState As Object)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void AfterReceiveReply(System::ServiceModel::Channels::Message ^ % reply, System::Object ^ correlationState);" />
+      <MemberSignature Language="F#" Value="abstract member AfterReceiveReply :  * obj -&gt; unit" Usage="iClientMessageInspector.AfterReceiveReply (reply, correlationState)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
@@ -79,9 +81,9 @@
         <Parameter Name="correlationState" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="reply">Сообщение, преобразуемое в типы и передающееся обратно клиентскому приложению.</param>
-        <param name="correlationState">Данные состояния корреляции.</param>
-        <summary>Разрешает проверку или изменение сообщения после получения ответного сообщения, но перед его передачей клиентскому приложению.</summary>
+        <param name="reply">The message to be transformed into types and handed back to the client application.</param>
+        <param name="correlationState">Correlation state data.</param>
+        <summary>Enables inspection or modification of a message after a reply message is received but prior to passing it back to the client application.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -117,6 +119,7 @@
       <MemberSignature Language="DocId" Value="M:System.ServiceModel.Dispatcher.IClientMessageInspector.BeforeSendRequest(System.ServiceModel.Channels.Message@,System.ServiceModel.IClientChannel)" />
       <MemberSignature Language="VB.NET" Value="Public Function BeforeSendRequest (ByRef request As Message, channel As IClientChannel) As Object" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ BeforeSendRequest(System::ServiceModel::Channels::Message ^ % request, System::ServiceModel::IClientChannel ^ channel);" />
+      <MemberSignature Language="F#" Value="abstract member BeforeSendRequest :  * System.ServiceModel.IClientChannel -&gt; obj" Usage="iClientMessageInspector.BeforeSendRequest (request, channel)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
@@ -137,12 +140,10 @@
         <Parameter Name="channel" Type="System.ServiceModel.IClientChannel" />
       </Parameters>
       <Docs>
-        <param name="request">Сообщение, отправляемое службе.</param>
-        <param name="channel">Канал объекта клиента WCF.</param>
-        <summary>Разрешает проверку или изменение сообщения до того, как сообщение запроса отправляется службе.</summary>
-        <returns>Объект, который возвращается как аргумент <paramref name="correlationState" /> метода <see cref="M:System.ServiceModel.Dispatcher.IClientMessageInspector.AfterReceiveReply(System.ServiceModel.Channels.Message@,System.Object)" />. Если состояние корреляции не используется, то его значение — <see langword="null" />.  
-  
- Рекомендуется сделать его типом <see cref="T:System.Guid" />, чтобы гарантировать отсутствие совпадающих объектов <paramref name="correlationState" />.</returns>
+        <param name="request">The message to be sent to the service.</param>
+        <param name="channel">The WCF client object channel.</param>
+        <summary>Enables inspection or modification of a message before a request message is sent to a service.</summary>
+        <returns>The object that is returned as the <paramref name="correlationState" /> argument of the <see cref="M:System.ServiceModel.Dispatcher.IClientMessageInspector.AfterReceiveReply(System.ServiceModel.Channels.Message@,System.Object)" /> method. This is <see langword="null" /> if no correlation state is used.  The best practice is to make this a <see cref="T:System.Guid" /> to ensure that no two <paramref name="correlationState" /> objects are the same.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
