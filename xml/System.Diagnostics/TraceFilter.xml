@@ -1,17 +1,18 @@
 <Type Name="TraceFilter" FullName="System.Diagnostics.TraceFilter">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="18fe63a9a7b42b098551cb5e85c2df08fe0c53cf" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="ca1e3c5e1752dd5229800a883262885ed83e3515" />
+    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30398248" />
+    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.locfileid" Value="36673793" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class TraceFilter" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit TraceFilter extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Diagnostics.TraceFilter" />
   <TypeSignature Language="VB.NET" Value="Public MustInherit Class TraceFilter" />
   <TypeSignature Language="C++ CLI" Value="public ref class TraceFilter abstract" />
+  <TypeSignature Language="F#" Value="type TraceFilter = class" />
   <AssemblyInfo>
     <AssemblyName>System.Diagnostics.TraceSource</AssemblyName>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
@@ -79,6 +80,7 @@
       <MemberSignature Language="DocId" Value="M:System.Diagnostics.TraceFilter.ShouldTrace(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.String,System.Object[],System.Object,System.Object[])" />
       <MemberSignature Language="VB.NET" Value="Public MustOverride Function ShouldTrace (cache As TraceEventCache, source As String, eventType As TraceEventType, id As Integer, formatOrMessage As String, args As Object(), data1 As Object, data As Object()) As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; abstract bool ShouldTrace(System::Diagnostics::TraceEventCache ^ cache, System::String ^ source, System::Diagnostics::TraceEventType eventType, int id, System::String ^ formatOrMessage, cli::array &lt;System::Object ^&gt; ^ args, System::Object ^ data1, cli::array &lt;System::Object ^&gt; ^ data);" />
+      <MemberSignature Language="F#" Value="abstract member ShouldTrace : System.Diagnostics.TraceEventCache * string * System.Diagnostics.TraceEventType * int * string * obj[] * obj * obj[] -&gt; bool" Usage="traceFilter.ShouldTrace (cache, source, eventType, id, formatOrMessage, args, data1, data)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Diagnostics.TraceSource</AssemblyName>
@@ -118,8 +120,7 @@
         <param name="data1">Объект данных трассировки.</param>
         <param name="data">Массив объектов данных трассировки.</param>
         <summary>При переопределении в производном классе определяет необходимость трассирования события прослушивателем трассировки.</summary>
-        <returns>
-          Значение <see langword="true" /> для трассировки указанного события; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" /> для трассировки указанного события; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -133,19 +134,7 @@
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>Реализации этого метода должны возвращать <see langword="true" /> если должна выполняться трассировка событий, указанный с помощью переданных параметров. В противном случае метод должен вернуть <see langword="false" />. Например, фильтр, который разрешает только события ошибок для передачи через прослушиватель должен проверять <paramref name="eventType" /> параметров и возвращаемых <see langword="true" /> Если имеет значение уровня типа события трассировки <see cref="F:System.Diagnostics.TraceEventType.Error" /> или больше; в противном случае он должен возвращать <see langword="false" />.  
-  
- Реализация метода должен быть подготовлен к обработке <see langword="null" /> в следующие параметры: <paramref name="args" />, <paramref name="data1" />, <paramref name="data" />, <paramref name="formatOrMessage" />, и <paramref name="cache" />. Если значение параметра <see langword="null" />, параметр не является частью события. Например если <paramref name="args" /> параметр <see langword="null" />, это означает, что событие не имеет никаких аргументов. Если <paramref name="data" /> параметр <see langword="null" />, то есть одно или ни объекты данных. Если имеется один объект данных, он будет найден в <paramref name="data1" /> параметра. Причина различий между один объект данных и массив объектов данных заключается в том, для повышения производительности. Нет причин для создания массива объектов, если только один объект, это событие регистрируется, как это обычно бывает в. Если <paramref name="data" /> не <see langword="null" />, <paramref name="data1" /> параметр также не должен иметь <see langword="null" />.  
-  
- Гарантируется, что <paramref name="source" /> не <see langword="null" /> и не является пустой строкой (»»).  
-  
- Реализации метода, при необходимости можно вызывать следующие исключения:  
-  
--   Значение <see cref="T:System.ArgumentNullException" />, если свойство <paramref name="source" /> имеет значение <see langword="null" />.  
-  
--   <see cref="T:System.ArgumentException" /> Если <paramref name="eventType" /> не является одним из <see cref="T:System.Diagnostics.TraceEventType" /> значения.  
-  
--   Исключения, не связанные с реализацией метода. Например <see cref="T:System.Threading.ThreadAbortException" />.</para>
+          <para>Реализации этого метода должны возвращать <see langword="true" /> если должна выполняться трассировка событий, указанный с помощью переданных параметров. В противном случае метод должен вернуть <see langword="false" />. Например, фильтр, который разрешает только события ошибок для передачи через прослушиватель должен проверять <paramref name="eventType" /> параметров и возвращаемых <see langword="true" /> Если имеет значение уровня типа события трассировки <see cref="F:System.Diagnostics.TraceEventType.Error" /> или больше; в противном случае он должен возвращать <see langword="false" />.  Реализация метода должен быть подготовлен к обработке <see langword="null" /> в следующие параметры: <paramref name="args" />, <paramref name="data1" />, <paramref name="data" />, <paramref name="formatOrMessage" />, и <paramref name="cache" />. Если значение параметра <see langword="null" />, параметр не является частью события. Например если <paramref name="args" /> параметр <see langword="null" />, это означает, что событие не имеет никаких аргументов. Если <paramref name="data" /> параметр <see langword="null" />, то есть одно или ни объекты данных. Если имеется один объект данных, он будет найден в <paramref name="data1" /> параметра. Причина различий между один объект данных и массив объектов данных заключается в том, для повышения производительности. Нет причин для создания массива объектов, если только один объект, это событие регистрируется, как это обычно бывает в. Если <paramref name="data" /> не <see langword="null" />, <paramref name="data1" /> параметр также не должен иметь <see langword="null" />.  Гарантируется, что <paramref name="source" /> не <see langword="null" /> и не является пустой строкой (»»).  Реализации метода могут дополнительно вызывать следующие исключения:- <see cref="T:System.ArgumentNullException" /> Если <paramref name="source" /> — <see langword="null" />.  - <see cref="T:System.ArgumentException" /> Если <paramref name="eventType" /> не является одним из <see cref="T:System.Diagnostics.TraceEventType" /> значения.  -Исключения, не связанные с реализацией метода. Например <see cref="T:System.Threading.ThreadAbortException" />.</para>
         </block>
       </Docs>
     </Member>
