@@ -1,17 +1,18 @@
 <Type Name="Match" FullName="System.Text.RegularExpressions.Match">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="fb63372e2192302c84aaf2b9879a89ead4000664" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="c886bcea5d17b2ba683b40687e65b1b31de9ad20" />
+    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30530128" />
+    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.locfileid" Value="36408141" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Match : System.Text.RegularExpressions.Group" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit Match extends System.Text.RegularExpressions.Group" />
   <TypeSignature Language="DocId" Value="T:System.Text.RegularExpressions.Match" />
   <TypeSignature Language="VB.NET" Value="Public Class Match&#xA;Inherits Group" />
   <TypeSignature Language="C++ CLI" Value="public ref class Match : System::Text::RegularExpressions::Group" />
+  <TypeSignature Language="F#" Value="type Match = class&#xA;    inherit Group" />
   <AssemblyInfo>
     <AssemblyName>System.Text.RegularExpressions</AssemblyName>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
@@ -95,6 +96,7 @@
       <MemberSignature Language="DocId" Value="P:System.Text.RegularExpressions.Match.Empty" />
       <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property Empty As Match" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static property System::Text::RegularExpressions::Match ^ Empty { System::Text::RegularExpressions::Match ^ get(); };" />
+      <MemberSignature Language="F#" Value="member this.Empty : System.Text.RegularExpressions.Match" Usage="System.Text.RegularExpressions.Match.Empty" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Text.RegularExpressions</AssemblyName>
@@ -136,6 +138,7 @@
       <MemberSignature Language="DocId" Value="P:System.Text.RegularExpressions.Match.Groups" />
       <MemberSignature Language="VB.NET" Value="Public Overridable ReadOnly Property Groups As GroupCollection" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Text::RegularExpressions::GroupCollection ^ Groups { System::Text::RegularExpressions::GroupCollection ^ get(); };" />
+      <MemberSignature Language="F#" Value="member this.Groups : System.Text.RegularExpressions.GroupCollection" Usage="System.Text.RegularExpressions.Match.Groups" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Text.RegularExpressions</AssemblyName>
@@ -191,6 +194,7 @@
       <MemberSignature Language="DocId" Value="M:System.Text.RegularExpressions.Match.NextMatch" />
       <MemberSignature Language="VB.NET" Value="Public Function NextMatch () As Match" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Text::RegularExpressions::Match ^ NextMatch();" />
+      <MemberSignature Language="F#" Value="member this.NextMatch : unit -&gt; System.Text.RegularExpressions.Match" Usage="match.NextMatch " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Text.RegularExpressions</AssemblyName>
@@ -241,12 +245,7 @@
         </remarks>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло.</exception>
         <block subset="none" type="usage">
-          <para>При повторном попытки поиска совпадения, вызвав <see cref="M:System.Text.RegularExpressions.Match.NextMatch" /> , обработчик регулярных выражений дает пустые совпадения особым образом. Как правило <see cref="M:System.Text.RegularExpressions.Match.NextMatch" /> начинает поиск следующего соответствия точно предыдущего совпадения места остановки. Однако после пустого совпадения <see cref="M:System.Text.RegularExpressions.Match.NextMatch" /> метод перемещает один символ перед попыткой следующего совпадения. Это гарантирует, что обработчик регулярных выражений развивается по строке. В противном случае — поскольку пустое совпадение не приведет к любой продвижение вперед, следующее соответствие начнется в той же позиции, что и предыдущий и многократно будет соответствовать же пустая строка.  
-  
- Ниже приведен пример. Шаблон регулярного выражения <c>*</c> ищет ноль или более вхождений буквы «» в строке «abaabb». Как показывают выходные данные примера, поиск совпадения шесть. Первая попытка match находит первый «». Второе соответствие начинается, где первый совпадать заканчивается перед первой b; он выполняет поиск вхождений «a» и возвращает пустую строку. Третье соответствие не начинается точно там, где второе соответствие закончилось, так как второе соответствие возвратил пустую строку. Вместо этого оно начинается на один знак позже, после первой «b». Третье соответствие находит два вхождения «a» и возвращает «aa». Начинает четвертой попытки поиска совпадения, где закончилось третье, перед второй буквой «b» и возвращает пустую строку. Пятый попытки поиска совпадения снова перемещает один символ, чтобы он начинается до третьей «b» и возвращает пустую строку. Шестой поиск начинается после последнего «b» и снова возвращает пустую строку.  
-  
- [!code-csharp[System.Text.RegularExpressions.Match.NextMatch#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.text.regularexpressions.match.nextmatch/cs/nextmatch1.cs#1)]
- [!code-vb[System.Text.RegularExpressions.Match.NextMatch#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.text.regularexpressions.match.nextmatch/vb/nextmatch1.vb#1)]</para>
+          <para>При повторном попытки поиска совпадения, вызвав <see cref="M:System.Text.RegularExpressions.Match.NextMatch" /> , обработчик регулярных выражений дает пустые совпадения особым образом. Как правило <see cref="M:System.Text.RegularExpressions.Match.NextMatch" /> начинает поиск следующего соответствия точно предыдущего совпадения места остановки. Однако после пустого совпадения <see cref="M:System.Text.RegularExpressions.Match.NextMatch" /> метод перемещает один символ перед попыткой следующего совпадения. Это гарантирует, что обработчик регулярных выражений развивается по строке. В противном случае — поскольку пустое совпадение не приведет к любой продвижение вперед, следующее соответствие начнется в той же позиции, что и предыдущий и многократно будет соответствовать же пустая строка.  Ниже приведен пример. Шаблон регулярного выражения <c>*</c> ищет ноль или более вхождений буквы «» в строке «abaabb». Как показывают выходные данные примера, поиск совпадения шесть. Первая попытка match находит первый «». Второе соответствие начинается, где первый совпадать заканчивается перед первой b; он выполняет поиск вхождений «a» и возвращает пустую строку. Третье соответствие не начинается точно там, где второе соответствие закончилось, так как второе соответствие возвратил пустую строку. Вместо этого оно начинается на один знак позже, после первой «b». Третье соответствие находит два вхождения «a» и возвращает «aa». Начинает четвертой попытки поиска совпадения, где закончилось третье, перед второй буквой «b» и возвращает пустую строку. Пятый попытки поиска совпадения снова перемещает один символ, чтобы он начинается до третьей «b» и возвращает пустую строку. Шестой поиск начинается после последнего «b» и снова возвращает пустую строку.  [! code-csharp[System.Text.RegularExpressions.Match.NextMatch#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.text.regularexpressions.match.nextmatch/cs/nextmatch1.cs#1)] [! code-vb[System.Text.RegularExpressions.Match.NextMatch#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.text.regularexpressions.match.nextmatch/vb/nextmatch1.vb#1)]</para>
         </block>
       </Docs>
     </Member>
@@ -256,6 +255,7 @@
       <MemberSignature Language="DocId" Value="M:System.Text.RegularExpressions.Match.Result(System.String)" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Function Result (replacement As String) As String" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::String ^ Result(System::String ^ replacement);" />
+      <MemberSignature Language="F#" Value="abstract member Result : string -&gt; string&#xA;override this.Result : string -&gt; string" Usage="match.Result replacement" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Text.RegularExpressions</AssemblyName>
@@ -315,8 +315,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="replacement" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="replacement" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.NotSupportedException">Расширение для этого шаблона не разрешено.</exception>
         <altmember cref="M:System.Text.RegularExpressions.Regex.Replace(System.String,System.String)" />
       </Docs>
@@ -327,6 +326,7 @@
       <MemberSignature Language="DocId" Value="M:System.Text.RegularExpressions.Match.Synchronized(System.Text.RegularExpressions.Match)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function Synchronized (inner As Match) As Match" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Text::RegularExpressions::Match ^ Synchronized(System::Text::RegularExpressions::Match ^ inner);" />
+      <MemberSignature Language="F#" Value="static member Synchronized : System.Text.RegularExpressions.Match -&gt; System.Text.RegularExpressions.Match" Usage="System.Text.RegularExpressions.Match.Synchronized inner" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
@@ -353,8 +353,7 @@
         <summary>Возвращает экземпляр <see cref="T:System.Text.RegularExpressions.Match" />, который эквивалентен одному из предоставленных экземпляров, пригодному для совместного использования несколькими потоками.</summary>
         <returns>Сопоставление регулярному выражению, пригодное для разделения между несколькими потоками.</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="inner" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="inner" /> имеет значение <see langword="null" />.</exception>
       </Docs>
     </Member>
   </Members>
