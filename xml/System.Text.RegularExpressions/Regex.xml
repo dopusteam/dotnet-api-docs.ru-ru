@@ -1,11 +1,11 @@
 <Type Name="Regex" FullName="System.Text.RegularExpressions.Regex">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="fd2ccb43296a43eb9c1de7114e0d688441835233" />
-    <Meta Name="ms.sourcegitcommit" Value="df6cf590aa3087f6c7c202712eee781c6a3c8f96" />
+    <Meta Name="ms.openlocfilehash" Value="f5b1b16e45086d2dbf7c8f1afa213b88dfe4f122" />
+    <Meta Name="ms.sourcegitcommit" Value="9f18ecaf63382fa565dfaeb7274bc1a9e81c35e9" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="05/07/2018" />
-    <Meta Name="ms.locfileid" Value="33684362" />
+    <Meta Name="ms.lasthandoff" Value="06/19/2018" />
+    <Meta Name="ms.locfileid" Value="36208852" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Regex : System.Runtime.Serialization.ISerializable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit Regex extends System.Object implements class System.Runtime.Serialization.ISerializable" />
@@ -192,7 +192,7 @@
  ]]></format>
     </remarks>
     <threadsafe>
-      <see cref="T:System.Text.RegularExpressions.Regex" /> Класса является неизменяемым (только для чтения) и потокобезопасным. <see cref="T:System.Text.RegularExpressions.Regex" /> объекты могут создаваться в любом потоке и совместно использоваться несколькими потоками. Дополнительные сведения см. в разделе [потокобезопасность](~/docs/standard/base-types/thread-safety-in-regular-expressions.md).</threadsafe>
+      <see cref="T:System.Text.RegularExpressions.Regex" /> Класса является неизменяемым (только для чтения) и потокобезопасным. <see cref="T:System.Text.RegularExpressions.Regex" /> объекты могут создаваться в любом потоке и совместно использоваться несколькими потоками. Дополнительные сведения см. в разделе [Safety](~/docs/standard/base-types/thread-safety-in-regular-expressions.md) потока.</threadsafe>
     <altmember cref="T:System.Configuration.RegexStringValidator" />
   </Docs>
   <Members>
@@ -303,8 +303,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
         <block subset="none" type="usage">
           <para>Этот конструктор создает <see cref="T:System.Text.RegularExpressions.Regex" /> объект, который использует значение времени ожидания по умолчанию домена приложения, в которой он создан. Если значение времени ожидания не был определен для домена приложения, <see cref="T:System.Text.RegularExpressions.Regex" /> объект использует значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что мешает выполнить операцию по истечении времени ожидания. Рекомендуемые конструктор для создания <see cref="T:System.Text.RegularExpressions.Regex" /> объект <see cref="M:System.Text.RegularExpressions.Regex.#ctor(System.String,System.Text.RegularExpressions.RegexOptions,System.TimeSpan)" />, который позволяет установить интервал времени ожидания.</para>
         </block>
@@ -400,8 +399,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
           <paramref name="options" /> содержит недопустимый флаг.</exception>
         <block subset="none" type="usage">
@@ -483,22 +481,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="options" /> не является допустимым значением <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  
-  
- - или -  
-  
- Значение <paramref name="matchTimeout" /> отрицательно, равно нулю или больше приблизительно 24 дней.</exception>
+          <paramref name="options" /> не является допустимым значением <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  -или-  Значение параметра <paramref name="matchTimeout" /> отрицательное, равно нулю или больше, чем приблизительно 24 дня.</exception>
         <block subset="none" type="usage">
-          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее следует отключить тайм-ауты только при следующих условиях:  
-  
--   Если входных данных, обрабатываемых регулярное выражение является производным от известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  
-  
--   Если шаблон регулярного выражения тщательно протестирован для обеспечения эффективной обработки соответствует несовпадающие и ближайшем совпадает.  
-  
--   Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
+          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее, следует отключить тайм-ауты только при следующих условиях: — когда входные данные, обрабатываемые регулярного выражения определяется из известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  — Если для обеспечения эффективной обработки тщательно протестирован шаблон регулярного выражения соответствует, несовпадающие, а ближайшем.  -Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
         </block>
       </Docs>
     </Member>
@@ -544,7 +531,7 @@
         </remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение в операции задания меньше нуля.</exception>
         <block subset="none" type="usage">
-          <para>В платформе .NET Framework до версии [!INCLUDE[net_v20SP1_short](~/includes/net-v20sp1-short-md.md)], использовать регулярные выражения в как статическим, так и вызовов методов экземпляра были кэшированы. Начиная с версии [!INCLUDE[net_v20SP1_short](~/includes/net-v20sp1-short-md.md)], только регулярные выражения, используемые в вызовах статичных методов, кэшируются.</para>
+          <para>В платформе .NET Framework до версии [! INCLUDE[net_v20SP1_short](~/includes/NET-v20sp1-Short-MD.MD)], регулярные выражения, используемые в как статическим, так и вызовов методов экземпляра были кэшированы. Начиная с [! INCLUDE[net_v20SP1_short](~/includes/NET-v20sp1-Short-MD.MD)], только регулярные выражения, используемые в статический метод кэшируется вызовов.</para>
         </block>
       </Docs>
     </Member>
@@ -770,6 +757,15 @@
       </AssemblyInfo>
       <Docs>
         <summary>Компилирует регулярные выражения и сохраняет их на диск в единой сборке.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+
+На основе .NET Core вызовы `Regex.CompileToAssembly` throw метод <xref:System.PlatformNotSupportedException>; выписке сборки не поддерживается.
+  
+       ]]></format>
+        </remarks>
       </Docs>
     </MemberGroup>
     <Member MemberName="CompileToAssembly">
@@ -829,19 +825,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Значением свойства <see cref="P:System.Reflection.AssemblyName.Name" /> параметра <paramref name="assemblyname" /> является пустая или нулевая строка.  
-  
- - или -  
-  
- Шаблон регулярного выражения одного или более объектов в <paramref name="regexinfos" /> содержит недопустимый синтаксис.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="assemblyname" /> или <paramref name="regexinfos" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Значением свойства <see cref="P:System.Reflection.AssemblyName.Name" /> параметра <paramref name="assemblyname" /> является пустая или нулевая строка.  -или-  Шаблон регулярного выражения одного или нескольких объектов в <paramref name="regexinfos" /> содержит недопустимый синтаксис.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="assemblyname" /> или <paramref name="regexinfos" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.PlatformNotSupportedException">Только .NET Core: создание сборки скомпилированных регулярных выражений не поддерживается.</exception>
         <block subset="none" type="usage">
-          <para>При разработке в системе, где [!INCLUDE[net_v45](~/includes/net-v45-md.md)] или назначьте ее доработанные выпуски установлен [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], и использовать <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> метод, чтобы создать сборку, содержащую скомпилированные регулярные выражения. Попытка использовать одно из регулярных выражений в том, что сборке в системе с [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)] приводит к возникновению исключения. Чтобы обойти эту проблему, можно воспользоваться одним из следующих способов:  
-  
--   Создать сборку, содержащую скомпилированные регулярные выражения в системе, которая имеет [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)] вместо более поздних версий.  
-  
--   Вместо вызова метода <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> и получение скомпилированного регулярного выражения из сборки, используйте статических или экземпляр <see cref="T:System.Text.RegularExpressions.Regex" /> методы с <see cref="F:System.Text.RegularExpressions.RegexOptions.Compiled" /> параметр при создании экземпляра <see cref="T:System.Text.RegularExpressions.Regex" /> объекта или вызвать регулярного выражения методу сопоставления шаблона.</para>
+          <para>При разработке в системе, где [! INCLUDE[net_v45](~/includes/NET-v45-MD.MD)] или назначьте ее доработанные выпуски установлен [! INCLUDE[net_v40_short](~/includes/NET-v40-Short-MD.MD)] и использовании <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> метод, чтобы создать сборку, содержащую скомпилированные регулярные выражения. Попытка использовать одно из регулярных выражений в том, что сборке в системе с [! INCLUDE[net_v40_short](~/includes/NET-v40-Short-MD.MD)] возникло исключение. Чтобы обойти эту проблему, можно выполнить одно из следующих:-создать сборку, содержащую скомпилированные регулярные выражения в системе, которая имеет [! INCLUDE[net_v40_short](~/includes/NET-v40-Short-MD.MD)] вместо более поздних версиях установлены.  -Вместо из вызова метода <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> и получение скомпилированного регулярного выражения из сборки, используйте статических или экземпляр <see cref="T:System.Text.RegularExpressions.Regex" /> методы с <see cref="F:System.Text.RegularExpressions.RegexOptions.Compiled" /> параметр при создании экземпляра <see cref="T:System.Text.RegularExpressions.Regex" /> объекта или вызвать регулярного выражения методу сопоставления шаблона.</para>
         </block>
       </Docs>
     </Member>
@@ -920,19 +908,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Значением свойства <see cref="P:System.Reflection.AssemblyName.Name" /> параметра <paramref name="assemblyname" /> является пустая или нулевая строка.  
-  
- - или -  
-  
- Шаблон регулярного выражения одного или более объектов в <paramref name="regexinfos" /> содержит недопустимый синтаксис.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="assemblyname" /> или <paramref name="regexinfos" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Значением свойства <see cref="P:System.Reflection.AssemblyName.Name" /> параметра <paramref name="assemblyname" /> является пустая или нулевая строка.  -или-  Шаблон регулярного выражения одного или нескольких объектов в <paramref name="regexinfos" /> содержит недопустимый синтаксис.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="assemblyname" /> или <paramref name="regexinfos" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.PlatformNotSupportedException">Только .NET Core: создание сборки скомпилированных регулярных выражений не поддерживается.</exception>
         <block subset="none" type="usage">
-          <para>При разработке в системе, где [!INCLUDE[net_v45](~/includes/net-v45-md.md)] или назначьте ее доработанные выпуски установлен [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], и использовать <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> метод, чтобы создать сборку, содержащую скомпилированные регулярные выражения. Попытка использовать одно из регулярных выражений в том, что сборке в системе с [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)] приводит к возникновению исключения. Чтобы обойти эту проблему, можно воспользоваться одним из следующих способов:  
-  
--   Создать сборку, содержащую скомпилированные регулярные выражения в системе, которая имеет [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)] вместо более поздних версий.  
-  
--   Вместо вызова метода <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> и получение скомпилированного регулярного выражения из сборки, используйте статических или экземпляр <see cref="T:System.Text.RegularExpressions.Regex" /> методы с <see cref="F:System.Text.RegularExpressions.RegexOptions.Compiled" /> параметр при создании экземпляра <see cref="T:System.Text.RegularExpressions.Regex" /> объекта или вызвать регулярного выражения методу сопоставления шаблона.</para>
+          <para>При разработке в системе, где [! INCLUDE[net_v45](~/includes/NET-v45-MD.MD)] или назначьте ее доработанные выпуски установлен [! INCLUDE[net_v40_short](~/includes/NET-v40-Short-MD.MD)] и использовании <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> метод, чтобы создать сборку, содержащую скомпилированные регулярные выражения. Попытка использовать одно из регулярных выражений в том, что сборке в системе с [! INCLUDE[net_v40_short](~/includes/NET-v40-Short-MD.MD)] возникло исключение. Чтобы обойти эту проблему, можно выполнить одно из следующих:-создать сборку, содержащую скомпилированные регулярные выражения в системе, которая имеет [! INCLUDE[net_v40_short](~/includes/NET-v40-Short-MD.MD)] вместо более поздних версиях установлены.  -Вместо из вызова метода <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> и получение скомпилированного регулярного выражения из сборки, используйте статических или экземпляр <see cref="T:System.Text.RegularExpressions.Regex" /> методы с <see cref="F:System.Text.RegularExpressions.RegexOptions.Compiled" /> параметр при создании экземпляра <see cref="T:System.Text.RegularExpressions.Regex" /> объекта или вызвать регулярного выражения методу сопоставления шаблона.</para>
         </block>
       </Docs>
     </Member>
@@ -996,21 +976,13 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Значением свойства <see cref="P:System.Reflection.AssemblyName.Name" /> параметра <paramref name="assemblyname" /> является пустая или нулевая строка.  
-  
- - или -  
-  
- Шаблон регулярного выражения одного или более объектов в <paramref name="regexinfos" /> содержит недопустимый синтаксис.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="assemblyname" /> или <paramref name="regexinfos" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Значением свойства <see cref="P:System.Reflection.AssemblyName.Name" /> параметра <paramref name="assemblyname" /> является пустая или нулевая строка.  -или-  Шаблон регулярного выражения одного или нескольких объектов в <paramref name="regexinfos" /> содержит недопустимый синтаксис.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="assemblyname" /> или <paramref name="regexinfos" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Runtime.InteropServices.COMException">Параметр <paramref name="resourceFile" /> назначает недопустимый файл ресурсов Win32.</exception>
         <exception cref="T:System.IO.FileNotFoundException">Не удается найти файл, заданный свойством <paramref name="resourceFile" />.</exception>
+        <exception cref="T:System.PlatformNotSupportedException">Только .NET Core: создание сборки скомпилированных регулярных выражений не поддерживается.</exception>
         <block subset="none" type="usage">
-          <para>При разработке в системе, где [!INCLUDE[net_v45](~/includes/net-v45-md.md)] или назначьте ее доработанные выпуски установлен [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], и использовать <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> метод, чтобы создать сборку, содержащую скомпилированные регулярные выражения. Попытка использовать одно из регулярных выражений в том, что сборке в системе с [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)] приводит к возникновению исключения. Чтобы обойти эту проблему, можно воспользоваться одним из следующих способов:  
-  
--   Создать сборку, содержащую скомпилированные регулярные выражения в системе, которая имеет [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)] вместо более поздних версий.  
-  
--   Вместо вызова метода <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> и получение скомпилированного регулярного выражения из сборки, используйте статических или экземпляр <see cref="T:System.Text.RegularExpressions.Regex" /> методы с <see cref="F:System.Text.RegularExpressions.RegexOptions.Compiled" /> параметр при создании экземпляра <see cref="T:System.Text.RegularExpressions.Regex" /> объекта или вызвать регулярного выражения методу сопоставления шаблона.</para>
+          <para>При разработке в системе, где [! INCLUDE[net_v45](~/includes/NET-v45-MD.MD)] или назначьте ее доработанные выпуски установлен [! INCLUDE[net_v40_short](~/includes/NET-v40-Short-MD.MD)] и использовании <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> метод, чтобы создать сборку, содержащую скомпилированные регулярные выражения. Попытка использовать одно из регулярных выражений в том, что сборке в системе с [! INCLUDE[net_v40_short](~/includes/NET-v40-Short-MD.MD)] возникло исключение. Чтобы обойти эту проблему, можно выполнить одно из следующих:-создать сборку, содержащую скомпилированные регулярные выражения в системе, которая имеет [! INCLUDE[net_v40_short](~/includes/NET-v40-Short-MD.MD)] вместо более поздних версиях установлены.  -Вместо из вызова метода <see cref="M:System.Text.RegularExpressions.Regex.CompileToAssembly(System.Text.RegularExpressions.RegexCompilationInfo[],System.Reflection.AssemblyName)" /> и получение скомпилированного регулярного выражения из сборки, используйте статических или экземпляр <see cref="T:System.Text.RegularExpressions.Regex" /> методы с <see cref="F:System.Text.RegularExpressions.RegexOptions.Compiled" /> параметр при создании экземпляра <see cref="T:System.Text.RegularExpressions.Regex" /> объекта или вызвать регулярного выражения методу сопоставления шаблона.</para>
         </block>
       </Docs>
     </Member>
@@ -1080,8 +1052,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="str" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="str" /> имеет значение <see langword="null" />.</exception>
         <altmember cref="M:System.Text.RegularExpressions.Regex.Unescape(System.String)" />
       </Docs>
     </Member>
@@ -1363,8 +1334,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="name" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="name" /> имеет значение <see langword="null" />.</exception>
         <altmember cref="T:System.Text.RegularExpressions.GroupCollection" />
         <altmember cref="M:System.Text.RegularExpressions.Regex.GetGroupNames" />
       </Docs>
@@ -1549,8 +1519,7 @@
       <Docs>
         <param name="input">Строка для поиска соответствия.</param>
         <summary>Указывает, обнаружено ли в указанной входной строке соответствие регулярному выражению, заданному в конструкторе <see cref="T:System.Text.RegularExpressions.Regex" />.</summary>
-        <returns>
-          Значение <see langword="true" />, если регулярное выражение обнаруживает соответствие; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если регулярное выражение обнаруживает соответствие; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1589,8 +1558,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
       </Docs>
     </Member>
@@ -1630,8 +1598,7 @@
         <param name="input">Строка для поиска соответствия.</param>
         <param name="startat">Расположение символа, с которого необходимо начать поиск.</param>
         <summary>Указывает, обнаружено ли в указанной входной строке соответствие (начинающееся с указанной позиции в этой строке) регулярному выражению, заданному в конструкторе <see cref="T:System.Text.RegularExpressions.Regex" />.</summary>
-        <returns>
-          Значение <see langword="true" />, если регулярное выражение обнаруживает соответствие; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если регулярное выражение обнаруживает соответствие; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1669,10 +1636,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
       </Docs>
     </Member>
@@ -1712,8 +1677,7 @@
         <param name="input">Строка для поиска соответствия.</param>
         <param name="pattern">Шаблон регулярного выражения для сопоставления.</param>
         <summary>Указывает, обнаружено ли в указанной входной строке соответствие заданному регулярному выражению.</summary>
-        <returns>
-          Значение <see langword="true" />, если регулярное выражение обнаруживает соответствие; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если регулярное выражение обнаруживает соответствие; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1757,8 +1721,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
           <para>Этот метод времени ожидания после интервала, равное значение времени ожидания по умолчанию домена приложения, в котором был вызван метод. Если значение времени ожидания не был определен для домена приложения, а значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что предотвращает истечения времени ожидания, метод используется. Рекомендуемые статический метод для проверки соответствия шаблону является <see cref="M:System.Text.RegularExpressions.Regex.IsMatch(System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.TimeSpan)" />, который позволяет установить интервал времени ожидания.</para>
@@ -1803,8 +1766,7 @@
         <param name="pattern">Шаблон регулярного выражения для сопоставления.</param>
         <param name="options">Побитовая комбинация значений перечисления, предоставляющая параметры для сопоставления.</param>
         <summary>Указывает, обнаружено ли в указанной входной строке соответствие заданному регулярному выражению, используя указанные параметры сопоставления.</summary>
-        <returns>
-          Значение <see langword="true" />, если регулярное выражение обнаруживает соответствие; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если регулярное выражение обнаруживает соответствие; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1856,8 +1818,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
           <paramref name="options" /> не является допустимым значением <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
@@ -1906,8 +1867,7 @@
         <param name="options">Побитовая комбинация значений перечисления, предоставляющая параметры для сопоставления.</param>
         <param name="matchTimeout">Интервал времени ожидания или <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, чтобы указать, что метод не должен превышать время ожидания.</param>
         <summary>Указывает, обнаружено ли в указанной входной строке соответствие заданному регулярному выражению, с помощью указанных параметров сопоставления и интервала времени ожидания.</summary>
-        <returns>
-          Значение <see langword="true" />, если регулярное выражение обнаруживает соответствие; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если регулярное выражение обнаруживает соответствие; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1959,23 +1919,12 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="options" /> не является допустимым значением <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  
-  
- - или -  
-  
- Значение <paramref name="matchTimeout" /> отрицательно, равно нулю или больше приблизительно 24 дней.</exception>
+          <paramref name="options" /> не является допустимым значением <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  -или-  Значение параметра <paramref name="matchTimeout" /> отрицательное, равно нулю или больше, чем приблизительно 24 дня.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло.</exception>
         <block subset="none" type="usage">
-          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее следует отключить тайм-ауты только при следующих условиях:  
-  
--   Если входных данных, обрабатываемых регулярное выражение является производным от известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  
-  
--   Если шаблон регулярного выражения тщательно протестирован для обеспечения эффективной обработки соответствует несовпадающие и ближайшем совпадает.  
-  
--   Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
+          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее, следует отключить тайм-ауты только при следующих условиях: — когда входные данные, обрабатываемые регулярного выражения определяется из известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  — Если для обеспечения эффективной обработки тщательно протестирован шаблон регулярного выражения соответствует, несовпадающие, а ближайшем.  -Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
         </block>
       </Docs>
     </Member>
@@ -2058,8 +2007,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <altmember cref="M:System.Text.RegularExpressions.Match.NextMatch" />
       </Docs>
@@ -2121,10 +2069,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <altmember cref="M:System.Text.RegularExpressions.Match.NextMatch" />
       </Docs>
@@ -2203,8 +2149,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
           <para>Этот метод времени ожидания после интервала, равное значение времени ожидания по умолчанию домена приложения, в котором он вызван. Если значение времени ожидания не был определен для домена приложения, а значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что предотвращает истечения времени ожидания, метод используется. Статические рекомендуется для получения соответствия шаблону <see cref="M:System.Text.RegularExpressions.Regex.Match(System.String,System.String)" />, который позволяет установить интервал времени ожидания.</para>
@@ -2267,18 +2212,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="beginning" /> имеет значение меньше нуля или больше длины <paramref name="input" />.  
-  
- - или -  
-  
- Параметр <paramref name="length" /> имеет значение меньше нуля или больше длины <paramref name="input" />.  
-  
- - или -  
-  
- <paramref name="beginning" /><see langword="+" /><paramref name="length" /><see langword="–1" /> определяет позицию, которая находится вне диапазона <paramref name="input" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="beginning" /> имеет значение меньше нуля или больше длины <paramref name="input" />.  -или-  Параметр <paramref name="length" /> имеет значение меньше нуля или больше длины <paramref name="input" />.  -или-  <paramref name="beginning" /><see langword="+" /><paramref name="length" /><see langword="–1" /> определяет позицию, которая находится вне диапазона <paramref name="input" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <altmember cref="M:System.Text.RegularExpressions.Match.NextMatch" />
       </Docs>
@@ -2358,10 +2293,8 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
           <para>Этот метод времени ожидания после интервала, равное значение времени ожидания по умолчанию домена приложения, в котором он вызван. Если значение времени ожидания не был определен для домена приложения, а значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что предотвращает истечения времени ожидания, метод используется. Статические рекомендуется для получения соответствия шаблону <see cref="M:System.Text.RegularExpressions.Regex.Match(System.String,System.String)" />, который позволяет установить интервал времени ожидания.</para>
@@ -2429,23 +2362,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  
-  
- - или -  
-  
- Значение <paramref name="matchTimeout" /> отрицательно, равно нулю или больше приблизительно 24 дней.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  -или-  Значение параметра <paramref name="matchTimeout" /> отрицательное, равно нулю или больше, чем приблизительно 24 дня.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
-          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее следует отключить тайм-ауты только при следующих условиях:  
-  
--   Если входных данных, обрабатываемых регулярное выражение является производным от известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  
-  
--   Если шаблон регулярного выражения тщательно протестирован для обеспечения эффективной обработки соответствует несовпадающие и ближайшем совпадает.  
-  
--   Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
+          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее, следует отключить тайм-ауты только при следующих условиях: — когда входные данные, обрабатываемые регулярного выражения определяется из известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  — Если для обеспечения эффективной обработки тщательно протестирован шаблон регулярного выражения соответствует, несовпадающие, а ближайшем.  -Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
         </block>
       </Docs>
     </Member>
@@ -2461,12 +2382,7 @@
       <Docs>
         <summary>Ищет во входной строке все вхождения регулярного выражения и возвращает все соответствия.</summary>
         <block subset="none" type="usage">
-          <para>При повторном попытки поиска совпадения, вызвав <see cref="Overload:System.Text.RegularExpressions.Regex.Matches" /> , обработчик регулярных выражений дает пустые совпадения особым образом. Обычно обработчик регулярных выражений начинает поиск следующего соответствия точно предыдущего совпадения места остановки. Однако после пустого совпадения, обработчик регулярных выражений перемещает один символ перед попыткой. Это гарантирует, что обработчик регулярных выражений развивается по строке. В противном случае — поскольку пустое совпадение не приведет к любой продвижение вперед, следующее соответствие начнется в той же позиции, что и предыдущий и многократно будет соответствовать же пустая строка.  
-  
- В следующем примере шаблон регулярного выражения <c>*</c> ищет ноль или более вхождений буквы «» в строке «abaabb». Как видно в результатах показано в примере, итоговый <see cref="T:System.Text.RegularExpressions.MatchCollection" /> объект содержит шесть <see cref="T:System.Text.RegularExpressions.Match" /> объектов. Первая попытка match находит первый «». Второе соответствие начинается, где первый совпадать заканчивается перед первой b; он выполняет поиск вхождений «a» и возвращает пустую строку. Третье соответствие не начинается точно там, где второе соответствие закончилось, так как второе соответствие возвратил пустую строку. Вместо этого оно начинается на один знак позже, после первой «b». Третье соответствие находит два вхождения «a» и возвращает «aa». Начинает четвертой попытки поиска совпадения, где закончилось третье, перед второй буквой «b» и возвращает пустую строку. Пятый попытки поиска совпадения снова перемещает один символ, чтобы он начинается до третьей «b» и возвращает пустую строку. Шестой поиск начинается после последнего «b» и снова возвращает пустую строку.  
-  
- [!code-csharp[System.Text.RegularExpressions.Regex.Matches#9](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.text.regularexpressions.regex.matches/cs/emptymatches1.cs#9)]
- [!code-vb[System.Text.RegularExpressions.Regex.Matches#9](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.text.regularexpressions.regex.matches/vb/emptymatches1.vb#9)]</para>
+          <para>При повторном попытки поиска совпадения, вызвав <see cref="Overload:System.Text.RegularExpressions.Regex.Matches" /> , обработчик регулярных выражений дает пустые совпадения особым образом. Обычно обработчик регулярных выражений начинает поиск следующего соответствия точно предыдущего совпадения места остановки. Однако после пустого совпадения, обработчик регулярных выражений перемещает один символ перед попыткой. Это гарантирует, что обработчик регулярных выражений развивается по строке. В противном случае — поскольку пустое совпадение не приведет к любой продвижение вперед, следующее соответствие начнется в той же позиции, что и предыдущий и многократно будет соответствовать же пустая строка.  В следующем примере шаблон регулярного выражения <c>*</c> ищет ноль или более вхождений буквы «» в строке «abaabb». Как видно в результатах показано в примере, итоговый <see cref="T:System.Text.RegularExpressions.MatchCollection" /> объект содержит шесть <see cref="T:System.Text.RegularExpressions.Match" /> объектов. Первая попытка match находит первый «». Второе соответствие начинается, где первый совпадать заканчивается перед первой b; он выполняет поиск вхождений «a» и возвращает пустую строку. Третье соответствие не начинается точно там, где второе соответствие закончилось, так как второе соответствие возвратил пустую строку. Вместо этого оно начинается на один знак позже, после первой «b». Третье соответствие находит два вхождения «a» и возвращает «aa». Начинает четвертой попытки поиска совпадения, где закончилось третье, перед второй буквой «b» и возвращает пустую строку. Пятый попытки поиска совпадения снова перемещает один символ, чтобы он начинается до третьей «b» и возвращает пустую строку. Шестой поиск начинается после последнего «b» и снова возвращает пустую строку.  [! code-csharp[System.Text.RegularExpressions.Regex.Matches#9](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.text.regularexpressions.regex.matches/cs/emptymatches1.cs#9)] [! code-vb[System.Text.RegularExpressions.Regex.Matches#9](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.text.regularexpressions.regex.matches/vb/emptymatches1.vb#9)]</para>
         </block>
       </Docs>
     </MemberGroup>
@@ -2541,8 +2457,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="Matches">
@@ -2616,10 +2531,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="Matches">
@@ -2696,8 +2609,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
         <block subset="none" type="usage">
           <para>Этот метод времени ожидания после интервала, равное значение времени ожидания по умолчанию домена приложения, в котором он вызван. Если значение времени ожидания не был определен для домена приложения, а значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что предотвращает истечения времени ожидания, метод используется. Рекомендуемые статический метод для извлечения нескольких шаблон соответствует является <see cref="M:System.Text.RegularExpressions.Regex.Matches(System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.TimeSpan)" />, которая позволяет задать интервал ожидания.</para>
         </block>
@@ -2779,10 +2691,8 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
         <block subset="none" type="usage">
           <para>Этот метод времени ожидания после интервала, равное значение времени ожидания по умолчанию домена приложения, в котором он вызван. Если значение времени ожидания не был определен для домена приложения, а значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что предотвращает истечения времени ожидания, метод используется. Рекомендуемые статический метод для извлечения нескольких шаблон соответствует является <see cref="M:System.Text.RegularExpressions.Regex.Matches(System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.TimeSpan)" />, который позволяет установить интервал времени ожидания.</para>
         </block>
@@ -2866,22 +2776,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  
-  
- - или -  
-  
- Значение <paramref name="matchTimeout" /> отрицательно, равно нулю или больше приблизительно 24 дней.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  -или-  Значение параметра <paramref name="matchTimeout" /> отрицательное, равно нулю или больше, чем приблизительно 24 дня.</exception>
         <block subset="none" type="usage">
-          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее следует отключить тайм-ауты только при следующих условиях:  
-  
--   Если входных данных, обрабатываемых регулярное выражение является производным от известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  
-  
--   Если шаблон регулярного выражения тщательно протестирован для обеспечения эффективной обработки соответствует несовпадающие и ближайшем совпадает.  
-  
--   Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
+          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее, следует отключить тайм-ауты только при следующих условиях: — когда входные данные, обрабатываемые регулярного выражения определяется из известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  — Если для обеспечения эффективной обработки тщательно протестирован шаблон регулярного выражения соответствует, несовпадающие, а ближайшем.  -Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
         </block>
       </Docs>
     </Member>
@@ -3105,8 +3003,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="replacement" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="replacement" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
       </Docs>
     </Member>
@@ -3184,8 +3081,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="evaluator" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="evaluator" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <altmember cref="T:System.Text.RegularExpressions.MatchEvaluator" />
       </Docs>
@@ -3254,8 +3150,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="replacement" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="replacement" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
       </Docs>
     </Member>
@@ -3348,8 +3243,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="replacement" /> равно <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="replacement" /> равно <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
           <para>Этот метод времени ожидания после интервала, равное значение времени ожидания по умолчанию домена приложения, в котором он вызван. Если значение времени ожидания не был определен для домена приложения, а значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что предотвращает истечения времени ожидания, метод используется. Рекомендуемые статический метод для замены сопоставления шаблона является <see cref="M:System.Text.RegularExpressions.Regex.Replace(System.String,System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.TimeSpan)" />, который позволяет установить интервал времени ожидания.</para>
@@ -3433,8 +3327,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="evaluator" /> равно <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="evaluator" /> равно <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
           <para>Этот метод времени ожидания после интервала, равное значение времени ожидания по умолчанию домена приложения, в котором он вызван. Если значение времени ожидания не был определен для домена приложения, а значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что предотвращает истечения времени ожидания, метод используется. Статические рекомендуется для оценки и замена соответствия шаблону <see cref="M:System.Text.RegularExpressions.Regex.Replace(System.String,System.String,System.Text.RegularExpressions.MatchEvaluator,System.Text.RegularExpressions.RegexOptions,System.TimeSpan)" />, который позволяет установить интервал времени ожидания.</para>
@@ -3528,8 +3421,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="evaluator" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="evaluator" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <altmember cref="T:System.Text.RegularExpressions.MatchEvaluator" />
       </Docs>
@@ -3610,10 +3502,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="replacement" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="replacement" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
       </Docs>
     </Member>
@@ -3703,10 +3593,8 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="replacement" /> равно <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="replacement" /> равно <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
           <para>Этот метод времени ожидания после интервала, равное значение времени ожидания по умолчанию домена приложения, в котором он вызван. Если значение времени ожидания не был определен для домена приложения, а значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что предотвращает истечения времени ожидания, метод используется. Рекомендуемые статический метод для замены сопоставления шаблона является <see cref="M:System.Text.RegularExpressions.Regex.Replace(System.String,System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.TimeSpan)" />, который позволяет установить интервал времени ожидания.</para>
@@ -3795,10 +3683,8 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="evaluator" /> равно <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="evaluator" /> равно <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <altmember cref="T:System.Text.RegularExpressions.MatchEvaluator" />
         <altmember cref="T:System.Text.RegularExpressions.RegexOptions" />
@@ -3874,10 +3760,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="evaluator" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="evaluator" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <altmember cref="T:System.Text.RegularExpressions.MatchEvaluator" />
       </Docs>
@@ -3970,23 +3854,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="replacement" /> равно <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  
-  
- - или -  
-  
- Значение <paramref name="matchTimeout" /> отрицательно, равно нулю или больше приблизительно 24 дней.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="replacement" /> равно <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  -или-  Значение параметра <paramref name="matchTimeout" /> отрицательное, равно нулю или больше, чем приблизительно 24 дня.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
-          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее следует отключить тайм-ауты только при следующих условиях:  
-  
--   Если входных данных, обрабатываемых регулярное выражение является производным от известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  
-  
--   Если шаблон регулярного выражения тщательно протестирован для обеспечения эффективной обработки соответствует несовпадающие и ближайшем совпадает.  
-  
--   Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
+          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее, следует отключить тайм-ауты только при следующих условиях: — когда входные данные, обрабатываемые регулярного выражения определяется из известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  — Если для обеспечения эффективной обработки тщательно протестирован шаблон регулярного выражения соответствует, несовпадающие, а ближайшем.  -Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
         </block>
         <altmember cref="T:System.Text.RegularExpressions.RegexOptions" />
       </Docs>
@@ -4074,23 +3946,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="evaluator" /> равно <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  
-  
- - или -  
-  
- Значение <paramref name="matchTimeout" /> отрицательно, равно нулю или больше приблизительно 24 дней.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="input" />, <paramref name="pattern" /> или <paramref name="evaluator" /> равно <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  -или-  Значение параметра <paramref name="matchTimeout" /> отрицательное, равно нулю или больше, чем приблизительно 24 дня.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
-          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее следует отключить тайм-ауты только при следующих условиях:  
-  
--   Если входных данных, обрабатываемых регулярное выражение является производным от известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  
-  
--   Если шаблон регулярного выражения тщательно протестирован для обеспечения эффективной обработки соответствует несовпадающие и ближайшем совпадает.  
-  
--   Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
+          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее, следует отключить тайм-ауты только при следующих условиях: — когда входные данные, обрабатываемые регулярного выражения определяется из известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  — Если для обеспечения эффективной обработки тщательно протестирован шаблон регулярного выражения соответствует, несовпадающие, а ближайшем.  -Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
         </block>
         <altmember cref="T:System.Text.RegularExpressions.RegexOptions" />
       </Docs>
@@ -4125,8 +3985,7 @@
       </ReturnValue>
       <Docs>
         <summary>Получает значение, указывающее на то, выполняется ли регулярным выражением поиск справа налево.</summary>
-        <value>
-          Значение <see langword="true" />, если регулярное выражение выполняет поиск справа налево; в противном случае — значение <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если регулярное выражение выполняет поиск справа налево; в противном случае — значение <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -4253,8 +4112,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
       </Docs>
     </Member>
@@ -4324,8 +4182,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
       </Docs>
     </Member>
@@ -4409,8 +4266,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
           <para>Этот метод времени ожидания после интервала, равное значение времени ожидания по умолчанию домена приложения, в котором был вызван метод. Если значение времени ожидания не был определен для домена приложения, а значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что предотвращает истечения времени ожидания, метод используется. Статические рекомендуется для разбиения текста на соответствие шаблону <see cref="M:System.Text.RegularExpressions.Regex.Split(System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.TimeSpan)" />, который позволяет установить интервал времени ожидания.</para>
@@ -4487,10 +4343,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="startat" /> имеет значение меньше нуля или больше длины <paramref name="input" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
       </Docs>
     </Member>
@@ -4568,10 +4422,8 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
           <para>Этот метод времени ожидания после интервала, равное значение времени ожидания по умолчанию домена приложения, в котором был вызван метод. Если значение времени ожидания не был определен для домена приложения, а значение <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, что предотвращает истечения времени ожидания, метод используется. Статические рекомендуется для разбиения текста на соответствие шаблону <see cref="M:System.Text.RegularExpressions.Regex.Split(System.String,System.String,System.Text.RegularExpressions.RegexOptions,System.TimeSpan)" />, который позволяет установить интервал времени ожидания.</para>
@@ -4654,23 +4506,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Произошла ошибка анализа регулярного выражения.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  
-  
- - или -  
-  
- Значение <paramref name="matchTimeout" /> отрицательно, равно нулю или больше приблизительно 24 дней.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> или <paramref name="pattern" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="options" /> не является допустимой битовой комбинацией значений <see cref="T:System.Text.RegularExpressions.RegexOptions" />.  -или-  Значение параметра <paramref name="matchTimeout" /> отрицательное, равно нулю или больше, чем приблизительно 24 дня.</exception>
         <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Время ожидания истекло. Дополнительные сведения о времени ожидания см. в разделе "Примечания".</exception>
         <block subset="none" type="usage">
-          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее следует отключить тайм-ауты только при следующих условиях:  
-  
--   Если входных данных, обрабатываемых регулярное выражение является производным от известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  
-  
--   Если шаблон регулярного выражения тщательно протестирован для обеспечения эффективной обработки соответствует несовпадающие и ближайшем совпадает.  
-  
--   Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
+          <para>Мы рекомендуем задавать <paramref name="matchTimeout" /> параметр соответствующее значение, например две секунды. Если отключить время ожидания, указав <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout" />, обработчик регулярных выражений, обеспечивает немного лучшую производительность. Тем не менее, следует отключить тайм-ауты только при следующих условиях: — когда входные данные, обрабатываемые регулярного выражения определяется из известного и надежного источника или состоит из статического текста. Это исключает текст, который был динамически ввода пользователями.  — Если для обеспечения эффективной обработки тщательно протестирован шаблон регулярного выражения соответствует, несовпадающие, а ближайшем.  -Если шаблон регулярного выражения содержит не языковые элементы, которые возникает избыточный поиск с возвратом при обработке почти совпадают.</para>
         </block>
       </Docs>
     </Member>
@@ -4812,8 +4652,7 @@
         </remarks>
         <exception cref="T:System.ArgumentException">
           <paramref name="str" /> включает нераспознанную escape-последовательность.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="str" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="str" /> имеет значение <see langword="null" />.</exception>
         <altmember cref="M:System.Text.RegularExpressions.Regex.Escape(System.String)" />
       </Docs>
     </Member>
@@ -4844,8 +4683,7 @@
       <Parameters />
       <Docs>
         <summary>Используется объектом <see cref="T:System.Text.RegularExpressions.Regex" />, который создан методом <see cref="Overload:System.Text.RegularExpressions.Regex.CompileToAssembly" />.</summary>
-        <returns>
-          Значение <see langword="true" />, если свойство <see cref="P:System.Text.RegularExpressions.Regex.Options" /> содержит параметр <see cref="F:System.Text.RegularExpressions.RegexOptions.Compiled" />; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если свойство <see cref="P:System.Text.RegularExpressions.Regex.Options" /> содержит параметр <see cref="F:System.Text.RegularExpressions.RegexOptions.Compiled" />; в противном случае — значение <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -4876,8 +4714,7 @@
       <Parameters />
       <Docs>
         <summary>Используется объектом <see cref="T:System.Text.RegularExpressions.Regex" />, который создан методом <see cref="Overload:System.Text.RegularExpressions.Regex.CompileToAssembly" />.</summary>
-        <returns>
-          Значение <see langword="true" />, если свойство <see cref="P:System.Text.RegularExpressions.Regex.Options" /> содержит параметр <see cref="F:System.Text.RegularExpressions.RegexOptions.RightToLeft" />; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если свойство <see cref="P:System.Text.RegularExpressions.Regex.Options" /> содержит параметр <see cref="F:System.Text.RegularExpressions.RegexOptions.RightToLeft" />; в противном случае — значение <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
