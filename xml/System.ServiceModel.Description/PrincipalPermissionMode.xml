@@ -1,11 +1,11 @@
 <Type Name="PrincipalPermissionMode" FullName="System.ServiceModel.Description.PrincipalPermissionMode">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="79f46d53f4511a777d9d7f073432bd85655d96d2" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="934786ff06cfe618d94325aea85eda8de373b501" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36616765" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37455850" />
   </Metadata>
   <TypeSignature Language="C#" Value="public enum PrincipalPermissionMode" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed PrincipalPermissionMode extends System.Enum" />
@@ -16,6 +16,7 @@
   <AssemblyInfo>
     <AssemblyName>System.ServiceModel</AssemblyName>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -45,7 +46,7 @@
  [!code-vb[PrincipalPermissionMode#2](~/samples/snippets/visualbasic/VS_Snippets_CFX/principalpermissionmode/vb/source.vb#2)]  
   
 ## <a name="useaspnetroles"></a>UseAspNetRoles  
- Значение UseAspNetRoles используется для всех типов учетных данных. Этот режим позволяет Windows Communication Foundation (WCF) для использования поставщика ролей ASP.NET для принятия решения об авторизации.  
+ Значение UseAspNetRoles используется для всех типов учетных данных. Этот режим позволяет Windows Communication Foundation (WCF) использовать поставщика ролей ASP.NET для принятия решений об авторизации.  
   
  Если для службы в качестве учетных данных используется сертификат X.509, можно присвоить свойству `Name` для <xref:System.Security.Permissions.PrincipalPermissionAttribute> строковое значение, которое включает составные значение полей «Тема» и «Отпечаток пальца», как показано в следующем примере кода.  
   
@@ -66,17 +67,17 @@
   
  Дополнительные сведения о поставщике ролей ASP.NET см. в разделе [How To: использование диспетчера ролей в ASP.NET 2.0](http://go.microsoft.com/fwlink/?LinkId=96692).  
   
- Дополнительные сведения об использовании WCF и поставщик ролей см. в разделе [как: использование поставщика ролей ASP.NET со службой](~/docs/framework/wcf/feature-details/how-to-use-the-aspnet-role-provider-with-a-service.md).  
+ Дополнительные сведения об использовании WCF и поставщика ролей см. в разделе [как: использование поставщика ролей ASP.NET со службой](~/docs/framework/wcf/feature-details/how-to-use-the-aspnet-role-provider-with-a-service.md).  
   
 ## <a name="custom"></a>Другой  
- Если свойство имеет значение Custom, необходимо также указать пользовательский класс, который реализует <xref:System.IdentityModel.Policy.IAuthorizationPolicy> класса. Этот класс обеспечивает представление вызывающего оператора `IPrincipal` в коллекции <xref:System.IdentityModel.Policy.EvaluationContext.Properties%2A>. Экземпляр `IPrincipal` должен сохраняться в коллекции свойств с помощью строкового ключа «Главный», как показано в следующем примере.  
+ Если свойство имеет значение значение Custom, необходимо также указать пользовательский класс, реализующий <xref:System.IdentityModel.Policy.IAuthorizationPolicy> класса. Этот класс обеспечивает представление вызывающего оператора `IPrincipal` в коллекции <xref:System.IdentityModel.Policy.EvaluationContext.Properties%2A>. Экземпляр `IPrincipal` должен сохраняться в коллекции свойств с помощью строкового ключа «Главный», как показано в следующем примере.  
   
 ```  
 evaluationContext.Properties["Principal"]=new CustomPrincipal(identity);  
 ```  
   
 ## <a name="background"></a>Фон  
- Безопасность на основе ролей в [!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] разрешает приложениям задавать авторизацию посредством кода. Если задано требование <xref:System.Security.Permissions.PrincipalPermission>, <xref:System.Threading.Thread.CurrentPrincipal%2A> должен соответствовать требованиям `PrincipalPermission`. Например, пользователь должен принадлежать к определенной роли или группе. В противном случае поток не будет авторизован для выполнения кода и возникнет исключение. WCF предоставляет набор <xref:System.ServiceModel.Description.PrincipalPermissionMode> для определения <xref:System.Threading.Thread.CurrentPrincipal%2A> на основе <xref:System.Security.SecurityContext> соответствующим образом.  
+ Безопасность на основе ролей в [!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] разрешает приложениям задавать авторизацию посредством кода. Если задано требование <xref:System.Security.Permissions.PrincipalPermission>, <xref:System.Threading.Thread.CurrentPrincipal%2A> должен соответствовать требованиям `PrincipalPermission`. Например, пользователь должен принадлежать к определенной роли или группе. В противном случае поток не будет авторизован для выполнения кода и возникнет исключение. WCF предоставляет набор <xref:System.ServiceModel.Description.PrincipalPermissionMode> выбранные параметры для указания <xref:System.Threading.Thread.CurrentPrincipal%2A> на основе <xref:System.Security.SecurityContext> соответствующим образом.  
   
    
   
@@ -86,7 +87,7 @@ evaluationContext.Properties["Principal"]=new CustomPrincipal(identity);
  [!code-csharp[PrincipalPermissionMode#7](~/samples/snippets/csharp/VS_Snippets_CFX/principalpermissionmode/cs/source.cs#7)]
  [!code-vb[PrincipalPermissionMode#7](~/samples/snippets/visualbasic/VS_Snippets_CFX/principalpermissionmode/vb/source.vb#7)]  
   
- В следующем примере показано, как задаются пользовательские.  
+ Приведенный ниже показано, как определить пользовательские.  
   
  [!code-csharp[PrincipalPermissionMode#8](~/samples/snippets/csharp/VS_Snippets_CFX/principalpermissionmode/cs/source.cs#8)]
  [!code-vb[PrincipalPermissionMode#8](~/samples/snippets/visualbasic/VS_Snippets_CFX/principalpermissionmode/vb/source.vb#8)]  
@@ -126,6 +127,7 @@ evaluationContext.Properties["Principal"]=new CustomPrincipal(identity);
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -147,6 +149,7 @@ evaluationContext.Properties["Principal"]=new CustomPrincipal(identity);
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -169,6 +172,7 @@ evaluationContext.Properties["Principal"]=new CustomPrincipal(identity);
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -191,6 +195,7 @@ evaluationContext.Properties["Principal"]=new CustomPrincipal(identity);
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>

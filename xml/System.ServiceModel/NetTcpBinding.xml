@@ -1,11 +1,11 @@
 <Type Name="NetTcpBinding" FullName="System.ServiceModel.NetTcpBinding">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ec5df1c6906ec6079402021a41b04521dfbc536d" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="e3e6c4f9479d92697c2efbcd29dcb045d6d17253" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36410907" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37452821" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class NetTcpBinding : System.ServiceModel.Channels.Binding, System.ServiceModel.Channels.IBindingRuntimePreferences" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit NetTcpBinding extends System.ServiceModel.Channels.Binding implements class System.ServiceModel.Channels.IBindingRuntimePreferences" />
@@ -16,6 +16,7 @@
   <AssemblyInfo>
     <AssemblyName>System.ServiceModel</AssemblyName>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <AssemblyInfo>
@@ -38,12 +39,12 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Привязка <xref:System.ServiceModel.NetTcpBinding> создает стек связи времени выполнения по умолчанию, использующий безопасность транспорта, протокол TCP для доставки сообщений, а также двоичное кодирование сообщений. Эта привязка является Windows Communication Foundation (WCF) системных подходит для взаимодействия через интрасеть.  
+ Привязка <xref:System.ServiceModel.NetTcpBinding> создает стек связи времени выполнения по умолчанию, использующий безопасность транспорта, протокол TCP для доставки сообщений, а также двоичное кодирование сообщений. Эта привязка является Windows Communication Foundation (WCF) системные подходит для взаимодействия через интрасеть.  
   
- Конфигурация по умолчанию для <xref:System.ServiceModel.NetTcpBinding> быстрее, чем конфигурация, предоставляемая <xref:System.ServiceModel.WSHttpBinding>, но он предназначен только для передачи данных WCF. Поведение безопасности настраивается с помощью необязательного параметра `securityMode` в конструкторе. Использование WS-ReliableMessaging настраивается с использованием необязательного параметра `reliableSessionEnabled`. Но по умолчанию надежный обмен сообщениями отключен. В общем случае системные привязки по протоколу HTTP, такие как <xref:System.ServiceModel.WSHttpBinding> и <xref:System.ServiceModel.BasicHttpBinding>, настроены на включение основных возможностей по умолчанию, в то время как привязка <xref:System.ServiceModel.NetTcpBinding> по умолчанию отключает возможности, так что для получения поддержки, например для спецификаций WS-*, необходимо специально их включить. Это означает, что используемая по умолчанию конфигурация для TCP быстрее при обмене сообщениями между конечными точками, чем конфигурация по умолчанию для привязок HTTP.  
+ Конфигурация по умолчанию для <xref:System.ServiceModel.NetTcpBinding> выполняется быстрее, чем конфигурация, предоставленная методом <xref:System.ServiceModel.WSHttpBinding>, он предназначен только для передачи данных WCF. Поведение безопасности настраивается с помощью необязательного параметра `securityMode` в конструкторе. Использование WS-ReliableMessaging настраивается с использованием необязательного параметра `reliableSessionEnabled`. Но по умолчанию надежный обмен сообщениями отключен. В общем случае системные привязки по протоколу HTTP, такие как <xref:System.ServiceModel.WSHttpBinding> и <xref:System.ServiceModel.BasicHttpBinding>, настроены на включение основных возможностей по умолчанию, в то время как привязка <xref:System.ServiceModel.NetTcpBinding> по умолчанию отключает возможности, так что для получения поддержки, например для спецификаций WS-*, необходимо специально их включить. Это означает, что используемая по умолчанию конфигурация для TCP быстрее при обмене сообщениями между конечными точками, чем конфигурация по умолчанию для привязок HTTP.  
   
 > [!WARNING]
->  <xref:System.ServiceModel.NetTcpBinding> Использует пул соединений TCP в зависимости от службы DNS имя узла и номер порта, который прослушивает служба. Это работает хорошо, когда клиент вызывает разных служб на разные порты или службы размещаются в одном процессе и совместно использовать порт. Если один клиент вызывает совместное использование порта несколько служб, размещенных в разных процессах или WAS / размещенных в IIS, объединение стороны клиента может привести к проблемам, где повторно использовать подключение к службе A для службы Б, что приводит к созданию исключения , соединение прервано и новый канал, созданный. Чтобы избежать этой проблемы, используйте CustomBinding и укажите другой ConnectionPoolSettings.GroupName для каждой службы клиент обменивается данными с.  
+>  <xref:System.ServiceModel.NetTcpBinding> Использует пул соединений TCP в зависимости от службы DNS имя узла и номер порта, который прослушивает служба. Это хорошо работает, когда клиент выполняет вызовы к различным службам через различные порты или службы размещаются в одном процессе и совместного использования одного порта. Если один клиент вызывает несколько служб, совместное использование порта, которые размещены в разных процессах или WAS / размещенные в IIS, объединение на стороне клиента может привести к проблемам где подключение к службе A используется повторно для службы Б, приводит к возникновению исключения , подключение прервано, а также создан новый канал. Чтобы избежать этой проблемы, используйте CustomBinding и указать различные ConnectionPoolSettings.GroupName для каждой службы клиент взаимодействует с.  
   
    
   
@@ -84,6 +85,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -122,6 +124,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -164,6 +167,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -205,6 +209,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
@@ -243,6 +248,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -281,6 +287,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -323,6 +330,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -354,6 +362,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -391,6 +400,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -433,6 +443,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -475,6 +486,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -511,6 +523,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -548,6 +561,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -560,9 +574,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Использование этого параметра необходимо включить службу совместного использования портов TCP Windows Communication Foundation (WCF), изменив тип ее запуска ручной или автоматический.  
+ С помощью этого параметра необходимо включить службу совместного использования портов TCP Windows Communication Foundation (WCF), изменив тип ее запуска на ручной или автоматический.  
   
- Дополнительные сведения о прослушивателе TCP и способах его запуска см. в разделе <xref:System.Net.Sockets.TcpListener>.  
+ Дополнительные сведения о прослушивателе TCP и способах его запуска, см. в разделе <xref:System.Net.Sockets.TcpListener>.  
   
    
   
@@ -586,6 +600,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -638,6 +653,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -669,6 +685,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -711,6 +728,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
@@ -756,7 +774,7 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -783,7 +801,7 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -810,7 +828,7 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -837,7 +855,7 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -864,7 +882,7 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -891,7 +909,7 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -918,6 +936,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -955,6 +974,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -985,6 +1005,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1016,6 +1037,7 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
