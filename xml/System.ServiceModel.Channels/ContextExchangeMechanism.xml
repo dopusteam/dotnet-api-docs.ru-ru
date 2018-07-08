@@ -1,11 +1,11 @@
 <Type Name="ContextExchangeMechanism" FullName="System.ServiceModel.Channels.ContextExchangeMechanism">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="433656842150ed58a18e0987d34a2b164231a71b" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="af79b503cc30b8212bfd4524b7ac1e678e7a00fc" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36422483" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37621624" />
   </Metadata>
   <TypeSignature Language="C#" Value="public enum ContextExchangeMechanism" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed ContextExchangeMechanism extends System.Enum" />
@@ -16,6 +16,10 @@
   <AssemblyInfo>
     <AssemblyName>System.ServiceModel</AssemblyName>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.WorkflowServices</AssemblyName>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Enum</BaseTypeName>
@@ -35,13 +39,13 @@
   
  Конечные точки службы, которым требуется поддержка протокола обмена контекстом, могут явно объявить это требование в своей опубликованной политике. Утверждения политики, представляющие требование к клиенту, чтобы он поддерживал протокол обмена контекстом на уровне SOAP, или требующие включения поддержки файлов cookie HTTP, могут публиковаться конечной точкой. Создание этих утверждений в политике службы управляется значением свойства <xref:System.ServiceModel.Channels.ContextBindingElement.ContextExchangeMechanism%2A>, как показано ниже.  
   
--   Для HttpCookie создается следующее утверждение:  
+-   Для HttpCookie формируется следующее утверждение:  
   
     ```  
     <HttpUseCookie xmlns="http://schemas.xmlsoap.org/soap/http"/>  
     ```  
   
--   Для ContextSoapHeader создается следующее утверждение:  
+-   Для ContextSoapHeader формируется следующее утверждение:  
   
     ```  
     <IncludeContext   
@@ -49,9 +53,9 @@
     protectionLevel="Sign" />  
     ```  
   
- Перечисление HttpCookie реализуется на транспортном уровне. Это можно использовать в случае симплексной связи, когда клиент отправляет исходный запрос, а контекст предоставляется службой в соответствующем ответе. Все последующие сообщения, передаваемые между службой и клиентом в течение времени существования этого диалога, содержат данный контекст. Для конечных точек службы, использующие транспорт HTTP и клиентов, согласившихся использовать файлы cookie HTTP перечисление HttpCookie могут использоваться для обмена контекстом приложения. Если для распространения контекста используются файлы cookie HTTP, они должны быть защищены с помощью системы безопасности транспорта. Этот механизм может использоваться только с транспортом HTTP.  
+ Перечисление HttpCookie реализуется на транспортном уровне. Это можно использовать в случае симплексной связи, когда клиент отправляет исходный запрос, а контекст предоставляется службой в соответствующем ответе. Все последующие сообщения, передаваемые между службой и клиентом в течение времени существования этого диалога, содержат данный контекст. Для конечных точек службы, использующие транспорт HTTP и клиентов, согласившихся использовать файлы cookie HTTP HttpCookie перечисления может использоваться для обмена контекстом приложения. Если для распространения контекста используются файлы cookie HTTP, они должны быть защищены с помощью системы безопасности транспорта. Этот механизм может использоваться только с транспортом HTTP.  
   
- Перечисление ContextSoapHeader предоставляет альтернативный способ, реализованный в настраиваемом контекстном канале и может использоваться с транспортом HTTP и другими форматами обмена сообщениями, таких как запрос ответ и дуплексный сеанс. Этот протокол обмена контекстом обеспечивает основанный на SOAP эквивалент возможности, предлагаемой файлами cookie HTTP на транспортном уровне. В протоколе для представления контекстной информации вводится новый заголовок SOAP `wsc:Context`. Заголовок `wsc:Context` должен быть защищен от изменения во время передачи по тем же причинам, по которым требуется защита заголовков WS-Addressing: после получения эти заголовки используются для направления сообщений в правильные экземпляры рабочего процесса. Поэтому требуется, чтобы заголовок `wsc:Context` имел цифровую подпись на уровне SOAP или на транспортном уровне, если привязка обеспечивает возможность защиты сообщений.  
+ Перечисление ContextSoapHeader является альтернативой, реализованный в настраиваемом контекстном канале и который может использоваться с транспортом HTTP и другими форматами обмена сообщениями, таких как запрос ответ и дуплексный сеанс. Этот протокол обмена контекстом обеспечивает основанный на SOAP эквивалент возможности, предлагаемой файлами cookie HTTP на транспортном уровне. В протоколе для представления контекстной информации вводится новый заголовок SOAP `wsc:Context`. Заголовок `wsc:Context` должен быть защищен от изменения во время передачи по тем же причинам, по которым требуется защита заголовков WS-Addressing: после получения эти заголовки используются для направления сообщений в правильные экземпляры рабочего процесса. Поэтому требуется, чтобы заголовок `wsc:Context` имел цифровую подпись на уровне SOAP или на транспортном уровне, если привязка обеспечивает возможность защиты сообщений.  
   
  Уровень канала передает контекст на уровень приложения и с уровня приложения с помощью <xref:System.ServiceModel.Channels.ContextMessageProperty>.  
   
@@ -70,6 +74,10 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.WorkflowServices</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.ServiceModel.Channels.ContextExchangeMechanism</ReturnType>
@@ -90,6 +98,10 @@
       <AssemblyInfo>
         <AssemblyName>System.ServiceModel</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.WorkflowServices</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.ServiceModel.Channels.ContextExchangeMechanism</ReturnType>
