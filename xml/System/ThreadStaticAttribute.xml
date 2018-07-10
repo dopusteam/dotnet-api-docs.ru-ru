@@ -1,11 +1,11 @@
 <Type Name="ThreadStaticAttribute" FullName="System.ThreadStaticAttribute">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="2f904d03e9601bff0289dd66b529dc3e58854fe7" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="66bb19d680cff4f786183f9253e5b4970a5ea7ab" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36428002" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37727345" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class ThreadStaticAttribute : Attribute" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit ThreadStaticAttribute extends System.Attribute" />
@@ -24,6 +24,8 @@
   </AssemblyInfo>
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -49,28 +51,28 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Объект `static` поля, отмеченные <xref:System.ThreadStaticAttribute> не разделяемых между потоками. У каждого выполняющегося потока есть отдельный экземпляр поля и независимо друг от друга задает и возвращает значения для этого поля. Если это поле доступно в другом потоке, она будет содержать другое значение.  
+ Объект `static` поля, отмеченные <xref:System.ThreadStaticAttribute> не распределяется между потоками. Каждый поток выполнения имеет отдельный экземпляр поля и независимо друг от друга задает и получает значения для этого поля. Если выполняется обращение к полю в другом потоке, она будет содержать другое значение.  
   
- Обратите внимание, что Кроме применения <xref:System.ThreadStaticAttribute> атрибут полем, также необходимо определить его как `static` (в C#) или `Shared` (в Visual Basic).  
+ Обратите внимание, что Кроме применения <xref:System.ThreadStaticAttribute> атрибут для поля, необходимо определить его как `static` (в C#) или `Shared` (в Visual Basic).  
   
 > [!NOTE]
->  Не указывайте начальные значения для поля, отмеченные звездочкой `ThreadStaticAttribute`, поскольку такая инициализация выполняется только один раз, когда выполняет конструктора класса и затрагивает только один поток. Если начальное значение не задано, можно положиться на поле, инициализируемого значением по умолчанию, если он является типом значения, либо значение `null` Если это ссылочный тип.  
+>  Не следует указывать начальные значения для полей с атрибутом `ThreadStaticAttribute`, так как такая инициализация происходит только один раз, когда выполняет конструктора класса и затрагивает только один поток. Если начальное значение не задано, можно положиться на поле, инициализируемого к значению по умолчанию, если он является типом значения, или `null` если он является ссылочным типом.  
   
- Этот атрибут используется и не являющиеся производными от него.  
+ Этот атрибут используется и не являются производными от него.  
   
  Дополнительные сведения об использовании атрибутов см. в разделе [атрибуты](~/docs/standard/attributes/index.md).  
   
    
   
 ## Examples  
- Следующий пример создает генератор случайных чисел, создает десяти потоков в дополнение к основным потоком и затем создает два миллиона случайных чисел в каждого потока. Она использует <xref:System.ThreadStaticAttribute> атрибута для вычисления суммы и количества случайных чисел каждого потока. Он также определяет два поля дополнительный поток, `previous` и `abnormal`, которое позволяет обнаружить повреждение генератора случайных чисел.  
+ Следующий пример создает экземпляр генератора случайных чисел, создает десяти потоков в дополнение к основной поток и затем создает два миллиона случайных чисел в каждом потоке. Она использует <xref:System.ThreadStaticAttribute> атрибута для вычисления суммы и количества случайных чисел на поток. Он также определяет два поля дополнительный поток, `previous` и `abnormal`, которое позволяет обнаружить повреждение генератора случайных чисел.  
   
  [!code-csharp[System.ThreadStaticAttribute#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threadstaticattribute/cs/threadsafe2a.cs#1)]
  [!code-vb[System.ThreadStaticAttribute#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threadstaticattribute/vb/threadsafe2a.vb#1)]  
   
- В этом примере `lock` инструкции на языке C# и `SyncLock` построения в Visual Basic для синхронизации доступа к генератора случайных чисел. Это предотвращает повреждение генератора случайных чисел, что обычно приводит к его возвращаемое значение 0 для всех последующих вызовах.  
+ В примере используется `lock` инструкции на языке C# и `SyncLock` конструкции в Visual Basic для синхронизации доступа к генератора случайных чисел. Это предотвращает повреждение генератора случайных чисел, что обычно приводит к его возврат нулевое значение для всех последующих вызовов.  
   
- В примере также используется <xref:System.Threading.CountdownEvent> класса, чтобы гарантировать, что каждый поток завершил генерации случайных чисел, прежде чем он отображает общее число вызовов. В противном случае если главный поток завершает выполнение перед дополнительные потоки, он будет использовать, отображает неточное значение общее число вызовов метода.  
+ В примере также используется <xref:System.Threading.CountdownEvent> класс, чтобы гарантировать, что каждый поток завершения создания случайных чисел, прежде чем он отображает общее число вызовов. В противном случае если основной поток завершает выполнение перед дополнительные потоки, которые она создает, отображает неточного значения общее число вызовов методов.  
   
  ]]></format>
     </remarks>
@@ -97,6 +99,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
