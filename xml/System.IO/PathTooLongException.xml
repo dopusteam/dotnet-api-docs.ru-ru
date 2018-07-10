@@ -1,11 +1,11 @@
 <Type Name="PathTooLongException" FullName="System.IO.PathTooLongException">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="b52a3b463526adf30bb75527026fc9b6df2d3f5b" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="b78868093b4267ef8e0ec65ec5d32454a7be7e3f" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36483963" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37651895" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class PathTooLongException : System.IO.IOException" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit PathTooLongException extends System.IO.IOException" />
@@ -22,6 +22,8 @@
   </AssemblyInfo>
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -46,24 +48,24 @@
 ## Remarks  
  Если код не имеет <xref:System.Security.Permissions.FileIOPermissionAttribute.PathDiscovery%2A?displayProperty=nameWithType> разрешение, сообщение об ошибке для этого исключения может содержать только имя каталога или файла, а не полные пути.  
   
- В приложениях, выполняемых в версиях платформы .NET Framework до версии [!INCLUDE[net_v462](~/includes/net-v462-md.md)], полные пути не должна превышать 260 символов для обеспечения совместимости с операционными системами Windows. Любой путь превышает 260 символов, автоматически вызывает <xref:System.IO.PathTooLongException>. Дополнительные сведения об этом ограничении см. в записи [длинные пути в .NET](http://go.microsoft.com/fwlink/?LinkID=163666) в блоге команды BCL.  
+ В приложениях, выполняемых в версиях платформы .NET Framework до версии [!INCLUDE[net_v462](~/includes/net-v462-md.md)], полные пути не должна превышать 260 символов для обеспечения совместимости с операционными системами Windows. Любой путь превышает 260 символов, автоматически создает исключение <xref:System.IO.PathTooLongException>. Дополнительные сведения об этом ограничении см. в записи [длинные пути в .NET](http://go.microsoft.com/fwlink/?LinkID=163666) в блоге команды BCL.  
   
 > [!NOTE]
->  Это исключение не включается в [.NET для магазина Windows](http://go.microsoft.com/fwlink/?LinkID=247912) или [переносимой библиотеки классов](~/docs/standard/cross-platform/cross-platform-development-with-the-portable-class-library.md), но вызывается некоторые члены, которые являются. В этом случае перехватить исключение, запись `catch` инструкции, которая обрабатывает <xref:System.IO.IOException> вместо.  
+>  Это исключение не включается в [.NET для Windows Store apps](http://go.microsoft.com/fwlink/?LinkID=247912) или [переносимой библиотеки классов](~/docs/standard/cross-platform/cross-platform-development-with-the-portable-class-library.md), но он вызывается некоторые члены, которые являются. Чтобы перехватить исключение в этом случае, написать `catch` инструкцию, которая обрабатывает <xref:System.IO.IOException> вместо этого.  
   
- Начиная с приложений, выполняемых в рамках [!INCLUDE[net_v462](~/includes/net-v462-md.md)], платформа .NET Framework поддерживает длинные пути превышает 260 (или `MAX_PATH`) символов.  Условия, при которых <xref:System.IO.PathTooLongException> исключение зависят от версии платформы .NET Framework, приложение нацелено на:  
+ Начиная с приложений, работающих под управлением [!INCLUDE[net_v462](~/includes/net-v462-md.md)], платформа .NET Framework поддерживает длинные пути превышает 260 (или `MAX_PATH`) символов.  Условия, при которых <xref:System.IO.PathTooLongException> исключение зависят от версии платформы .NET Framework, которых предназначено приложение:  
   
- **Приложения, предназначенные [!INCLUDE[net_v462](~/includes/net-v462-md.md)] и более поздних версий**  
- Длинные пути поддерживаются по умолчанию. Среда выполнения создает <xref:System.IO.PathTooLongException> при следующих условиях:  
+ **Приложений, предназначенных для [!INCLUDE[net_v462](~/includes/net-v462-md.md)] и более поздних версий**  
+ По умолчанию поддерживаются длинные пути. Среда выполнения создает <xref:System.IO.PathTooLongException> при следующих условиях:  
   
 -   операционная система возвращает `COR_E_PATHTOOLONG` или его эквивалент;  
   
 -   Длина пути превышает <xref:System.Int16.MaxValue?displayProperty=nameWithType> (32 767) символов.  
   
- **Приложения, предназначенные [!INCLUDE[net_v461](~/includes/net-v461-md.md)] и более ранних версий**  
- По умолчанию отключены длинные пути, которое поддерживается устаревшее поведение. Среда выполнения создает <xref:System.IO.PathTooLongException> каждый раз, когда путь превышает 260 символов.  
+ **Приложений, предназначенных для [!INCLUDE[net_v461](~/includes/net-v461-md.md)] и более ранних версий**  
+ По умолчанию отключены длинные пути, и устаревшее поведение сохраняется. Среда выполнения создает <xref:System.IO.PathTooLongException> каждый раз, когда длина пути превышает 260 символов.  
   
- Если это нежелательно, приложений, предназначенных [!INCLUDE[net_v461](~/includes/net-v461-md.md)] и более ранних, но выполняется [!INCLUDE[net_v462](~/includes/net-v462-md.md)] можно включить поддержку длинного полного пути, включив следующий параметр в [ \<среды выполнения >](~/docs/framework/configure-apps/file-schema/runtime/runtime-element.md) элемент приложения файл конфигурации:  
+ Если это нежелательно, приложений, предназначенных [!INCLUDE[net_v461](~/includes/net-v461-md.md)] и более ранних, но выполняется [!INCLUDE[net_v462](~/includes/net-v462-md.md)] можно включить поддержку длинных путей, включив следующий параметр в [ \<среды выполнения >](~/docs/framework/configure-apps/file-schema/runtime/runtime-element.md) элементе приложения файл конфигурации:  
   
 ```xml  
   
@@ -73,7 +75,7 @@
   
 ```  
   
- <xref:System.IO.PathTooLongException> использует значение HRESULT `COR_E_PATHTOOLONG`, который имеет значение 0x800700CE.  
+ <xref:System.IO.PathTooLongException> использует значение HRESULT `COR_E_PATHTOOLONG`, которая имеет значение 0x800700CE.  
   
  ]]></format>
     </remarks>
@@ -107,6 +109,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -121,7 +125,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот конструктор инициализирует <xref:System.Exception.Message%2A> свойств нового экземпляра системным сообщением, содержащим описание ошибки, например «указанный путь слишком длинный.» Это сообщение учитывает текущую культуру системы.  
+ Этот конструктор инициализирует <xref:System.Exception.Message%2A> свойства нового экземпляра системное сообщение с описанием ошибки, например «указанный путь слишком длинный.» Это сообщение учитывает текущую культуру системы.  
   
  ]]></format>
         </remarks>
@@ -144,6 +148,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -161,7 +167,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот конструктор инициализирует <xref:System.Exception.Message%2A> нового экземпляра, используя свойство `message`.  
+ Этот конструктор инициализирует <xref:System.Exception.Message%2A> свойства нового экземпляра, используя `message`.  
   
  ]]></format>
         </remarks>
@@ -177,6 +183,8 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -217,6 +225,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
