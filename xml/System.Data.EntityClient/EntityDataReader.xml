@@ -1,11 +1,11 @@
 <Type Name="EntityDataReader" FullName="System.Data.EntityClient.EntityDataReader">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="db62201c4ef9f8b1f9f9ae8fe0acd31972266759" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="9bdcc3351a5cefba5d9d24b714f8739fd25d39b8" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36691281" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37681819" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class EntityDataReader : System.Data.Common.DbDataReader, System.Data.IExtendedDataRecord" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit EntityDataReader extends System.Data.Common.DbDataReader implements class System.Data.IDataRecord, class System.Data.IExtendedDataRecord" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type EntityDataReader = class&#xA;    inherit DbDataReader&#xA;    interface IExtendedDataRecord&#xA;    interface IDataRecord" />
   <AssemblyInfo>
     <AssemblyName>System.Data.Entity</AssemblyName>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -33,19 +34,19 @@
 ## Remarks  
  Сочетает функциональность класса <xref:System.Data.Common.DbDataReader> и интерфейса <xref:System.Data.IExtendedDataRecord>.  
   
- <xref:System.Data.EntityClient.EntityDataReader> не имеет открытого конструктора. Его можно получить только с помощью одного из `EntityCommand.ExecuteReader` перегруженных версий метода.  
+ <xref:System.Data.EntityClient.EntityDataReader> не имеет открытого конструктора. Его можно получить только с помощью одного из `EntityCommand.ExecuteReader` перегрузок метода.  
   
- SQL Server помещает выходные параметры хранимых процедур в конце потока результатов после всех результирующих наборов. Таким образом для получения значений выходных параметров, приложение должно извлечь все записи в результирующих наборах. Если приложение закрывается <xref:System.Data.EntityClient.EntityDataReader> (которого также будут закрыты <xref:System.Data.Common.DbDataReader>), выходные параметры не могут быть заполнены.  
+ SQL Server помещает выходные параметры хранимых процедур в конце потока результатов после всех результирующих наборов. Таким образом Чтобы получить значения выходных параметров, приложения должны извлечь все записи из всех результирующих наборов. Если приложение закрывает <xref:System.Data.EntityClient.EntityDataReader> (что также приводит к закрытию <xref:System.Data.Common.DbDataReader>), выходные параметры не может быть заполнена.  
   
- <xref:System.Data.EntityClient.EntityDataReader> не использует неявно результирующие наборы для предоставления выходные параметры. Таким образом Обратите внимание на следующее:  
+ <xref:System.Data.EntityClient.EntityDataReader> не использует неявно результирующих наборов, чтобы сделать доступным выходные параметры. Таким образом Обратите внимание на следующее:  
   
--   <xref:System.Data.EntityClient.EntityDataReader> вызовы <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> только если <xref:System.Data.EntityClient.EntityDataReader.NextResult%2A?displayProperty=nameWithType> вызывается явно. Если <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> вызывает исключение, <xref:System.Data.EntityClient.EntityDataReader> будет поместить его в <xref:System.Data.EntityException> (или производный исключение).  
+-   <xref:System.Data.EntityClient.EntityDataReader> вызовы <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> только тогда, когда <xref:System.Data.EntityClient.EntityDataReader.NextResult%2A?displayProperty=nameWithType> вызывается явным образом. Если <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> создает исключение, <xref:System.Data.EntityClient.EntityDataReader> включите ее в <xref:System.Data.EntityException> (или производный исключение).  
   
--   <xref:System.Data.EntityClient.EntityDataReader.Close%2A> закрывает только <xref:System.Data.Common.DbDataReader>, без использования отложенной записи или результирующие наборы.  
+-   <xref:System.Data.EntityClient.EntityDataReader.Close%2A> только закрывает <xref:System.Data.Common.DbDataReader>, без использования отложенной записи или результирующие наборы.  
   
 -   <xref:System.Data.EntityClient.EntityDataReader.Dispose%2A> Удаляет только <xref:System.Data.Common.DbDataReader>, без использования отложенной записи или результирующие наборы.  
   
- Примеры кода см. в разделе [работа с EntityClient](http://msdn.microsoft.com/library/dec4728c-8dff-4e30-abe0-0f78fb5d5af5).  
+ Примеры кода, см. в разделе [работа с EntityClient](http://msdn.microsoft.com/library/dec4728c-8dff-4e30-abe0-0f78fb5d5af5).  
   
  ]]></format>
     </remarks>
@@ -61,6 +62,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -73,13 +75,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- SQL Server помещает выходные параметры хранимых процедур в конце потока результатов после всех результирующих наборов. Таким образом для получения значений выходных параметров, приложение должно извлечь все записи в результирующих наборах. Если приложение закрывается <xref:System.Data.EntityClient.EntityDataReader> (которого также будут закрыты <xref:System.Data.Common.DbDataReader>), выходные параметры не могут быть заполнены.  
+ SQL Server помещает выходные параметры хранимых процедур в конце потока результатов после всех результирующих наборов. Таким образом Чтобы получить значения выходных параметров, приложения должны извлечь все записи из всех результирующих наборов. Если приложение закрывает <xref:System.Data.EntityClient.EntityDataReader> (что также приводит к закрытию <xref:System.Data.Common.DbDataReader>), выходные параметры не может быть заполнена.  
   
- <xref:System.Data.EntityClient.EntityDataReader> не использует неявно результирующие наборы для предоставления выходные параметры. Таким образом Обратите внимание на следующее:  
+ <xref:System.Data.EntityClient.EntityDataReader> не использует неявно результирующих наборов, чтобы сделать доступным выходные параметры. Таким образом Обратите внимание на следующее:  
   
--   <xref:System.Data.EntityClient.EntityDataReader> вызовы <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> только если <xref:System.Data.EntityClient.EntityDataReader.NextResult%2A?displayProperty=nameWithType> вызывается явно. Если <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> вызывает исключение, <xref:System.Data.EntityClient.EntityDataReader> будет поместить его в <xref:System.Data.EntityException> (или производный исключение).  
+-   <xref:System.Data.EntityClient.EntityDataReader> вызовы <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> только тогда, когда <xref:System.Data.EntityClient.EntityDataReader.NextResult%2A?displayProperty=nameWithType> вызывается явным образом. Если <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> создает исключение, <xref:System.Data.EntityClient.EntityDataReader> включите ее в <xref:System.Data.EntityException> (или производный исключение).  
   
--   <xref:System.Data.EntityClient.EntityDataReader.Close%2A> закрывает только <xref:System.Data.Common.DbDataReader>, без использования отложенной записи или результирующие наборы.  
+-   <xref:System.Data.EntityClient.EntityDataReader.Close%2A> только закрывает <xref:System.Data.Common.DbDataReader>, без использования отложенной записи или результирующие наборы.  
   
 -   <xref:System.Data.EntityClient.EntityDataReader.Dispose%2A> Удаляет только <xref:System.Data.Common.DbDataReader>, без использования отложенной записи или результирующие наборы.  
   
@@ -100,6 +102,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -121,6 +124,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -149,6 +153,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -164,13 +169,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- SQL Server помещает выходные параметры хранимых процедур в конце потока результатов после всех результирующих наборов. Таким образом для получения значений выходных параметров, приложение должно извлечь все записи в результирующих наборах. Если приложение закрывается <xref:System.Data.EntityClient.EntityDataReader> (которого также будут закрыты <xref:System.Data.Common.DbDataReader>), выходные параметры не могут быть заполнены.  
+ SQL Server помещает выходные параметры хранимых процедур в конце потока результатов после всех результирующих наборов. Таким образом Чтобы получить значения выходных параметров, приложения должны извлечь все записи из всех результирующих наборов. Если приложение закрывает <xref:System.Data.EntityClient.EntityDataReader> (что также приводит к закрытию <xref:System.Data.Common.DbDataReader>), выходные параметры не может быть заполнена.  
   
- <xref:System.Data.EntityClient.EntityDataReader> не использует неявно результирующие наборы для предоставления выходные параметры. Таким образом Обратите внимание на следующее:  
+ <xref:System.Data.EntityClient.EntityDataReader> не использует неявно результирующих наборов, чтобы сделать доступным выходные параметры. Таким образом Обратите внимание на следующее:  
   
--   <xref:System.Data.EntityClient.EntityDataReader> вызовы <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> только если <xref:System.Data.EntityClient.EntityDataReader.NextResult%2A?displayProperty=nameWithType> вызывается явно. Если <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> вызывает исключение, <xref:System.Data.EntityClient.EntityDataReader> будет поместить его в <xref:System.Data.EntityException> (или производный исключение).  
+-   <xref:System.Data.EntityClient.EntityDataReader> вызовы <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> только тогда, когда <xref:System.Data.EntityClient.EntityDataReader.NextResult%2A?displayProperty=nameWithType> вызывается явным образом. Если <xref:System.Data.Common.DbDataReader.NextResult%2A?displayProperty=nameWithType> создает исключение, <xref:System.Data.EntityClient.EntityDataReader> включите ее в <xref:System.Data.EntityException> (или производный исключение).  
   
--   <xref:System.Data.EntityClient.EntityDataReader.Close%2A> закрывает только <xref:System.Data.Common.DbDataReader>, без использования отложенной записи или результирующие наборы.  
+-   <xref:System.Data.EntityClient.EntityDataReader.Close%2A> только закрывает <xref:System.Data.Common.DbDataReader>, без использования отложенной записи или результирующие наборы.  
   
 -   <xref:System.Data.EntityClient.EntityDataReader.Dispose%2A> Удаляет только <xref:System.Data.Common.DbDataReader>, без использования отложенной записи или результирующие наборы.  
   
@@ -191,6 +196,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -222,6 +228,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -250,6 +257,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -278,6 +286,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -314,6 +323,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -342,6 +352,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -378,6 +389,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -406,6 +418,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -434,6 +447,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -462,6 +476,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -487,6 +502,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -515,6 +531,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -543,6 +560,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -568,6 +586,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -593,6 +612,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -621,6 +641,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -649,6 +670,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -677,6 +699,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -705,6 +728,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -733,6 +757,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -761,6 +786,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -789,6 +815,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -815,11 +842,12 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -845,11 +873,12 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -875,11 +904,12 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -905,6 +935,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -930,6 +961,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -958,6 +990,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -986,6 +1019,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1011,6 +1045,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1032,6 +1067,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1056,6 +1092,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1093,6 +1130,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1121,6 +1159,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1146,6 +1185,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1175,6 +1215,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1188,7 +1229,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- По умолчанию модуль чтения данных размещается перед первой записью. Поэтому необходимо вызвать метод `Read` для начала, доступ к данным.  
+ По умолчанию модуль чтения данных размещается перед первой записью. Таким образом, необходимо вызвать метод `Read` для доступа к данным.  
   
  ]]></format>
         </remarks>
@@ -1204,6 +1245,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1216,7 +1258,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- `RecordsAffected` Свойство не задано, пока не будут считаны все строки и закрытии `DataReader`.  
+ `RecordsAffected` Свойство не задано, пока не будут считаны все строки, и вы закроете `DataReader`.  
   
  ]]></format>
         </remarks>
@@ -1232,6 +1274,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Entity</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1244,7 +1287,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это значение используется для определения количества полей в <xref:System.Data.EntityClient.EntityDataReader> являются видимыми. Например, инструкция SELECT в частичном первичном ключе возвращает оставшиеся части ключа в виде скрытых полей. Скрытые поля всегда добавляются после видимых полей.  
+ Это значение используется для определения числа полей в <xref:System.Data.EntityClient.EntityDataReader> являются видимыми. Например, инструкция SELECT в частичном первичном ключе возвращает оставшиеся части ключа в виде скрытых полей. Скрытые поля всегда добавляются после видимых полей.  
   
  ]]></format>
         </remarks>
