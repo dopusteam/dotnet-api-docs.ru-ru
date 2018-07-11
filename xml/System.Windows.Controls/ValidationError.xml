@@ -1,11 +1,11 @@
 <Type Name="ValidationError" FullName="System.Windows.Controls.ValidationError">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="0b49a8d350a9103902db35f96a98bebb5c043f21" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="0b2996cf2a2e1602f33bcff31c18b03120fa756a" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36365023" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37579675" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class ValidationError" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit ValidationError extends System.Object" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type ValidationError = class" />
   <AssemblyInfo>
     <AssemblyName>PresentationFramework</AssemblyName>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -27,24 +28,24 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] Модель привязки данных позволяет связать правила проверки с вашей <xref:System.Windows.Data.Binding> объекта. Проверка происходит во время передачи значения от цели к источнику перед вызовом преобразователя. Далее описывается процесс проверки.  
+ [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] Модель привязки данных позволяет связать правила проверки с вашей <xref:System.Windows.Data.Binding> объекта. Проверка происходит во время передачи значения целевого источника до вызова преобразователя. Ниже описан процесс проверки.  
   
-1.  Когда значение передается от целевого свойства к свойству источника, механизм привязки данных сначала удаляются <xref:System.Windows.Controls.ValidationError> , могли быть добавлены к <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> присоединенного свойства связанного элемента. Затем он проверяет, определен ли все пользовательские правила проверки для этого <xref:System.Windows.Data.Binding>, в этом случае он вызывает <xref:System.Windows.Controls.ValidationRule.Validate%2A> метод на каждом <xref:System.Windows.Controls.ValidationRule> передать пока один из них происходит сбой, или пока все из них.  
+1.  Когда значение передается от целевого свойства к свойству источника, механизм привязки данных сначала удаляет все <xref:System.Windows.Controls.ValidationError> , могли быть добавлены к <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> присоединенное свойство привязанного элемента. Затем он проверяет, определен ли для этого все пользовательские правила проверки <xref:System.Windows.Data.Binding>, в этом случае он вызывает <xref:System.Windows.Controls.ValidationRule.Validate%2A> метод на каждом <xref:System.Windows.Controls.ValidationRule> пока один из них не работает, или пока все из них.  
   
-2.  Как только настраиваемого правила, которое не проходит, обработчик привязки создает <xref:System.Windows.Controls.ValidationError> объекта и добавляет его в <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> коллекции связанного элемента. Когда <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> не пустое, <xref:System.Windows.Controls.Validation.HasError%2A?displayProperty=nameWithType> вложенное свойство элемента имеет значение `true`. Кроме того Если <xref:System.Windows.Data.Binding.NotifyOnValidationError%2A> свойство <xref:System.Windows.Data.Binding> задано значение `true`, а затем вызывает механизм привязки <xref:System.Windows.Controls.Validation.Error?displayProperty=nameWithType> вложенное событие для элемента.  
+2.  Когда настраиваемое правило, не проходит, обработчик привязки создает <xref:System.Windows.Controls.ValidationError> и добавляет его к <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> коллекции привязанного элемента. Когда <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> не является пустым, <xref:System.Windows.Controls.Validation.HasError%2A?displayProperty=nameWithType> присоединенное свойство элемента имеет значение `true`. Кроме того Если <xref:System.Windows.Data.Binding.NotifyOnValidationError%2A> свойство <xref:System.Windows.Data.Binding> присваивается `true`, то обработчик привязки вызывает <xref:System.Windows.Controls.Validation.Error?displayProperty=nameWithType> присоединенного события в элементе.  
   
-3.  Если все правила выполнены, механизм привязки вызывает преобразователь, если таковой существует.  
+3.  Если все правила выполнены, обработчик привязки вызывает преобразователь, если он существует.  
   
-4.  Если преобразователь пройден, механизм привязки вызывает метод задания свойства source.  
+4.  Если преобразователь пройден, обработчик привязки вызывает метод задания свойства источника.  
   
-5.  Если привязка имеет <xref:System.Windows.Controls.ExceptionValidationRule> связанные с ним и исключение во время выполнения шага 3 или 4, что механизму привязки проверяет, существует ли <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A>. Можно использовать <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A> обратного вызова, чтобы предоставить настраиваемый обработчик для обработки исключений. Если <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A> не указан в <xref:System.Windows.Data.Binding>, обработчик привязки создает <xref:System.Windows.Controls.ValidationError> с исключением и добавляет его в <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> коллекции связанного элемента.  
+5.  Если для привязки <xref:System.Windows.Controls.ExceptionValidationRule> связанные с ней и исключение во время выполнения шага 3 или 4, обработчик привязки проверяет, имеется ли <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A>. Можно использовать <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A> обратного вызова, чтобы предоставить пользовательский обработчик для обработки исключений. Если <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A> не указан в <xref:System.Windows.Data.Binding>, обработчик привязки создает <xref:System.Windows.Controls.ValidationError> с исключением и добавляет ее к <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> коллекции привязанного элемента.  
   
- Очистит передаче допустимого значения в любом направлении (от цели к источнику или источника к целевому объекту) <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> вложенное свойство.  
+ При передаче допустимого значения в любом направлении (от целевого объекта к источнику и от источника к целевому объекту) очищается <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> вложенного свойства зависимостей.  
   
    
   
 ## Examples  
- В следующем примере показано триггера стиля, который создает <xref:System.Windows.Controls.ToolTip> , возвращает сообщение об ошибке проверки. <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> Вложенное свойство возвращает коллекцию <xref:System.Windows.Controls.ValidationError> объектов в связанном элементе.  
+ В следующем примере показано триггер стиля, который создает <xref:System.Windows.Controls.ToolTip> , сообщающий сообщение об ошибке проверки. <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> Присоединенное свойство возвращает коллекцию <xref:System.Windows.Controls.ValidationError> объектов в связанном элементе.  
   
  [!code-xaml[DataBindingLab#14](~/samples/snippets/csharp/VS_Snippets_Wpf/DataBindingLab/CSharp/DataBindingLabApp.xaml#14)]  
   
@@ -74,6 +75,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
@@ -96,6 +98,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
@@ -123,6 +126,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -144,6 +148,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -159,12 +164,12 @@
   
 <a name="xamlTextUsage_ErrorContent"></a>   
 ## <a name="xaml-text-usage"></a>Использование текста XAML  
- См. в разделе в качестве примера.  
+ См. в разделе "Пример" пример.  
   
    
   
 ## Examples  
- В следующем примере показано триггера стиля, который создает <xref:System.Windows.Controls.ToolTip> , возвращает сообщение об ошибке проверки. <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> Вложенное свойство возвращает коллекцию <xref:System.Windows.Controls.ValidationError> объектов в связанном элементе.  
+ В следующем примере показано триггер стиля, который создает <xref:System.Windows.Controls.ToolTip> , сообщающий сообщение об ошибке проверки. <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> Присоединенное свойство возвращает коллекцию <xref:System.Windows.Controls.ValidationError> объектов в связанном элементе.  
   
  [!code-xaml[DataBindingLab#14](~/samples/snippets/csharp/VS_Snippets_Wpf/DataBindingLab/CSharp/DataBindingLabApp.xaml#14)]  
   
@@ -182,6 +187,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -203,6 +209,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>PresentationFramework</AssemblyName>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
