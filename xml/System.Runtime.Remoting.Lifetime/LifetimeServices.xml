@@ -1,11 +1,11 @@
 <Type Name="LifetimeServices" FullName="System.Runtime.Remoting.Lifetime.LifetimeServices">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="bfadce6fb1532f79d8ed9648b1298ef4ba44851f" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="31736eceb721a2e7b4063bf5394994d4c850a3aa" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36631530" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37634836" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class LifetimeServices" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed LifetimeServices extends System.Object" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type LifetimeServices = class" />
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -33,12 +35,12 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Распределенная сборка мусора отвечает за управление временем жизни серверных приложений и за их удаление по истечении времени их существования. В большинстве случаев распределенная сборка мусора использует счетчики ссылок и вызовы для элемента управления. Это удобно использовать, когда имеется несколько клиентов на объект, но не работает правильно при наличии тысяч клиентов на каждый объект. Служба времени жизни может принимать функцию традиционного распределенного сборщика мусора и шкал также при увеличении количества клиентов.  
+ Распределенная сборка мусора обеспечивает управление временем жизни серверных приложений, а для их удаления, когда истек срок действия времени их существования. В большинстве случаев распределенная сборка мусора использует счетчики ссылок и вызовы для элемента управления. Это работает правильно при наличии небольшого числа клиентов на объект, но не работает правильно при наличии тысяч клиентов на каждый объект. Служба времени жизни можно предположить функции обычного распределенного сборщика мусора и масштабируется при увеличении количества клиентов.  
   
- Служба времени жизни связывает аренду с каждым удаленно активированным объектом. По истечении срока действия аренды объект удаляется.  
+ Служба времени жизни связывает аренду с каждым удаленно активированного объектом. По истечении срока действия аренды удаляется объект.  
   
 > [!NOTE]
->  Этот класс выполняет запрос ссылки. Исключение SecurityException создается, если непосредственный вызывающий объект не имеет разрешения инфраструктуры. В разделе [требования связывания](~/docs/framework/misc/link-demands.md) для получения дополнительной информации.  
+>  Этот класс выполняет запрос ссылки. Если непосредственный вызывающий не имеет разрешения инфраструктуры, то выдается SecurityException. См. в разделе [требования связывания](~/docs/framework/misc/link-demands.md) Дополнительные сведения.  
   
    
   
@@ -49,7 +51,7 @@
   
  ]]></format>
     </remarks>
-    <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+    <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -61,6 +63,8 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -85,6 +89,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -98,14 +104,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Текущее свойство определяет частоту, с которой диспетчера аренды становится активным для очистки аренды с истекшим сроком действия. Например если <xref:System.Runtime.Remoting.Lifetime.LifetimeServices.LeaseManagerPollTime%2A> имеет значение 100 секунд аренды список проверяется для очистки и продления срока каждые 100 секунд.  
+ Текущее свойство определяет частоту, с которого диспетчер аренды становится активным для очистки просроченной аренды. Например если <xref:System.Runtime.Remoting.Lifetime.LifetimeServices.LeaseManagerPollTime%2A> имеет значение 100 секунд в списке аренды проверяется для очистки и продления срока каждые 100 секунд.  
   
- Значение по умолчанию <xref:System.Runtime.Remoting.Lifetime.LifetimeServices.LeaseManagerPollTime%2A> свойства равен 10 секундам.  
+ Значение по умолчанию <xref:System.Runtime.Remoting.Lifetime.LifetimeServices.LeaseManagerPollTime%2A> свойства составляет 10 секунд.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">По крайней мере у одного из вызывающих операторов, находящихся в верхней части стека вызовов, отсутствует разрешение на настройку типов и каналов удаленного взаимодействия. Это исключение создается только при настройке значения свойства.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для конфигурации инфраструктуры удаленного взаимодействия. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.Demand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.RemotingConfiguration" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для конфигурации инфраструктуры удаленного взаимодействия. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.Demand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.RemotingConfiguration" /></permission>
       </Docs>
     </Member>
     <Member MemberName="LeaseTime">
@@ -118,6 +124,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -131,12 +139,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Продолжительность аренды по умолчанию равно 5 минутам.  
+ Период времени аренды по умолчанию — 5 минут.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">По крайней мере у одного из вызывающих операторов, находящихся в верхней части стека вызовов, отсутствует разрешение на настройку типов и каналов удаленного взаимодействия. Это исключение создается только при настройке значения свойства.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для конфигурации инфраструктуры удаленного взаимодействия. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.Demand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.RemotingConfiguration" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для конфигурации инфраструктуры удаленного взаимодействия. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.Demand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.RemotingConfiguration" /></permission>
       </Docs>
     </Member>
     <Member MemberName="RenewOnCallTime">
@@ -149,6 +157,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -163,7 +173,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Время обновления по умолчанию, с помощью которого увеличивается аренда времени жизни — 2 минуты.  
+ По умолчанию обновления, на который увеличивается аренда времени существования составляет 2 минуты.  
   
    
   
@@ -175,7 +185,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">По крайней мере у одного из вызывающих операторов, находящихся в верхней части стека вызовов, отсутствует разрешение на настройку типов и каналов удаленного взаимодействия. Это исключение создается только при настройке значения свойства.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для конфигурации инфраструктуры удаленного взаимодействия. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.Demand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.RemotingConfiguration" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для конфигурации инфраструктуры удаленного взаимодействия. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.Demand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.RemotingConfiguration" /></permission>
       </Docs>
     </Member>
     <Member MemberName="SponsorshipTimeout">
@@ -188,6 +198,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -201,7 +213,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Время по умолчанию, пока не истечет время ожидания вызова главным — 2 минуты.  
+ По умолчанию время, пока не истечет время ожидания вызова спонсора — 2 минуты.  
   
    
   
@@ -213,7 +225,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">По крайней мере у одного из вызывающих операторов, находящихся в верхней части стека вызовов, отсутствует разрешение на настройку типов и каналов удаленного взаимодействия. Это исключение создается только при настройке значения свойства.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для конфигурации инфраструктуры удаленного взаимодействия. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.Demand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.RemotingConfiguration" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для конфигурации инфраструктуры удаленного взаимодействия. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.Demand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.RemotingConfiguration" /></permission>
       </Docs>
     </Member>
   </Members>

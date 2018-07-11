@@ -1,11 +1,11 @@
 <Type Name="ILease" FullName="System.Runtime.Remoting.Lifetime.ILease">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="f826344ad518f09811adf2b10c3fd65b0727d9de" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="8e11bd600da1b0b38269e956c49c9cef80ed0787" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36535811" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37635031" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface ILease" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract ILease" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type ILease = interface" />
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -30,15 +32,15 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Распределенная сборка мусора контролирует, когда приложения сервера могут быть удалены. В большинстве случаев распределенная сборка мусора использует счетчики ссылок и вызовы для элемента управления. Это удобно использовать, когда имеется несколько клиентов на объект, но не работает правильно при наличии тысяч клиентов на каждый объект. Служба времени жизни может принимать функцию традиционного распределенного сборщика мусора и шкал также при увеличении количества клиентов.  
+ Распределенная сборка мусора контролирует, когда приложения сервера могут быть удалены. В большинстве случаев распределенная сборка мусора использует счетчики ссылок и вызовы для элемента управления. Это работает правильно при наличии небольшого числа клиентов на объект, но не работает правильно при наличии тысяч клиентов на каждый объект. Служба времени жизни можно предположить функции обычного распределенного сборщика мусора и масштабируется при увеличении количества клиентов.  
   
- Служба времени жизни связывает аренду с каждым удаленно активированным объектом. По истечении срока действия аренды объект удаляется. Можно задать неограниченное время жизни объекта.  
+ Служба времени жизни связывает аренду с каждым удаленно активированного объектом. По истечении срока действия аренды удаляется объект. Можно задать бесконечное время существования объекта.  
   
- Каждый <xref:System.AppDomain> содержит диспетчера аренды, который администрирует аренду в домене. Диспетчер аренды периодически проверяет сроки действия аренды. Если срок аренды истек, его можно отменить, удалив ссылку в аренду, или обновлен путем вызова одной или более спонсоров аренды.  
+ Каждый <xref:System.AppDomain> содержит диспетчер аренды, который служит для управления арендой в домен. Диспетчер аренды периодически проверяет сроки действия аренды. Если срок аренды истек, его может быть отменено, удалив его из ссылки на аренду либо продлен путем вызова одной или нескольких спонсоров аренды.  
   
- Аренда содержит свойства, которые определяют его политику и методы обновления срока аренды. Предоставляет аренды <xref:System.Runtime.Remoting.Lifetime.ILease> интерфейса.  
+ Аренда содержит свойства, которые определяют его политику и методы обновления времени аренды. Аренда предоставляет <xref:System.Runtime.Remoting.Lifetime.ILease> интерфейс.  
   
- Пример, демонстрирующий использование <xref:System.Runtime.Remoting.Lifetime.ILease> см. интерфейс [время жизни](http://msdn.microsoft.com/library/334a30e5-33cb-4f0f-a38a-ed4abc5560fa).  
+ Пример, демонстрирующий использование <xref:System.Runtime.Remoting.Lifetime.ILease> см. интерфейс [время существования](http://msdn.microsoft.com/library/334a30e5-33cb-4f0f-a38a-ed4abc5560fa).  
   
  ]]></format>
     </remarks>
@@ -54,6 +56,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -65,7 +69,7 @@
         <value>Оставшееся время аренды.</value>
         <remarks>To be added.</remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
     <Member MemberName="CurrentState">
@@ -78,6 +82,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -89,7 +95,7 @@
         <value>Текущее состояние аренды — <see cref="T:System.Runtime.Remoting.Lifetime.LeaseState" />.</value>
         <remarks>To be added.</remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
         <altmember cref="T:System.Runtime.Remoting.Lifetime.LeaseState" />
       </Docs>
     </Member>
@@ -103,6 +109,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -116,12 +124,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если <xref:System.Runtime.Remoting.Lifetime.ILease.InitialLeaseTime%2A> свойству <xref:System.TimeSpan.Zero?displayProperty=nameWithType>, аренда не выдаст ошибку времени ожидания и объект, связанный с ним будет иметь неограниченное время жизни.  
+ Если <xref:System.Runtime.Remoting.Lifetime.ILease.InitialLeaseTime%2A> свойству <xref:System.TimeSpan.Zero?displayProperty=nameWithType>, а затем срок аренды никогда не времени ожидания и объект, связанный с ним будет иметь неограниченное время жизни.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
     <MemberGroup MemberName="Register">
@@ -144,6 +152,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -160,12 +170,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если главным зарегистрирован с помощью текущего метода, аренда не была обновлена.  
+ Если спонсор регистрируется с помощью текущего метода, аренда не будет обновлен.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
     <Member MemberName="Register">
@@ -178,6 +188,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -194,7 +206,7 @@
         <summary>Регистрирует спонсора для аренды и продляет ее на заданный срок <see cref="T:System.TimeSpan" />.</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
     <Member MemberName="Renew">
@@ -207,6 +219,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -224,12 +238,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Время аренды задано максимальное значение <xref:System.Runtime.Remoting.Lifetime.ILease.CurrentLeaseTime%2A> или текущее время, а также время обновления.  
+ Время аренды задано максимальное значение <xref:System.Runtime.Remoting.Lifetime.ILease.CurrentLeaseTime%2A> или текущее время, а также время продления.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
     <Member MemberName="RenewOnCallTime">
@@ -242,6 +256,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -255,12 +271,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- При внесении вызов удаленного объекта, время существования службы добавляет <xref:System.Runtime.Remoting.Lifetime.ILease.RenewOnCallTime%2A> для <xref:System.Runtime.Remoting.Lifetime.ILease.CurrentLeaseTime%2A> только тогда, когда <xref:System.Runtime.Remoting.Lifetime.ILease.CurrentLeaseTime%2A> опустился ниже <xref:System.Runtime.Remoting.Lifetime.ILease.RenewOnCallTime%2A>. Последовательные вызовы таким образом не увеличивают <xref:System.Runtime.Remoting.Lifetime.ILease.CurrentLeaseTime%2A> без границы. Вместо этого сразу же после любого вызова <xref:System.Runtime.Remoting.Lifetime.ILease.CurrentLeaseTime%2A> гарантированно <xref:System.Runtime.Remoting.Lifetime.ILease.RenewOnCallTime%2A> и более.  
+ Когда вызов удаленного объекта, время существования службы добавляет <xref:System.Runtime.Remoting.Lifetime.ILease.RenewOnCallTime%2A> для <xref:System.Runtime.Remoting.Lifetime.ILease.CurrentLeaseTime%2A> только если <xref:System.Runtime.Remoting.Lifetime.ILease.CurrentLeaseTime%2A> осталось меньше <xref:System.Runtime.Remoting.Lifetime.ILease.RenewOnCallTime%2A>. Последовательные вызовы таким образом не увеличивают <xref:System.Runtime.Remoting.Lifetime.ILease.CurrentLeaseTime%2A> без границы. Вместо этого сразу же после любого вызова <xref:System.Runtime.Remoting.Lifetime.ILease.CurrentLeaseTime%2A> гарантированно <xref:System.Runtime.Remoting.Lifetime.ILease.RenewOnCallTime%2A> или больше.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
     <Member MemberName="SponsorshipTimeout">
@@ -273,6 +289,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -286,14 +304,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если <xref:System.Runtime.Remoting.Lifetime.ILease.SponsorshipTimeout%2A> — <xref:System.TimeSpan.Zero?displayProperty=nameWithType>, то этот аренды не будет спонсоров.  
+ Если <xref:System.Runtime.Remoting.Lifetime.ILease.SponsorshipTimeout%2A> является <xref:System.TimeSpan.Zero?displayProperty=nameWithType>, а затем не вступят в этой аренды спонсоры.  
   
- Если выполняются не отвечает на вызов для продления аренды в течение времени ожидания, он считается исчезновения и удаляется из списка спонсоров для текущей аренды.  
+ Если спонсор не отвечает на вызов, чтобы продлить аренду до истечения времени ожидания, он считается исчезновения и удаляется из списка спонсоров для текущей аренды.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
     <Member MemberName="Unregister">
@@ -306,6 +324,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -320,7 +340,7 @@
         <summary>Удаляет спонсора из списка спонсоров.</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
   </Members>

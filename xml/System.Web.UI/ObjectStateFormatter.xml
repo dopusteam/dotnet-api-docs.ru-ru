@@ -1,11 +1,11 @@
 <Type Name="ObjectStateFormatter" FullName="System.Web.UI.ObjectStateFormatter">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="b569a57903aa176344ecca35e9ee0e2b657d3065" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="57b76930d29cc34c3592930cdae09065d8fb9428" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36576247" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37530585" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class ObjectStateFormatter : System.Runtime.Serialization.IFormatter" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit ObjectStateFormatter extends System.Object implements class System.Runtime.Serialization.IFormatter, class System.Web.UI.IStateFormatter" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type ObjectStateFormatter = class&#xA;    interface IStateFormatter&#xA;    interface IFormatter" />
   <AssemblyInfo>
     <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -31,11 +32,11 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.ObjectStateFormatter> Класс сериализует и десериализует графы объектов состояния в компактном формате.  
+ <xref:System.Web.UI.ObjectStateFormatter> Класс выполняет сериализацию и десериализацию графы состояния объекта в компактном формате.  
   
- <xref:System.Web.UI.ObjectStateFormatter> используется <xref:System.Web.UI.PageStatePersister> класса и классов, производных от него для сериализации состояния просмотра и управления состоянием. Также используется <xref:System.Web.UI.LosFormatter> класса для выполнения форматирования разными частями инфраструктуры ASP.NET графа состояния объекта.  
+ <xref:System.Web.UI.ObjectStateFormatter> используется <xref:System.Web.UI.PageStatePersister> класс и классы, производные от него для сериализации состояния представления и состояние элемента управления. Они также используются <xref:System.Web.UI.LosFormatter> класс, предоставляющий форматирования разными частями инфраструктуры ASP.NET графа состояния объекта.  
   
- <xref:System.Web.UI.ObjectStateFormatter> Класс оптимизирован для сериализации и отформатировать многих распространенных ссылочные типы .NET Framework, а также константы. Ниже перечислены типы, которые оптимизированы.  
+ <xref:System.Web.UI.ObjectStateFormatter> Класс оптимизирован для сериализации и форматирования многих распространенных ссылочные типы .NET Framework, а также константы. В следующей таблице перечислены типы, оптимизированные.  
   
 |||||  
 |-|-|-|-|  
@@ -46,16 +47,16 @@
 |<xref:System.Char>|<xref:System.Collections.Specialized.HybridDictionary>|<xref:System.Single>|<xref:System.Type>|  
 |<xref:System.Drawing.Color>|<xref:System.Collections.IDictionary>|||  
   
- Кроме того хотя Стандартные строковые типы и массивы записываются в и из сериализованного двоичного модуля записи без некоторые строки, оптимизируются путем создания внутреннюю строку таблицы. Строки оптимизированных использование таких таблиц, если строка имеет связанный <xref:System.ComponentModel.TypeConverter> объекта или если строка является фактически экземпляром <xref:System.Web.UI.IndexedString> класса.  
+ Кроме того то время как стандартные строковые типы и массивы записываются и из сериализованного двоичного модуля записи без изменений, некоторые строки, оптимизируются, создав внутреннюю строку таблицы. Строки оптимизированных использование таких таблиц в том случае, если строка имеет связанный <xref:System.ComponentModel.TypeConverter> объект или если строка имеет фактически является экземпляром <xref:System.Web.UI.IndexedString> класса.  
   
- Другие типы, не перечисленные выше binary сериализуются при помощи <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter> объекта, если они реализуют <xref:System.Runtime.Serialization.ISerializable> интерфейс или оформляются с <xref:System.SerializableAttribute> атрибута. <xref:System.Web.UI.ObjectStateFormatter> Класса не оптимизирован для любого из этих сериализуемые типы.  
+ Другие типы, не перечисленные выше binary сериализуются с помощью <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter> объекта, если они реализуют <xref:System.Runtime.Serialization.ISerializable> интерфейс или оформляются с использованием <xref:System.SerializableAttribute> атрибута. <xref:System.Web.UI.ObjectStateFormatter> Класса не оптимизирован для любого из этих сериализуемые типы.  
   
- Если <xref:System.Web.UI.ObjectStateFormatter> класс встречает тип, который не является сериализуемым, <xref:System.ArgumentException> исключения.  
+ Если <xref:System.Web.UI.ObjectStateFormatter> класс встречает типом, который не может быть сериализован, <xref:System.ArgumentException> возникает исключение.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как класс, производный от <xref:System.Web.UI.PageStatePersister> класс обращается к <xref:System.Web.UI.PageStatePersister.StateFormatter%2A> извлекаемого свойства <xref:System.Web.UI.ObjectStateFormatter> экземпляр для сериализации состояния просмотра и состояние элемента управления в поток. Данный пример кода является частью большего примера, приведенного для <xref:System.Web.UI.PageStatePersister> класса.  
+ В следующем примере кода показано, как класс, производный от <xref:System.Web.UI.PageStatePersister> класса обращений к <xref:System.Web.UI.PageStatePersister.StateFormatter%2A> извлекаемого свойства <xref:System.Web.UI.ObjectStateFormatter> экземпляр для сериализации состояния представления и состояние элемента управления в поток. Данный пример кода является частью большего примера для <xref:System.Web.UI.PageStatePersister> класса.  
   
  [!code-csharp[Samples.AspNet.Alexkr.TextFilePageStatePersister_1#3](~/samples/snippets/csharp/VS_Snippets_WebNet/Samples.AspNet.Alexkr.TextFilePageStatePersister_1/CS/textfilepagestatepersister.cs#3)]
  [!code-vb[Samples.AspNet.Alexkr.TextFilePageStatePersister_1#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/Samples.AspNet.Alexkr.TextFilePageStatePersister_1/VB/textfilepagestatepersister.vb#3)]  
@@ -73,6 +74,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
@@ -94,7 +96,7 @@
 ## Remarks  
   
 > [!IMPORTANT]
->  Вызов этого метода с недоверенными данными представляет угрозу безопасности. Этот метод используется только с надежными данными. Дополнительные сведения см. в разделе [проверки данных](https://www.owasp.org/index.php/Data_Validation).  
+>  Вызов этого метода с ненадежными данными представляет угрозу безопасности. Этот метод используется только с надежными данными. Дополнительные сведения см. в разделе [проверки данных](https://www.owasp.org/index.php/Data_Validation).  
   
  ]]></format>
         </remarks>
@@ -112,6 +114,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -128,15 +131,15 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Любой графа состояния объекта, который сериализуется с использованием <xref:System.Web.UI.ObjectStateFormatter.Serialize%2A> метод может быть десериализован с <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> метод. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%28System.IO.Stream%29> Метод используется для восстановления состояния графа объектов, хранящихся в <xref:System.IO.Stream>, такие как <xref:System.IO.FileStream>.  
+ Любой графа состояния объекта, который сериализуется с использованием <xref:System.Web.UI.ObjectStateFormatter.Serialize%2A> метод может быть десериализован с <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> метод. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%28System.IO.Stream%29> Метод используется для восстановления графа состояния объекта, хранящихся в <xref:System.IO.Stream>, такие как <xref:System.IO.FileStream>.  
   
 > [!IMPORTANT]
->  Вызов этого метода с недоверенными данными представляет угрозу безопасности. Этот метод используется только с надежными данными. Дополнительные сведения см. в разделе [проверки данных](https://www.owasp.org/index.php/Data_Validation).  
+>  Вызов этого метода с ненадежными данными представляет угрозу безопасности. Этот метод используется только с надежными данными. Дополнительные сведения см. в разделе [проверки данных](https://www.owasp.org/index.php/Data_Validation).  
   
    
   
 ## Examples  
- В следующем примере кода показано, как класс, производный от <xref:System.Web.UI.PageStatePersister> класса инициализирует <xref:System.Web.UI.PageStatePersister.ViewState%2A> коллекции. В этом примере <xref:System.Web.UI.PageStatePersister.ViewState%2A> назначены коллекции <xref:System.Web.UI.Pair.First> поле <xref:System.Web.UI.Pair> объекта и сериализованы в файл с помощью <xref:System.Web.UI.ObjectStateFormatter> класса. Когда <xref:System.Web.UI.PageStatePersister.Load%2A> вызывается метод, <xref:System.Web.UI.LosFormatter.Deserialize%28System.IO.Stream%29> метод используется для десериализации состояния представления из файла и <xref:System.Web.UI.PageStatePersister.ViewState%2A> инициализировать свойство. Данный пример кода является частью большего примера, приведенного для <xref:System.Web.UI.PageStatePersister> класса.  
+ В следующем примере кода показано, как класс, производный от <xref:System.Web.UI.PageStatePersister> класса инициализирует <xref:System.Web.UI.PageStatePersister.ViewState%2A> коллекции. В этом примере <xref:System.Web.UI.PageStatePersister.ViewState%2A> коллекции был назначен <xref:System.Web.UI.Pair.First> поле <xref:System.Web.UI.Pair> объекта и сериализовать в файл с помощью <xref:System.Web.UI.ObjectStateFormatter> класса. Когда <xref:System.Web.UI.PageStatePersister.Load%2A> вызывается метод, <xref:System.Web.UI.LosFormatter.Deserialize%28System.IO.Stream%29> метод используется для десериализации состояния представления из файла и <xref:System.Web.UI.PageStatePersister.ViewState%2A> инициализируется свойство. Данный пример кода является частью большего примера для <xref:System.Web.UI.PageStatePersister> класса.  
   
  [!code-csharp[Samples.AspNet.Alexkr.TextFilePageStatePersister_1#2](~/samples/snippets/csharp/VS_Snippets_WebNet/Samples.AspNet.Alexkr.TextFilePageStatePersister_1/CS/textfilepagestatepersister.cs#2)]
  [!code-vb[Samples.AspNet.Alexkr.TextFilePageStatePersister_1#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/Samples.AspNet.Alexkr.TextFilePageStatePersister_1/VB/textfilepagestatepersister.vb#2)]  
@@ -160,6 +163,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -179,12 +183,12 @@
  Любой графа состояния объекта, который сериализуется с использованием <xref:System.Web.UI.ObjectStateFormatter.Serialize%2A> метод может быть десериализован с <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> метод. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%28System.String%29> Метод используется для восстановления графа состояния объекта, хранятся в виде строки в кодировке base64.  
   
 > [!IMPORTANT]
->  Вызов этого метода с недоверенными данными представляет угрозу безопасности. Этот метод используется только с надежными данными. Дополнительные сведения см. в разделе [проверки данных](https://www.owasp.org/index.php/Data_Validation).  
+>  Вызов этого метода с ненадежными данными представляет угрозу безопасности. Этот метод используется только с надежными данными. Дополнительные сведения см. в разделе [проверки данных](https://www.owasp.org/index.php/Data_Validation).  
   
    
   
 ## Examples  
- В следующем примере кода показано, как реализовать метод, который выполняет десериализацию строки в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. Данный пример кода зависит от значения свойства сериализации с <xref:System.Web.UI.ObjectStateFormatter> класса, как показано в <xref:System.Web.UI.ObjectStateFormatter.Serialize%28System.Object%29> метод.  
+ В следующем примере кода показано, как реализовать метод, который десериализует строку в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. Этот пример кода основан на значения свойств, сериализации с <xref:System.Web.UI.ObjectStateFormatter> класса, как показано в <xref:System.Web.UI.ObjectStateFormatter.Serialize%28System.Object%29> метод.  
   
  [!code-csharp[System.Web.UI.ObjectStateFormatter_1#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.ObjectStateFormatter_1/CS/objectstateformattertest.cs#2)]
  [!code-vb[System.Web.UI.ObjectStateFormatter_1#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.ObjectStateFormatter_1/VB/objectstateformattertest.vb#2)]  
@@ -218,6 +222,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -239,7 +244,7 @@
    
   
 ## Examples  
- В следующем примере кода показано, как для сериализации значения свойства элемента управления в строку в кодировке base64 с помощью набора <xref:System.Web.UI.ObjectStateFormatter.Serialize%28System.Object%29> метод. Строка может быть десериализован в дальнейшем с <xref:System.Web.UI.ObjectStateFormatter.Deserialize%28System.String%29> метод.  
+ В следующем примере кода показано, как для сериализации значений из набора свойств элементов управления в строку в кодировке base64 с помощью <xref:System.Web.UI.ObjectStateFormatter.Serialize%28System.Object%29> метод. Строка может быть десериализован в дальнейшем с помощью <xref:System.Web.UI.ObjectStateFormatter.Deserialize%28System.String%29> метод.  
   
  [!code-csharp[System.Web.UI.ObjectStateFormatter_1#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.ObjectStateFormatter_1/CS/objectstateformattertest.cs#1)]
  [!code-vb[System.Web.UI.ObjectStateFormatter_1#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.ObjectStateFormatter_1/VB/objectstateformattertest.vb#1)]  
@@ -258,6 +263,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -275,12 +281,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Любой графа состояния объекта, который сериализуется с использованием <xref:System.Web.UI.ObjectStateFormatter.Serialize%2A> метод может быть десериализован с <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> метод. <xref:System.Web.UI.ObjectStateFormatter.Serialize%28System.IO.Stream%2CSystem.Object%29> Метод используется для сериализации графа состояния объекта к двоичному файлу <xref:System.IO.Stream> объекта.  
+ Любой графа состояния объекта, который сериализуется с использованием <xref:System.Web.UI.ObjectStateFormatter.Serialize%2A> метод может быть десериализован с <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> метод. <xref:System.Web.UI.ObjectStateFormatter.Serialize%28System.IO.Stream%2CSystem.Object%29> Метод используется для сериализации графа состояния объекта в двоичном файле <xref:System.IO.Stream> объекта.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как класс получает <xref:System.Web.UI.ObjectStateFormatter> экземпляр для сериализации состояния просмотра и состояние элемента управления для потока с помощью <xref:System.Web.UI.ObjectStateFormatter.Serialize%28System.IO.Stream%2CSystem.Object%29> метод. Данный пример кода является частью большего примера, приведенного для <xref:System.Web.UI.PageStatePersister> класса.  
+ В следующем примере кода показано, как класс получает <xref:System.Web.UI.ObjectStateFormatter> экземпляр для сериализации состояния представления и состояние элемента управления в поток с помощью <xref:System.Web.UI.ObjectStateFormatter.Serialize%28System.IO.Stream%2CSystem.Object%29> метод. Данный пример кода является частью большего примера для <xref:System.Web.UI.PageStatePersister> класса.  
   
  [!code-csharp[Samples.AspNet.Alexkr.TextFilePageStatePersister_1#3](~/samples/snippets/csharp/VS_Snippets_WebNet/Samples.AspNet.Alexkr.TextFilePageStatePersister_1/CS/textfilepagestatepersister.cs#3)]
  [!code-vb[Samples.AspNet.Alexkr.TextFilePageStatePersister_1#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/Samples.AspNet.Alexkr.TextFilePageStatePersister_1/VB/textfilepagestatepersister.vb#3)]  
@@ -300,6 +306,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -329,6 +336,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -357,6 +365,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -388,6 +397,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -421,6 +431,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -452,6 +463,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -486,6 +498,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>

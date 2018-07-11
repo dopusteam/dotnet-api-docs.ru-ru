@@ -1,11 +1,11 @@
 <Type Name="IMessageSink" FullName="System.Runtime.Remoting.Messaging.IMessageSink">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="1dd3980c6db096c63bf5a16dc14529fdeaebe51c" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="55cb8493efc5a12d659c07a5265e31e52e42de61" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36631078" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37467498" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IMessageSink" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IMessageSink" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type IMessageSink = interface" />
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -30,18 +32,18 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Когда вызов метода выполняется для прокси-сервера, инфраструктура удаленного взаимодействия предоставляет необходимую поддержку для передачи аргументов реального объекта в удаленных границах, вызов метода фактическому объекту с аргументами и возвращает результаты на Клиент прокси-объекта.  
+ Когда вызов метода выполняется для прокси-сервера, инфраструктура удаленного взаимодействия предоставляет необходимую поддержку для передачи аргументов для фактического объекта через границы удаленного взаимодействия, вызывая метод реального объекта с аргументами и возвращая результаты обратно в Клиент прокси-объекта.  
   
- Удаленный вызов метода — это сообщение, который проходит со стороны клиента на стороне сервера и может быть возвращено обратно. При этом происходит пересечение удаленных границ, удаленный вызов метода передается через цепочку `IMessageSink` объектов. Каждый приемник в цепочке получает объект сообщения, выполняет необходимые операции и делегирует в следующий приемник в цепочке. Прокси-объект содержит ссылку на первый `IMessageSink` ему следует использовать в начале цепочки.  
+ Удаленный вызов метода — это сообщение со стороны клиента на стороне сервера, возможно обратно. При этом происходит пересечение границы удаленного взаимодействия, удаленный вызов метода передается через цепочку `IMessageSink` объектов. Каждый приемник в цепочке получает объект сообщения, выполняет необходимые операции и делегирует следующему приемнику в цепочке. Прокси-объект содержит ссылку на первый `IMessageSink` необходимо использовать в начале цепочки.  
   
- Для асинхронных вызовов во время делегирования, каждый приемник предоставляет Ответный приемник (другой `IMessageSink`), будет вызываться приемником Далее при возвращении ответа.  
+ Для асинхронных вызовов во время делегирование, каждый приемник предоставляет Ответный приемник (другой `IMessageSink`), будут вызваны следующему приемнику при возвращении ответа.  
   
- Различные типы приемников выполняют различные операции в зависимости от типа полученного объекта сообщения. Например, один приемник может вызвать блокировку, другой назначить защиту вызова, третий выполнить вызов потока управления и надежность службы и еще может передать другой вызов <xref:System.AppDomain>, процессе или компьютере. Два или более приемников сообщений в цепочке могут взаимодействовать друг с другом выполняемым действием.  
+ Различные типы приемников выполняют различные операции, в зависимости от типа полученного объекта сообщения. Например, один приемник может вызвать блокировку, которые должны выполняться, другой назначить защиту вызова, третий выполнить вызов потока управления и надежность служб и еще может передать вызов на другой <xref:System.AppDomain>, процессе или компьютере. Два или несколько приемников сообщений в цепочке могут взаимодействовать друг с другом выполняемым действием.  
   
    
   
 ## Examples  
- В следующем примере кода показана реализация <xref:System.Runtime.Remoting.Messaging.IMessageSink> интерфейса. Обратите внимание, что в этом образце предполагается определения типа и ссылки на сборки, которые необходимы для компиляции.  
+ В следующем примере кода показана реализация <xref:System.Runtime.Remoting.Messaging.IMessageSink> интерфейс. Обратите внимание на то, что в этом образце предполагается определения типов и ссылок на сборки, которые необходимы для компиляции.  
   
  [!code-cpp[IMessageSink_Client#3](~/samples/snippets/cpp/VS_Snippets_Remoting/IMessageSink_Client/CPP/imessagesink_client.cpp#3)]
  [!code-csharp[IMessageSink_Client#3](~/samples/snippets/csharp/VS_Snippets_Remoting/IMessageSink_Client/CS/imessagesink_client.cs#3)]
@@ -50,7 +52,7 @@
  ]]></format>
     </remarks>
     <block subset="none" type="overrides">
-      <para>Это важно отметить, что код, реализующий текущий интерфейс должны предоставлять реализации для обоих <see cref="M:System.Runtime.Remoting.Messaging.IMessageSink.SyncProcessMessage(System.Runtime.Remoting.Messaging.IMessage)" /> и <see cref="M:System.Runtime.Remoting.Messaging.IMessageSink.AsyncProcessMessage(System.Runtime.Remoting.Messaging.IMessage,System.Runtime.Remoting.Messaging.IMessageSink)" />, поскольку синхронные вызовы можно преобразовать в асинхронные вызовы и наоборот. Оба метода должен быть реализован, даже если приемник не поддерживает асинхронную обработку.</para>
+      <para>Важно отметить, что код, реализующий текущий интерфейс должен предоставить реализации как для <see cref="M:System.Runtime.Remoting.Messaging.IMessageSink.SyncProcessMessage(System.Runtime.Remoting.Messaging.IMessage)" /> и <see cref="M:System.Runtime.Remoting.Messaging.IMessageSink.AsyncProcessMessage(System.Runtime.Remoting.Messaging.IMessage,System.Runtime.Remoting.Messaging.IMessageSink)" />, поскольку синхронные вызовы можно преобразовать в асинхронные вызовы и наоборот. Оба метода должен быть реализован, даже если приемник не поддерживает асинхронной обработки.</para>
     </block>
   </Docs>
   <Members>
@@ -64,6 +66,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -83,12 +87,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод вызывается в приемнике сообщений инфраструктурой удаленного взаимодействия или предыдущим приемником для асинхронных сообщений.  
+ Этот метод вызывается на приемник сообщений инфраструктурой удаленного взаимодействия или предыдущим приемником для асинхронных сообщений.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
     <Member MemberName="NextSink">
@@ -101,6 +105,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -112,7 +118,7 @@
         <value>Следующий приемник сообщений в цепочке приемников.</value>
         <remarks>To be added.</remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
     <Member MemberName="SyncProcessMessage">
@@ -125,6 +131,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -142,12 +150,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Runtime.Remoting.Messaging.IMessageSink.SyncProcessMessage%2A> Метод вызывается в приемнике сообщений инфраструктурой удаленного взаимодействия или предыдущим приемником для синхронных сообщений.  
+ <xref:System.Runtime.Remoting.Messaging.IMessageSink.SyncProcessMessage%2A> Метод вызывается на приемник сообщений инфраструктурой удаленного взаимодействия или предыдущим приемником для синхронных сообщений.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.Security.SecurityException">Непосредственно вызывающий объект вызывает интерфейс через ссылку и не имеет разрешения на использование инфраструктуры.</exception>
-        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Требовать значение: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
+        <permission cref="T:System.Security.Permissions.SecurityPermission">для работы с кодом инфраструктуры. Значение запроса: <see cref="F:System.Security.Permissions.SecurityAction.LinkDemand" />; Значение разрешения: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Infrastructure" /></permission>
       </Docs>
     </Member>
   </Members>

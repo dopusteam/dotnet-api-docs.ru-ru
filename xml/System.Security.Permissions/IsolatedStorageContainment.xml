@@ -1,11 +1,11 @@
 <Type Name="IsolatedStorageContainment" FullName="System.Security.Permissions.IsolatedStorageContainment">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="917dcfbef677e22022ede815779a926d41d510ec" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="fc464b15511114e9daa21def87217379f3ca7dd3" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36425301" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37630481" />
   </Metadata>
   <TypeSignature Language="C#" Value="public enum IsolatedStorageContainment" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed IsolatedStorageContainment extends System.Enum" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type IsolatedStorageContainment = " />
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -36,32 +38,32 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Изолированное хранилище использует основание для определения уникальной области хранения для использования приложением или компонентом. Удостоверение сборки однозначно определяет корневой каталог виртуальной файловой системы для использования в этой сборке. Таким образом вместо многих приложений и компонентов, совместное использование общего ресурса, например файловой системы или реестра, каждый имеет собственную файловую область, по своей природе назначенного ей.  
+ Изолированное хранилище использует свидетельства, чтобы определить уникальную область хранения для использования приложением или компонентом. Удостоверение сборки однозначно определяет корневой каталог виртуальной файловой системы для использования этой сборки. Таким образом вместо того чтобы много приложений и компонентов, совместного использования общего ресурса, например файловой системы или реестра, каждый имеет собственную область файла, по своей природе назначается.  
   
  При назначении изолированного хранения используются четыре основных области изоляции:  
   
--   `User` -Код всегда имеет область в соответствии с текущим пользователем. Той же сборке получит разные хранилища при запуске различными пользователями.  
+-   `User` -Код всегда имеет область, в соответствии с текущим пользователем. При запуске разными пользователями, и той же сборки получит разные хранилища.  
   
--   `Machine` -Код всегда имеет область, в соответствии с компьютера. Той же сборки будут получать одинаковые хранилища при запуске различными пользователями на том же компьютере.  
+-   `Machine` -Код всегда имеет область, в соответствии с компьютера. Ту же сборку получат одинаковые хранилища при запуске разными пользователями на одном компьютере.  
   
--   `Assembly` -Код определяется криптографически по строгому имени (например, Microsoft.Office.* или Microsoft.Office.Word), издателем (на основе открытого ключа), URL-адрес (например, http://www.fourthcoffee.com/process/grind.htm)узлом и зоной.  
+-   `Assembly` -Кода определяется криптографически по строгому имени (например, Microsoft.Office.* или Microsoft.Office.Word), издателем (на основе открытого ключа), URL-адрес (например, http://www.fourthcoffee.com/process/grind.htm)узлом и зоной.  
   
--   `Domain` -Код определен с использованием свидетельства, связанного с доменом приложения. Идентификация веб-приложения является производным от URL-адрес сайта, или на веб-странице URL-адрес узла и зоны. Локальная Идентификация кода основан на путь к каталогу приложения.  
+-   `Domain` -Кода определяется на основе свидетельства, связанный с доменом приложения. Идентификация веб-приложения является производным от URL-адрес сайта, или по URL-адрес веб-страницы, сайта или зоны. Локальный код идентификация основывается на путь к каталогу приложения.  
   
- Для определения URL-адрес узла и зоны см. в разделе <xref:System.Security.Permissions.UrlIdentityPermission>, <xref:System.Security.Permissions.SiteIdentityPermission>, и <xref:System.Security.Permissions.ZoneIdentityPermission>.  
+ Для определения URL-адрес узла и зоны, см. в разделе <xref:System.Security.Permissions.UrlIdentityPermission>, <xref:System.Security.Permissions.SiteIdentityPermission>, и <xref:System.Security.Permissions.ZoneIdentityPermission>.  
   
- Эти удостоверения сгруппированы вместе, в этом случае идентификации применяются одна за другой, пока не будет создано требуемое изолированное хранилище. Допустимые группирования — пользователь + сборка и пользователь + сборка + домен. Это группирование идентификаций полезно во многих приложениях.  
+ Эти удостоверения сгруппированы вместе, в этом случае идентификации применяются одна за другой, пока не будет создано требуемое изолированное хранилище. Допустимые группирования — пользователь + сборка и пользователь + сборка + домен. Такой способ группировки удостоверений полезен во множестве различных приложений.  
   
- Если данные хранятся с домена, пользователя и сборки, данные являются частными только код, в том, что сборка может обращаться к данным. Хранилище данных также изолировано приложением, в котором он выполняется, чтобы сборка не представляет потенциальную утечку путем предоставления доступа к данным для других приложений.  
+ Если данные хранятся по домену, пользователям и сборкам, данные являются частными, единственным кодом, в том, что сборки может обращаться к данным. Хранилище данных также изолируется приложения, в котором она выполняется, чтобы сборка не представляет потенциальную утечку путем предоставления данных другим приложениям.  
   
- Изоляция по сборке и пользователь может использоваться для пользовательских данных, который применяется для нескольких приложений; Например лицензии сведения или личные данные пользователя (имя, учетные данные проверки подлинности и т. д.), не зависящий от приложения.  
+ Изоляция по сборке и пользователь может использоваться для пользовательских данных, применяющихся в несколькими приложениях; Например лицензии сведения или личные данные пользователя (имя, учетные данные проверки подлинности и т. д.), не зависящий от приложения.  
   
- <xref:System.Security.Permissions.IsolatedStorageContainment> Предоставляет флаги, которые определяют, разрешено ли приложение на использование изолированного хранилища и, если это так, какие комбинации обозначения могут использовать его. Он также определяет, разрешено ли приложение для хранения данных в расположении, которое может перемещаться с пользователем (перемещаемых профилей пользователей Windows или перенаправлении папок должна быть настроена).  
+ <xref:System.Security.Permissions.IsolatedStorageContainment> Предоставляет флаги, определяющие, может ли приложение использовать изолированное хранилище и, таким образом, какие комбинации удостоверения разрешено использовать его. Он также определяет, разрешено ли приложение для хранения сведений в расположении, которое может перемещаться с пользователем (перемещаемых профилей пользователей Windows или перенаправление папок должна быть настроена).  
   
    
   
 ## Examples  
- В этом примере показано, как сообщить среде CLR о необходимости кода в этой сборке <xref:System.Security.Permissions.IsolatedStoragePermission> и также показано, как для записи и чтения из изолированного хранилища.  
+ В этом примере показано, как сообщить среде CLR, что код в этой сборке требует <xref:System.Security.Permissions.IsolatedStoragePermission> и также демонстрирует, как для записи и чтения из изолированного хранилища.  
   
  [!code-cpp[IsolatedStoragePermissionAttribute#1](~/samples/snippets/cpp/VS_Snippets_CLR/IsolatedStoragePermissionAttribute/cpp/IsolatedStoragePermissionAttribute.cpp#1)]
  [!code-csharp[IsolatedStoragePermissionAttribute#1](~/samples/snippets/csharp/VS_Snippets_CLR/IsolatedStoragePermissionAttribute/CS/IsolatedStoragePermissionAttribute.cs#1)]
@@ -85,6 +87,8 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -110,6 +114,7 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -135,6 +140,7 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -160,6 +166,7 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -185,6 +192,7 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -210,6 +218,8 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -235,6 +245,8 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -260,6 +272,7 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -285,6 +298,8 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -310,6 +325,8 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -335,6 +352,8 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -360,6 +379,8 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
