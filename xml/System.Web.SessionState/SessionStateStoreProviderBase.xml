@@ -1,11 +1,11 @@
 <Type Name="SessionStateStoreProviderBase" FullName="System.Web.SessionState.SessionStateStoreProviderBase">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="750f19ccbe5ffeeefe94b6eba1845e3877c47a61" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="f67b526b76fe2727eda8b0a31e7600ff75016c6f" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36594047" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37602816" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class SessionStateStoreProviderBase : System.Configuration.Provider.ProviderBase" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit SessionStateStoreProviderBase extends System.Configuration.Provider.ProviderBase" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type SessionStateStoreProviderBase = class&#xA;    inherit ProviderBase" />
   <AssemblyInfo>
     <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -27,30 +28,30 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Состояние сеанса ASP.NET считывает и записывает, что поставщик хранилища данных сеанса в хранилище данных, с помощью состояния сеанса. Поставщик хранилища состояний сеанса — это класс, наследующий <xref:System.Web.SessionState.SessionStateStoreProviderBase> хранения абстрактным классом и переопределяет его члены с реализациями, относящихся к данным. Поставщик хранилища состояний сеанса вызывается методом <xref:System.Web.SessionState.SessionStateModule> класса во время обработки страницы ASP.NET для взаимодействия с хранилищем данных для хранения и получения переменных сеанса и соответствующего сеанса сведения, такие как значение времени ожидания.  
+ Состояние сеанса ASP.NET считывает и записывает, что поставщик хранилища данных сеанса в хранилище данных, с помощью состояния сеанса. Поставщик хранилища состояния сеанса — класс, наследующий <xref:System.Web.SessionState.SessionStateStoreProviderBase> абстрактный класс и переопределения его члены с реализациями в зависимости от данных магазина. Поставщик хранилищ состояния сеансов вызывается <xref:System.Web.SessionState.SessionStateModule> класса во время обработки страницы ASP.NET для обмена данными с хранилищем данных для хранения и извлечения переменные сеанса и сведения о связанных сеанса, например значение времени ожидания.  
   
- Данные сеанса в рамках каждого приложения ASP.NET хранятся отдельно для каждого <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> свойство. Приложения ASP.NET не использует данные сеанса совместно.  
+ Данные сеанса в каждое приложение ASP.NET хранятся отдельно для каждого <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> свойство. Данные сеанса не предназначена для приложений ASP.NET.  
   
- Можно указать пользовательский <xref:System.Web.SessionState.SessionStateStoreProviderBase> реализации для приложений ASP.NET, задав `mode` атрибут `sessionState` элемент конфигурации, чтобы <xref:System.Web.SessionState.SessionStateMode.Custom> и `customProvider` атрибута к имени пользовательского поставщика показано в примере этого раздела.  
+ Можно указать пользовательский <xref:System.Web.SessionState.SessionStateStoreProviderBase> реализацию для приложения ASP.NET, задав `mode` атрибут `sessionState` элемент конфигурации, <xref:System.Web.SessionState.SessionStateMode.Custom> и `customProvider` атрибуту имя пользовательского поставщика, как показано в примере этого раздела.  
   
-## <a name="locking-session-store-data"></a>Блокирование данных в хранилище сеанса  
- Поскольку многопоточных для поддержки ответов на параллельные запросы приложений ASP.NET, возможно, что параллельные запросы могут попытаться получить доступ к тем же данным сеанса. Рассмотрим сценарий, в котором рамки из набора рамок к того же приложения. Отдельные запросы каждого фрейма в наборе может выполняться на веб-сервере одновременно в разных потоках. Если страницы ASP.NET для каждого источника кадра доступ к переменным состояния сеанса, может иметь несколько потоков, параллельный доступ к хранилищу сеанса.  
+## <a name="locking-session-store-data"></a>Блокирование данных Store сеанса  
+ Поскольку приложения ASP.NET являются многопоточными для поддержки ответов на параллельные запросы, вполне возможно, что параллельные запросы могут попытаться получить доступ к тем же данным сеанса. Рассмотрим ситуацию, где рамки из набора рамок к того же приложения. Отдельные запросы каждого фрейма в наборе могут быть выполнены на веб-сервере одновременно в разных потоках. Если страницы ASP.NET для каждого источника кадра, получить доступ к переменным состояния сеанса, можно создать несколько потоков, одновременно обращающихся к хранилище сеанса.  
   
- Во избежание конфликтов данных в хранилище сеанса и непредвиденное поведение состояния сеанса <xref:System.Web.SessionState.SessionStateModule> и <xref:System.Web.SessionState.SessionStateStoreProviderBase> классам относятся функции блокировки монопольной блокировки элемент хранилища сеанса для конкретного сеанса в течение выполнение страницы ASP.NET. Обратите внимание, что даже если <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибут помечен как `ReadOnly`, возможно, другие страницы ASP.NET в том же приложении возможность записи в хранилище сеанса, поэтому запрос для сеанса только для чтения данных из хранилища будут помещаться ожидание блокировки данных освобождение.  
+ Чтобы избежать конфликтов данных в хранилище сеанса и непредвиденное поведение состояния сеанса, <xref:System.Web.SessionState.SessionStateModule> и <xref:System.Web.SessionState.SessionStateStoreProviderBase> классы включают функции блокировки монопольной блокировки элемент хранилища сеанса для определенного сеанса в течение выполнения страницы ASP.NET. Обратите внимание, что даже если <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибут помечен как `ReadOnly`, может быть возможность записи в хранилище сеанса, поэтому запрос сеанса только для чтения данных из хранилища по-прежнему может оказаться ожидание блокировки данных других страниц ASP.NET в одном приложении освобождены.  
   
- Блокировка устанавливается на данных в хранилище сеанса в начале запроса, в вызове <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метода. По завершении выполнения запроса блокировка снимается при вызове <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метода.  
+ Блокировка устанавливается на данных в хранилище сеанса в начале запроса, в вызове <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод. После выполнения запроса, блокировка снимается при вызове <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метод.  
   
- Если <xref:System.Web.SessionState.SessionStateModule> объект обнаруживает заблокированные данные сеанса при вызове либо <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> или <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод, он повторно запрашивает данные сеанса интервалы полсекунды до снятия блокировки или время, данные сеанса был заблокирован превышает значение <xref:System.Web.Configuration.HttpRuntimeSection.ExecutionTimeout%2A> свойства. В случае превышения времени ожидания выполнения <xref:System.Web.SessionState.SessionStateModule> вызывает объект <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> метод освободить данные хранилища сеанса и запросить данные хранилища сеанса в это время.  
+ Если <xref:System.Web.SessionState.SessionStateModule> объекта обнаруживает заблокированные данные сеанса при вызове либо <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> или <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод, он будет повторно запросить данные сеанса интервалы полсекунды до снятия блокировки или время, данных сеанса оставался заблокированным превышает значение <xref:System.Web.Configuration.HttpRuntimeSection.ExecutionTimeout%2A> свойства. При превышении времени ожидания выполнения <xref:System.Web.SessionState.SessionStateModule> объект вызовет <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> метод, чтобы освободить данные хранилища сеанса и запроса данных в хранилище сеанса в этот момент.  
   
- Из-за блокировки сеанса хранилища данных можно освободить путем вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> метод в отдельном потоке перед вызовом <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метод для текущего ответа может быть предпринята попытка задать и освободит данные хранилища состояний сеанса с уже были освобождены и изменены в другом сеансе. Чтобы избежать такой ситуации <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> и <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> методы возвращают идентификатор блокировки. Этот идентификатор блокировки должен быть включен во все запросы на изменение данных в хранилище заблокированных сеансов. Хранилище сеанса данные изменяются только в том случае, если идентификатор блокировки в хранилище данных совпадает с идентификатором блокировки, предоставленным объектом <xref:System.Web.SessionState.SessionStateModule>.  
+ Из-за блокировки хранилища сеанса данные можно освободить путем вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> метод в отдельном потоке до вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метод для текущего ответа может быть предпринята попытка и выпуска данные хранилища состояния сеанса уже были освобождены и изменены другим сеансом. Чтобы избежать такой ситуации <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> и <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> методы возвращают идентификатор блокировки. Этот идентификатор блокировки должен быть включен с каждым запросом для изменения данных заблокированные хранилища сеанса. Хранилище сеанса данные изменяются только в том случае, если идентификатор блокировки в хранилище данных совпадает с идентификатором блокировки, предоставляемые <xref:System.Web.SessionState.SessionStateModule>.  
   
-## <a name="deleting-expired-session-store-data"></a>Удаление данных в хранилище с истекшим сроком действия сеанса  
- Когда <xref:System.Web.SessionState.HttpSessionState.Abandon%2A> метод вызывается для конкретного сеанса, данные для этого сеанса удаляются из хранилища данных с помощью <xref:System.Web.SessionState.SessionStateStoreProviderBase.RemoveItem%2A> метода; в противном случае данные сохраняются в хранилище данных сеанса для будущих запросов сервера для сеанса. О <xref:System.Web.SessionState.SessionStateStoreProviderBase> реализации для удаления данных сеанса с истекшим сроком действия.  
+## <a name="deleting-expired-session-store-data"></a>Удаление данных с истекшим сроком действия сеанса Store  
+ Когда <xref:System.Web.SessionState.HttpSessionState.Abandon%2A> был вызван для конкретного сеанса, данные для этого сеанса, будут удалены из хранилища данных с помощью <xref:System.Web.SessionState.SessionStateStoreProviderBase.RemoveItem%2A> метода; в противном случае данные будут оставаться в хранилище данных сеанса на будущие запросы сервера для сеанса. О <xref:System.Web.SessionState.SessionStateStoreProviderBase> реализации для удаления данных истекших сеансов.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  В следующем примере кода показан файл Web.config для приложения ASP.NET, который настроен для использования пользовательского состояния сеанса поставщика хранилища.  
   
@@ -87,6 +88,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
@@ -96,12 +98,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Не требуются для реализации конструктора для класса, который наследует <xref:System.Web.SessionState.SessionStateStoreProviderBase> абстрактного класса. Инициализация значений для <xref:System.Web.SessionState.SessionStateStoreProviderBase> передаются реализации <xref:System.Configuration.Provider.ProviderBase.Initialize%2A> реализации метода.  
+ Не требуется реализовывать конструктор для класса, который наследует <xref:System.Web.SessionState.SessionStateStoreProviderBase> абстрактного класса. Инициализация значений в параметре <xref:System.Web.SessionState.SessionStateStoreProviderBase> передаются реализации <xref:System.Configuration.Provider.ProviderBase.Initialize%2A> реализацию метода.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -117,6 +119,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -135,18 +138,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateNewStoreData%2A> метод в начале запроса для страницы ASP.NET, во время <xref:System.Web.HttpApplication.AcquireRequestState> событий. <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateNewStoreData%2A> Метод вызывается, если:  
+ <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateNewStoreData%2A> метод в начале запроса к странице ASP.NET во время <xref:System.Web.HttpApplication.AcquireRequestState> событий. <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateNewStoreData%2A> Метод вызывается в том случае, если:  
   
--   во входящем запросе есть ИД сеанса не или  
+-   входящий запрос имеет не идентификатор сеанса, или  
   
 -   входящий запрос имеет идентификатор сеанса, но сеанс не найден в хранилище данных.  
   
- <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateNewStoreData%2A> Метод создает новый <xref:System.Web.SessionState.SessionStateStoreData> объекта с пустым <xref:System.Web.SessionState.ISessionStateItemCollection> объекта, <xref:System.Web.HttpStaticObjectsCollection> коллекции и указанным `timeout` значение. <xref:System.Web.HttpStaticObjectsCollection> Коллекции для приложения ASP.NET можно получить с помощью <xref:System.Web.SessionState.SessionStateUtility.GetSessionStaticObjects%2A> метод.  
+ <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateNewStoreData%2A> Метод создает новый <xref:System.Web.SessionState.SessionStateStoreData> объекта с пустым <xref:System.Web.SessionState.ISessionStateItemCollection> объекта, <xref:System.Web.HttpStaticObjectsCollection> коллекции и заданного `timeout` значение. <xref:System.Web.HttpStaticObjectsCollection> Коллекции для приложения ASP.NET могут быть получены с помощью <xref:System.Web.SessionState.SessionStateUtility.GetSessionStaticObjects%2A> метод.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -162,6 +165,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -181,18 +185,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateUninitializedItem%2A> Метод используется с сеансами при `cookieless` и `regenerateExpiredSessionId` атрибуты являются оба `true`. Наличие `regenerateExpiredSessionId attribute` значение `true` вызывает <xref:System.Web.SessionState.SessionStateModule> объект для создания нового <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение при просроченным <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> встретится значение.  
+ <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateUninitializedItem%2A> Метод используется с сеансами при `cookieless` и `regenerateExpiredSessionId` оба являются атрибуты `true`. Наличие `regenerateExpiredSessionId attribute` присвоено `true` вызывает <xref:System.Web.SessionState.SessionStateModule> объект, чтобы создать новый <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение после истечения срока действия <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> встретится значение.  
   
- Процесс создания нового <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значения требуется перенаправления браузера на URL-адрес, содержащий вновь созданным <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение. <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateUninitializedItem%2A> Метод вызывается во время начального запроса, содержащего просроченным <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение. После <xref:System.Web.SessionState.SessionStateModule> получает новый <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение для замены значения истекшим сроком действия, он вызывает метод <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateUninitializedItem%2A> метод, чтобы добавить неинициализированную запись в хранилище данных состояния сеанса. Затем браузер перенаправляется по URL-адресу, содержащему созданное <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение. Наличие неинициализированной записи в хранилище данных сеанса гарантирует, что перенаправленный запрос, включающий только что созданный <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение не будет по ошибке запрос просроченного сеанса и вместо этого рассматривается как новый сеанс.  
+ Процесс создания нового <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение требует перенаправления браузера на URL-адрес, который содержит только что созданный <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение. <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateUninitializedItem%2A> Метод вызывается во время начального запроса, содержащего просроченным <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение. После <xref:System.Web.SessionState.SessionStateModule> получает новый <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение для замены значения истекшим сроком действия, он вызывает метод <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateUninitializedItem%2A> метод, чтобы добавить неинициализированную запись в хранилище данных состояния сеанса. Затем браузер перенаправляется на URL-адрес, содержащий вновь созданным <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение. Наличие неинициализированной записи в хранилище данных сеанса гарантирует, что перенаправленный запрос, включающий вновь созданным <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение не будет по ошибке запроса для просроченного сеанса и вместо этого рассматривается как новый сеанс.  
   
- Неинициализированная запись в хранилище данных сеанса связана с созданным <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение и содержит только значения по умолчанию, включая дату окончания срока действия и время, а также значение, соответствующее `actionFlags` параметр <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A>и <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> методы. Неинициализированная запись в хранилище состояния сеанса должны включать `actionFlags` значением, равным <xref:System.Web.SessionState.SessionStateActions.InitializeItem> значение перечисления. Это значение передается <xref:System.Web.SessionState.SessionStateModule> объекта по <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> и <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> методов и уведомляет <xref:System.Web.SessionState.SessionStateModule> объекта, но новый текущий сеанс не инициализирована сеанса. <xref:System.Web.SessionState.SessionStateModule> Объект затем инициализировать новый сеанс и вызывать `Session_OnStart` событий.  
+ Неинициализированная запись в хранилище данных сеанса, связанного с созданным <xref:System.Web.SessionState.HttpSessionState.SessionID%2A> значение и содержит только значения по умолчанию, включая дату окончания срока действия и время и значение, соответствующее `actionFlags` параметр <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A>и <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> методы. Неинициализированная запись в хранилище состояния сеанса должен включать `actionFlags` значением, равным <xref:System.Web.SessionState.SessionStateActions.InitializeItem> значение перечисления. Это значение передается <xref:System.Web.SessionState.SessionStateModule> объекты, <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> и <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> методов и уведомляет <xref:System.Web.SessionState.SessionStateModule> объекта, но новый текущий сеанс неинициализированным сеанса. <xref:System.Web.SessionState.SessionStateModule> Объект затем инициализировать новый сеанс и вызывать `Session_OnStart` событий.  
   
- Дополнительные сведения о сеансах без поддержки файлов cookie см. в разделе <xref:System.Web.SessionState.HttpSessionState.IsCookieless%2A> свойство.  
+ Дополнительные сведения о сеансах без файлов cookie, см. в разделе <xref:System.Web.SessionState.HttpSessionState.IsCookieless%2A> свойство.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -208,6 +212,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -225,7 +230,7 @@
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -241,6 +246,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -256,12 +262,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.EndRequest%2A> метод в конце запроса для страницы ASP.NET, во время <xref:System.Web.HttpApplication.EndRequest> событий. Можно использовать <xref:System.Web.SessionState.SessionStateStoreProviderBase.EndRequest%2A> метод, чтобы выполнить очистку для каждого запроса, необходимые для конкретного поставщика хранилища состояний сеанса.  
+ <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.EndRequest%2A> метод в конце запроса к странице ASP.NET во время <xref:System.Web.HttpApplication.EndRequest> событий. Можно использовать <xref:System.Web.SessionState.SessionStateStoreProviderBase.EndRequest%2A> метод, чтобы выполнить очистку для каждого запроса, требуемую поставщиком хранилища состояния сеанса.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -277,6 +283,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -303,22 +310,22 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод в начале запроса во время <xref:System.Web.HttpApplication.AcquireRequestState> событий, когда <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибута задано значение `ReadOnly`. Если <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибута задано значение `true`, <xref:System.Web.SessionState.SessionStateModule> вместо объекта вызовы <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод.  
+ <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод в начале запроса, во время <xref:System.Web.HttpApplication.AcquireRequestState> событие, когда <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибут имеет значение `ReadOnly`. Если <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибуту присваивается `true`, <xref:System.Web.SessionState.SessionStateModule> объектов вместо этого вызывают <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод.  
   
- <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> Возвращает <xref:System.Web.SessionState.SessionStateStoreData> объект со сведениями сеанса из хранилища данных и обновляет дату истечения срока действия данных сеанса. Если элемент сеанса данные не найдены в хранилище данных <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метода задает `locked` `out` параметр `false` и возвращает `null`. В результате <xref:System.Web.SessionState.SessionStateModule> для вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateNewStoreData%2A> метод для создания нового сеанса элемента в хранилище данных.  
+ <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> Возвращает метод <xref:System.Web.SessionState.SessionStateStoreData> объекта со сведениями сеанса из хранилища данных и обновляет дату истечения срока действия данных сеанса. Если элемент сеанса данные не найдены в хранилище данных <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метода задает `locked` `out` параметр `false` и возвращает `null`. В результате <xref:System.Web.SessionState.SessionStateModule> объект для вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateNewStoreData%2A> метод для создания нового сеанса элемента в хранилище данных.  
   
- Если элемент сеанса данных находится в хранилище данных, но данные заблокирован, <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метода задает `locked` `out` параметр `true`, задает `lockAge` `out` параметр текущую дату и время за вычетом даты и время, когда элемент был заблокирован (которого извлекается из хранилища данных), задает `lockId` `out` параметр идентификатор блокировки, полученные из хранилища данных и возвращает `null`. В результате <xref:System.Web.SessionState.SessionStateModule> для вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод после половина секундный интервал, чтобы попытаться извлечь сведения об элементе сеанса.  
+ Если элемент сеанса данных находится в хранилище данных, но данные заблокирован, <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метода задает `locked` `out` параметр `true`, задает `lockAge` `out` параметр текущей даты и времени, за вычетом даты и время, когда блокировки элемента (которого извлекается из хранилища данных), задает `lockId` `out` параметр идентификатор блокировки, полученные из хранилища данных и возвращает `null`. В результате <xref:System.Web.SessionState.SessionStateModule> объект для вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод снова после интервала полсекунды попытаться получить сведения об элементе сеанса.  
   
- Если значение, `lockAge` `out` установлено значение превышает <xref:System.Web.Configuration.HttpRuntimeSection.ExecutionTimeout%2A> значение, то <xref:System.Web.SessionState.SessionStateModule> вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> снять блокировку данных элемента сеанса, а затем вызывает метод <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод снова.  
+ Если значение, `lockAge` `out` параметр имеет значение превысит <xref:System.Web.Configuration.HttpRuntimeSection.ExecutionTimeout%2A> значение, то <xref:System.Web.SessionState.SessionStateModule> вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> метод, чтобы удалить блокировку данных элемента сеанса, а затем вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод снова.  
   
- `actionFlags` Параметр используется при как `cookieless` и `regenerateExpiredSessionId` атрибуты имеют значения `true`. `actionFlags` Значение <xref:System.Web.SessionState.SessionStateActions.InitializeItem> указывает, что запись в хранилище данных сеанса, требующий инициализации нового сеанса. Неинициализированные записи в хранилище данных сеанса создаются путем вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateUninitializedItem%2A> метод. Если элемент из хранилища данных сеанса не является неинициализированным `actionFlags` параметр будет равен нулю.  
+ `actionFlags` Параметр используется при как `cookieless` и `regenerateExpiredSessionId` атрибуты имеют значения `true`. `actionFlags` Значение <xref:System.Web.SessionState.SessionStateActions.InitializeItem> указывает, что запись в хранилище данных сеанса новый сеанс, требующему инициализации. Неинициализированные записи в хранилище данных сеанса создаются путем вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateUninitializedItem%2A> метод. Если элемент из хранилища данных сеанса не является неинициализированным `actionFlags` устанавливается равным нулю.  
   
- Исполнители настраиваемое хранилище состояния сеанса, поддерживающих сеансы без файлов cookie должны задать `actionFlags` `out` параметр со значением, полученное из хранилища данных сеанса для текущего элемента. Если `actionFlags` элемента имеет значение параметра для запрошенного хранилища сеанса <xref:System.Web.SessionState.SessionStateActions.InitializeItem> значение перечисления, то <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод должен установить значение в хранилище данных после присвоения `actionFlags` `out` параметра.  
+ Исполнители пользовательское хранилище состояния сеанса, которые поддерживают сеансы без поддержки файлов cookie должны задать `actionFlags` `out` значения, возвращаемые из хранилища данных сеанса для текущего элемента. Если `actionFlags` элемента имеет значение параметра для запрошенного хранилище сеанса <xref:System.Web.SessionState.SessionStateActions.InitializeItem> значение перечисления, то <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод следует задать значение в хранилище данных после присвоения `actionFlags` `out` параметра.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -334,6 +341,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -360,18 +368,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод в начале запроса во время <xref:System.Web.HttpApplication.AcquireRequestState> событий, когда <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибута задано значение `true`, используемого по умолчанию. Если <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибута задано значение `ReadOnly`, <xref:System.Web.SessionState.SessionStateModule> вместо объекта вызовы <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод.  
+ <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод в начале запроса, во время <xref:System.Web.HttpApplication.AcquireRequestState> событие, когда <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибут имеет значение `true`, который используется по умолчанию. Если <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибуту присваивается `ReadOnly`, <xref:System.Web.SessionState.SessionStateModule> объектов вместо этого вызывают <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItem%2A> метод.  
   
- <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> Возвращает метод <xref:System.Web.SessionState.SessionStateStoreData> объекта со сведениями сеанса из хранилища данных обновляет дату истечения срока действия сохраненных данных и блокирует элемент сеанса данные в хранилище данных на время выполнения запроса. Если элемент сеанса данные не найдены в хранилище данных <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метода задает `locked` `out` параметр `false` и возвращает `null`. В результате <xref:System.Web.SessionState.SessionStateModule> для вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateNewStoreData%2A> метод для создания нового сеанса элемента в хранилище данных. Если элемент сеанса данных находится в хранилище данных, но данные заблокирован, <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метода задает `locked` `out` параметр `true`, задает `lockAge` `out` параметр текущую дату и время за вычетом даты и время, когда элемент был заблокирован (которого извлекается из хранилища данных), задает `lockId` `out` параметр идентификатор блокировки, полученные из хранилища данных и возвращает `null`. В результате <xref:System.Web.SessionState.SessionStateModule> для вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод после попытки извлечь сведения об элементе сеанса и получить блокировку на данных с интервалом полсекунды. Если значение, `lockAge` `out` установлено значение превышает <xref:System.Web.Configuration.HttpRuntimeSection.ExecutionTimeout%2A> значение, то <xref:System.Web.SessionState.SessionStateModule> вызовы <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> снять блокировку данных элемента сеанса, а затем вызывает метод <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод снова.  
+ <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> Возвращает метод <xref:System.Web.SessionState.SessionStateStoreData> со сведениями сеанса из хранилища данных, обновляет дату истечения срока действия сохраненных данных и блокирует элемент сеанса данных в хранилище данных на время запроса. Если элемент сеанса данные не найдены в хранилище данных <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метода задает `locked` `out` параметр `false` и возвращает `null`. В результате <xref:System.Web.SessionState.SessionStateModule> объект для вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateNewStoreData%2A> метод для создания нового сеанса элемента в хранилище данных. Если элемент сеанса данных находится в хранилище данных, но данные заблокирован, <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метода задает `locked` `out` параметр `true`, задает `lockAge` `out` параметр текущей даты и времени, за вычетом даты и время, когда блокировки элемента (которого извлекается из хранилища данных), задает `lockId` `out` параметр идентификатор блокировки, полученные из хранилища данных и возвращает `null`. В результате <xref:System.Web.SessionState.SessionStateModule> объект для вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод снова после интервала полсекунды попытаться извлечь сведения об элементе сеанса и заблокировать данные. Если значение, `lockAge` `out` параметр имеет значение превышает <xref:System.Web.Configuration.HttpRuntimeSection.ExecutionTimeout%2A> значение, то <xref:System.Web.SessionState.SessionStateModule> вызовы <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> метод, чтобы удалить блокировку данных элемента сеанса, а затем вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод снова.  
   
- `actionFlags` Параметр используется при `cookieless` и `regenerateExpiredSessionId` атрибуты имеют значения `true`. `actionFlags` Значение <xref:System.Web.SessionState.SessionStateActions.InitializeItem> указывает, что запись в хранилище данных сеанса, требующий инициализации нового сеанса. Неинициализированные записи в хранилище данных сеанса создаются путем вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateUninitializedItem%2A> метод. Если элемент из хранилища данных сеанса не является неинициализированным `actionFlags` параметр будет равен нулю.  
+ `actionFlags` Параметр используется при `cookieless` и `regenerateExpiredSessionId` атрибуты имеют оба значения `true`. `actionFlags` Значение <xref:System.Web.SessionState.SessionStateActions.InitializeItem> указывает, что запись в хранилище данных сеанса новый сеанс, требующему инициализации. Неинициализированные записи в хранилище данных сеанса создаются путем вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.CreateUninitializedItem%2A> метод. Если элемент из хранилища данных сеанса не является неинициализированным `actionFlags` устанавливается равным нулю.  
   
- Исполнители настраиваемое хранилище состояния сеанса, поддерживающих сеансы без файлов cookie должны задать `actionFlags` `out` параметр со значением, полученное из хранилища данных сеанса для текущего элемента. Если `actionFlags` элемента имеет значение параметра для запрошенного хранилища сеанса <xref:System.Web.SessionState.SessionStateActions.InitializeItem> значение перечисления, то <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод должен установить значение в хранилище данных после присвоения `actionFlags` `out` параметра.  
+ Исполнители пользовательское хранилище состояния сеанса, которые поддерживают сеансы без поддержки файлов cookie должны задать `actionFlags` `out` значения, возвращаемые из хранилища данных сеанса для текущего элемента. Если `actionFlags` элемента имеет значение параметра для запрошенного хранилище сеанса <xref:System.Web.SessionState.SessionStateActions.InitializeItem> значение перечисления, то <xref:System.Web.SessionState.SessionStateStoreProviderBase.GetItemExclusive%2A> метод следует задать значение в хранилище данных после присвоения `actionFlags` `out` параметра.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -387,6 +395,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -402,12 +411,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.InitializeRequest%2A> метод перед вызовом любого другого <xref:System.Web.SessionState.SessionStateStoreProviderBase> метод. Можно использовать <xref:System.Web.SessionState.SessionStateStoreProviderBase.InitializeRequest%2A> метод для выполнения любой инициализации для каждого запроса, необходимые для конкретного поставщика хранилища состояний сеанса.  
+ <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.InitializeRequest%2A> метод перед вызовом любого другого <xref:System.Web.SessionState.SessionStateStoreProviderBase> метод. Можно использовать <xref:System.Web.SessionState.SessionStateStoreProviderBase.InitializeRequest%2A> метод для выполнения любой инициализации по запросу, необходимых поставщику хранилища состояния сеанса.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -423,6 +432,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -442,16 +452,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> чтобы обновить дату истечения срока действия и освободить блокировку элемента в хранилище данных сеанса. Она вызывается в конце запроса, во время <xref:System.Web.HttpApplication.ReleaseRequestState> события, если значения сеанса не изменяются. Если были изменены значения сеанса, <xref:System.Web.SessionState.SessionStateModule> вместо объекта вызовы <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метод.  
+ <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> чтобы обновить дату истечения срока действия и освободить блокировку элемента в хранилище данных сеанса. Она вызывается в конце запроса, во время <xref:System.Web.HttpApplication.ReleaseRequestState> событие, если значения сеанса не изменились. Если были изменены значения сеанса, <xref:System.Web.SessionState.SessionStateModule> объектов вместо этого вызывают <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метод.  
   
- <xref:System.Web.SessionState.SessionStateModule> Объект также вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> метод при блокировку элемента в хранилище данных сеанса превысило <xref:System.Web.Configuration.HttpRuntimeSection.ExecutionTimeout%2A> значение. Дополнительные сведения о блокировке и подробности о идентификатор блокировки, в разделе «Блокировки сеанса хранилища данных» <xref:System.Web.SessionState.SessionStateStoreProviderBase> Общие сведения о классе.  
+ <xref:System.Web.SessionState.SessionStateModule> Объекта также вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> метод при блокировку элемента в хранилище данных сеанса превысил <xref:System.Web.Configuration.HttpRuntimeSection.ExecutionTimeout%2A> значение. Дополнительные сведения о блокировках и сведения об идентификаторе блокировки, см. в разделе «Блокировки сеанса Store данных» в <xref:System.Web.SessionState.SessionStateStoreProviderBase> Общие сведения о классе.  
   
- <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> Метод только удаление блокировки с элемента в хранилище данных сеанса для текущего приложения, которое соответствует указанный сеанс `id` и `lockId` значения. Если `lockId` не совпадает с идентификатором в хранилище данных <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> метод не выполняет никаких действий.  
+ <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> Метод только снимает блокировку элемента в хранилище данных сеанса для текущего приложения, соответствующий предоставленный сеанс `id` и `lockId` значения. Если `lockId` совпадает с идентификатором в хранилище данных <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> метод не выполняет никаких действий.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -467,6 +477,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -488,12 +499,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.RemoveItem%2A> метод в конце запроса, во время <xref:System.Web.HttpApplication.ReleaseRequestState> событий для удаления данных для элемента сеанса из хранилища данных сеанса, если <xref:System.Web.SessionState.HttpSessionState.Abandon%2A> был вызван метод. Только данные сеанса для текущего приложения, соответствующий сеанс предоставленного `id` и `lockId` значения удалены. Дополнительные сведения о блокировке и подробности о идентификатор блокировки, в разделе «Блокировки сеанса хранилища данных» <xref:System.Web.SessionState.SessionStateStoreProviderBase> Общие сведения о классе.  
+ <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.RemoveItem%2A> метод в конце запроса, во время <xref:System.Web.HttpApplication.ReleaseRequestState> событий, чтобы удалить данные для элемент сеанса из хранилища данных сеанса, если <xref:System.Web.SessionState.HttpSessionState.Abandon%2A> был вызван метод. Только данные сеанса для текущего приложения, соответствующий предоставленный сеанс `id` и `lockId` значения удалены. Дополнительные сведения о блокировках и сведения об идентификаторе блокировки, см. в разделе «Блокировки сеанса Store данных» в <xref:System.Web.SessionState.SessionStateStoreProviderBase> Общие сведения о классе.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -509,6 +520,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -526,18 +538,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.ResetItemTimeout%2A> метод для обновления Дата окончания срока действия и время сеанса до текущей даты и времени, а также сеанс <xref:System.Web.SessionState.HttpSessionState.Timeout%2A> значения при любом:  
+ <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.ResetItemTimeout%2A> метода, чтобы обновить дату окончания срока действия и время сеанса для текущей даты и времени, а также сеанс <xref:System.Web.SessionState.HttpSessionState.Timeout%2A> значения при любом:  
   
 -   <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибут `true`, или  
   
--   запрос не выдавало <xref:System.Web.HttpApplication.AcquireRequestState> и <xref:System.Web.HttpApplication.ReleaseRequestState> событий из-за ошибки.  
+-   запрос не выдавал <xref:System.Web.HttpApplication.AcquireRequestState> и <xref:System.Web.HttpApplication.ReleaseRequestState> события, так как произошла ошибка.  
   
- При запросе страницы ASP.NET и <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибута задано значение `false`, <xref:System.Web.SessionState.SessionStateStoreProviderBase.ResetItemTimeout%2A> метод по-прежнему вызывается для обновления, срок действия и время данных в хранилище данных сеанса.  
+ При запросе страницы ASP.NET и <xref:System.Web.Configuration.PagesSection.EnableSessionState%2A> атрибуту присваивается `false`, <xref:System.Web.SessionState.SessionStateStoreProviderBase.ResetItemTimeout%2A> Обновить дату окончания срока действия и время данных в хранилище данных сеанса по-прежнему вызывается метод.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -553,6 +565,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -576,16 +589,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метод в конце запроса, во время <xref:System.Web.HttpApplication.ReleaseRequestState> событий для текущего элемента из сеанса данные вставляются в хранилище данных или обновлять существующие данные элемента сеанса в хранилище данных текущими значениями для обновления срока действия для элемента, а также для снятия блокировки данных. Только данные сеанса для текущего приложения, соответствующий сеанс предоставленного `id` и `lockId` значения обновлены. Дополнительные сведения о блокировках см. в разделе «Блокировки хранилища данных сеанса» в <xref:System.Web.SessionState.SessionStateStoreProviderBase> Общие сведения о классе.  
+ <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метод в конце запроса, во время <xref:System.Web.HttpApplication.ReleaseRequestState> событий, вставить информацию о текущем элементе сеанса в хранилище данных или обновить сведения о существующем элементе сеанса в хранилище данных с текущего значения Чтобы обновить время окончания срока действия элемента и для снятия блокировки данных. Только данные сеанса для текущего приложения, соответствующий предоставленный сеанс `id` и `lockId` значения обновляется. Дополнительные сведения о блокировках см. в разделе «Блокировки данных Store сеанса» в <xref:System.Web.SessionState.SessionStateStoreProviderBase> Общие сведения о классе.  
   
  Если не были изменены значения сеанса для текущего запроса, <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метод не вызывается. Вместо этого <xref:System.Web.SessionState.SessionStateStoreProviderBase.ReleaseItemExclusive%2A> вызывается метод.  
   
- Если <xref:System.Web.SessionState.HttpSessionState.Abandon%2A> был вызван метод <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метод не вызывается. Вместо этого <xref:System.Web.SessionState.SessionStateModule> вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.RemoveItem%2A> метод для удаления сеанса элемента данных из источника данных.  
+ Если <xref:System.Web.SessionState.HttpSessionState.Abandon%2A> будет вызван метод <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetAndReleaseItemExclusive%2A> метод не вызывается. Вместо этого <xref:System.Web.SessionState.SessionStateModule> вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.RemoveItem%2A> метод для удаления данных элемент сеанса из источника данных.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
@@ -601,6 +614,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -617,14 +631,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetItemExpireCallback%2A> метод при инициализации модуля для определения ли вызовы `Session_OnEnd` событий поддерживаются <xref:System.Web.SessionState.SessionStateStoreProviderBase> реализацию и связывания <xref:System.Web.SessionState.SessionStateItemExpireCallback> делегат со `Session_OnEnd` событий.  
+ <xref:System.Web.SessionState.SessionStateModule> Вызывает <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetItemExpireCallback%2A> метод при инициализации модуля для определения ли вызовы `Session_OnEnd` событий поддерживаются <xref:System.Web.SessionState.SessionStateStoreProviderBase> реализации и свяжите <xref:System.Web.SessionState.SessionStateItemExpireCallback> делегат со `Session_OnEnd` событий.  
   
- Следует использовать при реализации поставщиков хранилища пользовательских состояний сеанса <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetItemExpireCallback%2A> метод для информирования <xref:System.Web.SessionState.SessionStateModule> объекта ли вызовы `Session_OnEnd` событий поддерживаются и задать локальную ссылку <xref:System.Web.SessionState.SessionStateItemExpireCallback> делегата, предоставляемые `expireCallback` параметра. Пользовательская реализация необходимо решить, когда локальный <xref:System.Web.SessionState.SessionStateItemExpireCallback> делегат будет вызван. Например, можно вызывать при вызове делегата <xref:System.Web.SessionState.SessionStateStoreProviderBase.RemoveItem%2A> метод, который вызывается, когда сеанс будет сброшен.  
+ Пользовательское хранилище состояния сеанса поставщика следует использовать <xref:System.Web.SessionState.SessionStateStoreProviderBase.SetItemExpireCallback%2A> метод для информирования <xref:System.Web.SessionState.SessionStateModule> объект ли вызовы `Session_OnEnd` событий поддерживаются и установлена локальная ссылка в <xref:System.Web.SessionState.SessionStateItemExpireCallback> делегат, предоставляемый `expireCallback` параметра. Пользовательская реализация необходимо решить, когда локальный <xref:System.Web.SessionState.SessionStateItemExpireCallback> делегат будет вызван. Например, делегат может вызываться во время вызова <xref:System.Web.SessionState.SessionStateStoreProviderBase.RemoveItem%2A> метод, который вызывается, когда завершается сеанс.  
   
    
   
 ## Examples  
- Пример реализации поставщика хранилища состояния сеанса см. в разделе [поставщика хранилища состояний сеанса](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
+ Пример реализации поставщика хранилища состояния сеанса, см. в разделе [реализация поставщика состояния сеанса Store](http://msdn.microsoft.com/library/baadfec5-c881-468a-9681-7d8796b05a66).  
   
  ]]></format>
         </remarks>
