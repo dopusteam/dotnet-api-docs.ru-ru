@@ -1,11 +1,11 @@
 <Type Name="EncoderFallbackBuffer" FullName="System.Text.EncoderFallbackBuffer">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="0b4058ee79c75eee473ca4b7373c36ade4ead876" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="a1db99dfdff0b87f276d144f15d72d2729b0e691" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36407780" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37548803" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class EncoderFallbackBuffer" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit EncoderFallbackBuffer extends System.Object" />
@@ -19,6 +19,7 @@
   </AssemblyInfo>
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -41,31 +42,31 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Кодирование определяет сопоставление между символом Юникода и закодированную последовательность байтов. Операции кодирования, преобразующее входной символ в выходную последовательность байтов, не выполняется, если сопоставление не определено для конкретного символа.  
+ Кодирование определяет сопоставление между символ Юникода и закодированную последовательность байтов. Операции кодирования, преобразующее входной символ в выходную последовательность байтов, завершается неудачей, если сопоставление не определено для конкретного символа.  
   
- .NET Framework предоставляет механизм обработки ошибок, называемый резервным вариантом, если преобразование выполнить невозможно. Все обработчики резервной кодировщика необходимо реализовать следующие:  
+ Платформа .NET Framework предоставляет механизм обработки ошибок, называемый резервным вариантом, если преобразование не может быть выполнено. Все обработчики резервный кодировщик должен реализовывать следующие:  
   
--   Кодировщик отката, который представлен классом производным от <xref:System.Text.EncoderFallback> класса.  
+-   Кодировщик отката, представленный класс производным от <xref:System.Text.EncoderFallback> класса.  
   
--   Буфер резерва кодировщика, представленный объектом типа, производного от <xref:System.Text.EncoderFallbackBuffer> класс, который может возвращать строку в операцию преобразования.  
+-   Буфер резерва кодировщика, который представляется типа, производного от <xref:System.Text.EncoderFallbackBuffer> класс, который может возвращать строку в операцию преобразования.  
   
- В случае ошибки можно использовать три стратегии обработки ошибок преобразования:  
+ В случае ошибки можно использовать три стратегии для обработки ошибки преобразования:  
   
--   Наилучшее сопоставление. Буфер резерва кодировщика может возвращать строку, представляющую приближено входной символ. Платформа .NET Framework не предоставляет открытый наилучшего <xref:System.Text.EncoderFallbackBuffer> реализации.  
+-   Наилучшее сопоставление. Буфер резерва кодировщика может возвращать строку, представляющую приближенное к введенный символ. .NET Framework не предоставляет открытый наилучшего <xref:System.Text.EncoderFallbackBuffer> реализации.  
   
--   Замена. Буфер резерва кодировщика можно вернуть строку, таких как знак вопроса ("?»), которое указывает, что символ не удается закодировать. В платформе .NET Framework <xref:System.Text.EncoderReplacementFallback> и <xref:System.Text.EncoderReplacementFallbackBuffer> классы предоставляют реализацию резервный буфер открытый замены. Конструктор <xref:System.Text.EncoderReplacementFallback> позволяет определить строку замены.  
+-   Замена. Буфер резерва кодировщика можно вернуть строку, таких как знак вопроса ("?»), которое указывает, что символ не может быть закодирован. В .NET Framework <xref:System.Text.EncoderReplacementFallback> и <xref:System.Text.EncoderReplacementFallbackBuffer> классы предоставляют реализацию резервный буфер открытый замены. Конструктор <xref:System.Text.EncoderReplacementFallback> класс позволяет определить строку замены.  
   
--   Исключение. <xref:System.Text.EncoderFallbackBuffer> Реализация вызывает исключение, которое указывает, что символ не удается закодировать и завершает операции кодирования. В этом случае необходимо предоставить резервному обработчику <xref:System.Text.EncoderFallbackBuffer> реализацию, несмотря на то, что он не возвращает строки в кодировщик. В платформе .NET Framework <xref:System.Text.EncoderExceptionFallback> и <xref:System.Text.EncoderExceptionFallbackBuffer> классы предоставляют реализацию резервной стратегии исключения открытый, которой создается <xref:System.Text.EncoderFallbackException> когда символ не может быть закодирован.  
+-   Исключение. <xref:System.Text.EncoderFallbackBuffer> Реализация создает исключение, которое указывает, что символ не может быть закодирован и завершает операцию кодирования. В этом случае необходимо предоставить резервному обработчику <xref:System.Text.EncoderFallbackBuffer> реализации, несмотря на то, что он не возвращает строку в кодировщик. В .NET Framework <xref:System.Text.EncoderExceptionFallback> и <xref:System.Text.EncoderExceptionFallbackBuffer> классы предоставляют реализацию резервной стратегии открытого исключения, который создает исключение <xref:System.Text.EncoderFallbackException> когда символ не может быть закодирован.  
   
- Буфер, в <xref:System.Text.EncoderFallbackBuffer> реализации представляет всю строку, возвращаемых в ответ на кодировщик кодировщик резервной. Как правило реализации также включают сведения о состоянии, например индекса следующего символа, вернуться к кодировщик и количество оставшихся символов, должны быть возвращены. Поскольку <xref:System.Text.EncoderFallbackBuffer> — это абстрактный класс, требуется производным классам реализовывать по крайней мере следующие члены:  
+ Буфера в <xref:System.Text.EncoderFallbackBuffer> реализация представляет всю строку, возвращаемых в ответ на кодировщик кодировщику резервной. Как правило реализации также включают сведения о состоянии, такие как индекс следующего символа, чтобы вернуться к кодировщик и количество оставшихся символов, должны быть возвращены. Поскольку <xref:System.Text.EncoderFallbackBuffer> является абстрактным классом, производным классам реализовать следующие члены как минимум требуется:  
   
--   Перегруженный <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> метод, который вызывается кодировщиком, когда он не может закодировать символ. Кодировщик передает два блока данных в резервном буфере реализацию: символа или суррогатной пары, который не удалось закодировать и индекс символа во входных данных. В обработчике отката исключений кодировщика исключение в этом методе. В противном случае метод возвращает `true` если оно предоставляет переход на резервный ресурс или `false` Если это не так.  
+-   Перегруженный <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> метод, который вызывается кодировщиком, когда он не может закодировать знак. Кодировщик передает два блока данных в резервном буфере реализацию: символа или суррогатной пары, который не удалось закодировать и индекс символа во входных данных. В обработчике отката исключение кодировщика возникает исключение в этом методе. В противном случае метод возвращает `true` Если инструмент Переход на резервный ресурс или `false` Если это не так.  
   
--   <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> Метод, который повторно вызывается кодировщиком, если <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> возвращает `true`. При последующих вызовах обработчик должен возвращать каждый символ в буфере. Вернув все символы, он должен возвращать U + 0000. Обработчик исключений всегда возвращает U + 0000.  
+-   <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> Метод, который повторно вызывается кодировщиком, если <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> возвращает метод `true`. При последующих вызовах обработчик должен возвращать каждый символ в буфере. Когда он вернулся все символы, она должна возвращать U + 0000. Обработчик исключений всегда возвращает U + 0000.  
   
--   <xref:System.Text.EncoderFallbackBuffer.MovePrevious%2A> Метод, который пытается переместить указатель в предыдущее расположение в буфере и указывает, успешно ли выполнено перемещение. Всегда возвращает обработчик исключений `false`.  
+-   <xref:System.Text.EncoderFallbackBuffer.MovePrevious%2A> Метод, который пытается получить указатель на предыдущей позиции в буфере и указывает, является ли перемещение прошло успешно. Всегда возвращает обработчик исключений `false`.  
   
--   <xref:System.Text.EncoderFallbackBuffer.Remaining%2A> Свойство, которое указывает количество оставшихся символов, возвращаемых в кодировщик. Обработчик исключений резервной всегда возвращает ноль.  
+-   <xref:System.Text.EncoderFallbackBuffer.Remaining%2A> Свойство, которое указывает количество оставшихся знаков возврата кодировщика. Обработчик исключений резервный всегда возвращает ноль.  
   
  ]]></format>
     </remarks>
@@ -85,6 +86,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -126,6 +128,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -155,7 +158,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Text.Encoding.GetBytes%2A?displayProperty=nameWithType> И <xref:System.Text.Encoder.Convert%2A?displayProperty=nameWithType> вызов методов <xref:System.Text.DecoderFallbackBuffer.Fallback%28System.Byte%5B%5D%2CSystem.Int32%29> при обнаружении неизвестного входного символа, который не может быть закодирован. Возвращаемое значение `true` указывает, что резервный буфер может обрабатывать входного символа, вследствие чего вызывающий метод, вызываемый <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> метод для получения каждого символа из резервного буфера. Так как он не обрабатывает отдельных символов <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> метод в резервный обработчик исключений вызывает исключение.  
+ <xref:System.Text.Encoding.GetBytes%2A?displayProperty=nameWithType> И <xref:System.Text.Encoder.Convert%2A?displayProperty=nameWithType> вызов методов <xref:System.Text.DecoderFallbackBuffer.Fallback%28System.Byte%5B%5D%2CSystem.Int32%29> при обнаружении неизвестного входного символа, который не может быть закодирован. Возвращаемое значение, равное `true` указывает, что резервный буфер может обработать введенный символ, в результате чего вызывающий метод для вызова <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> метод для получения каждого символа из резервного буфера. Так как в нем не обрабатываются отдельные символы, <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> метод в резервный обработчик исключений вызывает исключение.  
   
  ]]></format>
         </remarks>
@@ -175,6 +178,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -206,7 +210,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Text.Encoding.GetBytes%2A?displayProperty=nameWithType> И <xref:System.Text.Encoder.Convert%2A?displayProperty=nameWithType> вызов методов <xref:System.Text.EncoderFallbackBuffer.Fallback%28System.Char%2CSystem.Char%2CSystem.Int32%29> при обнаружении суррогатной пары во входные данные. Возвращаемое значение `true` указывает, что резервный буфер может обрабатывать суррогатной пары, что приведет к тому вызывающий метод, вызываемый <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> метод для получения каждого символа из резервного буфера.  Так как он не обрабатывает отдельных символов <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> метод в резервный обработчик исключений вызывает исключение.  
+ <xref:System.Text.Encoding.GetBytes%2A?displayProperty=nameWithType> И <xref:System.Text.Encoder.Convert%2A?displayProperty=nameWithType> вызов методов <xref:System.Text.EncoderFallbackBuffer.Fallback%28System.Char%2CSystem.Char%2CSystem.Int32%29> при обнаружении суррогатной пары во входные данные. Возвращаемое значение, равное `true` указывает, что резервный буфер может обработать суррогатной парой, в результате чего вызывающий метод для вызова <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> метод для получения каждого символа из резервного буфера.  Так как в нем не обрабатываются отдельные символы, <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> метод в резервный обработчик исключений вызывает исключение.  
   
  ]]></format>
         </remarks>
@@ -226,6 +230,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -249,9 +254,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызывает операции кодирования <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> метод, если операция обнаруживает неизвестный символ или суррогатную пару во входных данных. Например, в случае замены задания резервной стратегии, если <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> возвращает метод `true`, замещающая строка существует, можно закодировать вместо неизвестных входных данных. Вызов операции кодирования <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> метода несколько раз и получает один символ замены строки одновременно. Если все знаки в резервном буфере были возвращены в кодировщик <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> метод должен возвращать U + 0000.  
+ Вызывает операции кодирования <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> метод, если операция обнаруживает неизвестный символ или суррогатную пару во входных данных. Например, в случае замены задания резервной стратегии, если <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> возвращает метод `true`, существует замещающую строку, которая может быть закодирован вместо неизвестные входные данные. Вызов операции кодирования <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> метод несколько раз и получает строки замены на один символ за раз. Если все символы в резервном буфере были возвращены в кодировщик <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> метод должен возвращать U + 0000.  
   
- Для обработчика исключений резервной <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> метод должен возвращать U + 0000.  
+ Для возврата обработчик исключений <xref:System.Text.EncoderFallbackBuffer.GetNextChar%2A> метод должен возвращать U + 0000.  
   
  ]]></format>
         </remarks>
@@ -271,6 +276,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -314,6 +320,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -338,7 +345,7 @@
 ## Remarks  
  <xref:System.Text.EncoderFallbackBuffer.Fallback%2A> Возвращает `true` Если <xref:System.Text.EncoderFallbackBuffer.Remaining%2A> имеет ненулевое значение.  
   
- Для обработчика исключений резервной <xref:System.Text.DecoderFallbackBuffer.Remaining%2A> метод должен возвращать нуль.  
+ Для возврата обработчик исключений <xref:System.Text.DecoderFallbackBuffer.Remaining%2A> метод должен возвращать нуль.  
   
  ]]></format>
         </remarks>
@@ -358,6 +365,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -378,7 +386,7 @@
         <summary>Инициализирует все данные и сведения о состоянии, относящиеся к этому резервному буферу.</summary>
         <remarks>To be added.</remarks>
         <block subset="none" type="overrides">
-          <para>После вызова метода <see cref="M:System.Text.EncoderFallbackBuffer.Reset" /> метода <see cref="P:System.Text.EncoderFallbackBuffer.Remaining" /> свойство должно возвращать 0, <see cref="M:System.Text.EncoderFallbackBuffer.GetNextChar" /> метод должен возвращать U + 0000 и <see cref="M:System.Text.EncoderFallbackBuffer.MovePrevious" /> метод должен возвращать <see langword="false" />.</para>
+          <para>После вызова метода <see cref="M:System.Text.EncoderFallbackBuffer.Reset" /> метод, <see cref="P:System.Text.EncoderFallbackBuffer.Remaining" /> свойство должно возвращать 0, <see cref="M:System.Text.EncoderFallbackBuffer.GetNextChar" /> метод должен возвращать U + 0000 и <see cref="M:System.Text.EncoderFallbackBuffer.MovePrevious" /> метод должен возвращать <see langword="false" />.</para>
         </block>
       </Docs>
     </Member>

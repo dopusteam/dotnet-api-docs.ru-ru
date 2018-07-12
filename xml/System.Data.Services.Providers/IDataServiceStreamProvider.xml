@@ -1,11 +1,11 @@
 <Type Name="IDataServiceStreamProvider" FullName="System.Data.Services.Providers.IDataServiceStreamProvider">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ab2ae9df2316b9012716974f78f5541a8be83b7d" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="bd18c2476f04f6d4ed79ae806190a7b929c7c78a" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36683510" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37673629" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IDataServiceStreamProvider" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IDataServiceStreamProvider" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type IDataServiceStreamProvider = interface" />
   <AssemblyInfo>
     <AssemblyName>System.Data.Services</AssemblyName>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Interfaces />
@@ -46,6 +47,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Services</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -82,6 +84,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Services</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -110,7 +113,7 @@
   
 -   `false` -Если eTag представляет Заголовок If-None-Match.  
   
--   `null` -Когда Заголовок If-Match или If-None-Match не присутствует в запросе.  
+-   `null` — Если в запросе отсутствует заголовок If-Match или If-None-Match.  
   
  Метод <xref:System.Data.Services.Providers.IDataServiceStreamProvider.GetReadStream%2A> вызывается средой выполнения службы данных для получения двоичного потока, который служба данных возвращает клиенту, когда клиент запрашивает ресурс мультимедиа для указанного `entity`, который является ссылкой на носитель. Дополнительные сведения см. в разделе [потокового поставщика](~/docs/framework/data/wcf/streaming-provider-wcf-data-services.md).  
   
@@ -128,6 +131,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Services</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -166,6 +170,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Services</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -200,6 +205,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Services</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -236,6 +242,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Services</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -260,19 +267,19 @@
 ## Remarks  
  Метод <xref:System.Data.Services.Providers.IDataServiceStreamProvider.GetWriteStream%2A> вызывается средой выполнения службы данных при выполнении операции вставки или обновления ресурса мультимедиа, связанного с `entity`.  
   
- <xref:System.Data.Services.Providers.IDataServiceStreamProvider.GetWriteStream%2A> Метод не должен возвращать `null` значение.  
+ <xref:System.Data.Services.Providers.IDataServiceStreamProvider.GetWriteStream%2A> Метод никогда не должен возвращать `null` значение.  
   
- Значение `operationContext` передается в качестве аргумента, так как реализатору этого метода интерфейса потребуется информация из заголовков HTTP-запроса для создания потока записи. При реализации этого метода следует по мере необходимости выполнять проверки параллелизма. Если заголовок запроса If-Match или If-None-Match был включен в запрос `etag` не будет `null`. В этом случае метод должен выполнять соответствующую проверку параллелизма. Если проверка параллелизма пройдена успешно, то этот метод должен вернуть запрошенный поток. Если проверка параллелизма завершилась ошибкой, то необходимо вызвать метод <xref:System.Data.Services.DataServiceException> с соответствующим кодом HTTP-ответа.  
+ Значение `operationContext` передается в качестве аргумента, так как реализатору этого метода интерфейса потребуется информация из заголовков HTTP-запроса для создания потока записи. При реализации этого метода следует по мере необходимости выполнять проверки параллелизма. Если заголовок запроса If-Match или If-None-Match включен в запрос, `etag` не будет `null`. В этом случае метод должен выполнять соответствующую проверку параллелизма. Если проверка параллелизма пройдена успешно, то этот метод должен вернуть запрошенный поток. Если проверка параллелизма завершилась ошибкой, то необходимо вызвать метод <xref:System.Data.Services.DataServiceException> с соответствующим кодом HTTP-ответа.  
   
  `eTag` — это значение заголовка If-Match или If-None-Match.  
   
- Следующие значения для `checkETagForEquality` поддерживаются:  
+ Следующие значения `checkETagForEquality` поддерживаются:  
   
 -   `true` -Если eTag представляет Заголовок If-Match.  
   
 -   `false` -Если eTag представляет Заголовок If-None-Match.  
   
--   `null` -Когда Заголовок If-Match или If-None-Match не присутствует в запросе.  
+-   `null` — Если в запросе отсутствует заголовок If-Match или If-None-Match.  
   
  При реализации этого метода нельзя устанавливать заголовки HTTP-ответа Content-Type или eTag, так как они устанавливаются средой выполнения службы данных. Все остальные заголовки HTTP-ответа можно устанавливать через переданный `operationContext`.  
   
@@ -302,6 +309,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Services</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -343,6 +351,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data.Services</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>

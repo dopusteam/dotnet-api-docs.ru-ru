@@ -1,11 +1,11 @@
 <Type Name="ClientFormsIdentity" FullName="System.Web.ClientServices.ClientFormsIdentity">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="b3f0b0d839caa85bbe26af3561725579fa017283" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="f6dacb7a050b755bd275e866b6ef026770c73b4c" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36604662" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37608280" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class ClientFormsIdentity : IDisposable, System.Security.Principal.IIdentity" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit ClientFormsIdentity extends System.Object implements class System.IDisposable, class System.Security.Principal.IIdentity" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type ClientFormsIdentity = class&#xA;    interface IIdentity&#xA;    interface IDisposable" />
   <AssemblyInfo>
     <AssemblyName>System.Web.Extensions</AssemblyName>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -34,19 +35,19 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Функциональность служб клиентских приложений использует этот класс для представления прошедшего проверку подлинности пользователя. При настройке приложения для использования проверки подлинности службы и формы приложения клиента, вы можете проверять подлинность пользователя путем вызова `static` <xref:System.Web.Security.Membership.ValidateUser%2A?displayProperty=nameWithType> метод. После проверки подлинности, можно получить ссылку на текущий <xref:System.Web.ClientServices.ClientFormsIdentity> экземпляра <xref:System.Security.Principal.IPrincipal.Identity%2A> свойство <xref:System.Security.Principal.IPrincipal> извлечь с помощью `static` <xref:System.Threading.Thread.CurrentPrincipal%2A?displayProperty=nameWithType> свойство. Дополнительные сведения см. в разделе [Службы клиентских приложений](~/docs/framework/common-client-technologies/client-application-services.md).  
+ Компонент служб клиентских приложений использует этот класс для представления пользователя, прошедшего проверку. При настройке приложения для использования проверки подлинности службы и формы приложения клиента вы проверяет подлинность пользователя, вызвав `static` <xref:System.Web.Security.Membership.ValidateUser%2A?displayProperty=nameWithType> метод. После проверки подлинности, можно получить ссылку на текущий <xref:System.Web.ClientServices.ClientFormsIdentity> экземпляра через <xref:System.Security.Principal.IPrincipal.Identity%2A> свойство <xref:System.Security.Principal.IPrincipal> извлечь с помощью `static` <xref:System.Threading.Thread.CurrentPrincipal%2A?displayProperty=nameWithType> свойство. Дополнительные сведения см. в разделе [Службы клиентских приложений](~/docs/framework/common-client-technologies/client-application-services.md).  
   
- Обычно доступ к <xref:System.Web.ClientServices.ClientFormsIdentity> объекта в виде <xref:System.Security.Principal.IIdentity> ссылку, чтобы исключить прямой зависимости от этого класса. Можно определить, является ли пользователь проверку подлинности, проверив <xref:System.Security.Principal.IIdentity.IsAuthenticated%2A?displayProperty=nameWithType> свойство удостоверения. Тем не менее пользователь может пройти проверку подлинности для Windows, но не для служб клиентских приложений. Чтобы определить, является ли пользователь проверку подлинности для служб клиентских приложений, вы должны также убедитесь, что <xref:System.Security.Principal.IIdentity.AuthenticationType%2A?displayProperty=nameWithType> свойство имеет значение «ClientForms».  
+ Обычно доступ к <xref:System.Web.ClientServices.ClientFormsIdentity> объекта в виде <xref:System.Security.Principal.IIdentity> ссылку, чтобы исключить прямой зависимости от этого класса. Можно определить, прошел ли пользователь, проверив <xref:System.Security.Principal.IIdentity.IsAuthenticated%2A?displayProperty=nameWithType> свойство удостоверения. Тем не менее пользователь может пройти проверку подлинности для Windows, но не для служб клиентских приложений. Чтобы определить, прошел ли пользователь служб клиентских приложений, вы должны также убедитесь, что <xref:System.Security.Principal.IIdentity.AuthenticationType%2A?displayProperty=nameWithType> свойство имеет значение «ClientForms».  
   
- Необходимо использовать явную <xref:System.Web.ClientServices.ClientFormsIdentity> ссылки для вызова <xref:System.Web.ClientServices.ClientFormsIdentity.RevalidateUser%2A> метод, который не был задан с <xref:System.Security.Principal.IIdentity> интерфейса.  
+ Необходимо использовать явный <xref:System.Web.ClientServices.ClientFormsIdentity> ссылку для вызова <xref:System.Web.ClientServices.ClientFormsIdentity.RevalidateUser%2A> метод, который не определяется <xref:System.Security.Principal.IIdentity> интерфейс.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как использовать этот класс для автоматической повторной проверки пользователя при выходе приложения из состояния автономной работы. В этом примере <xref:System.Windows.Forms.CheckBox.CheckedChanged> обработчик событий обновляет автономное состояние, в соответствии со значением "флажок". Если пользователь устанавливает приложение в оперативный режим, обработчик событий пытается повторно проверить подлинность пользователя, путем вызова <xref:System.Web.ClientServices.ClientFormsIdentity.RevalidateUser%2A> метод. Тем не менее если сервер проверки подлинности недоступен, обработчик события возвращает приложение в автономный режим.  
+ В следующем примере кода показано, как этот класс используется для автоматической повторную проверку пользователя, когда приложение выходит из автономного состояния. В этом примере <xref:System.Windows.Forms.CheckBox.CheckedChanged> обработчик событий обновляет состояние в соответствии с значением "флажок". Если пользователь устанавливает приложение в оперативный режим, обработчик событий пытается повторно проверить пользователя, вызвав <xref:System.Web.ClientServices.ClientFormsIdentity.RevalidateUser%2A> метод. Тем не менее если сервер проверки подлинности недоступен, обработчик событий возвращает приложение в автономный режим.  
   
 > [!NOTE]
->  Метод <xref:System.Web.ClientServices.ClientFormsIdentity.RevalidateUser%2A> предназначен исключительно для удобства. Поскольку у него отсутствуют возвращаемые значения, с его помощью нельзя выявлять ошибки при повторных проверках подлинности. Ошибка проверки подлинности может возникнуть, например, при изменении учетных данных пользователя на сервере. В этом случае вы можете использовать код, с помощью которого после ошибок вызова служб будет выполняться явная проверка подлинности пользователей. Дополнительные сведения см. в разделе веб-доступ к параметрам раздела [Пошаговое руководство: использование служб клиентских приложений](~/docs/framework/common-client-technologies/walkthrough-using-client-application-services.md).  
+>  Метод <xref:System.Web.ClientServices.ClientFormsIdentity.RevalidateUser%2A> предназначен исключительно для удобства. Поскольку у него отсутствуют возвращаемые значения, с его помощью нельзя выявлять ошибки при повторных проверках подлинности. Ошибка проверки подлинности может возникнуть, например, при изменении учетных данных пользователя на сервере. В этом случае вы можете использовать код, с помощью которого после ошибок вызова служб будет выполняться явная проверка подлинности пользователей. Дополнительные сведения см. в разделе "доступ к веб-параметры" в [Пошаговое руководство: использование служб клиентских приложений](~/docs/framework/common-client-technologies/walkthrough-using-client-application-services.md).  
   
  [!code-csharp[ClientApplicationServices#315](~/samples/snippets/csharp/VS_Snippets_Winforms/ClientApplicationServices/CS/Class1.cs#315)]
  [!code-vb[ClientApplicationServices#315](~/samples/snippets/visualbasic/VS_Snippets_Winforms/ClientApplicationServices/VB/Class1.vb#315)]  
@@ -75,6 +76,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
@@ -106,6 +108,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -118,7 +121,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это свойство не предназначено для использования в коде приложения. Вы не можете изменить осмысленно куки-файлы, полученные через это свойство, и они содержат не полезную информацию.  
+ Это свойство не предназначена для использования в коде приложения. Вы не можете изменить значимо файлы cookie, полученные через это свойство, и они содержат никакой полезной информации.  
   
  ]]></format>
         </remarks>
@@ -134,6 +137,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -146,12 +150,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Обычно доступ к <xref:System.Web.ClientServices.ClientFormsIdentity> объекта в виде <xref:System.Security.Principal.IIdentity> ссылку, чтобы исключить прямой зависимости от этого класса. Можно определить, является ли пользователь проверку подлинности, проверив <xref:System.Security.Principal.IIdentity.IsAuthenticated%2A?displayProperty=nameWithType> свойство удостоверения. Тем не менее пользователь может пройти проверку подлинности для Windows, но не для служб клиентских приложений. Чтобы определить, является ли пользователь проверку подлинности для служб клиентских приложений, вы должны также убедитесь, что <xref:System.Security.Principal.IIdentity.AuthenticationType%2A?displayProperty=nameWithType> свойство имеет значение «ClientForms». Дополнительные сведения см. в разделе <xref:System.Web.ClientServices.ClientFormsIdentity> Общие сведения о классе.  
+ Обычно доступ к <xref:System.Web.ClientServices.ClientFormsIdentity> объекта в виде <xref:System.Security.Principal.IIdentity> ссылку, чтобы исключить прямой зависимости от этого класса. Можно определить, прошел ли пользователь, проверив <xref:System.Security.Principal.IIdentity.IsAuthenticated%2A?displayProperty=nameWithType> свойство удостоверения. Тем не менее пользователь может пройти проверку подлинности для Windows, но не для служб клиентских приложений. Чтобы определить, прошел ли пользователь служб клиентских приложений, вы должны также убедитесь, что <xref:System.Security.Principal.IIdentity.AuthenticationType%2A?displayProperty=nameWithType> свойство имеет значение «ClientForms». Дополнительные сведения см. в разделе <xref:System.Web.ClientServices.ClientFormsIdentity> Общие сведения о классе.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как использовать это свойство через <xref:System.Security.Principal.IIdentity> ссылкой, чтобы определить ли в настоящее время проверки подлинности пользователя для служб клиентских приложений. В этом примере предполагается, что приложение находится в конфигурации по умолчанию, где пользователи не требуется выполнить вход еще раз файла cookie проверки подлинности истечения срока действия. В противном случае <xref:System.Net.WebException> может означать, что имя входа пользователя истек. Дополнительные сведения см. в разделе [Практическое руководство. Настройка служб клиентских приложений](~/docs/framework/common-client-technologies/how-to-configure-client-application-services.md).  
+ В следующем примере кода показано, как использовать это свойство через <xref:System.Security.Principal.IIdentity> ссылку, чтобы определить, прошел ли в настоящее время пользователь служб клиентских приложений. В этом примере предполагается, что приложение находится в конфигурации по умолчанию, где пользователи не должны выполнить вход еще раз файл cookie проверки подлинности истечения срока действия. В противном случае <xref:System.Net.WebException> может означать, что имя входа пользователя истек. Дополнительные сведения см. в разделе [Практическое руководство. Настройка служб клиентских приложений](~/docs/framework/common-client-technologies/how-to-configure-client-application-services.md).  
   
  [!code-csharp[ClientApplicationServices#312](~/samples/snippets/csharp/VS_Snippets_Winforms/ClientApplicationServices/CS/Class1.cs#312)]
  [!code-vb[ClientApplicationServices#312](~/samples/snippets/visualbasic/VS_Snippets_Winforms/ClientApplicationServices/VB/Class1.vb#312)]  
@@ -186,6 +190,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -198,7 +203,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызовите метод <xref:System.Web.ClientServices.ClientFormsIdentity.Dispose%2A> по окончании использования класса <xref:System.Web.ClientServices.ClientFormsIdentity>. Метод <xref:System.Web.ClientServices.ClientFormsIdentity.Dispose%2A> оставляет класс <xref:System.Web.ClientServices.ClientFormsIdentity> в непригодном для использования состоянии. После вызова метода <xref:System.Web.ClientServices.ClientFormsIdentity.Dispose%2A>, необходимо освободить все ссылки на <xref:System.Web.ClientServices.ClientFormsIdentity> , сборщик мусора мог освободить память, <xref:System.Web.ClientServices.ClientFormsIdentity> занимаемую. Дополнительные сведения см. в разделе [очистки неуправляемых ресурсов](~/docs/standard/garbage-collection/unmanaged.md) и [метода](~/docs/standard/garbage-collection/implementing-dispose.md).  
+ Вызовите метод <xref:System.Web.ClientServices.ClientFormsIdentity.Dispose%2A> по окончании использования класса <xref:System.Web.ClientServices.ClientFormsIdentity>. Метод <xref:System.Web.ClientServices.ClientFormsIdentity.Dispose%2A> оставляет класс <xref:System.Web.ClientServices.ClientFormsIdentity> в непригодном для использования состоянии. После вызова метода <xref:System.Web.ClientServices.ClientFormsIdentity.Dispose%2A>, необходимо освободить все ссылки на <xref:System.Web.ClientServices.ClientFormsIdentity> , сборщик мусора мог освободить память, <xref:System.Web.ClientServices.ClientFormsIdentity> занимаемую. Дополнительные сведения см. в разделе [очистки неуправляемых ресурсов](~/docs/standard/garbage-collection/unmanaged.md) и [реализация метода Dispose](~/docs/standard/garbage-collection/implementing-dispose.md).  
   
 > [!NOTE]
 >  Всегда вызывайте метод <xref:System.Web.ClientServices.ClientFormsIdentity.Dispose%2A> перед освобождением последней ссылки на класс <xref:System.Web.ClientServices.ClientFormsIdentity>. В противном случае используемые им ресурсы не будут освобождены до тех пор, пока сборщик мусора не вызовет для объекта <xref:System.Web.ClientServices.ClientFormsIdentity> метод `Finalize`.  
@@ -217,6 +222,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -232,15 +238,15 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод вызывается методом открытые `Dispose()` метод и <xref:System.Object.Finalize%2A> метод. `Dispose()` вызывает защищенный `Dispose(Boolean)` метод с `disposing` равным `true`. <xref:System.Object.Finalize%2A> вызывает `Dispose` с `disposing` значение `false`.  
+ Этот метод вызывается открытым `Dispose()` метод и <xref:System.Object.Finalize%2A> метод. `Dispose()` вызывает защищенный `Dispose(Boolean)` метод с `disposing` параметру присвоить `true`. <xref:System.Object.Finalize%2A> вызывает `Dispose` с `disposing` присвоено `false`.  
   
- При `disposing` параметр имеет значение true, данный метод освобождает все ресурсы, занятые любыми управляемыми объектами, которые <xref:System.Web.ClientServices.ClientFormsIdentity> ссылки. Этот метод вызывает метод `Dispose()` каждого объекта, на который есть ссылка.  
+ Когда `disposing` параметр имеет значение true, этот метод освобождает все ресурсы, занятые любыми управляемыми объектами, <xref:System.Web.ClientServices.ClientFormsIdentity> ссылки. Этот метод вызывает метод `Dispose()` каждого объекта, на который есть ссылка.  
   
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
           <para>
-            <see langword="Dispose" /> может вызываться несколько раз другими объектами. При переопределении метода <see langword="Dispose(Boolean)" /> нужно избегать ссылок на объекты, которые были уничтожены предыдущими вызовами метода <see langword="Dispose" />. Дополнительные сведения о реализации <see langword="Dispose(Boolean)" />, в разделе [реализация Method](~/docs/standard/garbage-collection/implementing-dispose.md) Dispose.  Дополнительные сведения о <see langword="Dispose" /> и <see cref="M:System.Object.Finalize" />, в разделе [очистки неуправляемых Resources](~/docs/standard/garbage-collection/unmanaged.md) и [переопределение метода Finalize] (http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3).</para>
+            <see langword="Dispose" /> может вызываться несколько раз другими объектами. При переопределении метода <see langword="Dispose(Boolean)" /> нужно избегать ссылок на объекты, которые были уничтожены предыдущими вызовами <see langword="Dispose" />. Дополнительные сведения о том, как реализовать <see langword="Dispose(Boolean)" />, см. в разделе [реализация Method](~/docs/standard/garbage-collection/implementing-dispose.md) Dispose.  Дополнительные сведения о <see langword="Dispose" /> и <see cref="M:System.Object.Finalize" />, см. в разделе [очистки неуправляемых Resources](~/docs/standard/garbage-collection/unmanaged.md) и [переопределение метода Finalize] (http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3).</para>
         </block>
       </Docs>
     </Member>
@@ -254,6 +260,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -266,12 +273,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Обычно доступ к <xref:System.Web.ClientServices.ClientFormsIdentity> объекта в виде <xref:System.Security.Principal.IIdentity> ссылку, чтобы исключить прямой зависимости от этого класса. Можно определить, является ли пользователь проверку подлинности, проверив <xref:System.Security.Principal.IIdentity.IsAuthenticated%2A?displayProperty=nameWithType> свойство удостоверения. Тем не менее пользователь может пройти проверку подлинности для Windows, но не для служб клиентских приложений. Чтобы определить, является ли пользователь проверку подлинности для служб клиентских приложений, вы должны также убедитесь, что <xref:System.Security.Principal.IIdentity.AuthenticationType%2A?displayProperty=nameWithType> свойство имеет значение «ClientForms». Дополнительные сведения см. в разделе <xref:System.Web.ClientServices.ClientFormsIdentity> Общие сведения о классе.  
+ Обычно доступ к <xref:System.Web.ClientServices.ClientFormsIdentity> объекта в виде <xref:System.Security.Principal.IIdentity> ссылку, чтобы исключить прямой зависимости от этого класса. Можно определить, прошел ли пользователь, проверив <xref:System.Security.Principal.IIdentity.IsAuthenticated%2A?displayProperty=nameWithType> свойство удостоверения. Тем не менее пользователь может пройти проверку подлинности для Windows, но не для служб клиентских приложений. Чтобы определить, прошел ли пользователь служб клиентских приложений, вы должны также убедитесь, что <xref:System.Security.Principal.IIdentity.AuthenticationType%2A?displayProperty=nameWithType> свойство имеет значение «ClientForms». Дополнительные сведения см. в разделе <xref:System.Web.ClientServices.ClientFormsIdentity> Общие сведения о классе.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как использовать это свойство через <xref:System.Security.Principal.IIdentity> ссылкой, чтобы определить ли в настоящее время проверки подлинности пользователя для служб клиентских приложений. В этом примере предполагается, что приложение находится в конфигурации по умолчанию, где пользователи не требуется выполнить вход еще раз файла cookie проверки подлинности истечения срока действия. В противном случае <xref:System.Net.WebException> может означать, что имя входа пользователя истек. Дополнительные сведения см. в разделе [Практическое руководство. Настройка служб клиентских приложений](~/docs/framework/common-client-technologies/how-to-configure-client-application-services.md).  
+ В следующем примере кода показано, как использовать это свойство через <xref:System.Security.Principal.IIdentity> ссылку, чтобы определить, прошел ли в настоящее время пользователь служб клиентских приложений. В этом примере предполагается, что приложение находится в конфигурации по умолчанию, где пользователи не должны выполнить вход еще раз файл cookie проверки подлинности истечения срока действия. В противном случае <xref:System.Net.WebException> может означать, что имя входа пользователя истек. Дополнительные сведения см. в разделе [Практическое руководство. Настройка служб клиентских приложений](~/docs/framework/common-client-technologies/how-to-configure-client-application-services.md).  
   
  [!code-csharp[ClientApplicationServices#312](~/samples/snippets/csharp/VS_Snippets_Winforms/ClientApplicationServices/CS/Class1.cs#312)]
  [!code-vb[ClientApplicationServices#312](~/samples/snippets/visualbasic/VS_Snippets_Winforms/ClientApplicationServices/VB/Class1.vb#312)]  
@@ -297,6 +304,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -318,6 +326,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -339,6 +348,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web.Extensions</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -351,15 +361,15 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- При использовании проверки подлинности форм для проверки текущего пользователя, <xref:System.Web.ClientServices.ClientFormsIdentity> класс хранит учетные данные пользователя при условии, что приложение запущено. Однако только проверку подлинности пользователя, до истечения срока действия файла cookie проверки подлинности. После истечения срока действия файла cookie, пользователь должен повторно проверить, для доступа к удаленным ролям или службам веб-параметров. Можно использовать **Дополнительные параметры служб** диалоговое окно «», чтобы настроить приложение на автоматическую повторную проверку подлинности пользователя, как описано в [как: Настройка служб клиентских приложений](~/docs/framework/common-client-technologies/how-to-configure-client-application-services.md). Тем не менее, при настройке приложения соблюдать срок действия файла cookie, вы можно программным путем повторной проверки пользователя путем вызова <xref:System.Web.ClientServices.ClientFormsIdentity.RevalidateUser%2A> метод. Этот метод полезен также при переключении из автономного режима в оперативный режим, так как приложение было завершение вниз время вне сети.  
+ При использовании проверки подлинности форм для проверки текущего пользователя, <xref:System.Web.ClientServices.ClientFormsIdentity> класс хранит учетные данные пользователя, до тех пор, пока выполняется приложение. Тем не менее только проверку подлинности пользователя, до истечения срока действия файла cookie проверки подлинности. После истечения срока действия файла cookie, пользователю необходимо будет проверить повторно для доступа к удаленным ролям или службам веб-параметров. Можно использовать **Дополнительные параметры служб** диалоговое окно, чтобы настроить приложение на автоматическую повторную проверку подлинности пользователя, как описано в разделе [как: Настройка служб клиентских приложений](~/docs/framework/common-client-technologies/how-to-configure-client-application-services.md). Тем не менее, если вы настраиваете приложение учитывает срок действия файла cookie, вы можно программно повторной проверки пользователя путем вызова <xref:System.Web.ClientServices.ClientFormsIdentity.RevalidateUser%2A> метод. Этот метод полезен также при переключении из автономного режима в оперативный режим, так как приложение может быть завершена пока вне сети.  
   
 > [!NOTE]
->  Метод <xref:System.Web.ClientServices.ClientFormsIdentity.RevalidateUser%2A> предназначен исключительно для удобства. Поскольку у него отсутствуют возвращаемые значения, с его помощью нельзя выявлять ошибки при повторных проверках подлинности. Ошибка проверки подлинности может возникнуть, например, при изменении учетных данных пользователя на сервере. В этом случае вы можете использовать код, с помощью которого после ошибок вызова служб будет выполняться явная проверка подлинности пользователей. Дополнительные сведения см. в разделе веб-доступ к параметрам раздела [Пошаговое руководство: использование служб клиентских приложений](~/docs/framework/common-client-technologies/walkthrough-using-client-application-services.md).  
+>  Метод <xref:System.Web.ClientServices.ClientFormsIdentity.RevalidateUser%2A> предназначен исключительно для удобства. Поскольку у него отсутствуют возвращаемые значения, с его помощью нельзя выявлять ошибки при повторных проверках подлинности. Ошибка проверки подлинности может возникнуть, например, при изменении учетных данных пользователя на сервере. В этом случае вы можете использовать код, с помощью которого после ошибок вызова служб будет выполняться явная проверка подлинности пользователей. Дополнительные сведения см. в разделе "доступ к веб-параметры" в [Пошаговое руководство: использование служб клиентских приложений](~/docs/framework/common-client-technologies/walkthrough-using-client-application-services.md).  
   
    
   
 ## Examples  
- В следующем примере кода демонстрируется использование этого метода для повторной проверки пользователя без вмешательства пользователя при выходе приложения из состояния автономной работы. В этом примере <xref:System.Windows.Forms.CheckBox.CheckedChanged> обработчик событий обновляет автономное состояние, в соответствии со значением "флажок". Если пользователь устанавливает приложение в оперативный режим, обработчик событий попыток для повторной проверки пользователя. Тем не менее если сервер проверки подлинности недоступен, обработчик события возвращает приложение в автономный режим.  
+ В следующем примере кода показано, как этот метод позволяет автоматически повторную проверку пользователя, когда приложение выходит из автономного состояния. В этом примере <xref:System.Windows.Forms.CheckBox.CheckedChanged> обработчик событий обновляет состояние в соответствии с значением "флажок". Если пользователь устанавливает приложение в оперативный режим, обработчик событий пытается повторно проверить пользователя. Тем не менее если сервер проверки подлинности недоступен, обработчик событий возвращает приложение в автономный режим.  
   
  [!code-csharp[ClientApplicationServices#315](~/samples/snippets/csharp/VS_Snippets_Winforms/ClientApplicationServices/CS/Class1.cs#315)]
  [!code-vb[ClientApplicationServices#315](~/samples/snippets/visualbasic/VS_Snippets_Winforms/ClientApplicationServices/VB/Class1.vb#315)]  

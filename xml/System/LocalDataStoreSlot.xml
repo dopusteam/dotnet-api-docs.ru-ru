@@ -1,11 +1,11 @@
 <Type Name="LocalDataStoreSlot" FullName="System.LocalDataStoreSlot">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="cd197a9fd9b46642d15c34d1fb9b096da2240883" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="0943f321b0a2c1f1dd3bff5a8e9eea7137bab763" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36429874" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37479731" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class LocalDataStoreSlot" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit LocalDataStoreSlot extends System.Object" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type LocalDataStoreSlot = class" />
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -42,21 +44,21 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Платформа .NET Framework предоставляет два механизма для использования локальное хранилище потока (TLS): статические поля потока и области данных.  
+ Платформа .NET Framework предоставляет два механизма для использования локальной памяти потока (TLS): статические поля потока и области данных.  
   
--   Статические поля потока, `static` полей (`Shared` поля в Visual Basic), которые помечены с <xref:System.ThreadStaticAttribute> атрибута. Они обеспечивают более высокую производительность, чем области данных и включить проверку типов во время компиляции.  
+-   Статические поля потока являются `static` поля (`Shared` полей в Visual Basic), будут отмечены <xref:System.ThreadStaticAttribute> атрибута. Они обеспечивают более высокую производительность, чем области данных и включить проверку типов во время компиляции.  
   
--   Области данных работают медленнее и более удобны в использовании, чем статические поля потока. Кроме того, данные хранятся в виде типа <xref:System.Object>, поэтому необходимо привести к правильному типу перед его использованием. Тем не менее области данных можно использовать при наличии недостаточно информации во время компиляции для выделения статических полей.  
+-   Области данных работают медленнее и менее удобны в использовании, чем статические поля потока. Кроме того, данные хранятся в виде типа <xref:System.Object>, поэтому необходимо преобразовать его к правильному типу перед его использованием. Тем не менее области данных можно использовать при наличии недостаточно информации во время компиляции для выделения статических полей.  
   
  Дополнительные сведения об использовании TLS см. в разделе [локальное хранилище потока: статические поля потока и области данных](~/docs/standard/threading/thread-local-storage-thread-relative-static-fields-and-data-slots.md).  
   
- Аналогично, платформа .NET Framework предоставляет два механизма для использования контекстной локальной памяти: контекстно зависимые статические поля и ячейки данных. Контекстно зависимые статические поля являются статическими полями, которые отмечены <xref:System.ContextStaticAttribute> атрибута. Компромиссы между этими двумя способами похожи на компромисс между использованием потока статические поля и ячейки данных.  
+ Аналогичным образом платформа .NET Framework предоставляет два механизма для использования контекста локального хранилища: контекстно зависимые статические поля и ячейки данных. Контекстно зависимые статические поля, статические поля, помеченные атрибутом <xref:System.ContextStaticAttribute> атрибута. Компромиссы между использованием двух этих механизмов похожи на компромиссы между использованием потока статические поля и ячейки данных.  
   
- <xref:System.LocalDataStoreSlot> Структура служит в качестве локального хранения памяти механизм, потоки и контексты можно использовать для хранения данных определенного потока и зависящие от контекста, соответственно. Общеязыковая среда выполнения выделяет массив хранения данных несколькими разъемами для каждого процесса при его создании. Поток и контекст вызывают разные функции размещения областей данных в хранилище данных, для хранения и извлечения значений данных в слоте и высвобождения области данных для повторного использования после истечения срока действия объекта потока или контекста.  
+ <xref:System.LocalDataStoreSlot> Структуры служит в качестве локального хранения механизм память, потоки и контексты можно использовать для хранения данных определенного потока и контекстно зависимых, соответственно. Среда CLR выделяет массив хранения данных несколькими слот каждому процессу при его создании. Поток или контекст вызовов, различных функций размещения областей данных в хранилище данных, для хранения и извлечения значений данных в слоте и высвобождения области данных для повторного использования, после истечения срока действия объекта потока или контекста.  
   
  Области данных являются уникальными для каждого потока или контекста; их значения не являются общими для объектов потока или контекста. Области данных можно распределить по имени или номеру индекса.  
   
- Дополнительные сведения о хранении локальных данных см. в разделе <xref:System.Threading.Thread> или <xref:System.Runtime.Remoting.Contexts.Context>. <xref:System.LocalDataStoreSlot> Класс используется с методами, такими как <xref:System.Threading.Thread.AllocateNamedDataSlot%2A?displayProperty=nameWithType>, <xref:System.Runtime.Remoting.Contexts.Context.AllocateNamedDataSlot%2A?displayProperty=nameWithType>, <xref:System.Threading.Thread.GetData%2A?displayProperty=nameWithType>, и <xref:System.Runtime.Remoting.Contexts.Context.GetData%2A?displayProperty=nameWithType>; не имеет свой собственный, методы необходимо использовать.  
+ Дополнительные сведения о хранении локальных данных см. в разделе <xref:System.Threading.Thread> или <xref:System.Runtime.Remoting.Contexts.Context>. <xref:System.LocalDataStoreSlot> Класс используется с методами, такими как <xref:System.Threading.Thread.AllocateNamedDataSlot%2A?displayProperty=nameWithType>, <xref:System.Runtime.Remoting.Contexts.Context.AllocateNamedDataSlot%2A?displayProperty=nameWithType>, <xref:System.Threading.Thread.GetData%2A?displayProperty=nameWithType>, и <xref:System.Runtime.Remoting.Contexts.Context.GetData%2A?displayProperty=nameWithType>; не имеет свой собственный, методы, вам нужно использовать.  
   
  ]]></format>
     </remarks>
@@ -74,6 +76,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
