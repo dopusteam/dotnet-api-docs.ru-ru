@@ -1,11 +1,11 @@
 <Type Name="LockRecursionException" FullName="System.Threading.LockRecursionException">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="681ec24d00c867fb94028fefa0881f60fd2b4521" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="0bf370b379fe1ddb40aad7cb6c4827f14e203381" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36606066" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37754619" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class LockRecursionException : Exception" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit LockRecursionException extends System.Exception" />
@@ -29,6 +29,10 @@
     <AssemblyName>netstandard</AssemblyName>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
   </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Core</AssemblyName>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
+  </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Exception</BaseTypeName>
   </Base>
@@ -46,16 +50,16 @@
 ## Remarks  
  <xref:System.Threading.LockRecursionException> возникает по нескольким причинам, включая следующие:  
   
--   Если поток пытается войти в экземпляр <xref:System.Threading.ReaderWriterLockSlim> рекурсивно, но экземпляр не поддерживающий рекурсию.  
+-   Если поток пытается войти в экземпляр <xref:System.Threading.ReaderWriterLockSlim> рекурсивно, но указанный экземпляр не поддерживающий рекурсию.  
   
--   Если поток пытается выполнить вход <xref:System.Threading.ReaderWriterLockSlim> экземпляра в режим записи или в обновляемый режим, когда поток изначально вошел в блокировку в режиме чтения. Это представляет потенциальную взаимоблокировку и поэтому не допускается.  
+-   Если поток пытается войти в <xref:System.Threading.ReaderWriterLockSlim> экземпляра в режим записи или обновляемый режим, когда поток изначально вошел в блокировку в режиме чтения. Это представляет потенциальную взаимоблокировку и поэтому не допускается.  
   
--   Если один допускаемый уровень рекурсии превысит максимальное значение для счетчика внутреннего хранилища, чтобы отслеживать рекурсии. Это ограничение настолько велико, что оно не должно достигаться приложениями на практике.  
+-   Если один допускаемый уровень рекурсии превышает максимальное значение для счетчика внутреннего хранилища, чтобы отслеживать рекурсии. Это ограничение настолько велико, что оно не должно достигаться приложениями на практике.  
   
    
   
 ## Examples  
- В следующем примере показано две причины <xref:System.Threading.LockRecursionException> при использовании <xref:System.Threading.ReaderWriterLockSlim> класса. Программа создает <xref:System.Threading.ReaderWriterLockSlim> с помощью конструктора по умолчанию, который запрещает рекурсии. Затем программа запускает поток, который вошел в блокировку в режиме чтения. Поток пытается войти в блокировку рекурсивно в режиме чтения и перехватывает результирующее исключение. Наконец поток пытается войти в режим записи, в результате чего возникнет вероятность возникновения взаимоблокировки. Поток перехватывает результирующее исключение.  
+ В следующем примере показано две причины <xref:System.Threading.LockRecursionException> при использовании <xref:System.Threading.ReaderWriterLockSlim> класса. Программа создает <xref:System.Threading.ReaderWriterLockSlim> с помощью конструктора по умолчанию, которая запрещает рекурсии. Программы затем запускает поток, который вошел в блокировку в режиме чтения. Поток пытается войти в блокировку рекурсивно в режиме чтения и перехватывает результирующее исключение. Наконец поток пытается войти в режим записи создаст возможность взаимоблокировки. Поток перехватывает результирующее исключение.  
   
  [!code-csharp[System.Threading.LockRecursionException#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.LockRecursionException/cs/source.cs#1)]
  [!code-vb[System.Threading.LockRecursionException#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.LockRecursionException/vb/source.vb#1)]  
@@ -99,6 +103,10 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
+      </AssemblyInfo>
       <Parameters />
       <Docs>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Threading.LockRecursionException" /> с системным сообщением, содержащим описание ошибки.</summary>
@@ -106,7 +114,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот конструктор инициализирует <xref:System.Exception.Message%2A> свойств нового экземпляра системным сообщением, содержащим описание ошибки, такие как «Рекурсивные приобретения блокировки не допускается в этом режиме чтения.» Это сообщение учитывает текущую культуру системы.  
+ Этот конструктор инициализирует <xref:System.Exception.Message%2A> свойства нового экземпляра системное сообщение с описанием ошибки, такие как «Блокировки рекурсивного считывания не допускается в этом режиме.» Это сообщение учитывает культуру текущей системы.  
   
  В следующей таблице представлены исходные значения свойств экземпляра класса <xref:System.InsufficientMemoryException>.  
   
@@ -142,6 +150,10 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="message" Type="System.String" />
@@ -188,6 +200,10 @@
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
+      </AssemblyInfo>
       <Parameters>
         <Parameter Name="info" Type="System.Runtime.Serialization.SerializationInfo" />
         <Parameter Name="context" Type="System.Runtime.Serialization.StreamingContext" />
@@ -200,7 +216,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Данный конструктор вызывается в процессе десериализации для воссоздания объекта исключения, переданного в потоке. Дополнительные сведения см. в разделе [сериализации XML и SOAP](~/docs/standard/serialization/xml-and-soap-serialization.md).  
+ Этот конструктор вызывается во время десериализации для воссоздания объекта исключения, переданного в потоке. Дополнительные сведения см. в разделе [сериализация XML и SOAP](~/docs/standard/serialization/xml-and-soap-serialization.md).  
   
  ]]></format>
         </remarks>
@@ -229,6 +245,10 @@
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Core</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="message" Type="System.String" />

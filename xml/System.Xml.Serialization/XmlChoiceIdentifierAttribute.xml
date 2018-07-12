@@ -1,11 +1,11 @@
 <Type Name="XmlChoiceIdentifierAttribute" FullName="System.Xml.Serialization.XmlChoiceIdentifierAttribute">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="c25913080f6150c11f5a297c39a0adb03d702b12" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="c7c585dd58737eec95040e54dfeb4324da0c5916" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36439741" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37731687" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class XmlChoiceIdentifierAttribute : Attribute" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit XmlChoiceIdentifierAttribute extends System.Attribute" />
@@ -21,6 +21,8 @@
   </AssemblyInfo>
   <AssemblyInfo>
     <AssemblyName>System.Xml</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -43,7 +45,7 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Определение элемента схемы XML с именем `xsi:choice` используется для определения сложного элемента, который может содержать только один дочерний объект в экземпляре (maxoccurs = 1). Что дочерние может принимать одно из нескольких типов, и он может иметь одно из нескольких имен. Каждое имя связано с определенным типом; Однако несколько имен, можно связать с тем же типом. По этой причине экземпляр такого элемента неточен. Например, рассмотрим следующий фрагмент схемы, который определяет такой неточный элемент с именем `MyChoice`.  
+ Определение элемента схемы XML с именем `xsi:choice` используется для определения сложного элемента, который может содержать только один дочерний объект в экземпляре (maxoccurs = 1). Этот дочерний элемент может быть один из нескольких типов, и может иметь одно из нескольких имен. Каждое имя связано с определенным типом; Тем не менее несколько имен, можно связать с одним типом. По этой причине неточен экземпляр такого элемента. Например, рассмотрим следующий фрагмент схемы, который определяет такой неточный элемент с именем `MyChoice`.  
   
 ```  
 <xsd:complexType name="MyChoice">  
@@ -56,7 +58,7 @@
 </xsd:complexType>  
 ```  
   
- <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> Позволяет назначить особое значение перечисления для каждого экземпляра элемента. Вы должны создать перечисление самостоятельно или могут создаваться с [инструмент определения схемы XML (Xsd.exe)](~/docs/standard/serialization/xml-schema-definition-tool-xsd-exe.md). В следующем C# показано как <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> применяется к `Item` поле; <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute.MemberName%2A> определяет поле, содержащее перечисление, которое будет использовано для выявления выбор.  
+ <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> Позволяет назначить особое значение перечисления для каждого экземпляра элемента. Вы можете создать перечисление самостоятельно или могут создаваться с [инструмент определения схемы XML (Xsd.exe)](~/docs/standard/serialization/xml-schema-definition-tool-xsd-exe.md). C# показано в следующем коде как <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> применяется к `Item` поле; <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute.MemberName%2A> определяет поле, содержащее перечисление, которое будет использовано для обнаружения выбор.  
   
 ```  
 public class Choices{  
@@ -77,7 +79,7 @@ public enum ItemChoiceType{
 }  
 ```  
   
- Когда этот код находится в месте, то могут сериализовать и десериализовать этот класс, задав `ItemType` поле в соответствующее перечисление. Например, для сериализации `Choice` класса, код C# имеет следующий вид.  
+ Если этот код находится в месте, вы может сериализовать и десериализовать этот класс, задав `ItemType` поле в соответствующее перечисление. Например, для сериализации `Choice` класса, в коде C# имеет следующий вид.  
   
 ```  
 Choices mc = new Choices();  
@@ -85,7 +87,7 @@ mc.MyChoice = "Item Choice One";
 mc.ItemType = ItemChoiceType.ChoiceOne;  
 ```  
   
- В процессе десериализации напоминает следующий код C#:  
+ При десериализации, код C#, примерно так:  
   
 ```  
 MyChoice mc = (MyChoice) myXmlSerializer.Deserialize(myReader);  
@@ -103,7 +105,7 @@ if(mc.ItemType != null)
  }  
 ```  
   
- Имеется второй сценарий при <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> используется. В следующей схеме член является поле, возвращающее массив элементов (maxOccurs = «unbounded»). Массив может содержать объекты первого выбора («D-a-t-a») и второго выбора («MoreData»).  
+ Вторая ситуация, когда <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> используется. В следующей схеме, член является поле, возвращающее массив элементов (maxOccurs = «unbounded»). Массив может содержать объекты первого выбора («D-a-t-a») и второго выбора («MoreData»).  
   
 ```  
 <xsd:complexType name="MyChoice">  
@@ -116,7 +118,7 @@ if(mc.ItemType != null)
 </xsd:complexType>  
 ```  
   
- Затем результирующий класс использует поле позволяет вернуть массив элементов. Для каждого элемента в массиве, соответствующий `ItemChoiceType` перечисления необходимо найти. Соответствующие перечисления содержатся в массиве, возвращенном `ItemsElementName` поля.  
+ Затем результирующий класс использует поле для возвращения массива элементов. Для каждого элемента в массиве, соответствующий `ItemChoiceType` перечисления необходимо найти. Соответствующие перечисления содержатся в массиве, возвращенном `ItemsElementName` поля.  
   
 ```  
 public class MyChoice {  
@@ -136,12 +138,12 @@ public enum ItemsChoiceType {
 }  
 ```  
   
- При десериализации объекта, который содержит диапазон выбора, используйте структуру управления (таких как if... then... else структуры) для определения способа десериализации конкретного значения. В структуре управления проверьте значение перечисления и соответственно десериализуется значение.  
+ При десериализации объекта, который предусматривает несколько вариантов, используйте структуру управления (таких как if... then... else структуры) для определения способа десериализации определенное значение. В структуре элемента управления проверьте значение перечисления и десериализации значения соответствующим образом.  
   
    
   
 ## Examples  
- В следующем примере сериализуется класс с именем `Choices` , включает два поля `MyChoice` и `ManyChoices`. <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> Применяется для каждого поля, которое указывает (через <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute.MemberName%2A> свойство) другой член класса, которое получает или задает перечисление, которое определяет значение элемента. `MyChoice` Поля может быть присвоено одно значение с соответствующим членом перечисления в `EnumType` поле. `ManyChoices` Поле возвращает массив объектов. `ChoiceArray` Поле возвращает массив значений перечисления. Для каждого члена массива в `ManyChoices` , соответствующий элемент находится в массиве, возвращенном `ChoiceArray` поля.  
+ В следующем примере сериализуется класс с именем `Choices` , включает два поля `MyChoice` и `ManyChoices`. <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> Применяется для каждого поля, которое указывает (через <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute.MemberName%2A> свойство) другой член класса, которое получает или задает перечисление, которое определяет значение элемента. `MyChoice` Поле может быть присвоено одно значение, с помощью соответствующего члена перечисления, в `EnumType` поля. `ManyChoices` Поле возвращает массив объектов. `ChoiceArray` Поле возвращает массив значений перечисления. Для каждого члена массива в `ManyChoices` поле, соответствующего члена находится в массиве, возвращенном `ChoiceArray` поля.  
   
  [!code-cpp[XmlChoiceIdentifierAttribute Example#1](~/samples/snippets/cpp/VS_Snippets_Remoting/XmlChoiceIdentifierAttribute Example/CPP/choice.cpp#1)]
  [!code-csharp[XmlChoiceIdentifierAttribute Example#1](~/samples/snippets/csharp/VS_Snippets_Remoting/XmlChoiceIdentifierAttribute Example/CS/choice.cs#1)]
@@ -177,6 +179,8 @@ public enum ItemsChoiceType {
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Xml</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -191,7 +195,7 @@ public enum ItemsChoiceType {
           <format type="text/markdown"><![CDATA[  
   
 ## Examples  
- В следующем примере сериализуется класс с именем `Choices` , включает два поля `MyChoice` и `ManyChoices`. <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> Применяется для каждого поля, которое указывает (через <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute.MemberName%2A> свойство) другой член класса, которое получает или задает перечисление, которое определяет значение элемента. `MyChoice` Поля может быть присвоено одно значение с соответствующим членом перечисления в `EnumType` поле. `ManyChoices` Поле возвращает массив объектов. `ChoiceArray` Поле возвращает массив значений перечисления. Для каждого члена массива в `ManyChoices` , соответствующий элемент находится в массиве, возвращенном `ChoiceArray` поля.  
+ В следующем примере сериализуется класс с именем `Choices` , включает два поля `MyChoice` и `ManyChoices`. <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> Применяется для каждого поля, которое указывает (через <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute.MemberName%2A> свойство) другой член класса, которое получает или задает перечисление, которое определяет значение элемента. `MyChoice` Поле может быть присвоено одно значение, с помощью соответствующего члена перечисления, в `EnumType` поля. `ManyChoices` Поле возвращает массив объектов. `ChoiceArray` Поле возвращает массив значений перечисления. Для каждого члена массива в `ManyChoices` поле, соответствующего члена находится в массиве, возвращенном `ChoiceArray` поля.  
   
  [!code-cpp[XmlChoiceIdentifierAttribute Example#1](~/samples/snippets/cpp/VS_Snippets_Remoting/XmlChoiceIdentifierAttribute Example/CPP/choice.cpp#1)]
  [!code-csharp[XmlChoiceIdentifierAttribute Example#1](~/samples/snippets/csharp/VS_Snippets_Remoting/XmlChoiceIdentifierAttribute Example/CS/choice.cs#1)]
@@ -217,6 +221,8 @@ public enum ItemsChoiceType {
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Xml</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -249,6 +255,8 @@ public enum ItemsChoiceType {
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Xml</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -266,12 +274,12 @@ public enum ItemsChoiceType {
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Хотя бы один член должен присутствовать в перечислении, возвращенном полем с именем в <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute.MemberName%2A> значение. По умолчанию имя перечисления берется имя поля, <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> применяется.  
+ По крайней мере один член должен присутствовать в перечислении, возвращенном полем с именем в <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute.MemberName%2A> значение. По умолчанию имя перечисления принимает имя поля, <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> применяется к.  
   
    
   
 ## Examples  
- В следующем примере сериализуется класс с именем `Choices` , включает два поля `MyChoice` и `ManyChoices`. <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> Применяется для каждого поля, которое указывает (через <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute.MemberName%2A> свойство) другой член класса, которое получает или задает перечисление, которое определяет значение элемента. `MyChoice` Поля может быть присвоено одно значение с соответствующим членом перечисления в `EnumType` поле. `ManyChoices` Поле возвращает массив объектов. `ChoiceArray` Поле возвращает массив значений перечисления. Для каждого члена массива в `ManyChoices` , соответствующий элемент находится в массиве, возвращенном `ChoiceArray` поля.  
+ В следующем примере сериализуется класс с именем `Choices` , включает два поля `MyChoice` и `ManyChoices`. <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute> Применяется для каждого поля, которое указывает (через <xref:System.Xml.Serialization.XmlChoiceIdentifierAttribute.MemberName%2A> свойство) другой член класса, которое получает или задает перечисление, которое определяет значение элемента. `MyChoice` Поле может быть присвоено одно значение, с помощью соответствующего члена перечисления, в `EnumType` поля. `ManyChoices` Поле возвращает массив объектов. `ChoiceArray` Поле возвращает массив значений перечисления. Для каждого члена массива в `ManyChoices` поле, соответствующего члена находится в массиве, возвращенном `ChoiceArray` поля.  
   
  [!code-cpp[XmlChoiceIdentifierAttribute Example#1](~/samples/snippets/cpp/VS_Snippets_Remoting/XmlChoiceIdentifierAttribute Example/CPP/choice.cpp#1)]
  [!code-csharp[XmlChoiceIdentifierAttribute Example#1](~/samples/snippets/csharp/VS_Snippets_Remoting/XmlChoiceIdentifierAttribute Example/CS/choice.cs#1)]

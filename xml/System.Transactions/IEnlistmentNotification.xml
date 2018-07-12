@@ -1,11 +1,11 @@
 <Type Name="IEnlistmentNotification" FullName="System.Transactions.IEnlistmentNotification">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ce7c186bfa7974506e6f23870b923c6bfab1a333" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="7256756ee2810fe0aa45f03eee75996fac132199" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36406451" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37754203" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IEnlistmentNotification" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IEnlistmentNotification" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type IEnlistmentNotification = interface" />
   <AssemblyInfo>
     <AssemblyName>System.Transactions</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -34,17 +35,17 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Чтобы диспетчер ресурсов принять участие в транзакции его необходимо включить в транзакцию посредством диспетчера транзакций. Класс <xref:System.Transactions.Transaction> определяет набор методов, имена которых начинаются с `Enlist`, обеспечивающий данную функциональную возможность. Разные `Enlist` методы соответствуют перечислением, которые ресурсов могут использоваться различные типы.  
+ Чтобы диспетчер ресурсов мог участвовать в транзакции он должен зачислиться в транзакцию с помощью диспетчера транзакций. Класс <xref:System.Transactions.Transaction> определяет набор методов, имена которых начинаются с `Enlist`, обеспечивающий данную функциональную возможность. Различные `Enlist` методы соответствуют различные виды зачислением, которые ресурсов могут использоваться.  
   
- Этот класс описывает интерфейс, который должен быть реализован диспетчером ресурсов для предоставления две фазы фиксации обратных вызовов для уведомлений для диспетчера транзакций при присоединении к участию. Для реализации каждый диспетчер ресурсов <xref:System.Transactions.IEnlistmentNotification> интерфейса, вам следует прикрепить его с помощью <xref:System.Transactions.Transaction.EnlistVolatile%2A> метода или <xref:System.Transactions.Transaction.EnlistDurable%2A> метод <xref:System.Transactions.Transaction> класса, в зависимости от того, является ли ресурс неустойчивые и устойчивые. Дополнительные сведения о присоединении и 2PC см. в разделе [прикрепление ресурсов в качестве участников в транзакции](~/docs/framework/data/transactions/enlisting-resources-as-participants-in-a-transaction.md) и [Фиксация транзакции в однофазной и двухфазной](~/docs/framework/data/transactions/committing-a-transaction-in-single-phase-and-multi-phase.md) соответственно.  
+ Этот класс описывает интерфейс, который должен реализовать диспетчер ресурсов для обеспечения двух обратных вызовов уведомлений фазы фиксации диспетчеру транзакций при присоединении к участию. Для реализации каждого диспетчера ресурсов <xref:System.Transactions.IEnlistmentNotification> интерфейс, необходимо зачислить его с помощью <xref:System.Transactions.Transaction.EnlistVolatile%2A> метод или <xref:System.Transactions.Transaction.EnlistDurable%2A> метод <xref:System.Transactions.Transaction> класса, в зависимости от того, является ли ресурс неустойчивым и постоянным. Дополнительные сведения о присоединении и 2PC см. в разделе [ресурсы прикрепление в транзакции, в качестве участников](~/docs/framework/data/transactions/enlisting-resources-as-participants-in-a-transaction.md) и [Фиксация транзакции однофазная и Многофазная](~/docs/framework/data/transactions/committing-a-transaction-in-single-phase-and-multi-phase.md) соответственно.  
   
- Диспетчер транзакций уведомляет присоединенный объект на различных этапах протокола двухфазной фиксации следующими методами.  
+ Диспетчер транзакций Уведомляет включенный в список объект на разных этапах протокола двухфазной фиксации следующими методами.  
   
 |Метод|Описание:|  
 |------------|-----------------|  
 |<xref:System.Transactions.IEnlistmentNotification.Prepare%2A>|Этот метод присоединенного объекта используется как обратный вызов диспетчером транзакций во время первой фазы транзакции, когда диспетчер транзакций опрашивает участников, могут ли они зафиксировать транзакцию.|  
 |<xref:System.Transactions.IEnlistmentNotification.Commit%2A>|Этот метод присоединенного объекта используется как обратный вызов диспетчером транзакций на втором этапе транзакции, если транзакция была зафиксирована.|  
-|<xref:System.Transactions.IEnlistmentNotification.Rollback%2A>|Этот метод присоединенного объекта используется как обратный вызов диспетчером транзакций на втором этапе транзакции, если транзакция прерывается, (откат которой).|  
+|<xref:System.Transactions.IEnlistmentNotification.Rollback%2A>|Этот метод присоединенного объекта используется как обратный вызов диспетчером транзакций на втором этапе транзакции, если транзакция прерывается (который откат).|  
 |<xref:System.Transactions.IEnlistmentNotification.InDoubt%2A>|Этот метод присоединенного объекта используется как обратный вызов диспетчером транзакций на втором этапе транзакции, если транзакция сомнительна.|  
   
 > [!NOTE]
@@ -53,7 +54,7 @@
    
   
 ## Examples  
- Приведенный ниже показана реализация этого интерфейса, а также прикрепление объекта в качестве участника в транзакцию с помощью <xref:System.Transactions.Transaction.EnlistVolatile%2A> метод.  
+ В следующем примере показана реализация этого интерфейса, а также прикрепление объекта в качестве участника в транзакцию с помощью <xref:System.Transactions.Transaction.EnlistVolatile%2A> метод.  
   
  [!code-csharp[Tx_Enlist#1](~/samples/snippets/csharp/VS_Snippets_CFX/tx_enlist/cs/enlist.cs#1)]
  [!code-vb[Tx_Enlist#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/tx_enlist/vb/enlist.vb#1)]  
@@ -72,6 +73,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -97,11 +99,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Диспетчер транзакций вызывает этот метод присоединенного объекта во время второй фазы фиксации, когда он указывает, что все участники зафиксировать транзакцию.  
+ Диспетчер транзакций вызывает этот метод присоединенного объекта во время второй фазы фиксации, когда он указывает, что все участники, чтобы зафиксировать транзакцию.  
   
- Диспетчер ресурсов должен выполнить любые действия, необходимые для завершения транзакции и затем проинформировать диспетчер будет завершена путем вызова <xref:System.Transactions.Enlistment.Done%2A> метод `enlistment` параметра.  
+ Диспетчер ресурсов должен выполнить любые действия, необходимые для завершения транзакции и затем информировать о завершении, вызвав <xref:System.Transactions.Enlistment.Done%2A> метод `enlistment` параметра.  
   
- Если диспетчер ресурсов включен в список, но не отвечает, вызвав <xref:System.Transactions.Enlistment.Done%2A> , диспетчер транзакций сомнения в том, что диспетчер ресурсов получил <xref:System.Transactions.IEnlistmentNotification.Commit%2A> вызова. Таким образом диспетчер транзакций отслеживает Ожидание ответа и хранит сведения, относящиеся к этой транзакции.  Если <xref:System.Transactions.Enlistment.Done%2A> — никогда не вызывается, этот фрагмент данных хранятся бессрочно в памяти или системных ресурсов. Это приводит к ресурсам, не может быть освобождена. В случае распределенных транзакций это со временем заполнения журнала MSDTC, которое останавливает процесс MSDTC. В случае транзакции, управляемой <xref:System.Transactions>, это приводит к постепенному увеличению потребления памяти процессом диспетчера ресурсов. Таким образом, очень важно, вызвать <xref:System.Transactions.Enlistment.Done%2A> метод после завершения диспетчер ресурсов вашей Подготовка работы.  
+ Если диспетчер ресурсов включен в список, но не отвечает, вызвав <xref:System.Transactions.Enlistment.Done%2A> , диспетчер транзакций сомнения в том, что диспетчер ресурсов получил <xref:System.Transactions.IEnlistmentNotification.Commit%2A> вызова. Таким образом диспетчер транзакций находится в состоянии ожидания ответа и сохраняет сведения, относящиеся к этой транзакции.  Если <xref:System.Transactions.Enlistment.Done%2A> — никогда не вызывается, этот элемент информации хранятся бессрочно в памяти или в системном ресурсе. Это приводит к ресурсам, не может быть освобождена. В случае распределенной транзакции это со временем заполняет журнала MSDTC, которое останавливает процесс MSDTC. В случае транзакции, управляемой координатором <xref:System.Transactions>, это приводит к постепенному увеличению потребления памяти процессом диспетчера ресурсов. Таким образом, важно вызывать <xref:System.Transactions.Enlistment.Done%2A> метод диспетчер ресурсов по окончании с вашей операции подготовки.  
   
  ]]></format>
         </remarks>
@@ -116,6 +118,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -141,14 +144,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод вызывается для непостоянных ресурсов, после вызова операции фиксации однофазного одному ресурсу устойчивых диспетчера транзакций, а затем потеряно подключение к долговременный ресурс до получения результата транзакции. На этом этапе результат транзакции не удается определить безопасно.  
+ Этот метод вызывается для неустойчивых ресурсов, когда диспетчер транзакций вызывает операции однофазной фиксации для один устойчивый ресурс, а затем подключение к устойчивых ресурсов было разорвано до получения результата транзакции. В таком случае результат транзакции не удается определить безопасно.  
   
- Как <xref:System.Transactions.IEnlistmentNotification.InDoubt%2A> — рассматриваются как конечное состояние для транзакции, не следует вызывать <xref:System.Transactions.IEnlistmentNotification.Commit%2A> или <xref:System.Transactions.IEnlistmentNotification.Rollback%2A> после вызова <xref:System.Transactions.IEnlistmentNotification.InDoubt%2A>.  
+ Как <xref:System.Transactions.IEnlistmentNotification.InDoubt%2A> является считается конечное состояние для транзакции, не следует вызывать <xref:System.Transactions.IEnlistmentNotification.Commit%2A> или <xref:System.Transactions.IEnlistmentNotification.Rollback%2A> после вызова метода <xref:System.Transactions.IEnlistmentNotification.InDoubt%2A>.  
   
 > [!NOTE]
->  Реализация этого метода для непостоянных ресурсов должна выполнять любые операции восстановления или проверки, он понимает для соответствующих данных.  Он также должен вызвать <xref:System.Transactions.Enlistment.Done%2A> метода на `enlistment` параметра после завершения его работы.  
+>  Реализации этого метода для непостоянных ресурсов следует выполнять любые операции восстановления или проверки, он понимает затронутых данных.  Он также должен вызвать <xref:System.Transactions.Enlistment.Done%2A> метод на `enlistment` параметр, если он завершил работу.  
   
- Если диспетчер ресурсов включен в список, но не отвечает, вызвав <xref:System.Transactions.Enlistment.Done%2A> , диспетчер транзакций сомнения в том, что диспетчер ресурсов получил <xref:System.Transactions.IEnlistmentNotification.InDoubt%2A> вызова. Таким образом диспетчер транзакций отслеживает Ожидание ответа и хранит сведения, относящиеся к этой транзакции.  Если <xref:System.Transactions.Enlistment.Done%2A> — никогда не вызывается, этот фрагмент данных хранятся бессрочно в памяти или системных ресурсов. Это приводит к ресурсам, не может быть освобождена. В случае распределенных транзакций это со временем заполнения журнала MSDTC, которое останавливает процесс MSDTC. В случае транзакции, управляемой <xref:System.Transactions>, это приводит к постепенному увеличению потребления памяти процессом диспетчера ресурсов. Таким образом, очень важно, вызвать <xref:System.Transactions.Enlistment.Done%2A> метод после завершения диспетчер ресурсов вашей Подготовка работы.  
+ Если диспетчер ресурсов включен в список, но не отвечает, вызвав <xref:System.Transactions.Enlistment.Done%2A> , диспетчер транзакций сомнения в том, что диспетчер ресурсов получил <xref:System.Transactions.IEnlistmentNotification.InDoubt%2A> вызова. Таким образом диспетчер транзакций находится в состоянии ожидания ответа и сохраняет сведения, относящиеся к этой транзакции.  Если <xref:System.Transactions.Enlistment.Done%2A> — никогда не вызывается, этот элемент информации хранятся бессрочно в памяти или в системном ресурсе. Это приводит к ресурсам, не может быть освобождена. В случае распределенной транзакции это со временем заполняет журнала MSDTC, которое останавливает процесс MSDTC. В случае транзакции, управляемой координатором <xref:System.Transactions>, это приводит к постепенному увеличению потребления памяти процессом диспетчера ресурсов. Таким образом, важно вызывать <xref:System.Transactions.Enlistment.Done%2A> метод диспетчер ресурсов по окончании с вашей операции подготовки.  
   
  ]]></format>
         </remarks>
@@ -163,6 +166,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -188,15 +192,15 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Диспетчер транзакций вызывает этот метод прикрепленная ресурса manager во время первой фазы фиксации, когда он опрашивает участников, могут ли они зафиксировать транзакцию.  
+ Диспетчер транзакций вызывает этот метод, включенный в список ресурсов manager во время первой фазы фиксации, когда он опрашивает участников, могут ли они зафиксировать транзакцию.  
   
- При реализации диспетчер долгосрочных ресурсов, необходимо войти в вашей Подготовка записи во время этого этапа. В записи должны содержаться все необходимые сведения для выполнения восстановления. Сюда входят <xref:System.Transactions.PreparingEnlistment.RecoveryInformation%2A> свойства, которые передаются в диспетчер транзакций в <xref:System.Transactions.TransactionManager.Reenlist%2A> метод во время восстановления. Дополнительные сведения о восстановлении см. в разделе [выполнение восстановления](http://msdn.microsoft.com/library/d342c5c7-da64-4a4c-8e63-b52f4fbf2691).  
+ При реализации диспетчер долгосрочных ресурсов, следует записывать в журнал вашей подготовки записи во время этого этапа. Запись должна включать всю необходимую информацию для выполнения восстановления. Сюда входят <xref:System.Transactions.PreparingEnlistment.RecoveryInformation%2A> свойство, которое передается диспетчеру транзакций в <xref:System.Transactions.TransactionManager.Reenlist%2A> метод во время восстановления. Дополнительные сведения о восстановлении см. в разделе [выполнение восстановления](http://msdn.microsoft.com/library/d342c5c7-da64-4a4c-8e63-b52f4fbf2691).  
   
- Диспетчер ресурсов необходимо выполнить все действия, которые необходимо завершить перед вызовом <xref:System.Transactions.PreparingEnlistment.Prepared%2A> метод `preparingEnlistment` параметр, чтобы указать его голоса для обязательств. Следует убедиться в том, что это достигается до получения никаких уведомлений второй фазы таких фиксации, отката или вы сомневаетесь. Это обусловлено уведомлений второго этапа может произойти, встроенные в том же потоке, который вызвал <xref:System.Transactions.PreparingEnlistment.Prepared%2A> метод на этапе 1. Таким образом, после вызова метода <xref:System.Transactions.PreparingEnlistment.Prepared%2A> не нужно выполнять никаких действий (например, снимать блокировки), которые должны были быть выполнены перед получением уведомлений второго этапа.  
+ Диспетчер ресурсов должен завершить всю работу, которая должна быть выполнена перед вызовом <xref:System.Transactions.PreparingEnlistment.Prepared%2A> метод `preparingEnlistment` параметр, чтобы указать свой голос за для сроков действия обязательства. Следует убедиться, что для этого перед получением уведомлений фазы 2 таких фиксации, отката или под сомнением. Это потому, что уведомления фазы 2 могут быть встроены в том же потоке, который вызвал <xref:System.Transactions.PreparingEnlistment.Prepared%2A> метод на этапе 1. Таким образом, после вызова метода <xref:System.Transactions.PreparingEnlistment.Prepared%2A> не нужно выполнять никаких действий (например, снимать блокировки), которые должны были быть выполнены перед получением уведомлений второго этапа.  
   
  Можно также вызвать метод `preparingEnlistment` параметр, чтобы указать голос для отката.  
   
- Если необходимо, чтобы объект просто наблюдать и реагирования на ход выполнения транзакции, без участия в его реализации этого метода следует вызвать <xref:System.Transactions.Enlistment.Done%2A> метод `preparingEnlistment` параметра после завершения его работы. Таким образом, диспетчер ресурсов не будет получать никаких уведомлений второй фазы.  
+ Если объект просто наблюдать и реагировать на ход выполнения операции, не участвующих в его реализации этого метода необходимо вызвать <xref:System.Transactions.Enlistment.Done%2A> метод `preparingEnlistment` параметр, если он завершил работу. Таким образом, диспетчер ресурсов не будет получать никаких уведомлений фазы 2.  
   
  ]]></format>
         </remarks>
@@ -211,6 +215,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -236,11 +241,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Диспетчер транзакций вызывает этот метод присоединенного объекта, если транзакция выполняет откат (прервано) из-за неспособности одного или нескольких участников транзакции зафиксировать транзакцию.  
+ Диспетчер транзакций вызывает этот метод присоединенного объекта, если транзакция выполняет откат (прервано), из-за неспособности один или несколько участников транзакции зафиксировать транзакцию.  
   
- Диспетчер ресурсов должен выполнить любые действия, необходимые для завершения транзакции и затем проинформировать диспетчер будет завершена путем вызова <xref:System.Transactions.Enlistment.Done%2A> метод `enlistment` параметра.  
+ Диспетчер ресурсов должен выполнить любые действия, необходимые для завершения транзакции и затем информировать о завершении, вызвав <xref:System.Transactions.Enlistment.Done%2A> метод `enlistment` параметра.  
   
- Если диспетчер ресурсов включен в список, но не отвечает, вызвав <xref:System.Transactions.Enlistment.Done%2A> , диспетчер транзакций сомнения в том, что диспетчер ресурсов получил <xref:System.Transactions.IEnlistmentNotification.Rollback%2A> вызова. Таким образом диспетчер транзакций отслеживает Ожидание ответа и хранит сведения, относящиеся к этой транзакции.  Если <xref:System.Transactions.Enlistment.Done%2A> — никогда не вызывается, этот фрагмент данных хранятся бессрочно в памяти или системных ресурсов. Это приводит к ресурсам, не может быть освобождена. В случае распределенных транзакций это со временем заполнения журнала MSDTC, которое останавливает процесс MSDTC. В случае транзакции, управляемой <xref:System.Transactions>, это приводит к постепенному увеличению потребления памяти процессом диспетчера ресурсов. Таким образом, очень важно, вызвать <xref:System.Transactions.Enlistment.Done%2A> метод после завершения диспетчер ресурсов вашей Подготовка работы.  
+ Если диспетчер ресурсов включен в список, но не отвечает, вызвав <xref:System.Transactions.Enlistment.Done%2A> , диспетчер транзакций сомнения в том, что диспетчер ресурсов получил <xref:System.Transactions.IEnlistmentNotification.Rollback%2A> вызова. Таким образом диспетчер транзакций находится в состоянии ожидания ответа и сохраняет сведения, относящиеся к этой транзакции.  Если <xref:System.Transactions.Enlistment.Done%2A> — никогда не вызывается, этот элемент информации хранятся бессрочно в памяти или в системном ресурсе. Это приводит к ресурсам, не может быть освобождена. В случае распределенной транзакции это со временем заполняет журнала MSDTC, которое останавливает процесс MSDTC. В случае транзакции, управляемой координатором <xref:System.Transactions>, это приводит к постепенному увеличению потребления памяти процессом диспетчера ресурсов. Таким образом, важно вызывать <xref:System.Transactions.Enlistment.Done%2A> метод диспетчер ресурсов по окончании с вашей операции подготовки.  
   
  ]]></format>
         </remarks>

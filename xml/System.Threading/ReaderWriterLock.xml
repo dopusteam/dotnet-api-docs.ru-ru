@@ -1,11 +1,11 @@
 <Type Name="ReaderWriterLock" FullName="System.Threading.ReaderWriterLock">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ed9a740eab700d16f5778c2b6c1ce675521e870e" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="eceaf936001c4e98e1bf97071c933f2a511a4a69" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36605894" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37754697" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class ReaderWriterLock : System.Runtime.ConstrainedExecution.CriticalFinalizerObject" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit ReaderWriterLock extends System.Runtime.ConstrainedExecution.CriticalFinalizerObject" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type ReaderWriterLock = class&#xA;    inherit CriticalFinalizerObject" />
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -29,6 +31,7 @@
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Runtime.ConstrainedExecution.CriticalFinalizerObject</BaseTypeName>
+    <BaseTypeName FrameworkAlternate="netframework-1.1">System.Object</BaseTypeName>
   </Base>
   <Interfaces />
   <Attributes>
@@ -46,39 +49,39 @@
 > [!IMPORTANT]
 >  Класс [!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] использует две блокировки чтения и записи: <xref:System.Threading.ReaderWriterLockSlim> и <xref:System.Threading.ReaderWriterLock>. Мы рекомендуем применять <xref:System.Threading.ReaderWriterLockSlim> при любых новых разработках. <xref:System.Threading.ReaderWriterLockSlim> действует так же, как и <xref:System.Threading.ReaderWriterLock>, но с более простыми правилами рекурсии и изменения состояния блокировки. <xref:System.Threading.ReaderWriterLockSlim> позволяет избежать многих ситуаций взаимоблокировки. Кроме того, производительность <xref:System.Threading.ReaderWriterLockSlim> значительно выше, чем у <xref:System.Threading.ReaderWriterLock>.  
   
- <xref:System.Threading.ReaderWriterLock> используется для синхронизации доступа к ресурсу. В любой момент времени позволяет параллельный доступ для нескольких потоков для чтения или доступ на запись для одного потока. В ситуации, когда ресурс изменяется нечасто `ReaderWriterLock` обеспечивает большую производительность, чем простой один во время блокировки, например <xref:System.Threading.Monitor>.  
+ <xref:System.Threading.ReaderWriterLock> используется для синхронизации доступа к ресурсу. В любой момент времени она позволяет одновременный доступ на чтение для нескольких потоков или доступ на запись для одного потока. В ситуации, когда ресурс изменяется нечасто `ReaderWriterLock` предоставляет большую производительность, чем простой один во время блокировки, например <xref:System.Threading.Monitor>.  
   
- `ReaderWriterLock` лучше всего работает, где большинство доступов являются чтениями, во время операции записи выполняются нечасто и короткого периода. Несколько читающих сменяются один пишущий поток, чтобы не заблокированы в течение длительных периодов времени.  
+ `ReaderWriterLock` лучше всего работает, где большинство обращений к операции чтения, случаются операций записи и с короткой продолжительностью. Несколько читающих сменяются один пишущий поток, таким образом, чтобы не заблокированы в течение длительных периодов времени.  
   
 > [!NOTE]
->  Удерживая блокировки чтения или записи в течение длительных периодов времени будет препятствовать работе других потоков. Для наилучшей производительности рекомендуется реструктуризации приложения для минимизации продолжительности записей.  
+>  Удержание блокировок чтения или блокировки записи в течение длительных периодов времени будет препятствовать работе других потоков. Для наилучшей производительности рекомендуется реструктуризации приложение, чтобы свести к минимуму продолжительность операции записи.  
   
- Поток может удерживать считывателя блокировку или блокировку записи, но не оба одновременно. Вместо снятия блокировки чтения, чтобы получить блокировку записи, можно использовать <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> и <xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A>.  
+ Поток может удерживать считывателя блокировку или блокировку записи, но не оба одновременно. Вместо снятия блокировки чтения, чтобы получить блокировку записи, вы можете использовать <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> и <xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A>.  
   
  Рекурсивные запросы блокировки увеличивают счетчик блокировок данной блокировки.  
   
- Средства чтения и записи помещаются в очередь отдельно. Когда поток освобождает блокировку записи, всех потоков, ожидающих в очереди чтения в данный момент времени предоставляются блокировки чтения. Когда все эти блокировки были выпущены, далее ожидающих потоков в модуль записи очереди, если таковые имеются, предоставляется блокировка записи и так далее. Другими словами `ReaderWriterLock` переключается между коллекцией читающих и один модуль записи.  
+ Модули чтения и записи помещаются в очередь отдельно. Когда поток освобождает блокировку записи, все потоки, ожидающие в очереди модуля чтения в данный момент времени предоставляются блокировки чтения. Когда все эти блокировки были выпущены, далее ожидающих потоков в модуль записи в очередь, если имеется, предоставляется блокировка записи и так далее. Другими словами `ReaderWriterLock` переключается между коллекцию читателей и одного модуля записи.  
   
- При ожидании потока в очереди модуля записи активный считыватель блокировки снимаются, потоки, запрашивающие новые блокировки чтения накапливаются в очереди модуля чтения. Их запросы не удовлетворяются, даже если они пользуются совместным доступом с существующие владельцами блокировок чтения; Это позволяет защитить записи от неопределенного читающими.  
+ Пока поток в очереди модуля записи ожидает снятия блокировок активный модуль чтения, потоки, запрашивающие новые блокировки чтения накапливаются в очереди модуля чтения. Их запросы не предоставляются, несмотря на то, что они могут совместно использовать параллельный доступ с существующей владельцами блокировок чтения; Это позволяет защитить записи от неопределенного читающими.  
   
- Большинство методов для получения блокировки на `ReaderWriterLock` принимать значения времени ожидания. Используйте значения времени ожидания, чтобы избежать взаимоблокировок в приложении. Например поток может получить блокировку записи для одного ресурса и затем запросить блокировку чтения для второго ресурса; в то же время другой поток может получить блокировку записи для второго ресурса и запросить блокировку чтения на первом. Если не используется время ожидания, взаимоблокировка потоков.  
+ Большинство методов для получения блокировки на `ReaderWriterLock` принимают значения времени ожидания. Используйте значения времени ожидания, чтобы избежать взаимоблокировок в приложении. Например поток может получить блокировку записи для одного ресурса, а затем запросить блокировку чтения для второй ресурс; в то же время другой поток может получить блокировку записи на второй ресурс и запрос на блокировку чтения, на первой. Если не используется время ожидания, взаимоблокировка потоков.  
   
- Если истечения времени ожидания запроса на блокировку не предоставлено, метод возвращает управление в вызывающий поток путем создания исключения <xref:System.ApplicationException>. Поток может перехватить это исключение и определить, какое действие следует предпринять далее.  
+ Если истечет время ожидания и не было предоставлено запроса на блокировку, метод возвращает управление в вызывающий поток, выдав <xref:System.ApplicationException>. Поток может перехватить это исключение и определить, какое действие следует предпринять далее.  
   
- Время ожидания выражается в миллисекундах. Если вы используете <xref:System.TimeSpan?displayProperty=nameWithType> для указания тайм-аута, значение, используемое — общее количество миллисекунд, представленного <xref:System.TimeSpan>. В следующей таблице показаны допустимые значения времени ожидания в миллисекундах.  
+ Время ожидания выражается в миллисекундах. Если вы используете <xref:System.TimeSpan?displayProperty=nameWithType> чтобы указать время ожидания, используется значение общего количества полных миллисекунд, представленного <xref:System.TimeSpan>. В следующей таблице показаны допустимые значения времени ожидания в миллисекундах.  
   
 |Значение|Описание:|  
 |-----------|-----------------|  
-|-1|Поток ожидает блокировки, независимо от того, сколько времени занимает. Для методов, укажите тайм-аутов целое число со знаком, константа <xref:System.Threading.Timeout.Infinite> может использоваться.|  
-|0|Поток не ожидает получения блокировки. Если невозможно получить блокировку немедленно, метод возвращает.|  
+|-1|Поток ожидает получения блокировки, независимо от того, сколько времени занимает. Для методов, которые указывают параметры времени ожидания целое число, константа <xref:System.Threading.Timeout.Infinite> может использоваться.|  
+|0|Поток ожидает получения блокировки. Если невозможно получить блокировку немедленно, метод возвращает.|  
 |>0|Время ожидания в миллисекундах.|  
   
- За исключением -1 не допускаются отрицательные значения времени ожидания. При указании отрицательным целым числом, отличным от – 1, вместо него используется значение времени ожидания, равное нулю. (То есть, метод возвращает без ожидания, если невозможно немедленно получена блокировка.) При указании <xref:System.TimeSpan> , представляющий отрицательное число миллисекунд, отличным от – 1, <xref:System.ArgumentOutOfRangeException> возникает исключение.  
+ За исключением -1 не допускаются отрицательные значения времени ожидания. Если указано отрицательное целое число, отличным от -1, вместо него используется значение времени ожидания, равное нулю. (То есть, метод возвращает без ожидания, если блокировка не может быть получена немедленно.) Если указать <xref:System.TimeSpan> , представляющий отрицательное число миллисекунд, отличным от -1, <xref:System.ArgumentOutOfRangeException> возникает исключение.  
   
    
   
 ## Examples  
- В следующем примере демонстрируется использование <xref:System.Threading.ReaderWriterLock> для защиты общих ресурсов, целочисленное значение с именем `resource`, то есть одновременно для чтения и записи исключительно из нескольких потоков. Обратите внимание, что <xref:System.Threading.ReaderWriterLock> объявлен на уровне класса, чтобы он был виден ко всем потокам.  
+ Следующий пример демонстрирует, как использовать <xref:System.Threading.ReaderWriterLock> для защиты общих ресурсов, целочисленное значение с именем `resource`, то есть одновременно считываются и записываются только в рамках нескольких потоков. Обратите внимание, что <xref:System.Threading.ReaderWriterLock> объявлен на уровне класса, так как это видимым для всех потоков.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.ReaderWriterLock#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#1)]
@@ -98,6 +101,8 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -119,7 +124,7 @@
 ## Examples  
  В следующем примере кода показано создание нового экземпляра класса <xref:System.Threading.ReaderWriterLock>.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -152,6 +157,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -177,23 +184,23 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.AcquireReaderLock%2A> блокируется, если другой поток имеет блокировку записи или хотя бы один поток ожидает блокировки модуля записи.  
+ <xref:System.Threading.ReaderWriterLock.AcquireReaderLock%2A> блокируется, если другой поток получает блокировку записи, или в том случае, если хотя бы один поток, ожидающий блокировки записи.  
   
 > [!NOTE]
->  Если текущий поток уже имеет блокировку записи, без блокировки чтения. Вместо этого увеличивается счетчик блокировок данной блокировки записи. Это предотвращает блокировку собственный модуль записи потока. Результатом является точно таким же, как вызов <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>и дополнительный вызов <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> является обязательным при освобождении блокировки записи.  
+>  Если текущий поток уже имеет блокировку записи, нет блокировки чтения. Вместо этого увеличивается счетчик блокировок данной блокировки записи. Это предотвращает блокировку свой собственный модуль записи потока. Результат будет точно так же, как вызов <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>и дополнительный вызов <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> является обязательным при освобождении блокировки записи.  
   
- `AcquireReaderLock` поддерживает рекурсивные запросы на блокировку чтения. То есть поток может вызывать метод AcquireReaderLock несколько раз, которой каждый раз счетчик блокировок. Необходимо вызвать <xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A> один раз для каждый раз при вызове `AcquireReaderLock`. Кроме того, можно вызвать метод <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> для уменьшения числа блокировок до нуля немедленно.  
+ `AcquireReaderLock` поддерживает рекурсивные запросы на блокировку чтения. То есть поток может вызывать метод AcquireReaderLock несколько раз, который каждый раз счетчик блокировок. Необходимо вызвать <xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A> один раз для каждый раз при вызове `AcquireReaderLock`. Кроме того, можно вызвать <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> чтобы уменьшить количество блокировок до нуля немедленно.  
   
- Рекурсивные запросы блокировок всегда выполняются немедленно, без помещения запрашивающего потока в очередь чтения. Используйте рекурсивные блокировки с осторожностью, чтобы избежать длительного блокирования запросов на блокировку записи.  
+ Рекурсивные запросы блокировок всегда выполняются немедленно, без помещения запрашивающего потока в очередь средство чтения. Используйте рекурсивные блокировки с осторожностью, чтобы избежать длительного блокирования запросов на блокировку записи.  
   
- Допустимые значения времени ожидания, в разделе <xref:System.Threading.ReaderWriterLock>.  
+ Допустимые значения времени ожидания, см. в разделе <xref:System.Threading.ReaderWriterLock>.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как получить и освободить блокировку чтения и как обрабатывать исключение, возникающее при истечении времени ожидания запроса.  
+ В следующем примере кода показано, как получить и освободить блокировку чтения и как обрабатывать исключение, создаваемое при истечении времени ожидания запроса.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -220,6 +227,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -245,16 +254,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.AcquireReaderLock%2A> блокируется, если другой поток имеет блокировку записи или хотя бы один поток ожидает блокировки модуля записи.  
+ <xref:System.Threading.ReaderWriterLock.AcquireReaderLock%2A> блокируется, если другой поток получает блокировку записи, или в том случае, если хотя бы один поток, ожидающий блокировки записи.  
   
 > [!NOTE]
->  Если текущий поток уже имеет блокировку записи, без блокировки чтения. Вместо этого увеличивается счетчик блокировок данной блокировки записи. Это предотвращает блокировку собственный модуль записи потока. Результатом является точно таким же, как вызов <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>и дополнительный вызов <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> является обязательным при освобождении блокировки записи.  
+>  Если текущий поток уже имеет блокировку записи, нет блокировки чтения. Вместо этого увеличивается счетчик блокировок данной блокировки записи. Это предотвращает блокировку свой собственный модуль записи потока. Результат будет точно так же, как вызов <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>и дополнительный вызов <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> является обязательным при освобождении блокировки записи.  
   
- `AcquireReaderLock` поддерживает рекурсивные запросы на блокировку чтения. То есть поток может вызывать метод AcquireReaderLock несколько раз, которой каждый раз счетчик блокировок. Необходимо вызвать <xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A> один раз для каждый раз при вызове `AcquireReaderLock`. Кроме того, можно вызвать метод <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> для уменьшения числа блокировок до нуля немедленно.  
+ `AcquireReaderLock` поддерживает рекурсивные запросы на блокировку чтения. То есть поток может вызывать метод AcquireReaderLock несколько раз, который каждый раз счетчик блокировок. Необходимо вызвать <xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A> один раз для каждый раз при вызове `AcquireReaderLock`. Кроме того, можно вызвать <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> чтобы уменьшить количество блокировок до нуля немедленно.  
   
- Рекурсивные запросы блокировок всегда выполняются немедленно, без помещения запрашивающего потока в очередь чтения. Используйте рекурсивные блокировки с осторожностью, чтобы избежать длительного блокирования запросов на блокировку записи.  
+ Рекурсивные запросы блокировок всегда выполняются немедленно, без помещения запрашивающего потока в очередь средство чтения. Используйте рекурсивные блокировки с осторожностью, чтобы избежать длительного блокирования запросов на блокировку записи.  
   
- Допустимые значения времени ожидания, в разделе <xref:System.Threading.ReaderWriterLock>.  
+ Допустимые значения времени ожидания, см. в разделе <xref:System.Threading.ReaderWriterLock>.  
   
  ]]></format>
         </remarks>
@@ -282,6 +291,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -307,25 +318,25 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод блокируется, если другой поток имеет блокировки чтения или записи. Описание способа блокировки записи чередуется с несколькими одновременными блокировками чтения см. в разделе <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот метод блокируется, если другой поток содержит блокировку чтения или записи. Описание способа блокировки записи чередуется с нескольких параллельных блокировки, см. в разделе <xref:System.Threading.ReaderWriterLock> класса.  
   
- Поток, который уже имеет блокировку чтения может получить блокировку записи в одном из двух способов: освободить блокировки чтения до вызова метода <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>, или путем вызова <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>.  
+ Поток, который уже имеет блокировку чтения может получить блокировку записи в одном из двух способов: путем освобождения блокировки чтения до вызова метода <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>, или путем вызова <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>.  
   
 > [!CAUTION]
->  Если поток выполняет вызов `AcquireWriterLock` хотя она по-прежнему имеет блокировку чтения, он заблокируется собственной блокировкой чтения; если задано бесконечное время ожидания, то поток заблокируется. Чтобы избежать такой взаимоблокировки, используйте <xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A> для определите, содержит ли текущий поток блокировкой чтения.  
+>  Если поток вызывает `AcquireWriterLock` хотя она по-прежнему имеет блокировку чтения, он заблокирует на них отдельной блокировкой чтения; если задано бесконечное время ожидания, то поток заблокируется. Чтобы избежать такой взаимоблокировки, используйте <xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A> для определения, имеет ли текущий поток уже блокировку чтения.  
   
- `AcquireWriterLock` поддерживает рекурсивные запросы на блокировку записи. То есть, что поток может вызывать `AcquireWriterLock` несколько раз, что счетчик блокировок увеличивается на каждый раз. Необходимо вызвать <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> один раз для каждый раз при вызове `AcquireWriterLock`. Кроме того, можно вызвать метод <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> для уменьшения числа блокировок до нуля немедленно.  
+ `AcquireWriterLock` поддерживает рекурсивные запросы блокировки записи. То есть, что поток может вызывать `AcquireWriterLock` несколько раз, который увеличивает на единицу счетчик блокировок каждый раз. Необходимо вызвать <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> один раз для каждый раз при вызове `AcquireWriterLock`. Кроме того, можно вызвать <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> чтобы уменьшить количество блокировок до нуля немедленно.  
   
  Рекурсивные запросы блокировок всегда выполняются немедленно, без помещения запрашивающего потока в очереди модуля записи.  
   
- Допустимые значения времени ожидания, в разделе <xref:System.Threading.ReaderWriterLock>.  
+ Допустимые значения времени ожидания, см. в разделе <xref:System.Threading.ReaderWriterLock>.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как получить и освободить блокировку записи и как обрабатывать исключение, возникающее при истечении времени ожидания запроса.  
+ В следующем примере кода показано, как получить и освободить блокировку записи и как обрабатывать исключение, создаваемое при истечении времени ожидания запроса.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -352,6 +363,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -377,18 +390,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод блокируется, если другой поток имеет блокировки чтения или записи. Описание способа блокировки записи чередуется с несколькими одновременными блокировками чтения см. в разделе <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот метод блокируется, если другой поток содержит блокировку чтения или записи. Описание способа блокировки записи чередуется с нескольких параллельных блокировки, см. в разделе <xref:System.Threading.ReaderWriterLock> класса.  
   
- Поток, который уже имеет блокировку чтения может получить блокировку записи в одном из двух способов: освободить блокировки чтения до вызова метода <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>, или путем вызова <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>.  
+ Поток, который уже имеет блокировку чтения может получить блокировку записи в одном из двух способов: путем освобождения блокировки чтения до вызова метода <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>, или путем вызова <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>.  
   
 > [!CAUTION]
->  Если поток выполняет вызов `AcquireWriterLock` хотя она по-прежнему имеет блокировку чтения, он заблокируется собственной блокировкой чтения; если задано бесконечное время ожидания, то поток заблокируется. Чтобы избежать такой взаимоблокировки, используйте <xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A> для определите, содержит ли текущий поток блокировкой чтения.  
+>  Если поток вызывает `AcquireWriterLock` хотя она по-прежнему имеет блокировку чтения, он заблокирует на них отдельной блокировкой чтения; если задано бесконечное время ожидания, то поток заблокируется. Чтобы избежать такой взаимоблокировки, используйте <xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A> для определения, имеет ли текущий поток уже блокировку чтения.  
   
- `AcquireWriterLock` поддерживает рекурсивные запросы на блокировку записи. То есть, что поток может вызывать `AcquireWriterLock` несколько раз, что счетчик блокировок увеличивается на каждый раз. Необходимо вызвать <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> один раз для каждый раз при вызове `AcquireWriterLock`. Кроме того, можно вызвать метод <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> для уменьшения числа блокировок до нуля немедленно.  
+ `AcquireWriterLock` поддерживает рекурсивные запросы блокировки записи. То есть, что поток может вызывать `AcquireWriterLock` несколько раз, который увеличивает на единицу счетчик блокировок каждый раз. Необходимо вызвать <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> один раз для каждый раз при вызове `AcquireWriterLock`. Кроме того, можно вызвать <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> чтобы уменьшить количество блокировок до нуля немедленно.  
   
  Рекурсивные запросы блокировок всегда выполняются немедленно, без помещения запрашивающего потока в очереди модуля записи.  
   
- Допустимые значения времени ожидания, в разделе <xref:System.Threading.ReaderWriterLock>.  
+ Допустимые значения времени ожидания, см. в разделе <xref:System.Threading.ReaderWriterLock>.  
   
  ]]></format>
         </remarks>
@@ -406,6 +419,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -432,16 +447,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Можно использовать <xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A> и `AnyWritersSince` для повышения производительности приложения. Например поток может кэшировать данные, которые он получает при удерживании блокировки чтения. После освобождения и нового получения блокировки позже, поток может использовать `AnyWritersSince` для определения ли другими потоками запись к ресурсу за этот промежуток времени; в противном случае можно использовать кэшированные данные. Этот метод полезен, когда чтение информации, защищенной блокировкой расходуется; например выполнение запроса к базе данных.  
+ Можно использовать <xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A> и `AnyWritersSince` для повышения производительности приложения. Например поток может кэшировать данные, которые он получает при удерживании блокировки чтения. После освобождения и более поздней версии нового получения блокировки, поток может использовать `AnyWritersSince` для определения ли запись других потоков в ресурс до этого времени; если нет, можно использовать кэшированные данные. Этот метод полезен, где он считывает данные, защищенные блокировкой ресурсоемким; например выполнение запроса к базе данных.  
   
- Вызывающий объект должен удерживать блокировку чтения или записи для номер последовательности для использования.  
+ Вызывающий объект должен удерживать блокировку чтения или записи в порядке для порядкового номера быть полезным.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как использовать <xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A> метод и <xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A> свойства, чтобы определить ли другой поток получить блокировку записи для защищенного ресурса с момента текущий поток последнего удерживаются блокировки записи.  
+ В следующем примере кода показано, как использовать <xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A> метод и <xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A> свойства, чтобы определить ли другой поток получить блокировку записи для защищенного ресурса с текущим потоком последнего удерживаются блокировки записи.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -467,6 +482,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -492,19 +509,19 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A> Освобождает блокировку записи, независимо от числа рекурсивных запросов на блокировку и восстанавливает блокировки чтения, которая удерживается потоком, перед обновлением до блокировки записи. Счетчик блокировок данной блокировки чтения восстанавливается.  
+ <xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A> Освобождает блокировку записи, независимо от числа рекурсивных запросов на блокировку и восстанавливает блокировку чтения, содержащая потоком, перед обновлением до блокировки записи. Счетчик блокировок данной блокировки чтения восстанавливается.  
   
 > [!NOTE]
->  `DowngradeFromWriterLock` принимает <xref:System.Threading.LockCookie> получается вызовом <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>. Не используйте `LockCookie` возвращенных <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>.  
+>  `DowngradeFromWriterLock` принимает <xref:System.Threading.LockCookie> получен путем вызова <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>. Не используйте `LockCookie` возвращаемый <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>.  
   
- Поток блокируется при понижении от блокировки записи, даже если другие потоки ожидают блокировки записи, потому что все запросы на блокировку чтения выполняются, когда блокировка записи освобождается.  
+ Поток блокируется при понижении от блокировки записи, даже если другие потоки ожидают блокировки записи, так как все запросы на блокировку чтения предоставляются при выпуске блокировкой записи.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как запрос на блокировку чтения, обновления блокировки чтения до блокировки записи и понизить уровень блокировки чтения еще раз.  
+ В следующем примере кода показано, как запросить блокировку чтения, обновления блокировки чтения до блокировки записи и понизить до блокировки чтения еще раз.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -532,6 +549,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -566,6 +584,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -593,7 +613,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Examples  
- В следующем примере кода демонстрируется использование `IsReaderLockHeld` в целях предотвращения взаимоблокировок.  
+ В следующем примере кода демонстрируется использование `IsReaderLockHeld` избежание взаимоблокировок.  
   
  [!code-cpp[System.Threading.ReaderWriterLock.IsWriterLockHeld#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock.IsWriterLockHeld/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.ReaderWriterLock.IsWriterLockHeld#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock.IsWriterLockHeld/CS/source.cs#1)]
@@ -613,6 +633,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -660,6 +682,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -683,14 +707,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> Освобождает блокировки чтения или записи, независимо от числа рекурсивных запросов на блокировку. Для восстановления состояния блокировки, включая число блокировок, передайте <xref:System.Threading.LockCookie> для <xref:System.Threading.ReaderWriterLock.RestoreLock%2A>.  
+ <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> Освобождает блокировку чтения или записи, независимо от счетчика рекурсивных. Чтобы восстановить состояние блокировки, включая число блокировок, передайте <xref:System.Threading.LockCookie> для <xref:System.Threading.ReaderWriterLock.RestoreLock%2A>.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как использовать <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> метод, чтобы снять блокировку, независимо от того, сколько раз была получена, поток и восстановление состояния блокировки.  
+ В следующем примере кода показано, как использовать <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> метод для освобождения блокировки, независимо от того, сколько раз она была получена, поток и восстановление состояния блокировки.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -716,6 +740,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -743,17 +769,17 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A> уменьшает счетчик блокировок. Когда значение счетчика достигнет нуля, то блокировка снимается.  
+ <xref:System.Threading.ReaderWriterLock.ReleaseReaderLock%2A> уменьшает счетчик блокировок. Когда счетчик достигает нуля, то блокировка снимается.  
   
 > [!NOTE]
->  Если поток получает блокировку записи, при вызове `ReleaseReaderLock` имеет тот же эффект, что и вызов метода <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>. Если поток не имеет блокировок, вызов метода `ReleaseReaderLock` вызывает <xref:System.ApplicationException>.  
+>  Если поток получает блокировку записи, при вызове метода `ReleaseReaderLock` имеет тот же эффект, что и вызов метода <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A>. Если поток не имеет блокировок, вызов метода `ReleaseReaderLock` вызывает <xref:System.ApplicationException>.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как получить и освободить блокировку чтения и как обрабатывать исключение, возникающее при истечении времени ожидания запроса.  
+ В следующем примере кода показано, как получить и освободить блокировку чтения и как обрабатывать исключение, создаваемое при истечении времени ожидания запроса.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -780,6 +806,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -807,17 +835,17 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> уменьшает счетчик блокировки модуля записи. Когда значение счетчика достигнет нуля, блокировка записи освобождается.  
+ <xref:System.Threading.ReaderWriterLock.ReleaseWriterLock%2A> уменьшает счетчик блокировки модуля записи. Когда счетчик достигает нуля, снятия блокировки модуля записи.  
   
 > [!NOTE]
->  Если поток имеет блокировки чтения или без блокировки, при вызове `ReleaseWriterLock` вызывает <xref:System.ApplicationException>.  
+>  Если поток имеет блокировку чтения, или отсутствует, вызов метода `ReleaseWriterLock` вызывает <xref:System.ApplicationException>.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как получить и освободить блокировку записи и как обрабатывать исключение, возникающее при истечении времени ожидания запроса.  
+ В следующем примере кода показано, как получить и освободить блокировку записи и как обрабатывать исключение, создаваемое при истечении времени ожидания запроса.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -844,6 +872,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -869,21 +899,21 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Состояние, восстанавливаемое методом `RestoreLock` включает число рекурсивных блокировок.  
+ Состояние, восстановить, `RestoreLock` включает счетчик блокировок рекурсивной.  
   
- Поток блокируется, если он пытается восстановить блокировку чтения после другой поток получил блокировку записи, или если он пытается восстановить блокировку записи после другой поток получил блокировку чтения или блокировки записи. Поскольку `RestoreLock` не принимает тайм-аут, следует позаботиться для избежания взаимоблокировок.  
+ Поток блокируется, если он пытается восстановить блокировку чтения после другой поток получил блокировку записи, или если он пытается восстановить блокировку записи после другой поток получил блокировку чтения или записи. Так как `RestoreLock` не принимает тайм-аут, следует позаботиться для избежания взаимоблокировок.  
   
 > [!CAUTION]
->  Перед вызовом метода `RestoreLock`, убедитесь, что освободили все блокировки, полученные после вызова <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>. Например поток блокируется навсегда, если он получает блокировку чтения, а затем пытается восстановить прежнюю блокировку записи. Используйте <xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A> и <xref:System.Threading.ReaderWriterLock.IsWriterLockHeld%2A> для обнаружения подобных блокировок.  
+>  Перед вызовом `RestoreLock`, убедитесь, что вы выпустили все блокировки, полученные после вызова <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A>. Например поток взаимоблокировки, если он получает блокировку чтения, а затем пытается восстановить прежнюю блокировку записи. Используйте <xref:System.Threading.ReaderWriterLock.IsReaderLockHeld%2A> и <xref:System.Threading.ReaderWriterLock.IsWriterLockHeld%2A> для обнаружения подобных блокировок.  
   
- Не используйте <xref:System.Threading.LockCookie> , возвращенные <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>.  
+ Не используйте <xref:System.Threading.LockCookie> возвращаемые <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A>.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как использовать <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> метод, чтобы снять блокировку, независимо от того, сколько раз была получена, поток и восстановление состояния блокировки.  
+ В следующем примере кода показано, как использовать <xref:System.Threading.ReaderWriterLock.ReleaseLock%2A> метод для освобождения блокировки, независимо от того, сколько раз она была получена, поток и восстановление состояния блокировки.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -920,6 +950,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -946,23 +978,23 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если поток вызывает `UpgradeToWriterLock` блокировка чтения освобождается независимо от счетчика блокировок, и поток помещается в конец очереди блокировки записи. Таким образом другие потоки могут писать в ресурс до истечения которого поток, который запросил обновление будет предоставлена блокировка записи.  
+ Если поток вызывает `UpgradeToWriterLock` снятия блокировки чтения, независимо от того, количество блокировок, и поток помещается в конец очереди блокировки записи. Таким образом другие потоки могут писать в ресурс, прежде чем поток, который запросил обновление будет предоставлена блокировка записи.  
   
 > [!IMPORTANT]
->  Исключение не создается до потоке, который вызвал <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод может повторно получить блокировку чтения. Если нет других потоков, ожидающих блокировки записи, это происходит немедленно. Тем не менее, если другой поток находился в очереди блокировки записи, поток, вызвавший <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод не может повторно получить блокировку чтения, пока все текущего средства чтения освободят свои блокировки, и один поток получит и освободит блокировку записи. Это верно, даже если другой поток, запрос блокировки записи требуется после вызова текущего потока <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод.  
+>  Исключение не создается до потоке, который вызвал <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод можно повторить запрос блокировки чтения. Если нет других потоков, ожидающих блокировки записи, это происходит немедленно. Тем не менее, если другой поток помещается в очередь блокировки записи, поток, вызвавший <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод не сможет повторно получить блокировку чтения, пока все текущего средства чтения освободят свои блокировки, и один поток получит и освободит блокировку записи. Это справедливо, даже если другой поток, запросившего блокировку записи требуется после вызова текущего потока <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод.  
   
- Чтобы восстановить состояние блокировки, вызовите <xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A> с помощью <xref:System.Threading.LockCookie> возвращенных `UpgradeToWriterLock`. Не используйте этот `LockCookie` с <xref:System.Threading.ReaderWriterLock.RestoreLock%2A>.  
+ Чтобы восстановить состояние блокировки, вызовите <xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A> с помощью <xref:System.Threading.LockCookie> возвращаемый `UpgradeToWriterLock`. Не используйте этот `LockCookie` с <xref:System.Threading.ReaderWriterLock.RestoreLock%2A>.  
   
- Если поток не имеет читающей блокировки, не используйте `UpgradeToWriterLock`. Взамен рекомендуется использовать <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>.  
+ Если поток имеет блокировка чтения, не используйте `UpgradeToWriterLock`. Взамен рекомендуется использовать <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>.  
   
- Допустимые значения времени ожидания, в разделе <xref:System.Threading.ReaderWriterLock>.  
+ Допустимые значения времени ожидания, см. в разделе <xref:System.Threading.ReaderWriterLock>.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как запрос на блокировку чтения, обновления блокировки чтения до блокировки записи и понизить уровень блокировки чтения еще раз.  
+ В следующем примере кода показано, как запросить блокировку чтения, обновления блокировки чтения до блокировки записи и понизить до блокировки чтения еще раз.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
@@ -989,6 +1021,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1015,16 +1049,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если поток вызывает `UpgradeToWriterLock` блокировка чтения освобождается независимо от счетчика блокировок, и поток помещается в конец очереди блокировки записи. Таким образом другие потоки могут писать в ресурс до истечения которого поток, который запросил обновление будет предоставлена блокировка записи.  
+ Если поток вызывает `UpgradeToWriterLock` снятия блокировки чтения, независимо от того, количество блокировок, и поток помещается в конец очереди блокировки записи. Таким образом другие потоки могут писать в ресурс, прежде чем поток, который запросил обновление будет предоставлена блокировка записи.  
   
 > [!IMPORTANT]
->  Исключение не создается до потоке, который вызвал <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод может повторно получить блокировку чтения. Если нет других потоков, ожидающих блокировки записи, это происходит немедленно. Тем не менее, если другой поток находился в очереди блокировки записи, поток, вызвавший <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод не может повторно получить блокировку чтения, пока все текущего средства чтения освободят свои блокировки, и один поток получит и освободит блокировку записи. Это верно, даже если другой поток, запрос блокировки записи требуется после вызова текущего потока <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод.  
+>  Исключение не создается до потоке, который вызвал <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод можно повторить запрос блокировки чтения. Если нет других потоков, ожидающих блокировки записи, это происходит немедленно. Тем не менее, если другой поток помещается в очередь блокировки записи, поток, вызвавший <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод не сможет повторно получить блокировку чтения, пока все текущего средства чтения освободят свои блокировки, и один поток получит и освободит блокировку записи. Это справедливо, даже если другой поток, запросившего блокировку записи требуется после вызова текущего потока <xref:System.Threading.ReaderWriterLock.UpgradeToWriterLock%2A> метод.  
   
- Чтобы восстановить состояние блокировки, вызовите <xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A> с помощью <xref:System.Threading.LockCookie> возвращенных `UpgradeToWriterLock`. Не используйте этот `LockCookie` с <xref:System.Threading.ReaderWriterLock.RestoreLock%2A>.  
+ Чтобы восстановить состояние блокировки, вызовите <xref:System.Threading.ReaderWriterLock.DowngradeFromWriterLock%2A> с помощью <xref:System.Threading.LockCookie> возвращаемый `UpgradeToWriterLock`. Не используйте этот `LockCookie` с <xref:System.Threading.ReaderWriterLock.RestoreLock%2A>.  
   
- Если поток не имеет читающей блокировки, не используйте `UpgradeToWriterLock`. Взамен рекомендуется использовать <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>.  
+ Если поток имеет блокировка чтения, не используйте `UpgradeToWriterLock`. Взамен рекомендуется использовать <xref:System.Threading.ReaderWriterLock.AcquireWriterLock%2A>.  
   
- Допустимые значения времени ожидания, в разделе <xref:System.Threading.ReaderWriterLock>.  
+ Допустимые значения времени ожидания, см. в разделе <xref:System.Threading.ReaderWriterLock>.  
   
  ]]></format>
         </remarks>
@@ -1042,6 +1076,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1064,18 +1100,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Порядковый номер увеличивается каждый раз, когда поток получает блокировку записи. Можно сохранить порядковый номер и передать его в <xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A> позднее, чтобы определить, является ли другие потоки, которые приобрели блокировки записи в то же время.  
+ Порядковый номер увеличивается каждый раз, когда поток получает блокировку записи. Можно сохранить порядковый номер и передать его в <xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A> позже, если вы хотите определить ли другие потоки получена блокировка записи в то же время.  
   
- Можно использовать `WriterSeqNum` для повышения производительности приложения. Например поток может кэшировать данные, которые он получает при удерживании блокировки чтения. После освобождения и нового получения блокировки позже, поток может определить ли запись другие потоки в ресурс, вызвав `AnyWritersSince`; Если нет, можно использовать кэшированные данные. Этот метод полезен, когда чтение информации, защищенной блокировкой, является дорогим; например выполнение запроса к базе данных.  
+ Можно использовать `WriterSeqNum` для повышения производительности приложения. Например поток может кэшировать данные, которые он получает при удерживании блокировки чтения. После освобождения и более поздней версии нового получения блокировки, поток может определить ли запись других потоков к ресурсу, вызвав `AnyWritersSince`; Если нет, можно использовать кэшированные данные. Этот метод полезен при чтении сведений, защищенные блокировкой ресурсоемким; например выполнение запроса к базе данных.  
   
- Вызывающий объект должен удерживать блокировку чтения или записи для номер последовательности для использования.  
+ Вызывающий объект должен удерживать блокировку чтения или записи в порядке для порядкового номера быть полезным.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как использовать <xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A> свойство и <xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A> метод, чтобы определить ли другой поток получить блокировку записи для защищенного ресурса с момента текущий поток последнего удерживаются блокировки записи.  
+ В следующем примере кода показано, как использовать <xref:System.Threading.ReaderWriterLock.WriterSeqNum%2A> свойство и <xref:System.Threading.ReaderWriterLock.AnyWritersSince%2A> метод для определения ли другой поток получить блокировку записи для защищенного ресурса с текущим потоком последнего удерживаются блокировки записи.  
   
- Данный пример кода является частью большего примера, приведенного для <xref:System.Threading.ReaderWriterLock> класса.  
+ Этот код является частью большего примера для <xref:System.Threading.ReaderWriterLock> класса.  
   
  [!code-cpp[System.Threading.ReaderWriterLock#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CPP/source.cpp#2)]
  [!code-csharp[System.Threading.ReaderWriterLock#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ReaderWriterLock/CS/source.cs#2)]
