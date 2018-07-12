@@ -1,11 +1,11 @@
 <Type Name="CodeDomSerializerBase" FullName="System.ComponentModel.Design.Serialization.CodeDomSerializerBase">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="e5f7c074bbcbc3192bb101836481b8642dbdfcbb" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="144dbb568547f7474811c00a2c95c9f1b0c1a8df" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36709143" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37698771" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class CodeDomSerializerBase" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit CodeDomSerializerBase extends System.Object" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type CodeDomSerializerBase = class" />
   <AssemblyInfo>
     <AssemblyName>System.Design</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -23,7 +24,7 @@
   <Interfaces />
   <Attributes>
     <Attribute>
-      <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+      <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
@@ -32,7 +33,7 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase> Класса используется в качестве совместной базы между <xref:System.ComponentModel.Design.Serialization.CodeDomSerializer> и <xref:System.ComponentModel.Design.Serialization.TypeCodeDomSerializer> классы. Открытый <xref:System.ComponentModel.Design.Serialization.CodeDomSerializer> классы являются производными от <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase> класса. Каждый открытый класс определяет собственный открытый API. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase> Класс определяет нет открытого API, но предлагает множество служебных методов, которые можно использовать для облегчения процесса сериализации.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase> Класс используется как общий базовый между <xref:System.ComponentModel.Design.Serialization.CodeDomSerializer> и <xref:System.ComponentModel.Design.Serialization.TypeCodeDomSerializer> классы. Открытый <xref:System.ComponentModel.Design.Serialization.CodeDomSerializer> классы являются производными от <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase> класса. Каждый открытый класс определяет собственный открытый API. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase> Класс определяет не открытый API, но предлагает множество служебных методов, которые можно использовать для облегчения процесса сериализации.  
   
  ]]></format>
     </remarks>
@@ -53,6 +54,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -73,13 +75,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это вспомогательный метод, который производные классы могут вызывать для десериализации выражения. Он выполняет десериализацию оператора путем обработки и выполнения выражения CodeDOM, заданного атрибутом `expression` параметра, а затем возвращает результаты. Если объект должен быть создан в результате этого выражения, он получит имя, указанное в `name` параметра. Имя может быть `null` , если нет необходимости имя объекта. В следующей таблице описаны конкретных выражения обрабатываются.  
+ Это вспомогательный метод, который производные классы можно вызвать для десериализации выражения. Выполняет десериализацию оператора путем обработки и выполнения CodeDOM выражению, заданному `expression` параметра, а затем возвращает результаты. Если объект должен быть создан в результате это выражение, ей будет назначено имя, указанное в `name` параметра. Имя может быть `null` Если нет необходимости именовать объект. В следующей таблице описаны как определенные выражения обрабатываются.  
   
 |Выражение|Поведение|  
 |----------------|--------------|  
-|<xref:System.CodeDom.CodeThisReferenceExpression>|Это выражение представляет `this` или `Me`. Чтобы найти объект, связанный с этого выражения <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.DeserializeExpression%2A> метод выполняет поиск в стек контекстов для <xref:System.ComponentModel.Design.Serialization.RootContext>. Этот объект содержит корневой объект графа и выражение, которое он представляет. Если объект существует, а выражение совпадает, возвращается корневой объект. Если не удается найти экземпляр, сообщение об ошибке.|  
-|<xref:System.CodeDom.CodeFieldReferenceExpression>|Если целевой ссылки на это поле имеет значение корневого объекта <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetInstance%2A> метод параметра manager будет использоваться для получения экземпляра объекта, на основе имени. В противном случае — стандартное отражение используется для поиска запрошенного поля с целевым объектом. Если не удается найти поле, сообщение об ошибке.|  
-|<xref:System.CodeDom.CodeVariableReferenceExpression>|<xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetInstance%2A> Метод `manager` параметр используется для поиска экземпляра, представляющий имя данной переменной. Если не удается найти экземпляр, сообщение об ошибке.|  
+|<xref:System.CodeDom.CodeThisReferenceExpression>|Это выражение представляет `this` или `Me`. Чтобы найти объект, связанный с этим объектом expression, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.DeserializeExpression%2A> метода будет выглядеть в стек контекста для <xref:System.ComponentModel.Design.Serialization.RootContext>. Этот объект содержит корневой объект графы и выражение, представляющее его. Если выражение совпадает, а объект отсутствует, возвращается корневой объект. Если экземпляр не удается найти, появляется сообщение об ошибке.|  
+|<xref:System.CodeDom.CodeFieldReferenceExpression>|Если целевой объект ссылки на поле принимает значение корневого объекта, <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetInstance%2A> метод параметра manager будет использоваться для получения экземпляра объекта, на основе имени. В противном случае — стандартное отражение используется для поиска запрошенного поля целевого объекта. Если поле не удается найти, появляется сообщение об ошибке.|  
+|<xref:System.CodeDom.CodeVariableReferenceExpression>|<xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetInstance%2A> Метод `manager` параметр используется для поиска экземпляра, представляющий имя данной переменной. Если экземпляр не удается найти, появляется сообщение об ошибке.|  
   
  <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.DeserializeExpression%2A> по-прежнему интерпретировать выражения до их полностью разрешения на объект или больше не может упростить выражение. В этом случае <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.DeserializeExpression%2A> вернет <xref:System.CodeDom.CodeExpression> , который содержит наиболее упрощенной выражение. Не поддерживаются следующие выражения:  
   
@@ -104,6 +106,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -146,6 +149,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -165,9 +169,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.DeserializePropertiesFromResources%2A> — Метод можно вызвать вспомогательный метод, который производных классов. Он выполняет поиск свойств данного объекта и пытается загрузить их значения из набора ресурсов инвариантного языка и региональных параметров. Обычно используется для обработки свойства времени проектирования, которые не преобразуются в исходный код. Он должен не использоваться для локализованные свойства, так как он работает только с инвариантным языком и региональными параметрами.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.DeserializePropertiesFromResources%2A> Является метод можно вызвать вспомогательный метод, который производные классы. Он ищет свойства заданного объекта и пытается загрузить их значения из набора ресурсов нейтральной культуры. Обычно это используется для обработки свойства времени разработки, которые не преобразуются в исходный код. Его не следует для локализованных свойств, так как он работает только с инвариантным языком и региональными параметрами.  
   
- Этот метод проверяет все свойства `value` параметр, который соответствует атрибутами, заданными `filter` параметра, а затем проверяет наличие этих свойств в двоичном объекте ресурса. Это полезно для десериализации свойств, которые не могут быть представлены в коде, например свойства во время разработки.  
+ Этот метод проверяет все свойства `value` параметр, который соответствует атрибутами, заданными `filter` параметра, а затем проверяет наличие этих свойств в двоичный объект ресурса. Это полезно для десериализации свойств, которые не могут быть представлены в коде, например свойства времени разработки.  
   
  Этот метод требует, что загрузчик конструктора предлагает <xref:System.ComponentModel.Design.IResourceService> для чтения ресурсов. Если <xref:System.ComponentModel.Design.IResourceService> предоставляет <xref:System.Resources.ResXResourceReader> для инвариантных региональных параметров, затем <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.DeserializePropertiesFromResources%2A> будет чтения ресурсов из раздела метаданных XML-файл ресурсов (RESX), который не включен в окончательный скомпилированный код. Если эта служба не доступна, ресурсы не будут считываться.  
   
@@ -186,6 +190,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -203,9 +208,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.DeserializeStatement%2A> — Метод можно вызвать вспомогательный метод, который производных классов. Он интерпретирует `statement` параметра.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.DeserializeStatement%2A> Является метод можно вызвать вспомогательный метод, который производные классы. Он интерпретирует `statement` параметра.  
   
- <xref:System.CodeDom.CodeStatement> Десериализуемого помещаются в стек контекста.  
+ <xref:System.CodeDom.CodeStatement> Десериализуемый будет помещено в стек контекста.  
   
  ]]></format>
         </remarks>
@@ -305,6 +310,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -323,7 +329,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> Метод возвращает выражение, представляющее данный объект. Она может возвращать `null`, означающее, что выражение не было установлено, описывающую объект. Получение выражений осуществляется одним из трех способов:  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> Метод возвращает выражение, представляющее данный объект. Она может возвращать `null`, указывая, что выражение не было установлено, описывающий объект. Получение выражений осуществляется одним из трех способов:  
   
 -   Выражение может быть результатом предыдущего вызова <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> метод.  
   
@@ -331,9 +337,9 @@
   
 -   Выражение может быть получен через <xref:System.ComponentModel.Design.IReferenceService>.  
   
- Для создания выражений с помощью <xref:System.ComponentModel.Design.IReferenceService>, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод запрашивает службу ссылку на имя для данного объекта. Если служба выражение возвращает допустимое имя <xref:System.ComponentModel.Design.IReferenceService>, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод проверяет, существует ли «.» в имени. Это означает, что службу выражений найти этот объект как возвращаемое значение свойства только для чтения на другом объекте. При наличии «.», <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> ссылку разделите на части. Крайней левой части имеет имя, которое будет вычисляться с <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetInstance%2A> метод. Для каждой последующей части будет строиться выражение со ссылкой на свойство. Затем будет возвращаться окончательное выражение.  
+ Для получения выражений с помощью <xref:System.ComponentModel.Design.IReferenceService>, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод отправляет запрос службе ссылку для имени для данного объекта. Если служба выражение возвращает допустимое имя, <xref:System.ComponentModel.Design.IReferenceService>, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод проверяет, имеется ли «.» в имени. Это значит, что служба выражение находится этот объект как возвращаемое значение свойства только для чтения на другом объекте. Если существует «.», <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> будет разделить части ссылки. Крайней левой части — это имя, которое будет вычисляться с <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetInstance%2A> метод. Для каждой последующей части будет строиться выражения ссылки на свойство. Итогового выражения будет возвращено.  
   
- Если объект не содержит значение выражения или если объект не найден в службу ссылочных <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> вернет `null`, указывающее, имеется существующий вычисляемое выражение для объекта.  
+ Если объект не было задать выражения, или если объект не найден в службе ссылочных <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> вернет `null`, показывающее, отсутствует существующий выражение для объекта.  
   
  ]]></format>
         </remarks>
@@ -398,7 +404,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Возвращаемое значение не будет равен `type` и не должен использоваться для сравнения с типами, не связанными с отражением.  
+ Возвращаемое значение не будет равен `type` и не должны использоваться для сравнения с типами, отличных от отражения.  
   
  ]]></format>
         </remarks>
@@ -432,7 +438,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Возвращаемое значение не может быть равным тип объекта и не должен использоваться для сравнения с типами, не связанными с отражением.  
+ Возвращаемое значение не может быть равным тип объекта и не должны использоваться для сравнения с типами, отличных от отражения.  
   
  ]]></format>
         </remarks>
@@ -457,6 +463,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -475,7 +482,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetSerializer%2A> Метод — это расширение <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetSerializer%2A?displayProperty=nameWithType> метод. <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetSerializer%2A?displayProperty=nameWithType> Метод принимает тип объекта, а не значение объекта. Если третьих переопределен метаданные для объекта через <xref:System.ComponentModel.TypeDescriptor>, что переопределение метаданных бы не видны <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetSerializer%2A?displayProperty=nameWithType> метод, который принимает только тип. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetSerializer%2A> Метод проверяет метаданные значение и тип значения. Если два отличаются, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetSerializer%2A> будет выглядеть для просмотра, если отсутствует атрибут настраиваемого сериализатора конструктора значение. В этом случае <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetSerializer%2A> будет пытаться использовать его. В противном случае будет откладываться для <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetSerializer%2A?displayProperty=nameWithType>.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetSerializer%2A> Метод — это расширение <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetSerializer%2A?displayProperty=nameWithType> метод. <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetSerializer%2A?displayProperty=nameWithType> Метод принимает тип объекта, а не значение объекта. Если внешней стороной бы переопределены метаданных для конкретного объекта через <xref:System.ComponentModel.TypeDescriptor>, что переопределение метаданных бы не будут видны <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetSerializer%2A?displayProperty=nameWithType> метод, который принимает только тип. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetSerializer%2A> Метод проверяет метаданные значение и тип значения. Если значения различаются, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetSerializer%2A> , будут смотреть см. в разделе, если отсутствует атрибут настраиваемого сериализатора конструктора значение. Если Да, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetSerializer%2A> попытается его использовать. В противном случае обращаться к <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetSerializer%2A?displayProperty=nameWithType>.  
   
  ]]></format>
         </remarks>
@@ -493,6 +500,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -556,6 +564,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -574,7 +583,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Метод <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetUniqueName%2A> вызывает метод <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetName%2A>. Если этот метод не возвращает имя, затем <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetUniqueName%2A> использует <xref:System.ComponentModel.Design.Serialization.INameCreationService> при изготовлении допустимое имя для объекта. Если служба недоступна, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetUniqueName%2A> будет используется имя, основанное на сокращенное имя вместе с индексом, чтобы сделать его уникальным. Результирующее имя связано с диспетчер сериализации, путем вызова <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.SetName%2A> метод перед возвращением новое имя.  
+ Метод <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetUniqueName%2A> вызывает метод <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.GetName%2A>. Если этот метод не возвращает имя, затем <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetUniqueName%2A> использует <xref:System.ComponentModel.Design.Serialization.INameCreationService> при изготовлении допустимое имя для объекта. Если служба недоступна, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetUniqueName%2A> будет создания имени, краткое имя типа в сочетании с номером индекса, чтобы сделать его уникальным. Результирующее имя связано с диспетчера сериализации, путем вызова <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.SetName%2A> метода до возврата новое имя.  
   
  ]]></format>
         </remarks>
@@ -602,6 +611,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -620,7 +630,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Для `value` сериализации параметра следует учитывать, `manager` параметр или другой сериализатор необходимо вызвать метод <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> метод, чтобы создать связь между `value` и ссылающийся выражение.  
+ Для `value` параметр, чтобы считаться сериализации, `manager` параметр или другой сериализатор необходимо вызвать метод <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> метод для создания связи между `value` и соответствующее выражение.  
   
  ]]></format>
         </remarks>
@@ -638,6 +648,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -658,7 +669,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Для `value` сериализации параметра следует учитывать, `manager` параметр или другой сериализатор необходимо вызвать метод <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> метод, чтобы создать связь между `value` и ссылающийся выражение.  
+ Для `value` параметр, чтобы считаться сериализации, `manager` параметр или другой сериализатор необходимо вызвать метод <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> метод для создания связи между `value` и соответствующее выражение.  
   
  ]]></format>
         </remarks>
@@ -676,6 +687,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -698,7 +710,7 @@
 ## Remarks  
  <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeCreationExpression%2A> Метод может использоваться для сериализации выражение, представляющее создание `value` параметра. Ему известно о дескрипторах экземпляров.  
   
- `isComplete` Параметра равным `true` Если выражение представляет полностью настроенный объект, или `false` при дальнейшей сериализации необходимо использовать свойства объекта.  
+ `isComplete` Параметр имеет значение `true` Если выражение представляет полностью настроенный объект, или `false` при дальнейшей сериализации должны выполняться в свойства объекта.  
   
  ]]></format>
         </remarks>
@@ -716,6 +728,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -737,11 +750,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvent%2A> — Метод можно вызвать вспомогательный метод, который производные классы для сериализации одного события в данной <xref:System.CodeDom.CodeStatementCollection>. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvent%2A> запросы диспетчера сериализации для <xref:System.ComponentModel.Design.Serialization.MemberCodeDomSerializer> для данного события и запрашивает <xref:System.ComponentModel.Design.Serialization.MemberCodeDomSerializer> для его сериализации.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvent%2A> Является метод можно вызвать вспомогательный метод, который производные классы для сериализации одного события в данной <xref:System.CodeDom.CodeStatementCollection>. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvent%2A> отправляет запрос диспетчеру сериализации для <xref:System.ComponentModel.Design.Serialization.MemberCodeDomSerializer> для заданного события и запрашивает <xref:System.ComponentModel.Design.Serialization.MemberCodeDomSerializer> для его сериализации.  
   
  <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvent%2A> Помещает `statements` и `descriptor` параметров <xref:System.ComponentModel.Design.Serialization.ContextStack>.  
   
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvent%2A> требуется <xref:System.ComponentModel.Design.IEventBindingService> для обнаружения связи с событиями методы, которые не компилируются. Если эта служба отсутствует, привязки событий в методы нескомпилированных не записывается. По-прежнему будут сериализованы привязки событий к скомпилированным методам, если объекты, с которыми связаны события, могут быть преобразованы в выражениях.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvent%2A> требуется <xref:System.ComponentModel.Design.IEventBindingService> для обнаружения привязки событий к методам, которые не компилируются. Если эта служба отсутствует, привязки событий к методам нескомпилированных не записывается. Привязки событий к скомпилированные методы по-прежнему должен быть сериализован, если объекты, к которым привязаны события может быть преобразован в выражения.  
   
  ]]></format>
         </remarks>
@@ -764,6 +777,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -791,7 +805,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvents%2A> — Метод можно вызвать вспомогательный метод, который производных классов. Он выполняет поиск событий `value` параметр, который соответствует `filter` параметра, а затем вызывает <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvent%2A> метод для каждого события.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvents%2A> Является метод можно вызвать вспомогательный метод, который производные классы. Он проверяет события в `value` параметр, который соответствует `filter` параметра, а затем вызывает <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvent%2A> метод для каждого события.  
   
  <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeEvents%2A> Местах метод <xref:System.ComponentModel.InheritanceAttribute> для `value` на <xref:System.ComponentModel.Design.Serialization.ContextStack>.  
   
@@ -813,6 +827,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -834,7 +849,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeProperties%2A> — Метод можно вызвать вспомогательный метод, который производных классов. Он просматривает свойства в `value` параметр, который соответствует `filter` параметра, а затем вызывает <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeProperty%2A> метод для каждого свойства.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeProperties%2A> Является метод можно вызвать вспомогательный метод, который производные классы. Она проверяет свойства в `value` параметр, который соответствует `filter` параметра, а затем вызывает <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeProperty%2A> метод для каждого свойства.  
   
  <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeProperties%2A> Местах метод <xref:System.ComponentModel.InheritanceAttribute> для `value` на <xref:System.ComponentModel.Design.Serialization.ContextStack>.  
   
@@ -856,6 +871,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -877,9 +893,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializePropertiesToResources%2A> — Метод можно вызвать вспомогательный метод, который производных классов. Он просматривает свойства в `value` параметр, который соответствует `filter` параметра, а затем выполняет сериализацию свойств в набор ресурсов инвариантного языка и региональных параметров. Если служба ресурсов возвращает <xref:System.Resources.ResXResourceWriter>, значения свойств, которые будут храниться в метаданных части XML-файл ресурсов (RESX). `statements` Параметр не используется.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializePropertiesToResources%2A> Является метод можно вызвать вспомогательный метод, который производные классы. Она проверяет свойства в `value` параметр, который соответствует `filter` параметра, а затем выполняет сериализацию свойств в набор ресурсов инвариантного языка и региональных параметров. Если служба ресурса возвращает <xref:System.Resources.ResXResourceWriter>, значения свойств, которые будут храниться в разделе метаданных XML-файла ресурсов (RESX). `statements` Параметр не используется.  
   
- Должны быть сериализованы как ресурс, свойство должно быть простое (не свойством содержимого) и его значение должны быть сериализуемыми. Свойства, которые не соответствуют этому шаблону, пропускаются.  
+ Должно быть сериализовано как ресурс, свойство должно быть простое (не свойство content) и его значение должны быть сериализуемыми. Свойства, которые не соответствуют этому шаблону будут пропущены.  
   
  <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializePropertiesToResources%2A> требуется <xref:System.ComponentModel.Design.IResourceService> для получения <xref:System.Resources.ResourceWriter> для записи ресурсов для нейтральной культуры. Если эта служба не доступна, ресурсы не будут записаны.  
   
@@ -903,6 +919,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -924,7 +941,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeProperty%2A> Метод извлекает <xref:System.ComponentModel.Design.Serialization.MemberCodeDomSerializer> для `propertyToSerialize` параметра и его делегатов.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeProperty%2A> Метод извлекает <xref:System.ComponentModel.Design.Serialization.MemberCodeDomSerializer> для `propertyToSerialize` параметр и делегаты к нему.  
   
  <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeProperty%2A> Помещает `statements` и `propertyToSerialize` параметров <xref:System.ComponentModel.Design.Serialization.ContextStack>.  
   
@@ -946,6 +963,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -965,15 +983,15 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource%2A> — Вспомогательный метод, который выполняет сериализацию значения для набора ресурсов под заданным именем. Язык и региональные параметры, который записывается ресурса определяется путем поиска диспетчера сериализации с помощью <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.Properties%2A> коллекция для свойства с именем `ResourceCulture`. Если это свойство существует, ресурсы будут записаны для этого языка и региональных параметров. В противном случае ресурсы будут записаны инвариантный язык и региональные параметры. `value` Параметр должен быть сериализуемым.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource%2A> Метод — это вспомогательный метод, который выполняет сериализацию значение в набор ресурсов с заданным именем. Язык и региональные параметры, в который записывается ресурса определяется путем поиска диспетчера сериализации <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.Properties%2A> коллекция для свойства с именем `ResourceCulture`. Если это свойство существует, ресурсы записываются для этого языка и региональных параметров. В противном случае ресурсы будут записаны для инвариантного языка и региональных параметров. `value` Параметра должны быть сериализуемыми.  
   
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource%2A> требуется <xref:System.ComponentModel.Design.IResourceService> для получения <xref:System.Resources.ResourceWriter> для записи ресурсов для правильного языка и региональных параметров. Если эта служба недоступна, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource%2A> вместо построит двоичный объект в коде, представляющий ресурс.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource%2A> требуется <xref:System.ComponentModel.Design.IResourceService> для получения <xref:System.Resources.ResourceWriter> для записи ресурсов для правильного языка и региональных параметров. Если эта служба недоступна, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource%2A> вместо построит двоичный объект в коде, который представляет ресурс.  
   
  ]]></format>
         </remarks>
         <block subset="none" type="usage">
           <para>
-            <see langword="ResourceCulture" /> свойство чтения и записи, можно получить с помощью диспетчера сериализации с помощью <see cref="P:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.Properties" /> коллекции. <see cref="M:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource(System.ComponentModel.Design.Serialization.IDesignerSerializationManager,System.String,System.Object)" /> Метод никогда не изменяет значение этого свойства; он просто считывает его для идентификации языка и региональных параметров, к которому он будет записывать. Свойство задается во время десериализации, анализа и загрузки ресурсов.</para>
+            <see langword="ResourceCulture" /> — Это свойство чтения и записи, к которому осуществляется через диспетчер сериализации <see cref="P:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.Properties" /> коллекции. <see cref="M:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource(System.ComponentModel.Design.Serialization.IDesignerSerializationManager,System.String,System.Object)" /> Метод никогда не изменяет значение этого свойства; он просто считывает его для идентификации языка и региональных параметров, к которому будет осуществляться запись. Свойство имеет значение во время десериализации, анализа и загрузки ресурсов.</para>
         </block>
         <altmember cref="T:System.ComponentModel.Design.Serialization.IDesignerSerializationManager" />
         <altmember cref="T:System.ComponentModel.Design.IResourceService" />
@@ -990,6 +1008,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1009,9 +1028,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Ресурс всегда записывается в инвариантного языка и региональных параметров. `value` Параметр должен быть сериализуемым.  
+ Ресурс всегда записывается в нейтральную культуру. `value` Параметра должны быть сериализуемыми.  
   
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResourceInvariant%2A> Метод требует <xref:System.ComponentModel.Design.IResourceService> для получения <xref:System.Resources.ResourceWriter> для записи ресурсов для правильного языка и региональных параметров. Если эта служба недоступна, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource%2A> вместо построит двоичный объект в коде, представляющий ресурс.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResourceInvariant%2A> Метод требует <xref:System.ComponentModel.Design.IResourceService> для получения <xref:System.Resources.ResourceWriter> для записи ресурсов для правильного языка и региональных параметров. Если эта служба недоступна, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource%2A> вместо построит двоичный объект в коде, который представляет ресурс.  
   
  ]]></format>
         </remarks>
@@ -1030,6 +1049,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1048,26 +1068,26 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- `value` Параметр может быть `null`, в этом случае возвращается элементарное выражение.  
+ `value` Параметр может быть `null`, в этом случае будет возвращаться элементарного выражения.  
   
  <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToExpression%2A> Метод использует следующие правила для сериализации типов:  
   
-1.  Сначала вызывает <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод для просмотра, если выражение уже создан для объекта. В этом случае он возвращает существующее выражение.  
+1.  В первую очередь вызывает <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод для просмотра, если выражение уже создан для объекта. Если Да, он возвращает существующее выражение.  
   
-2.  Находит сериализатора объекта и запрашивает его сериализацию.  
+2.  Затем он находит сериализатора объекта и запрашивает у него для сериализации.  
   
 3.  Если возвращаемое значение сериализатора объекта является <xref:System.CodeDom.CodeExpression>, возвращается выражение.  
   
-4.  Он выполняет один последний вызов <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> ли сериализатор добавлен выражения.  
+4.  Это делает один последний шанс принять участие в <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> ли сериализатор добавлен выражения.  
   
 5.  Наконец, он возвращает `null`.  
   
- Если выражение не может быть создан и не найден подходящий сериализатор, диспетчер сериализации будет сообщение об ошибке. Ошибка не будет отмечено, если сериализатор найден, но ему не удалось создать выражение. В этом случае предполагается, что сериализатор либо уже вернул ошибку, или она не была предпринята попытка сериализовать объект.  
+ Если выражение не может быть создан и найден подходящий сериализатор, диспетчер сериализации будет сообщение об ошибке. Сообщение об ошибке не выводится, если сериализатор найден, но его не удалось создать выражение. В этом случае предполагается, что сериализатор либо уже сообщила об ошибке, или она не была предпринята попытка сериализации объекта.  
   
- Если сериализатор возвращает инструкцию или набор инструкций, эти инструкции не отменяются. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToExpression%2A> Метод вначале будет искать <xref:System.ComponentModel.Design.Serialization.StatementContext> контекста стека и добавьте операторы объект контекста инструкции <xref:System.ComponentModel.Design.Serialization.StatementContext.StatementCollection%2A> свойство. Если контекст отсутствует инструкция <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToExpression%2A> метода будет выглядеть в контексте для <xref:System.CodeDom.CodeStatementCollection> и добавьте операторы существует. Если нет удается найти место для добавления инструкций, возникнет ошибка.  
+ Если сериализатор возвращает инструкцию или набор инструкций, эти инструкции не отменяются. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToExpression%2A> Метод сначала будет искать <xref:System.ComponentModel.Design.Serialization.StatementContext> в контексте стека и добавьте операторы к объекту контекста инструкции <xref:System.ComponentModel.Design.Serialization.StatementContext.StatementCollection%2A> свойство. Если контекст отсутствует инструкция <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToExpression%2A> метода будет выглядеть в контексте для <xref:System.CodeDom.CodeStatementCollection> и добавьте операторы существует. Если не удается найти место для добавления инструкций, возникнет ошибка.  
   
 > [!NOTE]
->  Не следует вызывать <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToExpression%2A> метода в <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationService.Serialize%2A> при сериализации объекта. Вместо этого следует вызвать метод <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A>. Если он возвращает `null`, создать собственное выражение и вызова <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A>. Затем продолжите выполнение сериализации.  
+>  Не следует вызывать <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToExpression%2A> метода в <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationService.Serialize%2A> при сериализации объекта. Вместо этого следует вызвать метод <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A>. Если он возвращает `null`, создавать собственные выражения и вызов <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A>. Затем продолжите выполнение сериализации.  
   
  ]]></format>
         </remarks>
@@ -1097,6 +1117,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1115,15 +1136,15 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToResourceExpression%2A> — Вспомогательный метод, который выполняет сериализацию значения для выражения ресурса. Это отличается от <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource%2A> метод, который записывает значение двоичного объекта ресурса. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToResourceExpression%2A> Идет один шаг дальше и возвращает выражение, которое может использоваться для восстановления ресурса. Например возвращаемое значение может быть «надежного обмена сообщениями. GetValue("SomeBitmap");». Имя ресурса, вычисленный на основе <xref:System.ComponentModel.Design.Serialization.ExpressionContext>, если таковое в стеке контекста.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToResourceExpression%2A> Метод — это вспомогательный метод, который выполняет сериализацию значение для выражения ресурса. Это отличается от <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeResource%2A> метод, который записывает значение в двоичный объект ресурса. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToResourceExpression%2A> Идет один шаг дальше и возвращает выражение, которое может использоваться для восстановления работы ресурса. Например возвращаемое значение может быть «rm. GetValue("SomeBitmap");». Имя ресурса вычисляется на основе <xref:System.ComponentModel.Design.Serialization.ExpressionContext>, если таковое в стек контекста.  
   
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToResourceExpression%2A> Метода будет выглядеть на <xref:System.ComponentModel.Design.Serialization.ContextStack> для следующих объектов:  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToResourceExpression%2A> Метода будет выглядеть <xref:System.ComponentModel.Design.Serialization.ContextStack> для следующих объектов:  
   
--   <xref:System.CodeDom.CodeStatementCollection>— это совокупность инструкции, чтобы добавить диспетчер ресурсов, если необходимо объявить один.  
+-   <xref:System.CodeDom.CodeStatementCollection>— набор инструкций, чтобы добавить диспетчер ресурсов, в том случае, если необходимо объявить.  
   
--   <xref:System.ComponentModel.Design.Serialization.RootContext>— выражение корневого, который необходим для создания диспетчера ресурсов.  
+-   <xref:System.ComponentModel.Design.Serialization.RootContext>— Корневое выражение, которое требуется для создания диспетчера ресурсов.  
   
--   <xref:System.ComponentModel.Design.Serialization.ExpressionContext>— используется для создания имени ресурса и решить, какой тип вызов диспетчера ресурсов для создания.  
+-   <xref:System.ComponentModel.Design.Serialization.ExpressionContext>— используется для создания имени для ресурса и решить, какой тип вызов resource manager, чтобы получить.  
   
  ]]></format>
         </remarks>
@@ -1142,6 +1163,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1162,7 +1184,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если `ensureInvariant` параметр `true`, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToResourceExpression%2A> метод также написать значение ресурса в файл ресурсов инвариантного языка и региональных параметров, если текущий `ResourceCulture` не инвариантного языка и региональных параметров...  
+ Если `ensureInvariant` параметр `true`, <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SerializeToResourceExpression%2A> метод также запись значение ресурса в файле ресурсов инвариантного языка и региональных параметров, если текущий `ResourceCulture` не инвариантного языка и региональных параметров...  
   
  ]]></format>
         </remarks>
@@ -1190,6 +1212,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1209,7 +1232,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> — Вспомогательный метод, который связывает <xref:System.CodeDom.CodeExpression> с объектом. Объекты, которые были связаны с выражениями, таким образом, доступны через <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> хранит свою таблицу выражение как объект, добавленный в стек контекста, поэтому оно доступно для любого сериализатор <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> Метод — это вспомогательный метод, который связывает <xref:System.CodeDom.CodeExpression> с объектом. Объекты, которые были связаны с выражениями, таким образом, доступны через <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> сохраняет свою таблицу выражение как объект, добавленный в стек контекста, и он становится доступен с любым сериализатором <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -1228,6 +1251,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Design</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -1249,7 +1273,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> — Вспомогательный метод, который связывает <xref:System.CodeDom.CodeExpression> с объектом. Объекты, которые были связаны с выражениями, таким образом, доступны через <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> Хранит свою таблицу выражение как объект, добавленный в стек контекста, поэтому оно доступно для любого сериализатор <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод.  
+ <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> Метод — это вспомогательный метод, который связывает <xref:System.CodeDom.CodeExpression> с объектом. Объекты, которые были связаны с выражениями, таким образом, доступны через <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод. <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.SetExpression%2A> Сохраняет свою таблицу выражение как объект, добавленный в стек контекста, и он становится доступен с любым сериализатором <xref:System.ComponentModel.Design.Serialization.CodeDomSerializerBase.GetExpression%2A> метод.  
   
  ]]></format>
         </remarks>
