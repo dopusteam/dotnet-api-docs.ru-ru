@@ -1,11 +1,11 @@
 <Type Name="ThreadAbortException" FullName="System.Threading.ThreadAbortException">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="905d757be76bb5177bb98c943ce40d6c2236e62d" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="df80ea7009fca382cb46604f09261cf8a62af706" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36406386" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37548644" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class ThreadAbortException : SystemException" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit ThreadAbortException extends System.SystemException" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type ThreadAbortException = class&#xA;    inherit SystemException" />
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -42,12 +44,12 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Когда выполняется вызов для <xref:System.Threading.Thread.Abort%2A> метод для уничтожения потока, общеязыковая среда выполнения вызывает <xref:System.Threading.ThreadAbortException>. <xref:System.Threading.ThreadAbortException> — специальное исключение, которое может быть перехвачено, но он будет вызвано снова в конце `catch` блока. Когда вызывается это исключение, среда выполнения выполняет все `finally` блоки до завершения потока. Так как поток может выполнять код `finally` блоков или вызов <xref:System.Threading.Thread.ResetAbort%2A?displayProperty=nameWithType> для отмены инструкции abort, нет никакой гарантии, поток никогда не будет завершено. Если необходимо дождаться завершения прерванный поток, можно вызвать <xref:System.Threading.Thread.Join%2A?displayProperty=nameWithType> метод. <xref:System.Threading.Thread.Join%2A> является блокирующий вызов, который не возвращает до действительного окончания выполнения потока.  
+ Когда выполняется вызов для <xref:System.Threading.Thread.Abort%2A> метод, чтобы уничтожать поток, среда CLR вызывает <xref:System.Threading.ThreadAbortException>. <xref:System.Threading.ThreadAbortException> — Это специальное исключение, которое может быть перехвачено, но он будет автоматически вызываться снова в конце `catch` блока. Если возникает это исключение, среда выполнения выполняет все `finally` блоки до завершения потока. Так как поток может выполнять код `finally` блоки или вызов <xref:System.Threading.Thread.ResetAbort%2A?displayProperty=nameWithType> для отмены инструкции abort, нет никакой гарантии, что поток, когда-нибудь закончится. Если вы хотите дождаться завершения прерванный поток, можно вызвать <xref:System.Threading.Thread.Join%2A?displayProperty=nameWithType> метод. <xref:System.Threading.Thread.Join%2A> вызов является блокирующим, не возвращается до действительного окончания выполнения потока.  
   
 > [!NOTE]
->  При остановке threadsafter фона сделал все потоки переднего плана в управляемом исполняемом файле общеязыковой среды выполнения (CLR) не использует <xref:System.Threading.Thread.Abort%2A?displayProperty=nameWithType>. Следовательно, нельзя использовать <xref:System.Threading.ThreadAbortException> определить, когда завершаются фоновые потоки в в среде CLR.  
+>  При остановке threadsafter фона, завершились все потоки переднего плана в управляемом исполняемом файле общеязыковой среды выполнения (CLR) не использует <xref:System.Threading.Thread.Abort%2A?displayProperty=nameWithType>. Следовательно, нельзя использовать <xref:System.Threading.ThreadAbortException> обнаруживать фоновые потоки завершаются в среде CLR.  
   
- <xref:System.Threading.ThreadAbortException> использует COR_E_THREADABORTED HRESULT, который имеет значение 0x80131530.  
+ <xref:System.Threading.ThreadAbortException> использует COR_E_THREADABORTED HRESULT, которое имеет значение 0x80131530.  
   
 > [!NOTE]
 >  Значение наследуемого <xref:System.Exception.Data%2A> свойство всегда имеет `null`.  
@@ -55,7 +57,7 @@
    
   
 ## Examples  
- В следующем примере показано прерывание потока. Поток, получающий `ThreadAbortException` использует <xref:System.Threading.Thread.ResetAbort%2A> метод, чтобы отменить запрос на прерывание и продолжить выполнение.  
+ В следующем примере показано, прерывание потока. Поток, получающий `ThreadAbortException` использует <xref:System.Threading.Thread.ResetAbort%2A> метод, чтобы отменить запрос на прерывание и продолжить выполнение.  
   
  [!code-cpp[ThreadAbEx#1](~/samples/snippets/cpp/VS_Snippets_CLR/ThreadAbEx/CPP/threadabex.cpp#1)]
  [!code-csharp[ThreadAbEx#1](~/samples/snippets/csharp/VS_Snippets_CLR/ThreadAbEx/CS/threadabex.cs#1)]
@@ -89,6 +91,8 @@ Main ending.
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -116,12 +120,12 @@ Main ending.
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Объект, возвращаемый этим свойством, указывается с помощью `stateInfo` параметр <xref:System.Threading.Thread.Abort%2A> метода. Точное содержимое и использование этого объекта является определяются приложением; обычно используется для передачи информации, имеющее смысл аварийно завершающимся потоком.  
+ Объект, возвращаемый этим свойством указывается с помощью `stateInfo` параметр <xref:System.Threading.Thread.Abort%2A> метод. Точное содержимое и использование этого объекта является определяются приложением; обычно используется для передачи информации, имеющее смысл аварийно завершающимся потоком.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как для передачи данных в поток, который прерывается.  
+ В следующем примере кода показано, как осуществлять обмен информацией с потоком, который прерывается.  
   
  [!code-cpp[System.Threading.Thread.Abort2#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Thread.Abort2/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.Thread.Abort2#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Thread.Abort2/CS/source.cs#1)]
