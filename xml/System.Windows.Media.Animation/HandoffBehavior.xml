@@ -1,11 +1,11 @@
 <Type Name="HandoffBehavior" FullName="System.Windows.Media.Animation.HandoffBehavior">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ca2e1fac60374b9457aabbdc3b55ef28007f909f" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="2b70ec3cdc83525372d47a6e63bfbac8f07c704a" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36499112" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37558579" />
   </Metadata>
   <TypeSignature Language="C#" Value="public enum HandoffBehavior" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed HandoffBehavior extends System.Enum" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type HandoffBehavior = " />
   <AssemblyInfo>
     <AssemblyName>PresentationCore</AssemblyName>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -26,17 +27,17 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- При применении <xref:System.Windows.Media.Animation.Storyboard>, <xref:System.Windows.Media.Animation.AnimationTimeline>, или <xref:System.Windows.Media.Animation.AnimationClock> к свойству с помощью создания сообщения, все <xref:System.Windows.Media.Animation.Clock> ранее связанную с ним объекты по-прежнему потребление системных ресурсов; система времени не удаляет часы автоматически.  
+ При применении <xref:System.Windows.Media.Animation.Storyboard>, <xref:System.Windows.Media.Animation.AnimationTimeline>, или <xref:System.Windows.Media.Animation.AnimationClock> к свойству с помощью Compose, любое <xref:System.Windows.Media.Animation.Clock> ранее связанную с ним объекты по-прежнему потребляют ресурсы системы; система управления временем не удаляет эти часы автоматически.  
   
- Чтобы избежать проблем с производительностью, при применении большое количество часов, с помощью создания сообщения, составляющие часами следует удалить из анимированное свойство после их завершения. Существует несколько способов удаления часов:  
+ Чтобы избежать проблем с производительностью при применении большого количества часов через Compose, следует удалять составные часы из анимируемого свойства после их завершения. Существует несколько способов удаления часов:  
   
--   Чтобы удалить все часы из свойства, используйте <xref:System.Windows.Media.Animation.Animatable.ApplyAnimationClock%28System.Windows.DependencyProperty%2CSystem.Windows.Media.Animation.AnimationClock%29> или <xref:System.Windows.Media.Animation.Animatable.BeginAnimation%28System.Windows.DependencyProperty%2CSystem.Windows.Media.Animation.AnimationTimeline%29> метод анимированного объекта. Укажите в качестве первого параметра, анимируемого свойства и `null` вторым. Это удалит из свойства все часы анимации.  
+-   Чтобы удалить все часы из свойства, используйте <xref:System.Windows.Media.Animation.Animatable.ApplyAnimationClock%28System.Windows.DependencyProperty%2CSystem.Windows.Media.Animation.AnimationClock%29> или <xref:System.Windows.Media.Animation.Animatable.BeginAnimation%28System.Windows.DependencyProperty%2CSystem.Windows.Media.Animation.AnimationTimeline%29> метод анимируемого объекта. Укажите в качестве первого параметра анимируемое свойство и `null` как второй. Это удалит из свойства все часы анимации.  
   
--   Для удаления определенных <xref:System.Windows.Media.Animation.AnimationClock> из списка часов используйте <xref:System.Windows.Media.Animation.Clock.Controller%2A> свойство <xref:System.Windows.Media.Animation.AnimationClock> для получения <xref:System.Windows.Media.Animation.ClockController>, затем вызовите <xref:System.Windows.Media.Animation.ClockController.Remove%2A> метод <xref:System.Windows.Media.Animation.ClockController>. Обычно это делается <xref:System.Windows.Media.Animation.Clock.Completed> обработчика событий для часов. Обратите внимание, что только корневые часы могут управляться <xref:System.Windows.Media.Animation.ClockController>; <xref:System.Windows.Media.Animation.Clock.Controller%2A> свойство дочерних часов возвращает `null`. Обратите внимание, что <xref:System.Windows.Media.Animation.Clock.Completed> событие не будет вызываться, если эффективная продолжительность часов является бесконечностью.  В этом случае пользователь должен определить, когда вызывать <xref:System.Windows.Media.Animation.ClockController.Remove%2A>.  
+-   Чтобы удалить определенные <xref:System.Windows.Media.Animation.AnimationClock> из списка часов, используйте <xref:System.Windows.Media.Animation.Clock.Controller%2A> свойство <xref:System.Windows.Media.Animation.AnimationClock> извлекаемого <xref:System.Windows.Media.Animation.ClockController>, затем вызвать <xref:System.Windows.Media.Animation.ClockController.Remove%2A> метод <xref:System.Windows.Media.Animation.ClockController>. Обычно это делается <xref:System.Windows.Media.Animation.Clock.Completed> обработчик событий для часов. Обратите внимание, что только корневые часы могут управляться <xref:System.Windows.Media.Animation.ClockController>; <xref:System.Windows.Media.Animation.Clock.Controller%2A> дочерних часов вернет `null`. Обратите внимание, что <xref:System.Windows.Media.Animation.Clock.Completed> событие не будет вызываться, если эффективная продолжительность часов — forever.  В этом случае пользователь должен определить, когда нужно вызывать <xref:System.Windows.Media.Animation.ClockController.Remove%2A>.  
   
  В основном это проблема для анимации объектов, имеющих длинное время жизни.  Когда объект собирается как мусор, его часы отсоединяются и также собираются как мусор.  
   
- Дополнительные сведения об объектах часов см. в разделе [анимации и общие сведения о синхронизации системы](~/docs/framework/wpf/graphics-multimedia/animation-and-timing-system-overview.md).  
+ Дополнительные сведения об объектах часов см. в разделе [анимации и общие сведения о характере системы](~/docs/framework/wpf/graphics-multimedia/animation-and-timing-system-overview.md).  
   
  ]]></format>
     </remarks>
@@ -52,6 +53,7 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -72,6 +74,7 @@
       <MemberType>Field</MemberType>
       <AssemblyInfo>
         <AssemblyName>PresentationCore</AssemblyName>
+        <AssemblyVersion>3.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
