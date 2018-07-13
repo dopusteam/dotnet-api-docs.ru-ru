@@ -1,11 +1,11 @@
 <Type Name="ViewStateException" FullName="System.Web.UI.ViewStateException">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="9112f3522e33130b35a0c92fd086e74cb8fcfc6e" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="537d962a0a07739b3f45470c894743b0b517f309" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36375413" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37586786" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class ViewStateException : Exception" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit ViewStateException extends System.Exception implements class System.Runtime.Serialization.ISerializable" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type ViewStateException = class&#xA;    inherit Exception&#xA;    interface ISerializable" />
   <AssemblyInfo>
     <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -27,18 +28,18 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если возникает исключение при загрузке сведений состояния просмотра страницы, страница создает <xref:System.Web.UI.ViewStateException> объекта и передает его в качестве внутреннего исключения в <xref:System.Web.HttpException> исключение. <xref:System.Web.HttpException> Повторно вызывается для обработки приложением.  
+ Если возникает исключение при загрузке сведений состояния просмотра страницы, страница создает <xref:System.Web.UI.ViewStateException> и передает его в качестве внутреннего исключения в <xref:System.Web.HttpException> исключение. <xref:System.Web.HttpException> Исключение выдается заново для обработки приложением.  
   
- <xref:System.Web.UI.ViewStateException> Класс хранит сведения об исключении в <xref:System.Web.UI.ViewStateException.Message%2A> свойство. Если в запросе есть разрешение на доступ к <xref:System.Web.HttpRequest.ServerVariables%2A> свойства, а затем <xref:System.Web.UI.ViewStateException.Message%2A> свойство содержит значения, возвращенные <xref:System.Web.UI.ViewStateException.RemoteAddress%2A>, <xref:System.Web.UI.ViewStateException.RemotePort%2A>, <xref:System.Web.UI.ViewStateException.UserAgent%2A>, <xref:System.Web.UI.ViewStateException.PersistedState%2A>, <xref:System.Web.UI.ViewStateException.Referer%2A>, и <xref:System.Web.UI.ViewStateException.Path%2A> Свойства; в противном случае <xref:System.Web.UI.ViewStateException.Message%2A> свойство содержит сообщение об ошибке общего состояния представления.  
+ <xref:System.Web.UI.ViewStateException> Класс хранит сведения об исключении в <xref:System.Web.UI.ViewStateException.Message%2A> свойство. Если в запросе есть разрешение на доступ к <xref:System.Web.HttpRequest.ServerVariables%2A> свойства, а затем <xref:System.Web.UI.ViewStateException.Message%2A> свойство содержит значения, возвращаемые из <xref:System.Web.UI.ViewStateException.RemoteAddress%2A>, <xref:System.Web.UI.ViewStateException.RemotePort%2A>, <xref:System.Web.UI.ViewStateException.UserAgent%2A>, <xref:System.Web.UI.ViewStateException.PersistedState%2A>, <xref:System.Web.UI.ViewStateException.Referer%2A>, и <xref:System.Web.UI.ViewStateException.Path%2A> Свойства; в противном случае <xref:System.Web.UI.ViewStateException.Message%2A> свойство содержит сообщение об ошибке общего состояния представления.  
   
- Исключение состояния представления может быть результатом ошибки проверки кодов проверки подлинности сообщения (MAC). Если атрибут страницы `enableViewStateMac` равно `true`, сведения о состоянии представления кодируются с идентификатором MAC. При отправке сведений о состоянии представления обратно серверу страница проверяет кодировку, чтобы убедиться, что он не был изменен пользователем. Если страница не может проверить MAC кодирования информации состояния представления, он будет вызывать <xref:System.Web.HttpException> исключения с <xref:System.Web.UI.ViewStateException> объект в качестве внутреннего исключения.  
+ Исключение состояния представления может быть результатом ошибки проверки кодов проверки подлинности сообщения (MAC). Если атрибут страницы `enableViewStateMac` присваивается `true`, сведений о состоянии просмотра кодируется с идентификатором MAC. Когда сведения о состоянии представления передается на сервер, страница проверяет кодировка, убедитесь, что он не был изменен пользователем. Если страницы не удается проверить кодировку MAC на сведения о состоянии представления, возникнет исключение <xref:System.Web.HttpException> исключения с <xref:System.Web.UI.ViewStateException> объект как внутреннее исключение.  
   
- MAC чтобы проверка прошла успешно сведения о состоянии представления необходимо выполнить хэширование тем же ключом, при отправки и получения. В веб-ферме ключ компьютера на каждом сервере должно быть присвоено значение общего ключа.  
+ Для успешного завершения проверки MAC сведения о состоянии представления должно быть хэширован тот же ключ при отправки и получения. В веб-ферме ключ компьютера на каждом сервере должно быть присвоено значение общего ключа.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как реализовать метод, который выполняет десериализацию строки в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> Метод может вызвать исключение <xref:System.Web.HttpException> исключение, которое содержит <xref:System.Web.UI.ViewStateException> объект в качестве внутреннего исключения. В примере показано, как может перехватывать <xref:System.Web.HttpException> исключение и извлечения свойств из <xref:System.Web.UI.ViewStateException> объекта.  
+ В следующем примере кода показано, как реализовать метод, который десериализует строку в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> Метод может выдавать <xref:System.Web.HttpException> исключение, которое содержит <xref:System.Web.UI.ViewStateException> объект как внутреннее исключение. В примере показано, как можно перехватить <xref:System.Web.HttpException> исключения и извлечения свойств из <xref:System.Web.UI.ViewStateException> объекта.  
   
  [!code-csharp[System.Web.UI.ViewStateException#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.ViewStateException/CS/Class1.cs#2)]
  [!code-vb[System.Web.UI.ViewStateException#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.ViewStateException/VB/Class1.vb#2)]  
@@ -57,6 +58,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
@@ -79,6 +81,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -105,6 +108,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -123,7 +127,7 @@
    
   
 ## Examples  
- В следующем примере кода показано, как реализовать метод, который выполняет десериализацию строки в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> Метод может вызвать исключение <xref:System.Web.HttpException> исключение, которое содержит <xref:System.Web.UI.ViewStateException> объект в качестве внутреннего исключения. В примере показано, как может перехватывать <xref:System.Web.HttpException> исключение и извлечения свойств из <xref:System.Web.UI.ViewStateException> объекта.  
+ В следующем примере кода показано, как реализовать метод, который десериализует строку в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> Метод может выдавать <xref:System.Web.HttpException> исключение, которое содержит <xref:System.Web.UI.ViewStateException> объект как внутреннее исключение. В примере показано, как можно перехватить <xref:System.Web.HttpException> исключения и извлечения свойств из <xref:System.Web.UI.ViewStateException> объекта.  
   
  [!code-csharp[System.Web.UI.ViewStateException#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.ViewStateException/CS/Class1.cs#2)]
  [!code-vb[System.Web.UI.ViewStateException#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.ViewStateException/VB/Class1.vb#2)]  
@@ -143,6 +147,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -156,7 +161,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если запрос не имеет разрешения на доступ к переменных сервера, это свойство возвращает сообщение об ошибке общего состояния представления. Если запрос имеет разрешение на доступ к переменным сервера <xref:System.Web.UI.ViewStateException.Message%2A> свойство содержит значения, возвращенные <xref:System.Web.UI.ViewStateException.RemoteAddress%2A>, <xref:System.Web.UI.ViewStateException.RemotePort%2A>, <xref:System.Web.UI.ViewStateException.UserAgent%2A>, <xref:System.Web.UI.ViewStateException.PersistedState%2A>, <xref:System.Web.UI.ViewStateException.Referer%2A>, и <xref:System.Web.UI.ViewStateException.Path%2A> свойства.  
+ Если запрос не имеет разрешения на доступ к переменным, server, это свойство возвращает сообщение об ошибке общего состояния представления. Если запрос имеет разрешение на доступ к переменные сервера <xref:System.Web.UI.ViewStateException.Message%2A> свойство содержит значения, возвращаемые из <xref:System.Web.UI.ViewStateException.RemoteAddress%2A>, <xref:System.Web.UI.ViewStateException.RemotePort%2A>, <xref:System.Web.UI.ViewStateException.UserAgent%2A>, <xref:System.Web.UI.ViewStateException.PersistedState%2A>, <xref:System.Web.UI.ViewStateException.Referer%2A>, и <xref:System.Web.UI.ViewStateException.Path%2A> свойства.  
   
  ]]></format>
         </remarks>
@@ -172,6 +177,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -185,12 +191,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это свойство возвращает то же значение, что `PATH_INFO` переменных в <xref:System.Web.HttpRequest.ServerVariables%2A> свойство. Возвращает часть пути после имени узла. Например, в URL-адрес http://www.contoso.com/virdir/page.html, <xref:System.Web.UI.ViewStateException.Path%2A> вернет /virdir/page.html.  
+ Это свойство возвращает то же значение, что `PATH_INFO` переменных в <xref:System.Web.HttpRequest.ServerVariables%2A> свойство. Он возвращает часть пути после имени узла. Например, в URL-адрес http://www.contoso.com/virdir/page.html, <xref:System.Web.UI.ViewStateException.Path%2A> вернет /virdir/page.html.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как реализовать метод, который выполняет десериализацию строки в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> Метод может вызвать исключение <xref:System.Web.HttpException> исключение, которое содержит <xref:System.Web.UI.ViewStateException> объект в качестве внутреннего исключения. В примере показано, как может перехватывать <xref:System.Web.HttpException> исключение и извлечения свойств из <xref:System.Web.UI.ViewStateException> объекта.  
+ В следующем примере кода показано, как реализовать метод, который десериализует строку в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> Метод может выдавать <xref:System.Web.HttpException> исключение, которое содержит <xref:System.Web.UI.ViewStateException> объект как внутреннее исключение. В примере показано, как можно перехватить <xref:System.Web.HttpException> исключения и извлечения свойств из <xref:System.Web.UI.ViewStateException> объекта.  
   
  [!code-csharp[System.Web.UI.ViewStateException#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.ViewStateException/CS/Class1.cs#2)]
  [!code-vb[System.Web.UI.ViewStateException#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.ViewStateException/VB/Class1.vb#2)]  
@@ -209,6 +215,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -231,6 +238,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -244,12 +252,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это свойство возвращает то же значение, что `HTTP_REFERER` переменных в <xref:System.Web.HttpRequest.ServerVariables%2A> свойство. Значение является пустой строкой ("»), если нет предыдущего запроса связанный со страницей.  
+ Это свойство возвращает то же значение, что `HTTP_REFERER` переменных в <xref:System.Web.HttpRequest.ServerVariables%2A> свойство. Значение является пустой строкой ("»), если нет предыдущего запроса связанной со страницей.  
   
    
   
 ## Examples  
- В следующем примере кода показано, как реализовать метод, который выполняет десериализацию строки в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> Метод может вызвать исключение <xref:System.Web.HttpException> исключение, которое содержит <xref:System.Web.UI.ViewStateException> объект в качестве внутреннего исключения. В примере показано, как может перехватывать <xref:System.Web.HttpException> исключение и извлечения свойств из <xref:System.Web.UI.ViewStateException> объекта.  
+ В следующем примере кода показано, как реализовать метод, который десериализует строку в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> Метод может выдавать <xref:System.Web.HttpException> исключение, которое содержит <xref:System.Web.UI.ViewStateException> объект как внутреннее исключение. В примере показано, как можно перехватить <xref:System.Web.HttpException> исключения и извлечения свойств из <xref:System.Web.UI.ViewStateException> объекта.  
   
  [!code-csharp[System.Web.UI.ViewStateException#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.ViewStateException/CS/Class1.cs#2)]
  [!code-vb[System.Web.UI.ViewStateException#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.ViewStateException/VB/Class1.vb#2)]  
@@ -268,6 +276,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -297,6 +306,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -326,6 +336,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -344,7 +355,7 @@
    
   
 ## Examples  
- В следующем примере кода показано, как реализовать метод, который выполняет десериализацию строки в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> Метод может вызвать исключение <xref:System.Web.HttpException> исключение, которое содержит <xref:System.Web.UI.ViewStateException> объект в качестве внутреннего исключения. В примере показано, как может перехватывать <xref:System.Web.HttpException> исключение и извлечения свойств из <xref:System.Web.UI.ViewStateException> объекта.  
+ В следующем примере кода показано, как реализовать метод, который десериализует строку в кодировке base64 и возвращает <xref:System.Collections.ICollection> набор свойств. <xref:System.Web.UI.ObjectStateFormatter.Deserialize%2A> Метод может выдавать <xref:System.Web.HttpException> исключение, которое содержит <xref:System.Web.UI.ViewStateException> объект как внутреннее исключение. В примере показано, как можно перехватить <xref:System.Web.HttpException> исключения и извлечения свойств из <xref:System.Web.UI.ViewStateException> объекта.  
   
  [!code-csharp[System.Web.UI.ViewStateException#2](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.ViewStateException/CS/Class1.cs#2)]
  [!code-vb[System.Web.UI.ViewStateException#2](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.ViewStateException/VB/Class1.vb#2)]  

@@ -1,11 +1,11 @@
 <Type Name="PageAsyncTask" FullName="System.Web.UI.PageAsyncTask">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="9200f0d5a36d7d9b1c59b031ca32d0e2c5500b69" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="63f97b54ca06fa12b044f966010a5263614bba72" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36376655" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37587592" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class PageAsyncTask" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit PageAsyncTask extends System.Object" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type PageAsyncTask = class" />
   <AssemblyInfo>
     <AssemblyName>System.Web</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
@@ -27,17 +28,17 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ASP.NET версии 2.0 можно зарегистрировать несколько задач на страницу и выполняются асинхронно до отображения страницы. Можно указать, что задача выполняться асинхронно Если медленно процесс и других процессов ко блокировали выполнения не требуется. Асинхронные задачи могут выполняться параллельно или последовательно.  
+ ASP.NET версии 2.0 можно зарегистрировать несколько задач на страницу и выполнять их асинхронно до отображения страницы. Можно указать, что задача должна выполняться асинхронно Если очень медленно и других процессов ко блокировали выполнения не требуется. Асинхронные задачи могут выполняться параллельно или последовательно.  
   
- Объект <xref:System.Web.UI.PageAsyncTask> объект должен быть зарегистрирован на страницу через <xref:System.Web.UI.Page.RegisterAsyncTask%2A> метод. Сама страница не будут обрабатываться асинхронно для выполнения асинхронных задач. Можно задать `Async` либо атрибут `true` (как показано в следующем примере кода) или `false` на странице директива и асинхронные задачи будут по-прежнему обрабатываться асинхронно:  
+ Объект <xref:System.Web.UI.PageAsyncTask> объект должен быть зарегистрирован на страницу через <xref:System.Web.UI.Page.RegisterAsyncTask%2A> метод. Сама страница не обрабатываться асинхронно для выполнения асинхронных задач. Можно задать `Async` атрибут либо `true` (как показано в следующем примере кода) или `false` на странице директива и асинхронные задачи будут по-прежнему обрабатываться асинхронно:  
   
  `<%@ Page Async="true" %>`  
   
- Когда `Async` атрибута задано значение `false`, поток, который выполняет страницу блокируется до завершения всех асинхронных задач.  
+ Когда `Async` атрибут имеет значение `false`, поток, который выполняет страницу будет блокироваться до завершения всех асинхронных задачах.  
   
- Все асинхронные задачи, зарегистрированные до <xref:System.Web.UI.Page.PreRenderComplete> событий будет автоматически выполняться страницы, если они уже не были выполнены. Зарегистрированы этих асинхронных задач после завершения <xref:System.Web.UI.Page.PreRenderComplete> события должна быть выполнена явным образом с использованием <xref:System.Web.UI.Page.ExecuteRegisteredAsyncTasks%2A> метод. <xref:System.Web.UI.Page.ExecuteRegisteredAsyncTasks%2A> Метод может также использоваться для запуска задачи до <xref:System.Web.UI.Page.PreRenderComplete> события. <xref:System.Web.UI.Page.ExecuteRegisteredAsyncTasks%2A> Метод выполняет все зарегистрированные асинхронные задачи на странице, не были выполнены.  
+ Все асинхронные задачи, зарегистрированные до <xref:System.Web.UI.Page.PreRenderComplete> событий будет автоматически выполняться страницы, если они еще не были выполнены. Зарегистрированы этих асинхронных задач после завершения <xref:System.Web.UI.Page.PreRenderComplete> событий должна выполняться явно с помощью <xref:System.Web.UI.Page.ExecuteRegisteredAsyncTasks%2A> метод. <xref:System.Web.UI.Page.ExecuteRegisteredAsyncTasks%2A> Метод может также использоваться для запуска задач перед <xref:System.Web.UI.Page.PreRenderComplete> событий. <xref:System.Web.UI.Page.ExecuteRegisteredAsyncTasks%2A> Метод выполняет все зарегистрированные асинхронные задачи на странице, которая еще не выполнялись.  
   
- По умолчанию это асинхронная задача выдаст ошибку времени ожидания, если оно не было завершено в течение 45 секунд. В файле Web.config или в директиве страницы можно указать другое значение. `<pages>` Раздел файла Web.config содержит `asyncTimeout` атрибута, как показано ниже.  
+ По умолчанию это асинхронная задача истечет время ожидания, если оно не было завершено в течение 45 секунд. Можно указать другое значение в файле Web.config или в директиве страницы. `<pages>` Раздел в файл Web.config содержит `asyncTimeout` атрибута, как показано ниже.  
   
  `<system.web>`  
   
@@ -47,14 +48,14 @@
   
  `</system.web>`  
   
- Содержит директивы страницы `AsyncTimeout` атрибута.  
+ Директива страницы содержит `AsyncTimeout` атрибута.  
   
  `<%@ Page AsyncTimeout="30" %>`  
   
    
   
 ## Examples  
- В следующем примере кода регистрируется три асинхронные задачи на страницу и выполняет их параллельно. Каждая задача вызывает метод, который переводит поток в спящий режим на 5 секунд.  
+ В следующем примере кода регистрируется три асинхронные задачи на страницу и выполняет их параллельно. Каждая задача вызывает метод, который переводит поток в спящий режим в течение 5 секунд.  
   
  [!code-aspx-csharp[System.Web.UI.PageAsyncTask#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/CS/page_asynctask.aspx#1)]
  [!code-aspx-vb[System.Web.UI.PageAsyncTask#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/VB/page_asynctask.aspx#1)]  
@@ -97,7 +98,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот конструктор создает оболочку для <xref:System.Web.TaskEventHandler> делегата, чтобы <xref:System.Web.UI.PageAsyncTask> объекта можно интегрировать асинхронный код (на основе <xref:System.Threading.Tasks.Task> объекты) с существующей функции асинхронные страницы веб-форм ASP.NET. ASP.NET получает сигнал <xref:System.Threading.CancellationToken> объект, передаваемый <xref:System.Web.TaskEventHandler> делегат для отмены на основе <xref:System.Web.UI.Page.AsyncTimeout%2A> атрибут задан `@ Page` директив веб-страницы. Когда <xref:System.Web.UI.Page.AsyncTimeout%2A> достигает значения <xref:System.Threading.CancellationToken> объекта будет отправлено. `CancellationToken` Асинхронные интерфейсы API, которые называются реализацией необходимо передать параметр <xref:System.Web.TaskEventHandler> класса.  
+ Этот конструктор создает оболочку <xref:System.Web.TaskEventHandler> делегата, чтобы <xref:System.Web.UI.PageAsyncTask> объекта можно интегрировать асинхронный код (на основе <xref:System.Threading.Tasks.Task> объектов) с существующей функции асинхронных страниц веб-форм ASP.NET. Сигнал, ASP.NET <xref:System.Threading.CancellationToken> объект, который передается <xref:System.Web.TaskEventHandler> делегата для отмены на основе <xref:System.Web.UI.Page.AsyncTimeout%2A> атрибут задан `@ Page` директив веб-страницы. Когда <xref:System.Web.UI.Page.AsyncTimeout%2A> достигает значения, <xref:System.Threading.CancellationToken> будет передаваться объект. `CancellationToken` Параметра должны быть переданы асинхронные интерфейсы API, вызываемых реализацией <xref:System.Web.TaskEventHandler> класса.  
   
  ]]></format>
         </remarks>
@@ -134,6 +135,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
@@ -152,7 +154,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Эта реализация конструктора задает <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> свойства `false` , что асинхронная задача не обработки параллельно с другими задачами на странице.  
+ Эта реализация конструктора задает <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> свойства `false` , асинхронная задача не обрабатывается параллельно с другими задачами на странице.  
   
  ]]></format>
         </remarks>
@@ -169,6 +171,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
@@ -194,7 +197,7 @@
    
   
 ## Examples  
- В следующем примере кода создается три асинхронные задачи, которые обрабатываются параллельно друг с другом. Данный пример является частью большего примера, приведенного в <xref:System.Web.UI.PageAsyncTask> Общие сведения о классе.  
+ В следующем примере кода создает три асинхронные задачи, которые обрабатываются параллельно друг с другом. Этот пример является частью большого примера, приведенного в <xref:System.Web.UI.PageAsyncTask> Общие сведения о классе.  
   
  [!code-csharp[System.Web.UI.PageAsyncTask#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/CS/page_asynctask.aspx#3)]
  [!code-vb[System.Web.UI.PageAsyncTask#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/VB/page_asynctask.aspx#3)]  
@@ -214,6 +217,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -231,7 +235,7 @@
    
   
 ## Examples  
- В следующем примере кода регистрируется три асинхронные задачи на страницу и выполняет их параллельно. Каждая задача вызывает метод, который переводит поток в спящий режим на 5 секунд. Объект <xref:System.Web.UI.PageAsyncTask.BeginHandler%2A> делегата задается для каждой задачи.  
+ В следующем примере кода регистрируется три асинхронные задачи на страницу и выполняет их параллельно. Каждая задача вызывает метод, который переводит поток в спящий режим в течение 5 секунд. Объект <xref:System.Web.UI.PageAsyncTask.BeginHandler%2A> делегат определяется для каждой задачи.  
   
  [!code-aspx-csharp[System.Web.UI.PageAsyncTask#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/CS/page_asynctask.aspx#1)]
  [!code-aspx-vb[System.Web.UI.PageAsyncTask#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/VB/page_asynctask.aspx#1)]  
@@ -253,6 +257,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -270,7 +275,7 @@
    
   
 ## Examples  
- В следующем примере кода регистрируется три асинхронные задачи на страницу и выполняет их параллельно. Каждая задача вызывает метод, который переводит поток в спящий режим на 5 секунд. <xref:System.Web.UI.PageAsyncTask.EndHandler%2A> Делегата задается для каждой задачи.  
+ В следующем примере кода регистрируется три асинхронные задачи на страницу и выполняет их параллельно. Каждая задача вызывает метод, который переводит поток в спящий режим в течение 5 секунд. <xref:System.Web.UI.PageAsyncTask.EndHandler%2A> Делегат определяется для каждой задачи.  
   
  [!code-aspx-csharp[System.Web.UI.PageAsyncTask#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/CS/page_asynctask.aspx#1)]
  [!code-aspx-vb[System.Web.UI.PageAsyncTask#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/VB/page_asynctask.aspx#1)]  
@@ -292,6 +297,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -304,12 +310,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> Свойство задается в конструкторе. Когда несколько задач регистрируются на странице и <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> свойство имеет значение `true`, то эти задачи выполняются одновременно. Тем не менее если <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> свойству `false`, а затем эти задачи обрабатываются последовательно. Например, если страница содержит два асинхронных задач, каждая заняла 5 секунд для завершения и <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> имеет значение `true`, обе задачи будет выполнена в течение 5 секунд. Если <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> равно `false` для этих же две задачи, то первая задача будет выполнена в течение 5 секунд и вторая задача будет выполнена 5 секунд после завершения первой задачи.  
+ <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> Задано в конструкторе. Когда несколько задач регистрируются на странице и <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> свойство имеет значение `true`, а затем эти задачи выполняются одновременно. Тем не менее если <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> свойству `false`, а затем эти задачи обрабатываются последовательно. Например, если страница содержит две асинхронные задачи, каждый заняло до 5 секунд и <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> присваивается `true`, обе задачи будут завершены в течение 5 секунд. Если <xref:System.Web.UI.PageAsyncTask.ExecuteInParallel%2A> присваивается `false` эти одним и тем же две задачи, а затем первая задача завершается в течение 5 секунд и вторая задача завершится 5 секунд после завершения первой задачи.  
   
    
   
 ## Examples  
- В следующем примере кода определяется три асинхронные задачи, для которых задается для обработки в параллельном режиме. Данный пример является частью большего примера, приведенного в <xref:System.Web.UI.PageAsyncTask> Общие сведения о классе.  
+ В следующем примере кода определяется три асинхронные задачи, для которых задается для обработки в параллельном режиме. Этот пример является частью большого примера, приведенного в <xref:System.Web.UI.PageAsyncTask> Общие сведения о классе.  
   
  [!code-csharp[System.Web.UI.PageAsyncTask#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/CS/page_asynctask.aspx#3)]
  [!code-vb[System.Web.UI.PageAsyncTask#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/VB/page_asynctask.aspx#3)]  
@@ -328,6 +334,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -340,12 +347,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Web.UI.PageAsyncTask.State%2A> Свойство устанавливается в конструкторе и не может быть изменен во время выполнения асинхронной задачи. Можно сразу различать асинхронные задачи на странице путем присвоения значений уникальная строка соответствующих им <xref:System.Web.UI.PageAsyncTask.State%2A> свойства.  
+ <xref:System.Web.UI.PageAsyncTask.State%2A> Свойство задается в конструкторе и не может быть изменен во время выполнения асинхронной задачи. Может различать асинхронные задачи на странице путем назначения соответствующих им уникальные строковые значения <xref:System.Web.UI.PageAsyncTask.State%2A> свойства.  
   
    
   
 ## Examples  
- В следующем примере кода создаются три асинхронные задачи и присваивает им уникальные значения для их <xref:System.Web.UI.PageAsyncTask.State%2A> свойства. Данный пример является частью большего примера, приведенного в <xref:System.Web.UI.PageAsyncTask> Общие сведения о классе.  
+ В следующем примере кода создаются три асинхронные задачи и присваивает им уникальные значения для их <xref:System.Web.UI.PageAsyncTask.State%2A> свойства. Этот пример является частью большого примера, приведенного в <xref:System.Web.UI.PageAsyncTask> Общие сведения о классе.  
   
  [!code-csharp[System.Web.UI.PageAsyncTask#3](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/CS/page_asynctask.aspx#3)]
  [!code-vb[System.Web.UI.PageAsyncTask#3](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/VB/page_asynctask.aspx#3)]  
@@ -364,6 +371,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Web</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
@@ -381,7 +389,7 @@
    
   
 ## Examples  
- В следующем примере кода регистрируется три асинхронные задачи на страницу и выполняет их параллельно. Каждая задача вызывает метод, который переводит поток в спящий режим на 5 секунд. Объект <xref:System.Web.UI.PageAsyncTask.TimeoutHandler%2A> делегата задается для каждой задачи.  
+ В следующем примере кода регистрируется три асинхронные задачи на страницу и выполняет их параллельно. Каждая задача вызывает метод, который переводит поток в спящий режим в течение 5 секунд. Объект <xref:System.Web.UI.PageAsyncTask.TimeoutHandler%2A> делегат определяется для каждой задачи.  
   
  [!code-aspx-csharp[System.Web.UI.PageAsyncTask#1](~/samples/snippets/csharp/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/CS/page_asynctask.aspx#1)]
  [!code-aspx-vb[System.Web.UI.PageAsyncTask#1](~/samples/snippets/visualbasic/VS_Snippets_WebNet/System.Web.UI.PageAsyncTask/VB/page_asynctask.aspx#1)]  

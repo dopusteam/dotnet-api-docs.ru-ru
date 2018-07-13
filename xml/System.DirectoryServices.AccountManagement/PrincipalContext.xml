@@ -1,11 +1,11 @@
 <Type Name="PrincipalContext" FullName="System.DirectoryServices.AccountManagement.PrincipalContext">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="b3af87a468840932a32226f29f1fc8b09dcb4c0c" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="e6dcc498efd357550b97061f6813de39b8d98579" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36741328" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37766735" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class PrincipalContext : IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit PrincipalContext extends System.Object implements class System.IDisposable" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type PrincipalContext = class&#xA;    interface IDisposable" />
   <AssemblyInfo>
     <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <AssemblyVersion>4.1.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -37,7 +38,7 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Для операций поиска контекст участника определяет базы поиска, а для операций вставки в контексте контейнера, в которую вставляется объект.  
+ Для операций поиска контекст участника определяет базы поиска, а для операций вставки контекст определяет контейнер, в который вставляется объект.  
   
  ]]></format>
     </remarks>
@@ -55,11 +56,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.DirectoryServices.AccountManagement.PrincipalContext> Конструкторы выполняют проверку параметров и сервера, но не будет пытаться проверять учетные данные.  
+ <xref:System.DirectoryServices.AccountManagement.PrincipalContext> Конструкторы проверки сервера и параметров, но не пытается проверять учетные данные.  
   
- При создании объекта контекста участника без указания контейнера, он может использоваться для представления нескольких различных контейнеров. Один контейнер может использоваться как базовый для операций запроса, а дополнительные контейнеры могут содержать новые объекты principal. Например, при вставке пользователей или групп в доменный тип контекста, API для управления учетными записями использует известный пользовательский контейнер по умолчанию, «CN = Users, DC = Fabrikam, DC = com». Если компьютеры вставляются в хранилище, API-Интерфейс использует значение по умолчанию «CN = Computers, DC = Fabrikam, DC = com» контейнера. Учтите, что имя контейнера по умолчанию можно изменить администратором домена. Поскольку конструкторы объекта субъекта можно указать только один контекст участника, дополнительные контексты предоставляется как поведение по умолчанию, когда приложение создает контекст домена без указания контейнера. Так как каталог приложения не имеет известных контейнеров, приложение должно указать контейнер в конструкторе или <xref:System.ArgumentException> возникает исключение. Поскольку SAM не имеет контейнеров, <xref:System.ArgumentException> создается, если приложение пытается задать контейнер в конструкторе.  
+ При создании объекта контекста участника без указания контейнера, он может использоваться для представления нескольких различных контейнеров. Один контейнер может использоваться как базовый для операций запроса, хотя дополнительные контейнеры могут содержать только что созданные объекты-участники. Например, при вставке пользователей или групп в доменный тип контекста, API управления учетными записями использует известный пользовательский контейнер по умолчанию, «CN = Users, DC = Fabrikam, DC = com». Если компьютеры вставляются в хранилище, этот API использует значение по умолчанию «CN = Computers, DC = Fabrikam, DC = com» контейнера. Обратите внимание на то, что имена контейнеров по умолчанию можно изменить, администратор домена. Поскольку конструкторы объектов-участников можно указать только один контекст участника, дополнительные контексты представлены как поведение по умолчанию, когда приложение создает контекст домена без указания контейнера. Так как нет известных контейнера для каталога приложения, приложения необходимо указать контейнер в конструкторе или <xref:System.ArgumentException> возникает исключение. Поскольку SAM не имеет контейнеров, <xref:System.ArgumentException> возникает, если приложение пытается определить контейнер в конструкторе.  
   
- В каждой версии конструктора, принимающего имя пользователя в качестве параметра `userName` строка может иметь различные форматы.  Три поддерживаемых NameFormats для являются Nt4Name UserPrincipalName и SamAccountName.  Дополнительные сведения о форматах имен см. в документации ADS_NAME_TYPE_ENUM [здесь](http://go.microsoft.com/fwlink/?LinkID=99942).  
+ В каждой версии конструктора, который принимает имя пользователя в качестве параметра `userName` строка может быть в различных форматах.  Три поддерживаемых NameFormats для являются SamAccountName, UserPrincipalName и Nt4Name.  Дополнительные сведения о форматах имен см. в документации ADS_NAME_TYPE_ENUM [здесь](http://go.microsoft.com/fwlink/?LinkID=99942).  
   
  ]]></format>
         </remarks>
@@ -75,6 +76,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -99,6 +101,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -125,6 +128,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -142,7 +146,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.InvalidOperationException> Может быть создано исключение при вызове операции следующего каталога, если контейнер, заданный для подключения к серверу <xref:System.DirectoryServices.AccountManagement.ContextType.Domain> контекст участника не является допустимым контейнером. Контейнер представляет собой объект которого класс схемы имеет классы-участники, пользователь, группа или компьютер, в его атрибута possibleInferiors указан.  
+ <xref:System.InvalidOperationException> Может быть вызвано в вызовах операций следующего каталога, которые подключаются к серверу, если контейнер, заданный для <xref:System.DirectoryServices.AccountManagement.ContextType.Domain> контекст участника не является допустимым контейнером. Контейнер представляет собой объект, которого класс схемы имеет классы-участники, пользователя, группы или компьютера, в его атрибута possibleInferiors указан.  
   
  ]]></format>
         </remarks>
@@ -160,6 +164,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -179,7 +184,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.InvalidOperationException> Может быть создано исключение при вызове операции следующего каталога, если контейнер, заданный для подключения к серверу <xref:System.DirectoryServices.AccountManagement.ContextType.Domain> контекст участника не является допустимым контейнером. Контейнер представляет собой объект которого класс схемы имеет классы-участники, пользователь, группа или компьютер, в его атрибута possibleInferiors указан.  
+ <xref:System.InvalidOperationException> Может быть вызвано в вызовах операций следующего каталога, которые подключаются к серверу, если контейнер, заданный для <xref:System.DirectoryServices.AccountManagement.ContextType.Domain> контекст участника не является допустимым контейнером. Контейнер представляет собой объект, которого класс схемы имеет классы-участники, пользователя, группы или компьютера, в его атрибута possibleInferiors указан.  
   
  ]]></format>
         </remarks>
@@ -197,6 +202,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -227,6 +233,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -248,7 +255,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.InvalidOperationException> Может быть создано исключение при вызове операции следующего каталога, если контейнер, заданный для подключения к серверу <xref:System.DirectoryServices.AccountManagement.ContextType.Domain> контекст участника не является допустимым контейнером. Контейнер представляет собой объект которого класс схемы имеет классы-участники, пользователь, группа или компьютер, в его атрибута possibleInferiors указан.  
+ <xref:System.InvalidOperationException> Может быть вызвано в вызовах операций следующего каталога, которые подключаются к серверу, если контейнер, заданный для <xref:System.DirectoryServices.AccountManagement.ContextType.Domain> контекст участника не является допустимым контейнером. Контейнер представляет собой объект, которого класс схемы имеет классы-участники, пользователя, группы или компьютера, в его атрибута possibleInferiors указан.  
   
  ]]></format>
         </remarks>
@@ -266,6 +273,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -289,7 +297,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.InvalidOperationException> Может быть создано исключение при вызове операции следующего каталога, если контейнер, заданный для подключения к серверу <xref:System.DirectoryServices.AccountManagement.ContextType.Domain> контекст участника не является допустимым контейнером. Контейнер представляет собой объект которого класс схемы имеет классы-участники, пользователь, группа или компьютер, в его атрибута possibleInferiors указан.  
+ <xref:System.InvalidOperationException> Может быть вызвано в вызовах операций следующего каталога, которые подключаются к серверу, если контейнер, заданный для <xref:System.DirectoryServices.AccountManagement.ContextType.Domain> контекст участника не является допустимым контейнером. Контейнер представляет собой объект, которого класс схемы имеет классы-участники, пользователя, группы или компьютера, в его атрибута possibleInferiors указан.  
   
  ]]></format>
         </remarks>
@@ -308,6 +316,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -321,7 +330,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если тип контекста — <xref:System.DirectoryServices.AccountManagement.ContextType.Domain>, это свойство возвращает имя экземпляра каталога домена контроллера или приложения. Если тип контекста — <xref:System.DirectoryServices.AccountManagement.ContextType.Machine>, это свойство возвращает имя компьютера.  
+ Если используется тип контекста <xref:System.DirectoryServices.AccountManagement.ContextType.Domain>, это свойство возвращает имя экземпляра домена контроллера или приложения каталога. Если используется тип контекста <xref:System.DirectoryServices.AccountManagement.ContextType.Machine>, это свойство возвращает имя компьютера.  
   
  ]]></format>
         </remarks>
@@ -338,6 +347,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -351,7 +361,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Все запросы выполняются по отношению к этому корню, а все данные добавляются в этот контейнер. Для <xref:System.DirectoryServices.AccountManagement.ContextType.Domain> и <xref:System.DirectoryServices.AccountManagement.ContextType.ApplicationDirectory> типов контекста, это свойство — это различающееся имя объекта контейнера. Для <xref:System.DirectoryServices.AccountManagement.ContextType.Machine> типов контекста, это свойство должно иметь значение null.  
+ Все запросы выполняются по отношению к этому корню, а все данные добавляются в этот контейнер. Для <xref:System.DirectoryServices.AccountManagement.ContextType.Domain> и <xref:System.DirectoryServices.AccountManagement.ContextType.ApplicationDirectory> типов контекста, это свойство является различающееся имя объекта-контейнера. Для <xref:System.DirectoryServices.AccountManagement.ContextType.Machine> типов контекста, это свойство должно иметь значение null.  
   
  ]]></format>
         </remarks>
@@ -368,6 +378,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -381,7 +392,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это свойство используется в том случае, когда приложение непосредственно не создает контекст участника и указать тип контекста. Например если в приложении перечисляется членство в группе, это свойство может использоваться для определения типа хранилища, к которому принадлежит участник.  
+ Это свойство используется в том случае, когда приложение непосредственно не создает контекст участника и указать тип контекста. Например если в приложении перечисляется членство в группе, это свойство можно использовать для определения типа хранилища, к которому принадлежит участник.  
   
  ]]></format>
         </remarks>
@@ -401,6 +412,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -424,6 +436,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -447,6 +460,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -470,6 +484,7 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -483,7 +498,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это свойство можно задать, передав имя пользователя в любом формате.  Полный список допустимых типов форматов см. в документации ADS_NAME_TYPE_ENUM [здесь](http://go.microsoft.com/fwlink/?LinkID=99942).  
+ Это свойство можно задать, передав имя пользователя в любом формате.  Полный список допустимых типы форматов, см. в документации ADS_NAME_TYPE_ENUM [здесь](http://go.microsoft.com/fwlink/?LinkID=99942).  
   
  ]]></format>
         </remarks>
@@ -501,7 +516,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
-`userName` Аргумента в обе перегрузки этого метода должны иметь форму *username* (например, *mcampbell*) вместо *домен\имя_пользователя* или *username@domain*.   
+`userName` Аргумента в обеих перегрузок этого метода должны иметь форму *username* (например, *mcampbell*) вместо *"Домен\имя_пользователя"* или *username@domain*.   
   
  ]]></format>
         </remarks>
@@ -518,6 +533,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -538,9 +554,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.DirectoryServices.AccountManagement.PrincipalContext.ValidateCredentials%2A> Метод привязан к серверу, указанному в конструктор. Если `username` и `password` аргументы `null`, проверяются учетные данные, указанные в конструкторе. Если учетные данные не были заданы в конструкторе и `username` и `password` параметры являются `null`, этот метод проверяет учетные данные по умолчанию для текущего участника.  
+ <xref:System.DirectoryServices.AccountManagement.PrincipalContext.ValidateCredentials%2A> Метод привязан к серверу, указанному в конструкторе. Если `username` и `password` аргументы являются `null`, проверяются учетные данные, указанные в конструкторе. Если учетные данные не были указаны в конструкторе и `username` и `password` параметры являются `null`, этот метод проверяет учетные данные по умолчанию для текущего участника.  
 
-`userName` Аргумент должен быть указан *userName* (например, *mcampbell*) вместо *домен\имя_пользователя* или * username@domain *.
+`userName` Аргумент должен быть в формате *userName* (например, *mcampbell*) вместо *"Домен\имя_пользователя"* или * username@domain *.
 
  ]]></format>
         </remarks>
@@ -557,6 +573,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.DirectoryServices.AccountManagement</AssemblyName>
+        <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -579,9 +596,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.DirectoryServices.AccountManagement.PrincipalContext.ValidateCredentials%2A> Метод привязан к серверу, указанному в конструктор. Если `username` и `password` параметра имеют значение null, проверяются учетные данные, указанные в конструкторе. Если учетные данные не были заданы в конструкторе и `username` и `password` параметра имеют значение null, этот метод проверяет учетные данные по умолчанию для текущего участника.  
+ <xref:System.DirectoryServices.AccountManagement.PrincipalContext.ValidateCredentials%2A> Метод привязан к серверу, указанному в конструкторе. Если `username` и `password` параметра имеют значение null, проверяются учетные данные, указанные в конструкторе. Если учетные данные не были указаны в конструкторе и `username` и `password` параметра имеют значение null, этот метод проверяет учетные данные по умолчанию для текущего участника.  
 
-`userName` Аргумент должен быть указан *username* (например, *mcampbell*) вместо *домен\имя_пользователя* или * username@domain *. 
+`userName` Аргумент должен быть в формате *username* (например, *mcampbell*) вместо *"Домен\имя_пользователя"* или * username@domain *. 
  
  ]]></format>
         </remarks>
