@@ -1,11 +1,11 @@
 <Type Name="CommittableTransaction" FullName="System.Transactions.CommittableTransaction">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="83edc5ef08d08dd83bccb09e59e60fb22f55b841" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="3b9da4e1bb312925a02e407da5bd7ee882100cca" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36605250" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37608943" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class CommittableTransaction : System.Transactions.Transaction, IAsyncResult, IDisposable, System.Runtime.Serialization.ISerializable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit CommittableTransaction extends System.Transactions.Transaction implements class System.IAsyncResult, class System.IDisposable, class System.Runtime.Serialization.ISerializable" />
@@ -15,6 +15,7 @@
   <TypeSignature Language="F#" Value="type CommittableTransaction = class&#xA;    inherit Transaction&#xA;    interface ISerializable&#xA;    interface IDisposable&#xA;    interface IAsyncResult" />
   <AssemblyInfo>
     <AssemblyName>System.Transactions</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -47,21 +48,21 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Класс <xref:System.Transactions.CommittableTransaction> позволяет приложениям использовать транзакцию явным образом вместо неявного использования с помощью класса <xref:System.Transactions.TransactionScope>. В отличие от класса <xref:System.Transactions.TransactionScope> для фиксации или прерывания транзакции модуль записи приложения должен специально вызывать методы <xref:System.Transactions.CommittableTransaction.Commit%2A> и <xref:System.Transactions.Transaction.Rollback%2A>. Однако только создатель транзакции можно зафиксировать транзакцию. Таким образом, копии фиксируемую транзакцию, полученные с помощью <xref:System.Transactions.Transaction.Clone%2A> метод не может быть зафиксирована.  
+ Класс <xref:System.Transactions.CommittableTransaction> позволяет приложениям использовать транзакцию явным образом вместо неявного использования с помощью класса <xref:System.Transactions.TransactionScope>. В отличие от класса <xref:System.Transactions.TransactionScope> для фиксации или прерывания транзакции модуль записи приложения должен специально вызывать методы <xref:System.Transactions.CommittableTransaction.Commit%2A> и <xref:System.Transactions.Transaction.Rollback%2A>. Однако только автор транзакции можно зафиксировать транзакцию. Таким образом, копии фиксируемую транзакцию, полученные с помощью <xref:System.Transactions.Transaction.Clone%2A> метод, не являются фиксируемыми.  
   
 > [!NOTE]
->  Рекомендуется создавать неявные транзакции с помощью <xref:System.Transactions.TransactionScope> класса, чтобы контекст внешней транзакции автоматически осуществляется. Также следует использовать <xref:System.Transactions.TransactionScope> и <xref:System.Transactions.DependentTransaction> для приложений, которые требуют использования одной транзакции между несколькими вызовами функции или вызовов нескольких потоков. Дополнительные сведения об этой модели см. в разделе [реализации неявные транзакции с помощью области транзакции](~/docs/framework/data/transactions/implementing-an-implicit-transaction-using-transaction-scope.md) раздела.  
+>  Мы рекомендуем создать неявных транзакций с использованием <xref:System.Transactions.TransactionScope> класса, таким образом, чтобы контекста внешней транзакции автоматически осуществляется автоматически. Также следует использовать <xref:System.Transactions.TransactionScope> и <xref:System.Transactions.DependentTransaction> для приложений, которые требуется использовать ту же транзакцию в нескольких вызовах функций или нескольких вызовах потоков. Дополнительные сведения об этой модели см. в разделе [реализации неявных транзакций с помощью области транзакций](~/docs/framework/data/transactions/implementing-an-implicit-transaction-using-transaction-scope.md) раздела.  
   
- Создание <xref:System.Transactions.CommittableTransaction> не задает автоматически внешнюю транзакцию, код выполняется в транзакции. Можно получить или установить внешнюю транзакцию путем вызова статического <xref:System.Transactions.Transaction.Current%2A?displayProperty=nameWithType> глобальное свойство <xref:System.Transactions.Transaction> объекта. Дополнительные сведения о внешних транзакциях см. раздел «Потока транзакций управление с помощью TransactionScopeOption» [реализации неявные транзакции с помощью области транзакции](~/docs/framework/data/transactions/implementing-an-implicit-transaction-using-transaction-scope.md) раздела. Если внешняя транзакция не указано, какой-либо операции диспетчера ресурсов не является частью этой транзакции. Необходимо явно установить или переустановить внешнюю транзакцию, чтобы убедиться, что диспетчеры ресурсов работали в правильном контексте транзакции.  
+ Создание <xref:System.Transactions.CommittableTransaction> не задает внешнюю транзакцию, которая является транзакцией, код выполняется в автоматически. Можно получить или задать внешнюю транзакцию путем вызова статического <xref:System.Transactions.Transaction.Current%2A?displayProperty=nameWithType> свойства глобального <xref:System.Transactions.Transaction> объекта. Дополнительные сведения о внешних транзакциях см. в разделе «Управление потоком транзакций с помощью объекта TransactionScopeOption» [реализации неявных транзакций с помощью области транзакций](~/docs/framework/data/transactions/implementing-an-implicit-transaction-using-transaction-scope.md) раздела. Если внешняя транзакция не установлен, любая операция над диспетчером ресурсов не является частью этой транзакции. Необходимо явно установить или сбросить внешнюю транзакцию, чтобы убедиться, что диспетчеры ресурсов работали в правильном контексте транзакции.  
   
- Пока <xref:System.Transactions.CommittableTransaction> имеет была зафиксирована, все ресурсы, связанные с транзакцией все еще заблокировано.  
+ Пока <xref:System.Transactions.CommittableTransaction> имеет была зафиксирована, все ресурсы, вовлеченные транзакцией по-прежнему блокируются.  
   
- Объект <xref:System.Transactions.CommittableTransaction> нельзя использовать повторно. После ее фиксации или отката, его нельзя использовать повторно в транзакции или задать в качестве текущего контекста внешней транзакции.  
+ Объект <xref:System.Transactions.CommittableTransaction> нельзя использовать повторно. После ее фиксации или отката, его нельзя использовать повторно в транзакции или задать как текущий контекст внешней транзакции.  
   
    
   
 ## Examples  
- В следующем примере создается два новых экземпляров <xref:System.Transactions.CommittableTransaction>, фиксируется и откатывает назад их соответственно.  
+ В следующем примере создается два новых экземпляров <xref:System.Transactions.CommittableTransaction>, фиксации и откатывает назад их соответственно.  
   
   
   
@@ -89,6 +90,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -108,7 +110,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Examples  
- В следующем примере создается новый экземпляр <xref:System.Transactions.CommittableTransaction> и фиксирует ее.  
+ В следующем примере создается новый экземпляр класса <xref:System.Transactions.CommittableTransaction> и фиксирует ее.  
   
  [!code-csharp[Tx_CommittableTx#1](~/samples/snippets/csharp/VS_Snippets_CFX/tx_committabletx/cs/committabletxwithsql.cs#1)]
  [!code-vb[Tx_CommittableTx#1](~/samples/snippets/visualbasic/VS_Snippets_CFX/tx_committabletx/vb/committabletxwithsql.vb#1)]  
@@ -128,6 +130,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -160,6 +163,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -182,7 +186,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Examples  
- В следующем примере создается новый экземпляр <xref:System.Transactions.CommittableTransaction> с параметрами и он прерывается.  
+ В следующем примере создается новый экземпляр класса <xref:System.Transactions.CommittableTransaction> с параметрами и он прерывается.  
   
   
   
@@ -194,19 +198,20 @@
       </Docs>
     </Member>
     <Member MemberName="BeginCommit">
-      <MemberSignature Language="C#" Value="public IAsyncResult BeginCommit (AsyncCallback asyncCallback, object asyncState);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.IAsyncResult BeginCommit(class System.AsyncCallback asyncCallback, object asyncState) cil managed" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2" />
-      <MemberSignature Language="DocId" Value="M:System.Transactions.CommittableTransaction.BeginCommit(System.AsyncCallback,System.Object)" FrameworkAlternate="netcore-2.0;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; IAsyncResult ^ BeginCommit(AsyncCallback ^ asyncCallback, System::Object ^ asyncState);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2" />
+      <MemberSignature Language="C#" Value="public IAsyncResult BeginCommit (AsyncCallback asyncCallback, object asyncState);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.IAsyncResult BeginCommit(class System.AsyncCallback asyncCallback, object asyncState) cil managed" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.CommittableTransaction.BeginCommit(System.AsyncCallback,System.Object)" FrameworkAlternate="netcore-2.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; IAsyncResult ^ BeginCommit(AsyncCallback ^ asyncCallback, System::Object ^ asyncState);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0" />
       <MemberSignature Language="C#" Value="public IAsyncResult BeginCommit (AsyncCallback callback, object user_defined_state);" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.IAsyncResult BeginCommit(class System.AsyncCallback callback, object user_defined_state) cil managed" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="DocId" Value="M:System.Transactions.CommittableTransaction.BeginCommit(System.AsyncCallback,System.Object)" FrameworkAlternate="netframework-4.7;netcore-2.1;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.CommittableTransaction.BeginCommit(System.AsyncCallback,System.Object)" FrameworkAlternate="netframework-4.7;netcore-2.0;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="VB.NET" Value="Public Function BeginCommit (callback As AsyncCallback, user_defined_state As Object) As IAsyncResult" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; IAsyncResult ^ BeginCommit(AsyncCallback ^ callback, System::Object ^ user_defined_state);" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="F#" Value="member this.BeginCommit : AsyncCallback * obj -&gt; IAsyncResult" Usage="committableTransaction.BeginCommit (callback, user_defined_state)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -223,9 +228,9 @@
         <ReturnType>System.IAsyncResult</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="asyncCallback" Type="System.AsyncCallback" Index="0" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2" />
+        <Parameter Name="asyncCallback" Type="System.AsyncCallback" Index="0" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0" />
         <Parameter Name="callback" Type="System.AsyncCallback" Index="0" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-        <Parameter Name="asyncState" Type="System.Object" Index="1" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2" />
+        <Parameter Name="asyncState" Type="System.Object" Index="1" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0" />
         <Parameter Name="user_defined_state" Type="System.Object" Index="1" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       </Parameters>
       <Docs>
@@ -239,10 +244,10 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод возвращает немедленно, до завершения транзакции. Транзакции, а затем фиксирует в другом потоке и `asyncCallback` делегат вызывается после ее завершения. После вызова этого метода, вы не получите результат транзакции до вызова <xref:System.Transactions.CommittableTransaction.EndCommit%2A>.  
+ Этот метод возвращает немедленно, до завершения транзакции. Транзакции, а затем фиксаций в другом потоке и `asyncCallback` делегат вызывается после ее завершения. После вызова этого метода, вы не получаете результата транзакции до вызова метода <xref:System.Transactions.CommittableTransaction.EndCommit%2A>.  
   
 > [!NOTE]
->  При вызове этого метода процесса фиксации может выполняться синхронно.  
+>  Процесс фиксации может выполняться синхронно в рамках вызова данного метода.  
   
  ]]></format>
         </remarks>
@@ -259,6 +264,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -281,11 +287,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- При вызове этого метода все объекты, которые зарегистрированы для участия в транзакции, опрашиваются и могут независимо проголосовать за фиксацию или откат транзакции. Если любой из участников голосует выполнить откат транзакции, она откатывается, и этот метод создает исключение <xref:System.Transactions.TransactionException> исключение. Это нормальное событие для транзакции, и код должен перехватывать и обрабатывать такие исключения.  
+ При вызове этого метода, опрашиваются все объекты, которые зарегистрированы для участия в транзакции и можно независимо друг от друга проголосовать за фиксацию или откат транзакции. Если любой из участников голосует за откат транзакции, она откатывается, и этот метод вызывает исключение <xref:System.Transactions.TransactionException> исключение. Это нормальное событие для транзакции, и код должен перехватывать и обрабатывать такие исключения.  
   
- <xref:System.Transactions.CommittableTransaction.Commit%2A> и <xref:System.Transactions.CommittableTransaction.EndCommit%2A> блокирования до завершения первой фазы обработки транзакций. Первый этап завершается после все диспетчеры ресурсов и зачисления в транзакции проголосовали по результату транзакции и <xref:System.Transactions.TransactionManager> принял решение зафиксировать или прервать транзакцию. Второй этап обработки всегда является асинхронным. Таким образом нет никакой гарантии, что данные только что зафиксированные в рамках данной транзакции будут немедленно становится доступной после без использования для просмотра этих данных другой транзакцией.  
+ <xref:System.Transactions.CommittableTransaction.Commit%2A> и <xref:System.Transactions.CommittableTransaction.EndCommit%2A> блокирования до завершения первого этапа обработки транзакций. Первый этап завершается после все диспетчеры ресурсов и зачисления в транзакции проголосовали по результат транзакции и <xref:System.Transactions.TransactionManager> принял решение зафиксировать или прервать транзакцию. Второй этап обработки всегда выполняется асинхронно. Таким образом нет никакой гарантии, что данные только зафиксированные в рамках данной транзакции будут сразу становятся доступными после без использования для просмотра этих данных другой транзакцией.  
   
- Поскольку этот метод блокируется до на первом этапе обработки транзакций завершен, следует очень осторожно при использовании этого метода в приложении Windows Form (WinForm) или взаимоблокировка может произойти. Если вызвать этот метод в одно событие управления WinForm (например, нажатие кнопки) и использовать синхронные <xref:System.Windows.Forms.Control.Invoke%2A> метод для прямого управления для выполнения некоторых задач пользовательского интерфейса (например, изменения цветов) в ходе обработки транзакций произойдет взаимоблокировка. Это вызвано <xref:System.Windows.Forms.Control.Invoke%2A> метод является синхронным и блокирует рабочий поток, пока поток пользовательского интерфейса не завершит свою работу. Однако в нашем сценарии поток пользовательского интерфейса также ждет, пока рабочий поток зафиксировать транзакцию. Результат — что не сможет продолжить работу, и область бесконечно ожидает завершения фиксирования. Следует использовать <xref:System.Windows.Forms.Control.BeginInvoke%2A> вместо <xref:System.Windows.Forms.Control.Invoke%2A> везде, где это возможно, поскольку он является асинхронным и, таким образом менее подвержены возникновению взаимоблокировки.  
+ Так как этот метод блокируется до первого этапа обработки транзакций завершения, следует быть очень осторожным при использовании этого метода в приложении Windows Form (WinForm) или взаимоблокировка может произойти. Если вызвать этот метод в одно событие управления WinForm (например, нажатие кнопки) и использовать синхронные <xref:System.Windows.Forms.Control.Invoke%2A> метод управления для выполнения некоторых задач пользовательского интерфейса (например, изменения цветов) во время обработки транзакции, произойдет взаимоблокировка. Это обусловлено <xref:System.Windows.Forms.Control.Invoke%2A> метод является синхронным и блокирует рабочий поток, пока не завершит свою работу в потоке пользовательского интерфейса. Однако в нашем случае в потоке пользовательского интерфейса также ждет, пока рабочий поток зафиксировать транзакцию. Результатом является, что ни одна не сможет продолжить работу, и область бесконечно ожидает завершения фиксирования. Следует использовать <xref:System.Windows.Forms.Control.BeginInvoke%2A> вместо <xref:System.Windows.Forms.Control.Invoke%2A> везде, где это возможно, поскольку он является асинхронным и, таким образом менее подвержен взаимоблокировкам.  
   
  ]]></format>
         </remarks>
@@ -294,20 +300,21 @@
       </Docs>
     </Member>
     <Member MemberName="EndCommit">
-      <MemberSignature Language="C#" Value="public void EndCommit (IAsyncResult asyncResult);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void EndCommit(class System.IAsyncResult asyncResult) cil managed" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2" />
-      <MemberSignature Language="DocId" Value="M:System.Transactions.CommittableTransaction.EndCommit(System.IAsyncResult)" FrameworkAlternate="netcore-2.0;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="VB.NET" Value="Public Sub EndCommit (asyncResult As IAsyncResult)" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; void EndCommit(IAsyncResult ^ asyncResult);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2" />
+      <MemberSignature Language="C#" Value="public void EndCommit (IAsyncResult asyncResult);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void EndCommit(class System.IAsyncResult asyncResult) cil managed" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.CommittableTransaction.EndCommit(System.IAsyncResult)" FrameworkAlternate="netcore-2.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="VB.NET" Value="Public Sub EndCommit (asyncResult As IAsyncResult)" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; void EndCommit(IAsyncResult ^ asyncResult);" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0" />
       <MemberSignature Language="C#" Value="public void EndCommit (IAsyncResult ar);" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void EndCommit(class System.IAsyncResult ar) cil managed" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="DocId" Value="M:System.Transactions.CommittableTransaction.EndCommit(System.IAsyncResult)" FrameworkAlternate="netframework-4.7;netcore-2.1;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7.1;netstandard-2.0" />
+      <MemberSignature Language="DocId" Value="M:System.Transactions.CommittableTransaction.EndCommit(System.IAsyncResult)" FrameworkAlternate="netframework-4.7;netcore-2.0;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="VB.NET" Value="Public Sub EndCommit (ar As IAsyncResult)" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void EndCommit(IAsyncResult ^ ar);" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="F#" Value="member this.EndCommit : IAsyncResult -&gt; unit" Usage="committableTransaction.EndCommit ar" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -324,7 +331,7 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="asyncResult" Type="System.IAsyncResult" Index="0" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2" />
+        <Parameter Name="asyncResult" Type="System.IAsyncResult" Index="0" FrameworkAlternate="netcore-2.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netstandard-2.0;netcore-2.1;netframework-4.7.2;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0" />
         <Parameter Name="ar" Type="System.IAsyncResult" Index="0" FrameworkAlternate="xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       </Parameters>
       <Docs>
@@ -335,12 +342,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод следует вызывать в делегат обратного вызова, который указан в качестве параметра для <xref:System.Transactions.CommittableTransaction.BeginCommit%2A> метод после завершения какой-либо работы очистки, связанные с асинхронной фиксацией. Можно также вызвать этот метод раньше не ожидая делегата. Если в момент вызова этого метода, транзакция не завершена, этот метод ожидает ее завершения.  
+ Этот метод следует вызывать в делегат обратного вызова, указанное в качестве параметра для <xref:System.Transactions.CommittableTransaction.BeginCommit%2A> метода, после завершения работы любой очистки, связанную с асинхронной фиксацией. Можно также вызвать этот метод раньше без ожидания для делегата. Если к моменту вызова этого метода транзакция не завершена, этот метод ожидает ее завершения.  
   
 > [!CAUTION]
->  <xref:System.IAsyncResult.CompletedSynchronously%2A> Свойство, возвращенное `asyncResult` всегда `false`, даже если операция выполнена синхронно.  
+>  <xref:System.IAsyncResult.CompletedSynchronously%2A> Свойства, возвращенное `asyncResult` всегда `false`, даже если операция выполнена синхронно.  
   
- <xref:System.Transactions.CommittableTransaction.Commit%2A> и <xref:System.Transactions.CommittableTransaction.EndCommit%2A> блокирования до завершения первой фазы обработки транзакций. Первый этап завершается после все диспетчеры ресурсов и зачисления в транзакции проголосовали по результату транзакции и <xref:System.Transactions.TransactionManager> принял решение зафиксировать или прервать транзакцию. Второй этап обработки всегда является асинхронным. Таким образом нет никакой гарантии, что данные только что зафиксированные в рамках данной транзакции будут немедленно становится доступной после без использования для просмотра этих данных другой транзакцией.  
+ <xref:System.Transactions.CommittableTransaction.Commit%2A> и <xref:System.Transactions.CommittableTransaction.EndCommit%2A> блокирования до завершения первого этапа обработки транзакций. Первый этап завершается после все диспетчеры ресурсов и зачисления в транзакции проголосовали по результат транзакции и <xref:System.Transactions.TransactionManager> принял решение зафиксировать или прервать транзакцию. Второй этап обработки всегда выполняется асинхронно. Таким образом нет никакой гарантии, что данные только зафиксированные в рамках данной транзакции будут сразу становятся доступными после без использования для просмотра этих данных другой транзакцией.  
   
  ]]></format>
         </remarks>
@@ -360,6 +367,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -394,6 +402,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -428,6 +437,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -463,6 +473,7 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Transactions</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>

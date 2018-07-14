@@ -1,11 +1,11 @@
 <Type Name="IsolationLevel" FullName="System.Data.IsolationLevel">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="44b4b9a8652445499c5d7d32988d517f99975d92" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="c338d1a30e31915ae70914694b2d70ff4b6d1fe0" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36677475" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37668481" />
   </Metadata>
   <TypeSignature Language="C#" Value="public enum IsolationLevel" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed IsolationLevel extends System.Enum" />
@@ -21,6 +21,8 @@
   </AssemblyInfo>
   <AssemblyInfo>
     <AssemblyName>System.Data</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -37,20 +39,20 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Data.IsolationLevel> С помощью поставщика данных .NET Framework используются значения, при выполнении транзакции.  
+ <xref:System.Data.IsolationLevel> Значения используются поставщиком данных .NET Framework при выполнении транзакции.  
   
- <xref:System.Data.IsolationLevel> Действует до явно изменен, но его можно изменить в любое время. Новое значение используется во время выполнения не на этапе синтаксического анализа. Если изменен во время транзакции, ожидаемое поведение сервера является применение нового уровня блокировки ко всем остальным операторам.  
+ <xref:System.Data.IsolationLevel> Действует до явным образом изменены, но его можно изменить в любое время. Новое значение используется во время выполнения, не на этапе синтаксического анализа. Если изменен во время транзакции, ожидаемое поведение сервера является применение нового уровня блокировки ко всем остальным операторам.  
   
    
   
 ## Examples  
- Это приложение демонстрирует использование <xref:System.Data.IsolationLevel> в <xref:System.Data.Common.DbTransaction>. Образец демонстрируют, какие из следующих поведений разрешены в различных уровней изоляции.  
+ Это приложение демонстрирует использование <xref:System.Data.IsolationLevel> в <xref:System.Data.Common.DbTransaction>. Пример мы рассмотрим, какие из следующих поведений разрешены в различными уровнями изоляции:  
   
 -   «Грязные» чтения.  
   
 -   Без повторного чтения.  
   
--   Фантомов.  
+-   Фантомные объекты.  
   
  Это приложение будет выполняться на следующих уровнях изоляции:  
   
@@ -60,13 +62,13 @@
   
 -   RepeatableRead  
   
--   Сериализуемые  
+-   Сериализуемый  
   
 -   Снимок  
   
- Класс PhantomReadThreads показано, если определенной транзакции обеспечивает чтение фантомных поведение. Если транзакция позволяет определить поведение, потоки будут работать в следующем порядке:  
+ Класс PhantomReadThreads демонстрирует, если для определенной транзакции позволяет поведению чтение фантомных. Если транзакция позволяет поведению, потоки будут работать в следующем порядке:  
   
--   Выберите products(All) в первый поток.  
+-   В первый поток выберите products(All).  
   
 -   Во втором потоке вставьте новый продукт.  
   
@@ -76,47 +78,47 @@
   
 -   Зафиксируйте транзакцию в первый поток.  
   
- Если транзакция позволяет определить поведение, две операции Select получат различные результаты.  
+ Если транзакция позволяет поведению, две операции Select получите разные результаты.  
   
- Класс NonrepeatableReadThreads демонстрирует, если конкретная транзакция позволяет определить поведение неповторяющейся операцией чтения. Если транзакция позволяет определить поведение, потоки будут работать в следующем порядке:  
+ Класс NonrepeatableReadThreads демонстрирует, если для определенной транзакции позволяет поведению неповторяющееся чтение. Если транзакция позволяет поведению, потоки будут работать в следующем порядке:  
   
--   Выберите product(ProductId=1) в первый поток.  
+-   В первый поток выберите product(ProductId=1).  
   
 -   Во втором потоке обновите value(ProductId=1) количество.  
   
 -   Зафиксируйте транзакцию во втором потоке.  
   
--   Снова выберите продукт.  
+-   Выберите продукт, еще раз.  
   
 -   Зафиксируйте транзакцию в первый поток.  
   
- Если транзакция позволяет определить поведение, две операции Select получат различные результаты.  
+ Если транзакция позволяет поведению, две операции Select получите разные результаты.  
   
- Класс ExchangeValuesThreads иллюстрирует различие между транзакции Serializable и моментальных снимков. Сериализуемые транзакции потоков будет работать в следующем порядке:  
+ Класс ExchangeValuesThreads иллюстрирует различие между транзакции Serializable и моментальных снимков. Для сериализуемой транзакции потоки будут работать в следующем порядке:  
   
--   В первом потоке цена product(ProductId=2) и хранилища в переменной.  
+-   В первый поток получите цены product(ProductId=2) и хранилища в переменной.  
   
--   В первом потоке обновите цены product(ProductId=1) со стоимостью product(ProductId=2).  
+-   В первом потоке обновляем цены product(ProductId=1) со стоимостью product(ProductId=2).  
   
 -   Зафиксируйте транзакцию в первый поток.  
   
--   Во втором потоке цена product(ProductId=1) и хранилища в переменной.  
+-   Во втором потоке получите цены product(ProductId=1) и хранилища в переменной.  
   
--   Во втором потоке обновите цены product(ProductId=2) со стоимостью product(ProductId=1).  
+-   Во втором потоке обновляем цены product(ProductId=2) со стоимостью product(ProductId=1).  
   
 -   Зафиксируйте транзакцию во втором потоке.  
   
- Теперь значения цены (ProductId = 1 и ProductId = 2) и исходной цены Product(ProductId=2).  
+ Теперь значения цены (ProductId = 1 и ProductId = 2), как и исходный цена Product(ProductId=2).  
   
- Транзакции моментальных снимков потоков будет работать в следующем порядке:  
+ Для транзакции моментального снимка потоки будут работать в следующем порядке:  
   
--   В первом потоке цена product(ProductId=2) и хранилища в переменной.  
+-   Первый поток получите цены product(ProductId=2) и хранилища в переменной;  
   
--   В первом потоке обновите цены product(ProductId=1) со стоимостью product(ProductId=2).  
+-   В первом потоке обновляем цены product(ProductId=1) со стоимостью product(ProductId=2).  
   
--   Во втором потоке цена product(ProductId=1) из моментального снимка и сохранить в переменной.  
+-   Во втором потоке получить цены product(ProductId=1) из моментального снимка и сохранить в переменной.  
   
--   Во втором потоке обновите цены product(ProductId=2) со стоимостью product(ProductId=1).  
+-   Во втором потоке обновляем цены product(ProductId=2) со стоимостью product(ProductId=1).  
   
 -   Зафиксируйте транзакцию во втором потоке.  
   
@@ -124,17 +126,17 @@
   
  Теперь обмениваться цены продуктов (ProductId = 1 и ProductId = 2).  
   
- Класс DirtyReadThreads демонстрирует, если конкретная транзакция позволяет определить поведение «грязное» чтение. Если транзакция позволяет определить поведение, потоки будут работать в следующем порядке:  
+ Класс DirtyReadThreads демонстрирует, если специальная транзакция позволяет определить поведение «грязное» чтение. Если транзакция позволяет поведению, потоки будут работать в следующем порядке:  
   
--   В первом потоке транзакцию и добавить value(ProductId=1) количество.  
+-   В первый поток запускает транзакцию и добавить value(ProductId=1) количество.  
   
--   Во втором потоке чтения значение количества и снова добавьте значение.  
+-   Во втором потоке чтение значение количества и снова добавьте значение.  
   
 -   Зафиксируйте транзакцию во втором потоке.  
   
 -   Откат транзакции в первый поток.  
   
- Если транзакция позволяет определить поведение, значение количества будет добавлен дважды.  
+ Если транзакция позволяет поведению, значение количества будет добавлен дважды.  
   
  Проекты C# и Visual Basic с этим образцом кода можно найти на [примеры кода от разработчиков](https://code.msdn.microsoft.com/site/search?query=How%20to%20use%20IsolationLevel%20Enumeration%20in%20DbTransaction&f%5B0%5D.Value=How%20to%20use%20IsolationLevel%20Enumeration%20in%20DbTransaction&f%5B0%5D.Type=SearchText&ac=4).  
   
@@ -161,6 +163,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -192,6 +196,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -223,6 +229,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -254,6 +262,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -285,6 +295,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -316,6 +328,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -347,6 +360,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -364,7 +379,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- При использовании <xref:System.Data.Odbc.OdbcTransaction>, если вы не установите <xref:System.Data.IsolationLevel> или задать <xref:System.Data.IsolationLevel> для `Unspecified`, транзакции выполняются в соответствии с уровнем изоляции, определенный драйвером, который используется.  
+ При использовании <xref:System.Data.Odbc.OdbcTransaction>, если вы не установите <xref:System.Data.IsolationLevel> или задать <xref:System.Data.IsolationLevel> для `Unspecified`, транзакция выполняется в соответствии с уровнем изоляции, которая определяется с помощью драйвера, который используется.  
   
  ]]></format>
         </remarks>
