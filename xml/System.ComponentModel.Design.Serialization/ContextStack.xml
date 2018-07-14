@@ -1,11 +1,11 @@
 <Type Name="ContextStack" FullName="System.ComponentModel.Design.Serialization.ContextStack">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ada529c65696950fcafc11b4f0353a484ef83a21" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="f6a43ceb93f2fc7c037056f76a8a98f516cf07dc" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36708880" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37698823" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class ContextStack" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit ContextStack extends System.Object" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type ContextStack = class" />
   <AssemblyInfo>
     <AssemblyName>System</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -37,18 +39,18 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Некоторым сериализаторам требуется информация о контексте объекта, чтобы правильно сохранить их состояние. <xref:System.ComponentModel.Design.Serialization.ContextStack> Класс разрешает сериализатору задавать данные о контексте объекта, сериализуемого в стек, где другой сериализатор может обращаться к ней. Значение <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.Context%2A> предоставляется свойство <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager> для совместного использования преобразователями данных.  
+ Некоторым сериализаторам требуется информация о контексте объекта, чтобы правильно сохранить их состояние. <xref:System.ComponentModel.Design.Serialization.ContextStack> Класс разрешает сериализатору задавать данные о контексте объекта, сериализуемый в стек, где другой сериализатор может обращаться к ней. Значение <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager.Context%2A> предоставляется свойство <xref:System.ComponentModel.Design.Serialization.IDesignerSerializationManager> возможность совместного использования информации, который используется для некоторых сериализаторов.  
   
- Стек контекстов полезно, так как при сериализации документа проекта глубокий уровень вложенности и объекты каждого уровня вложенности может потребоваться сведения о контексте, чтобы правильно сохранить состояние объекта. Объект контекста может быть помещен стек до вызова вложенного сериализатора. Каждый набор в стек объектов следует удалить сериализатором, задать для него после возвращения вызова вложенного сериализатора.  
+ Стек контекста полезно, так как при сериализации документа проекта могут быть вложенными глубоко, и объекты, на каждом уровне вложенности может потребоваться сведения о контексте для правильного сохранения состояния объекта. Может быть помещен объект контекста в стек перед вызовом вложенного сериализатора. Каждый объект, значение в стеке должны удаляться сериализатором, задавшего его после возврата вызова вложенного сериализатора.  
   
- Как правило объекты в стеке содержат сведения о контексте, который подвергается сериализации текущего объекта. Родительский сериализатор добавляет сведения о контексте стек следующего объекта для сериализации, вызывает соответствующий сериализатор и, если сериализатор выполнение в объекте, удаляет контекстные данные из стека. Это зависит от реализации каждого сериализатора, чтобы определить объекты, помещаемые в стек.  
+ Как правило объекты в стеке содержат сведения о контексте текущего объекта, который выполняется сериализация. Родительский сериализатор добавляет информацию о контексте стек следующий объект, подлежащий сериализации, вызывает соответствующий сериализатор и, когда сериализатор завершает работу объекта, удаляет контекстные данные из стека. Это зависит от реализации каждого сериализатора, чтобы определить объекты, помещаемые в этом стеке.  
   
- Например, объект со свойством с именем `Enabled` имеет тип данных <xref:System.Boolean>. Если сериализатор записывает это значение в поток данных, может потребоваться включение контекста или типа записываемого свойства. Сериализатор не имеет этих сведений, однако связи с этим он записывает <xref:System.Boolean> значение. Для предоставления этих данных в сериализатор, можно передать Родительский сериализатор <xref:System.ComponentModel.PropertyDescriptor> , указывающего на `Enabled` свойство в стеке контекста.  
+ Например, объект со свойством с именем `Enabled` с типом данных <xref:System.Boolean>. Если сериализатор записывает это значение в поток данных, может потребоваться включение контекста или тип свойства, записываемого. Сериализатор не поддерживает эту информацию, тем не менее, связи с этим он записывает <xref:System.Boolean> значение. Для предоставления этих сведений в сериализатор, можно передать сериализатору родительского <xref:System.ComponentModel.PropertyDescriptor> , указывающий `Enabled` свойство в стек контекста.  
   
    
   
 ## Examples  
- В следующем примере кода показано использование <xref:System.ComponentModel.Design.Serialization.ContextStack> push, а затем удалить 10 значений.  
+ В следующем примере кода показано использование <xref:System.ComponentModel.Design.Serialization.ContextStack> можно отправлять и затем удалять 10 значений.  
   
  [!code-cpp[ContextStackExample#1](~/samples/snippets/cpp/VS_Snippets_Winforms/ContextStackExample/CPP/class1.cpp#1)]
  [!code-csharp[ContextStackExample#1](~/samples/snippets/csharp/VS_Snippets_Winforms/ContextStackExample/CS/class1.cs#1)]
@@ -69,6 +71,8 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -108,6 +112,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -133,7 +138,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод позволяет сериализатор для взаимодействия с другими сериализаторами, добавив объекты контекстные данные, которые могут не удаляться в порядке. Нет возможности для удаления объекта, который был добавлен в конец стека без удаления всех других объектов.  
+ Этот метод позволяет сериализатор для взаимодействия с другими сериализаторами, добавив объекты контекстные данные, не будут удалены в порядке. Нет способа удалить объект, который был добавлен в конец стека без удаления всех остальных объектов.  
   
  ]]></format>
         </remarks>
@@ -150,6 +155,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -172,7 +179,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Текущий объект является объектом, в верхней части стека, либо этого объекта, последний добавленный в стеке.  
+ Текущий объект является объект, находящийся в верхней части стека, либо этого объекта, последний добавленный в стек.  
   
  ]]></format>
         </remarks>
@@ -198,6 +205,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -234,6 +243,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -260,7 +271,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Проверка осуществляется на каждом уровне стека, при поиске объекта, который реализует или наследует `type`. Если соответствие найдено, он возвращается.  
+ Проверка выполняется на каждом уровне стека, поиск объект, который реализует или наследует `type`. Если соответствие найдено, он возвращается.  
   
  ]]></format>
         </remarks>
@@ -277,6 +288,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -300,7 +313,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Examples  
- В следующем примере кода демонстрируется удаление значение из <xref:System.ComponentModel.Design.Serialization.ContextStack>.  
+ В следующем примере кода демонстрируется удаление значения из <xref:System.ComponentModel.Design.Serialization.ContextStack>.  
   
  [!code-cpp[ContextStackExample#4](~/samples/snippets/cpp/VS_Snippets_Winforms/ContextStackExample/CPP/class1.cpp#4)]
  [!code-csharp[ContextStackExample#4](~/samples/snippets/csharp/VS_Snippets_Winforms/ContextStackExample/CS/class1.cs#4)]
@@ -320,6 +333,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -345,7 +360,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Examples  
- В следующем примере кода демонстрируется принудительную отправку значения <xref:System.ComponentModel.Design.Serialization.ContextStack>.  
+ В следующем примере кода демонстрируется проталкивания значений <xref:System.ComponentModel.Design.Serialization.ContextStack>.  
   
  [!code-cpp[ContextStackExample#3](~/samples/snippets/cpp/VS_Snippets_Winforms/ContextStackExample/CPP/class1.cpp#3)]
  [!code-csharp[ContextStackExample#3](~/samples/snippets/csharp/VS_Snippets_Winforms/ContextStackExample/CS/class1.cs#3)]
