@@ -1,11 +1,11 @@
 <Type Name="SqlDataReader" FullName="System.Data.SqlClient.SqlDataReader">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="2a701a231397a479eaff7504852800da0b9d22c9" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="bedcf698791ee314d07e27319b54a5f52c202058" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36680189" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37672675" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class SqlDataReader : System.Data.Common.DbDataReader, IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit SqlDataReader extends System.Data.Common.DbDataReader implements class System.Data.IDataReader, class System.Data.IDataRecord, class System.IDisposable" />
@@ -20,6 +20,8 @@
   </AssemblyInfo>
   <AssemblyInfo>
     <AssemblyName>System.Data</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -29,6 +31,7 @@
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Data.Common.DbDataReader</BaseTypeName>
+    <BaseTypeName FrameworkAlternate="netframework-1.1">System.MarshalByRefObject</BaseTypeName>
   </Base>
   <Interfaces>
     <Interface>
@@ -41,23 +44,23 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Для создания <xref:System.Data.SqlClient.SqlDataReader>, необходимо вызвать <xref:System.Data.SqlClient.SqlCommand.ExecuteReader%2A> метод <xref:System.Data.SqlClient.SqlCommand> объекта, вместо непосредственного использования конструктора.  
+ Чтобы создать <xref:System.Data.SqlClient.SqlDataReader>, необходимо вызвать <xref:System.Data.SqlClient.SqlCommand.ExecuteReader%2A> метод <xref:System.Data.SqlClient.SqlCommand> объекта вместо непосредственного использования конструктора.  
   
- Хотя <xref:System.Data.SqlClient.SqlDataReader> используется, связанный с ним <xref:System.Data.SqlClient.SqlConnection> обслуживает <xref:System.Data.SqlClient.SqlDataReader>, и никакие другие операции можно выполнить на <xref:System.Data.SqlClient.SqlConnection> кроме закрытия. Это состояние сохраняется до <xref:System.Data.SqlClient.SqlDataReader.Close%2A> метод <xref:System.Data.SqlClient.SqlDataReader> вызывается. Например, не удается получить выходные параметры можно только после вызова метода <xref:System.Data.SqlClient.SqlDataReader.Close%2A>.  
+ Хотя <xref:System.Data.SqlClient.SqlDataReader> используется, сопоставленного <xref:System.Data.SqlClient.SqlConnection> обслуживает <xref:System.Data.SqlClient.SqlDataReader>, и никакие другие операции могут выполняться на <xref:System.Data.SqlClient.SqlConnection> кроме закрытия. Это происходит до <xref:System.Data.SqlClient.SqlDataReader.Close%2A> метод <xref:System.Data.SqlClient.SqlDataReader> вызывается. Например, не удается получить выходные параметры можно только после вызова метода <xref:System.Data.SqlClient.SqlDataReader.Close%2A>.  
   
- Изменения, внесенные в результирующий набор другим процессом или потоком во время чтения данных, могут быть видны пользователю `SqlDataReader`. Однако точное поведение зависит от времени.  
+ Изменения, внесенные в результирующий набор другим процессом или потоком во время чтения данных могут быть видны пользователю `SqlDataReader`. Однако точное поведение зависит от времени.  
   
- <xref:System.Data.SqlClient.SqlDataReader.IsClosed%2A> и <xref:System.Data.SqlClient.SqlDataReader.RecordsAffected%2A> только свойства, которые можно вызывать после <xref:System.Data.SqlClient.SqlDataReader> закрыт. Несмотря на то что <xref:System.Data.SqlClient.SqlDataReader.RecordsAffected%2A> свойству может осуществляться во время <xref:System.Data.SqlClient.SqlDataReader> существует, следует всегда вызывать <xref:System.Data.SqlClient.SqlDataReader.Close%2A> перед возвратом значения <xref:System.Data.SqlClient.SqlDataReader.RecordsAffected%2A> гарантировать точность возвращаемого значения.  
+ <xref:System.Data.SqlClient.SqlDataReader.IsClosed%2A> и <xref:System.Data.SqlClient.SqlDataReader.RecordsAffected%2A> являются единственными свойствами, которые могут быть вызваны после <xref:System.Data.SqlClient.SqlDataReader> закрыт. Несмотря на то что <xref:System.Data.SqlClient.SqlDataReader.RecordsAffected%2A> свойству может осуществляться во время <xref:System.Data.SqlClient.SqlDataReader> существует, всегда вызывать <xref:System.Data.SqlClient.SqlDataReader.Close%2A> перед возвратом значения <xref:System.Data.SqlClient.SqlDataReader.RecordsAffected%2A> гарантировать точность возвращаемого значения.  
   
- При использовании последовательного доступа (<xref:System.Data.CommandBehavior.SequentialAccess?displayProperty=nameWithType>), <xref:System.InvalidOperationException> будет вызываться, если <xref:System.Data.SqlClient.SqlDataReader> положение увеличивается и другой чтения, попытка выполнить операцию на предыдущий столбец.  
+ При использовании последовательного доступа (<xref:System.Data.CommandBehavior.SequentialAccess?displayProperty=nameWithType>), <xref:System.InvalidOperationException> будет вызываться, если <xref:System.Data.SqlClient.SqlDataReader> положение увеличивается, и другой чтения, попытка выполнить операцию на предыдущий столбец.  
   
 > [!NOTE]
->  Для достижения оптимальной производительности <xref:System.Data.SqlClient.SqlDataReader> позволяет избежать создания ненужных объектов и копий данных. Таким образом, несколько вызовов методов, таких как <xref:System.Data.SqlClient.SqlDataReader.GetValue%2A> возвращают ссылку на тот же объект. Соблюдайте осторожность при изменении базового значения объектов, возвращаемые методами, такими как <xref:System.Data.SqlClient.SqlDataReader.GetValue%2A>.  
+>  Для обеспечения оптимальной производительности <xref:System.Data.SqlClient.SqlDataReader> позволяет избежать создания ненужных объектов и копий данных. Таким образом, несколько вызовов методов, таких как <xref:System.Data.SqlClient.SqlDataReader.GetValue%2A> возвращают ссылку на тот же объект. Соблюдайте осторожность при изменении базового значения объекты, возвращаемые методами, такими как <xref:System.Data.SqlClient.SqlDataReader.GetValue%2A>.  
   
    
   
 ## Examples  
- В следующем примере создается <xref:System.Data.SqlClient.SqlConnection>, <xref:System.Data.SqlClient.SqlCommand>и <xref:System.Data.SqlClient.SqlDataReader>. В примере считываются по данным, записываются в окно консоли. Затем код закрывает <xref:System.Data.SqlClient.SqlDataReader>. <xref:System.Data.SqlClient.SqlConnection> Закрыт автоматически в конце `using` блок кода.  
+ В следующем примере создается <xref:System.Data.SqlClient.SqlConnection>, <xref:System.Data.SqlClient.SqlCommand>и <xref:System.Data.SqlClient.SqlDataReader>. В примере считываются по данным, записывая их в окне консоли. Код затем закрывает <xref:System.Data.SqlClient.SqlDataReader>. <xref:System.Data.SqlClient.SqlConnection> Закрывается автоматически в конце `using` блок кода.  
   
  [!code-csharp[Classic WebData SqlDataReader.Read Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlDataReader.Read Example/CS/source.cs#1)]
  [!code-vb[Classic WebData SqlDataReader.Read Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlDataReader.Read Example/VB/source.vb#1)]  
@@ -79,6 +82,8 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -92,17 +97,17 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Необходимо явным образом вызвать <xref:System.Data.SqlClient.SqlDataReader.Close%2A> метода при работе с помощью <xref:System.Data.SqlClient.SqlDataReader> использовать связанный <xref:System.Data.SqlClient.SqlConnection> для других целей.  
+ Необходимо явно вызывать <xref:System.Data.SqlClient.SqlDataReader.Close%2A> метод после завершения работы с помощью <xref:System.Data.SqlClient.SqlDataReader> использовать связанное <xref:System.Data.SqlClient.SqlConnection> в любых других целях.  
   
- `Close` Метод заполняет значения для выходных параметров, возвращаемых значений и `RecordsAffected`, увеличивает время, необходимое для закрытия `SqlDataReader` , использованный для обработки больших или сложных запросов. Когда возвращаемые значения и число записей, затронутых запросом не являются значимыми, время, необходимое для закрытия `SqlDataReader` может быть уменьшена путем вызова <xref:System.Data.SqlClient.SqlCommand.Cancel%2A> метод связанного <xref:System.Data.SqlClient.SqlCommand> объект перед вызовом метода `Close` метод.  
+ `Close` Метод заполняет значения для выходных параметров, возвращаемых значений и `RecordsAffected`, увеличивает время, необходимое для закрытия `SqlDataReader` , используемый для обработки больших или сложных запросов. Когда возвращаемые значения и число записей, затронутых запросом не учитываются, время, необходимое для закрытия `SqlDataReader` можно сократить путем вызова <xref:System.Data.SqlClient.SqlCommand.Cancel%2A> метод связанного <xref:System.Data.SqlClient.SqlCommand> объект перед вызовом `Close` метод.  
   
 > [!CAUTION]
->  Не вызывайте `Close` или `Dispose` на соединение, DataReader или любого другого управляемого объекта в `Finalize` метод класса. Метод завершения следует только освобождать неуправляемые ресурсы, которыми ваш класс непосредственно владеет. Если класс не владеет какими-либо неуправляемыми ресурсами, не включайте в его определение метод `Finalize`. Дополнительные сведения см. в разделе [мусора](~/docs/standard/garbage-collection/index.md).  
+>  Не вызывайте `Close` или `Dispose` на подключение, DataReader или любого другого управляемого объекта в `Finalize` метод класса. Метод завершения освобождать только неуправляемые ресурсы, которые ваш класс непосредственно владеет. Если класс не владеет какими-либо неуправляемыми ресурсами, не включайте в его определение метод `Finalize`. Дополнительные сведения см. в разделе [мусора](~/docs/standard/garbage-collection/index.md).  
   
    
   
 ## Examples  
- В следующем примере создается <xref:System.Data.SqlClient.SqlConnection>, `SqlCommand`и <xref:System.Data.SqlClient.SqlDataReader>. В примере считываются по данным, записываются в окно консоли. Затем код закрывает <xref:System.Data.SqlClient.SqlDataReader>. <xref:System.Data.SqlClient.SqlConnection> Закрыт автоматически в конце `using` блок кода.  
+ В следующем примере создается <xref:System.Data.SqlClient.SqlConnection>, `SqlCommand`и <xref:System.Data.SqlClient.SqlDataReader>. В примере считываются по данным, записывая их в окне консоли. Код затем закрывает <xref:System.Data.SqlClient.SqlDataReader>. <xref:System.Data.SqlClient.SqlConnection> Закрывается автоматически в конце `using` блок кода.  
   
  [!code-csharp[Classic WebData SqlDataReader.Close Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlDataReader.Close Example/CS/source.cs#1)]
  [!code-vb[Classic WebData SqlDataReader.Close Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlDataReader.Close Example/VB/source.vb#1)]  
@@ -126,6 +131,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -160,6 +166,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -177,7 +185,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Внешняя таблица имеет нулевую глубину вложенности. Поставщик данных .NET Framework для SQL Server не поддерживает вложение и всегда возвращает ноль.  
+ Внешняя таблица имеет нулевую глубину вложенности. Поставщик данных .NET Framework для SQL Server не поддерживает вложение и всегда возвращает значение 0.  
   
  ]]></format>
         </remarks>
@@ -201,6 +209,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -218,7 +228,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Для выполнения запроса, который по своей природе не возвращает строки (например, запрос на удаление), задает <xref:System.Data.SqlClient.SqlDataReader.FieldCount%2A> значение 0. Тем не менее. Это не следует путать с запросом, который возвращает 0 строк (таких как SELECT * FROM *таблицы* WHERE 1 = 2) в этом случае <xref:System.Data.SqlClient.SqlDataReader.FieldCount%2A> возвращает число столбцов в таблице, включая скрытые поля. Для исключения скрытых полей используется <xref:System.Data.SqlClient.SqlDataReader.VisibleFieldCount%2A>.  
+ Выполнение запроса, который, по своей природе не возвращает строки (например, запрос на удаление), задает <xref:System.Data.SqlClient.SqlDataReader.FieldCount%2A> 0. Тем не менее. Это не следует путать с запросом, который возвращает 0 строк (например, SELECT * FROM *таблицы* WHERE 1 = 2) в этом случае <xref:System.Data.SqlClient.SqlDataReader.FieldCount%2A> возвращает количество столбцов в таблице, включая скрытые поля. Для исключения скрытых полей используется <xref:System.Data.SqlClient.SqlDataReader.VisibleFieldCount%2A>.  
   
  ]]></format>
         </remarks>
@@ -243,6 +253,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -266,7 +278,7 @@
 ## Remarks  
  Преобразования не выполняются; Таким образом извлеченные данные уже должны быть логическим или создается исключение.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -291,6 +303,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -312,9 +326,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должны представлять собой байт.  
+ Преобразования не выполняются; Таким образом извлеченные данные уже должны быть байт.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -339,6 +353,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -368,9 +384,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Data.SqlClient.SqlDataReader.GetBytes%2A> Возвращает число доступных байтов в поле. В большинстве случаев это точная длина поля. Однако возвращенное число может быть меньше фактической длины поля, если `GetBytes` уже используется для получения байтов из поля. Это может быть так, например, если <xref:System.Data.SqlClient.SqlDataReader> читает большую структуру данных в буфер. Дополнительные сведения см. в разделе `SequentialAccess` для <xref:System.Data.CommandBehavior>.  
+ <xref:System.Data.SqlClient.SqlDataReader.GetBytes%2A> Возвращает число доступных байтов в поле. В большинстве случаев это точная длина поля. Однако возвращенное число может быть меньше фактической длины поля, если `GetBytes` уже использовался для получения байтов из поля. Это может быть так, например, если <xref:System.Data.SqlClient.SqlDataReader> считывает большой структуры данных в буфер. Дополнительные сведения см. в разделе `SequentialAccess` для <xref:System.Data.CommandBehavior>.  
   
- Если передается значение буфера `null`, <xref:System.Data.SqlClient.SqlDataReader.GetBytes%2A> возвращает длину всего поля в байтах, не оставшийся размер, в зависимости от параметра смещения буфера.  
+ Если передать буфер, который является `null`, <xref:System.Data.SqlClient.SqlDataReader.GetBytes%2A> возвращает длину всего поля в байтах, а не оставшийся размер в зависимости от параметра смещения буфера.  
   
  Преобразования не выполняются; Таким образом извлеченные данные уже должны быть массив байтов.  
   
@@ -396,6 +412,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -405,7 +423,7 @@
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -447,6 +465,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -476,17 +496,50 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Data.SqlClient.SqlDataReader.GetChars%2A> Возвращает количество доступных символов в поле. Часто это точная длина поля. Однако возвращенное число может быть меньше фактической длины поля, если `GetChars` уже используется для получения символов из поля. Это может быть так, например, если <xref:System.Data.SqlClient.SqlDataReader> читает большую структуру данных в буфер. Дополнительные сведения см. в разделе `SequentialAccess` для <xref:System.Data.CommandBehavior>.  
+ <xref:System.Data.SqlClient.SqlDataReader.GetChars%2A> Возвращает количество доступных символов в поле. Часто это точная длина поля. Однако возвращенное число может быть меньше фактической длины поля, если `GetChars` уже использовался для получения символов из поля. Это может быть так, например, если <xref:System.Data.SqlClient.SqlDataReader> считывает большой структуры данных в буфер. Дополнительные сведения см. в разделе `SequentialAccess` для <xref:System.Data.CommandBehavior>.  
   
- Фактическое число считанных символов может быть меньше запрошенного длины, если достигнут конец поля. Если передается значение буфера `null`, <xref:System.Data.SqlClient.SqlDataReader.GetChars%2A> возвращает длину всего поля в символах не оставшийся размер, в зависимости от параметра смещения буфера.  
+ Фактическое число считанных символов может быть меньше запрошенного длины, если достигнут конец поля. Если передать буфер, который является `null`, <xref:System.Data.SqlClient.SqlDataReader.GetChars%2A> возвращает длину всего поля в символах, а не оставшийся размер в зависимости от параметра смещения буфера.  
   
  Преобразования не выполняются; Таким образом. извлеченные данные уже должны быть массив символов.  
   
 > [!NOTE]
->  <xref:System.Data.SqlClient.SqlDataReader.GetChars%2A> Метод возвращает 0, если `dataIndex` является отрицательным значением.  
+>  <xref:System.Data.SqlClient.SqlDataReader.GetChars%2A> Метод возвращает 0, если `dataIndex` является отрицательным.  
   
  ]]></format>
         </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetData">
+      <MemberSignature Language="C#" Value="public System.Data.IDataReader GetData (int i);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Data.IDataReader GetData(int32 i) cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDataReader.GetData(System.Int32)" />
+      <MemberSignature Language="VB.NET" Value="Public Function GetData (i As Integer) As IDataReader" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::Data::IDataReader ^ GetData(int i);" />
+      <MemberSignature Language="F#" Value="abstract member GetData : int -&gt; System.Data.IDataReader&#xA;override this.GetData : int -&gt; System.Data.IDataReader" Usage="sqlDataReader.GetData i" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Data.IDataRecord.GetData(System.Int32)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Data.IDataReader</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="i" Type="System.Int32" />
+      </Parameters>
+      <Docs>
+        <param name="i">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="GetDataTypeName">
@@ -507,6 +560,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -530,7 +585,7 @@
 ## Remarks  
  Возвращает имя типа внутренних данных.  
   
- `numeric` — синоним в SQL Server для `decimal` тип данных. `GetDataTypeName` Возвращает «десятичное число» для столбца, определенных как десятичных или числовых.  
+ `numeric` является синонимом в SQL Server для `decimal` тип данных. `GetDataTypeName` Возвращает «decimal» для столбца, определенных как десятичных или числовых.  
   
  ]]></format>
         </remarks>
@@ -554,6 +609,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -577,7 +634,7 @@
 ## Remarks  
  Преобразования не выполняются; Таким образом, извлеченные данные уже должны быть <xref:System.DateTime> объекта.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -599,6 +656,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -622,7 +680,7 @@
 ## Remarks  
  Преобразования не выполняются; Таким образом, извлеченные данные уже должны быть <xref:System.DateTimeOffset> объекта.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -647,6 +705,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -670,7 +730,7 @@
 ## Remarks  
  Преобразования не выполняются; Таким образом, извлеченные данные уже должны быть <xref:System.Decimal> объекта.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -695,6 +755,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -716,9 +778,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразование не выполняется. Таким образом извлеченные данные уже должен быть двойной точности с плавающей запятой.  
+ Преобразование не выполняется. Таким образом извлеченные данные уже должны быть двойной точности с плавающей запятой.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -740,6 +802,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -758,7 +821,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Несмотря на то, что этот метод можно использовать для получения явный перечислитель, в языках, которые поддерживают `foreach` конструкции, проще использовать циклы для перебора строк в модуле чтения данных.  
+ Несмотря на то, что этот метод можно использовать для получения явный перечислитель, в языках, которые поддерживают `foreach` конструкция, проще использовать циклы для перебора строк в модуле чтения данных.  
   
  ]]></format>
         </remarks>
@@ -782,6 +845,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -949,6 +1014,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -970,9 +1037,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразование не выполняется. Таким образом извлеченные данные уже должен числа с плавающей запятой одиночной точности.  
+ Преобразование не выполняется. Таким образом извлеченные данные уже должны быть одиночной точности с плавающей запятой.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -997,6 +1064,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1018,9 +1087,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должен быть GUID.  
+ Преобразования не выполняются; Таким образом данные, полученные уже должен быть GUID.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -1045,6 +1114,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1068,7 +1139,7 @@
 ## Remarks  
  Преобразования не выполняются; Таким образом извлеченные данные уже должны быть 16-разрядное целое число со знаком.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -1093,6 +1164,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1116,7 +1189,7 @@
 ## Remarks  
  Преобразования не выполняются; Таким образом извлеченные данные уже должны быть 32-разрядное целое число со знаком.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -1141,6 +1214,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1164,7 +1239,7 @@
 ## Remarks  
  Преобразования не выполняются; Таким образом извлеченные данные уже должны быть 64-разрядное целое число со знаком.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -1189,6 +1264,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1227,6 +1304,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1248,11 +1327,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- `GetOrdinal` сначала выполняет поиск с учетом регистра. Возникает при сбое одной секунды, поиск без учета регистра (без учета регистра сравнение выполняется с помощью параметров сортировки базы данных). Если правила определения регистра для конкретного языка и региональных параметров влияют на результаты сравнений, возможны непредвиденные результаты. Например, в турецком алфавите следующий пример вызывает неверных результатов, так как файловая система в турецком использует регистр по правилам языка правил для буквы «i» в «файл». Метод создает `IndexOutOfRange` исключение, если не найден отсчитываемый от нуля порядковый номер столбца.  
+ `GetOrdinal` сначала выполняет поиск с учетом регистра. Происходит при неудаче секунды, поиск без учета регистра (выполняется сравнение без учета регистра с использованием параметров сортировки базы данных). Когда влияют на результаты сравнений правила определения регистра для конкретного языка и региональных параметров, это может привести к непредвиденным результатам. Например, в турецком языке, следующий пример вызывает неверных результатов, так как файловой системы в турецком языке не использует регистр по правилам языка правил для буквы «i» в «файл». Метод вызывает `IndexOutOfRange` исключение, если не найден отсчитываемый от нуля порядковый номер столбца.  
   
- `GetOrdinal` не учитывает ширину японской азбуки.  
+ `GetOrdinal` не учитывает ширину японской азбуки, без учета.  
   
- Поскольку порядковым числительным более эффективны, чем поиск по имени, неэффективно вызывать `GetOrdinal` в цикле. Экономия времени при вызове `GetOrdinal` один раз и назначьте полученные результаты целочисленной переменной для использования в цикле.  
+ Поскольку порядковых более эффективны, чем поиск по имени, его не рекомендуется использовать метод `GetOrdinal` в цикле. Сэкономить время, вызвав `GetOrdinal` один раз и назначьте полученные результаты целочисленной переменной для использования в цикле.  
   
    
   
@@ -1282,6 +1361,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1318,6 +1398,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1355,6 +1436,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1388,6 +1470,8 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1404,41 +1488,41 @@
 ## Remarks  
  Для <xref:System.Data.SqlClient.SqlDataReader.GetSchemaTable%2A> метод возвращает метаданные о каждом столбце в следующем порядке:  
   
-|Модуль чтения данных столбца|Описание:|  
+|Столбец DataReader|Описание:|  
 |-----------------------|-----------------|  
-|AllowDBNull|Значение, если потребитель может установить для столбца значение null или если поставщик не может определить, может ли потребитель задать столбец значение null. В противном случае — не задано. Столбец может содержать значения null, даже если он не может быть присвоено значение null.|  
-|BaseCatalogName|Имя каталога в хранилище данных, содержащем столбец. Имеет значение NULL, если не удается определить имя базового каталога. По умолчанию этот столбец имеет значение null.|  
-|BaseColumnName|Имя столбца в хранилище данных. Это может отличаться от имени столбца, возвращаемого в столбце ColumnName, если используется псевдоним. Значение null, если невозможно определить имя базового столбца или если столбец набора строк является производным, но не идентично, хранилище столбцов в данных. По умолчанию этот столбец имеет значение null.|  
-|BaseSchemaName|Имя схемы в хранилище данных, содержащем столбец. Значение null, если невозможно определить имя базовой схемы. По умолчанию этот столбец имеет значение null.|  
-|BaseServerName|Имя экземпляра Microsoft SQL Server, используемые <xref:System.Data.SqlClient.SqlDataReader>.|  
-|BaseTableName|Имя таблицы или представления в хранилище данных, содержащем столбец. Значение null, если не удается определить имя базовой таблицы. По умолчанию этот столбец имеет значение null.|  
-|ColumnName|Имя столбца; оно не может быть уникальным. Если не удается определить, возвращается значение null. Это имя всегда отражает последнее переименование столбца в текущем представлении или команды в тексте.|  
+|AllowDBNull|Задайте, если потребитель может установить для столбца значение null или если поставщик не может определить, может ли потребитель задать столбец со значением null. В противном случае не задано. Столбец может содержать значения null, даже если он не может быть присвоено значение null.|  
+|BaseCatalogName|Имя каталога в хранилище данных, содержащей столбец. Значение NULL, если невозможно определить имя базового каталога. По умолчанию этот столбец имеет значение null.|  
+|BaseColumnName|Имя столбца в хранилище данных. Это может быть отличается от имени столбца, возвращаемого в столбце ColumnName, если используется псевдоним. Значение null, если невозможно определить имя базового столбца или если столбец набора строк является производным, но не идентичен, сохранения столбца данных. По умолчанию этот столбец имеет значение null.|  
+|BaseSchemaName|Имя схемы в хранилище данных, содержащей столбец. Значение null, если невозможно определить имя базовой схемы. По умолчанию этот столбец имеет значение null.|  
+|BaseServerName|Имя экземпляра Microsoft SQL Server, используемому <xref:System.Data.SqlClient.SqlDataReader>.|  
+|BaseTableName|Имя таблицы или представления в хранилище данных, содержащей столбец. Значение null, если невозможно определить имя базовой таблицы. По умолчанию этот столбец имеет значение null.|  
+|ColumnName|Имя столбца; оно не может быть уникальным. Если это не может быть определено, возвращается значение null. Это имя всегда отражает последнее переименование столбца в текущий текст представления или команды.|  
 |ColumnOrdinal|Отсчитываемый от нуля порядковый номер столбца. Этот столбец не может содержать значение null.|  
-|ColumnSize|Максимально возможная длина значения в столбце. Для столбцов, использующих тип данных фиксированной длины это размер типа данных. Для `nvarchar(MAX)`, `varchar(MAX)`, и `varbinary(MAX)` столбцы, которые хранятся в базе данных SQL Server, максимальный размер составляет 2 ГБ. Если эти столбцы хранятся и доступны в виде файлов, ограничения на максимальный размер определяется файловой системы. Это значение изменяется при использовании `Type System Version` ключевое слово в строке подключения.  Для новых типов они представлены в виде типов нижнего уровня. Типы данных MAX вернуть обычный 4 КБ для `nvarchar` и 8000 для `varchar`. Дополнительные сведения см. в справочнике по Transact-SQL в электронной документации по SQL Server.|  
+|ColumnSize|Максимально возможная длина значения в столбце. Для столбцов с типом данных фиксированной длины это размер типа данных. Для `nvarchar(MAX)`, `varchar(MAX)`, и `varbinary(MAX)` столбцы, которые хранятся в базе данных SQL Server, максимальный размер составляет 2 ГБ. Если эти столбцы хранятся и доступны в виде файлов, ограничение на максимальный размер определяется в файловой системе. Это значение изменяется при использовании `Type System Version` ключевое слово в строке подключения.  Для новых типов они представляются как типы нижнего уровня. Типы данных MAX возвращает обычный 4k для `nvarchar` и 8000 для `varchar`. Дополнительные сведения см. в разделе Справочник по Transact-SQL в электронной документации по SQL Server.|  
 |Имя_типа_данных|Возвращает строку, представляющую тип данных указанного столбца.|  
 |IsAliased|`true`: Имя столбца является псевдонимом.<br /><br /> `false`: Имя столбца не является псевдонимом.|  
 |IsAutoIncrement|`true`: Столбец присваивает значения новым строкам с фиксированным приращением.<br /><br /> `false`: Столбец не присваивает значения новым строкам с фиксированным приращением. По умолчанию этот столбец имеет `false`.|  
 |IsColumnSet|`true`: Столбец является разреженным столбцом, который входит в набор столбцов.|  
-|IsExpression|`true`: Столбец является выражением.<br /><br /> `false`: Столбец не является выражением.|  
+|IsExpression|`true`: Столбец представляет собой выражение.<br /><br /> `false`: Столбец не является выражением.|  
 |IsHidden|`true`: Столбец будет скрыт.<br /><br /> `false`: Столбец не является скрытым.|  
 |IsIdentity|`true`: Столбец является столбцом идентификаторов.<br /><br /> `false`: Столбец не является столбцом идентификаторов.|  
-|IsKey|`true`: Столбец является элементом набора столбцов в наборе строк, в совокупности уникально идентифицировать строку. Набор столбцов с `IsKey` значение `true` должен однозначно идентифицировать строку в наборе строк. Нет необходимости, этот набор столбцов является минимальным набором столбцов. Этот набор столбцов может быть создан из первичного ключа базовой таблицы, уникального ограничения или уникального индекса.<br /><br /> `false`: Столбец не требуется для уникальной идентификации строки.|  
-|IsLong|`true`: Этот столбец содержит большой двоичный объект (BLOB), содержащий данные очень большой длины. Определение очень большого объема данных зависит от поставщика.<br /><br /> `false`: Столбец не содержит большой двоичный объект (BLOB), содержащий данные очень большой длины.|  
-|IsReadOnly|`true`: Столбец не может изменяться.<br /><br /> `false`: Можно изменить столбец.|  
-|IsRowVersion|`true`: Столбец содержит постоянный идентификатор строки, не может быть записан и не имеет смысла значения за исключением идентификации строки.<br /><br /> `false`: Столбец не содержит постоянный идентификатор строки, не может быть записан и не имеет смысла значения за исключением идентификатора столбца.|  
+|IsKey|`true`: Столбец является одним из набора столбцов в наборе строк, взятые вместе, однозначно идентифицировать строку. Набор столбцов с `IsKey` присвоено `true` должен однозначно определять строку в наборе строк. Нет необходимости что этот набор столбцов являлся минимальным столбцов. Этот набор столбцов может быть создан из первичного ключа базовой таблицы, уникального ограничения или уникального индекса.<br /><br /> `false`: Столбец не требуется для уникальной идентификации строки.|  
+|IsLong|`true`: Столбец содержит большой двоичный объект (BLOB), содержащий данные очень большой длины. Определение очень большого объема данных зависит от поставщика.<br /><br /> `false`: Столбец не содержит большой двоичный объект (BLOB), содержащий данные очень большой длины.|  
+|IsReadOnly|`true`: Столбец не может быть изменен.<br /><br /> `false`: Столбец можно изменить.|  
+|IsRowVersion|`true`: Столбец содержит постоянный идентификатор строк, не может быть записан и не имеет смысл значения за исключением идентификации строки.<br /><br /> `false`: Столбец не содержит постоянный идентификатор строк, не может быть записан и не имеет смысл значения за исключением идентификатора столбца.|  
 |IsUnique|`true`: Столбец имеет тип `timestamp`.<br /><br /> `false`: Столбец не относится к типу `timestamp`.|  
-|NonVersionedProviderType|Тип столбца независимо от текущего `Type System Version` указано в строке подключения. Возвращаемое значение — из <xref:System.Data.SqlDbType> перечисления.|  
-|NumericPrecision|Если `ProviderType` является числовым типом данных, это максимальная точность столбца. Точность зависит от определения столбца. Если `ProviderType` не является числовым типом данных, это — 255.|  
+|NonVersionedProviderType|Тип столбца независимо от текущего `Type System Version` указан в строке подключения. Возвращаемое значение — от <xref:System.Data.SqlDbType> перечисления.|  
+|NumericPrecision|Если `ProviderType` имеет числовой тип данных, это максимальная точность столбца. Точность зависит от определения столбца. Если `ProviderType` не числовой тип данных, это составляет 255.|  
 |NumericScale|Если `ProviderType` DBTYPE_DECIMAL или DBTYPE_NUMERIC, количество цифр справа от десятичной запятой. В противном случае это 255.|  
-|ProviderSpecificDataType|Возвращает тип поставщика данных столбца на основании `Type System Version` ключевое слово в строке подключения.|  
-|ProviderType|Индикатор типа данных столбца. Если тип данных столбца меняется от строки к строке, это должен быть объектом. Этот столбец не может содержать значение null.|  
-|UdtAssemblyQualifiedName|Если столбец определяемого пользователем типа (UDT), это полное имя сборки определяемого пользователем ТИПА согласно <xref:System.Type.AssemblyQualifiedName%2A>. Если столбец не является определяемым пользователем ТИПОМ, имеет значение null.|  
-|XmlSchemaCollectionDatabase|Имя базы данных, в которой находится коллекция схем для данного экземпляра XML, если строка содержит сведения о столбце XML. Это значение является `null` (`Nothing` в Visual Basic), если коллекция определена в текущей базе данных. Он также имеет значение null, если нет коллекции схем, в этом случае `XmlSchemaCollectionName` и `XmlSchemaCollectionOwningSchema` столбцы также имеют значение null.|  
-|XmlSchemaCollectionName|Имя коллекции схем для данного экземпляра XML, если строка содержит сведения о столбце XML. Это значение является `null` (`Nothing` в Visual Basic) при наличии связанной коллекции схем. Если значение равно null, `XmlSchemaCollectionDatabase` и `XmlSchemaCollectionOwningSchema` столбцы также имеют значение null.|  
-|XmlSchemaCollectionOwningSchema|Реляционная схема-владелец, в которой находится коллекция схем для данного экземпляра XML, если строка содержит сведения о столбце XML. Это значение является `null` (`Nothing` в Visual Basic), если коллекция определена в текущей базе данных. Он также имеет значение null, если нет коллекции схем, в этом случае `XmlSchemaCollectionDatabase` и `XmlSchemaCollectionName` столбцы также имеют значение null.|  
+|ProviderSpecificDataType|Возвращает тип поставщика данных на основе столбца `Type System Version` ключевое слово в строке подключения.|  
+|ProviderType|Указывает, какой тип данных столбца. Если тип данных столбца меняется от строки к строке, это должен быть объектом. Этот столбец не может содержать значение null.|  
+|UdtAssemblyQualifiedName|Если столбец определяемого пользователем типа (UDT), это полное имя сборки определяемого пользователем ТИПА, как указано в <xref:System.Type.AssemblyQualifiedName%2A>. Если столбец не является определяемый пользователем тип, это имеет значение null.|  
+|XmlSchemaCollectionDatabase|Имя базы данных, в которой находится коллекция схем для данного экземпляра XML, если строка содержит сведения о столбце XML. Это значение равно `null` (`Nothing` в Visual Basic), если коллекция определена в текущей базе данных. Он также имеет значение null, если нет коллекции схем, в этом случае `XmlSchemaCollectionName` и `XmlSchemaCollectionOwningSchema` столбцов также имеют значение null.|  
+|XmlSchemaCollectionName|Имя коллекции схем для данного экземпляра XML, если строка содержит сведения о столбце XML. Это значение равно `null` (`Nothing` в Visual Basic), если нет связанной схемы коллекции. Если значение равно null, `XmlSchemaCollectionDatabase` и `XmlSchemaCollectionOwningSchema` столбцов также имеют значение null.|  
+|Xmlschemacollectionowningschema не|Реляционная схема-владелец, в которой находится коллекция схем для данного экземпляра XML, если строка содержит сведения о столбце XML. Это значение равно `null` (`Nothing` в Visual Basic), если коллекция определена в текущей базе данных. Он также имеет значение null, если нет коллекции схем, в этом случае `XmlSchemaCollectionDatabase` и `XmlSchemaCollectionName` столбцов также имеют значение null.|  
   
 > [!NOTE]
->  Чтобы убедиться в том, что столбцы метаданных возвращают правильные данные, необходимо вызвать <xref:System.Data.SqlClient.SqlCommand.ExecuteReader%2A> с `behavior` равным `KeyInfo`. В противном случае некоторые из столбцов в таблице схемы могут возвращать по умолчанию, значение null или неправильные данные.  
+>  Чтобы убедиться в том, что столбцы метаданных возвращают правильные данные, необходимо вызвать <xref:System.Data.SqlClient.SqlCommand.ExecuteReader%2A> с `behavior` параметру присвоить `KeyInfo`. В противном случае некоторые столбцы в таблице схемы могут возвращать значение по умолчанию, null или неправильные данные.  
   
  ]]></format>
         </remarks>
@@ -1460,6 +1544,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1481,7 +1567,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом, извлеченные данные уже должен быть двоичной структуры или создается исключение.  
+ Преобразования не выполняются; поэтому извлеченные данные уже должны быть двоичная структура или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -1502,6 +1588,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1544,6 +1632,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1565,7 +1655,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом, извлеченные данные уже должны представлять байт или создается исключение.  
+ Преобразования не выполняются; Таким образом извлеченные данные уже должны представлять собой байт или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -1586,6 +1676,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1621,6 +1712,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1656,6 +1748,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1677,7 +1771,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должны представлять значение даты и времени, или создается исключение.  
+ Преобразования не выполняются; Таким образом данные, полученные уже должен иметь значение даты и времени, или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -1698,6 +1792,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1719,7 +1815,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должен быть десятичным значением, или создается исключение.  
+ Преобразования не выполняются; Таким образом данные, полученные уже должен быть десятичным значением, или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -1740,6 +1836,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1761,7 +1859,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должен быть числом с плавающей запятой двойной точности, или создается исключение.  
+ Преобразования не выполняются; Таким образом данные, полученные уже должен быть числом с плавающей запятой двойной точности, или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -1782,6 +1880,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1803,7 +1903,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должны представлять собой GUID, или создается исключение.  
+ Преобразования не выполняются; Таким образом данные, полученные уже должен быть GUID, или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -1824,6 +1924,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1845,7 +1947,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должен быть 16-разрядное целое число со знаком, или создается исключение.  
+ Преобразования не выполняются; Таким образом данные, полученные уже должен быть 16-разрядное целое число со знаком, или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -1866,6 +1968,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1887,7 +1991,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должны быть 32-разрядное целое число со знаком, или создается исключение.  
+ Преобразования не выполняются; Таким образом, данные, полученные уже должен быть 32-разрядное целое число со знаком, или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -1908,6 +2012,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1929,7 +2035,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должны быть 64-разрядное знаковое целое число, или создается исключение.  
+ Преобразования не выполняются; Таким образом извлеченные данные уже должны быть 64-разрядное целое число со знаком, или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -1950,6 +2056,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1971,7 +2079,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должен быть десятичным значением, или создается исключение.  
+ Преобразования не выполняются; Таким образом данные, полученные уже должен быть десятичным значением, или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -1992,6 +2100,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2013,7 +2123,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должны быть одинарной точности с плавающей запятой, или создается исключение.  
+ Преобразования не выполняются; Таким образом данные, полученные уже должен быть одиночной точности с плавающей запятой, или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -2034,6 +2144,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2055,7 +2167,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должны представлять собой строку, или создается исключение.  
+ Преобразования не выполняются; Таким образом данные, полученные уже должен быть строкой, или создается исключение.  
   
  ]]></format>
         </remarks>
@@ -2076,6 +2188,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2097,7 +2211,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Data.SqlClient.SqlDataReader.GetSqlValue%2A> Возвращает данные, используя собственные типы SQL Server. Для получения данных с применением типов .NET Framework, в разделе <xref:System.Data.SqlClient.SqlDataReader.GetValue%2A>.  
+ <xref:System.Data.SqlClient.SqlDataReader.GetSqlValue%2A> Возвращает данные, с помощью собственного типа SQL Server. Для получения данных с помощью типов .NET Framework, см. в разделе <xref:System.Data.SqlClient.SqlDataReader.GetValue%2A>.  
   
  ]]></format>
         </remarks>
@@ -2118,6 +2232,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2139,7 +2255,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Возвращает значения для всех столбцов в записи за один вызов, используя систему типов SQL вместо системе типов среды CLR. Длина <xref:System.Object> массива не соответствует количеству столбцов в записи. Можно передать <xref:System.Object> массив, который содержит меньшее число столбцов, содержащихся в записи. Объем данных <xref:System.Object> содержит массив копируется в массив, начиная со столбца с порядковым номером 0. Можно также передать <xref:System.Object> массив, длина которого превышает количество столбцов в результирующей строке. Все оставшиеся столбцы не обрабатываются.  
+ Возвращает значения для всех столбцов в записи за один вызов, используя систему типов SQL вместо системы типов среды CLR. Длина <xref:System.Object> массива не соответствует количеству столбцов в записи. Вы можете передать <xref:System.Object> массив, содержащий меньше, чем количество столбцов, содержащихся в записи. Объем данных <xref:System.Object> массив копируется в массив, начиная со столбца с порядковым номером 0. Вы также можете передать <xref:System.Object> массива, длина которого превышает число столбцов, содержащихся в результирующей строке. Все оставшиеся столбцы не обрабатываются.  
   
  ]]></format>
         </remarks>
@@ -2161,6 +2277,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2182,9 +2299,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должны быть значения XML.  
+ Преобразования не выполняются; Таким образом извлеченные данные уже должны быть значение XML.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -2233,11 +2350,11 @@
   
  Значения NULL будут возвращены в виде пустой (0 байт) <xref:System.IO.Stream>.  
   
- <xref:System.Data.SqlClient.SqlDataReader.GetBytes%2A> вызывает <xref:System.InvalidOperationException> исключение при использовании на объект, возвращаемый <xref:System.Data.SqlClient.SqlDataReader.GetStream%2A> при <xref:System.Data.CommandBehavior.SequentialAccess> действует.  
+ <xref:System.Data.SqlClient.SqlDataReader.GetBytes%2A> будет выдано <xref:System.InvalidOperationException> исключение при использовании на объект, возвращаемый <xref:System.Data.SqlClient.SqlDataReader.GetStream%2A> при <xref:System.Data.CommandBehavior.SequentialAccess> в силу.  
   
- <xref:System.Data.SqlClient.SqlException> исключения, вызванные из <xref:System.IO.Stream> исключение как <xref:System.IO.IOException> исключения; внутреннее исключение для проверки <xref:System.Data.SqlClient.SqlException>.  
+ <xref:System.Data.SqlClient.SqlException> исключения, вызванные из <xref:System.IO.Stream> возникают как <xref:System.IO.IOException> исключений; Проверьте внутреннее исключение для <xref:System.Data.SqlClient.SqlException>.  
   
- Следующие <xref:System.IO.Stream> члены недоступны для объектов, возвращенных <xref:System.Data.SqlClient.SqlDataReader.GetStream%2A>:  
+ Следующие <xref:System.IO.Stream> члены не доступны для объектов, возвращенных <xref:System.Data.SqlClient.SqlDataReader.GetStream%2A>:  
   
 -   BeginWrite  
   
@@ -2249,7 +2366,7 @@
   
 -   Поиск  
   
--   Функция SetLength  
+-   SetLength  
   
 -   Write  
   
@@ -2257,7 +2374,7 @@
   
 -   WriteTimeout  
   
- При свойстве соединения `ContextConnection=true`, <xref:System.Data.SqlClient.SqlDataReader.GetStream%2A> поддерживает только извлечение синхронной данных для обоих последовательных (<xref:System.Data.CommandBehavior.SequentialAccess>) и непоследовательных (<xref:System.Data.CommandBehavior.Default>) доступ.  
+ При свойстве соединения `ContextConnection=true`, <xref:System.Data.SqlClient.SqlDataReader.GetStream%2A> поддерживает получение синхронной данных только для обоих последовательных (<xref:System.Data.CommandBehavior.SequentialAccess>) и непоследовательно (<xref:System.Data.CommandBehavior.Default>) доступ.  
   
  Дополнительные сведения см. в разделе [поддержка потоковой передачи SqlClient](~/docs/framework/data/adonet/sqlclient-streaming-support.md).  
   
@@ -2286,6 +2403,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2307,9 +2426,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Преобразования не выполняются; Таким образом извлеченные данные уже должен быть строкой.  
+ Преобразования не выполняются; Таким образом данные, полученные уже должен быть строкой.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -2352,13 +2471,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Data.SqlClient.SqlException> исключения, вызванные из <xref:System.IO.TextReader> исключение как <xref:System.IO.IOException> исключения; внутреннее исключение для проверки <xref:System.Data.SqlClient.SqlException>.  
+ <xref:System.Data.SqlClient.SqlException> исключения, вызванные из <xref:System.IO.TextReader> возникают как <xref:System.IO.IOException> исключений; Проверьте внутреннее исключение для <xref:System.Data.SqlClient.SqlException>.  
   
  Значения NULL будут возвращены в виде пустой (0 байт) <xref:System.IO.TextReader>.  
   
- <xref:System.Data.SqlClient.SqlDataReader.GetChars%2A> вызывает <xref:System.InvalidOperationException> исключение при использовании на объект, возвращаемый <xref:System.Data.SqlClient.SqlDataReader.GetTextReader%2A> при <xref:System.Data.CommandBehavior.SequentialAccess> действует.  
+ <xref:System.Data.SqlClient.SqlDataReader.GetChars%2A> будет выдано <xref:System.InvalidOperationException> исключение при использовании на объект, возвращаемый <xref:System.Data.SqlClient.SqlDataReader.GetTextReader%2A> при <xref:System.Data.CommandBehavior.SequentialAccess> в силу.  
   
- При свойстве соединения `ContextConnection=true`, <xref:System.Data.SqlClient.SqlDataReader.GetTextReader%2A> поддерживает только извлечение синхронной данных для обоих последовательных (<xref:System.Data.CommandBehavior.SequentialAccess>) и непоследовательных (<xref:System.Data.CommandBehavior.Default>) доступ.  
+ При свойстве соединения `ContextConnection=true`, <xref:System.Data.SqlClient.SqlDataReader.GetTextReader%2A> поддерживает получение синхронной данных только для обоих последовательных (<xref:System.Data.CommandBehavior.SequentialAccess>) и непоследовательно (<xref:System.Data.CommandBehavior.Default>) доступ.  
   
  Дополнительные сведения см. в разделе [поддержка потоковой передачи SqlClient](~/docs/framework/data/adonet/sqlclient-streaming-support.md).  
   
@@ -2384,6 +2503,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2407,7 +2527,7 @@
 ## Remarks  
  Преобразования не выполняются; Таким образом, извлеченные данные уже должны быть <xref:System.TimeSpan> объекта.  
   
- Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> для проверки значений null перед вызовом этого метода.  
+ Вызовите <xref:System.Data.SqlClient.SqlDataReader.IsDBNull%2A> на наличие значения null перед вызовом этого метода.  
   
  ]]></format>
         </remarks>
@@ -2432,6 +2552,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2453,7 +2575,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Data.SqlClient.SqlDataReader.GetValue%2A> Возвращает данные, с применением типов .NET Framework.  
+ <xref:System.Data.SqlClient.SqlDataReader.GetValue%2A> Возвращает данные, с помощью типов .NET Framework.  
   
  ]]></format>
         </remarks>
@@ -2477,6 +2599,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2498,16 +2622,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Для большинства приложений этот метод предоставляет эффективные средства для извлечения всех столбцов вместо извлечения каждого столбца отдельно.  
+ Для большинства приложений этот метод предоставляет эффективные средства для извлечения всех столбцов, вместо извлечения каждого столбца отдельно.  
   
- Можно передать <xref:System.Object> массив, который содержит меньшее число столбцов, содержащихся в результирующей строке. Объем данных <xref:System.Object> содержит массив копируется в массив. Можно также передать <xref:System.Object> массив, длина которого превышает количество столбцов в результирующей строке.  
+ Вы можете передать <xref:System.Object> массив, содержащий меньше, чем количество столбцов в результирующей строке. Объем данных <xref:System.Object> массив копируется в массив. Вы также можете передать <xref:System.Object> массива, длина которого превышает число столбцов, содержащихся в результирующей строке.  
   
  Этот метод возвращает объекты <xref:System.DBNull> для столбцов базы данных со значениями NULL.  
   
    
   
 ## Examples  
- В следующем примере показано использование массива соответствующего размера для чтения всех значений из текущей строки в предоставленном <xref:System.Data.SqlClient.SqlDataReader>. Кроме того в образце показано использование массива фиксированного размера, который может быть меньше или больше, чем число доступных столбцов.  
+ В следующем примере показано использование соответствующего размера массива для чтения всех значений из текущей строки в предоставленном <xref:System.Data.SqlClient.SqlDataReader>. Кроме того в образце показано использование массива фиксированного размера, который может быть меньше или больше количества доступных столбцов.  
   
  [!code-csharp[DataWorks DataTableReader.GetValueObject#2](~/samples/snippets/csharp/VS_Snippets_ADO.NET/DataWorks DataTableReader.GetValueObject/CS/source.cs#2)]
  [!code-vb[DataWorks DataTableReader.GetValueObject#2](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/DataWorks DataTableReader.GetValueObject/VB/source.vb#2)]  
@@ -2552,11 +2676,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Xml.XmlReader> Объект, возвращаемый <xref:System.Data.SqlClient.SqlDataReader.GetXmlReader%2A> не поддерживает асинхронные операции. Если требуется асинхронных операций на <xref:System.Xml.XmlReader>, приведения XML-столбец для NVARCHAR(MAX) на сервере и использовать <xref:System.Data.SqlClient.SqlDataReader.GetTextReader%2A> с <xref:System.Xml.XmlReader.Create%2A>.  
+ <xref:System.Xml.XmlReader> Объект, возвращаемый <xref:System.Data.SqlClient.SqlDataReader.GetXmlReader%2A> не поддерживает асинхронные операции. Если требуется асинхронных операций на <xref:System.Xml.XmlReader>, приведен XML-столбца NVARCHAR(MAX) на сервере и использовать <xref:System.Data.SqlClient.SqlDataReader.GetTextReader%2A> с <xref:System.Xml.XmlReader.Create%2A>.  
   
- <xref:System.Data.SqlClient.SqlException> исключения, вызванные из <xref:System.Xml.XmlReader> исключение как <xref:System.Xml.XmlException> исключения; внутреннее исключение для проверки <xref:System.Data.SqlClient.SqlException>.  
+ <xref:System.Data.SqlClient.SqlException> исключения, вызванные из <xref:System.Xml.XmlReader> возникают как <xref:System.Xml.XmlException> исключений; Проверьте внутреннее исключение для <xref:System.Data.SqlClient.SqlException>.  
   
- <xref:System.Data.SqlClient.SqlDataReader.GetChars%2A> вызывает <xref:System.InvalidOperationException> исключение при использовании на объект, возвращаемый <xref:System.Data.SqlClient.SqlDataReader.GetXmlReader%2A> при <xref:System.Data.CommandBehavior.SequentialAccess> действует.  
+ <xref:System.Data.SqlClient.SqlDataReader.GetChars%2A> будет выдано <xref:System.InvalidOperationException> исключение при использовании на объект, возвращаемый <xref:System.Data.SqlClient.SqlDataReader.GetXmlReader%2A> при <xref:System.Data.CommandBehavior.SequentialAccess> в силу.  
   
  Дополнительные сведения см. в разделе [поддержка потоковой передачи SqlClient](~/docs/framework/data/adonet/sqlclient-streaming-support.md).  
   
@@ -2582,6 +2706,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2616,6 +2742,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2634,7 +2762,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Не удается прочитать из <xref:System.Data.SqlClient.SqlDataReader> экземпляр, который закрывается.  
+ Невозможно считать из <xref:System.Data.SqlClient.SqlDataReader> экземпляр, который закрывается.  
   
  ]]></format>
         </remarks>
@@ -2650,6 +2778,7 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2692,6 +2821,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2713,7 +2844,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызовите этот метод для проверки наличия значений null столбцов перед вызовом типизированных методов get (например, <xref:System.Data.SqlClient.SqlDataReader.GetByte%2A>, <xref:System.Data.SqlClient.SqlDataReader.GetChar%2A>и так далее), чтобы избежать возникновения ошибки.  
+ Вызовите этот метод для проверки наличия значений null столбцов перед вызовом типизированных методов get (например, <xref:System.Data.SqlClient.SqlDataReader.GetByte%2A>, <xref:System.Data.SqlClient.SqlDataReader.GetChar%2A>, и т. д) чтобы избежать возникновения ошибки.  
   
  [!code-csharp[SqlDataReader_IsDbNull#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/sqldatareader_isdbnull/cs/source.cs#1)]
  [!code-vb[SqlDataReader_IsDbNull#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/sqldatareader_isdbnull/vb/source.vb#1)]  
@@ -2797,6 +2928,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2836,6 +2969,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2857,7 +2992,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Сначала выполняется поиск с учетом регистра. Выполняется в случае неудачи второй поиска без учета регистра (без учета регистра сравнение выполняется с помощью параметров сортировки базы данных). Если правила определения регистра для конкретного языка и региональных параметров влияют на результаты сравнений, возможны непредвиденные результаты. Например, в турецком алфавите следующий пример вызывает неверных результатов, так как файловая система в турецком использует регистр по правилам языка правил для буквы «i» в «файл».  
+ Сначала выполняется поиск с учетом регистра. Если происходит сбой, выполняется второй поиск без учета регистра (выполняется сравнение без учета регистра с использованием параметров сортировки базы данных). Когда влияют на результаты сравнений правила определения регистра для конкретного языка и региональных параметров, это может привести к непредвиденным результатам. Например, в турецком языке, следующий пример вызывает неверных результатов, так как файловой системы в турецком языке не использует регистр по правилам языка правил для буквы «i» в «файл».  
   
  Этот метод не учитывает ширину японской азбуки.  
   
@@ -2884,6 +3019,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2902,7 +3039,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Используется для обработки нескольких результатов, которые могут быть созданы при выполнении пакетных инструкций Transact-SQL.  
+ Используется для обработки нескольких результатов, которые могут быть созданы с помощью пакетных инструкций Transact-SQL.  
   
  По умолчанию модуль чтения данных располагается на первый результат.  
   
@@ -2972,6 +3109,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -2990,14 +3129,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- По умолчанию <xref:System.Data.SqlClient.SqlDataReader> — перед первой записью. Поэтому необходимо вызвать метод <xref:System.Data.SqlClient.SqlDataReader.Read%2A> , чтобы начать доступ к данным.  
+ По умолчанию <xref:System.Data.SqlClient.SqlDataReader> находится перед первой записи. Таким образом, необходимо вызвать <xref:System.Data.SqlClient.SqlDataReader.Read%2A> чтобы начать доступ к данным.  
   
- Только один `SqlDataReader` на связанные <xref:System.Data.SqlClient.SqlConnection> может быть открыт одновременно, и любые попытки открыть другой завершится ошибкой, пока первый закрыт. Аналогично, хотя `SqlDataReader` используется, связанный с ним `SqlConnection` обслуживает его только после вызова <xref:System.Data.SqlClient.SqlDataReader.Close%2A>.  
+ Только один `SqlDataReader` на связанный <xref:System.Data.SqlClient.SqlConnection> может быть открыт одновременно, и любая попытка открыть другой завершится ошибкой, пока не будет закрыт в первый из них. Аналогичным образом, хотя `SqlDataReader` используется, сопоставленного `SqlConnection` обслуживает его только после вызова <xref:System.Data.SqlClient.SqlDataReader.Close%2A>.  
   
    
   
 ## Examples  
- В следующем примере создается <xref:System.Data.SqlClient.SqlConnection>, <xref:System.Data.SqlClient.SqlCommand>и <xref:System.Data.SqlClient.SqlDataReader>. В примере считываются по данным, записываются в окно консоли. Затем код закрывает <xref:System.Data.SqlClient.SqlDataReader>. <xref:System.Data.SqlClient.SqlConnection> Закрыт автоматически в конце `using` блок кода.  
+ В следующем примере создается <xref:System.Data.SqlClient.SqlConnection>, <xref:System.Data.SqlClient.SqlCommand>и <xref:System.Data.SqlClient.SqlDataReader>. В примере считываются по данным, записывая их в окне консоли. Код затем закрывает <xref:System.Data.SqlClient.SqlDataReader>. <xref:System.Data.SqlClient.SqlConnection> Закрывается автоматически в конце `using` блок кода.  
   
  [!code-csharp[Classic WebData SqlDataReader.Read Example#1](~/samples/snippets/csharp/VS_Snippets_ADO.NET/Classic WebData SqlDataReader.Read Example/CS/source.cs#1)]
  [!code-vb[Classic WebData SqlDataReader.Read Example#1](~/samples/snippets/visualbasic/VS_Snippets_ADO.NET/Classic WebData SqlDataReader.Read Example/VB/source.vb#1)]  
@@ -3041,9 +3180,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если `behavior` параметр <xref:System.Data.SqlClient.SqlCommand.ExecuteReaderAsync%2A> равно `Default`, <xref:System.Data.SqlClient.SqlDataReader.ReadAsync%2A> считывает всю строку перед возвращением задачи.  
+ Если `behavior` параметр <xref:System.Data.SqlClient.SqlCommand.ExecuteReaderAsync%2A> присваивается `Default`, <xref:System.Data.SqlClient.SqlDataReader.ReadAsync%2A> считывает всю строку перед возвращением задачи.  
   
- Дополнительные сведения, включая примеры кода, об асинхронном программировании в поставщике данных .NET Framework для SQL Server, в разделе [асинхронное программирование](~/docs/framework/data/adonet/asynchronous-programming.md).  
+ Дополнительные сведения, включая примеры кода, об асинхронном программировании в поставщике данных .NET Framework для SQL Server, см. в разделе [асинхронное программирование](~/docs/framework/data/adonet/asynchronous-programming.md).  
   
  ]]></format>
         </remarks>
@@ -3071,6 +3210,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -3088,14 +3229,38 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Data.SqlClient.SqlDataReader.RecordsAffected%2A> Свойство не задано, пока не будут считаны все строки и закрытии <xref:System.Data.SqlClient.SqlDataReader>.  
+ <xref:System.Data.SqlClient.SqlDataReader.RecordsAffected%2A> Свойство не задано, пока не будут считаны все строки, и вы закроете <xref:System.Data.SqlClient.SqlDataReader>.  
   
- Значение этого свойства является накапливаемым. Например, если выполняется вставка двух записей в пакетном режиме, значение `RecordsAffected` будет равно двум.  
+ Значение этого свойства является накопительным. Например, если две записи вставляются в пакетном режиме, значение `RecordsAffected` будет два.  
   
- <xref:System.Data.SqlClient.SqlDataReader.IsClosed%2A> и <xref:System.Data.SqlClient.SqlDataReader.RecordsAffected%2A> только свойства, которые можно вызывать после <xref:System.Data.SqlClient.SqlDataReader> закрыт.  
+ <xref:System.Data.SqlClient.SqlDataReader.IsClosed%2A> и <xref:System.Data.SqlClient.SqlDataReader.RecordsAffected%2A> являются единственными свойствами, которые могут быть вызваны после <xref:System.Data.SqlClient.SqlDataReader> закрыт.  
   
  ]]></format>
         </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="System.Collections.IEnumerable.GetEnumerator">
+      <MemberSignature Language="C#" Value="System.Collections.IEnumerator IEnumerable.GetEnumerator ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance class System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDataReader.System#Collections#IEnumerable#GetEnumerator" />
+      <MemberSignature Language="VB.NET" Value="Function GetEnumerator () As IEnumerator Implements IEnumerable.GetEnumerator" />
+      <MemberSignature Language="C++ CLI" Value=" virtual System::Collections::IEnumerator ^ System.Collections.IEnumerable.GetEnumerator() = System::Collections::IEnumerable::GetEnumerator;" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.Collections.IEnumerable.GetEnumerator</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.IEnumerator</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="System.Data.IDataRecord.GetData">
@@ -3110,11 +3275,12 @@
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
-          <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
+          <AttributeName>System.ComponentModel.EditorBrowsable</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -3137,6 +3303,29 @@
         </remarks>
       </Docs>
     </Member>
+    <Member MemberName="System.IDisposable.Dispose">
+      <MemberSignature Language="C#" Value="void IDisposable.Dispose ();" />
+      <MemberSignature Language="ILAsm" Value=".method hidebysig newslot virtual instance void System.IDisposable.Dispose() cil managed" />
+      <MemberSignature Language="DocId" Value="M:System.Data.SqlClient.SqlDataReader.System#IDisposable#Dispose" />
+      <MemberSignature Language="VB.NET" Value="Sub Dispose () Implements IDisposable.Dispose" />
+      <MemberSignature Language="C++ CLI" Value=" virtual void System.IDisposable.Dispose() = IDisposable::Dispose;" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.IDisposable.Dispose</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
     <Member MemberName="VisibleFieldCount">
       <MemberSignature Language="C#" Value="public override int VisibleFieldCount { get; }" />
       <MemberSignature Language="ILAsm" Value=".property instance int32 VisibleFieldCount" />
@@ -3152,6 +3341,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -3169,7 +3359,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это значение используется для определения количества полей в <xref:System.Data.SqlClient.SqlDataReader> являются видимыми. Например, инструкция SELECT в частичном первичном ключе возвращает оставшиеся части ключа в виде скрытых полей. Скрытые поля всегда добавляются после видимых полей.  
+ Это значение используется для определения числа полей в <xref:System.Data.SqlClient.SqlDataReader> являются видимыми. Например, инструкция SELECT в частичном первичном ключе возвращает оставшиеся части ключа в виде скрытых полей. Скрытые поля всегда добавляются после видимых полей.  
   
  ]]></format>
         </remarks>

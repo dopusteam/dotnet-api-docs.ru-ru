@@ -1,11 +1,11 @@
 <Type Name="ElapsedEventArgs" FullName="System.Timers.ElapsedEventArgs">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="72a34db2282a94779876af67262c3fe6f5b4dcb3" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="cc4aa878a43a638247c2e558af003df8868ad560" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36406142" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37608995" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class ElapsedEventArgs : EventArgs" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit ElapsedEventArgs extends System.EventArgs" />
@@ -15,6 +15,8 @@
   <TypeSignature Language="F#" Value="type ElapsedEventArgs = class&#xA;    inherit EventArgs" />
   <AssemblyInfo>
     <AssemblyName>System</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -37,7 +39,7 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Examples  
- В следующем примере создается <xref:System.Timers.Timer> объект, который запускает его <xref:System.Timers.Timer.Elapsed?displayProperty=nameWithType> событий каждые две секунды (2000 мс), задает обработчик события для события и запускает таймер. Обработчик событий выводит значение <xref:System.Timers.ElapsedEventArgs.SignalTime%2A?displayProperty=nameWithType> свойство каждый раз, оно создается.  
+ В следующем примере создается <xref:System.Timers.Timer> объект, который запускает его <xref:System.Timers.Timer.Elapsed?displayProperty=nameWithType> событий каждые две секунды (2000 миллисекунд), настраивает обработчик событий для события и запускает таймер. Обработчик событий отображает значение <xref:System.Timers.ElapsedEventArgs.SignalTime%2A?displayProperty=nameWithType> свойство каждый раз, он вызывается.  
   
  [!code-cpp[System.Timers.Timer#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.timers.timer/cpp/timer1.cpp#1)]
  [!code-csharp[System.Timers.Timer#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.timers.timer/cs/timer1.cs#1)]
@@ -57,6 +59,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -79,12 +83,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Timers.Timer.Elapsed?displayProperty=nameWithType> Событие <xref:System.Threading.ThreadPool> потоков, поэтому метод обработки событий может выполняться в одном потоке, в то же время, вызов <xref:System.Timers.Timer.Stop%2A?displayProperty=nameWithType> метод выполняется в другом потоке. Это может привести к <xref:System.Timers.Timer.Elapsed> события после <xref:System.Timers.Timer.Stop%2A> вызывается метод. Не удается предотвратить такого состояния гонки просто путем сравнения <xref:System.Timers.ElapsedEventArgs.SignalTime%2A> свойства со временем при <xref:System.Timers.Timer.Stop%2A> вызывается метод, так как метод обработки событий могут уже быть выполняется при <xref:System.Timers.Timer.Stop%2A> вызывается метод, или может начинаться выполнение между моментом при <xref:System.Timers.Timer.Stop%2A> вызова до момента при сохранении время остановки. Если необходимо предотвратить поток, который вызывает <xref:System.Timers.Timer.Stop%2A> метод выполняется во время выполнения метода обработки событий по-прежнему использовать более надежный механизм синхронизации, такие как <xref:System.Threading.Monitor> класса или <xref:System.Threading.Interlocked.CompareExchange%2A> метод. Код, использующий <xref:System.Threading.Interlocked.CompareExchange%2A> метода можно найти в примере для <xref:System.Timers.Timer.Stop%2A?displayProperty=nameWithType> метод.  
+ <xref:System.Timers.Timer.Elapsed?displayProperty=nameWithType> Событие <xref:System.Threading.ThreadPool> потоков, и метод обработки событий может обрабатываться в одном потоке, в то же время, когда вызов <xref:System.Timers.Timer.Stop%2A?displayProperty=nameWithType> метод выполняется в другом потоке. Это может привести к <xref:System.Timers.Timer.Elapsed> события после <xref:System.Timers.Timer.Stop%2A> вызывается метод. Такое состояние гонки не может быть запрещен просто путем сравнения <xref:System.Timers.ElapsedEventArgs.SignalTime%2A> свойство со временем при <xref:System.Timers.Timer.Stop%2A> вызывается метод, так как метод обработки событий может уже быть выполняется при <xref:System.Timers.Timer.Stop%2A> вызывается метод, или может начинаться выполнение между моментом при <xref:System.Timers.Timer.Stop%2A> был вызван до момента при сохранении время остановки. Если необходимо запретить поток, вызывающий <xref:System.Timers.Timer.Stop%2A> метода из Далее, пока метод обработки событий по-прежнему выполняется, использовать более надежный механизм синхронизации, например <xref:System.Threading.Monitor> класса или <xref:System.Threading.Interlocked.CompareExchange%2A> метод. Код, использующий <xref:System.Threading.Interlocked.CompareExchange%2A> метод можно найти в примере, <xref:System.Timers.Timer.Stop%2A?displayProperty=nameWithType> метод.  
   
    
   
 ## Examples  
- В следующем примере создается <xref:System.Timers.Timer> объект, который запускает его <xref:System.Timers.Timer.Elapsed?displayProperty=nameWithType> событий каждые две секунды (2000 мс), задает обработчик события для события и запускает таймер. Обработчик событий выводит значение <xref:System.Timers.ElapsedEventArgs.SignalTime%2A?displayProperty=nameWithType> свойство каждый раз, оно создается.  
+ В следующем примере создается <xref:System.Timers.Timer> объект, который запускает его <xref:System.Timers.Timer.Elapsed?displayProperty=nameWithType> событий каждые две секунды (2000 миллисекунд), настраивает обработчик событий для события и запускает таймер. Обработчик событий отображает значение <xref:System.Timers.ElapsedEventArgs.SignalTime%2A?displayProperty=nameWithType> свойство каждый раз, он вызывается.  
   
  [!code-cpp[System.Timers.Timer#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.timers.timer/cpp/timer1.cpp#1)]
  [!code-csharp[System.Timers.Timer#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.timers.timer/cs/timer1.cs#1)]
