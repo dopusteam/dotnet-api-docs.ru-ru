@@ -1,19 +1,21 @@
 <Type Name="DbCommandBuilder" FullName="System.Data.Common.DbCommandBuilder">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="5bfb54f7b76a4739f53cb9e965eb71e14aa89733" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="9e97ad01d80f31f30d18baec5746496dd12f5932" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30380398" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37683587" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class DbCommandBuilder : System.ComponentModel.Component" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit DbCommandBuilder extends System.ComponentModel.Component" />
   <TypeSignature Language="DocId" Value="T:System.Data.Common.DbCommandBuilder" />
   <TypeSignature Language="VB.NET" Value="Public MustInherit Class DbCommandBuilder&#xA;Inherits Component" />
   <TypeSignature Language="C++ CLI" Value="public ref class DbCommandBuilder abstract : System::ComponentModel::Component" />
+  <TypeSignature Language="F#" Value="type DbCommandBuilder = class&#xA;    inherit Component" />
   <AssemblyInfo>
     <AssemblyName>System.Data</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -31,22 +33,22 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>Автоматически создает однотабличные команды, которые позволяют согласовать изменения, внесенные в <see cref="T:System.Data.DataSet" />, со связанной базой данных. Это абстрактный класс, который может только наследоваться.</summary>
+    <summary>Automatically generates single-table commands used to reconcile changes made to a <see cref="T:System.Data.DataSet" /> with the associated database. This is an abstract class that can only be inherited.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Data.Common.DbCommandBuilder> Класс предоставляется для удобства модули записи поставщика при создании собственных построителей команд. Путем наследования от этого класса, разработчики могут реализовывать определенное поведение поставщика в своем коде.  
+ <xref:System.Data.Common.DbCommandBuilder> Класс предоставляется для удобства записи поставщика, создание собственных построителей команд. Путем наследования от этого класса, разработчики могут реализовать определенное поведение поставщика в своем коде.  
   
- <xref:System.Data.Common.DbDataAdapter> Не создает автоматически инструкции SQL, необходимые для согласования изменений, внесенных в <xref:System.Data.DataSet> с связанного источника данных. Однако можно создать <xref:System.Data.Common.DbCommandBuilder> для автоматического создания инструкций SQL для отдельных обновлений, если задать <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A> свойство <xref:System.Data.Common.DbDataAdapter>. Затем создаются все дополнительные инструкции SQL, которые не заданы <xref:System.Data.Common.DbCommandBuilder>.  
+ <xref:System.Data.Common.DbDataAdapter> Не создает автоматически инструкции SQL, необходимые для согласования изменений, внесенных в <xref:System.Data.DataSet> с связанного источника данных. Тем не менее, можно создать <xref:System.Data.Common.DbCommandBuilder> для автоматического создания инструкций SQL для отдельных обновлений, если задать <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A> свойство <xref:System.Data.Common.DbDataAdapter>. Затем создаются все дополнительные инструкции SQL, не устанавливайте <xref:System.Data.Common.DbCommandBuilder>.  
   
- <xref:System.Data.Common.DbCommandBuilder> Регистрирует себя в качестве прослушивателя для <xref:System.Data.OleDb.OleDbDataAdapter.RowUpdating> событий всякий раз при установке <xref:System.Data.Common.DbCommandBuilder.DataAdapter%2A> свойство. Можно связать только одну <xref:System.Data.Common.DbDataAdapter> или <xref:System.Data.Common.DbCommandBuilder> объектов друг с другом за один раз.  
+ <xref:System.Data.Common.DbCommandBuilder> Регистрирует себя в качестве прослушивателя для <xref:System.Data.OleDb.OleDbDataAdapter.RowUpdating> событий при установке <xref:System.Data.Common.DbCommandBuilder.DataAdapter%2A> свойство. Можно связать только одно <xref:System.Data.Common.DbDataAdapter> или <xref:System.Data.Common.DbCommandBuilder> объект друг с другом за один раз.  
   
- Для создания инструкций INSERT, UPDATE или DELETE, <xref:System.Data.Common.DbCommandBuilder> использует <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A> свойство для получения требуемого набора метаданных автоматически. При изменении <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A> после получения метаданных (например, после первого обновления), необходимо вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> метод для обновления метаданных.  
+ Для создания инструкций INSERT, UPDATE или DELETE, <xref:System.Data.Common.DbCommandBuilder> использует <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A> свойства, чтобы получить необходимый набор метаданных, автоматически. При изменении <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A> после получения метаданных (например, после первого обновления), следует вызывать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> метод для обновления метаданных.  
   
- Свойство `SelectCommand` должно также возвратить по крайней мере один столбец первичного ключа или столбец с атрибутом UNIQUE. Если нет ни одного <xref:System.InvalidOperationException> сгенерировано исключение, и команды не создаются.  
+ Свойство `SelectCommand` должно также возвратить по крайней мере один столбец первичного ключа или столбец с атрибутом UNIQUE. Если нет ни одного <xref:System.InvalidOperationException> создается исключение, и команда не создается.  
   
- <xref:System.Data.Common.DbCommandBuilder> Также использует <xref:System.Data.Common.DbCommand.Connection%2A>, <xref:System.Data.Common.DbCommand.CommandTimeout%2A>, и <xref:System.Data.Common.DbCommand.Transaction%2A> ссылается <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A>. Следует вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> изменения любого из этих свойств, или если <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A> выполнена замена. В противном случае <xref:System.Data.Common.DbDataAdapter.InsertCommand%2A>, <xref:System.Data.Common.DbDataAdapter.UpdateCommand%2A>, и <xref:System.Data.Common.DbDataAdapter.DeleteCommand%2A> свойства сохраняют свои предыдущие значения.  
+ <xref:System.Data.Common.DbCommandBuilder> Также использует <xref:System.Data.Common.DbCommand.Connection%2A>, <xref:System.Data.Common.DbCommand.CommandTimeout%2A>, и <xref:System.Data.Common.DbCommand.Transaction%2A> ссылается <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A>. Пользователь должен вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> при изменении каких-либо из этих свойств, или если <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A> замене. В противном случае <xref:System.Data.Common.DbDataAdapter.InsertCommand%2A>, <xref:System.Data.Common.DbDataAdapter.UpdateCommand%2A>, и <xref:System.Data.Common.DbDataAdapter.DeleteCommand%2A> свойства сохраняют свои предыдущие значения.  
   
  При вызове метода <xref:System.ComponentModel.Component.Dispose%2A>, <xref:System.Data.Common.DbCommandBuilder> отсоединяется от <xref:System.Data.Common.DbDataAdapter>, и созданные команды больше не используются.  
   
@@ -63,6 +65,7 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -77,7 +80,7 @@
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>Инициализирует новый экземпляр класса, который наследует от класса <see cref="T:System.Data.Common.DbCommandBuilder" />.</summary>
+        <summary>Initializes a new instance of a class that inherits from the <see cref="T:System.Data.Common.DbCommandBuilder" /> class.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -86,9 +89,11 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void ApplyParameterInfo(class System.Data.Common.DbParameter parameter, class System.Data.DataRow row, valuetype System.Data.StatementType statementType, bool whereClause) cil managed" />
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.ApplyParameterInfo(System.Data.Common.DbParameter,System.Data.DataRow,System.Data.StatementType,System.Boolean)" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract void ApplyParameterInfo(System::Data::Common::DbParameter ^ parameter, System::Data::DataRow ^ row, System::Data::StatementType statementType, bool whereClause);" />
+      <MemberSignature Language="F#" Value="abstract member ApplyParameterInfo : System.Data.Common.DbParameter * System.Data.DataRow * System.Data.StatementType * bool -&gt; unit" Usage="dbCommandBuilder.ApplyParameterInfo (parameter, row, statementType, whereClause)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -111,17 +116,17 @@
         <Parameter Name="whereClause" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="parameter">Объект <see cref="T:System.Data.Common.DbParameter" />, к которому применяются дополнительные изменения.</param>
-        <param name="row">Объект <see cref="T:System.Data.DataRow" />, из которого таблица схемы предоставляется с помощью метода <see cref="M:System.Data.Common.DbDataReader.GetSchemaTable" />.</param>
-        <param name="statementType">Тип создаваемой команды: INSERT, UPDATE или DELETE.</param>
+        <param name="parameter">A <see cref="T:System.Data.Common.DbParameter" /> to which the additional modifications are applied.</param>
+        <param name="row">The <see cref="T:System.Data.DataRow" /> from the schema table provided by <see cref="M:System.Data.Common.DbDataReader.GetSchemaTable" />.</param>
+        <param name="statementType">The type of command being generated; INSERT, UPDATE or DELETE.</param>
         <param name="whereClause">
-          Значение <see langword="true" />, если параметр является частью значений команд UPDATE или DELETE предложения WHERE, значение <see langword="false" />, если он является частью значений команд INSERT или UPDATE.</param>
-        <summary>Разрешает реализации поставщика класса <see cref="T:System.Data.Common.DbCommandBuilder" /> обрабатывать дополнительные свойства параметров.</summary>
+          <see langword="true" /> if the parameter is part of the update or delete WHERE clause, <see langword="false" /> if it is part of the insert or update values.</param>
+        <summary>Allows the provider implementation of the <see cref="T:System.Data.Common.DbCommandBuilder" /> class to handle additional parameter properties.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод позволяет реализация <xref:System.Data.Common.DbCommandBuilder> класса, чтобы обрабатывать свойства поставщика параметров.  
+ Этот метод позволяет реализацию <xref:System.Data.Common.DbCommandBuilder> класс для обработки свойства поставщика параметров.  
   
  ]]></format>
         </remarks>
@@ -133,9 +138,11 @@
       <MemberSignature Language="DocId" Value="P:System.Data.Common.DbCommandBuilder.CatalogLocation" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Property CatalogLocation As CatalogLocation" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Data::Common::CatalogLocation CatalogLocation { System::Data::Common::CatalogLocation get(); void set(System::Data::Common::CatalogLocation value); };" />
+      <MemberSignature Language="F#" Value="member this.CatalogLocation : System.Data.Common.CatalogLocation with get, set" Usage="System.Data.Common.DbCommandBuilder.CatalogLocation" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -157,7 +164,7 @@
         <ReturnType>System.Data.Common.CatalogLocation</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает или задает <see cref="T:System.Data.Common.CatalogLocation" /> для экземпляра класса <see cref="T:System.Data.Common.DbCommandBuilder" />.</summary>
+        <summary>Sets or gets the <see cref="T:System.Data.Common.CatalogLocation" /> for an instance of the <see cref="T:System.Data.Common.DbCommandBuilder" /> class.</summary>
         <value>Объект <see cref="T:System.Data.Common.CatalogLocation" />.</value>
         <remarks>To be added.</remarks>
       </Docs>
@@ -168,9 +175,11 @@
       <MemberSignature Language="DocId" Value="P:System.Data.Common.DbCommandBuilder.CatalogSeparator" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Property CatalogSeparator As String" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ CatalogSeparator { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberSignature Language="F#" Value="member this.CatalogSeparator : string with get, set" Usage="System.Data.Common.DbCommandBuilder.CatalogSeparator" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -192,8 +201,8 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает или задает строку, которую можно использовать в качестве разделителя каталогов, для экземпляра класса <see cref="T:System.Data.Common.DbCommandBuilder" />.</summary>
-        <value>Строка, указывающая разделитель каталогов, который используется в экземпляре класса <see cref="T:System.Data.Common.DbCommandBuilder" />.</value>
+        <summary>Sets or gets a string used as the catalog separator for an instance of the <see cref="T:System.Data.Common.DbCommandBuilder" /> class.</summary>
+        <value>Строка, указывающая разделитель каталогов для использования с экземпляром <see cref="T:System.Data.Common.DbCommandBuilder" /> класса.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -203,9 +212,11 @@
       <MemberSignature Language="DocId" Value="P:System.Data.Common.DbCommandBuilder.ConflictOption" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Property ConflictOption As ConflictOption" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::Data::ConflictOption ConflictOption { System::Data::ConflictOption get(); void set(System::Data::ConflictOption value); };" />
+      <MemberSignature Language="F#" Value="member this.ConflictOption : System.Data.ConflictOption with get, set" Usage="System.Data.Common.DbCommandBuilder.ConflictOption" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -227,8 +238,8 @@
         <ReturnType>System.Data.ConflictOption</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Указывает, какое значение типа <see cref="T:System.Data.ConflictOption" /> должно использоваться объектом <see cref="T:System.Data.Common.DbCommandBuilder" />.</summary>
-        <value>Возвращает одно из значений <see cref="T:System.Data.ConflictOption" />, описывающих функционирование этого объекта <see cref="T:System.Data.Common.DbCommandBuilder" />.</value>
+        <summary>Specifies which <see cref="T:System.Data.ConflictOption" /> is to be used by the <see cref="T:System.Data.Common.DbCommandBuilder" />.</summary>
+        <value>Возвращает одно из <see cref="T:System.Data.ConflictOption" /> значения, описывающие поведение данного <see cref="T:System.Data.Common.DbCommandBuilder" />.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -238,9 +249,11 @@
       <MemberSignature Language="DocId" Value="P:System.Data.Common.DbCommandBuilder.DataAdapter" />
       <MemberSignature Language="VB.NET" Value="Public Property DataAdapter As DbDataAdapter" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; property System::Data::Common::DbDataAdapter ^ DataAdapter { System::Data::Common::DbDataAdapter ^ get(); void set(System::Data::Common::DbDataAdapter ^ value); };" />
+      <MemberSignature Language="F#" Value="member this.DataAdapter : System.Data.Common.DbDataAdapter with get, set" Usage="System.Data.Common.DbCommandBuilder.DataAdapter" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -265,13 +278,13 @@
         <ReturnType>System.Data.Common.DbDataAdapter</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает или задает объект <see cref="T:System.Data.Common.DbDataAdapter" />, для которого автоматически создаются инструкции Transact-SQL.</summary>
+        <summary>Gets or sets a <see cref="T:System.Data.Common.DbDataAdapter" /> object for which Transact-SQL statements are automatically generated.</summary>
         <value>Объект <see cref="T:System.Data.Common.DbDataAdapter" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Data.Common.DbCommandBuilder> Регистрирует себя в качестве прослушивателя для <xref:System.Data.OleDb.OleDbDataAdapter.RowUpdating> событий, создаваемых <xref:System.Data.Common.DbDataAdapter> указанный в этом свойстве.  
+ <xref:System.Data.Common.DbCommandBuilder> Регистрирует себя в качестве прослушивателя для <xref:System.Data.OleDb.OleDbDataAdapter.RowUpdating> событий, создаваемых <xref:System.Data.Common.DbDataAdapter> задано данным свойством.  
   
  При создании нового экземпляра <xref:System.Data.Common.DbCommandBuilder>, все существующие <xref:System.Data.Common.DbCommandBuilder> связанный с этим <xref:System.Data.Common.DbDataAdapter> освобождается.  
   
@@ -285,9 +298,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.Dispose(System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Protected Overrides Sub Dispose (disposing As Boolean)" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; override void Dispose(bool disposing);" />
+      <MemberSignature Language="F#" Value="abstract member Dispose : bool -&gt; unit&#xA;override this.Dispose : bool -&gt; unit" Usage="dbCommandBuilder.Dispose disposing" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -308,13 +323,13 @@
       </Parameters>
       <Docs>
         <param name="disposing">
-          Значение <see langword="true" /> позволяет освободить как управляемые, так и неуправляемые ресурсы; значение <see langword="false" /> освобождает только неуправляемые ресурсы.</param>
-        <summary>Освобождает неуправляемые ресурсы, используемые объектом <see cref="T:System.Data.Common.DbCommandBuilder" />, а при необходимости освобождает также управляемые ресурсы.</summary>
+          <see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</param>
+        <summary>Releases the unmanaged resources used by the <see cref="T:System.Data.Common.DbCommandBuilder" /> and optionally releases the managed resources.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод вызывается методом открытые <xref:System.Data.Common.DbCommandBuilder.Dispose%2A> метод и `Finalize` метод. <xref:System.Data.Common.DbCommandBuilder.Dispose%2A> вызывает защищенный <xref:System.Data.Common.DbCommandBuilder.Dispose%2A> метод с параметром disposing установлено значение `true`. `Finalize` вызывает `Dispose` с `disposing` значение `false`.  
+ Этот метод вызывается открытым <xref:System.Data.Common.DbCommandBuilder.Dispose%2A> метод и `Finalize` метод. <xref:System.Data.Common.DbCommandBuilder.Dispose%2A> вызывает защищенный <xref:System.Data.Common.DbCommandBuilder.Dispose%2A> метод с параметром disposing, имеющим `true`. `Finalize` вызывает `Dispose` с `disposing` присвоено `false`.  
   
  Если параметр `disposing` имеет значение `true`, то данный метод освобождает все ресурсы, занятые любыми управляемыми объектами, на которые ссылается этот объект <xref:System.Data.Common.DbCommandBuilder>. Этот метод вызывает метод <xref:System.Data.Common.DbCommandBuilder.Dispose%2A> каждого объекта, на который есть ссылка.  
   
@@ -322,9 +337,7 @@
         </remarks>
         <block subset="none" type="overrides">
           <para>
-            Метод <see cref="Overload:System.Data.Common.DbCommandBuilder.Dispose" /> может вызываться несколько раз другими объектами. При переопределении метода <see cref="M:System.Data.Common.DbCommandBuilder.Dispose(System.Boolean)" /> нужно избегать ссылок на объекты, которые были уничтожены предыдущими вызовами метода <see cref="Overload:System.Data.Common.DbCommandBuilder.Dispose" />. Дополнительные сведения о реализации <see cref="M:System.Data.Common.DbCommandBuilder.Dispose(System.Boolean)" />, в разделе [метода](~/docs/standard/garbage-collection/implementing-dispose.md).  
-  
- Дополнительные сведения о <see langword="Dispose" /> и <see langword="Finalize" />, в разделе [очистки неуправляемых ресурсов](~/docs/standard/garbage-collection/unmanaged.md) и [переопределение метода Finalize](http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3).</para>
+            <see cref="Overload:System.Data.Common.DbCommandBuilder.Dispose" /> может вызываться несколько раз другими объектами. При переопределении метода <see cref="M:System.Data.Common.DbCommandBuilder.Dispose(System.Boolean)" /> нужно избегать ссылок на объекты, которые были уничтожены предыдущими вызовами метода <see cref="Overload:System.Data.Common.DbCommandBuilder.Dispose" />. Дополнительные сведения о том, как реализовать <see cref="M:System.Data.Common.DbCommandBuilder.Dispose(System.Boolean)" />, см. в разделе [реализация Method](~/docs/standard/garbage-collection/implementing-dispose.md) Dispose.  Дополнительные сведения о <see langword="Dispose" /> и <see langword="Finalize" />, см. в разделе [очистки неуправляемых Resources](~/docs/standard/garbage-collection/unmanaged.md) и [переопределение метода Finalize] (http://msdn.microsoft.com/library/8026cb68-fe93-43fc-96c1-c09ad7d64cd3).</para>
         </block>
       </Docs>
     </Member>
@@ -335,18 +348,18 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Возвращает автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, который требуется для выполнения операций удаления в источнике данных.</summary>
+        <summary>Gets the automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform deletions at the data source.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> метод для получения сведений и устранения неполадок, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
+ Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> метод для получения сведений или устранения неполадок в целях, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
   
  Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> изменить текст связанные команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
   
- После первоначального создания инструкции SQL приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> если она изменяет инструкцию каким-либо образом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> по-прежнему работать с данными из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL являются первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A>.  
+ После первоначального создания инструкции SQL, приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> при его изменении инструкции любым способом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> по-прежнему будет использовать данные из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL: первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A>.  
   
- Поведение по умолчанию, при создании имен параметра является использование @p1, @p2, и так далее для различных параметров. Если перегруженную версию <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> позволяет указать данное поведение, предоставляя логическое значение, может вызвать <xref:System.Data.Common.DbCommandBuilder> для создания параметров на основе имен столбцов вместо путем передачи `True`.  
+ Поведение по умолчанию, имена, является использование @p1, @p2, и так далее для различных параметров. Если перегруженную версию <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> можно указать это, указав значение типа Boolean, может вызвать <xref:System.Data.Common.DbCommandBuilder> для создания параметров на основе имен столбцов вместо этого, передав `True`.  
   
  ]]></format>
         </remarks>
@@ -358,9 +371,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.GetDeleteCommand" />
       <MemberSignature Language="VB.NET" Value="Public Function GetDeleteCommand () As DbCommand" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::Common::DbCommand ^ GetDeleteCommand();" />
+      <MemberSignature Language="F#" Value="member this.GetDeleteCommand : unit -&gt; System.Data.Common.DbCommand" Usage="dbCommandBuilder.GetDeleteCommand " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -378,17 +393,17 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, который требуется для выполнения операций удаления в источнике данных.</summary>
-        <returns>Автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, необходимый для выполнения операций удаления.</returns>
+        <summary>Gets the automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform deletions at the data source.</summary>
+        <returns>The automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform deletions.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> метод для получения сведений и устранения неполадок, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
+ Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> метод для получения сведений или устранения неполадок в целях, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
   
- Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> и изменить текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
+ Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> и измените текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
   
- После первоначального создания инструкции SQL приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> если она изменяет инструкцию каким-либо образом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> по-прежнему работать с данными из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL являются первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A>.  
+ После первоначального создания инструкции SQL, приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> при его изменении инструкции любым способом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> по-прежнему будет использовать данные из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL: первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A>.  
   
  ]]></format>
         </remarks>
@@ -400,9 +415,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.GetDeleteCommand(System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Public Function GetDeleteCommand (useColumnsForParameterNames As Boolean) As DbCommand" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::Common::DbCommand ^ GetDeleteCommand(bool useColumnsForParameterNames);" />
+      <MemberSignature Language="F#" Value="member this.GetDeleteCommand : bool -&gt; System.Data.Common.DbCommand" Usage="dbCommandBuilder.GetDeleteCommand useColumnsForParameterNames" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -422,26 +439,26 @@
         <Parameter Name="useColumnsForParameterNames" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="useColumnsForParameterNames">Если значением является <see langword="true" />, создаются имена параметров, совпадающие с именами столбцов, если это возможно. Если значение равно <see langword="false" />, создаются @p1, @p2 и т. д.</param>
-        <summary>Возвращает автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, который требуется для выполнения операций удаления в источнике данных (дополнительно могут использоваться имена столбцов для определения имен параметров).</summary>
-        <returns>Автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, необходимый для выполнения операций удаления.</returns>
+        <param name="useColumnsForParameterNames">If <see langword="true" />, generate parameter names matching column names, if possible. If <see langword="false" />, generate @p1, @p2, and so on.</param>
+        <summary>Gets the automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform deletions at the data source, optionally using columns for parameter names.</summary>
+        <returns>The automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform deletions.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> метод для получения сведений и устранения неполадок, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
+ Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> метод для получения сведений или устранения неполадок в целях, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
   
- Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> и изменить текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
+ Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> и измените текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
   
- После первоначального создания инструкции SQL приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> если она изменяет инструкцию каким-либо образом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> по-прежнему работать с данными из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL являются первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A>.  
+ После первоначального создания инструкции SQL, приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> при его изменении инструкции любым способом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A> по-прежнему будет использовать данные из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL: первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetDeleteCommand%2A>.  
   
- Поведение по умолчанию, при создании имен параметра является использование @p1, @p2, и так далее для различных параметров. Передача `true` для `useColumnsForParameterNames` позволяет принудительно <xref:System.Data.Common.DbCommandBuilder> для создания параметров на основании вместо имен столбцов. Он завершается успешно только в том случае, если выполняются следующие условия.  
+ Поведение по умолчанию, имена, является использование @p1, @p2, и так далее для различных параметров. Передача `true` для `useColumnsForParameterNames` позволяет принудительно <xref:System.Data.Common.DbCommandBuilder> для создания параметров в зависимости от имен столбцов, вместо этого. Эта команда выполняется успешно только в том случае, если выполняются следующие условия:  
   
--   <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNameMaxLength> Был указан и его длина меньше, чем имя создаваемого параметра.  
+-   <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNameMaxLength> Была определена и его длина меньше, чем имя создаваемого параметра.  
   
--   Имя создаваемого параметра соответствует критериям, указанным в <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNamePattern> регулярного выражения.  
+-   Имя создаваемого параметра отвечает критериям, указанным в <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNamePattern> регулярного выражения.  
   
--   Объект <xref:System.Data.Common.DbMetaDataColumnNames.ParameterMarkerFormat> указано.  
+-   Объект <xref:System.Data.Common.DbMetaDataColumnNames.ParameterMarkerFormat> указан.  
   
  ]]></format>
         </remarks>
@@ -454,18 +471,18 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Возвращает автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, который требуется для выполнения операций вставки в источнике данных.</summary>
+        <summary>Gets the automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform insertions at the data source.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> метод для получения сведений и устранения неполадок, поскольку она возвращает текст <xref:System.Data.Common.DbCommand> объект для выполнения.  
+ Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> метод для получения сведений или устранения неполадок в целях, поскольку он возвращает текст <xref:System.Data.Common.DbCommand> объект для выполнения.  
   
- Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> и изменить текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
+ Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> и измените текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
   
- После первоначального создания инструкции SQL приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> если она изменяет инструкцию каким-либо образом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> по-прежнему работать с данными из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL являются первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A>.  
+ После первоначального создания инструкции SQL, приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> при его изменении инструкции любым способом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> по-прежнему будет использовать данные из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL: первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A>.  
   
- Поведение по умолчанию, при создании имен параметра является использование @p1, @p2, и так далее для различных параметров. Если перегруженную версию <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> позволяет указать данное поведение, может привести к <xref:System.Data.Common.DbCommandBuilder> для создания параметров на основании вместо имен столбцов.  
+ Поведение по умолчанию, имена, является использование @p1, @p2, и так далее для различных параметров. Если перегруженную версию <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> позволяет задать такое поведение, может привести к <xref:System.Data.Common.DbCommandBuilder> для создания параметров в зависимости от имен столбцов, вместо этого.  
   
  ]]></format>
         </remarks>
@@ -477,9 +494,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.GetInsertCommand" />
       <MemberSignature Language="VB.NET" Value="Public Function GetInsertCommand () As DbCommand" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::Common::DbCommand ^ GetInsertCommand();" />
+      <MemberSignature Language="F#" Value="member this.GetInsertCommand : unit -&gt; System.Data.Common.DbCommand" Usage="dbCommandBuilder.GetInsertCommand " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -497,17 +516,17 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, который требуется для выполнения операций вставки в источнике данных.</summary>
-        <returns>Автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, необходимый для выполнения операций вставки.</returns>
+        <summary>Gets the automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform insertions at the data source.</summary>
+        <returns>The automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform insertions.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> метод для получения сведений и устранения неполадок, поскольку она возвращает текст <xref:System.Data.Common.DbCommand> объект для выполнения.  
+ Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> метод для получения сведений или устранения неполадок в целях, поскольку он возвращает текст <xref:System.Data.Common.DbCommand> объект для выполнения.  
   
- Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> и изменить текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
+ Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> и измените текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
   
- После первоначального создания инструкции SQL приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> если она изменяет инструкцию каким-либо образом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> по-прежнему работать с данными из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL являются первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A>.  
+ После первоначального создания инструкции SQL, приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> при его изменении инструкции любым способом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> по-прежнему будет использовать данные из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL: первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A>.  
   
  ]]></format>
         </remarks>
@@ -519,9 +538,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.GetInsertCommand(System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Public Function GetInsertCommand (useColumnsForParameterNames As Boolean) As DbCommand" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::Common::DbCommand ^ GetInsertCommand(bool useColumnsForParameterNames);" />
+      <MemberSignature Language="F#" Value="member this.GetInsertCommand : bool -&gt; System.Data.Common.DbCommand" Usage="dbCommandBuilder.GetInsertCommand useColumnsForParameterNames" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -541,26 +562,26 @@
         <Parameter Name="useColumnsForParameterNames" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="useColumnsForParameterNames">Если значением является <see langword="true" />, создаются имена параметров, совпадающие с именами столбцов, если это возможно. Если значение равно <see langword="false" />, создаются @p1, @p2 и т. д.</param>
-        <summary>Возвращает автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, который требуется для выполнения операций вставки в источнике данных (дополнительно могут использоваться столбцы для определения имен параметров).</summary>
-        <returns>Автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, необходимый для выполнения операций вставки.</returns>
+        <param name="useColumnsForParameterNames">If <see langword="true" />, generate parameter names matching column names, if possible. If <see langword="false" />, generate @p1, @p2, and so on.</param>
+        <summary>Gets the automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform insertions at the data source, optionally using columns for parameter names.</summary>
+        <returns>The automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform insertions.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> метод для получения сведений и устранения неполадок, поскольку она возвращает текст <xref:System.Data.Common.DbCommand> объект для выполнения.  
+ Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> метод для получения сведений или устранения неполадок в целях, поскольку он возвращает текст <xref:System.Data.Common.DbCommand> объект для выполнения.  
   
- Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> и изменить текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
+ Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> и измените текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
   
- После первоначального создания инструкции SQL приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> если она изменяет инструкцию каким-либо образом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> по-прежнему работать с данными из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL являются первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A>.  
+ После первоначального создания инструкции SQL, приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> при его изменении инструкции любым способом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A> по-прежнему будет использовать данные из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL: первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetInsertCommand%2A>.  
   
- Поведение по умолчанию, при создании имен параметра является использование @p1, @p2, и так далее для различных параметров. Передача `true` для `useColumnsForParameterNames` позволяет принудительно <xref:System.Data.Common.DbCommandBuilder> для создания параметров на основании вместо имен столбцов. Создание параметров на основе имен столбцов выполняется успешно только в том случае, если выполняются следующие условия:  
+ Поведение по умолчанию, имена, является использование @p1, @p2, и так далее для различных параметров. Передача `true` для `useColumnsForParameterNames` позволяет принудительно <xref:System.Data.Common.DbCommandBuilder> для создания параметров в зависимости от имен столбцов, вместо этого. Создание параметров на основе имен столбцов выполняется успешно только в том случае, если выполняются следующие условия:  
   
--   <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNameMaxLength> Был указан и его длина меньше, чем имя создаваемого параметра.  
+-   <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNameMaxLength> Была определена и его длина меньше, чем имя создаваемого параметра.  
   
--   Имя создаваемого параметра соответствует критериям, указанным в <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNamePattern> регулярного выражения.  
+-   Имя создаваемого параметра отвечает критериям, указанным в <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNamePattern> регулярного выражения.  
   
--   Объект <xref:System.Data.Common.DbMetaDataColumnNames.ParameterMarkerFormat> указано.  
+-   Объект <xref:System.Data.Common.DbMetaDataColumnNames.ParameterMarkerFormat> указан.  
   
  ]]></format>
         </remarks>
@@ -573,7 +594,7 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Возвращает имя указанного параметра.</summary>
+        <summary>Returns the name of the specified parameter.</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="GetParameterName">
@@ -582,9 +603,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.GetParameterName(System.Int32)" />
       <MemberSignature Language="VB.NET" Value="Protected MustOverride Function GetParameterName (parameterOrdinal As Integer) As String" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract System::String ^ GetParameterName(int parameterOrdinal);" />
+      <MemberSignature Language="F#" Value="abstract member GetParameterName : int -&gt; string" Usage="dbCommandBuilder.GetParameterName parameterOrdinal" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -604,9 +627,9 @@
         <Parameter Name="parameterOrdinal" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="parameterOrdinal">Число, включаемое как часть имени параметра.</param>
-        <summary>Возвращает имя указанного параметра в формате @p*#*. Используется при создании пользовательского построителя команд.</summary>
-        <returns>Имя параметра с заданным числом, добавляемым в качестве части имени этого параметра.</returns>
+        <param name="parameterOrdinal">The number to be included as part of the parameter's name..</param>
+        <summary>Returns the name of the specified parameter in the format of @p*#*. Use when building a custom command builder.</summary>
+        <returns>The name of the parameter with the specified number appended as part of the parameter name.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -616,9 +639,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.GetParameterName(System.String)" />
       <MemberSignature Language="VB.NET" Value="Protected MustOverride Function GetParameterName (parameterName As String) As String" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract System::String ^ GetParameterName(System::String ^ parameterName);" />
+      <MemberSignature Language="F#" Value="abstract member GetParameterName : string -&gt; string" Usage="dbCommandBuilder.GetParameterName parameterName" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -638,9 +663,9 @@
         <Parameter Name="parameterName" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="parameterName">Частичное имя параметра.</param>
-        <summary>Возвращает полное имя параметра при данном частичном имени параметра.</summary>
-        <returns>Полное имя параметра, соответствующее запрошенному частичному имени параметра.</returns>
+        <param name="parameterName">The partial name of the parameter.</param>
+        <summary>Returns the full parameter name, given the partial parameter name.</summary>
+        <returns>The full parameter name corresponding to the partial parameter name requested.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -650,9 +675,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.GetParameterPlaceholder(System.Int32)" />
       <MemberSignature Language="VB.NET" Value="Protected MustOverride Function GetParameterPlaceholder (parameterOrdinal As Integer) As String" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract System::String ^ GetParameterPlaceholder(int parameterOrdinal);" />
+      <MemberSignature Language="F#" Value="abstract member GetParameterPlaceholder : int -&gt; string" Usage="dbCommandBuilder.GetParameterPlaceholder parameterOrdinal" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -672,14 +699,14 @@
         <Parameter Name="parameterOrdinal" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="parameterOrdinal">Число, включаемое как часть имени параметра.</param>
-        <summary>Возвращает местозаполнитель для параметра в связанной инструкции SQL.</summary>
-        <returns>Имя параметра с указанным добавленным числом.</returns>
+        <param name="parameterOrdinal">The number to be included as part of the parameter's name.</param>
+        <summary>Returns the placeholder for the parameter in the associated SQL statement.</summary>
+        <returns>The name of the parameter with the specified number appended.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод предназначен для использования разработчиками поставщик построения пользовательских построителей команд.  
+ Этот метод предназначен для использования в создании пользовательского построителя команд разработчиков поставщиков.  
   
  ]]></format>
         </remarks>
@@ -691,9 +718,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.GetSchemaTable(System.Data.Common.DbCommand)" />
       <MemberSignature Language="VB.NET" Value="Protected Overridable Function GetSchemaTable (sourceCommand As DbCommand) As DataTable" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual System::Data::DataTable ^ GetSchemaTable(System::Data::Common::DbCommand ^ sourceCommand);" />
+      <MemberSignature Language="F#" Value="abstract member GetSchemaTable : System.Data.Common.DbCommand -&gt; System.Data.DataTable&#xA;override this.GetSchemaTable : System.Data.Common.DbCommand -&gt; System.Data.DataTable" Usage="dbCommandBuilder.GetSchemaTable sourceCommand" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -713,14 +742,14 @@
         <Parameter Name="sourceCommand" Type="System.Data.Common.DbCommand" />
       </Parameters>
       <Docs>
-        <param name="sourceCommand">Объект <see cref="T:System.Data.Common.DbCommand" />, для которого выполняется извлечение соответствующей таблицы схемы.</param>
-        <summary>Возвращает таблицу схемы для объекта <see cref="T:System.Data.Common.DbCommandBuilder" />.</summary>
-        <returns>Объект <see cref="T:System.Data.DataTable" />, представляющий схему для указанного объекта <see cref="T:System.Data.Common.DbCommand" />.</returns>
+        <param name="sourceCommand">The <see cref="T:System.Data.Common.DbCommand" /> for which to retrieve the corresponding schema table.</param>
+        <summary>Returns the schema table for the <see cref="T:System.Data.Common.DbCommandBuilder" />.</summary>
+        <returns>A <see cref="T:System.Data.DataTable" /> that represents the schema for the specific <see cref="T:System.Data.Common.DbCommand" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод предназначен для использования разработчиками поставщик построения пользовательских построителей команд.  
+ Этот метод предназначен для использования в создании пользовательского построителя команд разработчиков поставщиков.  
   
  ]]></format>
         </remarks>
@@ -733,18 +762,18 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Возвращает автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, который требуется для выполнения операций обновления в источнике данных.</summary>
+        <summary>Gets the automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform updates at the data source.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> метод для получения сведений и устранения неполадок, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
+ Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> метод для получения сведений или устранения неполадок в целях, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
   
- Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> и изменить текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
+ Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> и измените текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
   
- После первоначального создания инструкции SQL приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> если она изменяет инструкцию каким-либо образом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> по-прежнему работать с данными из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL являются первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A>.  
+ После первоначального создания инструкции SQL, приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> при его изменении инструкции любым способом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> по-прежнему будет использовать данные из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL: первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A>.  
   
- Поведение по умолчанию, при создании имен параметра является использование @p1, @p2, и так далее для различных параметров. Если перегруженную версию <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> позволяет указать данное поведение, может привести к <xref:System.Data.Common.DbCommandBuilder> для создания параметров на основании вместо имен столбцов.  
+ Поведение по умолчанию, имена, является использование @p1, @p2, и так далее для различных параметров. Если перегруженную версию <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> позволяет задать такое поведение, может привести к <xref:System.Data.Common.DbCommandBuilder> для создания параметров в зависимости от имен столбцов, вместо этого.  
   
  ]]></format>
         </remarks>
@@ -756,9 +785,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.GetUpdateCommand" />
       <MemberSignature Language="VB.NET" Value="Public Function GetUpdateCommand () As DbCommand" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::Common::DbCommand ^ GetUpdateCommand();" />
+      <MemberSignature Language="F#" Value="member this.GetUpdateCommand : unit -&gt; System.Data.Common.DbCommand" Usage="dbCommandBuilder.GetUpdateCommand " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -776,17 +807,17 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, который требуется для выполнения операций обновления в источнике данных.</summary>
-        <returns>Автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, необходимый для выполнения операций обновления.</returns>
+        <summary>Gets the automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform updates at the data source.</summary>
+        <returns>The automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform updates.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> метод для получения сведений и устранения неполадок, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
+ Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> метод для получения сведений или устранения неполадок в целях, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
   
- Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> и изменить текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
+ Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> и измените текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
   
- После первоначального создания инструкции SQL приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> если она изменяет инструкцию каким-либо образом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> по-прежнему работать с данными из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL являются первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A>.  
+ После первоначального создания инструкции SQL, приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> при его изменении инструкции любым способом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> по-прежнему будет использовать данные из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL: первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A>.  
   
  ]]></format>
         </remarks>
@@ -798,9 +829,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.GetUpdateCommand(System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Public Function GetUpdateCommand (useColumnsForParameterNames As Boolean) As DbCommand" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Data::Common::DbCommand ^ GetUpdateCommand(bool useColumnsForParameterNames);" />
+      <MemberSignature Language="F#" Value="member this.GetUpdateCommand : bool -&gt; System.Data.Common.DbCommand" Usage="dbCommandBuilder.GetUpdateCommand useColumnsForParameterNames" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -820,26 +853,26 @@
         <Parameter Name="useColumnsForParameterNames" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="useColumnsForParameterNames">Если значением является <see langword="true" />, создаются имена параметров, совпадающие с именами столбцов, если это возможно. Если значение равно <see langword="false" />, создаются @p1, @p2 и т. д.</param>
-        <summary>Возвращает автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, который требуется для выполнения операций обновления в источнике данных (дополнительно могут использоваться столбцы для определения имен параметров).</summary>
-        <returns>Автоматически созданный объект <see cref="T:System.Data.Common.DbCommand" />, необходимый для выполнения операций обновления.</returns>
+        <param name="useColumnsForParameterNames">If <see langword="true" />, generate parameter names matching column names, if possible. If <see langword="false" />, generate @p1, @p2, and so on.</param>
+        <summary>Gets the automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform updates at the data source, optionally using columns for parameter names.</summary>
+        <returns>The automatically generated <see cref="T:System.Data.Common.DbCommand" /> object required to perform updates.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> метод для получения сведений и устранения неполадок, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
+ Приложение может использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> метод для получения сведений или устранения неполадок в целях, поскольку он возвращает <xref:System.Data.Common.DbCommand> объект для выполнения.  
   
- Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> и изменить текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
+ Можно также использовать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> в качестве основы для измененной команды. Например, можно вызвать <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> и измените текст команды и явно задать его на <xref:System.Data.Common.DbDataAdapter>.  
   
- После первоначального создания инструкции SQL приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> если она изменяет инструкцию каким-либо образом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> по-прежнему работать с данными из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL являются первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A>.  
+ После первоначального создания инструкции SQL, приложение должно явно вызвать <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> при его изменении инструкции любым способом. В противном случае <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A> по-прежнему будет использовать данные из предыдущей инструкции, которые могут быть неправильными. Инструкции SQL: первый создаваться, когда приложение вызывает <xref:System.Data.Common.DbDataAdapter.Update%2A> или <xref:System.Data.Common.DbCommandBuilder.GetUpdateCommand%2A>.  
   
- Поведение по умолчанию, при создании имен параметра является использование @p1, @p2, и так далее для различных параметров. Передача `true` для `useColumnsForParameterNames` позволяет принудительно <xref:System.Data.Common.DbCommandBuilder> для создания параметров на основании вместо имен столбцов. Создание параметров на основе имен столбцов выполняется успешно только в том случае, если выполняются следующие условия:  
+ Поведение по умолчанию, имена, является использование @p1, @p2, и так далее для различных параметров. Передача `true` для `useColumnsForParameterNames` позволяет принудительно <xref:System.Data.Common.DbCommandBuilder> для создания параметров в зависимости от имен столбцов, вместо этого. Создание параметров на основе имен столбцов выполняется успешно только в том случае, если выполняются следующие условия:  
   
--   <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNameMaxLength> Был указан и его длина меньше, чем имя создаваемого параметра.  
+-   <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNameMaxLength> Была определена и его длина меньше, чем имя создаваемого параметра.  
   
--   Имя создаваемого параметра соответствует критериям, указанным в <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNamePattern> регулярного выражения.  
+-   Имя создаваемого параметра отвечает критериям, указанным в <xref:System.Data.Common.DbMetaDataColumnNames.ParameterNamePattern> регулярного выражения.  
   
--   Объект <xref:System.Data.Common.DbMetaDataColumnNames.ParameterMarkerFormat> указано.  
+-   Объект <xref:System.Data.Common.DbMetaDataColumnNames.ParameterMarkerFormat> указан.  
   
  ]]></format>
         </remarks>
@@ -851,9 +884,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.InitializeCommand(System.Data.Common.DbCommand)" />
       <MemberSignature Language="VB.NET" Value="Protected Overridable Function InitializeCommand (command As DbCommand) As DbCommand" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; virtual System::Data::Common::DbCommand ^ InitializeCommand(System::Data::Common::DbCommand ^ command);" />
+      <MemberSignature Language="F#" Value="abstract member InitializeCommand : System.Data.Common.DbCommand -&gt; System.Data.Common.DbCommand&#xA;override this.InitializeCommand : System.Data.Common.DbCommand -&gt; System.Data.Common.DbCommand" Usage="dbCommandBuilder.InitializeCommand command" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -873,14 +908,14 @@
         <Parameter Name="command" Type="System.Data.Common.DbCommand" />
       </Parameters>
       <Docs>
-        <param name="command">Объект <see cref="T:System.Data.Common.DbCommand" />, который должен использоваться построителем команд для соответствующих команд INSERT, UPDATE или DELETE.</param>
-        <summary>Сбрасывает свойства <see cref="P:System.Data.Common.DbCommand.CommandTimeout" />, <see cref="P:System.Data.Common.DbCommand.Transaction" />, <see cref="P:System.Data.Common.DbCommand.CommandType" /> и <see cref="T:System.Data.UpdateRowSource" /> в объекте <see cref="T:System.Data.Common.DbCommand" />.</summary>
-        <returns>Экземпляр объекта <see cref="T:System.Data.Common.DbCommand" />, используемый для каждой операции вставки, обновления или удаления. Передача значения NULL позволяет методу <see cref="M:System.Data.Common.DbCommandBuilder.InitializeCommand(System.Data.Common.DbCommand)" /> создавать объект <see cref="T:System.Data.Common.DbCommand" /> на основе команды Select, связанной с объектом <see cref="T:System.Data.Common.DbCommandBuilder" />.</returns>
+        <param name="command">The <see cref="T:System.Data.Common.DbCommand" /> to be used by the command builder for the corresponding insert, update, or delete command.</param>
+        <summary>Resets the <see cref="P:System.Data.Common.DbCommand.CommandTimeout" />, <see cref="P:System.Data.Common.DbCommand.Transaction" />, <see cref="P:System.Data.Common.DbCommand.CommandType" />, and <see cref="T:System.Data.UpdateRowSource" /> properties on the <see cref="T:System.Data.Common.DbCommand" />.</summary>
+        <returns>A <see cref="T:System.Data.Common.DbCommand" /> instance to use for each insert, update, or delete operation. Passing a null value allows the <see cref="M:System.Data.Common.DbCommandBuilder.InitializeCommand(System.Data.Common.DbCommand)" /> method to create a <see cref="T:System.Data.Common.DbCommand" /> object based on the Select command associated with the <see cref="T:System.Data.Common.DbCommandBuilder" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод предназначен для использования разработчиками поставщик построения пользовательских построителей команд.  
+ Этот метод предназначен для использования в создании пользовательского построителя команд разработчиков поставщиков.  
   
  ]]></format>
         </remarks>
@@ -892,9 +927,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.QuoteIdentifier(System.String)" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Function QuoteIdentifier (unquotedIdentifier As String) As String" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::String ^ QuoteIdentifier(System::String ^ unquotedIdentifier);" />
+      <MemberSignature Language="F#" Value="abstract member QuoteIdentifier : string -&gt; string&#xA;override this.QuoteIdentifier : string -&gt; string" Usage="dbCommandBuilder.QuoteIdentifier unquotedIdentifier" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -914,9 +951,9 @@
         <Parameter Name="unquotedIdentifier" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="unquotedIdentifier">Исходный идентификатор без кавычек.</param>
-        <summary>Если у идентификатора нет кавычек, при наличии правильного каталога возвращает правильную форму этого идентификатора, взятую в кавычки, при этом корректно избегает кавычек, встроенных в идентификатор.</summary>
-        <returns>Версия идентификатора, заключенного кавычки. Кавычки, встроенные в идентификатор, корректно игнорируются.</returns>
+        <param name="unquotedIdentifier">The original unquoted identifier.</param>
+        <summary>Given an unquoted identifier in the correct catalog case, returns the correct quoted form of that identifier, including properly escaping any embedded quotes in the identifier.</summary>
+        <returns>The quoted version of the identifier. Embedded quotes within the identifier are properly escaped.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -926,9 +963,11 @@
       <MemberSignature Language="DocId" Value="P:System.Data.Common.DbCommandBuilder.QuotePrefix" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Property QuotePrefix As String" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ QuotePrefix { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberSignature Language="F#" Value="member this.QuotePrefix : string with get, set" Usage="System.Data.Common.DbCommandBuilder.QuotePrefix" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -950,20 +989,20 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает или задает начальный символ или символы, используемые для указания объектов базы данных (например, таблиц или столбцов), имена которых содержат такие символы, как пробелы или зарезервированные токены.</summary>
-        <value>Используемый начальный символ или символы. Значение по умолчанию - пустая строка.</value>
+        <summary>Gets or sets the beginning character or characters to use when specifying database objects (for example, tables or columns) whose names contain characters such as spaces or reserved tokens.</summary>
+        <value>Начальный символ или символы. Значение по умолчанию - пустая строка.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Некоторые источники данных могут содержаться объекты, которые могут содержать символы, например пробелы, запятые и точки с запятой. Чтобы поддержать эту возможность, используйте <xref:System.Data.Common.DbCommandBuilder.QuotePrefix%2A> и <xref:System.Data.Common.DbCommandBuilder.QuoteSuffix%2A> свойства, чтобы указать разделители, такие как левая и правая скобка заключить имя объекта.  
+ Некоторые источники данных могут содержать объекты, которые могут содержать символы, например пробелы, запятые и точки с запятой. Чтобы поддержать эту возможность, используйте <xref:System.Data.Common.DbCommandBuilder.QuotePrefix%2A> и <xref:System.Data.Common.DbCommandBuilder.QuoteSuffix%2A> свойства, определяющие разделители, такие как левая и правая скобка для инкапсуляции имя объекта.  
   
 > [!NOTE]
->  Несмотря на то, что нельзя изменить <xref:System.Data.Common.DbCommandBuilder.QuotePrefix%2A> или <xref:System.Data.Common.DbCommandBuilder.QuoteSuffix%2A> свойства после вставки, обновления или удаления создана команда, их параметры можно изменить после вызова `Update` метод <xref:System.Data.Common.DbDataAdapter>.  
+>  Несмотря на то, что нельзя изменить <xref:System.Data.Common.DbCommandBuilder.QuotePrefix%2A> или <xref:System.Data.Common.DbCommandBuilder.QuoteSuffix%2A> свойства после вставки, обновления или удаления создания команды, их параметры можно изменить после вызова `Update` метод <xref:System.Data.Common.DbDataAdapter>.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">Это свойство не может быть изменено после создания команды INSERT, UPDATE или DELETE.</exception>
+        <exception cref="T:System.InvalidOperationException">This property cannot be changed after an insert, update, or delete command has been generated.</exception>
       </Docs>
     </Member>
     <Member MemberName="QuoteSuffix">
@@ -972,9 +1011,11 @@
       <MemberSignature Language="DocId" Value="P:System.Data.Common.DbCommandBuilder.QuoteSuffix" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Property QuoteSuffix As String" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ QuoteSuffix { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberSignature Language="F#" Value="member this.QuoteSuffix : string with get, set" Usage="System.Data.Common.DbCommandBuilder.QuoteSuffix" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -996,16 +1037,16 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Получает или задает конечный символ или символы, используемые для указания объектов базы данных (например, таблиц или столбцов), имена которых содержат такие символы, как пробелы или зарезервированные токены.</summary>
-        <value>Используемый конечный символ или символы. Значение по умолчанию - пустая строка.</value>
+        <summary>Gets or sets the ending character or characters to use when specifying database objects (for example, tables or columns) whose names contain characters such as spaces or reserved tokens.</summary>
+        <value>Конечный символ или символы, используемые. Значение по умолчанию - пустая строка.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Некоторые источники данных могут содержаться объекты, которые могут содержать символы, например пробелы, запятые и точки с запятой. Чтобы поддержать эту возможность, используйте <xref:System.Data.Common.DbCommandBuilder.QuotePrefix%2A> и <xref:System.Data.Common.DbCommandBuilder.QuoteSuffix%2A> свойства, чтобы указать разделители, такие как левая и правая скобка заключить имя объекта.  
+ Некоторые источники данных могут содержать объекты, которые могут содержать символы, например пробелы, запятые и точки с запятой. Чтобы поддержать эту возможность, используйте <xref:System.Data.Common.DbCommandBuilder.QuotePrefix%2A> и <xref:System.Data.Common.DbCommandBuilder.QuoteSuffix%2A> свойства, определяющие разделители, такие как левая и правая скобка для инкапсуляции имя объекта.  
   
 > [!NOTE]
->  Несмотря на то, что нельзя изменить <xref:System.Data.Common.DbCommandBuilder.QuotePrefix%2A> или <xref:System.Data.Common.DbCommandBuilder.QuoteSuffix%2A> свойства после вставки, обновления или удаления создана команда, их параметры можно изменить после вызова `Update` метод <xref:System.Data.Common.DbDataAdapter>.  
+>  Несмотря на то, что нельзя изменить <xref:System.Data.Common.DbCommandBuilder.QuotePrefix%2A> или <xref:System.Data.Common.DbCommandBuilder.QuoteSuffix%2A> свойства после вставки, обновления или удаления создания команды, их параметры можно изменить после вызова `Update` метод <xref:System.Data.Common.DbDataAdapter>.  
   
  ]]></format>
         </remarks>
@@ -1017,9 +1058,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.RefreshSchema" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Sub RefreshSchema ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual void RefreshSchema();" />
+      <MemberSignature Language="F#" Value="abstract member RefreshSchema : unit -&gt; unit&#xA;override this.RefreshSchema : unit -&gt; unit" Usage="dbCommandBuilder.RefreshSchema " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1037,12 +1080,12 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Очищает команды, связанные с этим объектом <see cref="T:System.Data.Common.DbCommandBuilder" />.</summary>
+        <summary>Clears the commands associated with this <see cref="T:System.Data.Common.DbCommandBuilder" />.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызов <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> метод удаляются все <xref:System.Data.Common.DbCommand> объектов ссылается <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A>,  
+ Вызов <xref:System.Data.Common.DbCommandBuilder.RefreshSchema%2A> метод удаляются все <xref:System.Data.Common.DbCommand> объекты ссылается <xref:System.Data.Common.DbDataAdapter.SelectCommand%2A>,  
   
  <xref:System.Data.Common.DbDataAdapter.UpdateCommand%2A>,  
   
@@ -1060,9 +1103,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.RowUpdatingHandler(System.Data.Common.RowUpdatingEventArgs)" />
       <MemberSignature Language="VB.NET" Value="Protected Sub RowUpdatingHandler (rowUpdatingEvent As RowUpdatingEventArgs)" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; void RowUpdatingHandler(System::Data::Common::RowUpdatingEventArgs ^ rowUpdatingEvent);" />
+      <MemberSignature Language="F#" Value="member this.RowUpdatingHandler : System.Data.Common.RowUpdatingEventArgs -&gt; unit" Usage="dbCommandBuilder.RowUpdatingHandler rowUpdatingEvent" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1082,8 +1127,8 @@
         <Parameter Name="rowUpdatingEvent" Type="System.Data.Common.RowUpdatingEventArgs" />
       </Parameters>
       <Docs>
-        <param name="rowUpdatingEvent">Экземпляр класса <see cref="T:System.Data.Common.RowUpdatingEventArgs" />, содержащий сведения о событии.</param>
-        <summary>Добавляет обработчик событий для события <see cref="E:System.Data.OleDb.OleDbDataAdapter.RowUpdating" />.</summary>
+        <param name="rowUpdatingEvent">A <see cref="T:System.Data.Common.RowUpdatingEventArgs" /> instance containing information about the event.</param>
+        <summary>Adds an event handler for the <see cref="E:System.Data.OleDb.OleDbDataAdapter.RowUpdating" /> event.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -1093,9 +1138,11 @@
       <MemberSignature Language="DocId" Value="P:System.Data.Common.DbCommandBuilder.SchemaSeparator" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Property SchemaSeparator As String" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual property System::String ^ SchemaSeparator { System::String ^ get(); void set(System::String ^ value); };" />
+      <MemberSignature Language="F#" Value="member this.SchemaSeparator : string with get, set" Usage="System.Data.Common.DbCommandBuilder.SchemaSeparator" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1117,13 +1164,13 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает или задает символ, который используется в качестве разделителя между идентификатором схемы и остальными идентификаторами.</summary>
-        <value>Символ, который необходимо использовать в схеме в качестве разделителя.</value>
+        <summary>Gets or sets the character to be used for the separator between the schema identifier and any other identifiers.</summary>
+        <value>Символ, используемый в качестве разделителя схемы.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Как правило серверы баз данных указать схему для идентификатора, имя схемы отделяют от идентификатора определенным символом. Например, SQL Server используется двоеточие, создаются полные идентификаторы, такие как **Person: CustomerName**, где «Person» — это имя схемы, а «CustomerName» — идентификатор. Задание этого свойства позволяет разработчикам изменять это поведение.  
+ Как правило серверы баз данных указать схему для идентификатора, отделив имя схемы от идентификатора определенным символом. Например, SQL Server используется двоеточие, создаются полные идентификаторы, такие как **Person: CustomerName**, где «Person» — это имя схемы, а «CustomerName» — это идентификатор. Задание этого свойства позволяет изменить это поведение.  
   
  ]]></format>
         </remarks>
@@ -1135,9 +1182,11 @@
       <MemberSignature Language="DocId" Value="P:System.Data.Common.DbCommandBuilder.SetAllValues" />
       <MemberSignature Language="VB.NET" Value="Public Property SetAllValues As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; property bool SetAllValues { bool get(); void set(bool value); };" />
+      <MemberSignature Language="F#" Value="member this.SetAllValues : bool with get, set" Usage="System.Data.Common.DbCommandBuilder.SetAllValues" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1159,14 +1208,14 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Указывает, включены все значения столбца в инструкции UPDATE или только измененные значения.</summary>
+        <summary>Specifies whether all column values in an update statement are included or only changed ones.</summary>
         <value>
-          Значение <see langword="true" />, если оператор UPDATE, созданный объектом <see cref="T:System.Data.Common.DbCommandBuilder" />, включает все столбцы; значение <see langword="false" />, если он включает только измененные столбцы.</value>
+          <see langword="true" /> Если инструкция UPDATE создано <see cref="T:System.Data.Common.DbCommandBuilder" /> включает все столбцы; <see langword="false" /> если он включает только измененные столбцы.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Инструкция UPDATE, создаваемых <xref:System.Data.Common.DbCommandBuilder> могут относиться обновления сведения о всех столбцов, или он может включать сведения только о тех столбцов, значения которых были изменены. Установка <xref:System.Data.Common.DbCommandBuilder.SetAllValues%2A> свойства `true` приводит к тому ли их значения были изменены или не включать все столбцы, созданные инструкции UPDATE.  
+ Инструкция UPDATE, создаваемых <xref:System.Data.Common.DbCommandBuilder> можно включить сведения об обновлениях, о всех столбцов, или он может включать сведения только об этих столбцов, значения которых были изменены. Установка <xref:System.Data.Common.DbCommandBuilder.SetAllValues%2A> свойства `true` вызывает создана инструкция UPDATE включить все столбцы, ли их значения были изменены или нет.  
   
  ]]></format>
         </remarks>
@@ -1178,9 +1227,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.SetRowUpdatingHandler(System.Data.Common.DbDataAdapter)" />
       <MemberSignature Language="VB.NET" Value="Protected MustOverride Sub SetRowUpdatingHandler (adapter As DbDataAdapter)" />
       <MemberSignature Language="C++ CLI" Value="protected:&#xA; abstract void SetRowUpdatingHandler(System::Data::Common::DbDataAdapter ^ adapter);" />
+      <MemberSignature Language="F#" Value="abstract member SetRowUpdatingHandler : System.Data.Common.DbDataAdapter -&gt; unit" Usage="dbCommandBuilder.SetRowUpdatingHandler adapter" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1200,13 +1251,13 @@
         <Parameter Name="adapter" Type="System.Data.Common.DbDataAdapter" />
       </Parameters>
       <Docs>
-        <param name="adapter">Объект <see cref="T:System.Data.Common.DbDataAdapter" />, который требуется использовать для обновления.</param>
-        <summary>Регистрирует объект <see cref="T:System.Data.Common.DbCommandBuilder" />, чтобы обработать событие <see cref="E:System.Data.OleDb.OleDbDataAdapter.RowUpdating" /> для объекта <see cref="T:System.Data.Common.DbDataAdapter" />.</summary>
+        <param name="adapter">The <see cref="T:System.Data.Common.DbDataAdapter" /> to be used for the update.</param>
+        <summary>Registers the <see cref="T:System.Data.Common.DbCommandBuilder" /> to handle the <see cref="E:System.Data.OleDb.OleDbDataAdapter.RowUpdating" /> event for a <see cref="T:System.Data.Common.DbDataAdapter" />.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод предназначен для использования разработчиками поставщик построения пользовательских построителей команд. При создании нового <xref:System.Data.Common.DbDataAdapter> добавляется <xref:System.Data.Common.DbCommandBuilder>, он зарегистрирован для DbDataAdapter **RowUpdating** событий. Если этот метод будет вызван повторно с тем же <xref:System.Data.Common.DbDataAdapter>, <xref:System.Data.Common.DbCommandBuilder> не зарегистрирован для этого DbDataAdapter **RowUpdating** событий.  
+ Этот метод предназначен для использования в создании пользовательского построителя команд разработчиков поставщиков. При создании нового <xref:System.Data.Common.DbDataAdapter> добавляется <xref:System.Data.Common.DbCommandBuilder>, он зарегистрирован для объект DbDataAdapter **RowUpdating** событий. Если этот метод вызывается снова с тем же <xref:System.Data.Common.DbDataAdapter>, <xref:System.Data.Common.DbCommandBuilder> не зарегистрирован для этого DbDataAdapter **RowUpdating** событий.  
   
  ]]></format>
         </remarks>
@@ -1218,9 +1269,11 @@
       <MemberSignature Language="DocId" Value="M:System.Data.Common.DbCommandBuilder.UnquoteIdentifier(System.String)" />
       <MemberSignature Language="VB.NET" Value="Public Overridable Function UnquoteIdentifier (quotedIdentifier As String) As String" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; virtual System::String ^ UnquoteIdentifier(System::String ^ quotedIdentifier);" />
+      <MemberSignature Language="F#" Value="abstract member UnquoteIdentifier : string -&gt; string&#xA;override this.UnquoteIdentifier : string -&gt; string" Usage="dbCommandBuilder.UnquoteIdentifier quotedIdentifier" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Data</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1240,9 +1293,9 @@
         <Parameter Name="quotedIdentifier" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="quotedIdentifier">Идентификатор, из которого будут удалены внедренные кавычки.</param>
-        <summary>Если у идентификатора есть кавычки, возвращает форму этого идентификатора без кавычек, при этом корректно учитывая кавычки, встроенные в идентификатор.</summary>
-        <returns>Идентификатор без кавычек, в котором встроенные кавычки корректно учтены.</returns>
+        <param name="quotedIdentifier">The identifier that will have its embedded quotes removed.</param>
+        <summary>Given a quoted identifier, returns the correct unquoted form of that identifier, including properly un-escaping any embedded quotes in the identifier.</summary>
+        <returns>The unquoted identifier, with embedded quotes properly un-escaped.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>

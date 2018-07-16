@@ -1,17 +1,18 @@
 <Type Name="EventWaitHandle" FullName="System.Threading.EventWaitHandle">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="04ca1c444cfd772670659b4609b267628b38c728" />
-    <Meta Name="ms.sourcegitcommit" Value="d31dc2ede16f6f7bc64e90d9f897ff54c4e3869b" />
+    <Meta Name="ms.openlocfilehash" Value="50ab23464dfb39568b212b158b072363ca378da6" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="04/03/2018" />
-    <Meta Name="ms.locfileid" Value="30531148" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37754736" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class EventWaitHandle : System.Threading.WaitHandle" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit EventWaitHandle extends System.Threading.WaitHandle" />
   <TypeSignature Language="DocId" Value="T:System.Threading.EventWaitHandle" />
   <TypeSignature Language="VB.NET" Value="Public Class EventWaitHandle&#xA;Inherits WaitHandle" />
   <TypeSignature Language="C++ CLI" Value="public ref class EventWaitHandle : System::Threading::WaitHandle" />
+  <TypeSignature Language="F#" Value="type EventWaitHandle = class&#xA;    inherit WaitHandle" />
   <AssemblyInfo>
     <AssemblyName>System.Threading</AssemblyName>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
@@ -21,6 +22,7 @@
   </AssemblyInfo>
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -38,32 +40,32 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>Представляет событие синхронизации потока.</summary>
+    <summary>Represents a thread synchronization event.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.EventWaitHandle> Класс позволяет потокам взаимодействовать друг с другом путем передачи сигналов. Как правило, один или несколько потоков блокируются на <xref:System.Threading.EventWaitHandle> до как незаблокированный поток вызовет <xref:System.Threading.EventWaitHandle.Set%2A> метод, освобождая один или несколько заблокированных потоков. Поток может сообщить <xref:System.Threading.EventWaitHandle> и затем заблокировать, путем вызова `static` (`Shared` в Visual Basic) <xref:System.Threading.WaitHandle.SignalAndWait%2A?displayProperty=nameWithType> метод.  
+ <xref:System.Threading.EventWaitHandle> Класс позволяет потокам взаимодействовать друг с другом, обмениваясь сигналами. Как правило, один или несколько потоков блокируются в <xref:System.Threading.EventWaitHandle> пока незаблокированный поток не вызовет <xref:System.Threading.EventWaitHandle.Set%2A> метод, освобождения одного или нескольких заблокированных потоков. Поток может сообщить <xref:System.Threading.EventWaitHandle> и затем заблокировать на нем, вызвав `static` (`Shared` в Visual Basic) <xref:System.Threading.WaitHandle.SignalAndWait%2A?displayProperty=nameWithType> метод.  
   
 > [!NOTE]
->  <xref:System.Threading.EventWaitHandle> Класс предоставляет доступ к под названием system события синхронизации.  
+>  <xref:System.Threading.EventWaitHandle> Класс предоставляет доступ к именованные системные события синхронизации.  
   
- Поведение <xref:System.Threading.EventWaitHandle> , было сообщено зависит от режима его сброса. <xref:System.Threading.EventWaitHandle> С <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг сбрасывается автоматически при получении сигнала после освобождения одного ожидающего потока. <xref:System.Threading.EventWaitHandle> С <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг получает сигнал до его <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод.  
+ Поведение <xref:System.Threading.EventWaitHandle> , было сообщено зависит от режима его сброса. <xref:System.Threading.EventWaitHandle> Созданные с помощью <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг сбрасывается автоматически после освобождения одиночного потока ожидания. <xref:System.Threading.EventWaitHandle> Созданные с помощью <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг остается сигнальным до его <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод.  
   
- События автоматического сброса предоставления монопольного доступа к ресурсу. Если событие с автоматическим сбросом создается при отсутствии потоков в состоянии ожидания, оно сохраняет свой статус, пока не получит обращение от потока. Тогда событие освобождает поток и немедленно сбрасывается, блокируя следующие потоки.  
+ События с автоматическим сбросом предоставляют эксклюзивный доступ к ресурсу. Если событие с автоматическим сбросом создается при отсутствии потоков в состоянии ожидания, оно сохраняет свой статус, пока не получит обращение от потока. Тогда событие освобождает поток и немедленно сбрасывается, блокируя следующие потоки.  
   
- События, как шлюзы ручного сброса. Когда событие не сигнализирует, блокирует потоки, ожидающие. Если событие сигнализирует, все ожидающие потоки освобождаются и событие получает сигнал (то есть последующие не блокируется) до его <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод. Ручной Сброс событий полезны, когда один поток должен завершить действие перед продолжением других потоков.  
+ Ручной Сброс событий как шлюзы. Когда событие не создано, потоки, ожидающие его блокирует. Если событие сигнализирует, все ожидающие потоки освобождаются и событие получает сигнал (то есть последующие не блокируется) пока его <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод. Ручной сброс события полезны, когда один поток должен завершить действие, прежде чем будет продолжена других потоков.  
   
  <xref:System.Threading.EventWaitHandle> объекты, которые могут использоваться с `static`(`Shared` в Visual Basic) <xref:System.Threading.WaitHandle.WaitAll%2A?displayProperty=nameWithType> и <xref:System.Threading.WaitHandle.WaitAny%2A?displayProperty=nameWithType> методы.  
   
- Дополнительные сведения о механизмах синхронизации потоков см. в разделе [EventWaitHandle, AutoResetEvent, CountdownEvent, ManualResetEvent](~/docs/standard/threading/eventwaithandle-autoresetevent-countdownevent-manualresetevent.md).  
+ Дополнительные сведения о механизмах синхронизации потоков, см. в разделе [EventWaitHandle, AutoResetEvent и ManualResetEvent](~/docs/standard/threading/eventwaithandle-autoresetevent-countdownevent-manualresetevent.md).  
   
    
   
 ## Examples  
- Следующий пример кода использует <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> перегрузка метода, чтобы разрешить основной поток отправлять сигнал заблокированный поток и подождите, пока поток завершает задачу.  
+ В следующем примере кода используется <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> перегруженный метод, чтобы разрешить основному потоку сигнала заблокированный поток и затем подождите, пока поток завершает задачу.  
   
- В примере запускается пять потоков и их можно заблокировать на <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг, а затем время один поток выпуски, пользователь нажимает клавишу ВВОД. Затем помещает в очередь другой пять потоков и освобождает их с помощью <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг.  
+ В примере запускается пять потоков и позволяет им блокировать на <xref:System.Threading.EventWaitHandle> созданные с помощью <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг, а затем времени одним потоком выпусков, пользователь нажимает клавишу ВВОД. Затем ставит в очередь другой пять потоков и освобождает их все с помощью <xref:System.Threading.EventWaitHandle> созданные с помощью <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг.  
   
  [!code-cpp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CS/source.cs#1)]
@@ -85,7 +87,7 @@
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Threading.EventWaitHandle" />.</summary>
+        <summary>Initializes a new instance of the <see cref="T:System.Threading.EventWaitHandle" /> class.</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName=".ctor">
@@ -94,6 +96,7 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.#ctor(System.Boolean,System.Threading.EventResetMode)" />
       <MemberSignature Language="VB.NET" Value="Public Sub New (initialState As Boolean, mode As EventResetMode)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; EventWaitHandle(bool initialState, System::Threading::EventResetMode mode);" />
+      <MemberSignature Language="F#" Value="new System.Threading.EventWaitHandle : bool * System.Threading.EventResetMode -&gt; System.Threading.EventWaitHandle" Usage="new System.Threading.EventWaitHandle (initialState, mode)" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Threading</AssemblyName>
@@ -104,6 +107,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -122,21 +126,21 @@
       </Parameters>
       <Docs>
         <param name="initialState">
-          Значение <see langword="true" /> для задания начального состояния сигнальным; <see langword="false" /> для задания несигнального начального состояния.</param>
-        <param name="mode">Одно из значений <see cref="T:System.Threading.EventResetMode" />, которое определяет, выполняется ли сброс события автоматически или вручную.</param>
-        <summary>Выполняет инициализацию нового экземпляра класса <see cref="T:System.Threading.EventWaitHandle" />, определяя, получает ли сигнал, ожидающий дескриптор, и производится ли сброс автоматически или вручную.</summary>
+          <see langword="true" /> to set the initial state to signaled; <see langword="false" /> to set it to nonsignaled.</param>
+        <param name="mode">One of the <see cref="T:System.Threading.EventResetMode" /> values that determines whether the event resets automatically or manually.</param>
+        <summary>Initializes a new instance of the <see cref="T:System.Threading.EventWaitHandle" /> class, specifying whether the wait handle is initially signaled, and whether it resets automatically or manually.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если начальное состояние события является несигнальным, потоки, которые ожидают события будет заблокирована. Если начальное состояние сигнальное и <xref:System.Threading.EventResetMode.ManualReset> флаг указан для `mode`, потоки, которые ожидают события не будет блокирована. Если начальное состояние сигнальное, и `mode` — <xref:System.Threading.EventResetMode.AutoReset>, первый поток, ожидающий события, немедленно освобождается, после чего событие сбрасывается, и последующие потоки блокируются.  
+ Если начальное состояние события является несигнальным, будет блокировать потоки, ожидающие события. Если начальное состояние переводится в сигнальное состояние и <xref:System.Threading.EventResetMode.ManualReset> установлен флаг для `mode`, не будет блокировать потоки, ожидающие события. Если начальное состояние переводится в сигнальное состояние, и `mode` является <xref:System.Threading.EventResetMode.AutoReset>, первый поток, который ожидает событие освобождается немедленно, после чего событие сбрасывается, и последующие потоки блокируются.  
   
    
   
 ## Examples  
- Следующий пример кода использует <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> перегрузка метода, чтобы разрешить основной поток отправлять сигнал заблокированный поток и подождите, пока поток завершает задачу.  
+ В следующем примере кода используется <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> перегруженный метод, чтобы разрешить основному потоку сигнала заблокированный поток и затем подождите, пока поток завершает задачу.  
   
- В примере запускается пять потоков и их можно заблокировать на <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг, а затем время один поток выпуски, пользователь нажимает клавишу ВВОД. Затем помещает в очередь другой пять потоков и освобождает их с помощью <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг.  
+ В примере запускается пять потоков и позволяет им блокировать на <xref:System.Threading.EventWaitHandle> созданные с помощью <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг, а затем времени одним потоком выпусков, пользователь нажимает клавишу ВВОД. Затем ставит в очередь другой пять потоков и освобождает их все с помощью <xref:System.Threading.EventWaitHandle> созданные с помощью <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг.  
   
  [!code-cpp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CS/source.cs#1)]
@@ -152,6 +156,7 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.#ctor(System.Boolean,System.Threading.EventResetMode,System.String)" />
       <MemberSignature Language="VB.NET" Value="Public Sub New (initialState As Boolean, mode As EventResetMode, name As String)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; EventWaitHandle(bool initialState, System::Threading::EventResetMode mode, System::String ^ name);" />
+      <MemberSignature Language="F#" Value="new System.Threading.EventWaitHandle : bool * System.Threading.EventResetMode * string -&gt; System.Threading.EventWaitHandle" Usage="new System.Threading.EventWaitHandle (initialState, mode, name)" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Threading</AssemblyName>
@@ -162,6 +167,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -181,31 +187,31 @@
       </Parameters>
       <Docs>
         <param name="initialState">
-          Значение <see langword="true" /> обозначает, что именованное событие получит исходное сигнальное состояние, если такое событие создается в результате этого вызова; значение <see langword="false" /> устанавливает несигнальное состояние.</param>
-        <param name="mode">Одно из значений <see cref="T:System.Threading.EventResetMode" />, которое определяет, выполняется ли сброс события автоматически или вручную.</param>
-        <param name="name">Имя события синхронизации на уровне системы.</param>
-        <summary>Выполняет инициализацию нового экземпляра класса <see cref="T:System.Threading.EventWaitHandle" />, определяющего получает ли сигнал дескриптор ожидания, если он был создан в результате данного вызова, сбрасывается ли он автоматически или вручную, а также имя системного события синхронизации.</summary>
+          <see langword="true" /> to set the initial state to signaled if the named event is created as a result of this call; <see langword="false" /> to set it to nonsignaled.</param>
+        <param name="mode">One of the <see cref="T:System.Threading.EventResetMode" /> values that determines whether the event resets automatically or manually.</param>
+        <param name="name">The name of a system-wide synchronization event.</param>
+        <summary>Initializes a new instance of the <see cref="T:System.Threading.EventWaitHandle" /> class, specifying whether the wait handle is initially signaled if created as a result of this call, whether it resets automatically or manually, and the name of a system synchronization event.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
  Если `name` — `null` или является пустой строкой, локальный <xref:System.Threading.EventWaitHandle> создается.  
   
- Если системное событие с именем, указанным для `name` уже существует параметр `initialState` параметр учитывается.  
+ Если системное событие с именем, указанным для `name` параметр уже существует, `initialState` параметр учитывается.  
   
 > [!IMPORTANT]
->  При использовании этого конструктора для именованного системного события, укажите `false` для `initialState`. Этот конструктор не предоставляет способ определить, был ли создан именованное системное событие, поэтому нельзя делать никаких предположений о состоянии именованного события. Чтобы определить, был ли создан события с заданным именем, используйте <xref:System.Threading.EventWaitHandle.%23ctor%28System.Boolean%2CSystem.Threading.EventResetMode%2CSystem.String%2CSystem.Boolean%40%29> конструктор или <xref:System.Threading.EventWaitHandle.%23ctor%28System.Boolean%2CSystem.Threading.EventResetMode%2CSystem.String%2CSystem.Boolean%40%2CSystem.Security.AccessControl.EventWaitHandleSecurity%29> конструктор.  
+>  При использовании этого конструктора для именованного системного события, укажите `false` для `initialState`. Этот конструктор предоставляет не может определить, было ли создано именованное системное событие, поэтому нельзя делать никаких предположений о состоянии именованного события. Чтобы определить, был ли создан именованного события, используйте <xref:System.Threading.EventWaitHandle.%23ctor%28System.Boolean%2CSystem.Threading.EventResetMode%2CSystem.String%2CSystem.Boolean%40%29> конструктор или <xref:System.Threading.EventWaitHandle.%23ctor%28System.Boolean%2CSystem.Threading.EventResetMode%2CSystem.String%2CSystem.Boolean%40%2CSystem.Security.AccessControl.EventWaitHandleSecurity%29> конструктор.  
   
- Если начальное состояние события является несигнальным, потоки, которые ожидают события будет заблокирована. Если начальное состояние сигнальное и <xref:System.Threading.EventResetMode.ManualReset> флаг указан для `mode`, потоки, которые ожидают события не будет блокирована. Если начальное состояние сигнальное, и `mode` — <xref:System.Threading.EventResetMode.AutoReset>, первый поток, ожидающий события, немедленно освобождается, после чего событие сбрасывается, и последующие потоки блокируются.  
+ Если начальное состояние события является несигнальным, будет блокировать потоки, ожидающие события. Если начальное состояние переводится в сигнальное состояние и <xref:System.Threading.EventResetMode.ManualReset> установлен флаг для `mode`, не будет блокировать потоки, ожидающие события. Если начальное состояние переводится в сигнальное состояние, и `mode` является <xref:System.Threading.EventResetMode.AutoReset>, первый поток, который ожидает событие освобождается немедленно, после чего событие сбрасывается, и последующие потоки блокируются.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.IO.IOException">Произошла ошибка Win32.</exception>
-        <exception cref="T:System.UnauthorizedAccessException">Именованное событие уже существует и имеет настройки управления доступом, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</exception>
-        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">Именованное событие нельзя создать; вероятно, дескриптор ожидания другого типа имеет то же имя.</exception>
+        <exception cref="T:System.IO.IOException">A Win32 error occurred.</exception>
+        <exception cref="T:System.UnauthorizedAccessException">The named event exists and has access control security, but the user does not have <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">The named event cannot be created, perhaps because a wait handle of a different type has the same name.</exception>
         <exception cref="T:System.ArgumentException">
-          Длина значения параметра <paramref name="name" /> превышает 260 символов.</exception>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+          <paramref name="name" /> is longer than 260 characters.</exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -214,6 +220,7 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.#ctor(System.Boolean,System.Threading.EventResetMode,System.String,System.Boolean@)" />
       <MemberSignature Language="VB.NET" Value="Public Sub New (initialState As Boolean, mode As EventResetMode, name As String, ByRef createdNew As Boolean)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; EventWaitHandle(bool initialState, System::Threading::EventResetMode mode, System::String ^ name, [Runtime::InteropServices::Out] bool % createdNew);" />
+      <MemberSignature Language="F#" Value="new System.Threading.EventWaitHandle : bool * System.Threading.EventResetMode * string *  -&gt; System.Threading.EventWaitHandle" Usage="new System.Threading.EventWaitHandle (initialState, mode, name, createdNew)" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Threading</AssemblyName>
@@ -224,6 +231,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -244,27 +252,27 @@
       </Parameters>
       <Docs>
         <param name="initialState">
-          Значение <see langword="true" /> обозначает, что именованное событие получит исходное сигнальное состояние, если такое событие создается в результате этого вызова; значение <see langword="false" /> устанавливает несигнальное состояние.</param>
-        <param name="mode">Одно из значений <see cref="T:System.Threading.EventResetMode" />, которое определяет, выполняется ли сброс события автоматически или вручную.</param>
-        <param name="name">Имя события синхронизации на уровне системы.</param>
-        <param name="createdNew">При завершении работы метода содержит значение <see langword="true" />, если было создано локальное событие (то есть если параметр <c>name</c> имеет значение <see langword="null" /> или содержит пустую строку) или заданное именованное системное событие; или значение <see langword="false" />, если указанное именованное событие уже существовало. Этот параметр передается неинициализированным.</param>
-        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Threading.EventWaitHandle" /> и указывает следующие сведения: передавать ли сигнал в дескриптор ожидания при первичном запуске в результате этого вызова; выполнять ли сброс автоматически или вручную; имя системного события синхронизации; логическая переменная для сохранения информации о том, было ли создано именованное системное событие.</summary>
+          <see langword="true" /> to set the initial state to signaled if the named event is created as a result of this call; <see langword="false" /> to set it to nonsignaled.</param>
+        <param name="mode">One of the <see cref="T:System.Threading.EventResetMode" /> values that determines whether the event resets automatically or manually.</param>
+        <param name="name">The name of a system-wide synchronization event.</param>
+        <param name="createdNew">When this method returns, contains <see langword="true" /> if a local event was created (that is, if <c>name</c> is <see langword="null" /> or an empty string) or if the specified named system event was created; <see langword="false" /> if the specified named system event already existed. This parameter is passed uninitialized.</param>
+        <summary>Initializes a new instance of the <see cref="T:System.Threading.EventWaitHandle" /> class, specifying whether the wait handle is initially signaled if created as a result of this call, whether it resets automatically or manually, the name of a system synchronization event, and a Boolean variable whose value after the call indicates whether the named system event was created.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если системное событие с именем, указанным для `name` уже существует параметр `initialState` параметр учитывается. После вызова этого конструктора, используйте значение в переменной, указанной для `ref` параметра (`ByRef` в Visual Basic)`createdNew` для определения именованного системного события уже существует или был создан.  
+ Если системное событие с именем, указанным для `name` параметр уже существует, `initialState` параметр учитывается. После вызова этого конструктора, используйте значение в переменной, указанной для `ref` параметра (`ByRef` в Visual Basic)`createdNew` определить именованное системное событие уже существует или был создан.  
   
- Если начальное состояние события является несигнальным, потоки, которые ожидают события будет заблокирована. Если начальное состояние сигнальное и <xref:System.Threading.EventResetMode.ManualReset> флаг указан для `mode`, потоки, которые ожидают события не будет блокирована. Если начальное состояние сигнальное, и `mode` — <xref:System.Threading.EventResetMode.AutoReset>, первый поток, ожидающий события, немедленно освобождается, после чего событие сбрасывается, и последующие потоки блокируются.  
+ Если начальное состояние события является несигнальным, будет блокировать потоки, ожидающие события. Если начальное состояние переводится в сигнальное состояние и <xref:System.Threading.EventResetMode.ManualReset> установлен флаг для `mode`, не будет блокировать потоки, ожидающие события. Если начальное состояние переводится в сигнальное состояние, и `mode` является <xref:System.Threading.EventResetMode.AutoReset>, первый поток, который ожидает событие освобождается немедленно, после чего событие сбрасывается, и последующие потоки блокируются.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.IO.IOException">Произошла ошибка Win32.</exception>
-        <exception cref="T:System.UnauthorizedAccessException">Именованное событие уже существует и имеет настройки управления доступом, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</exception>
-        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">Именованное событие нельзя создать; вероятно, дескриптор ожидания другого типа имеет то же имя.</exception>
+        <exception cref="T:System.IO.IOException">A Win32 error occurred.</exception>
+        <exception cref="T:System.UnauthorizedAccessException">The named event exists and has access control security, but the user does not have <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">The named event cannot be created, perhaps because a wait handle of a different type has the same name.</exception>
         <exception cref="T:System.ArgumentException">
-          Длина значения параметра <paramref name="name" /> превышает 260 символов.</exception>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+          <paramref name="name" /> is longer than 260 characters.</exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -273,9 +281,11 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.#ctor(System.Boolean,System.Threading.EventResetMode,System.String,System.Boolean@,System.Security.AccessControl.EventWaitHandleSecurity)" />
       <MemberSignature Language="VB.NET" Value="Public Sub New (initialState As Boolean, mode As EventResetMode, name As String, ByRef createdNew As Boolean, eventSecurity As EventWaitHandleSecurity)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; EventWaitHandle(bool initialState, System::Threading::EventResetMode mode, System::String ^ name, [Runtime::InteropServices::Out] bool % createdNew, System::Security::AccessControl::EventWaitHandleSecurity ^ eventSecurity);" />
+      <MemberSignature Language="F#" Value="new System.Threading.EventWaitHandle : bool * System.Threading.EventResetMode * string *  * System.Security.AccessControl.EventWaitHandleSecurity -&gt; System.Threading.EventWaitHandle" Usage="new System.Threading.EventWaitHandle (initialState, mode, name, createdNew, eventSecurity)" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -293,39 +303,39 @@
       </Parameters>
       <Docs>
         <param name="initialState">
-          Значение <see langword="true" /> обозначает, что именованное событие получит исходное сигнальное состояние, если такое событие создается в результате этого вызова; значение <see langword="false" /> устанавливает несигнальное состояние.</param>
-        <param name="mode">Одно из значений <see cref="T:System.Threading.EventResetMode" />, которое определяет, выполняется ли сброс события автоматически или вручную.</param>
-        <param name="name">Имя события синхронизации на уровне системы.</param>
-        <param name="createdNew">При завершении работы метода содержит значение <see langword="true" />, если было создано локальное событие (то есть если параметр <c>name</c> имеет значение <see langword="null" /> или содержит пустую строку) или заданное именованное системное событие; или значение <see langword="false" />, если указанное именованное событие уже существовало. Этот параметр передается неинициализированным.</param>
-        <param name="eventSecurity">Объект <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" />, определяющий настройки управления доступом для применения к именованному системному событию.</param>
-        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Threading.EventWaitHandle" /> с указанием следующих сведений: передавать ли сигнал в дескриптор ожидания при первичном запуске в результате этого вызова, выполнять ли сброс автоматически или вручную, имя системного события синхронизации, логическая переменная для сохранения информации о том, было ли создано именованное системное событие, правила управления доступом для именованного события, если оно создается.</summary>
+          <see langword="true" /> to set the initial state to signaled if the named event is created as a result of this call; <see langword="false" /> to set it to nonsignaled.</param>
+        <param name="mode">One of the <see cref="T:System.Threading.EventResetMode" /> values that determines whether the event resets automatically or manually.</param>
+        <param name="name">The name of a system-wide synchronization event.</param>
+        <param name="createdNew">When this method returns, contains <see langword="true" /> if a local event was created (that is, if <c>name</c> is <see langword="null" /> or an empty string) or if the specified named system event was created; <see langword="false" /> if the specified named system event already existed. This parameter is passed uninitialized.</param>
+        <param name="eventSecurity">An <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" /> object that represents the access control security to be applied to the named system event.</param>
+        <summary>Initializes a new instance of the <see cref="T:System.Threading.EventWaitHandle" /> class, specifying whether the wait handle is initially signaled if created as a result of this call, whether it resets automatically or manually, the name of a system synchronization event, a Boolean variable whose value after the call indicates whether the named system event was created, and the access control security to be applied to the named event if it is created.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот конструктор используется для применения безопасности управления доступом для именованного системного события при его создании, чтобы предотвратить возможность управления событием другого кода.  
+ Этот конструктор используется для применения управления доступом для именованного системного события при его создании, чтобы предотвратить возможность управления события другого кода.  
   
- Этот конструктор инициализирует <xref:System.Threading.EventWaitHandle> , представляющий событие системы. Можно создать несколько <xref:System.Threading.EventWaitHandle> объекты, которые представляют одно и то же событие системы.  
+ Этот конструктор инициализирует <xref:System.Threading.EventWaitHandle> объект, представляющий системное событие. Вы можете создать несколько <xref:System.Threading.EventWaitHandle> объектов, представляющих одно и то же событие системы.  
   
- Если системное событие не существует, он создается с указанными управления доступом. Если событие существует, указанные настройки управления доступом учитывается.  
+ Если системное событие не существует, он создается с указанного элемента управления доступом. Если событие существует, указанный управления доступом учитывается.  
   
 > [!NOTE]
->  Вызывающий оператор имеет полный контроль над только что созданный <xref:System.Threading.EventWaitHandle> объект, даже если `eventSecurity` запрещает или не может предоставить некоторые права доступа для текущего пользователя. Тем не менее если текущий пользователь пытается получить другой <xref:System.Threading.EventWaitHandle> объекта представляют одинаковую меру с именем события, с помощью конструктора или <xref:System.Threading.EventWaitHandle.OpenExisting%2A> метод применяется безопасность управления доступом Windows.  
+>  Вызывающий объект имеет полный контроль над только что созданный <xref:System.Threading.EventWaitHandle> объект, даже если `eventSecurity` запрещает или не удалось предоставить некоторые права доступа для текущего пользователя. Тем не менее если текущий пользователь пытается получить другой <xref:System.Threading.EventWaitHandle> объекта представляют одинаковую меру с именем события, с помощью конструктора или <xref:System.Threading.EventWaitHandle.OpenExisting%2A> метод применения управления доступом Windows.  
   
- Если системное событие с именем, указанным для `name` уже существует параметр `initialState` параметр учитывается. После вызова этого конструктора, используйте значение в переменной, указанной для `ref` параметра (`ByRef` в Visual Basic) `createdNew` для определения именованного системного события уже существует или был создан.  
+ Если системное событие с именем, указанным для `name` параметр уже существует, `initialState` параметр учитывается. После вызова этого конструктора, используйте значение в переменной, указанной для `ref` параметра (`ByRef` в Visual Basic) `createdNew` определить именованное системное событие уже существует или был создан.  
   
- Если начальное состояние события является несигнальным, потоки, которые ожидают события будет заблокирована. Если начальное состояние сигнальное и <xref:System.Threading.EventResetMode.ManualReset> флаг указан для `mode`, потоки, которые ожидают события не будет блокирована. Если начальное состояние сигнальное, и `mode` — <xref:System.Threading.EventResetMode.AutoReset>, первый поток, ожидающий события, немедленно освобождается, после чего событие сбрасывается, и последующие потоки блокируются.  
+ Если начальное состояние события является несигнальным, будет блокировать потоки, ожидающие события. Если начальное состояние переводится в сигнальное состояние и <xref:System.Threading.EventResetMode.ManualReset> установлен флаг для `mode`, не будет блокировать потоки, ожидающие события. Если начальное состояние переводится в сигнальное состояние, и `mode` является <xref:System.Threading.EventResetMode.AutoReset>, первый поток, который ожидает событие освобождается немедленно, после чего событие сбрасывается, и последующие потоки блокируются.  
   
    
   
 ## Examples  
- В следующем примере кода демонстрируется поведение между процессами именованного системного события с безопасность управления доступом. В этом примере <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода для проверки на наличие события с заданным именем.  
+ В следующем примере кода демонстрируется поведение между процессами именованное системное событие с помощью управления доступом. В примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегруженный метод для проверки на существование именованного события.  
   
- Если событие не существует, она создается с изначального владения и управления доступом, запрещают текущему пользователю использовать событие, но предоставляет право на чтение и изменение разрешений на событие.  
+ Если событие не существует, он создается с изначальным владельцем, а также безопасность управления доступом, который запрещает право использовать события для текущего пользователя, но не дает право на чтение и изменение разрешений события.  
   
- При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>. Исключение перехватывается, а в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода для ожидания события с права, необходимые для чтения и изменения разрешений.  
+ Если запустить скомпилированный пример два командных окна, вторую копию вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>. Порождено исключение, и в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегруженный метод для ожидания события с помощью прав, необходимых для чтения и изменения разрешений.  
   
- После изменения разрешений, событие открывается с права, необходимые для ожидания и сигнал. При запуске скомпилированный пример в третьем командном окне, в этом примере запускается с помощью новых разрешений.  
+ После изменения разрешений, событие открыт с помощью прав, необходимых для ожидания и сигнал. При запуске скомпилированный пример в третьем окне команды в этом примере запускается с помощью новых разрешений.  
   
  [!code-cpp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CS/source.cs#1)]
@@ -333,12 +343,12 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.IO.IOException">Произошла ошибка Win32.</exception>
-        <exception cref="T:System.UnauthorizedAccessException">Именованное событие уже существует и имеет настройки управления доступом, но пользователь не имеет прав <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</exception>
-        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">Именованное событие нельзя создать; вероятно, дескриптор ожидания другого типа имеет то же имя.</exception>
+        <exception cref="T:System.IO.IOException">A Win32 error occurred.</exception>
+        <exception cref="T:System.UnauthorizedAccessException">The named event exists and has access control security, but the user does not have <see cref="F:System.Security.AccessControl.EventWaitHandleRights.FullControl" />.</exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">The named event cannot be created, perhaps because a wait handle of a different type has the same name.</exception>
         <exception cref="T:System.ArgumentException">
-          Длина значения параметра <paramref name="name" /> превышает 260 символов.</exception>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+          <paramref name="name" /> is longer than 260 characters.</exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName="GetAccessControl">
@@ -347,9 +357,11 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.GetAccessControl" />
       <MemberSignature Language="VB.NET" Value="Public Function GetAccessControl () As EventWaitHandleSecurity" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Security::AccessControl::EventWaitHandleSecurity ^ GetAccessControl();" />
+      <MemberSignature Language="F#" Value="member this.GetAccessControl : unit -&gt; System.Security.AccessControl.EventWaitHandleSecurity" Usage="eventWaitHandle.GetAccessControl " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -363,26 +375,26 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает объект <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" />, представляющий управление доступом для именованного системного события, представленного объектом <see cref="T:System.Threading.EventWaitHandle" />.</summary>
-        <returns>Объект <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" />, представляющий управление доступом для именованного системного события.</returns>
+        <summary>Gets an <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" /> object that represents the access control security for the named system event represented by the current <see cref="T:System.Threading.EventWaitHandle" /> object.</summary>
+        <returns>An <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" /> object that represents the access control security for the named system event.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.EventWaitHandle.GetAccessControl%2A> Метод используется комбинация следующих (объединены с помощью битовой операции OR) флагов для поиска для разрешения: <xref:System.Security.AccessControl.AccessControlSections.Access?displayProperty=nameWithType>, <xref:System.Security.AccessControl.AccessControlSections.Owner?displayProperty=nameWithType>, и <xref:System.Security.AccessControl.AccessControlSections.Group?displayProperty=nameWithType>.  
+ <xref:System.Threading.EventWaitHandle.GetAccessControl%2A> Методе используется комбинация флагов (в сочетании с помощью побитовой операции OR) для поиска для разрешения: <xref:System.Security.AccessControl.AccessControlSections.Access?displayProperty=nameWithType>, <xref:System.Security.AccessControl.AccessControlSections.Owner?displayProperty=nameWithType>, и <xref:System.Security.AccessControl.AccessControlSections.Group?displayProperty=nameWithType>.  
   
- Пользователь должен иметь <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions?displayProperty=nameWithType> правами для вызова этого метода и события должен быть открыт с <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions?displayProperty=nameWithType> флаг.  
+ Пользователь должен иметь <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions?displayProperty=nameWithType> права для вызова этого метода и события должен быть открыт с <xref:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions?displayProperty=nameWithType> флаг.  
   
    
   
 ## Examples  
- В следующем примере кода демонстрируется поведение между процессами именованного системного события с безопасность управления доступом. В этом примере <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода для проверки на наличие события с заданным именем.  
+ В следующем примере кода демонстрируется поведение между процессами именованное системное событие с помощью управления доступом. В примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегруженный метод для проверки на существование именованного события.  
   
- Если событие не существует, она создается с изначального владения и управления доступом, запрещают текущему пользователю использовать событие, но предоставляет право на чтение и изменение разрешений на событие.  
+ Если событие не существует, он создается с изначальным владельцем, а также безопасность управления доступом, который запрещает право использовать события для текущего пользователя, но не дает право на чтение и изменение разрешений события.  
   
- При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>. Исключение перехватывается, а в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода для ожидания события с права, необходимые для чтения и изменения разрешений.  
+ Если запустить скомпилированный пример два командных окна, вторую копию вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>. Порождено исключение, и в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегруженный метод для ожидания события с помощью прав, необходимых для чтения и изменения разрешений.  
   
- После разрешения были прочитаны с помощью <xref:System.Threading.EventWaitHandle.GetAccessControl%2A> метод, и изменения, событие открывается с права, необходимые для ожидания и сигнал. При запуске скомпилированный пример в третьем командном окне, в этом примере запускается с помощью новых разрешений.  
+ После разрешения были прочитаны с помощью <xref:System.Threading.EventWaitHandle.GetAccessControl%2A> метод, и изменении события открыт с помощью прав, необходимых для ожидания и сигнал. При запуске скомпилированный пример в третьем окне команды в этом примере запускается с помощью новых разрешений.  
   
  [!code-cpp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CS/source.cs#1)]
@@ -390,13 +402,9 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.UnauthorizedAccessException">Текущий объект <see cref="T:System.Threading.EventWaitHandle" /> представляет именованное системное событие, а пользователь не имеет прав <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions" />.  
-  
- - или -  
-  
- Текущий объект <see cref="T:System.Threading.EventWaitHandle" /> представляет именованное системное событие, но оно не было открыто с правами <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions" />.</exception>
-        <exception cref="T:System.NotSupportedException">Не поддерживается для Windows 98 или Windows Millennium Edition.</exception>
-        <exception cref="T:System.ObjectDisposedException">Для данного объекта <see cref="M:System.Threading.WaitHandle.Close" /> ранее вызывался метод <see cref="T:System.Threading.EventWaitHandle" />.</exception>
+        <exception cref="T:System.UnauthorizedAccessException">The current <see cref="T:System.Threading.EventWaitHandle" /> object represents a named system event, and the user does not have <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions" />.  -or-  The current <see cref="T:System.Threading.EventWaitHandle" /> object represents a named system event, and was not opened with <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ReadPermissions" />.</exception>
+        <exception cref="T:System.NotSupportedException">Not supported for Windows 98 or Windows Millennium Edition.</exception>
+        <exception cref="T:System.ObjectDisposedException">The <see cref="M:System.Threading.WaitHandle.Close" /> method was previously called on this <see cref="T:System.Threading.EventWaitHandle" />.</exception>
       </Docs>
     </Member>
     <MemberGroup MemberName="OpenExisting">
@@ -407,7 +415,7 @@
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Открывает указанное именованное событие синхронизации, если оно уже существует.</summary>
+        <summary>Opens a specified named synchronization event, if it already exists.</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="OpenExisting">
@@ -416,6 +424,7 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.OpenExisting(System.String)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function OpenExisting (name As String) As EventWaitHandle" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::EventWaitHandle ^ OpenExisting(System::String ^ name);" />
+      <MemberSignature Language="F#" Value="static member OpenExisting : string -&gt; System.Threading.EventWaitHandle" Usage="System.Threading.EventWaitHandle.OpenExisting name" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Threading</AssemblyName>
@@ -426,6 +435,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -445,31 +455,31 @@
         <Parameter Name="name" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="name">Имя системного события синхронизации, которое нужно открыть.</param>
-        <summary>Открывает указанное именованное событие синхронизации, если оно уже существует.</summary>
-        <returns>Объект, представляющий именованное системное событие.</returns>
+        <param name="name">The name of the system synchronization event to open.</param>
+        <summary>Opens the specified named synchronization event, if it already exists.</summary>
+        <returns>An  object that represents the named system event.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.EventWaitHandle.OpenExisting%2A> Метод пытается открыть указанного именованного системного события. Если системное событие не существует, этот метод выдает исключение вместо создания системного события. Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.  
+ <xref:System.Threading.EventWaitHandle.OpenExisting%2A> Метод пытается открыть заданное именованное системное событие. Если системное событие не существует, этот метод выдает исключение вместо создания системного события. Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.  
   
- Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют того же именованного системного события.  
+ Несколько вызовов этого метода, используйте то же значение для `name` не возвращают обязательно же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют один и то же именованное системное событие.  
   
- Эта перегрузка метода эквивалентен вызову <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегруженный метод и указывая <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> прав, объединяются с помощью битовой операции или.  
+ Эта перегрузка метода эквивалентен вызову <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузку метода с указанием <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> права, объединяются с помощью побитовой операции или.  
   
- Указание <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг позволяет потоку ожидать на именованного системного события и указав <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг позволяет потоку для вызова <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.  
+ Указание <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг позволяет потоку ожидать на именованное системное событие с указанием <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг позволяет потоку на вызов метода <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.  
   
    
   
 ## Examples  
- В следующем примере кода демонстрируется поведение между процессами именованного системного события с безопасность управления доступом. В этом примере <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода для проверки на наличие события с заданным именем.  
+ В следующем примере кода демонстрируется поведение между процессами именованное системное событие с помощью управления доступом. В примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегруженный метод для проверки на существование именованного события.  
   
- Если событие не существует, она создается с изначального владения и управления доступом, запрещают текущему пользователю использовать событие, но предоставляет право на чтение и изменение разрешений на событие.  
+ Если событие не существует, он создается с изначальным владельцем, а также безопасность управления доступом, который запрещает право использовать события для текущего пользователя, но не дает право на чтение и изменение разрешений события.  
   
- При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>. Исключение перехватывается, а в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода для ожидания события с права, необходимые для чтения и изменения разрешений.  
+ Если запустить скомпилированный пример два командных окна, вторую копию вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>. Порождено исключение, и в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегруженный метод для ожидания события с помощью прав, необходимых для чтения и изменения разрешений.  
   
- После изменения разрешений, событие открывается с права, необходимые для ожидания и сигнал. При запуске скомпилированный пример в третьем командном окне, в этом примере запускается с помощью новых разрешений.  
+ После изменения разрешений, событие открыт с помощью прав, необходимых для ожидания и сигнал. При запуске скомпилированный пример в третьем окне команды в этом примере запускается с помощью новых разрешений.  
   
  [!code-cpp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CS/source.cs#1)]
@@ -478,17 +488,13 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">
-          Параметр <paramref name="name" /> равен пустой строке.  
-  
- - или -  
-  
- Длина значения параметра <paramref name="name" /> превышает 260 символов.</exception>
+          <paramref name="name" /> is an empty string.  -or-  <paramref name="name" /> is longer than 260 characters.</exception>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="name" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">Именованное системное событие не существует.</exception>
-        <exception cref="T:System.IO.IOException">Произошла ошибка Win32.</exception>
-        <exception cref="T:System.UnauthorizedAccessException">Именованное событие существует, но у пользователя нет необходимых для его использования прав доступа.</exception>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+          <paramref name="name" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">The named system event does not exist.</exception>
+        <exception cref="T:System.IO.IOException">A Win32 error occurred.</exception>
+        <exception cref="T:System.UnauthorizedAccessException">The named event exists, but the user does not have the security access required to use it.</exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName="OpenExisting">
@@ -497,9 +503,11 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.OpenExisting(System.String,System.Security.AccessControl.EventWaitHandleRights)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function OpenExisting (name As String, rights As EventWaitHandleRights) As EventWaitHandle" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static System::Threading::EventWaitHandle ^ OpenExisting(System::String ^ name, System::Security::AccessControl::EventWaitHandleRights rights);" />
+      <MemberSignature Language="F#" Value="static member OpenExisting : string * System.Security.AccessControl.EventWaitHandleRights -&gt; System.Threading.EventWaitHandle" Usage="System.Threading.EventWaitHandle.OpenExisting (name, rights)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -516,30 +524,30 @@
         <Parameter Name="rights" Type="System.Security.AccessControl.EventWaitHandleRights" />
       </Parameters>
       <Docs>
-        <param name="name">Имя системного события синхронизации, которое нужно открыть.</param>
-        <param name="rights">Битовая комбинация значений перечисления, которые определяют желаемые права доступа.</param>
-        <summary>Открывает указанное именованное событие синхронизации, если оно уже существует, с требуемыми правами доступа.</summary>
-        <returns>Объект, представляющий именованное системное событие.</returns>
+        <param name="name">The name of the system synchronization event to open.</param>
+        <param name="rights">A bitwise combination of the enumeration values that represent the desired security access.</param>
+        <summary>Opens the specified named synchronization event, if it already exists, with the desired security access.</summary>
+        <returns>An object that represents the named system event.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- `rights` Необходимо включить параметр <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг для освобождения потоков ожидают события и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг, чтобы разрешить потоков для вызова <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.  
+ `rights` Параметр должен содержать <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг, чтобы разрешить потоков для ожидания события и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг, чтобы разрешить потокам вызывать <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.  
   
- <xref:System.Threading.EventWaitHandle.OpenExisting%2A> Метод пытается открыть существующего именованного системного события. Если системное событие не существует, этот метод выдает исключение вместо создания системного события. Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.  
+ <xref:System.Threading.EventWaitHandle.OpenExisting%2A> Метод пытается открыть существующее именованное системное событие. Если системное событие не существует, этот метод выдает исключение вместо создания системного события. Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.  
   
- Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют того же именованного системного события.  
+ Несколько вызовов этого метода, используйте то же значение для `name` не возвращают обязательно же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют один и то же именованное системное событие.  
   
    
   
 ## Examples  
- В следующем примере кода демонстрируется поведение между процессами именованного системного события с безопасность управления доступом. В этом примере <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода для проверки на наличие события с заданным именем.  
+ В следующем примере кода демонстрируется поведение между процессами именованное системное событие с помощью управления доступом. В примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегруженный метод для проверки на существование именованного события.  
   
- Если событие не существует, она создается с изначального владения и управления доступом, запрещают текущему пользователю использовать событие, но предоставляет право на чтение и изменение разрешений на событие.  
+ Если событие не существует, он создается с изначальным владельцем, а также безопасность управления доступом, который запрещает право использовать события для текущего пользователя, но не дает право на чтение и изменение разрешений события.  
   
- При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>. Исключение перехватывается, а в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода для ожидания события с права, необходимые для чтения и изменения разрешений.  
+ Если запустить скомпилированный пример два командных окна, вторую копию вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>. Порождено исключение, и в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегруженный метод для ожидания события с помощью прав, необходимых для чтения и изменения разрешений.  
   
- После изменения разрешений, событие открывается с права, необходимые для ожидания и сигнал. При запуске скомпилированный пример в третьем командном окне, в этом примере запускается с помощью новых разрешений.  
+ После изменения разрешений, событие открыт с помощью прав, необходимых для ожидания и сигнал. При запуске скомпилированный пример в третьем окне команды в этом примере запускается с помощью новых разрешений.  
   
  [!code-cpp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CS/source.cs#1)]
@@ -548,17 +556,13 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">
-          Параметр <paramref name="name" /> равен пустой строке.  
-  
- - или -  
-  
- Длина значения параметра <paramref name="name" /> превышает 260 символов.</exception>
+          <paramref name="name" /> is an empty string.  -or-  <paramref name="name" /> is longer than 260 characters.</exception>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="name" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">Именованное системное событие не существует.</exception>
-        <exception cref="T:System.IO.IOException">Произошла ошибка Win32.</exception>
-        <exception cref="T:System.UnauthorizedAccessException">Именованное событие уже существует, но пользователь не имеет требуемых прав для безопасного доступа.</exception>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+          <paramref name="name" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.Threading.WaitHandleCannotBeOpenedException">The named system event does not exist.</exception>
+        <exception cref="T:System.IO.IOException">A Win32 error occurred.</exception>
+        <exception cref="T:System.UnauthorizedAccessException">The named event exists, but the user does not have the desired security access.</exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName="Reset">
@@ -567,6 +571,7 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.Reset" />
       <MemberSignature Language="VB.NET" Value="Public Function Reset () As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; bool Reset();" />
+      <MemberSignature Language="F#" Value="member this.Reset : unit -&gt; bool" Usage="eventWaitHandle.Reset " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Threading</AssemblyName>
@@ -577,6 +582,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -594,11 +600,11 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Задает несигнальное состояние события, вызывая блокирование потоков.</summary>
+        <summary>Sets the state of the event to nonsignaled, causing threads to block.</summary>
         <returns>
-          <see langword="true" />, если операция прошла успешно; в противном случае — <see langword="false" />.</returns>
+          <see langword="true" /> if the operation succeeds; otherwise, <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ObjectDisposedException">Для данного объекта <see cref="M:System.Threading.WaitHandle.Close" /> ранее вызывался метод <see cref="T:System.Threading.EventWaitHandle" />.</exception>
+        <exception cref="T:System.ObjectDisposedException">The <see cref="M:System.Threading.WaitHandle.Close" /> method was previously called on this <see cref="T:System.Threading.EventWaitHandle" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="Set">
@@ -607,6 +613,7 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.Set" />
       <MemberSignature Language="VB.NET" Value="Public Function Set () As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; bool Set();" />
+      <MemberSignature Language="F#" Value="member this.Set : unit -&gt; bool" Usage="eventWaitHandle.Set " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Threading</AssemblyName>
@@ -617,6 +624,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -634,26 +642,26 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Устанавливает сигнальное состояние события, что позволяет продолжить выполнение одному или нескольким ожидающим потокам.</summary>
+        <summary>Sets the state of the event to signaled, allowing one or more waiting threads to proceed.</summary>
         <returns>
-          <see langword="true" />, если операция прошла успешно; в противном случае — <see langword="false" />.</returns>
+          <see langword="true" /> if the operation succeeds; otherwise, <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Для <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> (включая <xref:System.Threading.AutoResetEvent>), <xref:System.Threading.EventWaitHandle.Set%2A> метод освобождает один поток. Если нет ожидающих потоков, дескриптор ожидания остается сигнальным, пока поток попытается ожидать на нем или до его <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод.  
+ Для <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> (включая <xref:System.Threading.AutoResetEvent>), <xref:System.Threading.EventWaitHandle.Set%2A> метод освобождает один поток. Если нет ожидающих потоков, дескриптор ожидания остается сигнальным до поток попытается ожидать его, или до его <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод.  
   
 > [!IMPORTANT]
->  Нет никакой гарантии, каждый вызов <xref:System.Threading.EventWaitHandle.Set%2A> метод освобождает поток из <xref:System.Threading.EventWaitHandle> чей режим сброса <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType>. Если два вызова находятся слишком близко друг к другу, что второй вызов происходит до выпустила потока, освобождается только один поток. Это, как если бы второй вызов не произошло. Кроме того Если <xref:System.Threading.EventWaitHandle.Set%2A> вызывается, когда нет ожидающих потоков и <xref:System.Threading.EventWaitHandle> уже есть сигнал, вызов не оказывает влияния.  
+>  Нет никакой гарантии, при каждом вызове <xref:System.Threading.EventWaitHandle.Set%2A> метод выпустит поток из <xref:System.Threading.EventWaitHandle> чей режим сброса <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType>. Если два вызова, слишком близко друг к другу, что второй вызов происходит до выпустила поток освобождается только один поток. Это не так, как если произошел второй вызов. Кроме того Если <xref:System.Threading.EventWaitHandle.Set%2A> вызывается, когда нет ожидающих потоков и <xref:System.Threading.EventWaitHandle> уже есть сигнал, вызов не оказывает влияния.  
   
- Для <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> (включая <xref:System.Threading.ManualResetEvent>), что вызов <xref:System.Threading.EventWaitHandle.Set%2A> метод оставляет дескриптора ожидания в сигнальном состоянии до ее <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод.  
+ Для <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> (включая <xref:System.Threading.ManualResetEvent>), вызов <xref:System.Threading.EventWaitHandle.Set%2A> метод оставляет дескриптор ожидания в сигнальном состоянии до ее <xref:System.Threading.EventWaitHandle.Reset%2A> вызывается метод.  
   
    
   
 ## Examples  
- Следующий пример кода использует <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> перегрузка метода, чтобы разрешить основной поток отправлять сигнал заблокированный поток и подождите, пока поток завершает задачу.  
+ В следующем примере кода используется <xref:System.Threading.WaitHandle.SignalAndWait%28System.Threading.WaitHandle%2CSystem.Threading.WaitHandle%29> перегруженный метод, чтобы разрешить основному потоку сигнала заблокированный поток и затем подождите, пока поток завершает задачу.  
   
- В примере запускается пять потоков и их можно заблокировать на <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг, а затем время один поток выпуски, пользователь нажимает клавишу ВВОД. Затем помещает в очередь другой пять потоков и освобождает их с помощью <xref:System.Threading.EventWaitHandle> с <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг.  
+ В примере запускается пять потоков и позволяет им блокировать на <xref:System.Threading.EventWaitHandle> созданные с помощью <xref:System.Threading.EventResetMode.AutoReset?displayProperty=nameWithType> флаг, а затем времени одним потоком выпусков, пользователь нажимает клавишу ВВОД. Затем ставит в очередь другой пять потоков и освобождает их все с помощью <xref:System.Threading.EventWaitHandle> созданные с помощью <xref:System.Threading.EventResetMode.ManualReset?displayProperty=nameWithType> флаг.  
   
  [!code-cpp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.WaitHandle.SignalAndWait#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.WaitHandle.SignalAndWait/CS/source.cs#1)]
@@ -661,7 +669,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ObjectDisposedException">Для данного объекта <see cref="M:System.Threading.WaitHandle.Close" /> ранее вызывался метод <see cref="T:System.Threading.EventWaitHandle" />.</exception>
+        <exception cref="T:System.ObjectDisposedException">The <see cref="M:System.Threading.WaitHandle.Close" /> method was previously called on this <see cref="T:System.Threading.EventWaitHandle" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="SetAccessControl">
@@ -670,9 +678,11 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.SetAccessControl(System.Security.AccessControl.EventWaitHandleSecurity)" />
       <MemberSignature Language="VB.NET" Value="Public Sub SetAccessControl (eventSecurity As EventWaitHandleSecurity)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; void SetAccessControl(System::Security::AccessControl::EventWaitHandleSecurity ^ eventSecurity);" />
+      <MemberSignature Language="F#" Value="member this.SetAccessControl : System.Security.AccessControl.EventWaitHandleSecurity -&gt; unit" Usage="eventWaitHandle.SetAccessControl eventSecurity" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
@@ -687,24 +697,24 @@
         <Parameter Name="eventSecurity" Type="System.Security.AccessControl.EventWaitHandleSecurity" />
       </Parameters>
       <Docs>
-        <param name="eventSecurity">Объект <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" />, определяющий настройки управления доступом для применения к именованному системному событию.</param>
-        <summary>Задает защиту управления доступом для именованного системного события.</summary>
+        <param name="eventSecurity">An <see cref="T:System.Security.AccessControl.EventWaitHandleSecurity" /> object that represents the access control security to be applied to the named system event.</param>
+        <summary>Sets the access control security for a named system event.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Пользователь должен иметь <xref:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions?displayProperty=nameWithType> правами для вызова этого метода и события должен быть открыт с <xref:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions?displayProperty=nameWithType> флаг.  
+ Пользователь должен иметь <xref:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions?displayProperty=nameWithType> права для вызова этого метода и события должен быть открыт с <xref:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions?displayProperty=nameWithType> флаг.  
   
    
   
 ## Examples  
- В следующем примере кода демонстрируется поведение между процессами именованного системного события с безопасность управления доступом. В этом примере <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода для проверки на наличие события с заданным именем.  
+ В следующем примере кода демонстрируется поведение между процессами именованное системное событие с помощью управления доступом. В примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегруженный метод для проверки на существование именованного события.  
   
- Если событие не существует, она создается с изначального владения и управления доступом, запрещают текущему пользователю использовать событие, но предоставляет право на чтение и изменение разрешений на событие.  
+ Если событие не существует, он создается с изначальным владельцем, а также безопасность управления доступом, который запрещает право использовать события для текущего пользователя, но не дает право на чтение и изменение разрешений события.  
   
- При запуске скомпилированный пример из двух окнах команда второй копии вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>. Исключение перехватывается, а в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода для ожидания события с права, необходимые для чтения и изменения разрешений.  
+ Если запустить скомпилированный пример два командных окна, вторую копию вызовет нарушение прав доступа при вызове <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29>. Порождено исключение, и в примере используется <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегруженный метод для ожидания события с помощью прав, необходимых для чтения и изменения разрешений.  
   
- После изменения разрешений, с помощью <xref:System.Threading.EventWaitHandle.SetAccessControl%2A> метод событие открывается с права, необходимые для ожидания и сигнал. При запуске скомпилированный пример в третьем командном окне, в этом примере запускается с помощью новых разрешений.  
+ После изменения разрешений, с помощью <xref:System.Threading.EventWaitHandle.SetAccessControl%2A> метод события открыт с помощью прав, необходимых для ожидания и сигнал. При запуске скомпилированный пример в третьем окне команды в этом примере запускается с помощью новых разрешений.  
   
  [!code-cpp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.EventWaitHandle.ctor named 5#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.EventWaitHandle.ctor named 5/CS/source.cs#1)]
@@ -713,14 +723,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="eventSecurity" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.UnauthorizedAccessException">Пользователь не имеет <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions" />.  
-  
- - или -  
-  
- Событие не было открыто с <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions" />.</exception>
-        <exception cref="T:System.SystemException">Текущий объект <see cref="T:System.Threading.EventWaitHandle" /> не представляет именованное системное событие.</exception>
-        <exception cref="T:System.ObjectDisposedException">Для данного объекта <see cref="M:System.Threading.WaitHandle.Close" /> ранее вызывался метод <see cref="T:System.Threading.EventWaitHandle" />.</exception>
+          <paramref name="eventSecurity" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.UnauthorizedAccessException">The user does not have <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions" />.  -or-  The event was not opened with <see cref="F:System.Security.AccessControl.EventWaitHandleRights.ChangePermissions" />.</exception>
+        <exception cref="T:System.SystemException">The current <see cref="T:System.Threading.EventWaitHandle" /> object does not represent a named system event.</exception>
+        <exception cref="T:System.ObjectDisposedException">The <see cref="M:System.Threading.WaitHandle.Close" /> method was previously called on this <see cref="T:System.Threading.EventWaitHandle" />.</exception>
       </Docs>
     </Member>
     <MemberGroup MemberName="TryOpenExisting">
@@ -731,7 +737,7 @@
         <AssemblyVersion>4.1.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Открывает указанное именованное событие синхронизации, если оно уже существует, и возвращает значение, указывающее, успешно ли выполнена операция.</summary>
+        <summary>Opens a specified named synchronization event, if it already exists, and returns a value that indicates whether the operation succeeded.</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="TryOpenExisting">
@@ -740,6 +746,7 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.TryOpenExisting(System.String,System.Threading.EventWaitHandle@)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function TryOpenExisting (name As String, ByRef result As EventWaitHandle) As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool TryOpenExisting(System::String ^ name, [Runtime::InteropServices::Out] System::Threading::EventWaitHandle ^ % result);" />
+      <MemberSignature Language="F#" Value="static member TryOpenExisting : string *  -&gt; bool" Usage="System.Threading.EventWaitHandle.TryOpenExisting (name, result)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Threading</AssemblyName>
@@ -770,36 +777,32 @@
         <Parameter Name="result" Type="System.Threading.EventWaitHandle&amp;" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="name">Имя системного события синхронизации, которое нужно открыть.</param>
-        <param name="result">При возврате этого метода содержит объект <see cref="T:System.Threading.EventWaitHandle" />, представляющий именованное событие синхронизации, если вызов завершился успешно, или значение <see langword="null" />, если вызов завершился неудачно. Этот параметр обрабатывается как неинициализированный.</param>
-        <summary>Открывает указанное именованное событие синхронизации, если оно уже существует, и возвращает значение, указывающее, успешно ли выполнена операция.</summary>
+        <param name="name">The name of the system synchronization event to open.</param>
+        <param name="result">When this method returns, contains a <see cref="T:System.Threading.EventWaitHandle" /> object that represents the named synchronization event if the call succeeded, or <see langword="null" /> if the call failed. This parameter is treated as uninitialized.</param>
+        <summary>Opens the specified named synchronization event, if it already exists, and returns a value that indicates whether the operation succeeded.</summary>
         <returns>
-          Значение <see langword="true" />, если именованное событие синхронизации открылось успешно. В противном случае — значение <see langword="false" />.</returns>
+          <see langword="true" /> if the named synchronization event was opened successfully; otherwise, <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если именованное событие не существует, этот метод не создает его. Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.  
+ Если именованное событие синхронизации не существует, этот метод не создает его. Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.  
   
- Если неизвестно, существует ли именованное событие, используйте перегрузку этого метода, а не <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузка метода, который создает исключение, если событие синхронизации не существует.  
+ Если неизвестно, существует ли именованное событие синхронизации, используйте эту перегрузку метода вместо <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%29> перегрузку метода, который создает исключение, если событие синхронизации не существует.  
   
- Эта перегрузка метода эквивалентен вызову <xref:System.Threading.EventWaitHandle.TryOpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%2CSystem.Threading.EventWaitHandle%40%29> перегруженный метод и указывая <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> прав, объединяются с помощью битовой операции или. Указание <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг позволяет потоку ожидать на именованного системного события и указав <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг позволяет потоку для вызова <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.  
+ Эта перегрузка метода эквивалентен вызову <xref:System.Threading.EventWaitHandle.TryOpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%2CSystem.Threading.EventWaitHandle%40%29> перегрузку метода с указанием <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> права, объединяются с помощью побитовой операции или. Указание <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг позволяет потоку ожидать на именованное системное событие с указанием <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг позволяет потоку на вызов метода <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.  
   
- Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют того же именованного системного события.  
+ Несколько вызовов этого метода, используйте то же значение для `name` не возвращают обязательно же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют один и то же именованное системное событие.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">
-          Параметр <paramref name="name" /> равен пустой строке.  
-  
- - или -  
-  
- Длина значения параметра <paramref name="name" /> превышает 260 символов.</exception>
+          <paramref name="name" /> is an empty string.  -or-  <paramref name="name" /> is longer than 260 characters.</exception>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="name" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.IO.IOException">Произошла ошибка Win32.</exception>
-        <exception cref="T:System.UnauthorizedAccessException">Именованное событие уже существует, но пользователь не имеет требуемых прав для безопасного доступа.</exception>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+          <paramref name="name" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.IO.IOException">A Win32 error occurred.</exception>
+        <exception cref="T:System.UnauthorizedAccessException">The named event exists, but the user does not have the desired security access.</exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName="TryOpenExisting">
@@ -808,6 +811,7 @@
       <MemberSignature Language="DocId" Value="M:System.Threading.EventWaitHandle.TryOpenExisting(System.String,System.Security.AccessControl.EventWaitHandleRights,System.Threading.EventWaitHandle@)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function TryOpenExisting (name As String, rights As EventWaitHandleRights, ByRef result As EventWaitHandle) As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool TryOpenExisting(System::String ^ name, System::Security::AccessControl::EventWaitHandleRights rights, [Runtime::InteropServices::Out] System::Threading::EventWaitHandle ^ % result);" />
+      <MemberSignature Language="F#" Value="static member TryOpenExisting : string * System.Security.AccessControl.EventWaitHandleRights *  -&gt; bool" Usage="System.Threading.EventWaitHandle.TryOpenExisting (name, rights, result)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -828,37 +832,33 @@
         <Parameter Name="result" Type="System.Threading.EventWaitHandle&amp;" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="name">Имя системного события синхронизации, которое нужно открыть.</param>
-        <param name="rights">Битовая комбинация значений перечисления, которые определяют желаемые права доступа.</param>
-        <param name="result">При возврате этого метода содержит объект <see cref="T:System.Threading.EventWaitHandle" />, представляющий именованное событие синхронизации, если вызов завершился успешно, или значение <see langword="null" />, если вызов завершился неудачно. Этот параметр обрабатывается как неинициализированный.</param>
-        <summary>Открывает заданное именованное событие синхронизации, если оно уже существует, с требуемыми правами доступа и возвращает значение, указывающее, успешно ли выполнена операция.</summary>
+        <param name="name">The name of the system synchronization event to open.</param>
+        <param name="rights">A bitwise combination of the enumeration values that represent the desired security access.</param>
+        <param name="result">When this method returns, contains a <see cref="T:System.Threading.EventWaitHandle" /> object that represents the named synchronization event if the call succeeded, or <see langword="null" /> if the call failed. This parameter is treated as uninitialized.</param>
+        <summary>Opens the specified named synchronization event, if it already exists, with the desired security access, and returns a value that indicates whether the operation succeeded.</summary>
         <returns>
-          Значение <see langword="true" />, если именованное событие синхронизации открылось успешно. В противном случае — значение <see langword="false" />.</returns>
+          <see langword="true" /> if the named synchronization event was opened successfully; otherwise, <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если именованное событие не существует, этот метод не создает его. Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.  
+ Если именованное событие синхронизации не существует, этот метод не создает его. Чтобы создать системное событие, если он еще не существует, используйте один из <xref:System.Threading.EventWaitHandle.%23ctor%2A> конструкторы, которые имеет `name` параметра.  
   
- Если неизвестно, существует ли именованное событие, используйте перегрузку этого метода, а не <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузка метода, который создает исключение, если событие синхронизации не существует.  
+ Если неизвестно, существует ли именованное событие синхронизации, используйте эту перегрузку метода вместо <xref:System.Threading.EventWaitHandle.OpenExisting%28System.String%2CSystem.Security.AccessControl.EventWaitHandleRights%29> перегрузку метода, который создает исключение, если событие синхронизации не существует.  
   
- `rights` Необходимо включить параметр <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг для освобождения потоков ожидают события и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг, чтобы разрешить потоков для вызова <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.  
+ `rights` Параметр должен содержать <xref:System.Security.AccessControl.EventWaitHandleRights.Synchronize?displayProperty=nameWithType> флаг, чтобы разрешить потоков для ожидания события и <xref:System.Security.AccessControl.EventWaitHandleRights.Modify?displayProperty=nameWithType> флаг, чтобы разрешить потокам вызывать <xref:System.Threading.EventWaitHandle.Set%2A> и <xref:System.Threading.EventWaitHandle.Reset%2A> методы.  
   
- Несколько вызовов этого метода, используйте то же значение для `name` необязательно возвратят же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют того же именованного системного события.  
+ Несколько вызовов этого метода, используйте то же значение для `name` не возвращают обязательно же <xref:System.Threading.EventWaitHandle> объекта, несмотря на то, что объекты, возвращаемые представляют один и то же именованное системное событие.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">
-          Параметр <paramref name="name" /> равен пустой строке.  
-  
- - или -  
-  
- Длина значения параметра <paramref name="name" /> превышает 260 символов.</exception>
+          <paramref name="name" /> is an empty string.  -or-  <paramref name="name" /> is longer than 260 characters.</exception>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="name" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.IO.IOException">Произошла ошибка Win32.</exception>
-        <exception cref="T:System.UnauthorizedAccessException">Именованное событие уже существует, но пользователь не имеет требуемых прав для безопасного доступа.</exception>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+          <paramref name="name" /> is <see langword="null" />.</exception>
+        <exception cref="T:System.IO.IOException">A Win32 error occurred.</exception>
+        <exception cref="T:System.UnauthorizedAccessException">The named event exists, but the user does not have the desired security access.</exception>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
   </Members>
