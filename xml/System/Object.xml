@@ -1,11 +1,11 @@
 <Type Name="Object" FullName="System.Object">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="0499b9ab8b5160fa80acdb83902087541206252e" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="bfae8b3cf5ca6697f5210623349d31d86271db33" />
+    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36429237" />
+    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
+    <Meta Name="ms.locfileid" Value="37480728" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Object" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit object" />
@@ -24,6 +24,8 @@
   </AssemblyInfo>
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -46,31 +48,31 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Языки обычно не требуется объявлять наследование от класс <xref:System.Object> так, как наследование происходит неявно.  
+ Языки обычно не требуется объявлять наследование от класс <xref:System.Object> так, как наследование является неявным.  
   
  Поскольку все классы в .NET Framework являются производными от <xref:System.Object>, каждый метод, определенный в <xref:System.Object> класс доступен во всех объектах в системе. Производные классы могут и переопределить некоторые из этих методов, включая:  
   
 -   <xref:System.Object.Equals%2A> — Поддерживает сравнение объектов.  
   
--   <xref:System.Object.Finalize%2A> -Выполняет операции очистки, прежде чем будет автоматически удален объект.  
+-   <xref:System.Object.Finalize%2A> — Выполняет операции очистки, прежде чем объект автоматически освобождается.  
   
--   <xref:System.Object.GetHashCode%2A> — Создает число, соответствующее значению объекта, для поддержки использования хэш-таблицы.  
+-   <xref:System.Object.GetHashCode%2A> — Создает число, соответствующее значению объекта для поддержки использования хэш-таблицы.  
   
 -   <xref:System.Object.ToString%2A> — Создает удобочитаемого текста строку, описывающую экземпляр класса.  
   
 ## <a name="performance-considerations"></a>Особенности производительности  
- При создании класса, такие как коллекции, который должен обрабатывать любой тип объекта, можно создать члены класса, принимающие экземпляры <xref:System.Object> класса. Тем не менее процесс упаковка-преобразование и распаковка-преобразование типа приводит к снижению производительности. Если известно, что новый класс будет часто обрабатывать определенные типы значений можно использовать один из двух методик для минимизации затрат на упаковки-преобразования.  
+ При создании класса, такие как коллекции, который должен обрабатывать любой тип объекта, можно создать члены класса, принимающие экземпляры <xref:System.Object> класса. Однако процесс упаковки и распаковки типа приводит к снижению производительности. Если вы знаете, что новый класс будет часто обрабатывать определенные типы значений можно использовать один из двух тактик для минимизации затрат на упаковки-преобразования.  
   
--   Создание общего метода, принимающую <xref:System.Object> тип и набор из перегрузок метода, принимающих значения всех типов, предполагается, что класс обрабатываться. Если существует определенный метод, который принимает тип параметра вызова, вызывается метод определенного типа и упаковка-преобразование не происходит. Если аргумент не метод, который соответствует типу параметра вызова, вызывается метод общие и выполняется упаковка.  
+-   Создание общего метода, который принимает <xref:System.Object> типа и набор определенного типа, принимающая всех типов значений, предполагается, что класс обрабатываться. Если существует метод определенного типа, который принимает тип параметра вызова, упаковка-преобразование не выполняется, и вызова метода, определенного типа. Если нет аргумента метода, который соответствует типу параметра вызова, выполняется упаковка и вызывается общий метод.  
   
--   Разработка данного типа и его члены для использования универсальных шаблонов. Общеязыковая среда выполнения создает закрытого универсального типа, при создании экземпляра этого класса и указывать аргумент универсального типа. Универсальный метод определенного типа и его можно вызывать без упаковки-преобразования параметра вызова.  
+-   Разработка вашего типа и его члены для использования универсальных шаблонов. Среда CLR создает закрытый универсальный тип, при создании экземпляра класса и указать аргумент универсального типа. Универсальный метод определенного типа и его можно вызывать без упаковки-преобразования параметра вызова.  
   
- Несмотря на то, что иногда бывает необходимо создавать классы общего назначения, которые принимают и возвращают <xref:System.Object> типов, можно повысить производительность, можно также создать класс конкретного типа для реализации часто используемых типов. Например предоставления класса, относящиеся к установке и получении логические значения, можно избежать затрат упаковка-преобразование и распаковка-преобразование логических значений.  
+ Несмотря на то, что иногда бывает необходимо создавать классы общего назначения, которые принимают и возвращают <xref:System.Object> типов, можно повысить производительность, можно также создать класс определенного типа для реализации часто используемых типов. Например для предоставления класса, характерное для задания и получения логических значений избежать затрат на упаковке и распаковке логические значения.  
   
    
   
 ## Examples  
- В следующем примере определяется точка типа, производного от <xref:System.Object> класса и переопределение множества виртуальных методов <xref:System.Object> класса. Кроме того, в примере показано вызывать многие статических и методы экземпляра <xref:System.Object> класса.  
+ В следующем примере определяется точка типа, производного от <xref:System.Object> класса и переопределение множества виртуальных методов <xref:System.Object> класса. Кроме того, примере показано, как вызывать многие из статических методов и методов из экземпляра <xref:System.Object> класса.  
   
  [!code-cpp[ObjectX#1](~/samples/snippets/cpp/VS_Snippets_CLR/ObjectX/cpp/ObjectX.cpp#1)]
  [!code-csharp[ObjectX#1](~/samples/snippets/csharp/VS_Snippets_CLR/ObjectX/CS/ObjectX.cs#1)]
@@ -78,7 +80,7 @@
   
  ]]></format>
     </remarks>
-    <threadsafe>Открытые статические (<see langword="Shared" /> в Visual Basic) члены этого типа являются потокобезопасными. Члены экземпляров не гарантируется потокобезопасность.</threadsafe>
+    <threadsafe>Открытые статические (<see langword="Shared" /> в Visual Basic) члены этого типа являются потокобезопасными. Члены экземпляра потокобезопасность не гарантируется.</threadsafe>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -99,6 +101,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -118,7 +122,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот конструктор вызывается конструкторами в производных классах, но он также может использоваться для непосредственного создания экземпляра <xref:System.Object> класса.  
+ Этот конструктор вызывается конструкторами в производных классах, но его также можно напрямую создать экземпляр <xref:System.Object> класса.  
   
  ]]></format>
         </remarks>
@@ -156,6 +160,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -179,66 +185,66 @@
 ## Remarks  
  Тип сравнения между текущим экземпляром и `obj` параметр зависит от того, является ли текущий экземпляр является ссылочным типом или типом значения.  
   
--   Если текущий экземпляр является ссылочным типом, <xref:System.Object.Equals%28System.Object%29> метод тесты на равенство ссылок и вызов <xref:System.Object.Equals%28System.Object%29> метод эквивалентен вызов <xref:System.Object.ReferenceEquals%2A> метод. Равенство ссылок означает, что объектные переменные, которые сравниваются ссылаются на один объект. В следующем примере показано, в результате такого сопоставления. Он определяет `Person` класс, который является ссылочным типом, и вызывает метод `Person` класс конструктора для создания двух новых `Person` объектов, `person1a` и `person2`, который имеет то же значение. Также назначает `person1a` другой переменной объекта `person1b`. Как видно в результатах показано в примере `person1a` и `person1b` равны, поскольку они ссылаются на один объект. Тем не менее `person1a` и `person2` не равны, несмотря на то, что они имеют одинаковое значение.  
+-   Если текущий экземпляр является ссылочным типом, <xref:System.Object.Equals%28System.Object%29> метод проверяет ссылочное равенство и вызов <xref:System.Object.Equals%28System.Object%29> метод эквивалентен методу вызова <xref:System.Object.ReferenceEquals%2A> метод. Равенство ссылок означает, что объектные переменные, которые сравниваются ссылаются на тот же объект. В следующем примере результат таком сравнении. Он определяет `Person` класс, который является ссылочным типом, и вызывает метод `Person` класс конструктора для создания двух новых `Person` объектов, `person1a` и `person2`, которые имеют одинаковое значение. А также назначает `person1a` другой переменной объекта, `person1b`. Как видно в результатах показано в примере `person1a` и `person1b` равны, так как они ссылаются на один объект. Тем не менее `person1a` и `person2` не равны, несмотря на то, что они имеют одинаковое значение.  
   
      [!code-csharp[System.Object.Equals#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.equals/cs/equals_ref.cs#2)]
      [!code-vb[System.Object.Equals#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.equals/vb/equals_ref.vb#2)]  
   
--   Если текущий экземпляр является типом значения, <xref:System.Object.Equals%28System.Object%29> метод проверка на равенство значений. Равенство значений означает следующее.  
+-   Если текущий экземпляр является типом значения, <xref:System.Object.Equals%28System.Object%29> метод проверка на равенство значений. Равенство значений означает следующее:  
   
-    -   Два объекта имеют тот же тип. Как показано в следующем примере, <xref:System.Byte> объект, имеющий значение 12 не равно <xref:System.Int32> объект, имеющий значение 12, поскольку оба объекта имеют разные типы во время выполнения.  
+    -   Два объекта имеют тот же тип. Как показано в следующем примере, <xref:System.Byte> объект, имеющий значение 12 не равно <xref:System.Int32> объект, имеющий значение 12, так как оба объекта имеют различные типы во время выполнения.  
   
          [!code-csharp[System.Object.Equals#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.equals/cs/equals_val1.cs#3)]
          [!code-vb[System.Object.Equals#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.equals/vb/equals_val1.vb#3)]  
   
-    -   Значения открытых и закрытых полей из двух объектов равны. В следующем примере проверка на равенство значений. Он определяет `Person` структуру, которая является типом значения, и вызывает метод `Person` класс конструктора для создания двух новых `Person` объектов, `person1` и `person2`, который имеет то же значение. Как показывают выходные данные примера, несмотря на то, что две переменные объекта ссылаются на разные объекты, `person1` и `person2` равны, поскольку они имеют одинаковое значение для частного `personName` поля.  
+    -   Значения открытых и закрытых полей из двух объектов равны. В следующем примере проверяется на предмет равенства значений. Он определяет `Person` структуру, которая является типом значения, и вызывает метод `Person` класс конструктора для создания двух новых `Person` объектов, `person1` и `person2`, которые имеют одинаковое значение. Как показывают выходные данные из примера, несмотря на то, что две объектные переменные ссылаются на разные объекты `person1` и `person2` равны, поскольку они имеют одинаковое значение для частного `personName` поля.  
   
          [!code-csharp[System.Object.Equals#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.equals/cs/equals_val2.cs#4)]
          [!code-vb[System.Object.Equals#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.equals/vb/equals_val2.vb#4)]  
   
- Поскольку <xref:System.Object> класс является базовым классом для всех типов в .NET Framework, <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> метод обеспечивает сравнение на равенство по умолчанию для всех других типов. Тем не менее, часто переопределить типы <xref:System.Object.Equals%2A> метод, чтобы реализовать равенство значений. Дополнительные сведения см. примечания вызывающим объектам и примечания для наследующих объектов разделов.  
+ Так как <xref:System.Object> класс является базовым классом для всех типов в .NET Framework, <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> метод обеспечивает сравнение на равенство по умолчанию для всех других типов. Тем не менее, часто переопределить типы <xref:System.Object.Equals%2A> метод реализация равенства значений. Дополнительные сведения см. в разделе заметки для вызывающих объектов и примечания для разработчиков производных классов разделов.  
   
 ## <a name="notes-for-the-includewrtincludeswrt-mdmd"></a>Заметки о [!INCLUDE[wrt](~/includes/wrt-md.md)]  
- При вызове <xref:System.Object.Equals%28System.Object%29> перегрузка метода класса в [!INCLUDE[wrt](~/includes/wrt-md.md)], он предоставляет поведение по умолчанию для классов, которые не переопределяют <xref:System.Object.Equals%28System.Object%29>. Это является частью возможностей .NET Framework для [!INCLUDE[wrt](~/includes/wrt-md.md)] (см. [.NET Framework поддерживает для приложений магазина Windows и среды выполнения Windows](~/docs/standard/cross-platform/support-for-windows-store-apps-and-windows-runtime.md)). Классы в [!INCLUDE[wrt](~/includes/wrt-md.md)] не наследуют <xref:System.Object>и в настоящее время не использовать <xref:System.Object.Equals%28System.Object%29> метода. При этом они будут иметь <xref:System.Object.ToString%2A>, <xref:System.Object.Equals%28System.Object%29>, и <xref:System.Object.GetHashCode%2A> методов при их использовании в коде C# или Visual Basic и .NET Framework предоставляет поведение по умолчанию для этих методов.  
+ При вызове <xref:System.Object.Equals%28System.Object%29> перегрузку метода в классе в [!INCLUDE[wrt](~/includes/wrt-md.md)], он предоставляет поведение по умолчанию для классов, которые не переопределяют <xref:System.Object.Equals%28System.Object%29>. Это является частью возможностей .NET Framework для [!INCLUDE[wrt](~/includes/wrt-md.md)] (см. в разделе [приложений .NET Framework поддерживает для Windows Store и среды выполнения Windows](~/docs/standard/cross-platform/support-for-windows-store-apps-and-windows-runtime.md)). Классы в [!INCLUDE[wrt](~/includes/wrt-md.md)] не наследуют <xref:System.Object>и в настоящее время не использовать <xref:System.Object.Equals%28System.Object%29> метод. Тем не менее, в них могут быть <xref:System.Object.ToString%2A>, <xref:System.Object.Equals%28System.Object%29>, и <xref:System.Object.GetHashCode%2A> методов при их использовании в коде C# или Visual Basic и .NET Framework предоставляет поведение по умолчанию для этих методов.  
   
 > [!NOTE]
->  [!INCLUDE[wrt](~/includes/wrt-md.md)] классы, написанные на C# или Visual Basic можно переопределить <xref:System.Object.Equals%28System.Object%29> перегрузки метода.  
+>  [!INCLUDE[wrt](~/includes/wrt-md.md)] классы, которые создаются на языке C# или Visual Basic можно переопределить <xref:System.Object.Equals%28System.Object%29> перегрузки метода.  
   
-## <a name="notes-for-callers"></a>Примечания для вызывающих объектов  
- Производные классы переопределяют часто <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> метод, чтобы реализовать равенство значений. Кроме того, типы также часто предоставляют дополнительные перегрузка строго типизированные для `Equals` метод, как правило, реализовав <xref:System.IEquatable%601> интерфейса. При вызове `Equals` метод для проверки на равенство, следует знать, является ли текущий экземпляр переопределяет <xref:System.Object.Equals%2A?displayProperty=nameWithType> и понять, каким образом определенного вызова `Equals` метод разрешается. В противном случае может выполнять проверку на равенство, которое отличается от требуемого, и метод может возвратить непредвиденное значение.  
+## <a name="notes-for-callers"></a>Заметки о вызывающих объектов  
+ Производные классы часто переопределить <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> метод реализация равенства значений. Кроме того, типы также часто предоставляют дополнительные строго типизированные перегрузки для `Equals` метод, обычно путем реализации <xref:System.IEquatable%601> интерфейс. При вызове `Equals` метод для проверки на равенство, следует знать, переопределяет ли текущий экземпляр <xref:System.Object.Equals%2A?displayProperty=nameWithType> и понять, как конкретный вызов `Equals` метод не будет устранена. В противном случае вы может выполнять тест на равенство, которое отличается от требуемого, и метод может вернуть непредвиденное значение.  
   
- Ниже приведен пример. Он создает три <xref:System.Text.StringBuilder> объекты с одинаковых строк, а затем вызывает четыре `Equals` методы. Первый метод вызова возвращает `true`и для остальных трех возвращаемого `false`.  
+ Ниже приведен пример. Он создает три <xref:System.Text.StringBuilder> объектов с одинаковых строк и затем вызывает четыре `Equals` методы. Первый вызов метода возвращает `true`и возврат оставшихся трех `false`.  
   
  [!code-csharp[System.Object.Equals#5](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.equals/cs/equalssb1.cs#5)]
  [!code-vb[System.Object.Equals#5](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.equals/vb/equalssb1.vb#5)]  
   
- В первом случае строго типизированный <xref:System.Text.StringBuilder.Equals%28System.Text.StringBuilder%29?displayProperty=nameWithType> вызове перегруженного метода, который проверяет равенство значений. Поскольку строки назначены два <xref:System.Text.StringBuilder> объекты равны, метод возвращает `true`. Тем не менее <xref:System.Text.StringBuilder> не переопределяет <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType>. По этой причине при <xref:System.Text.StringBuilder> объект приведен <xref:System.Object>, когда <xref:System.Text.StringBuilder> экземпляра присваивается переменной типа <xref:System.Object>и когда <xref:System.Object.Equals%28System.Object%2CSystem.Object%29?displayProperty=nameWithType> методу передается два <xref:System.Text.StringBuilder> объекты, значение по умолчанию <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType>вызывается метод. Поскольку <xref:System.Text.StringBuilder> является ссылочным типом, это эквивалентно передаче два <xref:System.Text.StringBuilder> объектов <xref:System.Object.ReferenceEquals%2A> метод. Хотя все три <xref:System.Text.StringBuilder> объекты содержат идентичные строки, они ссылаются на трех различных объектов. В результате эти три метода вызывает возвращаемого `false`.  
+ В первом случае строго типизированный <xref:System.Text.StringBuilder.Equals%28System.Text.StringBuilder%29?displayProperty=nameWithType> вызове перегрузки метода, который проверяет равенство значений. Поскольку строки назначены две <xref:System.Text.StringBuilder> объекты равны, метод возвращает `true`. Тем не менее <xref:System.Text.StringBuilder> не переопределяет <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType>. По этой причине при <xref:System.Text.StringBuilder> объект приведен к <xref:System.Object>, когда <xref:System.Text.StringBuilder> экземпляру назначается переменной типа <xref:System.Object>и когда <xref:System.Object.Equals%28System.Object%2CSystem.Object%29?displayProperty=nameWithType> методу передается два <xref:System.Text.StringBuilder> объекты, значение по умолчанию <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType>вызывается метод. Так как <xref:System.Text.StringBuilder> является ссылочным типом, это эквивалентно передаче двух <xref:System.Text.StringBuilder> объектов <xref:System.Object.ReferenceEquals%2A> метод. Несмотря на то что все три <xref:System.Text.StringBuilder> объекты содержат идентичные строки, они ссылаются на три разных объекта. Таким образом, эти три метода вызовы будут возвращать `false`.  
   
- Вы можете сравнить текущий объект в другой объект на равенство ссылок путем вызова <xref:System.Object.ReferenceEquals%2A> метод. В Visual Basic можно использовать `is` ключевое слово (например, `If Me Is otherObject Then ...`).  
+ Вы можете сравнить текущий объект другому объекту ссылочное равенство, вызвав <xref:System.Object.ReferenceEquals%2A> метод. В Visual Basic, можно также использовать `is` ключевое слово (например, `If Me Is otherObject Then ...`).  
   
-## <a name="notes-for-inheritors"></a>Примечания для наследующих объектов  
- При определении собственного типа, этот тип наследует функциональные возможности, определенные `Equals` метод базового типа. В следующей таблице перечислены реализации по умолчанию `Equals` метод для основных категорий типов в .NET Framework.  
+## <a name="notes-for-inheritors"></a>Примечания о наследовании  
+ При определении собственного типа, этот тип наследует функций, определенных в `Equals` метод своего базового типа. В следующей таблице перечислены реализации по умолчанию `Equals` метод для основных категорий типов в .NET Framework.  
   
 |Категория типа|Равенство определяется|Комментарии|  
 |-------------------|-------------------------|--------------|  
-|Класс, производный прямо из <xref:System.Object>|<xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType>|Равенство ссылок; аналогичен вызову <xref:System.Object.ReferenceEquals%2A?displayProperty=nameWithType>.|  
-|Структура|<xref:System.ValueType.Equals%2A?displayProperty=nameWithType>|Равные значения; прямой байт за байтом сравнения или сравнения, поля с помощью отражения.|  
+|Класс, производный непосредственно от <xref:System.Object>|<xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType>|Равенство ссылок; аналогичен вызову <xref:System.Object.ReferenceEquals%2A?displayProperty=nameWithType>.|  
+|Структура|<xref:System.ValueType.Equals%2A?displayProperty=nameWithType>|Равенство значений; прямое сравнение по байтам или сравнения по полям, с помощью отражения.|  
 |Перечисление|<xref:System.Enum.Equals%2A?displayProperty=nameWithType>|Значения должны иметь одинаковый тип перечисления и тем же базовым значением.|  
-|делегат|<xref:System.MulticastDelegate.Equals%2A?displayProperty=nameWithType>|Делегаты должен иметь тот же тип с списки вызовов идентичными.|  
+|делегат|<xref:System.MulticastDelegate.Equals%2A?displayProperty=nameWithType>|Делегаты должен иметь одинаковый тип и списки вызовов идентичны.|  
 |Интерфейс|<xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType>|Равенство ссылок.|  
   
- Для типа значения всегда должны переопределять <xref:System.Object.Equals%2A>, так как тесты на равенство, основанные на отражении являются причиной низкой производительности. Можно также переопределить реализацию по умолчанию <xref:System.Object.Equals%2A> для ссылочных типов для проверки на равенство значений, а не равенство ссылок и для определения равенства значений точное значение. Такая реализация <xref:System.Object.Equals%2A> возврата `true` Если два объекта имеют одно и то же значение, даже если они не тот же экземпляр. Разработчик типа решает, что такое значение объекта, но обычно некоторые или все данные, хранящиеся в переменных экземпляра объекта. Например, значение <xref:System.String> объект основан на символы строки; <xref:System.String.Equals%28System.Object%29?displayProperty=nameWithType> переопределения методов <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> метод для возврата `true` для любых двух экземпляров строк, которые содержат те же символы в том же порядке.  
+ Для типа значения, необходимо всегда выполнять переопределение <xref:System.Object.Equals%2A>, так как проверка на равенство, основанные на отражении являются причиной низкой производительности. Можно также переопределить реализацию по умолчанию <xref:System.Object.Equals%2A> для ссылочных типов для проверки на равенство значений, а не равенство ссылок и для определения равенства значений точное значение. Такие реализации <xref:System.Object.Equals%2A> возврата `true` Если два объекта имеют одно и то же значение, даже если они не являются одним экземпляром. Разработчик типа решает, что составляет значения объекта, но обычно некоторые или все данные, хранящиеся в переменных экземпляра объекта. Например, значение <xref:System.String> основана на символы строки. значение <xref:System.String.Equals%28System.Object%29?displayProperty=nameWithType> переопределения методов <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> метод для возврата `true` для любых двух экземпляров, которые содержат те же символы, в том же порядке строк.  
   
- В следующем примере показан способ переопределения <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> метод для проверки на равенство значений. Он переопределяет <xref:System.Object.Equals%2A> метод `Person` класса. Если `Person` принят реализацию его базового класса равенства, два `Person` объекта будут равны, только в том случае, если они ссылка на один объект. Однако в этом случае два `Person` объекты равны, если они имеют одинаковое значение для `Person.Id` свойства.  
+ В следующем примере показано, как переопределить <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> метод для проверки на равенство значений. Этот параметр переопределяет <xref:System.Object.Equals%2A> метод `Person` класса. Если `Person` принят реализацию его базового класса равенства двух `Person` объекта будут равны, только если на них ссылки объекта. Однако в этом случае два `Person` объекты равны, если они имеют одинаковое значение для `Person.Id` свойство.  
   
  [!code-csharp[System.Object.Equals#6](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.equals/cs/equalsoverride.cs#6)]
  [!code-vb[System.Object.Equals#6](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.equals/vb/equalsoverride.vb#6)]  
   
- Помимо переопределения <xref:System.Object.Equals%2A>, можно реализовать <xref:System.IEquatable%601> интерфейс для предоставления строго типизированных проверка на равенство.  
+ Помимо переопределения <xref:System.Object.Equals%2A>, можно реализовать <xref:System.IEquatable%601> интерфейс, чтобы предоставить строго типизированные проверка на равенство.  
   
- Следующие инструкции должен иметь значение true для всех реализаций <xref:System.Object.Equals%28System.Object%29> метод. В списке `x`, `y`, и `z` обозначают ссылки на объекты, которые не являются **null**.  
+ Следующие инструкции должны соблюдаться для всех реализаций <xref:System.Object.Equals%28System.Object%29> метод. В списке `x`, `y`, и `z` представляют ссылки на объекты, которые не являются **null**.  
   
--   `x.Equals(x)` Возвращает `true`, за исключением случаев, с плавающей запятой. В разделе 60559:2011 ISO/IEC и IEEE, информационных технологий--микропроцессора систем--арифметических операций с плавающей запятой.  
+-   `x.Equals(x)` Возвращает `true`, за исключением случаев, с плавающей запятой. См. в разделе ISO/IEC/IEEE 60559:2011, Information technology--микропроцессора систем, арифметических операций с плавающей запятой.  
   
 -   `x.Equals(y)` Возвращает то же значение, что `y.Equals(x)`.  
   
@@ -246,65 +252,65 @@
   
 -   Если `(x.Equals(y) && y.Equals(z))` возвращает `true`, затем `x.Equals(z)` возвращает `true`.  
   
--   Последующие вызовы `x.Equals(y)` возвращает то же значение, при условии, что объект, который ссылается `x` и `y` не изменяются.  
+-   Последовательные вызовы `x.Equals(y)` возвращать то же значение до тех пор, пока объекты ссылается `x` и `y` не изменяются.  
   
 -   `x.Equals(null)` возвращает `false`.  
   
- Реализации <xref:System.Object.Equals%2A> не должны выдавать исключения; они должны всегда возвращать значение. Например если `obj` — `null`, <xref:System.Object.Equals%2A> метод должен возвращать `false` вместо создания <xref:System.ArgumentNullException>.  
+ Реализации <xref:System.Object.Equals%2A> не должны создавать исключений; они всегда должны возвращать значение. Например если `obj` — `null`, <xref:System.Object.Equals%2A> метод должен возвращать `false` вместо выдачи <xref:System.ArgumentNullException>.  
   
- Придерживайтесь следующих правил при переопределении метода <xref:System.Object.Equals%28System.Object%29>:  
+ Следуйте приведенным ниже рекомендациям при переопределении метода <xref:System.Object.Equals%28System.Object%29>:  
   
 -   Типы, реализующие <xref:System.IComparable> необходимо переопределить <xref:System.Object.Equals%28System.Object%29>.  
   
--   Типы, переопределяющие <xref:System.Object.Equals%28System.Object%29> необходимо также переопределить <xref:System.Object.GetHashCode%2A>; в противном случае хэш-таблицы могут работать неправильно.  
+-   Типы, переопределяющие <xref:System.Object.Equals%28System.Object%29> необходимо также переопределить <xref:System.Object.GetHashCode%2A>; в противном случае — значение хэш-таблицы могут работать неправильно.  
   
--   Следует рассмотреть возможность реализации <xref:System.IEquatable%601> интерфейс для поддержки строго типизированных тесты на равенство. Ваш <xref:System.IEquatable%601.Equals%2A?displayProperty=nameWithType> реализации должен возвращать результаты, которые соответствуют <xref:System.Object.Equals%2A>.  
+-   Вы должны рассмотреть реализацию <xref:System.IEquatable%601> интерфейс для поддержки строго типизированных проверка на равенство. Ваш <xref:System.IEquatable%601.Equals%2A?displayProperty=nameWithType> реализация должна возвратить результаты, которые соответствуют <xref:System.Object.Equals%2A>.  
   
--   Если язык программирования поддерживает перегрузку операторов и перегрузка оператора равенства для данного типа, необходимо также переопределить <xref:System.Object.Equals%28System.Object%29> метод для возврата тот же результат, что и оператор равенства. Это позволяет гарантировать, что код библиотеки классов, использующий <xref:System.Object.Equals%2A> (такие как <xref:System.Collections.ArrayList> и <xref:System.Collections.Hashtable>) ведет себя таким способом, который согласуется с тем, как оператор равенства, используемый кодом приложения.  
+-   Если язык программирования поддерживает перегрузку операторов, а также перегружать оператор равенства для данного типа, необходимо также переопределить <xref:System.Object.Equals%28System.Object%29> метод вернет тот же результат, что и оператор равенства. Это гарантирует, что код библиотеки классов, который использует <xref:System.Object.Equals%2A> (такие как <xref:System.Collections.ArrayList> и <xref:System.Collections.Hashtable>) ведет себя таким образом, согласуется с тем, как оператор равенства, используемый кодом приложения.  
   
 ### <a name="guidelines-for-reference-types"></a>Рекомендации для ссылочных типов  
  Следующие правила применяются к переопределенным <xref:System.Object.Equals%28System.Object%29> для ссылочного типа:  
   
--   Переопределение <xref:System.Object.Equals%2A> Если семантика типа основана на том, что этот тип представляет некоторые значения.  
+-   Переопределение <xref:System.Object.Equals%2A> Если семантика типа основана на том факте, что тип представляет некоторые значения.  
   
--   Большинство ссылочных типов не следует перегружать оператор равенства, даже если они переопределяют <xref:System.Object.Equals%2A>. Однако при реализации ссылочного типа, который предназначен для семантического значения, такие как тип комплексного числа, необходимо переопределить оператор равенства.  
+-   Большинство ссылочных типов не следует перегружать оператор равенства, даже если они переопределяют <xref:System.Object.Equals%2A>. Тем не менее при реализации ссылочного типа, который предназначен для семантического значения, например, тип комплексного числа, необходимо переопределить оператор равенства.  
   
--   Не следует переопределять <xref:System.Object.Equals%2A> на изменяемым ссылочным типом. Это происходит потому переопределяет <xref:System.Object.Equals%2A> необходимо также переопределить <xref:System.Object.GetHashCode%2A> метода, как описано в предыдущем разделе. Это означает, что хэш-код экземпляра изменяемым ссылочным типом можно изменить во время существования, что может привести объект к потере в хэш-таблице.  
+-   Не следует переопределять <xref:System.Object.Equals%2A> на изменяемый ссылочный тип. Это обусловлено переопределение <xref:System.Object.Equals%2A> необходимо также переопределить <xref:System.Object.GetHashCode%2A> метод, как описано в предыдущем разделе. Это означает, что хэш-код экземпляра изменяемый ссылочный тип можно изменить во время существования, что может привести объект к потере в хэш-таблице.  
   
-### <a name="guidelines-for-value-types"></a>Правила для типов значений  
+### <a name="guidelines-for-value-types"></a>Рекомендации для типов значений  
  Следующие правила применяются к переопределенным <xref:System.Object.Equals%28System.Object%29> для типа значения:  
   
--   Вы определяете тип значения, который включает одно или несколько полей, значения которого являются ссылочными типами, должны переопределять <xref:System.Object.Equals%28System.Object%29>. <xref:System.Object.Equals%28System.Object%29> Реализации <xref:System.ValueType> выполняет сравнение байт за байтом, для которых типы значений поля являются все типы значений, но он использует отражение для выполнения сравнения с поля типов значений, поля которых включают ссылочных типов.  
+-   При определении тип значения, который включает в себя одно или несколько полей, значения которого являются ссылочными типами, необходимо переопределить <xref:System.Object.Equals%28System.Object%29>. <xref:System.Object.Equals%28System.Object%29> Реализации <xref:System.ValueType> выполняет сравнение по байтам, для которых типы значений поля являются все типы значений, но он использует отражение для выполнения сравнения типов значений, поля которых включают ссылочные типы по полям.  
   
 -   При переопределении <xref:System.Object.Equals%2A> и выбранного языка программирования поддерживает перегрузку операторов, необходимо перегрузить оператор равенства.  
   
--   Вам следует реализовать <xref:System.IEquatable%601> интерфейса. Строго типизированный вызов <xref:System.IEquatable%601.Equals%2A?displayProperty=nameWithType> метод позволят избежать упаковка-преобразование `obj` аргумент.  
+-   Следует реализовать <xref:System.IEquatable%601> интерфейс. Вызова строго типизированного <xref:System.IEquatable%601.Equals%2A?displayProperty=nameWithType> метод позволят избежать упаковки-преобразования `obj` аргумент.  
   
    
   
 ## Examples  
- В следующем примере показан `Point` класс, который переопределяет <xref:System.Object.Equals%2A> метод для предоставления равенства значений и `Point3D` класс, производный от `Point`. Поскольку `Point` переопределяет <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> для проверки на равенство значений <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> метод не вызывается. Тем не менее `Point3D.Equals` вызовы `Point.Equals` из-за `Point` реализует <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> таким способом, который обеспечивает равенство значений.  
+ В следующем примере показан `Point` класса, переопределяющего <xref:System.Object.Equals%2A> метод, чтобы предоставить равенства значений и `Point3D` класс, который является производным от `Point`. Так как `Point` переопределяет <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> для проверки на равенство значений, <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> метод не вызывается. Тем не менее `Point3D.Equals` вызовы `Point.Equals` поскольку `Point` реализует <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> способом, который предоставляет равенства значений.  
   
  [!code-csharp[ECMA-System.Object.Equals2#1](~/samples/snippets/csharp/VS_Snippets_CLR/ECMA-System.Object.Equals2/CS/equals2.cs#1)]
  [!code-vb[ECMA-System.Object.Equals2#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/ECMA-System.Object.Equals2/VB/equals2.vb#1)]  
   
- `Point.Equals` Метод проверяет, чтобы убедиться в том, что `obj` аргумент не **null** и что он ссылается на экземпляр того же типа, что и данный объект. Если проверка завершается с ошибкой, метод возвращает `false`.  
+ `Point.Equals` Метод проверяет, убедитесь, что `obj` аргумент не является **null** и что он ссылается на экземпляр того же типа, что и этот объект. Если проверка завершается с ошибкой, метод возвращает `false`.  
   
- `Point.Equals` Вызовы метода <xref:System.Object.GetType%2A> метод для определения идентичности типов времени выполнения двух объектов. Если используется метод проверки формы `obj is Point` в C# или `TryCast(obj, Point)` в Visual Basic, она будет возвращать `true` в случаях, где `obj` является экземпляром класса, производного от `Point`, даже если `obj` и текущий экземпляр не того же типа во время выполнения. Убедившись, что оба объекта имеют тот же тип, метод приводит `obj` ввода `Point` и возвращает результат сравнения двух объектов полей экземпляра.  
+ `Point.Equals` Вызовы методов <xref:System.Object.GetType%2A> метод, чтобы определить, совпадают ли типы среды выполнения двух объектов. Если используется метод проверки формы `obj is Point` в C# или `TryCast(obj, Point)` в Visual Basic, будет возвращать `true` в случаях, где `obj` является экземпляром класса, производного от `Point`, даже если `obj` и текущий экземпляр не того же типа времени выполнения. Убедившись, что оба объекта имеют одного типа, метод приводит `obj` ввода `Point` и возвращает результат сравнения двух объектов полей экземпляра.  
   
- В `Point3D.Equals`, наследуемого `Point.Equals` метода, который переопределяет <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType>, вызывается перед выполнением других действий. Поскольку `Point3D` является запечатанным (`NotInheritable` в Visual Basic), проверку в форме `obj is Point` в C# или `TryCast(obj, Point)` в Visual Basic является достаточным, чтобы убедиться, что `obj` — `Point3D` объекта. Если это `Point3D` объекта, оно приводится к `Point` объекта и передается реализации базового класса <xref:System.Object.Equals%2A>. Только если наследуемого `Point.Equals` возвращает `true` метод compare `z` экземпляр поля, введенные в производном классе.  
+ В `Point3D.Equals`, наследуемого `Point.Equals` метод, который переопределяет <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType>, вызывается перед выполнением других действий. Так как `Point3D` является запечатанным (`NotInheritable` в Visual Basic), проверку в форме `obj is Point` в C# или `TryCast(obj, Point)` в Visual Basic — достаточно, чтобы убедиться, что `obj` является `Point3D` объекта. Если это `Point3D` объекта, оно приводится к `Point` объекта и передается в реализацию базового класса <xref:System.Object.Equals%2A>. Только тогда, когда унаследованный `Point.Equals` возвращает `true` метод compare `z` экземпляр полей, представленные в производном классе.  
   
- В следующем примере определяется `Rectangle` класс, реализующий прямоугольник как два внутренних целей `Point` объектов. `Rectangle` Класса также переопределения <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> для предоставления равенство значений.  
+ В следующем примере определяется `Rectangle` класс, реализующий внутри прямоугольника, как два `Point` объектов. `Rectangle` Класса также переопределения <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> для предоставления равенство значений.  
   
  [!code-csharp[ECMA-System.Object.Equals3#1](~/samples/snippets/csharp/VS_Snippets_CLR/ECMA-System.Object.Equals3/CS/equals3.cs#1)]
  [!code-vb[ECMA-System.Object.Equals3#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/ECMA-System.Object.Equals3/VB/equals3.vb#1)]  
   
- В некоторых языках, таких как C# и Visual Basic поддерживает перегрузку операторов. Если тип перегружает оператор равенства, необходимо также переопределить <xref:System.Object.Equals%28System.Object%29> метод, чтобы обеспечить те же функциональные возможности. Обычно это выполняется путем написания <xref:System.Object.Equals%28System.Object%29> метод с точки зрения перегруженный оператор равенства, как показано в следующем примере.  
+ В некоторых языках, таких как C# и Visual Basic поддерживает перегрузку операторов. Если тип перегружает оператор равенства, необходимо также переопределить <xref:System.Object.Equals%28System.Object%29> метод, чтобы предоставить те же функциональные возможности. Обычно это выполняется путем написания <xref:System.Object.Equals%28System.Object%29> метод с точки зрения перегруженный оператор равенства, как показано в следующем примере.  
   
  [!code-csharp[ECMA-System.Object.Equals4#1](~/samples/snippets/csharp/VS_Snippets_CLR/ECMA-System.Object.Equals4/CS/equals4.cs#1)]
  [!code-vb[ECMA-System.Object.Equals4#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/ECMA-System.Object.Equals4/vb/equals4.vb#1)]  
   
- Поскольку `Complex` — это тип значения не может быть производным от.  Таким образом, переопределение <xref:System.Object.Equals%28System.Object%29> метод не требуется вызывать <xref:System.Object.GetType%2A> определить точный тип времени выполнения каждого объекта, но ее можно вместо этого используйте `is` оператором в C# или `TypeOf` оператор на языке Visual Basic для проверки типа `obj` параметра.  
+ Поскольку `Complex` является типом значения, он не может быть производным от.  Таким образом, переопределение, чтобы <xref:System.Object.Equals%28System.Object%29> метод не требуется вызывать <xref:System.Object.GetType%2A> чтобы определить точный тип времени выполнения каждого объекта, но ее можно вместо этого используйте `is` оператор в C# или `TypeOf` оператора в Visual Basic, чтобы проверить тип `obj` параметра.  
   
  ]]></format>
         </remarks>
@@ -335,6 +341,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -359,18 +367,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Статический <xref:System.Object.Equals%28System.Object%2CSystem.Object%29> метод указывает, является ли два объекта, `objA` и `objB`, равны. Это также дает возможность проверки объектов, значение которого является **null** на равенство. Он сравнивает `objA` и `objB` на равенство, как показано ниже:  
+ Статический <xref:System.Object.Equals%28System.Object%2CSystem.Object%29> метод указывает, является ли два объекта, `objA` и `objB`, равны. Он также предоставляет возможность проверки объектов, значение которого равно **null** на предмет равенства. Он сравнивает `objA` и `objB` равенство следующим образом:  
   
--   Он определяет, представляют ли два объекта одной ссылки на объект. Если это так, метод возвращает `true`. Этот тест, аналогичен вызову <xref:System.Object.ReferenceEquals%2A> метод. Кроме того, если оба `objA` и `objB` , **null**, метод возвращает `true`.  
+-   Он определяет, представляют ли два объекта одну и ту же ссылку объекта. Если это так, метод возвращает `true`. Этот тест, аналогичен вызову <xref:System.Object.ReferenceEquals%2A> метод. Кроме того, если оба `objA` и `objB` являются **null**, метод возвращает `true`.  
   
--   Он определяет, является ли либо `objA` или `objB` — **null**. Если Да, он возвращает `false`.  
+-   Он определяет, является ли либо `objA` или `objB` — **null**. Если так, он возвращает `false`.  
   
--   Если оба объекта представляют одной ссылки на объект, и ни один не **null**, он вызывает `objA`.`Equals` (`objB`) и возвращает результат. Это означает, что если `objA` переопределяет <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> вызывается метод, это переопределение.  
+-   Если два объекта представляют одну и ту же ссылку объекта, и ни один не **null**, он вызывает `objA`.`Equals` (`objB`) и возвращает результат. Это означает, что если `objA` переопределяет <xref:System.Object.Equals%28System.Object%29?displayProperty=nameWithType> вызывается метод, это переопределение.  
   
    
   
 ## Examples  
- В следующем примере демонстрируется <xref:System.Object.Equals%28System.Object%2CSystem.Object%29> метод и сравнивает его с <xref:System.Object.ReferenceEquals%2A> метод.  
+ В следующем примере показано <xref:System.Object.Equals%28System.Object%2CSystem.Object%29> метод и сравнивает его с <xref:System.Object.ReferenceEquals%2A> метод.  
   
  [!code-csharp[System.Object.Equals#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.equals/cs/equals_static2.cs#1)]
  [!code-vb[System.Object.Equals#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.equals/vb/equals_static2.vb#1)]  
@@ -400,6 +408,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -422,7 +432,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Object.Finalize%2A> Метод используется для выполнения операций очистки неуправляемых ресурсов, удерживаемых текущим объектом до уничтожения объекта. Метод является защищенным и таким образом, доступный только с помощью этого класса или производного класса.  
+ <xref:System.Object.Finalize%2A> Метод используется для выполнения операций очистки на неуправляемые ресурсы, удерживаемые текущим объектом до уничтожения объекта. Метод защищен и поэтому доступен, только через этот класс или класс, производный.  
   
  Содержание  
   
@@ -430,63 +440,63 @@
   
 -   [Примечания для разработчиков](#Notes)  
   
--   [В качестве альтернативы SafeHandle](#SafeHandle)  
+-   [Вместо этого класс SafeHandle](#SafeHandle)  
   
 <a name="How"></a>   
 ## <a name="how-finalization-works"></a>Как работает завершения  
- <xref:System.Object> Класс не предоставляет реализацию для <xref:System.Object.Finalize%2A> метода и сборщик мусора не помечает типов, производных от <xref:System.Object> для заключительной обработки, если только они переопределяют <xref:System.Object.Finalize%2A> метод.  
+ <xref:System.Object> Класс не предоставляет реализацию для <xref:System.Object.Finalize%2A> метод и сборщик мусора не помечать типы, производные от <xref:System.Object> для финализации, если только они переопределяют <xref:System.Object.Finalize%2A> метод.  
   
- Если тип переопределять <xref:System.Object.Finalize%2A> метод, сборщик мусора будет добавлена запись для каждого экземпляра типа внутренней структуры, которая называется очередью завершения. Очереди завершения содержит записи для всех объектов в управляемой куче, код завершения, необходимо выполнить сборщик мусора мог освободить память. Затем сборщик мусора вызывает <xref:System.Object.Finalize%2A> метод автоматически при следующих условиях:  
+ Если тип переопределяется <xref:System.Object.Finalize%2A> метод, сборщик мусора добавляет запись для каждого экземпляра типа внутреннюю структуру, называемую очередью завершения. Очереди на финализацию. содержит записи для всех объектов в управляемой куче, необходимо запустить, код завершения, прежде чем сборщик мусора мог освободить память. Затем сборщик мусора вызывает <xref:System.Object.Finalize%2A> метод автоматически при следующих условиях:  
   
--   После сборщик мусора был обнаружен объект недоступен, если объект завершение было отключено путем вызова <xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType> метод.  
+-   После сборщик мусора обнаружил, что объект недоступен, если объект завершение было отключено с помощью вызова <xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType> метод.  
   
 -   Во время завершения работы домена приложения Если объект не было отключено. Во время завершения работы были закрыты даже объекты, которые по-прежнему доступны.  
   
- <xref:System.Object.Finalize%2A> автоматически вызывается только один раз в данном экземпляре, если объект был заново зарегистрирован с использованием механизма, таких как <xref:System.GC.ReRegisterForFinalize%2A?displayProperty=nameWithType> и <xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType> впоследствии не был вызван метод.  
+ <xref:System.Object.Finalize%2A> автоматически вызывается только один раз на данном экземпляре, если объект повторно зарегистрировать с помощью механизма, такие как <xref:System.GC.ReRegisterForFinalize%2A?displayProperty=nameWithType> и <xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType> впоследствии не был вызван метод.  
   
  <xref:System.Object.Finalize%2A> операции имеют следующие ограничения:  
   
 -   Точное время выполнения метода завершения не определен. Чтобы обеспечить детерминированного освобождения ресурсов для экземпляров класса, реализовывать `Close` метод или предоставить <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> реализации.  
   
--   Методы завершения двух объектов не гарантируется выполнение определенный порядок размещения, даже если один объект ссылается на другой. То есть если объекте A имеется ссылка на объект B и имеют финализаторы, объект B может быть уже был завершен при запуске метода завершения объекта A.  
+-   Методы завершения для двух объектов не гарантируется выполнение в каком-либо порядке, даже если один объект ссылается на другой. То есть если объект A содержит ссылку на объект B и оба имеют методы завершения, объект B может быть уже был завершен при запуске метода завершения объекта типа.  
   
--   Поток, в которой выполняется метод завершения не определен.  
+-   Поток, на котором выполняется метод завершения не определен.  
   
- <xref:System.Object.Finalize%2A> Метод не может выполняться до завершения или могут не выполняться в исключительных обстоятельствах:  
+ <xref:System.Object.Finalize%2A> Метода могут не работать до завершения или вообще не может выполняться в следующих исключительных обстоятельствах:  
   
--   Если другой метод завершения неограниченно блокируется (переход в бесконечный цикл, пытается получить блокировку, он никогда не получает и так далее). Так как среда выполнения пытается выполнять финализаторы до завершения, другие методы завершения вызвать нельзя при блокировке бесконечно.  
+-   Если другой метод завершения блокирования на неопределенное время (переходит в бесконечный цикл, пытается получить блокировку, он никогда не получает и так далее). Так как среда выполнения пытается выполнять методы завершения для завершения, другие методы завершения может не вызываться, если финализатор неопределенное время.  
   
--   Если процесс завершается без предоставления среде выполнения возможность очистки. В этом случае первый уведомлением среды выполнения о завершении процесса будет уведомление DLL_PROCESS_DETACH.  
+-   Если процесс завершается без предоставления среде выполнения возможность очистки. В этом случае первый уведомлением среды выполнения о завершении процесса — это уведомление DLL_PROCESS_DETACH.  
   
- Среда выполнения продолжает завершения объектов во время завершения работы только в том случае, пока число объектов, подлежащих завершению, продолжает уменьшаться.  
+ Среда выполнения продолжает для завершения объектов во время завершения работы только в том случае, пока количество Завершаемые объекты продолжает уменьшаться.  
   
- Если <xref:System.Object.Finalize%2A> или переопределение <xref:System.Object.Finalize%2A> создает исключение и среда выполнения не будет размещено в приложение, которое переопределяет политику по умолчанию, среда выполнения завершает процесс и ни один активный `try` / `finally` блоков или метод завершения выполняются. Такое поведение гарантирует целостность процесса, если метод завершения не может освободить или уничтожение ресурсов.  
+ Если <xref:System.Object.Finalize%2A> или переопределение <xref:System.Object.Finalize%2A> создает исключение и среда выполнения не будет размещено в приложение, которое переопределяет политику по умолчанию, среда выполнения завершает процесс и отсутствие активного `try` / `finally` блоки или метод завершения выполняются. Такое поведение гарантирует целостность процесса, если метод завершения не может освобождения или удаления ресурсов.  
   
 <a name="Notes"></a>   
 ## <a name="overriding-the-finalize-method"></a>Переопределение метода Finalize 
- Необходимо переопределить <xref:System.Object.Finalize%2A> для класса, который использует неуправляемые ресурсы, такие как дескрипторы файлов или подключения базы данных, которые должны быть освобождены при отказе управляемый объект, который использует их во время сборки мусора. Не должен реализовывать <xref:System.Object.Finalize%2A> метод для управляемых объектов, так как сборщик мусора автоматически освобождает управляемые ресурсы.  
+ Необходимо переопределить <xref:System.Object.Finalize%2A> для класса, который использует неуправляемые ресурсы, такие как дескрипторы файлов или подключения к базе данных, которые должны быть освобождены при управляемый объект, который использует их во время сборки мусора. Не должен реализовывать <xref:System.Object.Finalize%2A> метод для управляемых объектов, так как сборщик мусора автоматически освобождает управляемые ресурсы.  
   
 > [!IMPORTANT]
->  Если <xref:System.Runtime.InteropServices.SafeHandle> объект доступен, создает оболочку для неуправляемого ресурса, взамен рекомендуется использовать для реализации шаблона удаления с безопасным дескриптором и переопределения <xref:System.Object.Finalize%2A>. Дополнительные сведения см. в разделе [альтернативой SafeHandle](#SafeHandle) раздела.  
+>  Если <xref:System.Runtime.InteropServices.SafeHandle> доступен объект, который служит оболочкой неуправляемый ресурс, рекомендуется реализовать шаблон dispose с безопасным дескриптором и переопределяет <xref:System.Object.Finalize%2A>. Дополнительные сведения см. в разделе [SafeHandle альтернатива](#SafeHandle) раздел.  
   
- <xref:System.Object.Finalize%2A?displayProperty=nameWithType> Метод не выполняет никаких действий по умолчанию, но необходимо переопределить <xref:System.Object.Finalize%2A> только в том случае, если необходимо и только для освобождения неуправляемых ресурсов. Освобождение памяти обычно занимает больше времени при выполнении операции завершения, поскольку требуется по крайней мере два сборки мусора. Кроме того, необходимо переопределить <xref:System.Object.Finalize%2A> только для типов метод для ссылки. Общеязыковая среда выполнения завершает только ссылочные типы. Пропускает методы завершения для типов значений.  
+ <xref:System.Object.Finalize%2A?displayProperty=nameWithType> Метод не выполняет никаких действий по умолчанию, но необходимо переопределить <xref:System.Object.Finalize%2A> только в том случае, если необходимо и только для освобождения неуправляемых ресурсов. Освобождение памяти обычно занимает больше времени при выполнении операции завершения, поскольку она требует по крайней мере два сборки мусора. Кроме того, необходимо переопределить <xref:System.Object.Finalize%2A> метод для ссылки только для типов. Среда CLR завершает только ссылочные типы. Он игнорирует методы завершения для типов значений.  
 
-Область <xref:System.Object.Finalize%2A?displayProperty=nameWithType> метод `protected`. При переопределении метода в классе необходимо поддерживать эта ограниченная область действия. За счет <xref:System.Object.Finalize%2A> метод, защищенный, это не позволит пользователям приложения при вызове объекта <xref:System.Object.Finalize%2A> метод непосредственно.
+Область <xref:System.Object.Finalize%2A?displayProperty=nameWithType> метод `protected`. При переопределении метода в классе следует поддерживать эта ограниченная область действия. Сохраняя <xref:System.Object.Finalize%2A> метод, защищенный, не позволит пользователям приложения при вызове объекта <xref:System.Object.Finalize%2A> метод напрямую.
   
- Каждая реализация <xref:System.Object.Finalize%2A> в производном типе, необходимо вызвать реализацию базового типа <xref:System.Object.Finalize%2A>. Это единственный случай, в какие приложения могут вызывать код <xref:System.Object.Finalize%2A>. Объект <xref:System.Object.Finalize%2A> метод не должен вызывать метод каких-либо объектов, отличным от своего базового класса. Это так, как при вызове других объектов собирается одновременно вызывающего объекта, например, в случае закрытия среды CLR. 
+ Каждая реализация <xref:System.Object.Finalize%2A> в производном типе, необходимо вызвать реализацию его базового типа <xref:System.Object.Finalize%2A>. Это единственный случай, в какие приложения могут вызывать код <xref:System.Object.Finalize%2A>. Объекта <xref:System.Object.Finalize%2A> метод не следует вызывать метод для любого объекта, за исключением этого базового класса. Это потому, что при вызове других объектов собирается в то же время, что и вызывающий объект, например в случае закрытия среды CLR. 
   
 > [!NOTE]
->  Компилятор C# не позволяет переопределить <xref:System.Object.Finalize%2A> метод. Вместо этого предоставлять метод завершения, реализовав [деструктор](~/docs/csharp/programming-guide/classes-and-structs/destructors.md) для своего класса. Деструктор C# автоматически вызывает деструктор базового класса.  
+>  Компилятор C# не позволяет переопределить <xref:System.Object.Finalize%2A> метод. Вместо этого предоставлять метод завершения, реализовав [деструктор](~/docs/csharp/programming-guide/classes-and-structs/destructors.md) для класса. Деструктор C# автоматически вызывает деструкторы базового класса.  
 >   
->  Visual C++ также предоставляет свой собственный синтаксис для реализации <xref:System.Object.Finalize%2A> метод. Дополнительные сведения см в разделе «Деструкторы и методы завершения» [как: определение и использование классов и структур (C + +/ CLI)](http://msdn.microsoft.com/library/1c03cb0d-1459-4b5e-af65-97d6b3094fd7).  
+>  Visual C++ также предоставляет свой собственный синтаксис для реализации <xref:System.Object.Finalize%2A> метод. Дополнительные сведения см. в разделе «Деструкторы и методы завершения» из [как: определение и использование классов и структур (C + +/ CLI)](http://msdn.microsoft.com/library/1c03cb0d-1459-4b5e-af65-97d6b3094fd7).  
   
- Так как сборщик мусора является недетерминированным, вы не знаете точно в том случае, когда сборщик мусора выполняет финализации. Чтобы освободить ресурсы немедленно, также можно реализовать [шаблон удаления](~/docs/standard/design-guidelines/dispose-pattern.md) и <xref:System.IDisposable> интерфейса. <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> Реализация может быть вызван потребители этого класса, чтобы освободить неуправляемые ресурсы, а также можно использовать <xref:System.Object.Finalize%2A> метод для освобождения неуправляемых ресурсов в случае, если <xref:System.IDisposable.Dispose%2A> метод не вызывается.  
+ Так как сборка мусора является недетерминированным, вы не знаете точно в том случае, когда сборщик мусора выполняет финализации. Чтобы освободить ресурсы немедленно, вы также можете реализовать [шаблон удаления](~/docs/standard/design-guidelines/dispose-pattern.md) и <xref:System.IDisposable> интерфейс. <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> Реализации могут быть вызваны потребителям вашего класса, чтобы освободить неуправляемые ресурсы, а также можно использовать <xref:System.Object.Finalize%2A> метод для освобождения неуправляемых ресурсов в случае недоступности <xref:System.IDisposable.Dispose%2A> метод не вызывается.  
   
- <xref:System.Object.Finalize%2A> можно предпринять практически любые действия, включая восстановление объекта (который доступности еще раз), после его были очищены во время сборки мусора. Тем не менее объект может быть восстановлен только один раз; <xref:System.Object.Finalize%2A> не может вызываться для восстановленных объектов во время сборки мусора. Имеется одно действие, реализация <xref:System.Object.Finalize%2A> никогда не должен принимать: он никогда не должно создавать исключения. При вызове исключения, вызываемые методы из <xref:System.Object.Finalize%2A> обрабатывается метод <xref:System.Object.Finalize%2A> метод, среда выполнения предполагает, что <xref:System.Object.Finalize%2A> метод возвращается и продолжает вызывать <xref:System.Object.Finalize%2A> методов других объектов. 
+ <xref:System.Object.Finalize%2A> можно предпринять практически любые действия, включая восстановление объекта (который доступности еще раз), после его очищено во время сборки мусора. Тем не менее объект может быть восстановлен только один раз; <xref:System.Object.Finalize%2A> не может быть вызвана восстановленных объектов во время сборки мусора. Есть одно действие, реализация <xref:System.Object.Finalize%2A> никогда не должен принимать: он никогда не должен создавать исключение. При вызове исключений, вызываемых методов из <xref:System.Object.Finalize%2A> обрабатывается метод <xref:System.Object.Finalize%2A> метод, среда выполнения предполагает, что <xref:System.Object.Finalize%2A> метод возвращается и продолжает обращаться <xref:System.Object.Finalize%2A> методов других объектов. 
   
 <a name="SafeHandle"></a>   
 ## <a name="the-safehandle-alternative"></a>Альтернативный вариант с использованием SafeHandle  
- Создание надежных методов завершения часто сложно, поскольку не может делать предположения о состоянии приложения и необработанные исключения системы, такие как <xref:System.OutOfMemoryException> и <xref:System.StackOverflowException> завершение метода завершения. Вместо реализации метода завершения для класса, чтобы освободить неуправляемые ресурсы, можно использовать объект, который является производным от <xref:System.Runtime.InteropServices.SafeHandle?displayProperty=nameWithType> класса программы-оболочки для неуправляемых ресурсов, а затем реализовать шаблон удаления без метода завершения. Платформа .NET Framework предоставляет следующие классы в <xref:Microsoft.Win32?displayProperty=nameWithType> пространства имен, которые являются производными от <xref:System.Runtime.InteropServices.SafeHandle?displayProperty=nameWithType>:  
+ Создание надежных методов завершения часто является сложной задачей, поскольку не может делать предположения о состоянии приложения и необработанные исключения системы, такие как <xref:System.OutOfMemoryException> и <xref:System.StackOverflowException> завершения метода завершения. Вместо реализации метода завершения для класса, чтобы освободить неуправляемые ресурсы, можно использовать объект, который является производным от <xref:System.Runtime.InteropServices.SafeHandle?displayProperty=nameWithType> класса программы-оболочки для неуправляемых ресурсов, а затем реализуйте шаблон удаления без метода завершения. .NET Framework предоставляет следующие классы в <xref:Microsoft.Win32?displayProperty=nameWithType> пространство имен, являются производными от <xref:System.Runtime.InteropServices.SafeHandle?displayProperty=nameWithType>:  
   
 -   <xref:Microsoft.Win32.SafeHandles.SafeFileHandle> Представляет класс-оболочку для дескриптора файла.  
   
@@ -494,15 +504,15 @@
   
 -   <xref:Microsoft.Win32.SafeHandles.SafeMemoryMappedViewHandle> Представляет класс-оболочку для указателя на блок неуправляемой памяти.  
   
--   <xref:Microsoft.Win32.SafeHandles.SafeNCryptKeyHandle>, <xref:Microsoft.Win32.SafeHandles.SafeNCryptProviderHandle>, и <xref:Microsoft.Win32.SafeHandles.SafeNCryptSecretHandle> являются классы-оболочки для шифрования маркеров.  
+-   <xref:Microsoft.Win32.SafeHandles.SafeNCryptKeyHandle>, <xref:Microsoft.Win32.SafeHandles.SafeNCryptProviderHandle>, и <xref:Microsoft.Win32.SafeHandles.SafeNCryptSecretHandle> являются классы-оболочки для криптографических дескрипторов.  
   
--   <xref:Microsoft.Win32.SafeHandles.SafePipeHandle> Представляет класс-оболочку для дескрипторов канала.  
+-   <xref:Microsoft.Win32.SafeHandles.SafePipeHandle> Представляет класс-оболочку для дескриптора канала.  
   
 -   <xref:Microsoft.Win32.SafeHandles.SafeRegistryHandle> Представляет класс-оболочку для дескриптора в раздел реестра.  
   
 -   <xref:Microsoft.Win32.SafeHandles.SafeWaitHandle> Представляет класс-оболочку для дескриптора ожидания.  
   
- В следующем примере используется [шаблон удаления](~/docs/standard/design-guidelines/dispose-pattern.md) с безопасных дескрипторов вместо переопределения <xref:System.Object.Finalize%2A> метод. Он определяет `FileAssociation` класс-оболочку реестра сведения о приложении, которое работает с файлами с расширением определенного файла. Обрабатывает два реестра, возвращаются в виде `out` параметров с Windows [RegOpenKeyEx](http://msdn.microsoft.com/library/windows/desktop/ms724897.aspx) вызовы функций передаются <xref:Microsoft.Win32.SafeHandles.SafeRegistryHandle> конструктор. Тип защищенные `Dispose` затем вызывает метод `SafeRegistryHandle.Dispose` метод для освобождения эти два маркера.  
+ В следующем примере используется [шаблон удаления](~/docs/standard/design-guidelines/dispose-pattern.md) с безопасные дескрипторы вместо переопределения <xref:System.Object.Finalize%2A> метод. Он определяет `FileAssociation` класс-оболочку реестра сведения о приложении, которое обрабатывает файлы с расширением определенного файла. Обрабатывает два реестра, возвращаются в виде `out` параметров по Windows [RegOpenKeyEx](http://msdn.microsoft.com/library/windows/desktop/ms724897.aspx) вызовы функций передаются <xref:Microsoft.Win32.SafeHandles.SafeRegistryHandle> конструктор. Защищенный тип `Dispose` затем вызывает метод `SafeRegistryHandle.Dispose` метод для освобождения этих двух дескрипторов.  
   
  [!code-csharp[System.Object.Finalize#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.finalize/cs/finalize_safe.cs#2)]
  [!code-vb[System.Object.Finalize#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.finalize/vb/finalize_safe.vb#2)]  
@@ -510,12 +520,12 @@
    
   
 ## Examples  
- В следующем примере проверяется, <xref:System.Object.Finalize%2A> метод вызывается, когда объект, который переопределяет <xref:System.Object.Finalize%2A> уничтожается. Обратите внимание, что в реальном приложении <xref:System.Object.Finalize%2A> метод был бы переопределен, чтобы освободить неуправляемые ресурсы, удерживаемые объектом. Также Обратите внимание, что в примере на C# предоставляет деструктор вместо переопределения <xref:System.Object.Finalize%2A> метод.  
+ В следующем примере проверяется, <xref:System.Object.Finalize%2A> метод вызывается, когда объект, переопределяющий <xref:System.Object.Finalize%2A> уничтожается. Обратите внимание, что в рабочем приложении <xref:System.Object.Finalize%2A> метод был бы переопределен, чтобы освободить неуправляемые ресурсы, удерживаемые объектом. Также Обратите внимание, что в примере C# предоставляет деструктор вместо переопределения <xref:System.Object.Finalize%2A> метод.  
   
  [!code-csharp[System.Object.Finalize#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.finalize/cs/finalize1.cs#1)]
  [!code-vb[System.Object.Finalize#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.finalize/vb/finalize1.vb#1)]  
   
- Дополнительный пример, который переопределяет <xref:System.Object.Finalize%2A> метода, в разделе <xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType> метод.  
+ Дополнительный пример, который переопределяет <xref:System.Object.Finalize%2A> метод, см. в разделе <xref:System.GC.SuppressFinalize%2A?displayProperty=nameWithType> метод.  
   
  ]]></format>
         </remarks>
@@ -544,6 +554,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -562,58 +574,58 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Хэш-код является числовым значением, используемый для вставки и идентификации объекта в коллекции на основе хэша, таких как <xref:System.Collections.Generic.Dictionary%602> класса <xref:System.Collections.Hashtable> класса или типа, производного от <xref:System.Collections.DictionaryBase> класса. <xref:System.Object.GetHashCode%2A> Метод предоставляет этот хэш-код для алгоритмов, требующих быстрой проверки равенства объекта.  
+ Хэш-код — это числовое значение, которое используется для вставки и идентификации объекта в коллекции на основе хэша, такие как <xref:System.Collections.Generic.Dictionary%602> класс, <xref:System.Collections.Hashtable> класса или типа, производного от <xref:System.Collections.DictionaryBase> класса. <xref:System.Object.GetHashCode%2A> Метод предоставляет этот хэш-код для алгоритмов, требующих быстрой проверки на равенство объекта.  
   
 > [!NOTE]
->  См. сведения об использовании хэш-кодов в хэш-таблицы, а также некоторые дополнительные хэш-код алгоритмы [хэш-функции](https://en.wikipedia.org/wiki/Hash_function) запись в Википедии.  
+>  Сведения об использовании хэш-кодов в хэш-таблицы и некоторые дополнительные хэш-код алгоритмы, см. в разделе [хэш-функции](https://en.wikipedia.org/wiki/Hash_function) запись в Википедии.  
   
- Два объекта, равно возвращаемого хэш-кодов, которые равны. Однако обратное неверно: равно хэш-кодов не влекут за собой равенство объектов, так как другой (равны) объекты могут иметь одинаковые хэш-коды. Кроме того, платформа .NET Framework не гарантирует реализацию по умолчанию <xref:System.Object.GetHashCode%2A> метод и значения, этот метод возвращает могут различаться между версиями .NET Framework и платформ, таких как 32-разрядных и 64-разрядных платформах. По этим причинам не используйте реализация этого метода по умолчанию в качестве уникального идентификатора объекта для хэширования целей. От этого, выполните два последствия.  
+ Два объекта, равно возвращаемого значения хэш-кодов, которые равны. Однако обратное неверно: равно хэш-коды не подразумевают равенство объекта, так как разные объекты (неравных) может иметь одинаковые хэш-кодов. Кроме того, платформа .NET Framework не гарантирует, что реализация по умолчанию <xref:System.Object.GetHashCode%2A> метод и значения, этот метод возвращает могут различаться между версиями .NET Framework и платформ, таких как 32-разрядных и 64-разрядных платформах. По этим причинам не используйте реализация по умолчанию этот метод в качестве уникального идентификатора объекта в целях хэширования. Из этого, выполните два последствия.  
   
--   Не следует предполагать, что равно хэш-кодов определяют равенство объектов.  
+-   Не следует предполагать, что равно хэш-коды подразумевают равенство объектов.  
   
--   Никогда не следует хранить или использовать хэш-код вне домена приложения, в котором он был создан, поскольку тот же объект может хэша между доменами приложений, процессами и платформы.  
+-   Никогда не следует сохранять или использовать хэш-код за пределами домена приложения, в котором он был создан, поскольку тот же объект может хэш-между доменами приложений, процессами и платформ.  
   
 > [!WARNING]
->  Хэш-код предназначен для эффективную вставку и поиск в коллекции, основанные на хэш-таблицу. Хэш-код не постоянное значение. По этой причине:  
+>  Хэш-код предназначен для эффективную вставку и поиска в коллекции, основанные на хэш-таблицу. Хэш-код не постоянное значение. По этой причине:  
 >   
->  -   Не сериализации значения хэш-кода и хранить их в базах данных.  
-> -   Не используйте хэш-код в качестве ключа для извлечения объекта из коллекции с ключом.  
-> -   Не отправляйте хэш-кодов в доменах приложений или процессах. В некоторых случаях хэш-коды могут вычисляться на основе домена каждого процесса или на уровне приложений.  
-> -   Не используйте хэш-код вместо значения, возвращенные шифрования функции хэширования, если вам требуется криптостойкой хэш. Для криптографическое хэширование, используйте класс, производный от <xref:System.Security.Cryptography.HashAlgorithm?displayProperty=nameWithType> или <xref:System.Security.Cryptography.KeyedHashAlgorithm?displayProperty=nameWithType> класса.  
-> -   Не выполняйте проверку на равенство хэш-кодов, чтобы определить, равны ли два объекта. (Равны объекты могут иметь одинаковые хэш-коды.) Для проверки на равенство, вызовите <xref:System.Object.ReferenceEquals%2A> или <xref:System.Object.Equals%2A> метод.  
+> -   Не сериализации значения хэш-кода и сохранять их в базах данных.  
+> -   Не используйте хэш-код как ключ для извлечения объекта из коллекции с ключом.  
+> -   Не отправляли хэш-кодов по доменам приложений и процессов. Для классов, производных от ,  метод можно делегировать базовому классу  реализации только в том случае, если производный класс определяет равенство ссылок.  
+> -   Реализация по умолчанию  для ссылки на типы Возвращает хэш-код, который эквивалентен возвращенного  метод. Для криптографических хэшей, используйте класс, производный от <xref:System.Security.Cryptography.HashAlgorithm?displayProperty=nameWithType> или <xref:System.Security.Cryptography.KeyedHashAlgorithm?displayProperty=nameWithType> класса.  
+> -   Можно переопределить  для неизменяемого ссылочных типов. В общем случае для изменяемые ссылочные типы, должны переопределять  только тогда, когда: — вы можете вычислить хэш-код из полей, которые не являются изменяемыми; или - убедитесь, что хэш-код из изменяемого объекта не изменяется, пока объект, содержащийся в collecti на что полагается на ее хэш-код. В противном случае можно подумать, что изменяемый объект теряются в хэш-таблице.  
   
- <xref:System.Object.GetHashCode%2A> Метод может быть переопределен в производном типе. Если <xref:System.Object.GetHashCode%2A> — не переопределен, хэш-кодов для ссылочных типов вычисляются путем вызова <xref:System.Object.GetHashCode%2A?displayProperty=nameWithType> метод базового класса, который вычисляет хэш-код на основе объекта ссылки; Дополнительные сведения см. в разделе <xref:System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode%2A?displayProperty=nameWithType>. Другими словами, два объекта, для которого <xref:System.Object.ReferenceEquals%2A> возвращает `true` имеют одинаковые хэш-коды. Если типы значений не переопределяйте <xref:System.Object.GetHashCode%2A>, <xref:System.ValueType.GetHashCode%2A?displayProperty=nameWithType> метод базового класса использует отражение для вычисления хэш-код на основе значений поля типа. Другими словами типы значений, поля которого имеют одинаковые значения имеют равно хэш-кодов. Дополнительные сведения о переопределении <xref:System.Object.GetHashCode%2A>, см. в разделе «Примечания для наследующих объектов».  
+ Если вы выберете для переопределения  для изменяемый ссылочный тип, к документации по должна обеспечивать что пользователи вашего типа не могут изменять значения объекта во время хранения объекта в хэш-таблице. Для типов значений  предоставляет стандартную реализацию кода хэш, который использует отражение. Рассмотрите возможность его переопределения для повышения производительности. Дополнительные сведения и примеры, которые вычисляют хэш-кодов в различными способами см. в разделе «примеры». Хэш-функции должен иметь следующие свойства: - если два объекта считаются равными,  метод для каждого объекта должен возвращать то же значение. Тем не менее, если два объекта не сравнении считаются равными,  методов для двух объектов не требуется возвращать разные значения.  -  Метод для объекта, необходимо постоянно возвращает же хэш-код до тех пор, пока не существует каких-либо изменений в состояние объекта, которое определяет возвращаемое значение объекта [System.Object.Equals](xref:System.Object.Equals*) метод.  
   
 > [!WARNING]
->  При переопределении <xref:System.Object.GetHashCode%2A> метод, необходимо также переопределить <xref:System.Object.Equals%2A>и наоборот. Если переопределенном <xref:System.Object.Equals%2A> возвращает `true` при двух объектов для проверки на равенство, переопределенном <xref:System.Object.GetHashCode%2A> метод должен возвращать одинаковое значение для двух объектов.  
+>  Обратите внимание, что это справедливо только для текущего выполнения приложения, и что разные хэш-код могут быть возвращены, если приложение запускается снова.  — Для повышения производительности хэш-функции следует создавать равномерное распределение для всех входных данных, включая входные данные, которые сильно кластеризован. Подразумевается, что небольшие изменения для состояния объекта должно привести к внесении значительных изменений в результирующее хэш-код для достижения оптимальной производительности хэш-таблице.  -Хэш функции должны быть недорогих для вычисления.  -  Метод не должен вызывать исключения.  
   
- Если объект, который используется в качестве ключа в хэш-таблице не предоставляет полезную реализацию <xref:System.Object.GetHashCode%2A>, можно указать поставщика хэш-кода, указав <xref:System.Collections.IEqualityComparer> реализации к одной из перегрузок <xref:System.Collections.Hashtable> конструктора класса.  
+ Например, реализация  метод  класс возвращает одинаковые хэш-коды для идентичные строковые значения.  
   
 ## <a name="notes-for-the-includewrtincludeswrt-mdmd"></a>Заметки о [!INCLUDE[wrt](~/includes/wrt-md.md)]  
- При вызове <xref:System.Object.GetHashCode%2A> метод класса в [!INCLUDE[wrt](~/includes/wrt-md.md)], он предоставляет поведение по умолчанию для классов, которые не переопределяют <xref:System.Object.GetHashCode%2A>. Это является частью возможностей .NET Framework для [!INCLUDE[wrt](~/includes/wrt-md.md)] (см. [.NET Framework поддерживает для приложений магазина Windows и среды выполнения Windows](~/docs/standard/cross-platform/support-for-windows-store-apps-and-windows-runtime.md)). Классы в [!INCLUDE[wrt](~/includes/wrt-md.md)] не наследуют <xref:System.Object>и в настоящее время не использовать <xref:System.Object.GetHashCode%2A>. При этом они будут иметь <xref:System.Object.ToString%2A>, <xref:System.Object.Equals%28System.Object%29>, и <xref:System.Object.GetHashCode%2A> методов при их использовании в коде C# или Visual Basic и .NET Framework предоставляет поведение по умолчанию для этих методов.  
+ Таким образом, два  объекты возвращают одинаковый хэш-код, если они представляют тот же строковый параметр. Это является частью возможностей .NET Framework для [!INCLUDE[wrt](~/includes/wrt-md.md)] (см. в разделе [приложений .NET Framework поддерживает для Windows Store и среды выполнения Windows](~/docs/standard/cross-platform/support-for-windows-store-apps-and-windows-runtime.md)). Кроме того, этот метод использует все символы в строке для создания случайно распределенного результата, даже в том случае, если входные данные является кластеризованным экземпляром в определенные диапазоны (например, многие пользователи применяют строки, содержащие только первые 128 ASCII, даже если Строка может содержать любой из 65535 символов Юникода). Тем не менее, в них могут быть <xref:System.Object.ToString%2A>, <xref:System.Object.Equals%28System.Object%29>, и <xref:System.Object.GetHashCode%2A> методов при их использовании в коде C# или Visual Basic и .NET Framework предоставляет поведение по умолчанию для этих методов.  
   
 > [!NOTE]
->  [!INCLUDE[wrt](~/includes/wrt-md.md)] классы, написанные на C# или Visual Basic можно переопределить <xref:System.Object.GetHashCode%2A> метод.  
+>  [!INCLUDE[wrt](~/includes/wrt-md.md)] Предоставление хорошей хэш-функции для каждого класса может существенно повлиять на производительность Добавление соответствующих объектов в хэш-таблицу.  
   
    
   
 ## Examples  
- Один из самых простых способов вычисления хэш-код для числовое значение, которое имеет тот же или меньший диапазон, чем <xref:System.Int32> типа является просто возвращать это значение. В примере показан такой реализации для `Number` структуры.  
+ В хэш-таблицы с ключами, которые обеспечивают реализацию хорошей хэш-функции поиск элементов требуется постоянное время (например, операцией o(1)). В хэш-таблице при плохой реализации хэш-функции, производительность поиска зависит от числа элементов в хэш-таблицы (например, операцией O('n'), где "n" — количество элементов в хэш-таблице).  
   
  [!code-csharp[System.Object.GetHashCode#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.gethashcode/cs/direct1.cs#1)]
  [!code-vb[System.Object.GetHashCode#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.gethashcode/vb/direct1.vb#1)]  
   
- Как правило тип имеет несколько полей данных, которые могут участвовать в создании хэш-код. Является одним из способов создания хэш-код для объединения этих полей с помощью `XOR (eXclusive OR)` операции, как показано в следующем примере.  
+ Пользователь-злоумышленник может входные данные, которое увеличивает количество конфликтов, которые может значительно ухудшить производительность приложений, которые зависят от хэш-таблицы, при следующих условиях: — когда хэш-функции создания часто конфликтов.  -Когда значительная доля объектов в хэш-таблицу произвести хэш-кодов, которые равны или приблизительно равно друг с другом.  — При вводе пользователями данных, из которого вычисляется хэш-код. Производные классы, переопределяющие  необходимо также переопределить  гарантировать, что два объекта считаются равными, имеют одинаковый хэш-код; в противном случае  типа могут работать неправильно.  
   
  [!code-csharp[System.Object.GetHashCode#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.gethashcode/cs/xor1.cs#2)]
  [!code-vb[System.Object.GetHashCode#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.gethashcode/vb/xor1.vb#2)]  
   
- Предыдущий пример возвращает тот же хэш-код для (n1, n2) и (n2 n1) и поэтому может создавать дополнительные конфликтов, чем нежелательно. Доступно несколько решений, чтобы хэш-кодов в таких случаях не совпадают. Он возвращает хэш-код `Tuple` объекта, который соответствует порядку каждого поля. В следующем примере показана возможная реализация, использующий <xref:System.Tuple%602> класса. Обратите внимание на то, что производительность создания экземпляра `Tuple` объекта может существенно сказаться на общую производительность приложения, которое сохраняет большое число объектов в хэш-таблицах.  
+ Так как  является базовым классом для всех типов в системе типов .NET Framework,  метод может использоваться для возврата  объекты, представляющие все типы .NET Framework. .NET Framework распознает следующие пять категорий типов: Классы, которые являются производными от `Tuple`, В следующем примере показано возможная реализация, которая использует <xref:System.Tuple%602> класса. Обратите внимание на то, производительность создания `Tuple` объекта может значительно повлиять на общую производительность приложения, который хранит большое количество объектов в хэш-таблицы.  
   
  [!code-csharp[System.Object.GetHashCode#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.gethashcode/cs/xor2.cs#3)]
  [!code-vb[System.Object.GetHashCode#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.gethashcode/vb/xor2.vb#3)]  
   
- Второй альтернативное решение включает в себя взвешивание отдельных хэш-кодов, сдвиг влево хэш-кодов последующих полей двух или более разрядами. Оптимально вместо удаления, биты, сдвигаемые дальше 31 разряд обтекания вокруг, а не сбрасываются. Так как bits удаляются с помощью операторов сдвига влево на C# и Visual Basic, для этого требуется создание левой метода shift и перенос следующим образом:  
+ Второй альтернативное решение включает в себя изменение веса отдельных хэш-коды, сдвиг влево хэш-коды последующих полей двух или более разрядами. Лучше всего вместо уничтожается, биты, сдвигаемые дальше 31 разряд завернуть, а не отменены. Поскольку биты отбрасываются операторами сдвига влево, в C# и Visual Basic, для этого требуется создание левой метода shift и перенос следующим образом:  
   
  [!code-csharp[System.Object.GetHashCode#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.gethashcode/cs/shift1.cs#4)]
  [!code-vb[System.Object.GetHashCode#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.gethashcode/vb/shift1.vb#4)]  
@@ -626,7 +638,7 @@
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>Хэш-функция используется для быстрого создания числа (хэш-код), соответствующее значению объекта. Хэш-функции обычно специфичны для каждого типа и уникальности, необходимо использовать по крайней мере одно поле экземпляра в качестве входного. Хэш-коды не должно быть вычислено с помощью значения статических полей.  Для классов, производных от <see cref="T:System.Object" />, <see langword="GetHashCode" /> метод базового класса можно делегировать <see cref="M:System.Object.GetHashCode" /> реализации только в том случае, если производный класс определяет равенство ссылок. Реализация по умолчанию <see cref="M:System.Object.GetHashCode" /> для ссылки на типы Возвращает хэш-код, которое эквивалентно значению, возвращенных <see cref="M:System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(System.Object)" /> метод. Можно переопределить <see cref="M:System.Object.GetHashCode" /> для неизменяемого ссылочных типов. В общем случае для изменяемые ссылочные типы, должны переопределять <see cref="M:System.Object.GetHashCode" /> только если: - можно вычислить хэш-код из полей, которые не являются изменяемыми; или - убедитесь, что хэш-код для изменяемого объекта не изменить объект содержится в collecti от этого зависит от его хэш-код.  В противном случае вы можете подумать, теряется, изменяемого объекта в хэш-таблице. Если вы решите переопределить <see cref="M:System.Object.GetHashCode" /> для изменяемым ссылочным типом, документации следует сделать снимите флажок, чтобы пользователи этого типа не могут изменять значения объекта во время хранения объекта в хэш-таблице.  Для типов значений <see cref="M:System.ValueType.GetHashCode" /> предоставляет стандартную реализацию кода хэш, который использует отражение. Рассмотрите возможность его переопределения для повышения производительности.  <block subset="none" type="note"><para> Дополнительные сведения и примеры, которые вычисляют хэш-кодов в различными способами см. подраздел «примеры».  </para></block>  Хэш-функции должны иметь следующие свойства: - если два объекта при сравнении считаются равными, <see cref="M:System.Object.GetHashCode" /> метод для каждого объекта должен возвращать одинаковое значение. Тем не менее, если два объекта не при сравнении считаются равными, <see cref="M:System.Object.GetHashCode" /> методы для двух объектов не обязательно должны возвращать разные значения.  - <see cref="M:System.Object.GetHashCode" /> Метод для объекта, постоянно должен возвращать такой же хэш-код при условии, что есть какие-либо изменения состояния объекта, определяющее возвращаемое значение объекта [System.Object.Equals](xref:System.Object.Equals*) метод. Обратите внимание, что это справедливо только для текущего выполнения приложения при повторном запуске приложения может возвращаться другой хэш-код.  -Для повышения производительности хэш-функция должна создавать равномерное распределение для всех входных данных, включая входных данных, который сильно кластер. Суть в том, что небольшие изменения состояния объекта должны появиться больших изменений в результирующее хэш-код для достижения оптимальной производительности хэш-таблицы.  -Хэш функции должно быть недорогих для вычисления.  - <see cref="M:System.Object.GetHashCode" /> Метод не должен выдавать исключения.  Например, реализация <see cref="M:System.String.GetHashCode" /> метод <see cref="T:System.String" /> класса возвращает одинаковые хэш-коды для идентичные строковые значения. Таким образом, два <see cref="T:System.String" /> объекты возвращают одинаковые хэш-код, если они представляют одно и то же значение строки. Кроме того, этот метод использует все символы в строке для создания случайно распределенного результата, даже в том случае, если является кластеризованным экземпляром входные данные в определенные диапазоны (например, многие пользователи применяют строки, содержащие только первые 128 ASCII, даже если Строка может содержать любые из 65535 символов Юникода).  Предоставление хорошей хэш-функции для каждого класса может значительно повлиять на производительность Добавление соответствующих объектов в хэш-таблицу. В хэш-таблицу с ключами, которые обеспечивают реализацию хорошей хэш-функции поиск элементов требуется постоянное время (например, операцией o(1)). В хэш-таблице при плохой реализации хэш-функции, скорость поиска зависит от числа элементов в хэш-таблице (например, операцией O('n'), где 'n' — количество элементов в хэш-таблице). Пользователь-злоумышленник может входные данные, что увеличивает количество конфликтов, в которых может значительно ухудшить производительность приложений, зависящих от хэш-таблицы в следующих случаях: - Если хэш-функции выдают часто конфликтов.  -Если большую часть объектов в хэш-таблице создания хэш-кодов, которые равны или приблизительно друг с другом.  -Если пользователи входных данных, из которого вычисляется хэш-код.  Производные классы, переопределяющие <see cref="M:System.Object.GetHashCode" /> необходимо также переопределить <see cref="M:System.Object.Equals(System.Object)" /> гарантировать, что два объекта, считаются равными, имеют тот же хэш-код; в противном случае <see cref="T:System.Collections.Hashtable" /> типа могут работать неправильно.</para>
+          <para>Хэш-функции используется для быстрого создания числа (хэш-код), соответствующее значению объекта. Хэш-функции обычно специфичны для каждого типа и для уникальности, необходимо использовать по крайней мере одно из полей экземпляра как входные данные. Хэш-коды не должно быть вычислено с помощью значения статических полей.  Для классов, производных от <see cref="T:System.Object" />, <see langword="GetHashCode" /> метод можно делегировать базовому классу <see cref="M:System.Object.GetHashCode" /> реализации только в том случае, если производный класс определяет равенство ссылок. Реализация по умолчанию <see cref="M:System.Object.GetHashCode" /> для ссылки на типы Возвращает хэш-код, который эквивалентен возвращенного <see cref="M:System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(System.Object)" /> метод. Можно переопределить <see cref="M:System.Object.GetHashCode" /> для неизменяемого ссылочных типов. В общем случае для изменяемые ссылочные типы, должны переопределять <see cref="M:System.Object.GetHashCode" /> только тогда, когда: — вы можете вычислить хэш-код из полей, которые не являются изменяемыми; или - убедитесь, что хэш-код из изменяемого объекта не изменяется, пока объект, содержащийся в collecti на что полагается на ее хэш-код.  В противном случае можно подумать, что изменяемый объект теряются в хэш-таблице. Если вы выберете для переопределения <see cref="M:System.Object.GetHashCode" /> для изменяемый ссылочный тип, к документации по должна обеспечивать что пользователи вашего типа не могут изменять значения объекта во время хранения объекта в хэш-таблице.  Для типов значений <see cref="M:System.ValueType.GetHashCode" /> предоставляет стандартную реализацию кода хэш, который использует отражение. Рассмотрите возможность его переопределения для повышения производительности.  <block subset="none" type="note"><para> Дополнительные сведения и примеры, которые вычисляют хэш-кодов в различными способами см. в разделе «примеры».  </para></block>  Хэш-функции должен иметь следующие свойства: - если два объекта считаются равными, <see cref="M:System.Object.GetHashCode" /> метод для каждого объекта должен возвращать то же значение. Тем не менее, если два объекта не сравнении считаются равными, <see cref="M:System.Object.GetHashCode" /> методов для двух объектов не требуется возвращать разные значения.  - <see cref="M:System.Object.GetHashCode" /> Метод для объекта, необходимо постоянно возвращает же хэш-код до тех пор, пока не существует каких-либо изменений в состояние объекта, которое определяет возвращаемое значение объекта [System.Object.Equals](xref:System.Object.Equals*) метод. Обратите внимание, что это справедливо только для текущего выполнения приложения, и что разные хэш-код могут быть возвращены, если приложение запускается снова.  — Для повышения производительности хэш-функции следует создавать равномерное распределение для всех входных данных, включая входные данные, которые сильно кластеризован. Подразумевается, что небольшие изменения для состояния объекта должно привести к внесении значительных изменений в результирующее хэш-код для достижения оптимальной производительности хэш-таблице.  -Хэш функции должны быть недорогих для вычисления.  - <see cref="M:System.Object.GetHashCode" /> Метод не должен вызывать исключения.  Например, реализация <see cref="M:System.String.GetHashCode" /> метод <see cref="T:System.String" /> класс возвращает одинаковые хэш-коды для идентичные строковые значения. Таким образом, два <see cref="T:System.String" /> объекты возвращают одинаковый хэш-код, если они представляют тот же строковый параметр. Кроме того, этот метод использует все символы в строке для создания случайно распределенного результата, даже в том случае, если входные данные является кластеризованным экземпляром в определенные диапазоны (например, многие пользователи применяют строки, содержащие только первые 128 ASCII, даже если Строка может содержать любой из 65535 символов Юникода).  Предоставление хорошей хэш-функции для каждого класса может существенно повлиять на производительность Добавление соответствующих объектов в хэш-таблицу. В хэш-таблицы с ключами, которые обеспечивают реализацию хорошей хэш-функции поиск элементов требуется постоянное время (например, операцией o(1)). В хэш-таблице при плохой реализации хэш-функции, производительность поиска зависит от числа элементов в хэш-таблицы (например, операцией O('n'), где "n" — количество элементов в хэш-таблице). Пользователь-злоумышленник может входные данные, которое увеличивает количество конфликтов, которые может значительно ухудшить производительность приложений, которые зависят от хэш-таблицы, при следующих условиях: — когда хэш-функции создания часто конфликтов.  -Когда значительная доля объектов в хэш-таблицу произвести хэш-кодов, которые равны или приблизительно равно друг с другом.  — При вводе пользователями данных, из которого вычисляется хэш-код.  Производные классы, переопределяющие <see cref="M:System.Object.GetHashCode" /> необходимо также переопределить <see cref="M:System.Object.Equals(System.Object)" /> гарантировать, что два объекта считаются равными, имеют одинаковый хэш-код; в противном случае <see cref="T:System.Collections.Hashtable" /> типа могут работать неправильно.</para>
         </block>
         <altmember cref="T:System.Collections.Hashtable" />
         <altmember cref="M:System.Object.Equals(System.Object)" />
@@ -652,6 +664,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -670,7 +684,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Поскольку <xref:System.Object?displayProperty=nameWithType> является базовым классом для всех типов в системе типов .NET Framework, <xref:System.Object.GetType%2A> метод может использоваться для возврата <xref:System.Type> объекты, представляющие все типы .NET Framework. Платформа .NET Framework распознает следующие пять категорий типов:  
+ Так как <xref:System.Object?displayProperty=nameWithType> является базовым классом для всех типов в системе типов .NET Framework, <xref:System.Object.GetType%2A> метод может использоваться для возврата <xref:System.Type> объекты, представляющие все типы .NET Framework. .NET Framework распознает следующие пять категорий типов:  
   
 -   Классы, которые являются производными от <xref:System.Object?displayProperty=nameWithType>,  
   
@@ -682,15 +696,15 @@
   
 -   Делегаты, которые являются производными от <xref:System.MulticastDelegate?displayProperty=nameWithType>.  
   
- Для двух объектов `x` и `y` , имеющий типы среды выполнения идентичных `Object.ReferenceEquals(x.GetType(),y.GetType())` возвращает `true`. В следующем примере используется <xref:System.Object.GetType%2A> метод с <xref:System.Object.ReferenceEquals%2A> метод, чтобы определить, является ли одно числовое значение совпадает с типом двух числовых значений.  
+ Для двух объектов `x` и `y` , которые имеют типы идентичные среды выполнения, `Object.ReferenceEquals(x.GetType(),y.GetType())` возвращает `true`. В следующем примере используется <xref:System.Object.GetType%2A> метод с <xref:System.Object.ReferenceEquals%2A> метод, чтобы определить, является ли одно числовое значение совпадает с типом двух числовых значений.  
   
  [!code-csharp[System.Object.GetType#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.gettype/cs/gettype1.cs#1)]
  [!code-vb[System.Object.GetType#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.gettype/vb/gettype1.vb#1)]  
   
 > [!NOTE]
->  Чтобы определить, является ли объект заданного типа, можно использовать ключевое слово языка для типа сравнения или создания. Например, можно использовать `TypeOf…Is` построения в Visual Basic или `is` ключевого слова C#.  
+>  Чтобы определить, является ли объект определенного типа, можно использовать ключевое слово языка типа сравнения или создания. Например, можно использовать `TypeOf…Is` конструкции в Visual Basic или `is` ключевого слова C#.  
   
- <xref:System.Object.GetType%2A> Метод наследуется всеми типами, которые являются производными от <xref:System.Object>. Это означает, что, помимо использования собственных ключевым словом, для сравнения, можно использовать <xref:System.Object.GetType%2A> метод для определения типа, определенного объекта, как показано в следующем примере.  
+ <xref:System.Object.GetType%2A> Метод наследуется всеми типами, которые являются производными от <xref:System.Object>. Это означает, что, помимо использования ключевого слова сравнения собственный язык, можно использовать <xref:System.Object.GetType%2A> метод для определения типа, определенного объекта, как показано в следующем примере.  
   
  [!code-csharp[System.Object.GetType#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.gettype/cs/GetTypeEx2.cs#2)]
  [!code-vb[System.Object.GetType#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.gettype/vb/GetTypeEx2.vb#2)]  
@@ -730,6 +744,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -748,29 +764,29 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Object.MemberwiseClone%2A> Метод создает неполную копию путем создания объекта, а затем скопировать нестатические поля текущего объекта в новый объект. Если поле имеет тип значения, выполняется копирование разрядной поля. Если поле имеет ссылочный тип, ссылка копируется, но не объекты; Поэтому исходный объект и его копия относятся к одному объекту.  
+ <xref:System.Object.MemberwiseClone%2A> Метод создает неполную копию путем создания нового объекта, а затем скопировать нестатические поля текущего объекта в новый объект. Если поле является типом значения, выполняется копию бит за битом поля. Если поле имеет ссылочный тип, ссылка копируется, а не объект, который указывает ссылка; Поэтому исходный объект и его копия, относятся к тому же объекту.  
   
- Например рассмотрим объект, называемый X, который ссылается на объекты A и B. объекта B, в свою очередь, ссылается на объект C. Неполная копия X создает новый объект X2, который также ссылается на объекты A и B. Напротив глубокая копия X создает новый объект X2, который ссылается на новые объекты A2 и В2, которые являются копиями A и B. В2, в свою очередь, ссылается на новый объект C2, который является копией C. В примере показано различие между поверхностная и операции глубокой копией.  
+ Например рассмотрим объект, называемый X, который ссылается на объекты A и B объект б, в свою очередь, ссылается на объект C. Неполная копия объекта X создает новый объект X2, который также ссылается на объекты, А и б. Напротив глубокую копию объекта X создает новый объект X2, который ссылается на новые объекты, A2 и B2, которые являются копиями A и B2 б, в свою очередь, ссылается на новый объект C2, который является копией C. Пример демонстрирует различие между shallow и глубокого копирования.  
   
- Существуют различные сценарии для реализации операции глубокую копию, если выполнить операцию неполную копию по <xref:System.Object.MemberwiseClone%2A> метод не соответствует вашим потребностям. В число этих требований входят следующие:  
+ Существуют многочисленные способы реализации операции глубокую копию, если операция Неполная копия выполнена пользователем <xref:System.Object.MemberwiseClone%2A> метод не соответствует вашим потребностям. В число этих требований входят следующие:  
   
--   Вызовите конструктор класса объекта для копирования создать со значениями свойств, которые берутся из первого объекта второму объекту. Это предполагает, что значения объекта полностью определяется конструктора класса.  
+-   Вызовите конструктор класса объекта для копирования для создания второго объекта значениями свойств, полученными из первого объекта. При этом предполагается, что значения объекта полностью определяются его конструктор.  
   
--   Вызовите <xref:System.Object.MemberwiseClone%2A> метод для создания неполную копию объекта и затем назначить новые объекты, значения которого являются таким же, как исходный объект для любого свойства или поля, значения которого являются ссылочными типами. `DeepCopy` Метод в этом примере демонстрируется этот подход.  
+-   Вызовите <xref:System.Object.MemberwiseClone%2A> способ создания неполную копию объекта, а затем назначьте новые объекты, значения которого совпадают с исходного объекта для любого свойства или поля, значения которого являются ссылочными типами. `DeepCopy` Этот подход показан метод в примере.  
   
--   Сериализовать объект быть глубокого копирования, а затем восстановите сериализованные данные переменной другого объекта.  
+-   Сериализовать объект в быть глубокого копирования, а затем восстановите сериализованные данные переменной другому объекту.  
   
--   Отражение можно используйте с рекурсией для выполнения операции глубокой копией.  
+-   Отражение с рекурсией можно используйте для выполнения операции глубокого копирования.  
   
    
   
 ## Examples  
- В следующем примере демонстрируется <xref:System.Object.MemberwiseClone%2A> метод. Он определяет `ShallowCopy` метод, который вызывает <xref:System.Object.MemberwiseClone%2A> метод для выполнения операции неполную копию на `Person` объекта. Он также определяет `DeepCopy` метод, выполняющий операцию глубокой копией `Person` объекта.  
+ В следующем примере показано <xref:System.Object.MemberwiseClone%2A> метод. Он определяет `ShallowCopy` метод, который вызывает <xref:System.Object.MemberwiseClone%2A> метод для выполнения операции неполную копию `Person` объекта. Он также определяет `DeepCopy` метод, который выполняет операцию глубокую копию на `Person` объекта.  
   
  [!code-csharp[System.Object.MemberwiseClone#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.memberwiseclone/cs/memberwiseclone1.cs#1)]
  [!code-vb[System.Object.MemberwiseClone#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.memberwiseclone/vb/memberwiseclone1.vb#1)]  
   
- В этом примере `Person.IdInfo` возвращает свойство `IdInfo` объекта. Как видно в результатах показано в примере при `Person` клонировании объекта путем вызова <xref:System.Object.MemberwiseClone%2A> метод, клонированный `Person` объект является независимая копия исходного объекта, за исключением того, что они имеют одинаковое `Person.IdInfo` ссылку на объект. В результате изменения клона `Person.IdInfo` изменении свойства исходного объекта `Person.IdInfo` свойство. С другой стороны, когда выполняется операция глубокой копией, клонированный `Person` объекта, включая его `Person.IdInfo` свойство, можно изменять без изменения исходного объекта.  
+ В этом примере `Person.IdInfo` возвращает `IdInfo` объекта. Как видно в результатах показано в примере при `Person` клонировании объекта путем вызова <xref:System.Object.MemberwiseClone%2A> метод, клонированный `Person` объект — это независимая копия исходного объекта, за исключением того, что они имеют одинаковое `Person.IdInfo` ссылка на объект. В результате изменения клона `Person.IdInfo` изменении свойства исходного объекта `Person.IdInfo` свойство. С другой стороны, когда выполняется операция глубокую копию, клонированный `Person` объекта, включая его `Person.IdInfo` свойство, может быть изменено без влияния на исходный объект.  
   
  ]]></format>
         </remarks>
@@ -795,6 +811,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -823,28 +841,28 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- В отличие от <xref:System.Object.Equals%2A> метода и оператор равенства, <xref:System.Object.ReferenceEquals%2A> метод не может быть переопределен. По этой причине, если требуется протестировать две объектные ссылки на равенство и неизвестно о реализации `Equals` метод, можно вызвать <xref:System.Object.ReferenceEquals%2A> метод.  
+ В отличие от <xref:System.Object.Equals%2A> метода и оператор равенства, <xref:System.Object.ReferenceEquals%2A> метод не может быть переопределен. Из-за этого, если вы хотите протестировать две ссылки на объекты на равенство, и вы не знаете о реализации `Equals` метод, можно вызвать <xref:System.Object.ReferenceEquals%2A> метод.  
   
- Тем не менее возвращаемое значение <xref:System.Object.ReferenceEquals%2A> метод может быть ошибочно аномальных в этих двух случаях:  
+ Тем не менее возвращаемое значение <xref:System.Object.ReferenceEquals%2A> метод может показаться подозрительной активности в этих двух сценариев:  
   
--   При сравнении типов значений. Если `objA` и `objB` являются типами значений, упакованы перед передачей в <xref:System.Object.ReferenceEquals%2A> метод. Это означает, что если оба `objA` и `objB` же экземпляр типа значения, представляющие <xref:System.Object.ReferenceEquals%2A> тем не менее, метод возвращает `false`, как показано в следующем примере.  
+-   При сравнении типов значений. Если `objA` и `objB` являются типами значений, они упакованы, прежде чем они будут переданы <xref:System.Object.ReferenceEquals%2A> метод. Это означает, что если оба `objA` и `objB` тем же экземпляром типом значения, представляющие <xref:System.Object.ReferenceEquals%2A> тем не менее, метод возвращает `false`, как показано в следующем примере.  
   
      [!code-csharp[System.Object.ReferenceEquals#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.referenceequals/cs/referenceequals4.cs#1)]
      [!code-vb[System.Object.ReferenceEquals#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.referenceequals/vb/referenceequals4.vb#1)]  
   
-     Сведения для упаковки типов значений см. в разделе [упаковка-преобразование и распаковка-преобразование](~/docs/csharp/programming-guide/types/boxing-and-unboxing.md).  
+     Сведения о упаковки-преобразования типов значений, см. в разделе [упаковка-преобразование и распаковка-преобразование](~/docs/csharp/programming-guide/types/boxing-and-unboxing.md).  
   
--   При сравнении строк. Если `objA` и `objB` являются строками, <xref:System.Object.ReferenceEquals%2A> возвращает `true` Если интернировано строки. Он не выполняет проверку на равенство значений.  В следующем примере `s1` и `s2` равны, поскольку они являются два экземпляра одной интернированные строки. Тем не менее `s3` и `s4` не равны, поскольку несмотря на то, что они являются имеют идентичные строковые значения, эта строка не интернировано.  
+-   При сравнении строк. Если `objA` и `objB` представляют собой строки, <xref:System.Object.ReferenceEquals%2A> возвращает метод `true` Если интернировано строки. Он не выполняет проверку на предмет равенства значений.  В следующем примере `s1` и `s2` равны, поскольку они являются два экземпляра одной интернированные строки. Тем не менее `s3` и `s4` не равны, так как несмотря на то, что они являются имеют идентичные строковые значения, эта строка не начал работать.  
   
      [!code-csharp[System.Object.ReferenceEquals#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.referenceequals/cs/referenceequalsa.cs#2)]
      [!code-vb[System.Object.ReferenceEquals#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.referenceequals/vb/referenceequalsa.vb#2)]  
   
-     Дополнительные сведения об изоляции строк см. в разделе <xref:System.String.IsInterned%2A?displayProperty=nameWithType>.  
+     Дополнительные сведения об интернировании см. в разделе <xref:System.String.IsInterned%2A?displayProperty=nameWithType>.  
   
    
   
 ## Examples  
- В следующем примере используется <xref:System.Object.ReferenceEquals%2A> для определения, если два объекта и тот же экземпляр.  
+ В следующем примере используется <xref:System.Object.ReferenceEquals%2A> для определения того, если два объекта являются одним экземпляром.  
   
  [!code-cpp[ECMA-System.Object.ReferenceEquals#1](~/samples/snippets/cpp/VS_Snippets_CLR/ECMA-System.Object.ReferenceEquals/CPP/referenceequals.cpp#1)]
  [!code-csharp[ECMA-System.Object.ReferenceEquals#1](~/samples/snippets/csharp/VS_Snippets_CLR/ECMA-System.Object.ReferenceEquals/CS/referenceequals.cs#1)]
@@ -874,6 +892,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -892,19 +912,19 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Object.ToString%2A?displayProperty=nameWithType> форматирование основной метод в .NET Framework. Он преобразует объект в строковое представление, чтобы он подходит для отображения. (Сведения о форматировании поддержки платформы .NET Framework см. в разделе [типы форматирования](~/docs/standard/base-types/formatting-types.md).) Используемые по умолчанию реализации <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод возвращает полное имя типа объекта.  
+ <xref:System.Object.ToString%2A?displayProperty=nameWithType> форматирование основной метод в .NET Framework. Он преобразует объект в строковое представление, так как это подходящее для отображения. (Сведения о форматировании поддержки в .NET Framework, см. в разделе [типы форматирования](~/docs/standard/base-types/formatting-types.md).) Используемые по умолчанию реализации <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод возвращает полное имя типа объекта.  
   
 > [!IMPORTANT]
->  Возможно, достигнуто эту страницу, щелкнув ссылку из списка членов другого типа. Это потому, что этот тип не переопределяет <xref:System.Object.ToString%2A?displayProperty=nameWithType>. Вместо этого он наследует функциональные возможности <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод.  
+>  Вы может попасть на эту страницу, щелкнув ссылку из списка членов другого типа. Это потому, что этот тип не переопределяет <xref:System.Object.ToString%2A?displayProperty=nameWithType>. Вместо этого он наследует функциональные возможности <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод.  
   
- Типы часто переопределить <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод, чтобы обеспечить более подходящими строковое представление определенного типа. Типы также могут вызвать перегрузку <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод, чтобы обеспечить поддержку для строки формата или форматирование с учетом языка и региональных параметров.  
+ Типы часто переопределить <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод, чтобы предоставить более подходящим строковое представление определенного типа. Типы также часто перегружать <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод, чтобы обеспечить поддержку для строки формата или форматирование с учетом языка и региональных параметров.  
   
  Содержание  
   
  [Метод Object.ToString() по умолчанию](#Default)   
  [Переопределение метода Object.ToString()](#Overriding)   
  [Перегрузка метода ToString](#Overloading)   
- [Расширение Object.ToString-метод](#Extending)   
+ [Расширение метода Object.ToString](#Extending)   
  [Примечания для среды выполнения Windows](#WinRT)  
   
 <a name="Default"></a>   
@@ -915,7 +935,7 @@
  [!code-csharp[System.Object.ToString#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.tostring/cs/tostring1.cs#1)]
  [!code-vb[System.Object.ToString#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.tostring/vb/tostring1.vb#1)]  
   
- Поскольку <xref:System.Object> является базовым классом для всех ссылочных типов в .NET Framework, это поведение наследуется ссылочных типов, которые не переопределяют <xref:System.Object.ToString%2A> метод. Это показано в следующем примере. Он определяет класс с именем `Object1` , принимающий реализацию по умолчанию все <xref:System.Object> члены. Его <xref:System.Object.ToString%2A> метод возвращает полное имя объекта.  
+ Так как <xref:System.Object> является базовым классом для всех ссылочных типов в .NET Framework, это поведение наследуется ссылочных типов, не переопределяющих <xref:System.Object.ToString%2A> метод. Это показано в следующем примере. Он определяет класс с именем `Object1` , принимающий реализацию по умолчанию все <xref:System.Object> члены. Его <xref:System.Object.ToString%2A> метод возвращает полное имя объекта.  
   
  [!code-cpp[System.Object.ToString#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.object.tostring/cpp/tostring2.cpp#2)]
  [!code-csharp[System.Object.ToString#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.tostring/cs/tostring2.cs#2)]
@@ -923,7 +943,7 @@
   
 <a name="Overriding"></a>   
 ## <a name="overriding-the-objecttostring-method"></a>Переопределение метода Object.ToString()  
- Типы часто переопределить <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод для возврата строки, который представляет экземпляр объекта. Например, базовый типы, такие как <xref:System.Char>, <xref:System.Int32>, и <xref:System.String> предоставляют <xref:System.Object.ToString%2A> реализации, которые возвращают значение, которое представляет объект строковой форме. В следующем примере определяется класс, `Object2`, который переопределяет <xref:System.Object.ToString%2A> метод для возврата имени типа и его значение.  
+ Типы обычно переопределить <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод, чтобы вернуть строку, которая представляет экземпляр объекта. Например, базовый типы, такие как <xref:System.Char>, <xref:System.Int32>, и <xref:System.String> предоставляют <xref:System.Object.ToString%2A> реализаций, которые возвращают значение, представляющее объект строковая форма. В следующем примере определяется класс, `Object2`, который переопределяет <xref:System.Object.ToString%2A> метод для возврата имени типа вместе с его значением.  
   
  [!code-cpp[System.Object.ToString#3](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.object.tostring/cpp/tostring3.cpp#3)]
  [!code-csharp[System.Object.ToString#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.tostring/cs/tostring3.cs#3)]
@@ -931,81 +951,81 @@
   
  В следующей таблице перечислены категории типов в .NET Framework и указывает ли они переопределяют <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод.  
   
-|Категория типа|Переопределения Object.ToString()|Поведение|  
+|Категория типа|Переопределяет Object.ToString()|Поведение|  
 |-------------------|-----------------------------------|--------------|  
 |Класс|Н/Д|Н/Д|  
-|Структура|Да (<xref:System.ValueType.ToString%2A?displayProperty=nameWithType>)|То же, что Object.ToString()|  
+|Структура|Да (<xref:System.ValueType.ToString%2A?displayProperty=nameWithType>)|Так же, как Object.ToString()|  
 |Перечисление|Да (<xref:System.Enum.ToString?displayProperty=nameWithType>)|Имя члена|  
 |Интерфейс|Нет|Н/Д|  
 |делегат|Нет|Н/Д|  
   
- См. примечания для наследующих объектов раздел для получения дополнительных сведений о переопределении <xref:System.Object.ToString%2A>.  
+ См. примечания к разделу наследники Дополнительные сведения о переопределении <xref:System.Object.ToString%2A>.  
   
 <a name="Overloading"></a>   
 ## <a name="overloading-the-tostring-method"></a>Перегрузка метода ToString  
- Помимо без параметров переопределения <xref:System.Object.ToString?displayProperty=nameWithType> перегрузку метода, многие типы `ToString` метод для предоставления версии метода, которые принимают параметры. Чаще всего это делается для обеспечения поддержки форматирования переменных и форматирование с учетом языка и региональных параметров.  
+ Помимо переопределения без параметров <xref:System.Object.ToString?displayProperty=nameWithType> перегрузку метода, многие типы `ToString` метод, чтобы предоставить версии метода, которые принимают параметры. Чаще всего это делается для обеспечения поддержки форматирование переменных и форматирование, зависящее от языка и региональных параметров.  
   
- Следующий пример перегрузки `ToString` метод для возврата результата строку, содержащую значения различных полей `Automobile` класса. Он определяет четыре строки формата: G, который возвращает имя модели и год. D, который возвращает имя модели, году и количества дверей; C, который возвращает имя модели, год и число цилиндров; и объект, который возвращает строку со значениями всех четырех полей.  
+ Следующий пример перегрузок `ToString` метод, чтобы вернуть результирующую строку, включающую значение различных полей данного `Automobile` класса. Он определяет четыре строки формата: G, который возвращает имя модели и год. D, который возвращает имя модели, год и количества дверей; C, который возвращает имя модели, год и число цилиндров; и объект, который возвращает строку со значениями всех четырех полей.  
   
  [!code-csharp[System.Object.ToString#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.tostring/cs/tostringoverload1.cs#4)]
  [!code-vb[System.Object.ToString#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.tostring/vb/tostringoverload1.vb#4)]  
   
- В следующем примере вызывается перегруженный <xref:System.Decimal.ToString%28System.String%2CSystem.IFormatProvider%29?displayProperty=nameWithType> метод для отображения, зависящие от культуры форматирование значения валюты.  
+ В следующем примере вызывается перегруженный <xref:System.Decimal.ToString%28System.String%2CSystem.IFormatProvider%29?displayProperty=nameWithType> метод для отображения форматирование значения валюты, зависящее от языка и региональных параметров.  
   
  [!code-csharp[System.Object.ToString#5](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.tostring/cs/tostringoverload2.cs#5)]
  [!code-vb[System.Object.ToString#5](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.tostring/vb/tostringoverload2.vb#5)]  
   
- Дополнительные сведения о формате строк и форматирования с учетом языка и региональных параметров см. в разделе [типы форматирования](~/docs/standard/base-types/formatting-types.md). Строки формата, поддерживаемые числовые значения, в разделе [строки стандартного числового формата](~/docs/standard/base-types/standard-numeric-format-strings.md) и [строки настраиваемых числовых форматов](~/docs/standard/base-types/custom-numeric-format-strings.md). Строки формата, поддерживаемых значений даты и времени, в разделе [стандартной строки даты и времени формат](~/docs/standard/base-types/standard-date-and-time-format-strings.md) и [пользовательских строк даты и времени формат](~/docs/standard/base-types/custom-date-and-time-format-strings.md).  
+ Дополнительные сведения о формате строк и форматирования с учетом языка и региональных параметров, см. в разделе [типы форматирования](~/docs/standard/base-types/formatting-types.md). Строки формата, поддерживаемые числовые значения, см. в разделе [строки стандартных числовых форматов](~/docs/standard/base-types/standard-numeric-format-strings.md) и [строки настраиваемых числовых форматов](~/docs/standard/base-types/custom-numeric-format-strings.md). Строки формата, поддерживаемых значений даты и времени, см. в разделе [Standard Date и Time Format Strings](~/docs/standard/base-types/standard-date-and-time-format-strings.md) и [Custom Date и Time Format Strings](~/docs/standard/base-types/custom-date-and-time-format-strings.md).  
   
 <a name="Extending"></a>   
-## <a name="extending-the-objecttostring-method"></a>Расширение Object.ToString-метод  
- Так как тип наследует значение по умолчанию <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод, может найти нежелательное поведение и изменить его. Это особенно верно, массивы и классы коллекций. Хотя можно ожидать `ToString` метод класса массива или коллекции для отображения значений его членов, он вместо отображает полное имя типа, как показано в следующем примере.  
+## <a name="extending-the-objecttostring-method"></a>Расширение метода Object.ToString  
+ Так как тип наследует значение по умолчанию <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод, можно найти его поведение нежелательным и хотите изменить его. Это особенно верно, массивы и классы коллекций. Хотя можно ожидать `ToString` метод класса массива или коллекции для отображения значений его членов, его вместо отображает полное имя типа, как показано в следующем примере.  
   
  [!code-csharp[System.Object.ToString#6](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.tostring/cs/array1.cs#6)]
  [!code-vb[System.Object.ToString#6](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.tostring/vb/array1.vb#6)]  
   
- У вас есть несколько вариантов и получить результат, который будет.  
+ У вас есть несколько вариантов для создания результирующей строки, в котором вы хотите.  
   
--   Если тип является массивом, объект коллекции или объект, реализующий интерфейс <xref:System.Collections.IEnumerable> или <xref:System.Collections.Generic.IEnumerable%601> интерфейсы, можно перечислить его элементы с помощью `foreach` инструкции на языке C# или `For Each...Next` построения в Visual Basic.  
+-   Если тип является массивом, объектом коллекции или объект, реализующий <xref:System.Collections.IEnumerable> или <xref:System.Collections.Generic.IEnumerable%601> интерфейсов, вы можете перечислить его элементов с помощью `foreach` инструкции на языке C# или `For Each...Next` конструкции в Visual Basic.  
   
--   Если класс не является `sealed` (в C#) или `NotInheritable` (в Visual Basic), может создавать класс-оболочку, который наследует от базового класса, <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод, которую нужно настроить. Как минимум для этого необходимо сделать следующее:  
+-   Если класс не является `sealed` (в C#) или `NotInheritable` (в Visual Basic), вы можете разрабатывать класс-оболочку, который наследует от базового класса, <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод, которую нужно настроить. Как минимум для этого необходимо сделать следующее:  
   
-    1.  Реализуйте все необходимые конструкторы. Производные классы не наследуют их конструкторы базового класса.  
+    1.  Реализуйте все необходимые конструкторы. Производные классы не наследуют свои конструкторы базового класса.  
   
-    2.  Переопределить <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод строку результата, который будет возвращать.  
+    2.  Переопределить <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод, чтобы вернуть результирующую строку, в котором вы хотите.  
   
-     В следующем примере определяется класс-оболочку для <xref:System.Collections.Generic.List%601> класса. Он переопределяет <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод для отображения значения каждого метода интерфейса коллекции, а не полное имя типа.  
+     В следующем примере определяется класс-оболочку для <xref:System.Collections.Generic.List%601> класса. Этот параметр переопределяет <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод для отображения значения каждого метода коллекции, а не полное имя типа.  
   
      [!code-csharp[System.Object.ToString#7](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.tostring/cs/customize1.cs#7)]
      [!code-vb[System.Object.ToString#7](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.tostring/vb/customize1.vb#7)]  
   
--   Разработка [метод расширения](~/docs/standard/design-guidelines/extension-methods.md) , возвращает строку результата, который будет. Обратите внимание, что не может переопределить значение по умолчанию <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод таким образом (то есть класса расширения (в C#) или модуля (в Visual Basic) не может иметь метод без параметров с именем `ToString` , вызываемый вместо оригинального типа `ToString` метод . Необходимо указать другое имя для вашей без параметров `ToString` замены.  
+-   Разработка [метод расширения](~/docs/standard/design-guidelines/extension-methods.md) , возвращает результирующую строку, которая требуется. Обратите внимание, что не может переопределить значение по умолчанию <xref:System.Object.ToString%2A?displayProperty=nameWithType> метод таким образом (то есть расширение класса (в C#) или модуля (в Visual Basic) не может иметь метод без параметров с именем `ToString` , вызываемый вместо оригинального типа `ToString` метод . Необходимо указать другое имя для вашей без параметров `ToString` замены.  
   
-     В следующем примере определяются два метода, которые расширяют <xref:System.Collections.Generic.List%601> класса: конструктор без параметров `ToString2` метода и `ToString` метод с <xref:System.String> параметр, который представляет строку формата.  
+     В следующем примере определяются два метода, которые расширяют <xref:System.Collections.Generic.List%601> класса: конструктор без параметров `ToString2` метод и `ToString` метод с <xref:System.String> параметр, который представляет строку формата.  
   
      [!code-csharp[System.Object.ToString#8](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.object.tostring/cs/customize2.cs#8)]
      [!code-vb[System.Object.ToString#8](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.object.tostring/vb/customize2.vb#8)]  
   
 <a name="WinRT"></a>   
 ## <a name="notes-for-the-includewrtincludeswrt-mdmd"></a>Заметки о [!INCLUDE[wrt](~/includes/wrt-md.md)]  
- При вызове <xref:System.Object.ToString%2A> метод класса в [!INCLUDE[wrt](~/includes/wrt-md.md)], он предоставляет поведение по умолчанию для классов, которые не переопределяют <xref:System.Object.ToString%2A>. Это является частью возможностей .NET Framework для [!INCLUDE[wrt](~/includes/wrt-md.md)] (см. [.NET Framework поддерживает для приложений магазина Windows и среды выполнения Windows](~/docs/standard/cross-platform/support-for-windows-store-apps-and-windows-runtime.md)). Классы в [!INCLUDE[wrt](~/includes/wrt-md.md)] не наследуют <xref:System.Object>и не всегда использовать <xref:System.Object.ToString%2A>. При этом они всегда будут иметь <xref:System.Object.ToString%2A>, <xref:System.Object.Equals%28System.Object%29>, и <xref:System.Object.GetHashCode%2A> методов при их использовании в коде C# или Visual Basic и .NET Framework предоставляет поведение по умолчанию для этих методов.  
+ Таким образом, два  объекты возвращают одинаковый хэш-код, если они представляют тот же строковый параметр. Это является частью возможностей .NET Framework для [!INCLUDE[wrt](~/includes/wrt-md.md)] (см. в разделе [приложений .NET Framework поддерживает для Windows Store и среды выполнения Windows](~/docs/standard/cross-platform/support-for-windows-store-apps-and-windows-runtime.md)). Классы в [!INCLUDE[wrt](~/includes/wrt-md.md)] не наследуют <xref:System.Object>и не всегда использовать <xref:System.Object.ToString%2A>. Тем не менее, они всегда могут быть <xref:System.Object.ToString%2A>, <xref:System.Object.Equals%28System.Object%29>, и <xref:System.Object.GetHashCode%2A> методов при их использовании в коде C# или Visual Basic и .NET Framework предоставляет поведение по умолчанию для этих методов.  
   
- Начиная с [!INCLUDE[net_v451](~/includes/net-v451-md.md)], общеязыковая среда выполнения будет использовать [IStringable.ToString](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.tostring.aspx) на [!INCLUDE[wrt](~/includes/wrt-md.md)] объекта перед возвратом к реализации по умолчанию <xref:System.Object.ToString%2A?displayProperty=nameWithType>.  
+ Начиная с [!INCLUDE[net_v451](~/includes/net-v451-md.md)], среда CLR будет использовать [IStringable.ToString](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.tostring.aspx) на [!INCLUDE[wrt](~/includes/wrt-md.md)] объекта до возврата к реализация по умолчанию <xref:System.Object.ToString%2A?displayProperty=nameWithType>.  
   
 > [!NOTE]
->  [!INCLUDE[wrt](~/includes/wrt-md.md)] классы, написанные на C# или Visual Basic можно переопределить <xref:System.Object.ToString%2A> метод.  
+>  [!INCLUDE[wrt](~/includes/wrt-md.md)] Предоставление хорошей хэш-функции для каждого класса может существенно повлиять на производительность Добавление соответствующих объектов в хэш-таблицу.  
   
 ### <a name="the-includewrtincludeswrt-mdmd-and-the-istringable-interface"></a>[!INCLUDE[wrt](~/includes/wrt-md.md)] И интерфейс IStringable  
- Начиная с [!INCLUDE[win81](~/includes/win81-md.md)], [!INCLUDE[wrt](~/includes/wrt-md.md)] включает [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) единственный метод которого [IStringable.ToString](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.tostring.aspx), обеспечивает базовую поддержку форматирования, сравнимую с предоставляемые <xref:System.Object.ToString%2A?displayProperty=nameWithType>. Чтобы избежать неоднозначности, не следует реализовывать [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) на управляемых типов.  
+ Начиная с [!INCLUDE[win81](~/includes/win81-md.md)], [!INCLUDE[wrt](~/includes/wrt-md.md)] включает в себя [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) единственный метод которого [IStringable.ToString](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.tostring.aspx), обеспечивает базовую поддержку форматирования, сравнимую с предоставляемые <xref:System.Object.ToString%2A?displayProperty=nameWithType>. Чтобы избежать неоднозначности, не следует реализовывать [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) на управляемых типов.  
   
- При вызове управляемых объектов машинного кода или кода, написанного на языках, таких как JavaScript или C + +/ CX, они отображаются для реализации [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx). Общеязыковая среда выполнения автоматически перенаправляет вызовы от [IStringable.ToString](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.tostring.aspx) для <xref:System.Object.ToString%2A?displayProperty=nameWithType> событий [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) не реализован для управляемого объекта.  
+ При вызове управляемые объекты машинного кода или кода, написанного на языках, таких как JavaScript или C + +/ CX, у них могут реализовать [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx). Среда CLR автоматически перенаправляет вызовы из [IStringable.ToString](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.tostring.aspx) для <xref:System.Object.ToString%2A?displayProperty=nameWithType> событий [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) не был реализован в управляемый объект.  
   
 > [!WARNING]
->  Поскольку общеязыковая среда выполнения автоматически реализует [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) для всех управляемых типов в [!INCLUDE[win8_appstore_long](~/includes/win8-appstore-long-md.md)] , рекомендуется, вы не предоставляют свои собственные [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) реализации. Реализация [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) может привести к непредвиденному поведению при вызове `ToString` из [!INCLUDE[wrt](~/includes/wrt-md.md)], C + +/ CX или JavaScript.  
+>  Так как среда CLR автоматически реализует [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) для всех управляемых типов в [!INCLUDE[win8_appstore_long](~/includes/win8-appstore-long-md.md)] приложений, мы рекомендуем, что вы не укажете свои собственные [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) реализации. Реализация [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) может привести к непредвиденному поведению при вызове `ToString` из [!INCLUDE[wrt](~/includes/wrt-md.md)], C + +/ CX или JavaScript.  
   
  Если вы решили реализовать [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) в открытом управляемом типе, экспортируемом в [!INCLUDE[wrt](~/includes/wrt-md.md)] компонента, применяются следующие ограничения:  
   
--   Можно определить [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) интерфейса только в отношениях «класс реализует», такие как  
+-   Вы можете определить [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) интерфейс только в отношениях «класс реализует», такие как  
   
     ```csharp  
     public class NewClass : IStringable  
@@ -1019,13 +1039,13 @@
   
      в Visual Basic.  
   
--   Нельзя реализовать [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) в интерфейсе.  
+-   Не может реализовать [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) в интерфейсе.  
   
 -   Нельзя объявить параметр типа [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx).  
   
 -   [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) не может быть типом возвращаемого значения метода, свойства или поля.  
   
--   Невозможно скрыть вашей [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) реализации из базовых классов с помощью определения метода примерно следующего вида:  
+-   Нельзя скрывать вашей [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) реализации от базовых классов с помощью определения метода, например следующие:  
   
     ```csharp  
   
@@ -1039,14 +1059,14 @@
   
     ```  
   
-     Вместо этого [IStringable.ToString](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.tostring.aspx) реализация должна всегда переопределять реализацию базового класса. Реализацию `ToString` можно скрыть только путем вызова этого метода в строго типизированном экземпляре класса.  
+     Вместо этого [IStringable.ToString](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.tostring.aspx) должна всегда переопределять реализацию базового класса. Реализацию `ToString` можно скрыть только путем вызова этого метода в строго типизированном экземпляре класса.  
   
  Обратите внимание, что в различных условиях вызовы из машинного кода в управляемый тип, реализующий [IStringable](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.aspx) или скрывает его [ToString](http://msdn.microsoft.com/library/windows/apps/windows.foundation.istringable.tostring.aspx) реализация может привести к непредвиденному поведению.  
   
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>При реализации собственных типов должны переопределять <see cref="M:System.Object.ToString" /> метод для возврата значений, которые важны для этих типов. Производные классы, которые требуется больший контроль над форматированием чем <see cref="M:System.Object.ToString" /> предоставляет можно реализовать <see cref="T:System.IFormattable" /> интерфейса. Его <see cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)" /> метод позволяет определить строки формата, управляющие форматированием и использовать <see cref="T:System.IFormatProvider" /> объект, способный предоставлять для форматирования с учетом языка и региональных параметров.  Переопределений <see cref="M:System.Object.ToString" /> метод придерживаться следующих правил:-возвращаемой строки должно быть понятным и удобным для чтения человеком.  — Возвращаемая строка должен однозначно определять значение экземпляра объекта.  -Возвращаемой строки должно быть как можно более коротким, чтобы он подходит для отображения с помощью отладчика.  - <see cref="M:System.Object.ToString" /> Переопределения не должен возвращать <see cref="F:System.String.Empty" /> или пустая строка.  - <see cref="M:System.Object.ToString" /> Переопределение не должно создавать исключения.  -Если строковое представление экземпляра является язык и региональные параметры или форматируется различными способами, реализовать <see cref="T:System.IFormattable" /> интерфейса.  -Если возвращаемая строка содержит важные сведения, следует сначала запросить соответствующее разрешение. Если запрос выполнен успешно, можно вернуть конфиденциальной информации; в противном случае следует вернуть строку, которая не содержит конфиденциальные сведения.  - <see cref="M:System.Object.ToString" /> Переопределение должно иметь не наблюдаемый побочных эффектов, чтобы избежать затруднений при отладке. Например, вызов <see cref="M:System.Object.ToString" /> метод не должен изменять значения полей экземпляра.  -Если тип реализует метод синтаксического анализа (или <see langword="Parse" /> или <see langword="TryParse" /> метода, конструктора или некоторые другие статический метод, который создает экземпляр типа из строки), следует убедиться, что строка, возвращаемая функцией <see cref="M:System.Object.ToString" /> метод может быть преобразовать в экземпляр объекта.</para>
+          <para>При реализации собственных типов, должны переопределять <see cref="M:System.Object.ToString" /> метод для возврата значений, которые важны для этих типов. Производные классы, которые требуется дополнительный контроль над форматированием чем <see cref="M:System.Object.ToString" /> предоставляет можно реализовать <see cref="T:System.IFormattable" /> интерфейс. Его <see cref="M:System.IFormattable.ToString(System.String,System.IFormatProvider)" /> метод позволяет определить строк формата, обеспечивающие управление форматированием и использовать <see cref="T:System.IFormatProvider" /> объект, способный предоставлять для форматирования, зависящего от языка и региональных параметров.  Переопределяет из <see cref="M:System.Object.ToString" /> метода следует придерживаться следующих рекомендаций:-возвращаемой строки должно быть понятным и читабельными для пользователей.  -Возвращаемой строки должен однозначно определять значение экземпляра объекта.  -Возвращаемой строки должен быть как можно более короткими, чтобы он подходит для отображения с помощью отладчика.  - <see cref="M:System.Object.ToString" /> Переопределения не должен возвращать <see cref="F:System.String.Empty" /> или пустая строка.  - <see cref="M:System.Object.ToString" /> Переопределения не должен создавать исключение.  -Если строковое представление экземпляра региональные параметры, или можно форматировать разными способами, реализовать <see cref="T:System.IFormattable" /> интерфейс.  — Если возвращаемая строка содержит конфиденциальные сведения, следует сначала запрашивать соответствующее разрешение. Если требование завершается успешно, вы можете вернуть конфиденциальной информации; в противном случае следует возвращать строку, которая исключает конфиденциальные данные.  - <see cref="M:System.Object.ToString" /> Переопределение должно иметь не наблюдаемый побочных эффектов, чтобы избежать затруднений при отладке. Например, вызов <see cref="M:System.Object.ToString" /> метод не должен изменять значения полей экземпляра.  — Если ваш тип реализует метод синтаксического анализа (или <see langword="Parse" /> или <see langword="TryParse" /> метода, конструктора или некоторые другие статический метод, который создает экземпляр типа из строки), необходимо убедиться, что строка, возвращаемая <see cref="M:System.Object.ToString" /> метод может быть преобразовать в экземпляр объекта.</para>
         </block>
       </Docs>
     </Member>
