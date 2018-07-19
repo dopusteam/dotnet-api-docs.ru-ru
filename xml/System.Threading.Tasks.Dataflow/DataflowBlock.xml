@@ -1,11 +1,11 @@
 <Type Name="DataflowBlock" FullName="System.Threading.Tasks.Dataflow.DataflowBlock">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="f558bf9a029763285a5fd334c30a979714b81d23" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="b1681b37f6256a345cba5980d6dd8e36899a63b3" />
+    <Meta Name="ms.sourcegitcommit" Value="44933aff38db926168781f50300446344189a04d" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36606940" />
+    <Meta Name="ms.lasthandoff" Value="07/16/2018" />
+    <Meta Name="ms.locfileid" Value="39064914" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class DataflowBlock" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit DataflowBlock extends System.Object" />
@@ -317,14 +317,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Threading.Tasks.Dataflow.DataflowBlock.Encapsulate%2A> Метод требует двух существующих блоков: целевой блок (экземпляр класса, который реализует <xref:System.Threading.Tasks.Dataflow.ITargetBlock%601>) и блок источника (экземпляр класса, который реализует <xref:System.Threading.Tasks.Dataflow.ISourceBlock%601>). <xref:System.Threading.Tasks.Dataflow.DataflowBlock.Encapsulate%2A> Создает новый экземпляр внутренний класс, который подключается <xref:System.Threading.Tasks.Dataflow.ITargetBlock%601> члены для интерфейсов `target` параметр и <xref:System.Threading.Tasks.Dataflow.ISourceBlock%601> члены для интерфейсов `source` параметра.  Оба <xref:System.Threading.Tasks.Dataflow.ITargetBlock%601> и <xref:System.Threading.Tasks.Dataflow.ISourceBlock%601> являются производными от <xref:System.Threading.Tasks.Dataflow.IDataflowBlock>. Завершение блока явным образом передается из источников, целевых объектов. Таким образом <xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Complete%2A> и <xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Fault%2A> методы подключены к целевой при <xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Completion%2A> свойство подключено к источнику.  Необходимо убедиться, что при целевой половина завершения исходного кода, половина возвращает завершено в наиболее подходящий способ; Например:  
+ <xref:System.Threading.Tasks.Dataflow.DataflowBlock.Encapsulate%2A> Метод требует двух существующих блоков: целевой блок (экземпляра класса, реализующего <xref:System.Threading.Tasks.Dataflow.ITargetBlock%601>) и блок источника (экземпляра класса, реализующего <xref:System.Threading.Tasks.Dataflow.ISourceBlock%601>). <xref:System.Threading.Tasks.Dataflow.DataflowBlock.Encapsulate%2A> Создает новый экземпляр класса внутренний класс, который подключается <xref:System.Threading.Tasks.Dataflow.ITargetBlock%601> члены для интерфейса `target` параметр и <xref:System.Threading.Tasks.Dataflow.ISourceBlock%601> члены для интерфейса `source` параметра.  Оба <xref:System.Threading.Tasks.Dataflow.ITargetBlock%601> и <xref:System.Threading.Tasks.Dataflow.ISourceBlock%601> являются производными от <xref:System.Threading.Tasks.Dataflow.IDataflowBlock>. Завершение блока явным образом передаются из источников в целевые объекты. Таким образом <xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Complete%2A> и <xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Fault%2A> методы подключены к целевому объекту при <xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Completion%2A> свойство подключено к источнику.  Необходимо убедиться, что когда половина завершения целевого источника, половина завершения в наиболее подходящий способ; Например:  
   
  `target.Completion.ContinueWith(completion => source.Complete());`  
   
- Или, если требуется передать тип завершения, можно использовать следующий более сложный код:  
+ Или, если требуется передать тип завершения, можно использовать этот более сложный код:  
   
 ```  
-target.Completion.ContinueWith(completion => { if (completion.IsFaulted) 3   
+target.Completion.ContinueWith(completion => { if (completion.IsFaulted)    
   
 ((IDataflowBlock)batchBlock).Fault(completion.Exception);   
 else   
@@ -333,7 +333,7 @@ batchBlock.Complete();
   
 ```  
   
- Необходимо явным образом указать распространение сообщений от цели к источнику. Преимуществом это явное соединение является она предоставляет вам возможность выполнения обработки произвольные между двумя инкапсулированный блоками. Вы можете, либо при кодировании необходимую обработку в делегаты блоков (если блоки принятия делегатов), либо путем внедрения подсети блоков между ними. Простым способом является использование блок, который принимает делегатов. Например, использовать <xref:System.Threading.Tasks.Dataflow.ActionBlock%601>, <xref:System.Threading.Tasks.Dataflow.TransformBlock%602>, <xref:System.Threading.Tasks.Dataflow.TransformManyBlock%602> (если применимо), или пользовательского блока.  
+ Необходимо явным образом указать распространение сообщений от целевого объекта к источнику. Преимуществом этого явная связь является, она предоставляет вам возможность выполнения неограниченного обработки между двумя блоками инкапсулированный. Вы можете, либо при кодировании необходимую обработку в делегаты блоков (если блоки принимают делегаты), либо путем внедрения сети вложенных блоков, между ними. Простым способом является использование блока, который принимает делегатов. Например, использовать <xref:System.Threading.Tasks.Dataflow.ActionBlock%601>, <xref:System.Threading.Tasks.Dataflow.TransformBlock%602>, <xref:System.Threading.Tasks.Dataflow.TransformManyBlock%602> (если применимо), или пользовательского блока.  
   
  ]]></format>
         </remarks>
@@ -585,7 +585,7 @@ batchBlock.Complete();
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод вернет после целевой блок решил принять или отклонить элемент, но если в противном случае для обрабатываемых особой семантики целевой блок, не ожидается для элемента, для начала обработки. Например <xref:System.Threading.Tasks.Dataflow.ActionBlock%601> будет возвращать из <xref:System.Threading.Tasks.Dataflow.DataflowBlock.Post%2A> как только он имеет сохраненные переданного элемента в его очереди ввода). С точки зрения обработки блока `Post` является асинхронным. Целевые блоки, поддержка откладывание предложит сообщения, или для блоков, которые может выполнять больше операций обработки в их `Post` реализацию, рассмотрите возможность использования <xref:System.Threading.Tasks.Dataflow.DataflowBlock.SendAsync%2A>, который немедленно вернет и включит целевой объект, чтобы отложить отправленное сообщение и более поздней версии его после использования `SendAsync` возвращает.  
+ Этот метод будет возвращать, когда целевой блок решила принять или отклонить элемент, но если в противном случае диктуется особой семантики из целевой блок, не ожидается для элемента должны быть обработаны фактически. Например <xref:System.Threading.Tasks.Dataflow.ActionBlock%601> вернет из <xref:System.Threading.Tasks.Dataflow.DataflowBlock.Post%2A> как только он сохранен переданного элемента в его очереди ввода). С точки зрения обработки блока `Post` является асинхронным. Целевые блоки, поддержка откладывание предложит сообщения, или для блоков, которые может выполнять больше операций обработки в их `Post` реализацию, рассмотрите возможность использования <xref:System.Threading.Tasks.Dataflow.DataflowBlock.SendAsync%2A>, который немедленно возвращает управление и включит целевой объект, чтобы отложить отправленное сообщение и более поздней версии его после использования `SendAsync` возвращает.  
   
  ]]></format>
         </remarks>
@@ -659,7 +659,7 @@ batchBlock.Complete();
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если источник успешно предложенным элемента, который был получен этой операцией, этот элемент возвращается даже при возникновении запрос отмены параллельной.  
+ Если источник успешно предлагаемая элемента, который был получен этой операцией, этот элемент возвращается в том случае, даже в случае запрос на отмену параллельных.  
   
  ]]></format>
         </remarks>
@@ -703,7 +703,7 @@ batchBlock.Complete();
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если источник успешно предложенным элемента, который был получен этой операцией, этот элемент возвращается даже при возникновении параллельных тайм-аута.  
+ Если источник успешно предлагаемая элемента, который был получен этой операцией, этот элемент возвращается в том случае, даже в случае параллельных тайм-аута.  
   
  ]]></format>
         </remarks>
@@ -749,7 +749,7 @@ batchBlock.Complete();
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если источник успешно предлагаемое значение элемента, который был получен этой операцией, это значение возвращается, даже при возникновении параллельный запрос времени ожидания или отмены.  
+ Если источник успешно предлагаемая значение элемента, который был получен этой операцией, это значение возвращается в том случае, даже в случае параллельных запросов, время ожидания или отмены.  
   
  ]]></format>
         </remarks>
@@ -1006,9 +1006,9 @@ batchBlock.Complete();
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод не требует ожидания источник содержит элемент, чтобы предоставить.  
+ Этот метод не требует ожидания источнике есть элемент для предоставления.  
   
- Он возвращает ли элемент был доступен.  
+ Будет возвращена ли элемент был доступен.  
   
  ]]></format>
         </remarks>
