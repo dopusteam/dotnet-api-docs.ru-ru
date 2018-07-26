@@ -1,11 +1,11 @@
 <Type Name="XslTransform" FullName="System.Xml.Xsl.XslTransform">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="bde6eef3e191bd0a25d4c462afa81d1cbfd131ba" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="90f9aaa4f98d650b51fb98e9ae2d19d691591587" />
+    <Meta Name="ms.sourcegitcommit" Value="102d07546033d7818b72aa66d7a26c70235baedd" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37733119" />
+    <Meta Name="ms.lasthandoff" Value="07/23/2018" />
+    <Meta Name="ms.locfileid" Value="39202249" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class XslTransform" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit XslTransform extends System.Object" />
@@ -735,10 +735,16 @@
   
  Чтобы получить свидетельство разными способами. Следующая таблица описывает, какие типы свидетельства для распространенных сценариев пользователя.  
   
-    
+|Сценарий|Тип свидетельства|  
+|--------------|---------------------------------|  
+|Таблица стилей XSLT является автономной или поступает из базы кода, которой вы доверяете.|Используется свидетельство из сборки.<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform(); &#13;&#10;xslt.Load(xslReader, resolver, this.GetType().Assembly.Evidence);</code></pre>|  
+|Таблица стилей XSLT поступает из внешнего источника. Происхождение источника известно и проверяемый URL-адрес.|Создайте свидетельство с помощью URL-адрес.<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform();&#13;&#10; Evidence evidence = XmlSecureResolver.CreateEvidenceForUrl(stylesheetURL); &#13;&#10;xslt.Load(xslReader,resolver,evidence);</code></pre>|  
+|Таблица стилей XSLT поступает из внешнего источника. Происхождение источника неизвестно.|Присвойте свидетельству значение `null`. Блоки скриптов не обрабатываются, функция XSLT `document()` не поддерживается, привилегированные объекты расширения запрещены.<br /><br /> Кроме того, можно также задать `resolver` параметр `null`. Это гарантирует, что `xsl:import` и `xsl:include` элементы, не обрабатываются.|  
+|Таблица стилей XSLT поступает из внешнего источника. Происхождение источника неизвестно, но необходима поддержка скриптов.|Запросите свидетельство у вызывающего. API вызывающий объект должен обеспечивать способ предоставления свидетельства, обычно <xref:System.Security.Policy.Evidence> класса.|  
   
+     
 ## Examples  
- Чтобы преобразовать фрагмент узла, необходимо создать `xsltReader` содержащий только узел фрагмента и передать его <xref:System.Xml.XmlReader> для `secureURL` метод. В следующем примере преобразует XML-документа и выводит результат в <xref:System.Xml.XmlSecureResolver.CreateEvidenceForUrl%2A?displayProperty=nameWithType>.  
+ В следующем примере выполняется преобразование XSLT где `xsltReader` — <xref:System.Xml.XmlReader> содержащий таблицу стилей и `secureURL` — доверенных URL-адрес, который может использоваться для создания <xref:System.Security.Policy.Evidence>. <xref:System.Xml.XmlSecureResolver.CreateEvidenceForUrl%2A?displayProperty=nameWithType> Метод используется для создания <xref:System.Security.Policy.Evidence> применяемого к таблице стилей.  
   
  [!code-cpp[XslTransform.Load4#1](~/samples/snippets/cpp/VS_Snippets_Data/XslTransform.Load4/CPP/trans_ev.cpp#1)]
  [!code-csharp[XslTransform.Load4#1](~/samples/snippets/csharp/VS_Snippets_Data/XslTransform.Load4/CS/trans_ev.cs#1)]
@@ -798,7 +804,14 @@
   
  Чтобы получить свидетельство разными способами. Следующая таблица описывает, какие типы свидетельства для распространенных сценариев пользователя.  
   
-  ]]></format>
+|Сценарий|Тип свидетельства|  
+|--------------|---------------------------------|  
+|Таблица стилей XSLT является автономной или поступает из базы кода, которой вы доверяете.|Используется свидетельство из сборки.<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform(); &#13;&#10;xslt.Load(style sheet, resolver, this.GetType().Assembly.Evidence);</code></pre>|  
+|Таблица стилей XSLT поступает из внешнего источника. Происхождение источника известно и проверяемый URL-адрес.|Создайте свидетельство с помощью URL-адрес.<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform(); &#13;&#10;Evidence evidence = XmlSecureResolver.CreateEvidenceForUrl(style sheetURL); &#13;&#10;xslt.Load(style sheet,resolver,evidence);</code></pre>|  
+|Таблица стилей XSLT поступает из внешнего источника. Происхождение источника неизвестно.|Присвойте свидетельству значение `null`. Блоки скриптов не обрабатываются, функция XSLT `document()` не поддерживается, привилегированные объекты расширения запрещены.<br /><br /> Кроме того, можно также задать `resolver` параметр `null`. Это гарантирует, что `xsl:import` и `xsl:include` элементы, не обрабатываются.|  
+|Таблица стилей XSLT поступает из внешнего источника. Происхождение источника неизвестно, но необходима поддержка скриптов.|Запросите свидетельство у вызывающего. API вызывающий объект должен обеспечивать способ предоставления свидетельства, обычно <xref:System.Security.Policy.Evidence> класса.|  
+  
+ ]]></format>
         </remarks>
         <exception cref="T:System.Xml.Xsl.XsltCompileException">Загружаемый ресурс не является допустимой таблицей стилей.</exception>
         <exception cref="T:System.Security.SecurityException">Указанной таблице стилей требуется произвести действия, не позволенные в рамках предоставленного свидетельства.  Вызывающий оператор пытается передать свидетельство, не имея разрешения <see langword="ControlEvidence" />.</exception>
@@ -854,11 +867,18 @@
   
  Чтобы получить свидетельство разными способами. Следующая таблица описывает, какие типы свидетельства для распространенных сценариев пользователя.  
   
-    
+|Сценарий|Тип свидетельства|  
+|--------------|---------------------------------|  
+|Таблица стилей XSLT является автономной или поступает из базы кода, которой вы доверяете.|Используется свидетельство из сборки.<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform(); &#13;&#10;xslt.Load(xslNav, resolver, this.GetType().Assembly.Evidence);</code></pre>|  
+|Таблица стилей XSLT поступает из внешнего источника. Происхождение источника известно и проверяемый URL-адрес.|Создайте свидетельство с помощью URL-адрес.<br /><br /> <pre><code class="lang-csharp">XsltTransform xslt = new XslTransform(); &#13;&#10;Evidence evidence = XmlSecureResolver.CreateEvidenceForUrl(style sheetURL); &#13;&#10;xslt.Load(xslNav,resolver,evidence);</code></pre>|  
+|Таблица стилей XSLT поступает из внешнего источника. Происхождение источника неизвестно.|Присвойте свидетельству значение `null`. Блоки скриптов не обрабатываются, функция XSLT `document()` не поддерживается, привилегированные объекты расширения запрещены.<br /><br /> Кроме того, можно также задать `resolver` параметр `null`. Это гарантирует, что `xsl:import` и `xsl:include` элементы, не обрабатываются.|  
+|Таблица стилей XSLT поступает из внешнего источника. Происхождение источника неизвестно, но необходима поддержка скриптов.|Запросите свидетельство у вызывающего. API вызывающий объект должен обеспечивать способ предоставления свидетельства, обычно `Evidence` класса.|  
+  
+   
   
 ## Examples  
  В следующем примере выполняется преобразование XSLT с помощью таблицы стилей из внешнего источника. Так как таблица стилей поступает из ненадежного источника, `resolver` и `evidence` присвоено `null`.  
-  
+ 
  [!code-csharp[XslTransform.Load5#1](~/samples/snippets/csharp/VS_Snippets_Data/XslTransform.Load5/CS/trans_noev.cs#1)]
  [!code-vb[XslTransform.Load5#1](~/samples/snippets/visualbasic/VS_Snippets_Data/XslTransform.Load5/VB/trans_noev.vb#1)]  
   
@@ -2430,7 +2450,7 @@ Root node is book.
    
   
 ## Examples  
- Текст   #text     пробелы   #whitespace     SignificantWhitespace   significant пробелы #     XmlDeclaration   #xml объявление  
+ В следующем примере загружает и изменяет XML-документ, прежде чем выполнять XSLT-преобразования.  
   
  [!code-cpp[XslTransform.Transform2#1](~/samples/snippets/cpp/VS_Snippets_Data/XslTransform.Transform2/CPP/trans_snip.cpp#1)]
  [!code-csharp[XslTransform.Transform2#1](~/samples/snippets/csharp/VS_Snippets_Data/XslTransform.Transform2/CS/trans_snip.cs#1)]
