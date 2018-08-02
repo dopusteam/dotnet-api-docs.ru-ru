@@ -1,11 +1,11 @@
 <Type Name="WaitCallback" FullName="System.Threading.WaitCallback">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="c971c6ff730ee4e62d7280c5bffa17634a0ecf8f" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="378344f53d46b84b477b9863be050816ca5c3ab4" />
+    <Meta Name="ms.sourcegitcommit" Value="acac931205d35ffca255adc91935b79b098a7a7a" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37754560" />
+    <Meta Name="ms.lasthandoff" Value="08/01/2018" />
+    <Meta Name="ms.locfileid" Value="39394288" />
   </Metadata>
   <TypeSignature Language="C#" Value="public delegate void WaitCallback(object state);" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed WaitCallback extends System.MulticastDelegate" />
@@ -53,37 +53,16 @@
 ## Remarks  
  <xref:System.Threading.WaitCallback> Представляет метод обратного вызова, который должен выполняться на <xref:System.Threading.ThreadPool> потока. Создайте делегат, передав в метод обратного вызова для <xref:System.Threading.WaitCallback> конструктор. Метод должен иметь сигнатуру, показано ниже.  
   
- Передавая в очередь задачу на выполнение <xref:System.Threading.WaitCallback> делегировать <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A?displayProperty=nameWithType>. Метод обратного вызова выполняется, когда становится доступен поток из пула потоков.  
+ Метод для выполнения в очередь, передав <xref:System.Threading.WaitCallback> делегировать <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A?displayProperty=nameWithType>. Метод обратного вызова выполняется, когда становится доступен поток из пула потоков.  
   
 > [!NOTE]
 >  Пользователи Visual Basic могут опускать <xref:System.Threading.WaitCallback> конструктора и просто использовать `AddressOf` оператор при передаче в метод обратного вызова, <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A>. Visual Basic автоматически вызывает соответствующий конструктор делегата.  
   
- Если вы хотите передать информацию в метод обратного вызова, создайте объект, который содержит необходимые сведения и передать его в <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A> при постановке в очередь задачу на выполнение. Каждый раз, выполняет метод обратного вызова, `state` параметр содержит этот объект.  
+ Если вы хотите передать информацию в метод обратного вызова, создайте объект, который содержит необходимые сведения и передать его в <xref:System.Threading.ThreadPool.QueueUserWorkItem(System.Threading.WaitCallback,System.Object)> метод в качестве второго аргумента. При каждом выполнении метода обратного вызова `state` параметр содержит этот объект.  
+
+ Примеры использования `WaitCallback` делегат, см. в разделе <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A?displayProperty=nameWithType> метод.
   
- Дополнительные сведения об использовании обратных вызовов для синхронизации потоков пула см. в разделе [пул управляемых потоков](~/docs/standard/threading/the-managed-thread-pool.md).  
-  
-   
-  
-## Examples  
- Этот раздел содержит два примера. В первом примере показано, как можно поместить в очередь простой задачи для выполнения пулом потоков.  
-  
- Во втором примере показано, как можно поставить задачу в очередь и передачи информации к нему.  
-  
- **Пример 1**  
-  
- В этом примере показано, как использовать <xref:System.Threading.WaitCallback> делегат в очередь задачу для выполнения пулом потоков. В примере кода используется <xref:System.Threading.ThreadPool.QueueUserWorkItem%28System.Threading.WaitCallback%29?displayProperty=nameWithType> перегрузку метода в очередь задачу, представленный <xref:System.Threading.WaitCallback> , который служит оболочкой `ThreadProc` метод для выполнения, когда поток станет доступным. Сведения о задачах предоставляется с помощью этой перегрузки. Поэтому сведения, позволяющие `ThreadProc` метод ограничен объект принадлежит метод.  
-  
- [!code-cpp[System.Threading.ThreadPool QueueUserWorkItem0#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ThreadPool QueueUserWorkItem0/CPP/source.cpp#1)]
- [!code-csharp[System.Threading.ThreadPool QueueUserWorkItem0#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ThreadPool QueueUserWorkItem0/CS/source.cs#1)]
- [!code-vb[System.Threading.ThreadPool QueueUserWorkItem0#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.ThreadPool QueueUserWorkItem0/VB/source.vb#1)]  
-  
- **Пример 2**  
-  
- В этом примере показано, как создать объект, содержащий сведения о задаче. Он также показано, как передать задачу, которая помещается в очередь для выполнения этого объекта пулом потоков.  
-  
- [!code-cpp[System.Threading.ThreadPool QueueUserWorkItem1#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ThreadPool QueueUserWorkItem1/CPP/source.cpp#1)]
- [!code-csharp[System.Threading.ThreadPool QueueUserWorkItem1#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ThreadPool QueueUserWorkItem1/CS/source.cs#1)]
- [!code-vb[System.Threading.ThreadPool QueueUserWorkItem1#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Threading.ThreadPool QueueUserWorkItem1/VB/source.vb#1)]  
+ Дополнительные сведения о пуле потоков, см. в разделе [пул управляемых потоков](~/docs/standard/threading/the-managed-thread-pool.md).  
   
  ]]></format>
     </remarks>

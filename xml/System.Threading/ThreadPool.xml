@@ -1,11 +1,11 @@
 <Type Name="ThreadPool" FullName="System.Threading.ThreadPool">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="7542193821586bc0241b3b3025f0ccf05510af2f" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="3affe4872ffccc66fbf65bb8eeb4555921416133" />
+    <Meta Name="ms.sourcegitcommit" Value="4303c81814c0b4fd5963444073ed25c176c5ddad" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37609239" />
+    <Meta Name="ms.lasthandoff" Value="07/31/2018" />
+    <Meta Name="ms.locfileid" Value="39361197" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class ThreadPool" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit ThreadPool extends System.Object" />
@@ -541,7 +541,9 @@
    
   
 ## Examples  
- В следующем примере показано, как создать объект, содержащий сведения о задаче. Он также показано, как передать задачу, которая помещается в очередь для выполнения этого объекта пулом потоков.  
+ В следующем примере пул потоков .NET для вычисления `Fibonacci` результат для пяти числа в диапазоне от 20 до 40. Каждый результат `Fibonacci` представлен классом `Fibonacci`, который предоставляет метод с именем `ThreadPoolCallback`, выполняющий вычисление. Создается объект, представляющий каждое значение `Fibonacci`, а затем метод `ThreadPoolCallback` передается в объект <xref:System.Threading.ThreadPool.QueueUserWorkItem%2A>, который назначает для выполнения метода доступный в пуле поток.  
+  
+ Так как каждый `Fibonacci` объекту присваивается полупроизвольное значение для вычисления, и так как каждый поток будут конкурировать за ресурсы процессора, не знает заранее, сколько времени потребуется для всех пяти результатов необходимо вычислить. Именно поэтому во время конструирования каждому объекту `Fibonacci` передается экземпляр класса <xref:System.Threading.ManualResetEvent>. Каждый объект сигнализирует предоставленному объекту события когда его вычисление будет завершена, который позволяет основному потоку блокировать выполнение <xref:System.Threading.WaitHandle.WaitAll%2A> до всех пяти `Fibonacci` объектов вычисления результата. После этого метод `Main` отображает каждый результат `Fibonacci`.
   
  [!code-cpp[System.Threading.ThreadPool QueueUserWorkItem1#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.ThreadPool QueueUserWorkItem1/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.ThreadPool QueueUserWorkItem1#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.ThreadPool QueueUserWorkItem1/CS/source.cs#1)]

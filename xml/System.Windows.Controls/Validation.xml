@@ -1,11 +1,11 @@
 <Type Name="Validation" FullName="System.Windows.Controls.Validation">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="3d76da5a31f2264fc3d706a864c3510d9972601f" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="982dd25b747046ee7dfde54e547bc9c0974b3a30" />
+    <Meta Name="ms.sourcegitcommit" Value="4f9e960e786edf67b6a29655670b1a15e71c03de" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37522618" />
+    <Meta Name="ms.lasthandoff" Value="08/02/2018" />
+    <Meta Name="ms.locfileid" Value="39417543" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class Validation" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Validation extends System.Object" />
@@ -109,8 +109,38 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Происходит при возникновении ошибки проверки в связанном элементе, но только для привязок со значением <see cref="P:System.Windows.Data.Binding.NotifyOnValidationError" />, равным <see langword="true" />.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] Модель привязки данных позволяет связать <xref:System.Windows.Data.Binding.ValidationRules%2A> с вашей <xref:System.Windows.Data.Binding> объекта. Проверка происходит во время передачи значения источника привязки целевой для привязки, перед вызовом преобразователя. Ниже описан процесс проверки:  
+  
+1.  Когда значение передается от целевого свойства к свойству источника, механизм привязки данных сначала удаляет все <xref:System.Windows.Controls.ValidationError> , могут быть добавлены к <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> присоединенное свойство привязанного элемента. Затем он проверяет, есть ли любые пользовательские <xref:System.Windows.Controls.ValidationRule>s, определенным для этого <xref:System.Windows.Data.Binding>, в этом случае он вызывает <xref:System.Windows.Controls.ValidationRule.Validate%2A> метод на каждом из <xref:System.Windows.Controls.ValidationRule>s, пока один из них выполняется ошибку или пока не будут выполнены все из них.  
+  
+2.  Когда настраиваемое правило, не проходит, обработчик привязки создает <xref:System.Windows.Controls.ValidationError> и добавляет его к <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> коллекции привязанного элемента. Когда <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> не является пустым, <xref:System.Windows.Controls.Validation.HasError%2A?displayProperty=nameWithType> присоединенное свойство элемента имеет значение `true`. Кроме того Если <xref:System.Windows.Data.Binding.NotifyOnValidationError%2A> свойство <xref:System.Windows.Data.Binding> присваивается `true`, то обработчик привязки вызывает <xref:System.Windows.Controls.Validation.Error?displayProperty=nameWithType> присоединенного события в элементе.  
+  
+3.  Если все правила передачи, обработчик привязки вызывает преобразователь, если он существует.  
+  
+4.  Если преобразователь пройден, обработчик привязки вызывает метод задания свойства источника.  
+  
+5.  Если для привязки <xref:System.Windows.Controls.ExceptionValidationRule> связанные с ней и исключение во время выполнения шага 4, обработчик привязки проверяет, имеется ли <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A>. У вас есть возможность использовать <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A> обратного вызова, чтобы предоставить пользовательский обработчик для обработки исключений. Если <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A> не указан в <xref:System.Windows.Data.Binding>, обработчик привязки создает <xref:System.Windows.Controls.ValidationError> с исключением и добавляет ее к <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=nameWithType> коллекции привязанного элемента.  
+  
+ Также Обратите внимание, что при передаче допустимого значения в любом направлении (целевой объект источник или источника к целевому объекту) очищается <xref:System.Windows.Controls.Validation>.<xref:System.Windows.Controls.Validation.Errors%2A> вложенное свойство.  
+  
+ Дополнительные сведения см. в разделе «Проверка данных» в [Общие сведения о привязке данных](~/docs/framework/wpf/data/data-binding-overview.md).  
+  
+<a name="routedEventInfo_Error"></a>   
+## <a name="routed-event-information"></a>Сведения о маршрутизируемом событии  
+  
+|||  
+|-|-|  
+|Поле идентификатора|<xref:System.Windows.Controls.Validation.ErrorEvent>|  
+|Стратегия маршрутизации|Восходящая маршрутизация|  
+|делегат|<xref:System.EventHandler%601>, ограничен <xref:System.Windows.Controls.ValidationErrorEventArgs>|  
+  
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="ErrorEvent">
@@ -168,8 +198,26 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Получает или задает объект <see cref="T:System.Windows.Controls.ControlTemplate" />, используемый для создания отчета об ошибках проверки в слое графических элементов.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] Модель привязки данных, вы сможете связать <xref:System.Windows.Data.Binding.ValidationRules%2A> с вашей <xref:System.Windows.Data.Binding> объекта. Если пользователь вводит недопустимое значение, можно сформировать отклик приложения [!INCLUDE[TLA#tla_ui](~/includes/tlasharptla-ui-md.md)] на ошибку. Один из способов обеспечения такого отклика является установление <xref:System.Windows.Controls.Validation>.<xref:System.Windows.Controls.Validation.ErrorTemplate%2A> присоединенное свойство пользовательского <xref:System.Windows.Controls.ControlTemplate>.  
+  
+ Подробное описание проверки, см. в разделе проверки данных из [Общие сведения о привязке данных](~/docs/framework/wpf/data/data-binding-overview.md).  
+  
+<a name="dependencyPropertyInfo_ErrorTemplate"></a>   
+## <a name="dependency-property-information"></a>Сведения о свойстве зависимостей  
+  
+|||  
+|-|-|  
+|Поле идентификатора|<xref:System.Windows.Controls.Validation.ErrorTemplateProperty>|  
+|Значение свойства метаданных `true`|<xref:System.Windows.FrameworkPropertyMetadata.IsNotDataBindable%2A>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="T:System.Windows.Controls.AdornedElementPlaceholder" />
       </Docs>
     </Member>
     <Member MemberName="ErrorTemplateProperty">
@@ -518,8 +566,37 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Возвращает или задает элемент, который отображается, чтобы показать, что произошла ошибка проверки в связанном элементе, где задано свойство.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <xref:System.Windows.Controls.Validation.ValidationAdornerSite%2A?displayProperty=nameWithType> И <xref:System.Windows.Controls.Validation.ValidationAdornerSiteFor%2A?displayProperty=nameWithType> присоединенного свойства ссылаются друг на друга, и можно задать любой из них.  Например, предположим, что <xref:System.Windows.Controls.Label> отображает ошибки проверки, возникающие на привязкой к данным <xref:System.Windows.Controls.TextBox>.  Необходимо выполнить одно из следующих действий для создания связи:  
+  
+-   Задайте <xref:System.Windows.Controls.Validation.ValidationAdornerSite%2A?displayProperty=nameWithType> для <xref:System.Windows.Controls.TextBox> для <xref:System.Windows.Controls.Label>.  
+  
+-   Задайте <xref:System.Windows.Controls.Validation.ValidationAdornerSiteFor%2A?displayProperty=nameWithType> для <xref:System.Windows.Controls.Label> для <xref:System.Windows.Controls.TextBox>.  
+  
+-   Если задано одно из свойств, другие свойству на элемент, на котором можно задать присоединенное свойство; независимо от того, какой из предыдущих параметров выбран <xref:System.Windows.Controls.Validation.ValidationAdornerSite%2A?displayProperty=nameWithType> для <xref:System.Windows.Controls.TextBox> — <xref:System.Windows.Controls.Label> и <xref:System.Windows.Controls.Validation.ValidationAdornerSiteFor%2A> для <xref:System.Windows.Controls.Label> является <xref:System.Windows.Controls.TextBox>.  
+  
+<a name="dependencyPropertyInfo_ValidationAdornerSite"></a>   
+## <a name="dependency-property-information"></a>Сведения о свойстве зависимостей  
+  
+|||  
+|-|-|  
+|Поле идентификатора|<xref:System.Windows.Controls.Validation.ValidationAdornerSiteProperty>|  
+|Значение свойства метаданных **true**|Нет|  
+  
+   
+  
+## Examples  
+ В следующем примере используется <xref:System.Windows.Controls.Label> как сайт декоративного элемента для ошибки, возникающие на элементах в <xref:System.Windows.Controls.ItemsControl>. В примере задается <xref:System.Windows.Controls.Validation.ValidationAdornerSite%2A?displayProperty=nameWithType> для каждого элемента контейнера в <xref:System.Windows.Controls.ItemsControl.ItemContainerStyle%2A> к метке.  В примере используется <xref:System.Windows.Controls.Validation.ValidationAdornerSiteFor%2A?displayProperty=nameWithType> свойство для получения контейнера элемент, имеющий данную ошибку и привязывает <xref:System.Windows.Controls.ContentControl.Content%2A> из <xref:System.Windows.Controls.Label> к первому <xref:System.Windows.Controls.ValidationError> , сообщенный.  
+  
+ [!code-xml[BindingGroupSnippets#ItemBindingGroup](~/samples/snippets/csharp/VS_Snippets_Wpf/BindingGroupSnippets/CSharp/Window2.xaml#itembindinggroup)]  
+[!code-xml[BindingGroupSnippets#ValidationAdornerSiteFor](~/samples/snippets/csharp/VS_Snippets_Wpf/BindingGroupSnippets/CSharp/Window2.xaml#validationadornersitefor)]  
+  
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="ValidationAdornerSiteFor">
@@ -535,8 +612,37 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Возвращает или задает элемент, для которого данный элемент появляется, чтобы указать на ошибку.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+ <xref:System.Windows.Controls.Validation.ValidationAdornerSite%2A?displayProperty=nameWithType> И <xref:System.Windows.Controls.Validation.ValidationAdornerSiteFor%2A?displayProperty=nameWithType> присоединенного свойства ссылаются друг на друга, и можно задать любой из них.  Например, предположим, что <xref:System.Windows.Controls.Label> отображает ошибки проверки, возникающие на данных, привязанных <xref:System.Windows.Controls.TextBox>.  Необходимо выполнить одно из следующих действий для создания связи:  
+  
+-   Задайте <xref:System.Windows.Controls.Validation.ValidationAdornerSite%2A?displayProperty=nameWithType> для <xref:System.Windows.Controls.TextBox> для <xref:System.Windows.Controls.Label>.  
+  
+-   Задайте <xref:System.Windows.Controls.Validation.ValidationAdornerSiteFor%2A?displayProperty=nameWithType> для <xref:System.Windows.Controls.Label> для <xref:System.Windows.Controls.TextBox>.  
+  
+ Если задано одно из свойств, другие свойству на элемент, на котором можно задать присоединенное свойство; независимо от того, какой из предыдущих параметров выбран <xref:System.Windows.Controls.Validation.ValidationAdornerSite%2A?displayProperty=nameWithType> для <xref:System.Windows.Controls.TextBox> — <xref:System.Windows.Controls.Label> и <xref:System.Windows.Controls.Validation.ValidationAdornerSiteFor%2A> для <xref:System.Windows.Controls.Label> является <xref:System.Windows.Controls.TextBox>.  
+  
+<a name="dependencyPropertyInfo_ValidationAdornerSiteFor"></a>   
+## <a name="dependency-property-information"></a>Сведения о свойстве зависимостей  
+  
+|||  
+|-|-|  
+|Поле идентификатора|<xref:System.Windows.Controls.Validation.ValidationAdornerSiteForProperty>|  
+|Значение свойства метаданных **true**|Нет|  
+  
+   
+  
+## Examples  
+ В следующем примере используется <xref:System.Windows.Controls.Label> как сайт декоративного элемента для ошибки, возникающие на элементах в <xref:System.Windows.Controls.ItemsControl>. В примере задается <xref:System.Windows.Controls.Validation.ValidationAdornerSite%2A?displayProperty=nameWithType> для каждого элемента контейнера в <xref:System.Windows.Controls.ItemsControl.ItemContainerStyle%2A> к метке.  В примере используется <xref:System.Windows.Controls.Validation.ValidationAdornerSiteFor%2A?displayProperty=nameWithType> свойство для получения контейнера элемент, имеющий данную ошибку и привязывает <xref:System.Windows.Controls.ContentControl.Content%2A> из <xref:System.Windows.Controls.Label> к первому <xref:System.Windows.Controls.ValidationError> , сообщенный.  
+  
+ [!code-xml[BindingGroupSnippets#ItemBindingGroup](~/samples/snippets/csharp/VS_Snippets_Wpf/BindingGroupSnippets/CSharp/Window2.xaml#itembindinggroup)]  
+[!code-xml[BindingGroupSnippets#ValidationAdornerSiteFor](~/samples/snippets/csharp/VS_Snippets_Wpf/BindingGroupSnippets/CSharp/Window2.xaml#validationadornersitefor)]  
+  
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="ValidationAdornerSiteForProperty">
