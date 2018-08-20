@@ -1,10 +1,10 @@
 <Type Name="ExceptionDispatchInfo" FullName="System.Runtime.ExceptionServices.ExceptionDispatchInfo">
   <Metadata>
     <Meta Name="ms.openlocfilehash" Value="b4118a001dc10580c0ce0cac6187bf8f8fc94902" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.sourcegitcommit" Value="d0bb31ec8354fa58c62c2a646057eec11d3e2150" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.lasthandoff" Value="08/17/2018" />
     <Meta Name="ms.locfileid" Value="36540181" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class ExceptionDispatchInfo" />
@@ -41,9 +41,9 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo> Объект хранит сведения о трассировке стека и сведения "Доктор Ватсон", исключение содержит в той точке, где их захвата. Исключение может вызываться в другое время и, возможно, другой поток, вызвав <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw%2A?displayProperty=nameWithType> метод. Исключение вызывается, как если количество поступивших от точки, где были захвачены в точку где <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw%2A> вызывается метод.  
+ <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo> Объект сохраняет сведения о трассировке стека и сведения "Доктор Ватсон", исключение в точке, где оно записано. Исключение может выдаваться в другое время и, возможно, в другом потоке, вызвав <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw%2A?displayProperty=nameWithType> метод. Исключение, как если количество поступивших от точки, где она была записана в точке где <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw%2A> вызывается метод.  
   
- <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo> не удается выполнить сериализацию и не предназначен для разных доменах приложений.  
+ <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo> не может быть сериализовано и не предназначен для разных доменах приложений.  
   
  ]]></format>
     </remarks>
@@ -89,9 +89,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Можно использовать <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo> объект, возвращаемый этим методом в другое время и, возможно, в другом потоке для повторного создания указанного исключения, как если бы исключение передаваемых от этой точки, где были захвачены в точке, где создается повторно.  
+ Можно использовать <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo> объект, возвращаемый этим методом в другое время и, возможно, в другом потоке, чтобы заново создать указанное исключение, как если исключение, передаваемых от этой точки, где она была записана в точку, где создается снова.  
   
- Если исключение является активной при их записи, текущие сведения о трассировке стека и сведения "Доктор Ватсон", содержащаяся в хранится исключение.  Если неактивна, то есть, если он не создано, его не будет любые сведения о трассировке стека или "Доктор Ватсон" сведения.  
+ Если исключение является активен при их записи, текущие сведения о трассировке стека и сведения "Доктор Ватсон", содержащийся в исключения сохраняется.  Если оно неактивно, то есть если он не не выдавалось, его не будет любые сведения о трассировке стека или "Доктор Ватсон" сведения.  
   
  ]]></format>
         </remarks>
@@ -134,7 +134,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это свойство используется, библиотека параллельных задач, например, для объединения нескольких исключений в <xref:System.AggregateException> объекта. Он не предназначен для использования в коде приложения. Используйте <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw%2A> метод, чтобы восстановить состояние отслеживаемых исключения и создают его.  
+ Это свойство используется библиотека параллельных задач, например, для объединения нескольких исключений в <xref:System.AggregateException> объекта. Он не предназначен для использования в коде приложения. Используйте <xref:System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw%2A> метод, чтобы восстановить состояние отслеживаемых исключения и создают его.  
   
  ]]></format>
         </remarks>
@@ -176,7 +176,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- При восстановлении исключение, следующая строка вставляется в трассировку стека для указания точки восстановления: «Конец трассировки стека из предыдущего расположения, где возникло исключение». Это похоже на способ внутреннего исключения, или упакованы, отображаются в трассировках стека.  
+ Когда исключение восстанавливается, следующая строка вставляется в трассировке стека, чтобы указать точку восстановления: «Конец трассировки стека из предыдущего расположения, где возникло исключение». Это похоже на способ внутренние исключения или маршалированного исключения указаны в трассировках стека.  
   
  ]]></format>
         </remarks>
