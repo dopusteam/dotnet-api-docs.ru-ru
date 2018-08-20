@@ -1,10 +1,10 @@
 <Type Name="WSFederationAuthenticationModule" FullName="System.IdentityModel.Services.WSFederationAuthenticationModule">
   <Metadata>
     <Meta Name="ms.openlocfilehash" Value="4946a226efb8c22b2cb54ac00bf7e2cedea35d6e" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.sourcegitcommit" Value="d0bb31ec8354fa58c62c2a646057eec11d3e2150" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.lasthandoff" Value="08/17/2018" />
     <Meta Name="ms.locfileid" Value="36558384" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class WSFederationAuthenticationModule : System.IdentityModel.Services.HttpModuleBase" />
@@ -23,75 +23,77 @@
   <Interfaces />
   <Docs>
     <summary>
-      <see cref="T:System.IdentityModel.Services.WSFederationAuthenticationModule" /> представляет собой HTTP-модуль, используемый для защиты приложения ASP.NET путем применения параметров федеративной проверки подлинности к входящим запросам. <see cref="T:System.IdentityModel.Services.WSFederationAuthenticationModule" /> представляет собой готовый главный модуль, который WIF предлагает для обработки доступа по удостоверениям на основе утверждений в приложениях ASP.NET.  Класс <see cref="T:System.IdentityModel.Services.WSFederationAuthenticationModule" /> вызывает несколько событий, что позволяет разработчикам ASP.NET изменять поведение по умолчанию и отслеживать сведения о порядке выполнения аутентификации и обработки утверждений. Функциональные возможности класса <see cref="T:System.IdentityModel.Services.WSFederationAuthenticationModule" /> разделены на методы, специфичные для задач.</summary>
+      <see cref="T:System.IdentityModel.Services.WSFederationAuthenticationModule" /> представляет собой HTTP-модуль, используемый для защиты приложения ASP.NET путем применения параметров федеративной проверки подлинности к входящим запросам. <see cref="T:System.IdentityModel.Services.WSFederationAuthenticationModule" /> представляет собой готовый главный модуль, который WIF предлагает для обработки доступа по удостоверениям на основе утверждений в приложениях ASP.NET.  
+  
+Класс <see cref="T:System.IdentityModel.Services.WSFederationAuthenticationModule" /> вызывает несколько событий, что позволяет разработчикам ASP.NET изменять поведение по умолчанию и отслеживать сведения о порядке выполнения аутентификации и обработки утверждений. Функциональные возможности класса <see cref="T:System.IdentityModel.Services.WSFederationAuthenticationModule" /> разделены на методы, специфичные для задач.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.Services.WSFederationAuthenticationModule> Класс реализует модуль HTTP, известный как модуль проверки подлинности WS-Federation (WSFAM). WSFAM реализуется готового Windows Identity Foundation (WIF). WSFAM добавляется в конвейере ASP.NET путем создания записи в файле web.config. Он является производным от <xref:System.IdentityModel.Services.HttpModuleBase>, который реализует <xref:System.Web.IHttpModule>. Он регистрирует среды выполнения ASP.NET для прослушивания <xref:System.Web.HttpApplication.EndRequest> и <xref:System.Web.HttpApplication.AuthenticateRequest> события. Прослушивание <xref:System.Web.HttpApplication.EndRequest> событий, позволяет WSFAM перенаправить клиентов службы маркеров безопасности (STS), чтобы получить маркер безопасности при сбое авторизации в запрошенный ресурс. Прослушивание <xref:System.Web.HttpApplication.AuthenticateRequest> событий позволяет WSFAM для отслеживания запросов HTTP, содержащий запрошенного токена ответа от службы маркеров безопасности. При такой токен присутствует и допустимым, он создает экземпляр <xref:System.Security.Claims.ClaimsPrincipal> для прошедшего проверку подлинности пользователя, используя утверждения, которые присутствуют в маркере.  
+ <xref:System.IdentityModel.Services.WSFederationAuthenticationModule> Класс реализует модуль HTTP, известный как модуль аутентификации WS-Federation (WSFAM). WSFAM реализуется без дополнительной настройки Windows Identity Foundation (WIF). WSFAM добавляется в конвейер ASP.NET путем создания записи в файле web.config. Он является производным от <xref:System.IdentityModel.Services.HttpModuleBase>, который реализует <xref:System.Web.IHttpModule>. Он регистрирует со средой выполнения ASP.NET для прослушивания <xref:System.Web.HttpApplication.EndRequest> и <xref:System.Web.HttpApplication.AuthenticateRequest> события. Прослушивание <xref:System.Web.HttpApplication.EndRequest> событий, позволяет WSFAM перенаправления клиентов в службе маркеров безопасности (STS), чтобы получить маркер безопасности, при сбое авторизации в запрошенный ресурс. Прослушивание <xref:System.Web.HttpApplication.AuthenticateRequest> событие позволяет WSFAM для отслеживания запросов HTTP для ответа от службы маркеров безопасности, содержащий запрошенного токена. Если такого маркера объект существует и допустим, он создает экземпляр класса <xref:System.Security.Claims.ClaimsPrincipal> для прошедшего проверку подлинности пользователя, с помощью утверждения, которые присутствуют в маркере.  
   
- При использовании WSFAM, управления сеансами обеспечивается модуль проверки подлинности сеанса (SAM), который является экземпляром объекта <xref:System.IdentityModel.Services.SessionAuthenticationModule> класс или класс, производный от него. SAM также добавляется в конвейере ASP.NET в файле конфигурации. SAM отслеживает запросы на файлы cookie проверки подлинности (сеанс). Когда эти файлы cookie присутствует и допустимым, модуль извлекает <xref:System.Security.Claims.ClaimsPrincipal> для проверенного пользователя из <xref:System.IdentityModel.Tokens.SessionSecurityToken> и задает <xref:System.Web.HttpContext.User%2A?displayProperty=nameWithType> свойство и участника потока <xref:System.Threading.Thread.CurrentPrincipal%2A?displayProperty=nameWithType> свойства.  
+ При использовании WSFAM, управление сеансами обеспечивается модуля аутентификации сеанса (SAM), который является экземпляром объекта <xref:System.IdentityModel.Services.SessionAuthenticationModule> класс или класс, производный от него. SAM также добавляется в конвейер ASP.NET в файле конфигурации. SAM отслеживает запросы для файлов cookie проверки подлинности (сеанса). Когда эти файлы cookie существует и допустим, извлекает модуль <xref:System.Security.Claims.ClaimsPrincipal> для прошедшего проверку подлинности пользователя из <xref:System.IdentityModel.Tokens.SessionSecurityToken> и задает <xref:System.Web.HttpContext.User%2A?displayProperty=nameWithType> свойство и субъект потока <xref:System.Threading.Thread.CurrentPrincipal%2A?displayProperty=nameWithType> свойства.  
   
- Предоставляет WSFAM:  
+ Модуль WSFAM предоставляет:  
   
--   Возможность для приложения ASP.NET, чтобы передать проверку подлинности для службы маркеров безопасности (STS) с помощью протокола WS-Federation. Удостоверение может быть объединена в одной или нескольких областях удостоверений и содержат несколько серверов службы токенов безопасности.  
+-   Возможности для приложений ASP.NET на делегирование аутентификации в службе маркеров безопасности (STS) с помощью протокола WS-Federation. Можно включить в федерацию между идентификационными один или несколько удостоверений и включают в себя несколько серверов службы токенов безопасности.  
   
--   Удостоверение на основе утверждений для приложений ASP.NET. Во время проверки подлинности WSFAM создает участника на основе утверждений в маркере безопасности, отправленных службой маркеров безопасности и задает в качестве участника потока этим субъектом утверждений. Затем можно использовать этот участник к разработке дальнейших кода авторизации, представления и логики принятия решений о пользователе, который он представляет.  
+-   Удостоверение на основе утверждений для приложений ASP.NET. Во время проверки подлинности WSFAM создает субъект на основе утверждений в маркере безопасности, отправленных службой маркеров безопасности и задает этим субъектом утверждений как субъект потока. Затем можно использовать этот участник, чтобы авторизации, представления и логики с точки зрения пользователя, которое она представляет в коде.  
   
- WSFAM предоставляет несколько свойств, предоставляющих параметры сообщения для использования в запросах WS-Federation, входа и выхода по умолчанию. Эти свойства обычно инициализируются [ &lt;wsFederation&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/wsfederation.md) элемент в файле конфигурации. Наиболее важным из этих свойств приведены.  
+ WSFAM предоставляет несколько свойств, которые предоставляют по умолчанию параметры сообщений, используемые в запросах входа в систему и выхода WS-Federation. Эти свойства обычно инициализируются [ &lt;wsFederation&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/wsfederation.md) элемент в файле конфигурации. Наиболее важным из этих свойств приведены.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> Свойство, которое указывает адрес службы маркеров безопасности (STS), к которому необходимо отправлять запросы на вход и выход WS-Federation.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> Свойство, которое указывает адрес службы маркеров безопасности (STS), к которому необходимо отправлять запросы на вход в систему и выхода WS-Federation.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm%2A> Свойство, которое указывает параметр "wtrealm" для использования в запросов на вход в WS-Federation. Параметр wtrealm определяет область безопасности приложения проверяющей стороны (RP) в службе маркеров безопасности.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm%2A> Свойство, которое указывает параметр wtrealm для использования в запросах входа WS-Federation. Параметр wtrealm определяет области безопасности приложения проверяющей стороны (RP) в службе маркеров безопасности.  
   
- Также можно изменить параметры входа в систему сообщений для каждого запроса, предоставляя делегата обработчика событий для <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> события.  
+ Также можно изменить параметры входа в систему сообщений для каждого запроса, предоставляя делегат обработчика событий для <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий.  
   
- Два свойства контролируют работу модуля. Оба этих свойства также обычно инициализируются из `<wsFederation>` элемент в конфигурации.  
+ Два свойства управляют поведением модуля. Оба эти свойства также обычно инициализируются `<wsFederation>` элемент в конфигурации.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled%2A> Свойство указывает, должен ли модуль выполнить пассивных перенаправлений службы маркеров безопасности для проверки подлинности.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled%2A> Свойство указывает, должен ли модуль выполнения пассивного перенаправления к STS для проверки подлинности.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects%2A> Свойство указывает, следует ли постоянные сеансы. Если это свойство имеет значение true, SAM используется для записи файла cookie сеанса клиента. На последующие запросы от клиента SAM обеспечивает проверку подлинности с помощью токена, хранящихся в файле cookie сеанса.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PersistentCookiesOnPassiveRedirects%2A> Свойство указывает, должны ли быть постоянные сеансы. Если это свойство имеет значение true, SAM используется для записи файла cookie сеанса клиента. При последующих запросах от клиента SAM предоставляет проверку подлинности с помощью маркера, сохраненных в файл cookie сеанса.  
   
- WSFAM вызывает несколько событий во время входа и выхода, которые позволяют ASP.NET разработчики могут изменить поведение по умолчанию модуля и контролировать сведения о том, как проверка подлинности и обработки заявок выполняются.  
+ WSFAM вызывает несколько событий во время входа и выхода, которые позволяют разработчикам ASP.NET изменять поведение по умолчанию модуля и отслеживать сведения о том, как проверка подлинности и обработки утверждений выполняются.  
   
- Перед отправкой запроса WS-Federation войти в службе маркеров безопасности, возникают следующие события:  
+ Перед отправкой запроса входа WS-Federation STS, вызываются следующие события:  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed>: Возникает при включенном пассивного перенаправления и происходит сбой авторизации для запрошенного ресурса.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed>: Возникает при включенном пассивного перенаправления и неудачной авторизации на запрошенный ресурс.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider>: Возникает непосредственно перед WSFAM отправляет запрос входа WS-Federation STS. Это событие можно использовать для изменения параметров в запросе на вход.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider>: Возникает непосредственно перед WSFAM отправляет запрос входа WS-Federation в службе маркеров безопасности. Это событие можно использовать для изменения параметров в запросе входа в систему.  
   
- Следующие события вызываются при получении ответа вход (маркер безопасности от) от службы маркеров безопасности:  
+ Ответ входа в систему (выданного маркера безопасности), полученного от службы маркеров безопасности, вызываются следующие события:  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived>: Возникает сразу после маркера безопасности, отправленных службой маркеров безопасности считывается из ответа.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived>: Возникает сразу после маркера безопасности, отправленных службой маркеров безопасности, считать из ответа.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated>: Возникает сразу после проверки токена. Это событие можно использовать для фильтрации, преобразования или добавить утверждения в субъект утверждений (<xref:System.Security.Claims.ClaimsPrincipal>) создаваемых маркера безопасности.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated>: Возникает только в том случае, после проверки маркера. Это событие можно использовать для фильтрации, преобразования или добавить утверждения в субъект утверждений (<xref:System.Security.Claims.ClaimsPrincipal>) создан из токена безопасности.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated>: Возникает непосредственно перед маркера сеанса (<xref:System.IdentityModel.Tokens.SessionSecurityToken>) создается из утверждений субъекта используется для задания участника потока и текущего пользователя, а для файла cookie сеанса. Дает возможность изменить маркер сеанса или включить или отключить запись файла cookie сеанса.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated>: Возникает непосредственно перед маркера сеанса (<xref:System.IdentityModel.Tokens.SessionSecurityToken>) созданная на основе утверждений субъекта используется для задания участника потока и текущего пользователя и записывается в файл cookie сеанса. Дает возможность изменить маркер сеанса или включить или отключить запись файла cookie сеанса.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedIn>: Возникает в конце проверки подлинности только после указания пользователя субъекта и текущего потока.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedIn>: Возникает по завершении проверки подлинности только после основной и текущий пользователь потока.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInError>: Возникает при возникновении исключения во время входа. Можно отменить запрос и предотвратить исключения возвращается в вызывающий объект.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInError>: Возникает при возникновении исключения во время входа. Можно отменить запрос и предотвратить возникновение исключения из возвращается вызывающему объекту.  
   
- При выходе из сеанса или при обработке запроса очистки выхода WS-Federation (wsignoutcleanup1.0), возникают следующие события:  
+ При входе из сеанса или при обработке запроса очистки выхода WS-Federation (wsignoutcleanup1.0), возникают следующие события:  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut>: Возникает непосредственно перед удалением сеанса позволяет выполнять очистку, может зависеть от сеанса или отменить выхода.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut>: Возникает непосредственно перед удалением сеанса, позволяя выполнить очистку, может зависеть от сеанса или отменить выхода.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedOut>: Возникает только после удаления сеанса.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedOut>: Возникает только в том случае, после удаления сеанса.  
   
--   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError>: Возникает при возникновении исключения во время выхода. Можно отменить выхода из системы и предотвратить исключения возвращается в вызывающий объект.  
+-   <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError>: Возникает при возникновении исключения во время выхода. Можно отменить выхода и предотвратить возникновение исключения из возвращается вызывающему объекту.  
   
 > [!NOTE]
->  Выход события не вызываются, когда выполняется выход в службе маркеров безопасности путем вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
+>  События выхода не вызываются при выходе в STS, вызвав <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
   
- Существует два способа входа с помощью WSFAM STS. Во-первых, включив пассивных перенаправлений через <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled%2A> свойство. В этом случае при авторизации сбое на запрошенный ресурс не возвращается `401:Access Denied` ответа клиенту WSFAM формирует сообщение-запрос входа WS-Federation из его свойств и перенаправляет клиента к службе маркеров безопасности для получения маркера безопасности. Вторым способом является для явного перенаправления клиента в службе маркеров безопасности путем вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> метод из веб-страницы или пользовательского элемента управления в приложении. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> Метод также использует свойства WSFAM для создания запроса входа.  
+ Вход в службу STS, с помощью WSFAM двумя способами. Во-первых, включив пассивного перенаправления через <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled%2A> свойство. В этом случае при авторизации сбое запрошенного ресурса, а не возвращает `401:Access Denied` ответ клиенту, WSFAM создает сообщение запроса входа запроса WS-Federation из его свойств и перенаправляет клиента к STS для получения маркера безопасности. Вторым способом является явным образом перенаправлять клиента в службе маркеров безопасности путем вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> метода из веб-страницы или пользовательского элемента управления в приложении. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> Метод также использует свойства WSFAM составлять запросы входа в систему.  
   
- Любой из перегруженных <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A> методы можно использовать для выхода из сеанса. Это удаление файла cookie сеанса на стороне клиента. Он не отправляет сообщения выхода WS-Federation («помощью wsignout1.0») в службе маркеров безопасности. Для входа для службы маркеров безопасности, необходимо использовать <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метода.  
+ Любой из перегруженных <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A> методы можно использовать для выхода из сеанса. Это приведет к удалению сеансового cookie на клиентском компьютере. Он не отправляет сообщение выхода WS-Federation («wsignout1.0») в службе маркеров безопасности. Для выхода в STS, необходимо использовать <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
   
- WSFAM обрабатывает запросы выхода очистки, WS-Federation («wsignoutcleanup1.0»), удалив свой сеанс с клиентом. Если не задан параметр wreply в сообщении очистки выхода, WSFAM возвращает изображение зеленой галочкой в службе маркеров безопасности, отправившего сообщение. Эта функция используется службой маркеров безопасности как подтверждение, что RP был выполнен его выхода из системы.  
+ WSFAM обрабатывает запросах выхода очистки WS-Federation («wsignoutcleanup1.0»), удалив свой сеанс с клиентом. Если параметр wreply в сообщение очистки выхода не задано, WSFAM возвращает изображение зеленой галочкой в STS, отправившего сообщение. Эта функция может использоваться службой маркеров безопасности как подтверждение, что RP был выполнен его выхода.  
   
- WSFAM предоставляет свои функции — например, его конвейер обработки запросов — через несколько методов для определенных задач. Можно переопределить эти методы в производных классах, чтобы изменять поведение WSFAM.  
+ WSFAM предоставляет свои функции — например, его конвейера обработки запросов — через несколько методов с задачей. Можно переопределить эти методы в производных классах, чтобы изменять поведение WSFAM.  
   
- Для использования, необходимо добавить модуль в конвейере, как показано в следующем коде XML:  
+ Для использования, необходимо добавить модуль в конвейер, как в следующем коде XML:  
   
 ```  
 <configuration>  
@@ -103,7 +105,7 @@
 </configuration>  
 ```  
   
- После настройки <xref:System.IdentityModel.Services.WSFederationAuthenticationModule> вызывает события на различных этапах обработки HTTP-запроса. ASP.NET разработчики могут обрабатывать эти события в файле global.asax.  
+ После настройки конфигурации <xref:System.IdentityModel.Services.WSFederationAuthenticationModule> вызывает события на различных этапах обработки HTTP-запроса. Разработчики ASP.NET может обрабатывать эти события в файле global.asax.  
   
    
   
@@ -153,9 +155,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Параметр wauth является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthenticationType%2A> свойству `null` или пустая строка, параметр wauth не включен в запрос вход.  
+ Параметр wauth является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthenticationType%2A> свойству `null` или пустая строка, параметр wauth не включен в запрос на вход.  
   
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службы маркеров безопасности (STS) с сообщением запроса входа WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службе маркеров безопасности (STS) с сообщением запроса входа запроса WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
   
  ]]></format>
         </remarks>
@@ -182,9 +184,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed> Событие возникает, когда сбой авторизации для HTTP-запроса. Вызвано изнутри <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest%2A> делегата обработчика событий посредством вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthorizationFailed%2A> метод.  
+ <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed> Событие возникает, когда произошел сбой авторизации для HTTP-запроса. Вызвано изнутри <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest%2A> делегата обработчика событий посредством вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthorizationFailed%2A> метод.  
   
- Можно задать <xref:System.IdentityModel.Services.AuthorizationFailedEventArgs.RedirectToIdentityProvider%2A?displayProperty=nameWithType> свойства, является ли запрос перенаправляется на поставщика удостоверений. Платформа инициализирует это свойство, чтобы `false` Если пользователь уже прошел проверку подлинности. В этом случае для свойства значение `true` может вызвать бесконечный цикл с STS.  
+ Можно задать <xref:System.IdentityModel.Services.AuthorizationFailedEventArgs.RedirectToIdentityProvider%2A?displayProperty=nameWithType> свойства для управления ли запрос перенаправляется на поставщика удостоверений. Платформа инициализирует это свойство, чтобы `false` Если пользователь уже прошел проверку подлинности. В этом случае для свойства значение `true` может вызвать бесконечный цикл со службой STS.  
   
 > [!NOTE]
 >  <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> Событий можно использовать для изменения URL-адрес или отменить перенаправления.  
@@ -211,7 +213,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вход ответное сообщение отправляется доверяющей стороны (RP) службой маркеров безопасности (STS) в ответ на сообщение запроса.  
+ Сообщение отклика входа отправляется доверяющей стороне (RP), службы маркеров безопасности (STS) в ответ на сообщение запроса входа.  
   
  ]]></format>
         </remarks>
@@ -243,9 +245,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод вызывается из конвейера обработки запросов, чтобы определить, является ли входящий HTTP-запрос post формы, который содержит сообщение ответа входа WS-Federation.  
+ Этот метод вызывается из конвейера обработки запросов, чтобы определить, является ли входящий HTTP-запрос post формы, который содержит сообщение отклика входа WS-Federation.  
   
- Он вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%28System.Web.HttpRequestBase%2CSystem.Boolean%29?displayProperty=nameWithType> перегрузка с `onPage` набор параметров `false` для указания, что вызов не был получен во время обработки страницы.  
+ Он вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%28System.Web.HttpRequestBase%2CSystem.Boolean%29?displayProperty=nameWithType> перегрузка с `onPage` набор параметров `false` для указания, что вызов метода не происходит во время обработки страницы.  
   
  ]]></format>
         </remarks>
@@ -282,15 +284,15 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод вызывается из конвейера обработки запросов через <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%28System.Web.HttpRequestBase%29?displayProperty=nameWithType> перегрузку, чтобы определить, является ли входящий HTTP-запрос POST, который содержит сообщение ответа входа WS-Federation формы.  
+ Этот метод вызывается из конвейера обработки запросов через <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%28System.Web.HttpRequestBase%29?displayProperty=nameWithType> перегрузка для определения, является ли входящий HTTP-запрос формы POST, который содержит сообщение отклика входа WS-Federation.  
   
  Реализация по умолчанию выполняет следующие операции:  
   
--   Если входящий запрос POST формы, он вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.IsSignInResponse%2A> метод, чтобы определить, содержит ли форма POST ответа входа.  
+-   Если входящий запрос представляет собой форму POST, он вызывает метод <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.IsSignInResponse%2A> метод, чтобы определить, содержит ли форму POST ответ входа в систему.  
   
--   Если входящий запрос не формы POST, а запрос содержит запроса WS-Federation выхода очистки (wa параметр — «wsignoutcleanup1.0»), выполняется выход очистки. В этом случае <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.Boolean%29?displayProperty=nameWithType> вызывается метод (с параметром в `true` для указания выхода очистку) чтобы выйти из сеанса. Это также приводит к возникновению выхода событий.  
+-   Если входящий запрос не является формой POST, а запрос содержит WS-Federation очистки запрос выхода (параметр wa имеет «wsignoutcleanup1.0»), выполняется выход очистки. В этом случае <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.Boolean%29?displayProperty=nameWithType> вызывается метод (с параметром, имеющим `true` для указания выхода очистку) выхода из сеанса. Это также приводит к возникновению выхода событий.  
   
-     Далее, если запрос на выход очистки содержит параметр wreply, клиент перенаправляется на URL-адрес, возвращенный <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignOutRedirectUrl%2A> метода; в противном случае возвращается изображение зеленой галочкой в службе маркеров безопасности. Получение этого образа используется службой маркеров безопасности образом подтверждением того, что запрос на выход очистки получена и успешно обработал Проверяющей стороной.  
+     Далее, если запроса очистки выхода содержит параметр wreply, клиент выполняется перенаправление на URL-адрес, возвращенный <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignOutRedirectUrl%2A> метода; в противном случае возвращается изображение зеленой галочкой в службе маркеров безопасности. Получение этот образ используется службой маркеров безопасности, подтверждающее, что запроса очистки выхода получен и успешно обработал проверяющей стороной.  
   
  ]]></format>
         </remarks>
@@ -328,27 +330,30 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Создает запрос входа WS-Federation, представленного <xref:System.IdentityModel.Services.SignInRequestMessage> объекта. Свойства нового <xref:System.IdentityModel.Services.SignInRequestMessage> устанавливаются так, как показано ниже:  
+ Создает запрос входа WS-Federation, представленного <xref:System.IdentityModel.Services.SignInRequestMessage> объекта. Свойства нового <xref:System.IdentityModel.Services.SignInRequestMessage> объекта заданы следующим образом:  
   
--   <xref:System.IdentityModel.Services.WSFederationMessage.Context%2A> (Параметра wctx) присваивается значение, созданное с помощью параметров метода.  
+-   <xref:System.IdentityModel.Services.WSFederationMessage.Context%2A> (Параметр wctx) присваивается значение, созданное с помощью параметров метода.  
   
 -   <xref:System.IdentityModel.Services.SignInRequestMessage.CurrentTime%2A> (Параметр wct) задано значение текущего времени.  
   
 -   Все остальные свойства задаются с помощью эквивалентных свойств текущего экземпляра.  
   
- Параметры, передаваемые методу используются для создания параметра wctx сообщения. Это строка, в следующем формате: `ru=returnUrl&cx=SignInContext&rm=rememberMeSet&id=uniqueId`.  
+ Параметры, передаваемые в метод используются для создания параметра wctx сообщения. Это строка в следующем формате: `ru=returnUrl&cx=SignInContext&rm=rememberMeSet&id=uniqueId`.  
   
--   `ru` Будет присвоено значение `returnUrl` параметр, передаваемый в метод, при этом указывается URL-адрес, что модуль направляет браузер, чтобы после успешной проверки подлинности. Это единственное значение, хранящееся в wctx строку, которая используется с WSFAM. Вызывает модуль <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse%2A> метод для извлечения этого значения из параметра wctx при обработке ответа входа WS-Federation. Не следует путать с параметром сообщения wreply, которая задана в <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Reply%2A> свойства и предоставляющее адрес RP, к которому направляет его ответ службы маркеров безопасности (STS).  
+-   `ru` Будет присвоено значение `returnUrl` параметр, передаваемый в метод и указывает, что модуль следует направлять в браузере после успешной проверки подлинности URL-адрес. Это единственное значение, хранящееся в строку wctx, использоваться WSFAM. Этот модуль вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse%2A> метод для извлечения этого значения из параметра wctx при обработке ответа входа WS-Federation. Не следует путать с параметром wreply сообщения, определяемый параметром <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Reply%2A> свойство и который обеспечивает адрес в RP, к которому служба маркеров безопасности (STS) должны направлять его ответа.  
   
--   `cx` Установлено значение <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext%2A> свойства. Это свойство предоставляется можно использовать для настройки любого определяемые приложением контекста, который должен храниться в строке wctx; Однако WSFAM не предоставляет метод для извлечения этого значения в ответе. Если значения, необходимые для приложения, необходимо предоставить код, чтобы выполнить синтаксический анализ строки wctx и считывания этого значения при обработке ответа. Это можно сделать путем переопределения <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse%2A> метод.  
+-   `cx` Параметру присвоить значение <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext%2A> свойства. Это свойство предоставляется позволяют задать любой контекст, определяемые приложением, которое будет храниться в строке wctx; Тем не менее WSFAM предоставляет метод для извлечения этого значения в ответе. Если приложению требуется значение, необходимо указать код для анализа строки wctx и считывает это значение при обработке ответа. Это можно сделать путем переопределения <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse%2A> метод.  
   
--   Ни `rm` значение, которое присвоено значение `rememberMeSet` параметра, ни `id` параметр, который присваивается значение `uniqueId` WSFAM используемых параметров. Это может быть присвоено любое значение.  
+-   Ни `rm` значение, которое будет присвоено значение `rememberMeSet` параметра, ни `id` параметр, который будет присвоено значение `uniqueId` параметр используются WSFAM. Это может быть присвоено любое значение.  
   
  <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> Метод вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider%2A> метод.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">Свойство <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer" /> имеет значение <see langword="null" /> или пустая строка.  -или- Свойство <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm" /> имеет значение <see langword="null" /> или является пустой строкой.</exception>
+        <exception cref="T:System.InvalidOperationException">Свойство <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer" /> имеет значение <see langword="null" /> или пустая строка.  
+  
+- или - 
+Свойство <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm" /> имеет значение <see langword="null" /> или пустая строка.</exception>
         <altmember cref="M:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider(System.String,System.String,System.Boolean)" />
       </Docs>
     </Member>
@@ -379,25 +384,28 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод используется для отправки сообщения WS-Federation выход запроса к указанной службе маркеров безопасности. При необходимости можно задать значение для параметра "wreply" в запросе выхода.  
+ Этот метод используется для отправки сообщения запроса выхода WS-Federation в указанную службу STS. Можно также указать значение параметра wreply в запросе выхода.  
   
- Метод выполняет следующие задачи.  
+ Метод выполняет следующие функции:  
   
-1.  Создает сообщение выхода запроса WS-Federation, используя указанные параметры.  
+1.  Создает сообщение запроса выхода WS-Federation, используя заданные параметры.  
   
 2.  Вызовы <xref:System.IdentityModel.Services.SessionAuthenticationModule.DeleteSessionTokenCookie%2A?displayProperty=nameWithType> метод SAM для удаления файла cookie сеанса.  
   
-3.  Перенаправляет STS, используя сообщение запроса выхода из первого шага.  
+3.  Перенаправление в STS, используя сообщение запроса выхода из первого шага.  
   
- Ни одно событие выхода: <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut>, <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedOut>, или <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError> вызываются с помощью данного метода. Для удаления сеанса без отправки сообщения запроса выхода в службе маркеров безопасности, вызовите один из перегруженных <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A> методы.  
+ Ни одно событие выхода: <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut>, <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedOut>, или <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError> вызываются с помощью данного метода. Чтобы удалить сеанс без отправки сообщения запроса выхода в STS, вызовите один из перегруженных <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A> методы.  
   
 > [!NOTE]
->  Для выполнения пассивный выхода с помощью маркера сеанса, модуль зависит от значения, хранящиеся в <xref:System.IdentityModel.Tokens.SessionSecurityToken.Context%2A?displayProperty=nameWithType> свойства во время входа, Дополнительные сведения см. в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext%2A> метод.  
+>  Чтобы выполнить пассивном выходе с помощью маркера сеанса, модуль зависит от значения, хранящиеся в <xref:System.IdentityModel.Tokens.SessionSecurityToken.Context%2A?displayProperty=nameWithType> свойство при входе в систему, Дополнительные сведения см. в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext%2A> метод.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">
-          <paramref name="signOutUrl" /> имеет значение, отличное от <see langword="null" />, и не является абсолютным универсальным кодом ресурса (URI).  -или- <paramref name="replyUrl" /> имеет значение, отличное от <see langword="null" />, и не является абсолютным универсальным кодом ресурса (URI).</exception>
+          <paramref name="signOutUrl" /> имеет значение, отличное от <see langword="null" />, и не является абсолютным универсальным кодом ресурса (URI).  
+  
+- или - 
+ <paramref name="replyUrl" /> имеет значение, отличное от <see langword="null" />, и не является абсолютным универсальным кодом ресурса (URI).</exception>
         <exception cref="T:System.InvalidOperationException">Свойство <paramref name="signOutUrl" /> имеет значение <see langword="null" />.</exception>
         <altmember cref="M:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut" />
         <altmember cref="M:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext" />
@@ -425,9 +433,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Параметр wfresh является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Freshness%2A> свойству `null` или пустая строка, параметр wfresh не включен в запрос вход.  
+ Параметр wfresh является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Freshness%2A> свойству `null` или пустая строка, параметр wfresh не включен в запрос на вход.  
   
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службы маркеров безопасности (STS) с сообщением запроса входа WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службе маркеров безопасности (STS) с сообщением запроса входа запроса WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
   
  ]]></format>
         </remarks>
@@ -463,7 +471,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- В URL-адрес, который возвращается: базовый URI равно `issuer`wa параметр имеет значение «с помощью wsignout1.0»; параметр wreply имеет значение `signOutReply`; и параметры, заданные в `signOutQueryString` как дополнительные параметры строк запроса.  
+ В URL-АДРЕСЕ, который возвращается: базовый URI присваивается `issuer`; параметр wa имеет значение «wsignout1.0»; параметр wreply присваивается `signOutReply`; и параметры, заданные в `signOutQueryString` как дополнительные параметры строки запроса.  
   
  ]]></format>
         </remarks>
@@ -496,9 +504,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызывается методом <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage%28System.IdentityModel.Services.SignInResponseMessage%29?displayProperty=nameWithType> метод из конвейера обработки, чтобы разрешить URL-адрес, указанный в параметре wresultptr в сообщении ответа входа, полученных от службы маркеров безопасности (STS).  
+ Вызывается средой <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage%28System.IdentityModel.Services.SignInResponseMessage%29?displayProperty=nameWithType> метод из конвейера обработки разрешить URL-адрес, указанный в параметре wresultptr в сообщении ответа входа в систему, полученных от службы маркеров безопасности (STS).  
   
- По умолчанию этот метод создает исключение <xref:System.NotSupportedException>. Переопределите этот метод в производном классе для поддержки параметра wresultptr. URL-адрес указывает на выдачу результат, который должен быть одним из следующих: `<wst:RequestSecurityTokenResponse>` элемент, `<wst:RequestSecurityTokenResponseCollection>` SOAP, сообщение-ответ SOAP или элементом `<S:Fault>` элемента.  
+ По умолчанию этот метод вызывает исключение <xref:System.NotSupportedException>. Переопределите этот метод в производном классе для поддержки параметра wresultptr. URL-адрес указывает на результат выпуска, который должен быть одним из следующих: `<wst:RequestSecurityTokenResponse>` элемент, `<wst:RequestSecurityTokenResponseCollection>` SOAP, ответ SOAP или элементом `<S:Fault>` элемент.  
   
  ]]></format>
         </remarks>
@@ -531,11 +539,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод вызывается из конвейера обработки запросов ( <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> метод) для получения URL-адрес страницы проверяющей стороной (RP), чтобы направить клиента к после успешного входа в систему. Это, как правило, URL-адрес ресурса RP, к которому клиент запросил доступ.  
+ Этот метод вызывается из конвейер обработки запросов ( <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> метод) для получения URL-адрес страницы, с проверяющей стороной (RP), чтобы направить клиента после успешного входа в систему. Это, как правило, URL-адрес ресурса RP, к которому клиент запросил доступ.  
   
- По умолчанию WSFAM сохраняет возвращаемый URL-адрес в параметре wctx сообщения при отправке запроса входа WS-Federation для службы маркеров безопасности (STS). В соответствии со спецификацией WS-Federation параметра wctx сохраняется между сущностями, через которые сообщение передается и возвращается без изменений в сообщении ответа входа WS-Federation, который отправляется службой маркеров безопасности.  
+ По умолчанию WSFAM хранит URL-адрес возврата в параметр wctx сообщения при отправке запроса входа WS-Federation для службы маркеров безопасности (STS). В соответствии со спецификацией WS-Federation параметр wctx сохраняется между сущностями, через которые сообщение передается и возвращается без изменений в сообщение отклика входа WS-Federation, который отправляется службой маркеров безопасности.  
   
- Реализация по умолчанию возвращает URL-адрес возврата из параметра wctx в ответе входа. Дополнительные сведения о формате параметра wctx, используемый WSFAM см. в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> метод.  
+ Реализация по умолчанию возвращает URL-адрес возврата из параметра wctx в ответ входа в систему. Дополнительные сведения о формате параметра wctx используемый WSFAM см. в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -579,7 +587,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage%28System.IdentityModel.Services.SignInResponseMessage%2CSystem.IdentityModel.Services.WSFederationSerializer%29?displayProperty=nameWithType> метод, чтобы получить маркер и считывает его, используя соответствующий обработчик из обработчиков токенов безопасности.  
+ Реализация по умолчанию вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetXmlTokenFromMessage%28System.IdentityModel.Services.SignInResponseMessage%2CSystem.IdentityModel.Services.WSFederationSerializer%29?displayProperty=nameWithType> метод, чтобы получить маркер и считывает их с помощью соответствующего обработчика из обработчиков маркеров безопасности.  
   
  ]]></format>
         </remarks>
@@ -612,9 +620,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызывается из конвейера обработки запросов для получения сообщения запроса входа WS-Federation как <xref:System.IdentityModel.Tokens.SecurityToken> объект.  
+ Вызывается из конвейера обработки запросов, чтобы получить сообщение запроса входа запроса WS-Federation как <xref:System.IdentityModel.Tokens.SecurityToken> объекта.  
   
- Реализация по умолчанию вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignInResponseMessage%2A> метод, чтобы получить <xref:System.IdentityModel.Services.SignInResponseMessage> объекта, а затем вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken%28System.IdentityModel.Services.SignInResponseMessage%29?displayProperty=nameWithType> перегрузки.  
+ Реализация по умолчанию вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSignInResponseMessage%2A> метод для получения <xref:System.IdentityModel.Services.SignInResponseMessage> объекта, а затем вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken%28System.IdentityModel.Services.SignInResponseMessage%29?displayProperty=nameWithType> перегрузки.  
   
  Производный класс используется для интерпретации определенного типа запроса.  
   
@@ -646,9 +654,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext%2A> Метод вызывается из конвейера обработки запросов при обработке сообщения ответа входа WS-Federation необходимо получить значение для хранения в <xref:System.IdentityModel.Tokens.SessionSecurityToken.Context%2A?displayProperty=nameWithType> свойство внутри файла cookie сеанса.  
+ <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSessionTokenContext%2A> Метод вызывается из конвейера обработки запросов, при обработке сообщения ответа входа WS-Federation для получения значения для сохранения в <xref:System.IdentityModel.Tokens.SessionSecurityToken.Context%2A?displayProperty=nameWithType> свойство в файле cookie сеанса.  
   
- Можно переопределить этот метод, чтобы указать значение приложении должны храниться в файле cookie. WSFAM не предоставляет методы для извлечения значения из файла cookie. Следует задать логику приложения для чтения значения из куки-файл, при необходимости.  
+ Можно переопределить этот метод для задания значения конкретного приложения для сохранения в файле cookie. WSFAM не предоставляет никаких методов для получения значения из файла cookie. Следует задать логику приложения для чтения значения из куки-файл, при необходимости.  
   
  ]]></format>
         </remarks>
@@ -682,7 +690,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken%28System.Web.HttpRequestBase%29?displayProperty=nameWithType> метод в конвейере обработки запросов для получения сообщений ответа входа из формы POST, содержащихся в HTTP-запроса.  
+ Вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken%28System.Web.HttpRequestBase%29?displayProperty=nameWithType> метод в конвейере обработки запросов, чтобы получить сообщение отклика входа из формы POST, содержащихся в запросе HTTP.  
   
  ]]></format>
         </remarks>
@@ -716,21 +724,21 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%2A> метод в конвейере обработки запросов для определения URL-адреса для перенаправления после обработки запроса WS-Federation выхода очистки. Он вызывается, только если сообщение имеет параметр wreply ( `signOutMessage` параметр имеет <xref:System.IdentityModel.Services.SignOutCleanupRequestMessage.Reply%2A> свойство, которое не является ни `null` или пустым).  
+ Этот метод вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%2A> метод в конвейере обработки запросов для определения URL-адрес для перенаправления после обработки запроса очистки выхода WS-Federation. Он вызывается, только если сообщение содержит параметр wreply ( `signOutMessage` параметр имеет <xref:System.IdentityModel.Services.SignOutCleanupRequestMessage.Reply%2A> свойство, которое не является ни `null` пусто).  
   
- Реализация по умолчанию проверяет URL-адрес ответа, содержащихся в сообщении ( <xref:System.IdentityModel.Services.SignOutCleanupRequestMessage.Reply%2A?displayProperty=nameWithType> свойство) для адреса службы маркеров безопасности (STS), определяемый <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство. Для URL-адрес ответа был действителен, должны выполняться следующие условия:  
+ Реализация по умолчанию проверяет URL-адрес ответа, содержащиеся в сообщении ( <xref:System.IdentityModel.Services.SignOutCleanupRequestMessage.Reply%2A?displayProperty=nameWithType> свойства) для адреса службы маркеров безопасности (STS), определяемый <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство. Для URL-адрес ответа функционировал должны выполняться следующие условия:  
   
-1.  URL-адрес ответа является Абсолютным.  
+1.  URL-адрес ответа — это абсолютный URL-адрес.  
   
-2.  URL-адрес ответа имеет ту же схему как издатель.  
+2.  URL-адрес ответа имеет ту же схему в качестве издателя.  
   
-3.  URL-адрес ответа имеет тот же порт, издателя.  
+3.  URL-адрес ответа имеет тот же порт, как издатель.  
   
-4.  URL-адрес ответа имеет один и тот же узел как издатель, либо URL-адрес ответа указывает поддомене издателя.  
+4.  URL-адрес ответа имеет тот же узел, издатель, либо URL-адрес ответа указывает дочерний домен издателя.  
   
- Если все эти условия выполняются, возвращается URL-адрес ответа (ответ); в противном случае URL-адрес, заданные <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> возвращается свойство.  
+ Если все эти условия выполняются, возвращается URL-адрес ответа (ответ); в противном случае URL-адрес, определяемое <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> возвращается свойство.  
   
- Переопределите этот метод для выполнения дополнительной проверки URL-адрес ответа.  
+ Переопределите этот метод для реализации дополнительной проверки для URL-адрес ответа.  
   
  ]]></format>
         </remarks>
@@ -773,7 +781,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если в сообщении ответа входа нет параметра wresult <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetReferencedResult%2A> метод вызывается для получения токена, используя параметр wresultptr.  
+ Если параметр wresult в сообщении ответа входа, не существует <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetReferencedResult%2A> вызывается метод, чтобы попытаться получить токен, используя параметр wresultptr.  
   
  ]]></format>
         </remarks>
@@ -832,9 +840,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Параметр whr является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.HomeRealm%2A> свойству `null` или пустая строка, параметр whr не включен в запрос вход.  
+ Параметр whr является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.HomeRealm%2A> свойству `null` или пустая строка, параметр whr не включен в запрос на вход.  
   
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службы маркеров безопасности (STS) с сообщением запроса входа WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службе маркеров безопасности (STS) с сообщением запроса входа запроса WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
   
  ]]></format>
         </remarks>
@@ -865,7 +873,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Добавление обработчиков для событий конвейера ASP.NET согласно следующей таблице.  
+ Добавляет обработчики для событий конвейера ASP.NET согласно следующей таблице.  
   
 |событие|Обработчик|  
 |-----------|-------------|  
@@ -904,9 +912,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Свойства модуля инициализируются с помощью эквивалентные свойства <xref:System.IdentityModel.Services.Configuration.WsFederationConfiguration> объекта, указанного параметром <xref:System.IdentityModel.Services.Configuration.FederationConfiguration.WsFederationConfiguration%2A?displayProperty=nameWithType> свойство.  
+ Свойства модуля инициализируются с помощью эквивалентных свойств <xref:System.IdentityModel.Services.Configuration.WsFederationConfiguration> объекта, заданного параметром <xref:System.IdentityModel.Services.Configuration.FederationConfiguration.WsFederationConfiguration%2A?displayProperty=nameWithType> свойство.  
   
- Можно задать параметры в файле конфигурации через [ &lt;wsFederation&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/wsfederation.md) элемента.  
+ Можно указать параметры в файле конфигурации через [ &lt;wsFederation&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/wsfederation.md) элемент.  
   
  ]]></format>
         </remarks>
@@ -938,9 +946,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%2A> метод в конвейере обработки запросов для определения сообщение ответа входа WS-Federation входящего HTTP-запроса.  
+ Этот метод вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%2A> метод в конвейере обработки запросов, чтобы определить сообщение отклика входа WS-Federation входящего HTTP-запроса.  
   
- Реализация по умолчанию возвращает `true` Если wa параметр «wsignin1.0» и wreq и wreqptr не задаются.  
+ Реализация по умолчанию возвращает `true` Если параметр wa имеет «wsignin1.0» и wreq и wreqptr не задаются.  
   
  Его можно переопределить в производных классах для выполнения дополнительной проверки.  
   
@@ -971,13 +979,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это обязательное свойство. Его необходимо установить, если включены пассивных перенаправлений. Он указывает URL-адрес службы маркеров безопасности (STS) к которому должен быть выдан запросы WS-Federation.  
+ Это обязательное свойство. Его необходимо задавать, если пассивный переадресации включены. Он указывает URL-адрес службы маркеров безопасности (STS) к которому должен быть выдан запросы WS-Federation.  
   
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службы маркеров безопасности (STS) с сообщением запроса входа WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службе маркеров безопасности (STS) с сообщением запроса входа запроса WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Предпринята попытка присвоить свойству значение <see langword="null" /> или пустую строку.  -или- Предпринята попытка присвоить свойству значение, которое не является допустимым абсолютным универсальным кодом ресурса (URI).</exception>
+        <exception cref="T:System.ArgumentException">Предпринята попытка присвоить свойству значение <see langword="null" /> или пустую строку.  
+  
+- или - 
+Предпринята попытка присвоить свойству значение, которое не является допустимым абсолютным универсальным кодом ресурса (URI).</exception>
       </Docs>
     </Member>
     <Member MemberName="OnAuthenticateRequest">
@@ -1007,30 +1018,30 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> Метод реализует конвейера обработки запросов WS-Federation. Он добавляется в <xref:System.Web.HttpApplication.AuthenticateRequest?displayProperty=nameWithType> события в [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] продаж по <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.InitializeModule%2A> метод.  
+ <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> Метод реализует конвейер обработки запросов WS-Federation. Он добавляется <xref:System.Web.HttpApplication.AuthenticateRequest?displayProperty=nameWithType> событие в [!INCLUDE[vstecasp](~/includes/vstecasp-md.md)] продаж по <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.InitializeModule%2A> метод.  
   
  Метод выполняет следующие операции:  
   
-1.  Вызовы <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%28System.Web.HttpRequestBase%29> метод, чтобы определить, получен ли сообщение ответа входа WS-Federation («wsignin1.0»). Если ответ выхода запрос очистки WS-Federation («wsignoutcleanup1.0»), <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%28System.Web.HttpRequestBase%29> обрабатывает сообщение, завершается запрос и перенаправляет клиента в соответствии с параметрами в запросе WS-Federation. Если сообщение не ответа входа или выхода запрос очистки, модуль просто возвращает; в противном случае он выполняет следующие действия, чтобы обработать ответ вход.  
+1.  Вызовы <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%28System.Web.HttpRequestBase%29> метод, чтобы определить, получен ли сообщение отклика входа WS-Federation («wsignin1.0»). При ответе запроса очистки выхода WS-Federation («wsignoutcleanup1.0»), <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%28System.Web.HttpRequestBase%29> обрабатывает сообщение, завершает запрос и перенаправляет клиент в соответствии с параметрами WS-Federation в запросе. Если сообщение отклика входа или запроса очистки выхода, модуль просто возвращает; в противном случае он выполняет следующие действия, чтобы обработать ответ входа в систему.  
   
 2.  Вызовы <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetSecurityToken%28System.Web.HttpRequestBase%29> метод для десериализации <xref:System.IdentityModel.Tokens.SecurityToken> объекта из запроса.  
   
-3.  Вызывает событие <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived>. Можно отменить дальнейшей обработки или изменять полученный маркер безопасности в обработчике этого события. Обработчик обычно используется для изменения <xref:System.IdentityModel.Tokens.SecurityToken.ValidFrom%2A?displayProperty=nameWithType> или <xref:System.IdentityModel.Tokens.SecurityToken.ValidTo%2A?displayProperty=nameWithType> свойства.  
+3.  Вызывает событие <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived>. Можно отменить дальнейшую обработку или изменить полученный маркер безопасности в обработчике этого события. Обработчик обычно используется для изменения <xref:System.IdentityModel.Tokens.SecurityToken.ValidFrom%2A?displayProperty=nameWithType> или <xref:System.IdentityModel.Tokens.SecurityToken.ValidTo%2A?displayProperty=nameWithType> свойства.  
   
 4.  Проверяет маркер безопасности и создает <xref:System.Security.Claims.ClaimsPrincipal> объекта на основе утверждений в маркере безопасности.  
   
-5.  Вызывает событие <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated>. Можно отменить дальнейшей обработки или изменять субъект утверждений в обработчике этого события.  
+5.  Вызывает событие <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated>. Можно отменить дальнейшую обработку или изменить субъект утверждений в обработчике этого события.  
   
-6.  Использует модуль проверки подлинности настроенном сеансе (SAM) для создания <xref:System.IdentityModel.Tokens.SessionSecurityToken> объекта. (Является настроенным SAM <xref:System.IdentityModel.Services.SessionAuthenticationModule> объект, возвращаемый <xref:System.IdentityModel.Services.FederatedAuthentication.SessionAuthenticationModule%2A?displayProperty=nameWithType> свойство.) Токен сеанса создается с помощью субъекта утверждений, возвращенного в шаге 5. <xref:System.IdentityModel.Tokens.SessionSecurityToken.ValidFrom%2A?displayProperty=nameWithType> И <xref:System.IdentityModel.Tokens.SessionSecurityToken.ValidTo%2A?displayProperty=nameWithType> свойства задаются с помощью <xref:System.IdentityModel.Tokens.SecurityToken.ValidFrom%2A> и <xref:System.IdentityModel.Tokens.SecurityToken.ValidTo%2A> свойства <xref:System.IdentityModel.Tokens.SecurityToken> , возвращенное на шаге 3 и проверяются относительно текущего времени и время существования маркера определяется либо <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.DefaultTokenLifetime%2A>или <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.TokenLifetime%2A> свойство <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> объекта в коллекции обработчика токенов, используемых WSFAM. Время существования маркера на обработчик токенов сеанса может быть указано в конфигурации с помощью [ &lt;sessionTokenRequirement&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/sessiontokenrequirement.md) элемента. Примечание: <xref:System.IdentityModel.Services.CookieHandler.PersistentSessionLifetime%2A> свойства обработчика файлов cookie, настроенного для SAM не используется.  
+6.  Использует модуль проверки подлинности настроенном сеансе (SAM) для создания <xref:System.IdentityModel.Tokens.SessionSecurityToken> объекта. (Настроенный СЭМ является <xref:System.IdentityModel.Services.SessionAuthenticationModule> объект, возвращаемый <xref:System.IdentityModel.Services.FederatedAuthentication.SessionAuthenticationModule%2A?displayProperty=nameWithType> свойство.) Токен сеанса создается с помощью субъекта утверждений, возвращенного на шаге 5. <xref:System.IdentityModel.Tokens.SessionSecurityToken.ValidFrom%2A?displayProperty=nameWithType> И <xref:System.IdentityModel.Tokens.SessionSecurityToken.ValidTo%2A?displayProperty=nameWithType> свойства задаются с помощью <xref:System.IdentityModel.Tokens.SecurityToken.ValidFrom%2A> и <xref:System.IdentityModel.Tokens.SecurityToken.ValidTo%2A> свойства <xref:System.IdentityModel.Tokens.SecurityToken> , возвращенное на шаге 3 и проверяются на соответствие текущего времени и времени жизни маркера, определяется либо <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.DefaultTokenLifetime%2A>или <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.TokenLifetime%2A> свойство <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> объекта в коллекции обработчиков токенов, используемых WSFAM. Время существования маркера в обработчик токенов сеанса можно задать в конфигурации с помощью [ &lt;sessionTokenRequirement&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/sessiontokenrequirement.md) элемент. Примечание: <xref:System.IdentityModel.Services.CookieHandler.PersistentSessionLifetime%2A> свойство обработчик файлов cookie, настроенное для SAM не используется.  
   
-7.  Вызовы <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken%2A> метод с помощью токена сеанса для записи файла cookie сеанса. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken%2A> Первый вызывает метод <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated> событий. Можно изменять свойства маркера сеанса или выбрать, будет ли файл cookie должны сохраняться в обработчике этого события. После возникновения события метод затем записывает файл cookie с помощью SAM.  
+7.  Вызовы <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken%2A> метода с маркером сеанса для записи файла cookie сеанса. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SetPrincipalAndWriteSessionToken%2A> Вызывает первый метод <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated> событий. Можно изменить свойства маркера сеанса или изменить ли файл cookie должен сохраняться в обработчике этого события. После возникновения события метод затем записывает файл cookie с помощью SAM.  
   
     > [!NOTE]
-    >  <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> Набор в конфигурации не используется для записи файла cookie.  
+    >  <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> Набора в конфигурации не используется для записи файла cookie.  
   
 8.  Вызовы <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedIn%2A> метод для вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedIn> событий.  
   
-9. Вызовы <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse%2A> метод для получения RP страницы для перенаправления клиента. По умолчанию этот метод считывает URL-адрес возврата из параметра wctx в ответе входа. Дополнительные сведения о как WSFAM хранит URL-адрес возврата см. в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> метод.  
+9. Вызовы <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetReturnUrlFromResponse%2A> метод, RP страницу, на который перенаправляется клиент. По умолчанию этот метод считывает URL-адрес возврата из параметра wctx в ответ входа в систему. Дополнительные сведения о том, как WSFAM хранит URL-адрес возврата, см. в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -1061,9 +1072,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest%2A> делегата обработчика событий, если не удалось выполнить авторизацию.  
+ Вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest%2A> делегата обработчика событий, когда не удалось выполнить авторизацию.  
   
- Инициализирует <xref:System.IdentityModel.Services.AuthorizationFailedEventArgs.RedirectToIdentityProvider%2A?displayProperty=nameWithType> свойство перед порождением <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed> событий для предотвращения циклической переадресации, если пользователь уже прошел проверку подлинности. Если пользователь уже прошел проверку подлинности, инициализируется свойство `false` для предотвращения перенаправляются; в противном случае он инициализируется `true`.  
+ Инициализирует <xref:System.IdentityModel.Services.AuthorizationFailedEventArgs.RedirectToIdentityProvider%2A?displayProperty=nameWithType> свойство перед порождением <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.AuthorizationFailed> событий для предотвращения циклических перенаправления, если пользователь уже прошел проверку подлинности. Если пользователь уже прошел проверку подлинности, с которым инициализируется свойство `false` во избежание перенаправляет; в противном случае она инициализируется `true`.  
   
  ]]></format>
         </remarks>
@@ -1349,10 +1360,10 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Модуль не будет инициировать перенаправления протокола WS-Federation, когда не включен этот режим. Если это свойство имеет `true`, <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойству необходимо присвоить значение URL-адрес из токена службы безопасности (STS) для перенаправления вызывающего объекта.  
+ Модуль не будет инициировать перенаправления протокола WS-Federation, если этот режим не включена. Если это свойство имеет `true`, <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство должно иметь значение URL-адрес из маркеров безопасности службы (STS) для перенаправления вызывающего объекта.  
   
 > [!WARNING]
->  Код приложения может выдавать запросов на вход в WS-Federation явным образом с помощью <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> метод, независимо от значения <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled%2A> свойство.  
+>  Код приложения может выдавать запросов входа WS-Federation явным образом с помощью <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> метод, независимо от значения <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.PassiveRedirectEnabled%2A> свойство.  
   
  ]]></format>
         </remarks>
@@ -1381,7 +1392,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated> событий. Это событие возникает из запроса, конвейер обработки при обработке ответа входа WS-Federation сообщение от службы маркеров безопасности (STS).  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated> событий. Это событие инициируется при обработке ответа входа WS-Federation сообщения от службы маркеров безопасности (STS), конвейер обработки запросов.  
   
  ]]></format>
         </remarks>
@@ -1410,9 +1421,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Wp параметр является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Policy%2A> свойству `null` или пустая строка, параметр wp не включен в запрос вход.  
+ Параметр wp является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Policy%2A> свойству `null` или пустая строка, параметр wp не включен в запрос на вход.  
   
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службы маркеров безопасности (STS) с сообщением запроса входа WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службе маркеров безопасности (STS) с сообщением запроса входа запроса WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
   
  ]]></format>
         </remarks>
@@ -1440,15 +1451,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это является обязательным свойством для запросов на вход в WS-Federation. Его необходимо установить, если включены пассивных перенаправлений. URI определяет RP службы маркеров безопасности. (Определение STS и RP, в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство).  
+ Это обязательное свойство для запросов входа WS-Federation. Его необходимо задавать, если пассивный переадресации включены. URI идентифицирует поставщика Ресурсов службы маркеров безопасности. (Для идентификации службы STS для RP, см. в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство).  
   
- Значение этого свойства сериализуется как параметр строки запроса wtrealm в протоколе WS-Federation. Он идентифицирует RP службы маркеров безопасности. Он используется службой маркеров безопасности решаете, какие политики применяться для выдачи маркера и где следует перенаправить пользователя после выдачи маркера. (Определение STS и RP, в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A>.)  
+ Значение этого свойства сериализуется как параметр строки запроса wtrealm в протоколе WS-Federation. Он идентифицирует поставщика Ресурсов службы маркеров безопасности. Он используется службой маркеров безопасности для решить, какие политики для применения для выдачи маркеров и где можно перенаправить пользователя после выдачи маркера. (Для идентификации службы STS для RP, см. в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A>.)  
   
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службы маркеров безопасности (STS) с сообщением запроса входа WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службе маркеров безопасности (STS) с сообщением запроса входа запроса WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Предпринята попытка присвоить свойству значение <see langword="null" /> или пустую строку.  -или- Предпринята попытка присвоить свойству значение, которое не является допустимым абсолютным универсальным кодом ресурса (URI).</exception>
+        <exception cref="T:System.ArgumentException">Предпринята попытка присвоить свойству значение <see langword="null" /> или пустую строку.  
+  
+- или - 
+Предпринята попытка присвоить свойству значение, которое не является допустимым абсолютным универсальным кодом ресурса (URI).</exception>
       </Docs>
     </Member>
     <Member MemberName="RedirectingToIdentityProvider">
@@ -1472,24 +1486,24 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вы можете обращаться и изменять запрос WS-Federation вход через <xref:System.IdentityModel.Services.RedirectingToIdentityProviderEventArgs.SignInRequestMessage%2A?displayProperty=nameWithType> свойство. Например, можно изменить <xref:System.IdentityModel.Services.FederationMessage.BaseUri%2A> свойство в сообщении вход, чтобы изменить поставщика удостоверений, к которому будет перенаправлен запрос. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> Событие является отменяемого события, вы можете задать <xref:System.ComponentModel.CancelEventArgs.Cancel%2A> свойства `true` отменить перенаправления.  
+ Можно использовать и изменять запрос входа WS-Federation через <xref:System.IdentityModel.Services.RedirectingToIdentityProviderEventArgs.SignInRequestMessage%2A?displayProperty=nameWithType> свойство. Например, можно изменить <xref:System.IdentityModel.Services.FederationMessage.BaseUri%2A> свойство в сообщении входа в систему, чтобы изменить поставщика удостоверений, к которому будет перенаправлен запрос. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> Событий событие является отменяемым, а также задать <xref:System.ComponentModel.CancelEventArgs.Cancel%2A> свойства `true` отменить перенаправления.  
   
- Это событие возникает из внутри <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider%2A> метода посредством вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnRedirectingToIdentityProvider%2A> метод.  
+ События из внутри <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider%2A> метод посредством вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnRedirectingToIdentityProvider%2A> метод.  
   
- Для обработки данного события в приложении ASP.NET, создайте метод с именем `WSFederationAuthentication_RedirectingToIdentityProvider` в файле global.asax.  
+ Для обработки этого события в приложении ASP.NET, создайте метод с именем `WSFederationAuthentication_RedirectingToIdentityProvider` в файле global.asax.  
   
    
   
 ## Examples  
- Следующий код демонстрирует добавление обработчика для <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> события в `Application_Init` событий в файле global.asax. Код будет браться из `FederationForWebApps` образца. Дополнительные сведения об этом образце см. в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md).  
+ Ниже показано, как добавить обработчик для <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событие в `Application_Init` событий в файле global.asax. Код взят из `FederationForWebApps` образца. Дополнительные сведения об этом образце см. в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md).  
   
   
   
- В следующем коде показано обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий в в файле global.asax RP. Код проверяет, может ли входящий HTTP-запрос содержит параметр whr и если да, он устанавливает этот параметр, на запрос входа WS-Federation, отправляемом службе маркеров безопасности. Код будет браться из `FederationForWebApps` образца. Дополнительные сведения об этом образце см. в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md).  
+ В следующем коде показано обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий в в файле global.asax для RP. Код проверяет ли входящий HTTP-запрос содержит параметр whr, и если да, он устанавливает этот параметр для запроса входа WS-Federation, отправляемом в службу маркеров безопасности. Код взят из `FederationForWebApps` образца. Дополнительные сведения об этом образце см. в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md).  
   
   
   
- В следующем коде показано обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий в в файле global.asax поставщика маркеров безопасности федерации. Код проверяет, является ли входящий HTTP-запрос содержит параметр whr. Если запрос содержит параметр whr клиент направляется на IP-STS для входа в систему; в противном случае клиент направляется на страницу обнаружения домашней области выберите IP-STS, по которому выполнить вход. Код будет браться из `FederationForWebApps` образца. Дополнительные сведения об этом образце см. в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md).  
+ В следующем коде показано обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий в в файле global.asax поставщика федерации STS. Код проверяет, содержит ли входящего HTTP-запроса параметр whr. Если запрос содержит параметр whr, клиент будет перенаправлен к IP-STS для входа в систему; в противном случае клиент направляется на страницу обнаружения домашней области выберите IP-STS, по которому для входа. Код взят из `FederationForWebApps` образца. Дополнительные сведения об этом образце см. в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md).  
   
   
   
@@ -1526,21 +1540,30 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider%2A> Метод вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> метод при выдаче запроса из веб-страницы, предоставленных корпорацией проверяющей стороны (RP) или из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest%2A> делегата обработчика событий для выполнения пассивного перенаправления поставщику удостоверений Ошибка авторизации.  
+ <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider%2A> Метод вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> метод, когда выдается запрос на веб-странице, представленные проверяющей стороной (RP) или из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnEndRequest%2A> делегата обработчика событий для выполнения пассивного перенаправления на поставщика удостоверений Ошибка авторизации.  
   
- Параметры, передаваемые методу используются для создания параметра wctx сообщения. Единственным существенным параметр `returnUrl` параметр. Указывает URL-адрес, что RP направляет браузер, чтобы после успешной проверки подлинности. Не следует путать с параметром сообщения wreply, которая задана в <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Reply%2A> свойства и предоставляющее адрес RP, к которому направляет его ответ службы маркеров безопасности (STS).  
+ Параметры, передаваемые в метод используются для создания параметра wctx сообщения. Единственное значимое параметр `returnUrl` параметр. Указывает URL-адрес, что RP должны направлять в браузере после успешной проверки подлинности. Не следует путать с параметром wreply сообщения, определяемый параметром <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Reply%2A> свойство и который обеспечивает адрес в RP, к которому служба маркеров безопасности (STS) должны направлять его ответа.  
   
  Метод выполняет следующие операции:  
   
-1.  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.VerifyProperties%2A> метод, чтобы гарантировать издания допустимым запросом входа в модуле.  
+1.  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.VerifyProperties%2A> метод, чтобы гарантировать, что модуль может выдавать допустимым запросом входа в систему.  
   
-2.  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> метод для создания запроса вход свойства, настроенные в модуле.  
+2.  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> метод, чтобы создать запрос на вход из свойства, настроенные для модуля.  
   
-3.  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnRedirectingToIdentityProvider%2A> метод для вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Можно отменить перенаправления или измените текст сообщения запроса в обработчике событий для данного события.  
+3.  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnRedirectingToIdentityProvider%2A> метод для вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Можно отменить перенаправления или измените текст сообщения в запросе на вход в обработчике событий для данного события.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">Параметр <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer" /> имеет значение <see langword="null" /> или является пустой строкой.  -или-  <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm" /> равен <see langword="null" /> или является пустой строкой.  -или- Свойство <see cref="P:System.Web.HttpContext.Current" /> имеет значение <see langword="null" /> или пусто.  -или- Свойство <see cref="P:System.Web.HttpContext.Response" /> контекста, возвращаемого свойством <see cref="P:System.Web.HttpContext.Current" />, имеет значение <see langword="null" /> или пусто.</exception>
+        <exception cref="T:System.InvalidOperationException">Параметр <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer" /> имеет значение <see langword="null" /> или является пустой строкой.  
+  
+- или - 
+ Параметр <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm" /> имеет значение <see langword="null" /> или является пустой строкой.  
+  
+- или - 
+Свойство <see cref="P:System.Web.HttpContext.Current" /> имеет значение <see langword="null" /> или пусто.  
+  
+- или - 
+Свойство <see cref="P:System.Web.HttpContext.Response" /> контекста, возвращаемого свойством <see cref="P:System.Web.HttpContext.Current" />, имеет значение <see langword="null" /> или пусто.</exception>
       </Docs>
     </Member>
     <Member MemberName="Reply">
@@ -1565,9 +1588,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Параметр wreply является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Reply%2A> свойству `null` или пустая строка, параметр wreply не включен в запрос вход.  
+ Параметр wreply является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Reply%2A> свойству `null` или пустая строка, параметр wreply не включен в запрос на вход.  
   
- Параметр wreply используется службой маркеров безопасности для выбора перенаправить пользователя после выдачи маркера. Не рекомендуется для STS и просто использовать этот адрес для перенаправления пользователя, как такие перенаправления присутствуют уязвимости системы безопасности. Чтобы убедиться в том, отправки ответа понят расположение хорошо известными и надежными обратный адрес должен быть проверен STS (возможно путем сравнения для набора адресов предварительно настроенных ответ для целей или другого метода).  
+ Параметр wreply используется службой маркеров безопасности для выбора перенаправить пользователя после выдачи маркера. Не рекомендуется для STS слепо использовать этот адрес для перенаправления пользователя, так как такие перенаправления присутствуют уязвимости системы безопасности. Адрес ответа должен быть проверен STS (возможно, сравнение с набора предварительно настроенных ответа адресов для целей или другого метода), чтобы убедиться в том, что ответ отправляется понять расположение хорошо известными и надежными.  
   
  ]]></format>
         </remarks>
@@ -1596,9 +1619,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Параметр wreq является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Request%2A> свойству `null` или пустая строка, параметр wreq не включен в запрос вход.  
+ Параметр wreq является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Request%2A> свойству `null` или пустая строка, параметр wreq не включен в запрос на вход.  
   
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службы маркеров безопасности (STS) с сообщением запроса входа WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службе маркеров безопасности (STS) с сообщением запроса входа запроса WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
   
  ]]></format>
         </remarks>
@@ -1626,9 +1649,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Параметр wreqptr является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RequestPtr%2A> свойству `null` или пустая строка, параметр wreq не включен в запрос вход.  
+ Параметр wreqptr является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RequestPtr%2A> свойству `null` или пустая строка, параметр wreq не включен в запрос на вход.  
   
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службы маркеров безопасности (STS) с сообщением запроса входа WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службе маркеров безопасности (STS) с сообщением запроса входа запроса WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
   
  ]]></format>
         </remarks>
@@ -1678,11 +1701,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Параметр "wtrealm", который задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm%2A> свойства, следует использовать вместо него.  
+ Параметр wtrealm, которое задается параметром <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm%2A> свойства, следует использовать вместо этого параметра.  
   
- Параметр wres является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Resource%2A> свойству `null` или пустая строка, параметр wres не включен в запрос вход.  
+ Параметр wres является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Resource%2A> свойству `null` или пустая строка, параметр wres не включен в запрос на вход.  
   
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службы маркеров безопасности (STS) с сообщением запроса входа WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службе маркеров безопасности (STS) с сообщением запроса входа запроса WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
   
  ]]></format>
         </remarks>
@@ -1709,9 +1732,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Можно добавить обработчик событий для изменения токен перед его проверке. События обработчика доступны маркера безопасности через <xref:System.IdentityModel.Services.SecurityTokenReceivedEventArgs.SecurityToken%2A?displayProperty=nameWithType> свойство. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived> Событие является отменяемого события, можно задать <xref:System.ComponentModel.CancelEventArgs.Cancel%2A> свойства `true` в обработчике событий, чтобы прервать обработку сообщения ответа входа WS-Federation.  
+ Можно добавить обработчик событий, чтобы изменить токен перед его проверке. Событий обработчик доступны маркер безопасности через <xref:System.IdentityModel.Services.SecurityTokenReceivedEventArgs.SecurityToken%2A?displayProperty=nameWithType> свойство. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenReceived> Событий событие является отменяемым, можно задать <xref:System.ComponentModel.CancelEventArgs.Cancel%2A> свойства `true` в обработчике событий, чтобы прервать обработку сообщения ответа входа WS-Federation.  
   
- Это событие возникает из внутри <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> делегата обработчика событий, при обработке сообщения ответа входа WS-Federation («wsignin1.0»), полученного от службы маркеров безопасности (STS). Он вызывается сразу после десериализации маркера безопасности из wresult или wresultptr параметра в сообщении ответа входа, но перед проверкой маркера безопасности.  
+ Это событие вызывается из внутри <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> делегата обработчика событий при обработке сообщения ответа входа WS-Federation («wsignin1.0»), полученного от службы маркеров безопасности (STS). Оно возникает сразу после десериализации маркера безопасности из параметр wresult или параметр wresultptr в сообщении ответа входа в систему, но до проверки маркера безопасности.  
   
    
   
@@ -1744,9 +1767,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Можно добавить обработчик событий для изменения участника, созданы при обработке ответа входа WS-Federation сообщение от службы маркеров безопасности (STS), прежде чем он используется для создания токена сеанса. В событии обработчик, доступны через участника <xref:System.IdentityModel.Services.SecurityTokenValidatedEventArgs.ClaimsPrincipal%2A> свойство. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated> Событие является отменяемого события, можно задать <xref:System.ComponentModel.CancelEventArgs.Cancel%2A> свойства `true` в обработчике событий, чтобы прервать обработку сообщения ответа входа WS-Federation.  
+ Можно добавить обработчик событий для изменения участника, созданные при обработке сообщения ответа входа WS-Federation от службы маркеров безопасности (STS), перед их использованием для создания маркера сеанса. В событии обработчик, доступны через участника <xref:System.IdentityModel.Services.SecurityTokenValidatedEventArgs.ClaimsPrincipal%2A> свойство. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SecurityTokenValidated> Событий событие является отменяемым, можно задать <xref:System.ComponentModel.CancelEventArgs.Cancel%2A> свойства `true` в обработчике событий, чтобы прервать обработку сообщения ответа входа WS-Federation.  
   
- Это событие возникает из внутри <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> делегата обработчика событий, при обработке сообщения ответа входа WS-Federation («wsignin1.0»), полученного от службы маркеров безопасности (STS). Это событие возникает сразу после маркера безопасности, который был десериализован из wresult или wresultptr параметра в сообщении ответа входа был проверен и перед безопасности сеанса создается маркер.  
+ Это событие вызывается из внутри <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> делегата обработчика событий при обработке сообщения ответа входа WS-Federation («wsignin1.0»), полученного от службы маркеров безопасности (STS). Это событие возникает сразу после маркера безопасности, который был десериализован из параметр wresult и параметр wresultptr в сообщении ответа на вход был проверен безопасности сеанса создается маркер.  
   
    
   
@@ -1778,12 +1801,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Можно добавить обработчик событий для изменения маркера сеанса, прежде чем он используется для задания участника потока и записывается в файл cookie сеанса. События обработчика, можно открыть токен сеанса через <xref:System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs.SessionToken%2A?displayProperty=nameWithType> свойство. Можно указать, следует ли писать файла cookie сеанса, задав <xref:System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs.WriteSessionCookie%2A?displayProperty=nameWithType> свойство.  
+ Можно добавить обработчик событий, чтобы изменить токен сеанса, прежде чем он используется для задания участника потока и записывается в файл cookie сеанса. В событии обработчик, доступны токен сеанса через <xref:System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs.SessionToken%2A?displayProperty=nameWithType> свойство. Можно указать необходимость записи файла cookie сеанса, задав <xref:System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs.WriteSessionCookie%2A?displayProperty=nameWithType> свойство.  
   
- Это событие возникает из внутри <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> делегата обработчика событий, при обработке сообщения ответа входа WS-Federation («wsignin1.0»), полученного от службы маркеров безопасности (STS). Это событие возникает сразу после маркера безопасности, который был десериализован из wresult или wresultptr параметра в сообщении ответа входа был проверен и перед утверждения участник задается <xref:System.Threading.Thread.CurrentPrincipal%2A?displayProperty=nameWithType> (и на <xref:System.Web.HttpContext.User%2A> свойство <xref:System.Web.HttpContext.Current%2A?displayProperty=nameWithType>).  
+ Это событие вызывается из внутри <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> делегата обработчика событий при обработке сообщения ответа входа WS-Federation («wsignin1.0»), полученного от службы маркеров безопасности (STS). Это событие возникает сразу после маркера безопасности, который был десериализован из параметр wresult или параметр wresultptr в сообщении ответа на вход был проверен и перед утверждения субъект принимает значение на <xref:System.Threading.Thread.CurrentPrincipal%2A?displayProperty=nameWithType> (и на <xref:System.Web.HttpContext.User%2A> свойство <xref:System.Web.HttpContext.Current%2A?displayProperty=nameWithType>).  
   
 > [!IMPORTANT]
->  Для работы сеансов в режиме «ссылка», Майкрософт рекомендует, предоставив обработчик для <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated?displayProperty=nameWithType> событий в файл global.asax.cs и присвоив <xref:System.IdentityModel.Tokens.SessionSecurityToken.IsReferenceMode%2A?displayProperty=nameWithType> свойство на маркере, переданный <xref:System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs.SessionToken%2A?displayProperty=nameWithType> свойство. Это позволит гарантировать, что маркер сеанса не работает в режиме ссылки для каждого запроса и имеет больший приоритет, чем просто задание <xref:System.IdentityModel.Services.SessionAuthenticationModule.IsReferenceMode%2A?displayProperty=nameWithType> свойство сеанса модуля проверки подлинности.  
+>  Для работы сеансов в режиме ссылки Корпорация Майкрософт рекомендует обработчик для <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated?displayProperty=nameWithType> событий в файле global.asax.cs и параметр <xref:System.IdentityModel.Tokens.SessionSecurityToken.IsReferenceMode%2A?displayProperty=nameWithType> переданный в токене <xref:System.IdentityModel.Services.SessionSecurityTokenCreatedEventArgs.SessionToken%2A?displayProperty=nameWithType> свойство. Это гарантирует, что маркер сеанса работать в режиме ссылки для каждого запроса и имеет больший приоритет, чем просто задавать <xref:System.IdentityModel.Services.SessionAuthenticationModule.IsReferenceMode%2A?displayProperty=nameWithType> свойства модуля аутентификации сеанса.  
   
    
   
@@ -1821,11 +1844,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызывается из реализации в конвейере обработки запросов <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> делегата обработчика событий. Этот метод выполняет следующие задачи.  
+ Вызывается из реализации в конвейер обработки запросов <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnAuthenticateRequest%2A> делегата обработчика событий. Этот метод выполняет следующие функции:  
   
-1.  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSessionSecurityTokenCreated%2A> метод для вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated> событий. Это событие можно использовать для изменения маркера сеанса, прежде чем она используется для задания участника потока и запись в файл cookie сеанса и укажите, следует ли писать файла cookie сеанса.  
+1.  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSessionSecurityTokenCreated%2A> метод для вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SessionSecurityTokenCreated> событий. Это событие можно использовать для изменения токен сеанса, прежде чем он используется для задания участника потока и записываемый файл cookie сеанса и укажите, должен быть записан файл cookie сеанса.  
   
-2.  Вызывает <xref:System.IdentityModel.Services.SessionAuthenticationModule.AuthenticateSessionSecurityToken%2A> метод на настроенном сеансе модуль проверки подлинности (<xref:System.IdentityModel.Services.SessionAuthenticationModule>) для задания участника потока и при необходимости записи файла cookie сеанса.  
+2.  Вызывает <xref:System.IdentityModel.Services.SessionAuthenticationModule.AuthenticateSessionSecurityToken%2A> метод в модуле проверки подлинности настроенном сеансе (<xref:System.IdentityModel.Services.SessionAuthenticationModule>) для задания участника потока и при необходимости записи файла cookie сеанса.  
   
  ]]></format>
         </remarks>
@@ -1854,7 +1877,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если запрос отправляется на страницу входа, управления на странице будет вызывать это событие не этот модуль.  
+ Если запрос отправляется на страницу входа, элемент управления на странице будет вызывать это событие, а не этот модуль.  
   
    
   
@@ -1886,9 +1909,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это событие вызывается путем вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedOut%2A> метод из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.Boolean%29?displayProperty=nameWithType> метод при выходе из сеанса проверяющей стороной (RP). Событие не происходит при этом федеративным выходом через <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
+ Это событие вызывается посредством вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedOut%2A> метод из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.Boolean%29?displayProperty=nameWithType> метода во время выход из сеанса на проверяющей стороне (RP). Событие не возникает, когда это федеративный выход через <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
   
- Можно добавить обработчик событий к любой дополнительной обработки, необходимые для приложения, после удаления файла cookie сеанса.  
+ Вы можете добавить обработчик событий для любой дополнительной обработки, необходимые для приложения, после удаления файла cookie сеанса.  
   
  Это событие вызывается для каждого сеанса не гарантируется. Файлы cookie могут быть удалены на стороне клиента, например, чтобы никогда не возникнет это событие.  
   
@@ -1921,7 +1944,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider%2A> метод, чтобы выполнить вход.  
+ Реализация по умолчанию вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider%2A> метод для выполнения входа в систему.  
   
  ]]></format>
         </remarks>
@@ -1949,9 +1972,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Когда <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> вызывается метод, генерируется сообщение вход содержит wctx параметр, который имеет следующий формат: `ru=returnUrl&cx=SignInContext&rm=rememberMeSet&id=uniqueId`. Значение <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext%2A> хранится в `cx` параметра. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> может вызываться напрямую из кода приложения. Также вызывается при выполнении WSFAM пассивных перенаправлений, а также когда либо <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> метода или <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider%2A> метод вызывается кодом приложения.  
+ Когда <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> вызова метода, создаваемое сообщение входа содержит параметр wctx, имеет следующий формат: `ru=returnUrl&cx=SignInContext&rm=rememberMeSet&id=uniqueId`. Значение <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext%2A> хранится в `cx` параметра. <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> может вызываться непосредственно из программного кода. Он также вызывается при выполнении WSFAM пассивного перенаправления, а также при любом <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignIn%2A> метод или <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectToIdentityProvider%2A> метод вызывается кодом приложения.  
   
- Несмотря на то, что сохраняет WSFAM <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext%2A> значение в сообщениях запроса, если значения, используемые приложением во время обработки ответа следует задать логику для извлечения из параметра wctx в сообщении ответа входа.  
+ Несмотря на то, что WSFAM хранит <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignInContext%2A> значение в сообщениях в запросе на вход, если значение используется в приложении во время обработки ответа необходимо предоставить логику для их извлечения из параметра wctx в сообщение отклика входа.  
   
  Дополнительные сведения о формате и обработку параметра wctx см. в разделе <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CreateSignInRequest%2A> метод.  
   
@@ -1981,7 +2004,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если запрос отправляется на страницу входа, управления на странице будет вызывать это событие не этот модуль.  
+ Если запрос отправляется на страницу входа, элемент управления на странице будет вызывать это событие, а не этот модуль.  
   
  ]]></format>
         </remarks>
@@ -2008,9 +2031,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это событие вызывается путем вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSigningOut%2A> метод из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.Boolean%29?displayProperty=nameWithType> метод при выходе из сеанса проверяющей стороной (RP). Событие не происходит при этом федеративным выходом через <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
+ Это событие вызывается посредством вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSigningOut%2A> метод из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.Boolean%29?displayProperty=nameWithType> метода во время выход из сеанса на проверяющей стороне (RP). Событие не возникает, когда это федеративный выход через <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
   
- Можно добавить обработчик событий для выполнения дополнительной обработки, необходимые для приложения, перед удалением файла cookie сеанса. Можно прочитать <xref:System.IdentityModel.Services.SigningOutEventArgs.IsIPInitiated*> свойство в обработчике событий для определения ли выход является результатом получения сообщения запроса очистки выхода WS-Federation («wsignoutcleanup1.0») от службы маркеров безопасности (STS), или она была начата в RP.  
+ Можно добавить обработчик событий для дополнительной обработки, необходимые для приложения, прежде чем будет удален файл cookie сеанса. Можно прочитать <xref:System.IdentityModel.Services.SigningOutEventArgs.IsIPInitiated*> свойство в обработчике событий для определения выхода, является ли результат получения сообщения запроса очистки выхода WS-Federation («wsignoutcleanup1.0») от службы маркеров безопасности (STS), или она была начата в RP.  
   
  Это событие вызывается для каждого сеанса не гарантируется. Файлы cookie могут быть удалены на стороне клиента, например, чтобы никогда не возникнет это событие.  
   
@@ -2035,14 +2058,14 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает или задает строку запроса, которая содержит любые дополнительные параметры, которые будут отправляться в запросах входа WS-Federation ("wsignin1.0").</summary>
-        <value>Фрагмент URL-адреса, который содержит параметры дополнительное сообщение в следующем формате: <c>параметр1 = значение1&amp;param2 = значение2&amp;paramN = valueN</c>. Значение по умолчанию - пустая строка.</value>
+        <value>Фрагмент URL-адреса, который содержит дополнительные параметры сообщения в следующем формате: <c>параметр1 = значение1&amp;param2 = значение2&amp;paramN = valueN</c>. Значение по умолчанию - пустая строка.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это свойство можно использовать для отправки Дополнительные параметры в запрос на вход. Это будут параметры конкретного приложения, которые не являются одним из параметров, указанных в протоколе WS-Federation. Чтобы удалить дополнительные параметры из запроса свойства пустую строку.  
+ Это свойство можно использовать для отправки Дополнительные параметры в запрос на вход. Это будут параметры конкретного приложения, которые не являются одним из параметров, которые определяются протокол WS-Federation. Чтобы удалить дополнительные параметры из запроса присвойте свойству пустую строку.  
   
- Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службы маркеров безопасности (STS) с сообщением запроса входа WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
+ Можно переопределить этот параметр при каждом запросе HTTP, добавив обработчик <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.RedirectingToIdentityProvider> событий. Это событие возникает непосредственно перед модуль перенаправляет службе маркеров безопасности (STS) с сообщением запроса входа запроса WS-Federation. Служба маркеров безопасности задается <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer%2A> свойство.  
   
  ]]></format>
         </remarks>
@@ -2062,7 +2085,7 @@
 ## Remarks  
  Удаляет текущий сеанс.  
   
- Нет запроса выхода («помощью wsignout1.0») отправляется службе маркеров безопасности (STS). Для входа для службы маркеров безопасности с помощью протокола WS-Federation, используйте <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
+ Нет запроса выхода («wsignout1.0») отправляется службе маркеров безопасности (STS). Для выхода в STS, с помощью протокола WS-Federation, используйте <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -2092,9 +2115,9 @@
 ## Remarks  
  Удаляет текущий сеанс и перенаправляет браузер обратно в URL-адрес, указанный в текущего HTTP-запроса.  
   
- Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.String%29?displayProperty=nameWithType> метод с `redirectUrl` равным URL-адрес текущего запроса.  
+ Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.String%29?displayProperty=nameWithType> метод с `redirectUrl` параметр значение URL-адрес текущего запроса.  
   
- Нет запроса выхода («помощью wsignout1.0») отправляется службе маркеров безопасности (STS). Для входа для службы маркеров безопасности с помощью протокола WS-Federation, используйте <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
+ Нет запроса выхода («wsignout1.0») отправляется службе маркеров безопасности (STS). Для выхода в STS, с помощью протокола WS-Federation, используйте <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -2125,19 +2148,19 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод выполняет фактическую работу по удалению текущего сеанса и создание соответствующих событий выхода. Метод выполняет следующие задачи.  
+ Этот метод выполняет фактическую работу удаление текущего сеанса и вызова соответствующих событий выхода. Метод выполняет следующие функции:  
   
-1.  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSigningOut%2A> метод для вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut> событий. Обработчик событий может обеспечивать любое необходимые обработку до удаления сеанса. <xref:System.IdentityModel.Services.SigningOutEventArgs.IsIPInitiated%2A?displayProperty=nameWithType> Свойству согласно `isIPRequest` параметра.  
+1.  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSigningOut%2A> метод для вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SigningOut> событий. Обработчик событий может предоставить все необходимые обработку до удаления сеанса. <xref:System.IdentityModel.Services.SigningOutEventArgs.IsIPInitiated%2A?displayProperty=nameWithType> Свойству согласно `isIPRequest` параметра.  
   
-2.  Вызовы <xref:System.IdentityModel.Services.SessionAuthenticationModule.DeleteSessionTokenCookie%2A?displayProperty=nameWithType> метод на диспетчер проверки подлинности текущего сеанса для удаления файла cookie сеанса.  
+2.  Вызовы <xref:System.IdentityModel.Services.SessionAuthenticationModule.DeleteSessionTokenCookie%2A?displayProperty=nameWithType> метод на диспетчер проверки подлинности текущего сеанса, чтобы удалить файл cookie сеанса.  
   
      Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignedOut%2A> метод для вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignedOut> событий.  
   
-3.  Вызывается при возникновении ошибки во время обработки выхода, <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignOutError%2A> метод для вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError> событий. Обработчик событий может отменить обработку и предотвратить исключения возвращается вызывающему объекту <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A>  
+3.  При возникновении ошибки во время обработки выхода, вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignOutError%2A> метод для вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError> событий. Обработчик событий может отменить обработку и исключение возвращается вызывающему объекту <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A>  
   
- Можно вызвать <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A?displayProperty=nameWithType> метод с `isIPRequest` набор параметров `false` чтобы выйти из сеанса, не выполняя перенаправление. В конечном счете вызывается для всех других перегруженных <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A> методы (с `isIPRequest` равным `false`) для выполнения выхода обработки. Метод вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%28System.Web.HttpRequestBase%2CSystem.Boolean%29?displayProperty=nameWithType> метод с `isIPRequest` набор параметров `true` чтобы выйти из сеанса, когда он обрабатывает сообщение очистки выхода WS-Federation («wsignoutcleanup1.0»).  
+ Можно вызвать <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A?displayProperty=nameWithType> метод с `isIPRequest` набор параметров `false` выхода из сеанса, не выполняя перенаправление. В конечном счете вызывается для всех других перегруженных <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%2A> методы (с `isIPRequest` параметру присвоить `false`) для выполнения выхода обработки. Метод вызывается из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.CanReadSignInResponse%28System.Web.HttpRequestBase%2CSystem.Boolean%29?displayProperty=nameWithType> метод с `isIPRequest` набор параметров `true` выйти из сеанса, когда он обрабатывает сообщение очистки выхода WS-Federation («wsignoutcleanup1.0»).  
   
- Нет запроса выхода («помощью wsignout1.0») отправляется службе маркеров безопасности (STS). Для входа для службы маркеров безопасности с помощью протокола WS-Federation, используйте <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
+ Нет запроса выхода («wsignout1.0») отправляется службе маркеров безопасности (STS). Для выхода в STS, с помощью протокола WS-Federation, используйте <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -2170,9 +2193,9 @@
 ## Remarks  
  Удаляет текущий сеанс и перенаправляет браузер обратно на указанный URL-адрес.  
   
- Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.String%2CSystem.Boolean%29?displayProperty=nameWithType> метод с `redirectUrl` параметр с `initiateSignoutCleanup` задать `false`.  
+ Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.String%2CSystem.Boolean%29?displayProperty=nameWithType> метод с `redirectUrl` параметра и с `initiateSignoutCleanup` задать `false`.  
   
- Нет запроса выхода («помощью wsignout1.0») отправляется службе маркеров безопасности (STS). Для входа для службы маркеров безопасности с помощью протокола WS-Federation, используйте <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
+ Нет запроса выхода («wsignout1.0») отправляется службе маркеров безопасности (STS). Для выхода в STS, с помощью протокола WS-Federation, используйте <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -2211,7 +2234,7 @@
   
  Вызывает <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.Boolean%29?displayProperty=nameWithType> метод с `initiateSignoutCleanup` набор параметров `false`.  
   
- Нет запроса выхода («помощью wsignout1.0») отправляется службе маркеров безопасности (STS). Для входа для службы маркеров безопасности с помощью протокола WS-Federation, используйте <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
+ Нет запроса выхода («wsignout1.0») отправляется службе маркеров безопасности (STS). Для выхода в STS, с помощью протокола WS-Federation, используйте <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -2241,9 +2264,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это событие вызывается путем вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignOutError%2A> метод из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.Boolean%29?displayProperty=nameWithType> метод при выходе из сеанса проверяющей стороной (RP). Событие не происходит при этом федеративным выходом через <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
+ Это событие вызывается посредством вызова <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.OnSignOutError%2A> метод из <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOut%28System.Boolean%29?displayProperty=nameWithType> метода во время выход из сеанса на проверяющей стороне (RP). Событие не возникает, когда это федеративный выход через <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод.  
   
- <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError> Событие связано с возможностью. Можно задать <xref:System.ComponentModel.CancelEventArgs.Cancel%2A> свойство в обработчике событий, чтобы избежать возникновения исключения, вызвавшего ошибку возврата инициатором выхода.  
+ <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutError> Событие является событием, которое можно отменить. Можно задать <xref:System.ComponentModel.CancelEventArgs.Cancel%2A> свойство в обработчике событий, чтобы предотвратить возникновение исключения, вызвавшего ошибку, возвращаемых для инициатора выхода.  
   
  ]]></format>
         </remarks>
@@ -2266,14 +2289,14 @@
       </ReturnValue>
       <Docs>
         <summary>Получает или задает строку запроса, которая содержит любые дополнительные параметры, которые будут отправляться в запросах выхода WS-Federation ("wsignout1.0").</summary>
-        <value>Фрагмент URL-адреса, который содержит параметры дополнительное сообщение в следующем формате: <c>параметр1 = значение1&amp;param2 = значение2&amp;paramN = valueN</c>. Значение по умолчанию - пустая строка.</value>
+        <value>Фрагмент URL-адреса, который содержит дополнительные параметры сообщения в следующем формате: <c>параметр1 = значение1&amp;param2 = значение2&amp;paramN = valueN</c>. Значение по умолчанию - пустая строка.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- По умолчанию это свойство инициализируется из `signOutQueryString` атрибут [ &lt;wsFederation&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/wsfederation.md) элемент в файле конфигурации. Он предназначен для хранения параметров, которые требуется отправить в запросе выхода WS-Federation конкретного приложения. Чтобы удалить эти параметры, можно задать свойства равным пустой строке.  
+ По умолчанию это свойство инициализируется из `signOutQueryString` атрибут [ &lt;wsFederation&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/wsfederation.md) элемент в файле конфигурации. Она должна содержать все параметры конкретного приложения, которые будут отправляться в запрос выхода WS-Federation. Чтобы удалить эти параметры, можно задать свойства на пустую строку.  
   
- WSFAM это свойство не используется напрямую. Тем не менее, можно передать его в <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl%2A> метод для создания полного WS-Federation выхода URL-адрес, можно использовать в коде.  
+ WSFAM напрямую не используют это свойство; Тем не менее, можно передать его в <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl%2A> метод, чтобы создать полный URL выхода WS-Federation, можно использовать в коде.  
   
  ]]></format>
         </remarks>
@@ -2302,11 +2325,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- По умолчанию это свойство инициализируется из `signOutReply` атрибут [ &lt;wsFederation&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/wsfederation.md) элемент в файле конфигурации. Он предназначен для представления wreply параметр в запросе выхода WS-Federation.  
+ По умолчанию это свойство инициализируется из `signOutReply` атрибут [ &lt;wsFederation&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/wsfederation.md) элемент в файле конфигурации. Он предназначен для представления параметр wreply в запросе выхода WS-Federation.  
   
- Параметр wreply является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutReply%2A> свойству `null` или пустая строка, параметр wreply не включен в запрос на выход.  
+ Параметр wreply является необязательным. Если <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.SignOutReply%2A> свойству `null` или пустая строка, параметр wreply не включен в запрос выхода.  
   
- WSFAM не использует это свойство напрямую. Тем не менее, можно передать его в <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод при выполнении WS-Federation выхода из кода, или же можно передать его в <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl%2A> метод для создания полного WS-Federation URL-адрес выхода из системы.  
+ WSFAM напрямую не используют это свойство. Тем не менее, можно передать его в <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.FederatedSignOut%2A> метод, когда выполнение выхода WS-Federation с кода, или вы можете передать его в <xref:System.IdentityModel.Services.WSFederationAuthenticationModule.GetFederationPassiveSignOutUrl%2A> метод для создания полного выхода URL-адреса WS-Federation.  
   
  ]]></format>
         </remarks>
@@ -2331,7 +2354,16 @@
       <Docs>
         <summary>Проверяет, являются ли свойства <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer" /> и <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm" /> непустыми, и совместимы ли с HTTPS универсальные коды ресурса (URI), заданные для свойств <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps" /> и <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer" />, если свойство <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm" /> имеет значение <see langword="true" />.</summary>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.InvalidOperationException">Параметр <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer" /> имеет значение <see langword="null" /> или является пустой строкой.  -или-  <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm" /> равен <see langword="null" /> или является пустой строкой.  -или- <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps" /> имеет значение <see langword="true" /> и <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer" /> не совместимы с HTTPS.  -или- <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps" /> имеет значение <see langword="true" /> и <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm" /> не совместимы с HTTPS.</exception>
+        <exception cref="T:System.InvalidOperationException">Параметр <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer" /> имеет значение <see langword="null" /> или является пустой строкой.  
+  
+- или - 
+ Параметр <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm" /> имеет значение <see langword="null" /> или является пустой строкой.  
+  
+- или - 
+ <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps" /> имеет значение <see langword="true" /> и <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Issuer" /> не совместимы с HTTPS.  
+  
+- или - 
+ <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.RequireHttps" /> имеет значение <see langword="true" /> и <see cref="P:System.IdentityModel.Services.WSFederationAuthenticationModule.Realm" /> не совместимы с HTTPS.</exception>
       </Docs>
     </Member>
     <Member MemberName="XmlDictionaryReaderQuotas">

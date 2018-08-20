@@ -1,11 +1,11 @@
 <Type Name="MutexSecurity" FullName="System.Security.AccessControl.MutexSecurity">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="0a10605ae02fc2e34f3aee4632178d30c7664cf3" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="651783f6cdf5762dcd1da9bf5d9855bfc4d1cf8e" />
+    <Meta Name="ms.sourcegitcommit" Value="d877ae76e9e11799bf919379507239e2c4072742" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37633068" />
+    <Meta Name="ms.lasthandoff" Value="08/09/2018" />
+    <Meta Name="ms.locfileid" Value="39802683" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class MutexSecurity : System.Security.AccessControl.NativeObjectSecurity" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit MutexSecurity extends System.Security.AccessControl.NativeObjectSecurity" />
@@ -28,6 +28,11 @@
     <BaseTypeName>System.Security.AccessControl.NativeObjectSecurity</BaseTypeName>
   </Base>
   <Interfaces />
+  <Attributes>
+    <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1">
+      <AttributeName>System.Security.SecurityCritical</AttributeName>
+    </Attribute>
+  </Attributes>
   <Docs>
     <summary>Представляет систему безопасности управления доступом Windows для именованного мьютекса. Этот класс не наследуется.</summary>
     <remarks>
@@ -154,6 +159,11 @@
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2">
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
       <Parameters>
         <Parameter Name="name" Type="System.String" />
         <Parameter Name="includeSections" Type="System.Security.AccessControl.AccessControlSections" />
@@ -166,9 +176,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Удаляет все правила управления доступом с тем же пользователем, что и у указанного правила, вне зависимости от <xref:System.Threading.Mutex>, а затем добавляет указанное правило.  
+ Этот конструктор позволяет получать безопасность управления доступом для именованного системного мьютекса без предварительного создания <xref:System.Threading.Mutex> объекта.  
   
- Классы, производные от  класса переопределение  свойства и возвращаемые типа, они используют для обозначения прав аудита. Если нет правил доступа, в которых имена пользователей совпадают с указанным правилом, `name` добавляется.  
+ Нужно соблюдать осторожность при работе с именованных системных объектов. Если имеется системный объект с именем `name` , не является мьютексом, его параметры безопасности управления доступом можно получить.  
   
  ]]></format>
         </remarks>
@@ -205,7 +215,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Классы, производные от <xref:System.Security.AccessControl.ObjectSecurity> класса переопределение <xref:System.Security.AccessControl.ObjectSecurity.AccessRightType%2A> свойства и возвращаемые типа, они используют для обозначения прав доступа. Если совместимое правило найдено; в противном случае .  
+ Классы, производные от <xref:System.Security.AccessControl.ObjectSecurity> класса переопределение <xref:System.Security.AccessControl.ObjectSecurity.AccessRightType%2A> свойства и возвращаемые типа, они используют для обозначения прав доступа. При работе с массивами или коллекциях, содержащих несколько типов объектов безопасности, оно используется для определения типа перечисления подходит для использования с каждым объектом безопасности.  
   
  ]]></format>
         </remarks>
@@ -253,10 +263,10 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если все права удаляются из совместимого правила, правило целиком удаляется из текущей <xref:System.Security.AccessControl.MutexAccessRule> объекта.  
+ Для создания правила управления доступом рекомендуется использовать конструкторы <xref:System.Security.AccessControl.MutexAccessRule> класса.  
   
 > [!NOTE]
->  Пользователь и  определяют правила, которые необходимо удалить перед добавлением данного правила. Затем в примере создается правило, которое соответствует  правило из  и успешно использует  метод для удаления этого правила.  
+>  Несмотря на то, что флаги наследования и распространения не имеют смысла для именованных мьютексов, это по-прежнему можно указывать. Это не рекомендуется, поскольку это без необходимости усложняет обслуживание правила, например данными сочетание правил, которые в противном случае будут совместимы.  
   
  ]]></format>
         </remarks>
@@ -294,7 +304,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Права допускается включать <xref:System.Security.AccessControl.ObjectSecurity>, <xref:System.Security.AccessControl.ObjectSecurity.AccessRuleType%2A>, и . Затем в примере создается новое правило для текущего пользователя, включая  и  прав и использует правила с  способ удаления  из  правило из  объекта.  
+ Классы, производные от <xref:System.Security.AccessControl.ObjectSecurity> класса переопределение <xref:System.Security.AccessControl.ObjectSecurity.AccessRuleType%2A> свойства и возвращаемые типа, они используют для обозначения правил доступа. При работе с массивами или коллекциях, содержащих несколько типов объектов безопасности, оно используется для определения тип правила доступа подходит для использования с каждым объектом безопасности.  
   
  ]]></format>
         </remarks>
@@ -332,7 +342,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Security.AccessControl.MutexSecurity.AddAccessRule%2A> Метод осуществляет поиск правила с тем же именем пользователя или группу и же <xref:System.Security.AccessControl.AccessControlType> как `rule`. Текущий `rule` объект ищется правила, имеющие тот же пользователь и имеет одинаковые  значение как . Все права, заданные `rule` при поиске игнорируются.  
+ <xref:System.Security.AccessControl.MutexSecurity.AddAccessRule%2A> Метод осуществляет поиск правила с тем же именем пользователя или группу и же <xref:System.Security.AccessControl.AccessControlType> как `rule`. Если ничего не найдено, `rule` добавляется. Если подходящее правило найдено, права в `rule` объединяются с существующим правилом.  
   
    
   
@@ -340,7 +350,7 @@
  В следующем примере кода демонстрируется разделение между <xref:System.Security.AccessControl.AccessControlType.Allow> правила и <xref:System.Security.AccessControl.AccessControlType.Deny> правила, а также показывает комбинацию прав в совместимых правил. В примере создается <xref:System.Security.AccessControl.MutexSecurity> , добавляются правила, разрешающие и запрещающие различные права для текущего пользователя и отображает результирующий пары правил. Затем разрешает новые права для текущего пользователя и отображает результат, показывающий, что новые права объединяются с существующим <xref:System.Security.AccessControl.AccessControlType.Allow> правило.  
   
 > [!NOTE]
->  В этом примере не присоединяется объекта безопасности для <xref:System.Threading.Mutex> объекта. Если у указанного правила <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=nameWithType>, этот метод применяется для удаления всех <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=nameWithType> правила для указанного пользователя, заменяя их у указанного правила.  
+>  В этом примере не присоединяется объекта безопасности для <xref:System.Threading.Mutex> объекта. Примеры, которые присоединять объекты безопасности можно найти в <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=nameWithType> <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=nameWithType>.  
   
  [!code-csharp[System.Security.AccessControl.MutexSecurity.AddAccessRule#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.AddAccessRule/CS/source.cs#1)]
  [!code-vb[System.Security.AccessControl.MutexSecurity.AddAccessRule#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.Security.AccessControl.MutexSecurity.AddAccessRule/VB/source.vb#1)]  
@@ -384,7 +394,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- В примере создается <xref:System.Security.AccessControl.MutexSecurity.AddAuditRule%2A> , добавляются правила, разрешающие и запрещающие различные права для текущего пользователя и затем объединяет дополнительные права в `rule` правило. Текущий `rule` объект ищется правила, имеющие тот же пользователь и имеет одинаковые  значение как . Затем в примере создается новое правило, текущий пользователь может стать владельцем и использует правила, чтобы удалить `rule` правила из  объекта.  
+ <xref:System.Security.AccessControl.MutexSecurity.AddAuditRule%2A> Метод осуществляет поиск правила с одного пользователя или группу в качестве `rule`. Если ничего не найдено, `rule` добавляется. Если подходящее правило найдено, флаги в `rule` объединяются в существующее правило.  
   
  ]]></format>
         </remarks>
@@ -432,10 +442,10 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- В примере создается <xref:System.Security.AccessControl.MutexAuditRule> , добавляются правила, разрешающие и запрещающие различные права для текущего пользователя и затем объединяет дополнительные права в  правило доступа.  
+ Для создания правила аудита рекомендуется использовать конструкторы <xref:System.Security.AccessControl.MutexAuditRule> класса.  
   
 > [!NOTE]
->  Пользователь и  определяют правила, которые необходимо удалить перед добавлением данного правила. Затем в примере создается правило, которое соответствует  правило из  и успешно использует  метод для удаления этого правила.  
+>  Несмотря на то, что флаги наследования и распространения не имеют смысла для именованных мьютексов, это по-прежнему можно указывать. Это не рекомендуется, поскольку это без необходимости усложняет обслуживание правила, например данными сочетание правил, которые в противном случае будут совместимы.  
   
  ]]></format>
         </remarks>
@@ -473,7 +483,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Классы, производные от <xref:System.Security.AccessControl.ObjectSecurity> класса переопределение <xref:System.Security.AccessControl.ObjectSecurity.AuditRuleType%2A> свойства и возвращаемые типа, они используют для обозначения прав аудита. Если совместимое правило найдено; в противном случае .  
+ Классы, производные от <xref:System.Security.AccessControl.ObjectSecurity> класса переопределение <xref:System.Security.AccessControl.ObjectSecurity.AuditRuleType%2A> свойства и возвращаемые типа, они используют для обозначения прав аудита. При работе с массивами или коллекциях, содержащих несколько типов объектов безопасности, оно используется для определения типа правила аудита подходит для использования с каждым объектом безопасности.  
   
  ]]></format>
         </remarks>
@@ -512,17 +522,17 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Текущий <xref:System.Security.AccessControl.MutexSecurity> ищется правило, которое имеет тот же пользователь и имеет одинаковые <xref:System.Security.AccessControl.AccessControlType> значение как `rule`. Текущий `false` поиск правила аудита с тем же пользователем, что . Если правила сопоставления найдены, их флагов наследования и совместимости проверка на совместимость с флагов, указанных в `rule`. Если не совместимое правило найдено, никакие действия не выполняются, и метод возвращает `false`. Если обнаруживается правило с совместимыми флагами, права, указанные в `rule` удаляются из совместимого правила, а метод возвращает `true`. Если `rule` задает права, не содержится в совместимого правила, никакие действия не выполняются по отношению к эти права. Если все права удаляются из совместимого правила, правило целиком удаляется из текущей <xref:System.Security.AccessControl.MutexSecurity> объекта.  
+ Текущий <xref:System.Security.AccessControl.MutexSecurity> ищется правило, которое имеет тот же пользователь и имеет одинаковые <xref:System.Security.AccessControl.AccessControlType> значение как `rule`. Если такое правило не найдено, никакие действия не выполняются, и метод возвращает `false`. Если правила сопоставления найдены, их флагов наследования и совместимости проверка на совместимость с флагов, указанных в `rule`. Если не совместимое правило найдено, никакие действия не выполняются, и метод возвращает `false`. Если обнаруживается правило с совместимыми флагами, права, указанные в `rule` удаляются из совместимого правила, а метод возвращает `true`. Если `rule` задает права, не содержится в совместимого правила, никакие действия не выполняются по отношению к эти права. Если все права удаляются из совместимого правила, правило целиком удаляется из текущей <xref:System.Security.AccessControl.MutexSecurity> объекта.  
   
 > [!IMPORTANT]
->  Если у указанного правила <xref:System.Security.AccessControl.MutexSecurity.AccessRuleFactory%2A>, что все  правила для указанного пользователя будут заменены указанным правилом. Если нет правил, пользователя и  совпадающие с указанным правилом  добавляется.  
+>  Несмотря на то, что флаги наследования и распространения правил доступа, мьютекс, можно указать путем создания их с помощью <xref:System.Security.AccessControl.MutexSecurity.AccessRuleFactory%2A> метода, это не рекомендуется. Наследования и распространения не имеют смысла для именованных мьютексов и усложняют процедуры управления правилами доступа.  
   
    
   
 ## Examples  
- В следующем примере кода демонстрируется использование <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRule%2A> метод для удаления прав из <xref:System.Security.AccessControl.AccessControlType.Allow> правило из <xref:System.Security.AccessControl.MutexSecurity> объекта. Затем в примере создается новое правило, позволяющее текущего пользователю полный контроль и использует `rule` метод для замены всех существующих правил с новым правилом.  
+ В следующем примере кода демонстрируется использование <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRule%2A> метод для удаления прав из <xref:System.Security.AccessControl.AccessControlType.Allow> правило из <xref:System.Security.AccessControl.MutexSecurity> объекта. Также показано, что другие права в `rule` игнорируются.  
   
- Пользователь и <xref:System.Security.AccessControl.MutexSecurity> определяют правила, которые необходимо удалить перед добавлением данного правила. Права допускается включать <xref:System.Security.AccessControl.MutexRights.Modify>, <xref:System.Security.AccessControl.MutexRights.ReadPermissions>, и <xref:System.Security.AccessControl.MutexRights.Synchronize>. Затем в примере создается новое правило для текущего пользователя, включая <xref:System.Security.AccessControl.MutexRights.ReadPermissions> и <xref:System.Security.AccessControl.MutexRights.TakeOwnership> прав и использует правила с <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRule%2A> способ удаления <xref:System.Security.AccessControl.MutexRights.ReadPermissions> из <xref:System.Security.AccessControl.AccessControlType.Allow> правило из <xref:System.Security.AccessControl.MutexSecurity> объекта. Если у указанного правила <xref:System.Security.AccessControl.MutexRights.TakeOwnership>, что все `rule` правила для указанного пользователя будут заменены указанным правилом.  
+ В примере создается <xref:System.Security.AccessControl.MutexSecurity> и добавляет правила, разрешающие и запрещающие различные права для текущего пользователя. Права допускается включать <xref:System.Security.AccessControl.MutexRights.Modify>, <xref:System.Security.AccessControl.MutexRights.ReadPermissions>, и <xref:System.Security.AccessControl.MutexRights.Synchronize>. Затем в примере создается новое правило для текущего пользователя, включая <xref:System.Security.AccessControl.MutexRights.ReadPermissions> и <xref:System.Security.AccessControl.MutexRights.TakeOwnership> прав и использует правила с <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRule%2A> способ удаления <xref:System.Security.AccessControl.MutexRights.ReadPermissions> из <xref:System.Security.AccessControl.AccessControlType.Allow> правило из <xref:System.Security.AccessControl.MutexSecurity> объекта. Лишний <xref:System.Security.AccessControl.MutexRights.TakeOwnership> правой кнопкой мыши в `rule` учитывается.  
   
 > [!NOTE]
 >  В этом примере не присоединяется объекта безопасности для <xref:System.Threading.Mutex> объекта. Примеры, которые присоединять объекты безопасности можно найти в <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=nameWithType> и <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=nameWithType>.  
@@ -567,12 +577,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Текущий <xref:System.Security.AccessControl.MutexSecurity> объект ищется правила, имеющие тот же пользователь и имеет одинаковые <xref:System.Security.AccessControl.AccessControlType> значение как `rule`. Удаляет все правила с тем же пользователем, что и у указанного правила, вне зависимости от `rule` значение, а затем добавляет указанное правило. Если нет правил аудита, в которых имена пользователей совпадают с указанным правилом,  добавляется.  
+ Текущий <xref:System.Security.AccessControl.MutexSecurity> объект ищется правила, имеющие тот же пользователь и имеет одинаковые <xref:System.Security.AccessControl.AccessControlType> значение как `rule`. Все права, заданные `rule` при поиске игнорируются. Если никакие правила соответствия не найдены, никакие действия не выполняются.  
   
    
   
 ## Examples  
- В следующем примере кода показано как <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll%2A> метод удаляет все правила, которые соответствуют и пользователя и <xref:System.Security.AccessControl.AccessControlType> из , заменяя их .  
+ В следующем примере кода показано, что <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleAll%2A> метод удаляет все правила, которые соответствуют пользователя и <xref:System.Security.AccessControl.AccessControlType>, игнорируя права.  
   
  В примере создается <xref:System.Security.AccessControl.MutexSecurity> , добавляются правила, разрешающие и запрещающие различные права для текущего пользователя и затем объединяет дополнительные права в <xref:System.Security.AccessControl.AccessControlType.Allow> правило. Затем в примере создается новое правило, текущий пользователь может стать владельцем и использует правила, чтобы удалить <xref:System.Security.AccessControl.AccessControlType.Allow> правила из <xref:System.Security.AccessControl.MutexSecurity> объекта.  
   
@@ -619,7 +629,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если нет правил аудита, в которых имена пользователей совпадают с указанным правилом, `rule` добавляется. Другие правила с тем же пользователем и <xref:System.Security.AccessControl.AccessControlType> не затрагиваются.  
+ Оно удаляется только в том случае, если он точно соответствует `rule` во всех деталях, включая флаги. Другие правила с тем же пользователем и <xref:System.Security.AccessControl.AccessControlType> не затрагиваются.  
   
 > [!IMPORTANT]
 >  Правило соответствует одному или дополнительные базовые элементы управления доступом (ACE) и эти записи делятся или объединяются при необходимости, при изменении правил доступа для пользователя. Таким образом, правило больше не существует в определенной форме, когда он был добавлен и в этом случае <xref:System.Security.AccessControl.MutexSecurity.RemoveAccessRuleSpecific%2A> метод нельзя удалить.  
@@ -675,7 +685,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Текущий <xref:System.Security.AccessControl.MutexSecurity> поиск правила аудита с тем же пользователем, что `rule`. Текущий `false` поиск правила аудита с тем же пользователем, что . Если правила сопоставления найдены, их флагов наследования и совместимости проверка на совместимость с флагов, указанных в `rule`. Если не совместимое правило найдено, никакие действия не выполняются, и метод возвращает `false`. Если обнаруживается правило с совместимыми флагами, права, указанные в `rule` удаляются из совместимого правила, а метод возвращает `true`. Если `rule` задает права, не содержится в совместимого правила, никакие действия не выполняются по отношению к эти права. Если все права удаляются из совместимого правила, правило целиком удаляется из текущей <xref:System.Security.AccessControl.MutexSecurity> объекта.  
+ Текущий <xref:System.Security.AccessControl.MutexSecurity> поиск правила аудита с тем же пользователем, что `rule`. Если такое правило не найдено, никакие действия не выполняются, и метод возвращает `false`. Если правила сопоставления найдены, их флагов наследования и совместимости проверка на совместимость с флагов, указанных в `rule`. Если не совместимое правило найдено, никакие действия не выполняются, и метод возвращает `false`. Если обнаруживается правило с совместимыми флагами, права, указанные в `rule` удаляются из совместимого правила, а метод возвращает `true`. Если `rule` задает права, не содержится в совместимого правила, никакие действия не выполняются по отношению к эти права. Если все права удаляются из совместимого правила, правило целиком удаляется из текущей <xref:System.Security.AccessControl.MutexSecurity> объекта.  
   
 > [!IMPORTANT]
 >  Несмотря на то, что флаги наследования и распространения для мьютекса правила аудита, можно указать путем создания их с помощью <xref:System.Security.AccessControl.MutexSecurity.AccessRuleFactory%2A> метода, это не рекомендуется. Наследования и распространения не имеют смысла для именованных мьютексов и усложняют поддержку правила аудита.  
@@ -717,7 +727,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Текущий <xref:System.Security.AccessControl.MutexSecurity> поиск правила аудита с тем же пользователем, что `rule`. Удаляет все правила с тем же пользователем, что и у указанного правила, вне зависимости от `rule` значение, а затем добавляет указанное правило. Удаляются все правила сопоставления. Если нет правил аудита, в которых имена пользователей совпадают с указанным правилом,  добавляется.  
+ Текущий <xref:System.Security.AccessControl.MutexSecurity> поиск правила аудита с тем же пользователем, что `rule`. Все права, заданные `rule` при поиске игнорируются. Удаляются все правила сопоставления. Если никакие правила соответствия не найдены, никакие действия не выполняются.  
   
  ]]></format>
         </remarks>
@@ -756,7 +766,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если нет правил аудита, в которых имена пользователей совпадают с указанным правилом, `rule` добавляется. Другие правила аудита для одного пользователя не затрагиваются.  
+ Оно удаляется только в том случае, если он точно соответствует `rule` во всех деталях, включая флаги. Другие правила аудита для одного пользователя не затрагиваются.  
   
 > [!IMPORTANT]
 >  Правило соответствует одному или дополнительные базовые элементы управления доступом (ACE) и эти записи делятся или объединяются при необходимости, при изменении правил аудита для пользователя. Таким образом, правило больше не существует в определенной форме, когда он был добавлен и в этом случае <xref:System.Security.AccessControl.MutexSecurity.RemoveAuditRuleSpecific%2A> метод нельзя удалить.  
@@ -805,7 +815,7 @@
 ## Examples  
  В следующем примере кода показано как <xref:System.Security.AccessControl.MutexSecurity.ResetAccessRule%2A> метод заменяет все правила для сопоставления пользователей правила, заданного для сопоставления.  
   
- Пользователь и <xref:System.Security.AccessControl.MutexSecurity> определяют правила, которые необходимо удалить перед добавлением данного правила. Затем в примере создается новое правило, позволяющее текущего пользователю полный контроль и использует <xref:System.Security.AccessControl.MutexSecurity.ResetAccessRule%2A> метод для замены всех существующих правил с новым правилом.  
+ В примере создается <xref:System.Security.AccessControl.MutexSecurity> и добавляет правила, разрешающие и запрещающие различные права для текущего пользователя. Затем в примере создается новое правило, позволяющее текущего пользователю полный контроль и использует <xref:System.Security.AccessControl.MutexSecurity.ResetAccessRule%2A> метод для замены всех существующих правил с новым правилом.  
   
 > [!NOTE]
 >  В этом примере не присоединяется объекта безопасности для <xref:System.Threading.Mutex> объекта. Примеры, которые присоединять объекты безопасности можно найти в <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=nameWithType> и <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=nameWithType>.  
@@ -859,7 +869,7 @@
 ## Examples  
  В следующем примере кода показано как <xref:System.Security.AccessControl.MutexSecurity.SetAccessRule%2A> метод удаляет все правила, которые соответствуют и пользователя и <xref:System.Security.AccessControl.AccessControlType> из `rule`, заменяя их `rule`.  
   
- Пользователь и <xref:System.Security.AccessControl.MutexSecurity> определяют правила, которые необходимо удалить перед добавлением данного правила. Затем в примере создается новое правило, позволяющее текущего пользователю полный контроль и использует <xref:System.Security.AccessControl.MutexSecurity.SetAccessRule%2A> метод для замены существующего разрешающее правило с новым правилом. Не влияет на правило, которое запрещает доступ.  
+ В примере создается <xref:System.Security.AccessControl.MutexSecurity> и добавляет правила, разрешающие и запрещающие различные права для текущего пользователя. Затем в примере создается новое правило, позволяющее текущего пользователю полный контроль и использует <xref:System.Security.AccessControl.MutexSecurity.SetAccessRule%2A> метод для замены существующего разрешающее правило с новым правилом. Не влияет на правило, которое запрещает доступ.  
   
 > [!NOTE]
 >  В этом примере не присоединяется объекта безопасности для <xref:System.Threading.Mutex> объекта. Примеры, которые присоединять объекты безопасности можно найти в <xref:System.Threading.Mutex.GetAccessControl%2A?displayProperty=nameWithType> и <xref:System.Threading.Mutex.SetAccessControl%2A?displayProperty=nameWithType>.  
