@@ -1,10 +1,10 @@
 <Type Name="FrameworkCompatibilityPreferences" FullName="System.Windows.FrameworkCompatibilityPreferences">
   <Metadata>
     <Meta Name="ms.openlocfilehash" Value="9d6cc315534a7cc85a43d94d0dbc20b7eba80a3f" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.lasthandoff" Value="08/24/2018" />
     <Meta Name="ms.locfileid" Value="36459618" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class FrameworkCompatibilityPreferences" />
@@ -49,7 +49,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Значение по умолчанию этого свойства зависит от того, какая версия WPF, используемой для приложения.  Если приложение предназначено для WPF 4.0 или более ранних версиях значение по умолчанию — `false`.  Если приложение предназначено для WPF 4.5, значение по умолчанию — `true`.  Если это свойство используется для изменения поведения WPF, необходимо изменить значение свойства в начале времени существования приложения, например в конструкторе класса, который наследует от приложения.  После считывания значение невозможно изменить еще раз.  
+ Значение по умолчанию этого свойства зависит от того, какая версия WPF, для которых предназначено приложение.  Если приложение предназначено для WPF 4.0 или более ранних версиях значение по умолчанию — `false`.  Если приложение предназначено для WPF 4.5, по умолчанию используется `true`.  Если это свойство используется для изменения поведения WPF, необходимо изменить значение свойства на раннем этапе существования приложения, например в конструкторе класса, который наследует от приложения.  После считывания значение невозможно изменить его снова.  
   
  ]]></format>
         </remarks>
@@ -78,7 +78,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Значение по умолчанию этого свойства зависит от того, какая версия WPF, используемой для приложения.  Если приложение предназначено для WPF 4.0 или более ранних версиях значение по умолчанию — `false`.  Если приложение предназначено для WPF 4.5, значение по умолчанию — `true`.  Если это свойство используется для изменения поведения WPF, необходимо изменить значение свойства в начале времени существования приложения, например в конструкторе класса, который наследует от приложения.  После считывания значение невозможно изменить еще раз.  
+ Значение по умолчанию этого свойства зависит от того, какая версия WPF, для которых предназначено приложение.  Если приложение предназначено для WPF 4.0 или более ранних версиях значение по умолчанию — `false`.  Если приложение предназначено для WPF 4.5, по умолчанию используется `true`.  Если это свойство используется для изменения поведения WPF, необходимо изменить значение свойства на раннем этапе существования приложения, например в конструкторе класса, который наследует от приложения.  После считывания значение невозможно изменить его снова.  
   
  ]]></format>
         </remarks>
@@ -106,11 +106,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если происходит сбой операции с буфером обмена, такие как с **HRESULT 0x800401D0 (CLIPBRD_E_CANT_OPEN)** ошибки, соответствующий <xref:System.Runtime.InteropServices.ExternalException> (— это тип ExternalException) создается исключение.  
+ При сбое операции с буфером обмена, например с **HRESULT 0x800401D0 (CLIPBRD_E_CANT_OPEN)** ошибки, соответствующий <xref:System.Runtime.InteropServices.ExternalException> (это разновидность ExternalException) создается исключение.  
   
- Поскольку Win32 `OpenClipboard` API действует глобально, грамотно сконструированные приложения должны вызывать соответствующий `CloseClipboard` API сразу после завершения операции с буфером обмена. В противном случае другим приложениям, выполняемым в одном сеансе, будут недоступны для доступа к функции буфера обмена.  
+ Так как Win32 `OpenClipboard` API действует глобально, грамотно сконструированные приложения должны вызывать соответствующий `CloseClipboard` API сразу же после завершения операции с буфером обмена. В противном случае для доступа к функции буфера обмена невозможно другим приложениям, выполняемым в одном сеансе.  
   
- В WPF отказ доступа в буфер обмена обычно игнорируется без вмешательства пользователя. Тем не менее, можно выбрать приложения для получения `ExternalException` после сбоя, задав <xref:System.Windows.FrameworkCompatibilityPreferences.ShouldThrowOnCopyOrCutFailure%2A> флаг `true`. Тем не менее, предусмотренной получать исключения также требуется, чтобы приложение обработки <xref:System.Windows.Input.ApplicationCommands.Cut%2A> и <xref:System.Windows.Input.ApplicationCommands.Copy%2A> RoutedUICommands через <xref:System.Windows.Input.CommandBinding>, а затем применить эту привязку ко всем элементам управления TextBoxBase (<xref:System.Windows.Controls.TextBox> и <xref:System.Windows.Controls.RichTextBox>) в приложение. Приложение должно гарантировать, что оно работает с ExternalExceptions, возникающие в результате операции копирования и вырезания в обработчике Executed CommandBinding.  
+ В WPF такие отказ доступа в буфер обмена обычно игнорируется без уведомления. Тем не менее, можно выбрать приложения для получения `ExternalException` в случае сбоя, задав <xref:System.Windows.FrameworkCompatibilityPreferences.ShouldThrowOnCopyOrCutFailure%2A> флаг `true`. Тем не менее, предусмотренной для получения исключения также требуется в приложении для обработки <xref:System.Windows.Input.ApplicationCommands.Cut%2A> и <xref:System.Windows.Input.ApplicationCommands.Copy%2A> команды RoutedUICommand через <xref:System.Windows.Input.CommandBinding>, а затем применить эту привязку ко всем элементам управления класса TextBoxBase (<xref:System.Windows.Controls.TextBox> и <xref:System.Windows.Controls.RichTextBox>) в приложение. Приложение должно гарантировать обработки ExternalExceptions, полученный в результате операции копирования и вырезания в обработчике Executed CommandBinding.  
   
  ]]></format>
         </remarks>

@@ -1,10 +1,10 @@
 <Type Name="WSTrustServiceHost" FullName="System.ServiceModel.Security.WSTrustServiceHost">
   <Metadata>
     <Meta Name="ms.openlocfilehash" Value="98a07459cbd5b022eb8336afc3df9cffa59002a2" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.lasthandoff" Value="08/24/2018" />
     <Meta Name="ms.locfileid" Value="36413438" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class WSTrustServiceHost : System.ServiceModel.ServiceHost" />
@@ -31,13 +31,13 @@
   
 -   Он добавляет конечные точки WS-Trust для <xref:System.ServiceModel.ServiceHost>.  
   
--   Он включает метаданные базового адреса, если <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration.DisableWsdl%2A> свойству `false`.  
+-   Он позволяет метаданных через базовые адреса, если <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration.DisableWsdl%2A> свойству `false`.  
   
--   Настраивает сертификат службы на <xref:System.ServiceModel.ServiceHost> учетные данные службы, если раздел конфигурации WIF указывается сертификат службы. Обратите внимание, что это будут переопределять параметры сертификата службы в конфигурации WCF.  
+-   Настраивает сертификат службы на <xref:System.ServiceModel.ServiceHost> учетные данные службы, если раздел конфигурации WIF указывается сертификат службы. Обратите внимание на то, что это будут переопределять параметры сертификата службы в конфигурации WCF.  
   
--   Обработчики маркеров IdentityModel также интегрируется в конвейер обработки безопасности путем вызова метода ExtensibleSecurityCredentials.ConfigureServiceHost на себя.  
+-   Обработчики маркеров IdentityModel он встраивается в конвейер обработки безопасности путем вызова метода ExtensibleSecurityCredentials.ConfigureServiceHost на себя.  
   
- <xref:System.ServiceModel.Security.WSTrustServiceHost> Класс может переопределить, чтобы настроить это поведение.  
+ <xref:System.ServiceModel.Security.WSTrustServiceHost> Класса может быть переопределена для настройки этого поведения.  
   
  ]]></format>
     </remarks>
@@ -82,9 +82,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Значение по умолчанию <xref:System.ServiceModel.Security.WSTrustServiceContract> создается с помощью указанного <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration> экземпляра.  
+ По умолчанию <xref:System.ServiceModel.Security.WSTrustServiceContract> создается с использованием указанного <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration> экземпляра.  
   
- <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration> Для единственной инициализации используется экземпляр <xref:System.ServiceModel.ServiceHost>; для этой причине установка свойств конфигурации экземпляра после инициализации узла не может привести к изменения в работе.  
+ <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration> Экземпляр используется для однократной инициализации <xref:System.ServiceModel.ServiceHost>; поэтому задание свойств конфигурации экземпляра после инициализации узла не может быть изменения в поведении.  
   
  ]]></format>
         </remarks>
@@ -118,7 +118,10 @@
         <param name="baseAddresses">Массив объектов <see cref="T:System.Uri" />, содержащий базовые адреса узла службы.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.ServiceModel.Security.WSTrustServiceHost" /> с указанным базовым адресом и контрактом службы.</summary>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="baseAddresses" /> имеет значение <see langword="null" />.  -или- <paramref name="serviceContract" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="baseAddresses" /> имеет значение <see langword="null" />.  
+  
+- или - 
+ Свойство <paramref name="serviceContract" /> имеет значение <see langword="null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="ApplyConfiguration">
@@ -164,7 +167,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод возвращает базовые адреса узла службы и добавляет конечные точки обмена метаданными для http, https, net.tcp и net.pipe адреса, только когда конечные точки обмена метаданными не были ранее добавлены пользователем. Для http и https-адресов, HTTP и HTTPS, включен механизм GET для извлечения WSDL.  
+ Этот метод вычисляет базовые адреса узла службы и добавляет конечные точки обмена метаданными для http, https, net.tcp и net.pipe адреса, только если нет конечных точек mex быть заранее добавлено пользователем. Для адреса http и https, HTTP и HTTPS, включен механизм GET для извлечения WSDL.  
   
  ]]></format>
         </remarks>
@@ -192,7 +195,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызывает <xref:System.ServiceModel.Security.WSTrustServiceHost.UpdateServiceConfiguration%2A> метода, а затем вызывает базовую реализацию.  
+ Вызывает <xref:System.ServiceModel.Security.WSTrustServiceHost.UpdateServiceConfiguration%2A> метод, а затем вызывает базовую реализацию.  
   
  ]]></format>
         </remarks>

@@ -1,10 +1,10 @@
 <Type Name="IAmbientProvider" FullName="System.Xaml.IAmbientProvider">
   <Metadata>
     <Meta Name="ms.openlocfilehash" Value="9fcab2d451e7a5dffd50523a55bea65848a0295d" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.lasthandoff" Value="08/24/2018" />
     <Meta Name="ms.locfileid" Value="36444918" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IAmbientProvider" />
@@ -24,23 +24,23 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот интерфейс представляет службу, которая может помочь преобразователи типов или расширения разметки, чтобы получить идентификаторы свойств окружения для системы типов XAML (<xref:System.Xaml.XamlMember> объектов). Службу можно также получить значения свойств окружения из классов. Типы также могут быть окружения; любой элемент, который использует в качестве значения этого типа должны быть рассмотрены окружения.  
+ Этот интерфейс представляет службу, которая может помочь, преобразователи типов или расширения разметки, чтобы получить идентификаторы свойств окружения для системы типов XAML (<xref:System.Xaml.XamlMember> объектов). Служба также может получить значения свойств окружения из классов. Типы также могут быть окружения; любой элемент, который использует в качестве значения этого типа можно рассматривать окружения.  
   
- Эта служба обычно возвращается путем вызова <xref:System.IServiceProvider.GetService%2A>, которой выполняется поставщик контекстно зависимых служб. Поставщик услуг обычно доступен для контекстов, они требуются, например код выполнения преобразователя значений. Дополнительные сведения см. в разделе [преобразователи типов или расширения разметки для XAML](~/docs/framework/xaml-services/type-converters-and-markup-extensions-for-xaml.md) и [служебные контексты, доступные для расширений разметки и преобразователей типов](~/docs/framework/xaml-services/service-contexts-available-to-type-converters-and-markup-extensions.md).  
+ Эта служба обычно возвращается путем вызова <xref:System.IServiceProvider.GetService%2A>, становится для поставщика, зависящего от контекста службы. Поставщик службы находится в общем доступе к контекстам, в которых он необходим, например выполнение код преобразователя значений. Дополнительные сведения см. в разделе [Type Converters and Markup Extensions for XAML](~/docs/framework/xaml-services/type-converters-and-markup-extensions-for-xaml.md) и [служебные контексты, доступные для расширений разметки и преобразователей типов](~/docs/framework/xaml-services/service-contexts-available-to-type-converters-and-markup-extensions.md).  
   
 ## <a name="about-ambient-properties"></a>О свойствах окружения  
- Внешнее свойство является свойством, значение которого должны быть доступны для преобразователем типов и расширений разметки, которые существуют в структуре узлов XAML и в графе объектов, созданные из нее. Это важно для обработчика XAML во время фазы создания пути загрузки или фазы сериализации сохранения пути.  
+ Внешнее свойство является свойством, значение которого должен быть доступен для преобразователем типов и расширения разметки, которые существуют в структуре узлов XAML и в графе объектов, созданных из нее. Это важно для процессора XAML во время фазы создания пути загрузки или фазы сериализации сохранения пути.  
   
- В случае пути загрузки значение свойства окружения может повлиять на значения других свойств, которые существуют под ним в структуру узлов XAML графа объектов. При обработке как поток узлов XAML понятие окружения означает значение свойства окружения должно иметь возможность преобразователи типов или расширения разметки из `StartObject` для `EndObject`. Аналогичным образом, преобразователь типов, который используется для сохранения пути могут использовать знание внешней свойство и его значение. Таким образом XAML, который создается является лучшее представление кругового пути.  
+ В случае пути загрузки значение свойства окружения могут повлиять на значение в графе объектов других свойств, которые существуют под ним в структуру узлов XAML. При обработке как поток узлов XAML, концепция окружения означает, что значение свойства окружения должен быть доступен для расширений разметки и преобразователей типов `StartObject` для `EndObject`. Аналогичным образом, преобразователь типов, который используется для сохранения пути можно использовать знание внешнее свойство и его значение. Таким образом XAML, который создается — это лучшее представление кругового пути.  
   
- Как правило, для элементов XAML не указывает порядок обработки членам объекта. Однако любое значение свойства окружения должно обрабатываться в первую очередь средством чтения XAML, чтобы доступ к нему через тип преобразователя и разметки использований расширения, содержащиеся в других свойствах <xref:System.Xaml.IAmbientProvider> службы.  
+ Для элементов в общем случае XAML не указывает порядок, в котором должны быть обработаны членам объекта. Тем не менее, любое значение свойства окружения должно обрабатываться в первую очередь средством чтения XAML, чтобы доступ к его с помощью типа преобразователя и разметки использования расширения, которые содержатся в других свойствах <xref:System.Xaml.IAmbientProvider> службы.  
   
- <xref:System.Xaml.XamlMember.DependsOn%2A> — Аналогично концепция, которая также влияет порядок обработки узлов XAML. Тем не менее <xref:System.Xaml.XamlMember.DependsOn%2A> может использоваться только для элемента и узел одноуровневыми; не может влиять на всех потомков. Кроме того <xref:System.Xaml.XamlMember.DependsOn%2A> напрямую влияет на то объекта установку свойств графа; тогда как внешний способ полагается на преобразователи типов или расширения разметки. Во внешней методике должен также существовать конкретного преобразователя типов или определение расширения разметки, которое определяет, как значение свойства окружения следует интерпретировать и применяется к объекту.  
+ <xref:System.Xaml.XamlMember.DependsOn%2A> — Это аналогичный концепция, также влияет порядок обработки узла XAML. Тем не менее <xref:System.Xaml.XamlMember.DependsOn%2A> может использоваться только для элементов и узел одноранговыми; он не может влиять на всех потомков. Кроме того <xref:System.Xaml.XamlMember.DependsOn%2A> напрямую влияет на то объект graph установку свойств; в то время как внешний способ полагается на преобразователи типов или расширения разметки. Метод окружения должно также существовать преобразователя определенного типа или определение расширения разметки, который показывает, как следует интерпретировать и применен к объекту значение свойства окружения.  
   
 ## <a name="wpf-usage-notes"></a>Примечания об использовании WPF  
- В свойство окружения сценарий, который показан в [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] набор функций <xref:System.Windows.Style.TargetType%2A?displayProperty=nameWithType>, который можно уточнить поиск имен свойств, необходимых для других значений. В этом случае <xref:System.Windows.Style.TargetType%2A?displayProperty=nameWithType> значение определяет <xref:System.Windows.Setter.Property%2A?displayProperty=nameWithType> значениями, расположенными в узлы XAML под ним. <xref:System.Windows.Setter.Property%2A?displayProperty=nameWithType> использует поведение преобразователя типов для <xref:System.Windows.DependencyProperty>. Это поведение обращается к внешнему обработчику <xref:System.Windows.Style.TargetType%2A?displayProperty=nameWithType> значение с помощью запроса <xref:System.Xaml.IAmbientProvider.GetFirstAmbientValue%2A> к контексту службы, доступные для расширений разметки и преобразователей типов.  
+ Это внешнее свойство сценарий, представленный в [!INCLUDE[TLA2#tla_winclient](~/includes/tla2sharptla-winclient-md.md)] набор функций <xref:System.Windows.Style.TargetType%2A?displayProperty=nameWithType>, которого можно уточнить поиск имен необходимое свойство для других значений. В этом случае <xref:System.Windows.Style.TargetType%2A?displayProperty=nameWithType> значение определяет <xref:System.Windows.Setter.Property%2A?displayProperty=nameWithType> значениями, расположенными в узлы XAML под ним. <xref:System.Windows.Setter.Property%2A?displayProperty=nameWithType> использует поведение преобразователя типов для <xref:System.Windows.DependencyProperty>. Это поведение, обращается к внешнему обработчику <xref:System.Windows.Style.TargetType%2A?displayProperty=nameWithType> значение опрашивая <xref:System.Xaml.IAmbientProvider.GetFirstAmbientValue%2A> из контекста службы, которая доступна для расширения разметки и преобразователей типов.  
   
- Является внешним типом сценарий, представленный в набор функций WPF <xref:System.Windows.ResourceDictionary>. <xref:System.Windows.ResourceDictionary> имеет <xref:System.Windows.ResourceDictionary.MergedDictionaries%2A> свойство, которое может содержать другие <xref:System.Windows.ResourceDictionary> объединяемых объектов и предполагаемого порядок разрешения ресурсов для объединенных сценарий конфликты с заказом на загрузку типов. <xref:System.Windows.ResourceDictionary> применяет <xref:System.Windows.Markup.AmbientAttribute> , чтобы обработчик XAML может правильно обрабатывать все ссылки в объединенный словарь с `StaticResource` варианты использования. В частности `StaticResource` является расширением разметки, который вызывает <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%2A>.  
+ Внешний тип в сценарий, представленный в набор функций WPF является <xref:System.Windows.ResourceDictionary>. <xref:System.Windows.ResourceDictionary> имеет <xref:System.Windows.ResourceDictionary.MergedDictionaries%2A> свойство, которое может содержать другие <xref:System.Windows.ResourceDictionary> объединяемых объектов и предполагаемого порядок разрешения ресурсов для объединенных сценарий конфликты с порядок загрузки типов. <xref:System.Windows.ResourceDictionary> применяет <xref:System.Windows.Markup.AmbientAttribute> , чтобы обработчик XAML может правильно обрабатывать ссылки в объединенном словаре с `StaticResource` данные об использовании. В частности `StaticResource` является расширением разметки, который вызывает <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%2A>.  
   
  ]]></format>
     </remarks>
@@ -121,7 +121,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Каждый <xref:System.Xaml.AmbientPropertyValue> возвращается содержит <xref:System.Xaml.XamlMember> идентификатор и значение свойства.  
+ Каждый <xref:System.Xaml.AmbientPropertyValue> возвращаемый содержит <xref:System.Xaml.XamlMember> идентификатор и значение свойства.  
   
  ]]></format>
         </remarks>
@@ -165,11 +165,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Каждый <xref:System.Xaml.AmbientPropertyValue> возвращается содержит <xref:System.Xaml.XamlMember> идентификатор и значение свойства.  
+ Каждый <xref:System.Xaml.AmbientPropertyValue> возвращаемый содержит <xref:System.Xaml.XamlMember> идентификатор и значение свойства.  
   
- Данный конкретный <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%2A> перегрузку можно найти типы окружения и свойствам окружения в том же передать по дереву. С помощью этой перегрузки приводит к упорядочению элементов в возвращаемом значении, которое отличается от <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%28System.Collections.Generic.IEnumerable%7BSystem.Xaml.XamlType%7D%2CSystem.Xaml.XamlMember%5B%5D%29> или <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%28System.Xaml.XamlType%5B%5D%29>.  
+ Данный конкретный <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%2A> перегрузки можно искать внешних типов и внешние свойства в том же передать по дереву. С помощью этой перегрузки приводит к упорядочению элементов в возвращаемом значении, отличном от <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%28System.Collections.Generic.IEnumerable%7BSystem.Xaml.XamlType%7D%2CSystem.Xaml.XamlMember%5B%5D%29> или <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%28System.Xaml.XamlType%5B%5D%29>.  
   
- Эта перегрузка также позволяет службе поиска не использовать любые сохраненные контекст. <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%28System.Collections.Generic.IEnumerable%7BSystem.Xaml.XamlType%7D%2CSystem.Xaml.XamlMember%5B%5D%29> Или <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%28System.Xaml.XamlType%5B%5D%29> перегрузки неявно используют сохраненные контекста, если он доступен (они всегда работают, как если бы неявный `searchLiveStackOnly` параметр `false`). Понятие сохраненного контекста потенциально обрабатывается по-разному определенного схемами XAML или платформы, включающие XAML. В реализации XAML в WPF сохраненные контексты используются расширением шаблона, а также других функциональных областях.  
+ Данная перегрузка также позволяет службе поиска, чтобы не использовать любой сохраненный контекст. <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%28System.Collections.Generic.IEnumerable%7BSystem.Xaml.XamlType%7D%2CSystem.Xaml.XamlMember%5B%5D%29> Или <xref:System.Xaml.IAmbientProvider.GetAllAmbientValues%28System.Xaml.XamlType%5B%5D%29> перегрузки неявно использовать сохраненный контекст, если он доступен (они всегда работают так, как если неявным `searchLiveStackOnly` параметр `false`). Концепция сохраненный контекст потенциально обрабатывается по-разному, определенных контекстов схемы XAML, или платформы, включающие XAML. В реализации WPF XAML сохраненные контексты используются для расширения шаблона, а также других функциональных областей.  
   
  ]]></format>
         </remarks>
@@ -249,7 +249,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Каждый <xref:System.Xaml.AmbientPropertyValue> возвращается содержит <xref:System.Xaml.XamlMember> идентификатор и значение свойства.  
+ Каждый <xref:System.Xaml.AmbientPropertyValue> возвращаемый содержит <xref:System.Xaml.XamlMember> идентификатор и значение свойства.  
   
  ]]></format>
         </remarks>

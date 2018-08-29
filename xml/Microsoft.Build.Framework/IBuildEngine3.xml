@@ -1,10 +1,10 @@
 <Type Name="IBuildEngine3" FullName="Microsoft.Build.Framework.IBuildEngine3">
   <Metadata>
     <Meta Name="ms.openlocfilehash" Value="3aa92b9d44c30f2d062a866aacac5733a52500d4" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.lasthandoff" Value="08/24/2018" />
     <Meta Name="ms.locfileid" Value="36735920" />
   </Metadata>
   <TypeSignature Language="C#" Value="public interface IBuildEngine3 : Microsoft.Build.Framework.IBuildEngine2" />
@@ -53,7 +53,9 @@
       <Docs>
         <param name="projectFileNames">Проект для построения.</param>
         <param name="targetNames">Целевые объекты в проекте, который следует построить (могут принимать значение null).</param>
-        <param name="globalProperties">Массив <see cref="T:System.Collections.IDictionary" /> дополнительных глобальных свойств, которые должны быть применены к дочернему проекту (записи массива могут иметь значение NULL).  Ключ и значения должны быть строками.</param>
+        <param name="globalProperties">Массив <see cref="T:System.Collections.IDictionary" /> дополнительных глобальных свойств, которые должны быть применены к дочернему проекту (записи массива могут иметь значение NULL).  
+  
+Ключ и значения должны быть строками.</param>
         <param name="removeGlobalProperties">Список глобальных свойств, которые необходимо удалить.</param>
         <param name="toolsVersion">Версия инструментов, распознанная обработчиком, который будет использоваться при построении (может иметь значение null).</param>
         <param name="returnTargetOutputs">Указывает, должны ли в объекте BuildEngineResult возвращаться выходные данные целевых объектов.</param>
@@ -105,7 +107,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Имеется только один узел (процесс msbuild.exe) на один ЦП. Только один проект, цели и задачи могут создавать в любое время на узле. При ожидании задачи, например, порожденный средство или другое событие завершения, задача может вызывать Yield, которая непосредственно возвращает. Это позволяет узел собран в другом проекте, если они доступны.  После для продолжения задачи, он должен вызывать <xref:Microsoft.Build.Framework.IBuildEngine3.Reacquire%2A>. Как грубое правило, если задача ожидает, что операция будет иметь более чем 20 и 30 секунд, его можно вызвать `Yield` перед началом операции, и `Reaquire` при завершении операции.  
+ Имеется только один узел (процесс msbuild.exe) на один ЦП. Только один проект, назначением и задач можно создать в любое время на узле. Если задача находится в состоянии ожидания, например, для порожденного средства или любого другого события, чтобы завершить, задача может вызывать Yield, который возвращается немедленно. Это позволяет построить целевой объект в другом проекте, узел, при их наличии.  Когда задача будет готов для продолжения, он должен вызывать <xref:Microsoft.Build.Framework.IBuildEngine3.Reacquire%2A>. Как приблизительные правило, если задача ожидает, что операция займет более чем 20 или 30 секунд, его можно вызвать `Yield` перед началом операции и `Reaquire` при завершении операции.  
   
  ]]></format>
         </remarks>
