@@ -1,10 +1,10 @@
 <Type Name="SecurityTokenService" FullName="System.IdentityModel.SecurityTokenService">
   <Metadata>
     <Meta Name="ms.openlocfilehash" Value="b5c8d93b898d628b70967d33278c8cd9f33a66bf" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.lasthandoff" Value="08/24/2018" />
     <Meta Name="ms.locfileid" Value="36479612" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class SecurityTokenService" />
@@ -27,29 +27,29 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Для создания маркеров безопасности должен быть производным от <xref:System.IdentityModel.SecurityTokenService> класса. В пользовательский класс должен как минимум, переопределение <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> и <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> методы. С эти переопределения создан с помощью реализации по умолчанию для всех других методов, определенных в классе службы маркеров безопасности может выдавать токены безопасности в ответ безопасности запросов (RST). То есть реализуется проблема привязки, определенной в спецификации WS-Trust. Эта привязка реализуется в <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод. Ни один из других WS-Trust привязок (обновления, отмены и проверки) реализованы в случае по умолчанию и соответствующие ошибки возвращается вызывающему при обнаружении RST, соответствующий одному из этих привязок. Можно Конечно, переопределить соответствующие методы (<xref:System.IdentityModel.SecurityTokenService.Renew%2A>, <xref:System.IdentityModel.SecurityTokenService.Cancel%2A>, и <xref:System.IdentityModel.SecurityTokenService.Validate%2A>) для реализации этих привязок в STS.  
+ Чтобы создать STS должен быть производным от <xref:System.IdentityModel.SecurityTokenService> класса. В пользовательский класс должен как минимум, переопределение <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> и <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> методы. С помощью этих переопределений STS, созданной с помощью реализация по умолчанию все другие методы, определенные в классе может выдавать токены безопасности в ответ на безопасности запросы токена (RST). То есть реализуется проблема привязку, определенную в спецификации WS-Trust. Эта привязка реализуется в <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод. Ни один из других WS-Trust привязок (обновления, отмены и проверки) реализованы в случае по умолчанию и соответствующие ошибка возвращается вызывающему объекту при обнаружении RST, соответствующее одному из этих привязок. Конечно, можно переопределить соответствующие методы (<xref:System.IdentityModel.SecurityTokenService.Renew%2A>, <xref:System.IdentityModel.SecurityTokenService.Cancel%2A>, и <xref:System.IdentityModel.SecurityTokenService.Validate%2A>) для реализации этих привязок в STS.  
   
 > [!IMPORTANT]
->  Реализация STS готовый влечет за собой тщательного планирования и значительные ресурсы, чтобы устранить потенциальные угрозы безопасности, присущие предоставление такой службы. Большинство разработчиков, использующих Windows Identity Foundation (WIF) будет быть разработки приложений, которые передать управление идентификаторами в службе маркеров безопасности, а не сам разработки STS. WIF предоставляет расширение Visual Studio Identity and Access Tool для Visual Studio 2012, чтобы помочь разработчикам тестирования решения в среде разработки. Это средство включает в себя STS, `LocalSTS`, который можно настроить для обслуживания конкретные утверждения приложению, которое вы разрабатываете. Дополнительные сведения о средстве Identity and Access см. в разделе [Identity and Access Tool для Visual Studio 2012](~/docs/framework/security/identity-and-access-tool-for-vs.md). В некоторых сценариях `LocalSTS` может не предоставлять функциональные возможности, необходимые для адекватного тестирования приложения; например, в сценарии, который включает в себя разработку пользовательского обработчика токенов для использования приложением. В таких случаях можно создавать производные <xref:System.IdentityModel.SecurityTokenService> для создания одного или нескольких простых серверами службы токенов безопасности, можно развернуть в среде разработки, и который может использоваться для тестирования таких компонентов, в приложении. В оставшейся части этого раздела посвящена методам, предоставляемым <xref:System.IdentityModel.SecurityTokenService> класс, который можно реализовать простой STS и расширить конвейера выдачи маркера.  
+>  Реализация STS готовый к выпуску влечет за собой тщательного планирования и значительные ресурсы, чтобы устранить потенциальные угрозы безопасности, присущих предоставление такой службы. Большинство разработчиков, с помощью Windows Identity Foundation (WIF) будет разработки приложений, передачи функций управления удостоверениями службе маркеров безопасности, а не разработки STS, сам. WIF предоставляет расширение Visual Studio, Identity and Access Tool для Visual Studio 2012, чтобы помочь разработчикам тестировать решения в среде разработки. Это средство включает в себя STS, `LocalSTS`, который можно настроить для обслуживания конкретные утверждения для приложения, которое вы разрабатываете. Дополнительные сведения о средстве удостоверениями и доступом, см. в разделе [Identity and Access Tool для Visual Studio 2012](~/docs/framework/security/identity-and-access-tool-for-vs.md). В некоторых сценариях `LocalSTS` может не предоставлять функциональные возможности, необходимые для адекватного тестирования приложения; например, в сценарии, который включает в себя разработке пользовательского обработчика маркеров для использования приложением. В таких случаях можно унаследовать <xref:System.IdentityModel.SecurityTokenService> для создания одного или нескольких простых серверов службы токенов безопасности, можно развернуть в среде разработки, и который может использоваться для тестирования таких функций в приложении. В оставшейся части этого раздела посвящена методам, предоставляемым <xref:System.IdentityModel.SecurityTokenService> класс, который можно реализовать простой службы маркеров безопасности и расширение конвейера выдачи маркера.  
   
- Ниже приведены общие сведения о методах роль разработчику для использования в среде тестирования или разработки.  
+ Ниже приведены общие методы важна для разработчика для использования в среде тестирования или разработки.  
   
--   метод <xref:System.IdentityModel.SecurityTokenService.GetScope%2A>; Этот метод возвращает <xref:System.IdentityModel.Scope> , содержащий сведения о RP. Этот объект используется в остальной части конвейера выдачи маркера и включает сведения о входе и шифровании учетных данных для использования в ответе, а также `AppliesTo` и `ReplyTo` (при необходимости) адреса. Необходимо переопределить этот метод.  
+-   метод <xref:System.IdentityModel.SecurityTokenService.GetScope%2A>; Этот метод возвращает <xref:System.IdentityModel.Scope> , содержащий сведения о RP. Этот объект используется в остальной части конвейера выдачи маркера и включает в себя сведения о подписи и шифрования учетных данных для использования в ответе, а также `AppliesTo` и `ReplyTo` (при необходимости) адреса. Этот метод необходимо переопределить.  
   
--   метод <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A>; Этот метод возвращает <xref:System.Security.Claims.ClaimsIdentity> объект, содержащий утверждения, чтобы вернуться в приложение проверяющей стороны. Необходимо переопределить этот метод.  
+-   метод <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A>; Этот метод возвращает <xref:System.Security.Claims.ClaimsIdentity> объект, содержащий утверждения, чтобы вернуться к RP. Этот метод необходимо переопределить.  
   
--   метод <xref:System.IdentityModel.SecurityTokenService.Issue%2A>; Этот метод реализует конвейера запрос маркера, который обрабатывает входящий запрос маркера безопасности (RST) и возвращает ответ (RSTR), чтобы вызывающий объект, содержащий токен, который может использоваться для проверки подлинности с RP. Многие методы, определенные в <xref:System.IdentityModel.SecurityTokenService> класса вызываются из этого метода, включая <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> и <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> методы. Необходимо переопределить этот метод, но представление запроса маркера конвейера, который реализует интерфейс может оказаться полезным.  
+-   метод <xref:System.IdentityModel.SecurityTokenService.Issue%2A>; Этот метод реализует конвейер запроса маркера, который обрабатывает входящий запрос токена безопасности (RST) и возвращает ответ (RSTR) в вызывающий объект, содержащий токен, который может использоваться для аутентификации в RP. Многие другие методы, определенные в <xref:System.IdentityModel.SecurityTokenService> класса вызываются из этого метода, включая <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> и <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> методы. У вас нет в Переопределите этот метод, но представление конвейера запроса маркера, который он реализует могут оказаться полезными.  
   
  STS настраивается с помощью <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration> класса.  
   
    
   
 ## Examples  
- Примеры кода, которые используются в <xref:System.IdentityModel.SecurityTokenService> разделы взяты из `Custom Token` образца. Этот образец представляет пользовательские классы, позволяющие обработки токены Simple Web (SWT) и включает в себя реализацию Пассивная STS, способен обслужить токен SWT. Пример реализации Активной, вы увидите `Federation Metadata` образца. Сведения об этих образцов, а также другие доступные образцы для WIF и о том, где для их загрузки в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md). В следующем коде показано реализации Пассивной с помощью <xref:System.IdentityModel.SecurityTokenService> класса.  
+ Примеры кода, которые используются в <xref:System.IdentityModel.SecurityTokenService> разделы берутся из `Custom Token` образца. Этот образец предоставляет пользовательские классы, позволяющие обработки токены Simple Web (SWT), а также реализация пассивной STS, которая может обслуживать маркер SWT. Пример реализации активная STS, вы увидите `Federation Metadata` образца. Сведения о эти примеры и другие примеры, доступные для WIF и о том, как их загрузить, см. в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md). Следующий код показывает реализацию пассивной STS с помощью <xref:System.IdentityModel.SecurityTokenService> класса.  
   
  [!code-csharp[WIFCustomTokenSTS#3](~/samples/snippets/csharp/VS_Snippets_Misc/wifcustomtokensts/cs/passivests/customsecuritytokenservice.cs#3)]  
   
- Ниже показан вызов пользовательских Пассивная STS для обработки запроса WS-Federation путем вызова <xref:System.IdentityModel.Services.FederatedPassiveSecurityTokenServiceOperations.ProcessRequest%28System.Web.HttpRequest%2CSystem.Security.Claims.ClaimsPrincipal%2CSystem.IdentityModel.SecurityTokenService%2CSystem.Web.HttpResponse%29?displayProperty=nameWithType> метода из кода программной части в `default.aspx.cs` файла.  
+ Ниже показано, как для вызова пользовательских пассивной STS для обработки запроса WS-Federation, вызвав <xref:System.IdentityModel.Services.FederatedPassiveSecurityTokenServiceOperations.ProcessRequest%28System.Web.HttpRequest%2CSystem.Security.Claims.ClaimsPrincipal%2CSystem.IdentityModel.SecurityTokenService%2CSystem.Web.HttpResponse%29?displayProperty=nameWithType> метода из кода программной части в `default.aspx.cs` файл.  
   
  [!code-csharp[WIFCustomTokenSTS#1](~/samples/snippets/csharp/VS_Snippets_Misc/wifcustomtokensts/cs/passivests/default.aspx.cs#1)]  
   
@@ -84,7 +84,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот конструктор используется для инициализации поставщика области и сертификатов издателя маркера.  
+ Этот конструктор используется для инициализации области поставщика и сертификат издателя маркера.  
   
  ]]></format>
         </remarks>
@@ -123,7 +123,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -162,7 +162,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.NotImplementedException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.NotImplementedException>.  
   
  ]]></format>
         </remarks>
@@ -200,7 +200,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.NotImplementedException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.NotImplementedException>.  
   
  ]]></format>
         </remarks>
@@ -239,7 +239,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -278,7 +278,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -317,7 +317,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -351,7 +351,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -385,11 +385,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызывается в процессе выдачи маркера после <xref:System.IdentityModel.SecurityTokenService.GetScope%2A>.  
+ Вызывается во время выдачи токена после <xref:System.IdentityModel.SecurityTokenService.GetScope%2A>.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="request" /> имеет значение <see langword="null" />.  -или- <paramref name="scope" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="request" /> имеет значение <see langword="null" />.  
+  
+- или - 
+ Свойство <paramref name="scope" /> имеет значение <see langword="null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="EndCancel">
@@ -418,7 +421,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -451,7 +454,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.NotImplementedException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.NotImplementedException>.  
   
  ]]></format>
         </remarks>
@@ -484,7 +487,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.NotImplementedException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.NotImplementedException>.  
   
  ]]></format>
         </remarks>
@@ -516,7 +519,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -548,7 +551,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -580,7 +583,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -611,7 +614,7 @@
 ## Remarks  
  Этот метод вызывается из реализации конвейера выдачи маркера в значение по умолчанию <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод.  
   
- Реализация по умолчанию возвращает <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration.TokenIssuerName%2A> свойства из конфигурации, доступных через <xref:System.IdentityModel.SecurityTokenService.SecurityTokenServiceConfiguration%2A> свойство.  
+ Реализация по умолчанию возвращает <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration.TokenIssuerName%2A> свойства из конфигурации через <xref:System.IdentityModel.SecurityTokenService.SecurityTokenServiceConfiguration%2A> свойство.  
   
  ]]></format>
         </remarks>
@@ -648,23 +651,23 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> Метод вызывается из конвейера выдачи маркера, который реализуется <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод. Он возвращает <xref:System.Security.Claims.ClaimsIdentity> , содержащий утверждения, включаемые в выданный маркер безопасности на запрашивающей стороне токена основе ( `principal` параметр), входящих RST ( `request` параметр), и проверяющей стороной, для которой является маркер предназначен () `scope` параметр). Логика в этот метод в основном посвящена ответить на следующие вопросы:  
+ <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> Метод вызывается из конвейера выдачи токена, который реализован <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод. Он возвращает <xref:System.Security.Claims.ClaimsIdentity> , содержащий утверждения, чтобы включить в выданный маркер безопасности на основе на запрашивающей стороне токена ( `principal` параметр), входящий RST ( `request` параметр), и проверяющей стороной, для которого маркер является предназначен () `scope` параметр). Логика в этот метод в основном посвящена ответить на следующие вопросы:  
   
--   **Который типы утверждений должны быть включены в ответ в соответствии с RP, для которого предназначен?** Обычно это определяется на основе-RP из списков типов утверждений, необходимых для каждого RP или для каждого запроса с помощью проверки <xref:System.IdentityModel.Protocols.WSTrust.RequestSecurityToken.Claims%2A> запроса. Тем не менее логику и подробные сведения об определении утверждения для включения в ответ зависит полностью вашей реализации.  
+-   **Также утверждение, типы должны быть включены в ответ с учетом RP, для которого предназначен?** Обычно это определяется на основе-RP из списков типов утверждений, необходимых для каждой RP или на основе отдельных запросов с помощью проверки <xref:System.IdentityModel.Protocols.WSTrust.RequestSecurityToken.Claims%2A> запроса. Тем не менее логика и подробные сведения об определении утверждения для включения в ответ возлагается полностью вашей реализации.  
   
--   **Значения утверждений, который следует назначить утверждений в ответе?** Для поставщика удостоверений (IP-STS) обычно это означает использование одно или несколько утверждений в запрашивающей <xref:System.Security.Claims.ClaimsPrincipal> (предоставляемые `principal` параметр) для доступа к хранилище (или другую сущность) для возврата значений для обязательных типов утверждений. Для поставщика федерации (R-STS) обычно это означает выполнение какой-либо обработки на запрашивающей входящих утверждений для выполнения запроса; Возможно выполнение фильтрация или преобразование на некоторые утверждения, представленные запрашивающей стороны, во время передачи другим пользователям через без изменений. Конечно же как в случае надо решить, какие утверждения для включения в ответ сведения и логику способ определения значения эти утверждения возлагается вашей реализации.  
+-   **Значения утверждений, который должен быть назначен утверждения в ответе?** Для поставщика удостоверений (IP-STS) это обычно означает использование одно или несколько утверждений в запрашивающей <xref:System.Security.Claims.ClaimsPrincipal> (предоставляемые `principal` параметр) для доступа к соседствующих (или другая сущность) для возврата значения для обязательных типов требований. Для поставщика федерации (R-STS) это обычно означает выполнение какого-либо рода обработки на запрашивающей входящих утверждений для выполнения запроса; Возможно, выполняя фильтрация или преобразование на некоторых утверждений, представленных запрашивающая сторона, во время передачи другим пользователям через без изменений. Конечно же как в случае принятия решений о том, какие заявки включать в ответе, details и логику того, как определить значения для этих утверждений возлагается вашей реализации.  
   
    
   
 ## Examples  
- Пример кода, который используется в этом разделе, взяты из `Custom Token` образца. Этот образец представляет пользовательские классы, позволяющие обработки токены Simple Web (SWT) и включает в себя реализацию Пассивная STS, способен обслужить токен SWT. Пример реализации Активной, вы увидите `Federation Metadata` образца. Сведения об этих образцов, а также другие доступные образцы для WIF и о том, где для их загрузки в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md). Следующий код показывает, как переопределить <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> метод для возврата утверждений для службы STS. В этом примере сообщения запроса маркера безопасности (RST) игнорируется и возвращается коллекция утверждений, зависящих от пользователя проверки подлинности в STS.  
+ В примере кода, который используется в этом разделе, взят из `Custom Token` образца. Этот образец предоставляет пользовательские классы, позволяющие обработки токены Simple Web (SWT), а также реализация пассивной STS, которая может обслуживать маркер SWT. Пример реализации активная STS, вы увидите `Federation Metadata` образца. Сведения о эти примеры и другие примеры, доступные для WIF и о том, как их загрузить, см. в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md). Ниже показано, как переопределить <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> метод для возврата утверждений для STS. В этом примере сообщения запроса маркера безопасности (RST) учитывается, и возвращается коллекция требований, в зависимости от пользователя, проверки подлинности в STS.  
   
  [!code-csharp[WIFCustomTokenSTS#6](~/samples/snippets/csharp/VS_Snippets_Misc/wifcustomtokensts/cs/passivests/customsecuritytokenservice.cs#6)]  
   
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>Этот метод необходимо переопределить в реализации <see cref="T:System.IdentityModel.SecurityTokenService" /> класса.</para>
+          <para>Этот метод необходимо переопределить в текущей реализации <see cref="T:System.IdentityModel.SecurityTokenService" /> класса.</para>
         </block>
         <altmember cref="T:System.IdentityModel.Scope" />
         <altmember cref="M:System.IdentityModel.SecurityTokenService.Issue(System.Security.Claims.ClaimsPrincipal,System.IdentityModel.Protocols.WSTrust.RequestSecurityToken)" />
@@ -699,11 +702,14 @@
 ## Remarks  
  Этот метод вызывается из реализации конвейера выдачи маркера в значение по умолчанию <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод.  
   
- Реализация по умолчанию возвращает корректирующий дескриптор или выдает соответствующее исключение.  
+ Реализация по умолчанию возвращает дескриптор проверки или выдает исключение.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="request" /> имеет значение <see langword="null" />.  -или- <paramref name="scope" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="request" /> имеет значение <see langword="null" />.  
+  
+- или - 
+ Свойство <paramref name="scope" /> имеет значение <see langword="null" />.</exception>
         <altmember cref="M:System.IdentityModel.SecurityTokenService.Issue(System.Security.Claims.ClaimsPrincipal,System.IdentityModel.Protocols.WSTrust.RequestSecurityToken)" />
       </Docs>
     </Member>
@@ -735,7 +741,7 @@
 ## Remarks  
  Этот метод вызывается из <xref:System.IdentityModel.SecurityTokenService.GetProofToken%2A> метод.  
   
- Реализация по умолчанию выполняет следующие функции. Возвращает `null` существует ли токен не шифрования, указанный в запросе ( <xref:System.IdentityModel.Protocols.WSTrust.RequestSecurityToken.ProofEncryption%2A?displayProperty=nameWithType> свойство `null`). В противном случае, если оно может получить маркер как <xref:System.IdentityModel.Tokens.X509SecurityToken>, он возвращает учетные данные, основанные на этот токен. При невозможности разрешить маркер, как <xref:System.IdentityModel.Tokens.X509SecurityToken>, <xref:System.IdentityModel.RequestFailedException> возникает исключение.  
+ Реализация по умолчанию выполняет следующие задачи. Возвращает `null` имеется ли токен не шифрования, указанный в запросе ( <xref:System.IdentityModel.Protocols.WSTrust.RequestSecurityToken.ProofEncryption%2A?displayProperty=nameWithType> свойство `null`). В противном случае, если оно может получить маркер в качестве <xref:System.IdentityModel.Tokens.X509SecurityToken>, он возвращает учетные данные, на основе этого токена. При невозможности разрешить маркер в качестве <xref:System.IdentityModel.Tokens.X509SecurityToken>, <xref:System.IdentityModel.RequestFailedException> возникает исключение.  
   
  ]]></format>
         </remarks>
@@ -770,9 +776,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.SecurityTokenService.GetResponse%2A> Метод вызывается в качестве последнего шага из конвейера выдачи маркера, который реализуется <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод. Он создает и возвращает ответ (RSTR), используя исходный входящего запроса (RST) и дескриптор токена, который был создан во время предыдущего действия в конвейере выдачи маркера.  
+ <xref:System.IdentityModel.SecurityTokenService.GetResponse%2A> Метод вызывается на последнем этапе из конвейера выдачи токена, который реализован <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод. Он создает и возвращает ответ (RSTR), используя исходный входящий запрос (RST) и дескриптор токена, который был построен во время предыдущего действия в конвейере выдачи маркера.  
   
- Реализация по умолчанию создает RSTR, передав RST, указанный в параметре запроса для <xref:System.IdentityModel.Protocols.WSTrust.RequestSecurityTokenResponse.%23ctor%28System.IdentityModel.Protocols.WSTrust.WSTrustMessage%29?displayProperty=nameWithType> конструктор, вызов <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.ApplyTo%2A?displayProperty=nameWithType> переданные метод дескриптор токена <xref:System.IdentityModel.SecurityTokenService.GetResponse%2A> для применения его свойства и вновь создать RSTR, установка <xref:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.AppliesTo%2A> свойство RSTR с помощью <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.AppliesToAddress%2A> свойство дескриптор токена и наконец задание <xref:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.ReplyTo%2A> свойство RSTR согласно следующей таблице:  
+ Реализация по умолчанию создает RSTR, передав RST, указанный в параметре запроса к <xref:System.IdentityModel.Protocols.WSTrust.RequestSecurityTokenResponse.%23ctor%28System.IdentityModel.Protocols.WSTrust.WSTrustMessage%29?displayProperty=nameWithType> конструктор, вызов <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.ApplyTo%2A?displayProperty=nameWithType> переданный метод для дескриптора токена <xref:System.IdentityModel.SecurityTokenService.GetResponse%2A> для применения свойства, чтобы вновь создан RSTR, установка <xref:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.AppliesTo%2A> свойства в RSTR с помощью <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.AppliesToAddress%2A> свойства дескриптора токена и наконец <xref:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.ReplyTo%2A> свойства в RSTR в соответствии со следующей таблицей:  
   
 |Свойство `RST.ReplyTo`|Свойство <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.AppliesToAddress%2A?displayProperty=nameWithType>.|Свойство `RSTR.ReplyTo`|  
 |----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|  
@@ -814,25 +820,25 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> Метод вызывается из конвейера выдачи маркера после <xref:System.IdentityModel.SecurityTokenService.ValidateRequest%2A> метод и должен возвращать <xref:System.IdentityModel.Scope> объекта, настроенных для входящего запроса. (Реализации в конвейере выдачи маркера <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод.) <xref:System.IdentityModel.Scope> Объект инкапсулирует информацию о RP, связанные с запросом маркера безопасности (RST). Сюда входят сведения об учетных данных шифрования и подписи для использования с RP и ли шифровать все выданные маркеры и симметричные ключи в ответе. Некоторые типичные задачи, выполняемые в <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> метод:  
+ <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> Из конвейера после выдачи маркера вызывается метод <xref:System.IdentityModel.SecurityTokenService.ValidateRequest%2A> метод и должен возвращать <xref:System.IdentityModel.Scope> объект, настроенный для входящего запроса. (Реализовано в конвейере выдачи маркера <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод.) <xref:System.IdentityModel.Scope> Инкапсулирует информацию о RP, связанный с запросом маркера безопасности (RST). Сюда входят сведения об учетных данных шифрования и подписи для использования с RP и ли для шифрования всех выданных токенов и симметричные ключи в ответе. Некоторые типичные задачи, выполняемые в <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> метод:  
   
--   Определите, является ли RP, для которого предназначен маркер распознаваемым RP. Как это сделать, зависит от реализации. Если нужные RP не является допустимым RP для STS, то должны вызывать метод <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+-   Определите, является ли RP, для которого предназначен маркер распознанных RP. Метод выполнения этой задачи зависит от реализации. Если предполагаемого RP не является допустимым RP для службы токенов безопасности, то метод должен создавать <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
--   Определение учетных данных подписывания должна использоваться в ответе (RSTR) и задать <xref:System.IdentityModel.Scope.SigningCredentials%2A> свойства соответствующим образом.  
+-   Определить, подписывание учетные данные в ответ (RSTR) и задают <xref:System.IdentityModel.Scope.SigningCredentials%2A> свойство соответствующим образом.  
   
--   Определите ли должно быть зашифровано ответа и/или какие-либо включенные симметричные ключи и учетные данные, используемые для шифрования. Задать <xref:System.IdentityModel.Scope.TokenEncryptionRequired%2A>, <xref:System.IdentityModel.Scope.SymmetricKeyEncryptionRequired%2A>, и <xref:System.IdentityModel.Scope.EncryptingCredentials%2A> свойства соответствующим образом.  
+-   Определите ли должны шифроваться ответа и/или любые включенные симметричные ключи и учетные данные, используемые для шифрования. Задайте <xref:System.IdentityModel.Scope.TokenEncryptionRequired%2A>, <xref:System.IdentityModel.Scope.SymmetricKeyEncryptionRequired%2A>, и <xref:System.IdentityModel.Scope.EncryptingCredentials%2A> свойства соответствующим образом.  
   
     > [!IMPORTANT]
-    >  По умолчанию <xref:System.IdentityModel.Scope.TokenEncryptionRequired%2A> и <xref:System.IdentityModel.Scope.SymmetricKeyEncryptionRequired%2A> свойств `true` предотвращают выдачу токенов, которые не являются безопасными STS. Рекомендуется никогда не устанавливать эти свойства в `false` в рабочей среде.  
+    >  По умолчанию <xref:System.IdentityModel.Scope.TokenEncryptionRequired%2A> и <xref:System.IdentityModel.Scope.SymmetricKeyEncryptionRequired%2A> свойств `true` для предотвращения STS выдает маркеры, которые не являются безопасными. Рекомендуется никогда не устанавливать эти свойства `false` в рабочей среде.  
   
--   Определите адрес, к которому должны быть возвращены ответа. Задана <xref:System.IdentityModel.Scope.AppliesToAddress%2A> или <xref:System.IdentityModel.Scope.ReplyToAddress%2A> свойства соответствующим образом.  
+-   Определите адрес, к которому должен возвращаться ответ. Задана <xref:System.IdentityModel.Scope.AppliesToAddress%2A> или <xref:System.IdentityModel.Scope.ReplyToAddress%2A> свойство соответствующим образом.  
   
    
   
 ## Examples  
- Пример кода, который используется в этом разделе, взяты из `Custom Token` образца. Этот образец представляет пользовательские классы, позволяющие обработки токены Simple Web (SWT) и включает в себя реализацию Пассивная STS, способен обслужить токен SWT. Пример реализации Активной, вы увидите `Federation Metadata` образца. Сведения об этих образцов, а также другие доступные образцы для WIF и о том, где для их загрузки в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md).  
+ В примере кода, который используется в этом разделе, взят из `Custom Token` образца. Этот образец предоставляет пользовательские классы, позволяющие обработки токены Simple Web (SWT), а также реализация пассивной STS, которая может обслуживать маркер SWT. Пример реализации активная STS, вы увидите `Federation Metadata` образца. Сведения о эти примеры и другие примеры, доступные для WIF и о том, как их загрузить, см. в разделе [индекс образцов кода WIF](~/docs/framework/security/wif-code-sample-index.md).  
   
- В следующем примере кода показана реализация метода <xref:System.IdentityModel.SecurityTokenService.GetScope%2A>. Эта реализация проверяет, что RP распознается службой маркеров безопасности проверяет <xref:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.ReplyTo%2A> адрес в запрос и задает <xref:System.IdentityModel.Scope.ReplyToAddress%2A?displayProperty=nameWithType> свойства соответствующим образом, и устанавливает подписывание и шифрование учетных данных для использования с RP на основе сертификатов, которые жестко заданы в файле.  
+ В следующем примере кода показана реализация метода <xref:System.IdentityModel.SecurityTokenService.GetScope%2A>. Эта реализация проверяет, что RP распознается службой маркеров безопасности, проверяет <xref:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.ReplyTo%2A> адрес в запрос и задает <xref:System.IdentityModel.Scope.ReplyToAddress%2A?displayProperty=nameWithType> свойства соответствующим образом, и устанавливает подписывания и шифрования учетных данных для использования с RP на основе сертификатов, которые жестко заданы в файле.  
   
  [!code-csharp[WIFCustomTokenSTS#4](~/samples/snippets/csharp/VS_Snippets_Misc/wifcustomtokensts/cs/passivests/customsecuritytokenservice.cs#4)]  
 [!code-csharp[WIFCustomTokenSTS#5](~/samples/snippets/csharp/VS_Snippets_Misc/wifcustomtokensts/cs/passivests/customsecuritytokenservice.cs#5)]  
@@ -841,7 +847,7 @@
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>Этот метод необходимо переопределить в реализации <see cref="T:System.IdentityModel.SecurityTokenService" /> класса.</para>
+          <para>Этот метод необходимо переопределить в текущей реализации <see cref="T:System.IdentityModel.SecurityTokenService" /> класса.</para>
         </block>
         <altmember cref="T:System.IdentityModel.Scope" />
         <altmember cref="M:System.IdentityModel.SecurityTokenService.Issue(System.Security.Claims.ClaimsPrincipal,System.IdentityModel.Protocols.WSTrust.RequestSecurityToken)" />
@@ -874,7 +880,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- В реализации по умолчанию если `requestedTokenType` — `null` или является пустой строкой, значение по умолчанию используется тип токена из конфигурации. Этот режим задается <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration.DefaultTokenType%2A> свойства объекта конфигурации STS, доступных через <xref:System.IdentityModel.SecurityTokenService.SecurityTokenServiceConfiguration%2A> свойство.  
+ В реализации по умолчанию если `requestedTokenType` является `null` или является пустой строкой, значение по умолчанию используется тип токена из конфигурации. Этот режим задается <xref:System.IdentityModel.Configuration.SecurityTokenServiceConfiguration.DefaultTokenType%2A> свойства объекта конфигурации службы маркеров безопасности, через <xref:System.IdentityModel.SecurityTokenService.SecurityTokenServiceConfiguration%2A> свойство.  
   
  Этот метод вызывается из реализации конвейера выдачи маркера в значение по умолчанию <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод.  
   
@@ -909,7 +915,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод обычно вызывается с временем жизни, поступивших в RST. В реализации по умолчанию время существования маркера вычисляется согласно следующей таблице.  
+ Этот метод обычно вызывается со временем существования поступления в RST. В реализации по умолчанию время существования маркера вычисляется согласно следующей таблице.  
   
 |(В)|Срок действия истекает (через)|(В)|Срок действия истекает (out)|  
 |--------------------|--------------------|--------------------|---------------------|  
@@ -953,27 +959,27 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод реализует проблема привязки, определенной в спецификации WS-Trust. Реализация по умолчанию <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод обрабатывает входящий запрос (RST) через конвейер выдачи маркера (выдачи утверждений) и возвращает либо ответ (RSTR), содержащий маркер безопасности с соответствующими утверждениями для проверки подлинности Запрашивающая сторона с RP или соответствующее исключение. Конвейера выдачи маркера в реализации по умолчанию состоит из следующих методов (из <xref:System.IdentityModel.SecurityTokenService> класса).  
+ Этот метод реализует проблема привязку, определенную в спецификации WS-Trust. Реализация по умолчанию <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод обрабатывает входящий запрос (RST) через конвейер выдачи маркера (выдачи утверждений) и возвращает любой ответ (RSTR), содержащий маркер безопасности с соответствующими утверждениями для проверки подлинности запрашивающей стороне с RP или соответствующее исключение. Конвейер выдачи маркера в реализации по умолчанию состоит из следующих методов (из <xref:System.IdentityModel.SecurityTokenService> класса).  
   
-1.  <xref:System.IdentityModel.SecurityTokenService.ValidateRequest%2A> Метод для проверки запроса (RST).  
+1.  <xref:System.IdentityModel.SecurityTokenService.ValidateRequest%2A> Метод, чтобы проверить запрос (RST).  
   
-2.  <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> Метода <xref:System.IdentityModel.Scope> , содержащий сведения о доверяющей стороны (RP), связанные с запросом. Необходимо переопределить этот метод. Если <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> возвращает `null`, <xref:System.InvalidOperationException> возникает исключение.  
+2.  <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> Метод для получения <xref:System.IdentityModel.Scope> объект, содержащий сведения о проверяющей стороне (RP), связанный с запросом. Этот метод необходимо переопределить. Если <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> возвращает `null`, <xref:System.InvalidOperationException> возникает исключение.  
   
-3.  <xref:System.IdentityModel.SecurityTokenService.CreateSecurityTokenDescriptor%2A> Для возврата дескриптор токена безопасности на основании RST и <xref:System.IdentityModel.Scope> вернуть объект на предыдущем шаге. Дескриптор токена безопасности (<xref:System.IdentityModel.Tokens.SecurityTokenDescriptor>) содержит сведения о запросе в форме, которая может использоваться обработчика токенов. <xref:System.IdentityModel.SecurityTokenService.SecurityTokenDescriptor%2A?displayProperty=nameWithType> Свойству дескриптор, возвращенный из вызова. Если `null` возвращается или если <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.SigningCredentials%2A> свойство дескриптора `null`, <xref:System.InvalidOperationException> возникает исключение. Исключение вызывается также в том случае, если <xref:System.IdentityModel.Scope.TokenEncryptionRequired%2A?displayProperty=nameWithType> свойство `true` , но <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.EncryptingCredentials%2A> свойство возвращенный дескриптор `null`.  
+3.  <xref:System.IdentityModel.SecurityTokenService.CreateSecurityTokenDescriptor%2A> Для возврата дескриптора токена безопасности на основании RST и <xref:System.IdentityModel.Scope> возвращен объект на предыдущем шаге. Дескриптор токена безопасности (<xref:System.IdentityModel.Tokens.SecurityTokenDescriptor>) содержит сведения о запросе в форме, которая может использоваться обработчика токенов. <xref:System.IdentityModel.SecurityTokenService.SecurityTokenDescriptor%2A?displayProperty=nameWithType> Свойству дескриптор, возвращенный вызовом метода. Если `null` возвращается или, если <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.SigningCredentials%2A> свойство дескриптора `null`, <xref:System.InvalidOperationException> возникает исключение. Исключение возникает также в том случае, если <xref:System.IdentityModel.Scope.TokenEncryptionRequired%2A?displayProperty=nameWithType> свойство `true` , но <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.EncryptingCredentials%2A> свойство на дескриптор, возвращенный `null`.  
   
-4.  <xref:System.IdentityModel.SecurityTokenService.GetSecurityTokenHandler%2A> Метод, чтобы получить соответствующий обработчик маркеров в зависимости от типа запрошенного токена. Если `null` возвращается, <xref:System.NotImplementedException> возникает исключение.  
+4.  <xref:System.IdentityModel.SecurityTokenService.GetSecurityTokenHandler%2A> Метод для получения לאנךונמג зависимости от типа запроса маркера. Если `null` возвращается, <xref:System.NotImplementedException> возникает исключение.  
   
 5.  <xref:System.IdentityModel.SecurityTokenService.GetIssuerName%2A> Метод для получения имени издателя маркера. Создает <xref:System.InvalidOperationException> Если имя `null` или пуста; в противном случае задает <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.TokenIssuerName%2A> свойства дескриптора.  
   
-6.  <xref:System.IdentityModel.SecurityTokenService.GetTokenLifetime%2A> Метод, чтобы получить время жизни токена и наборы <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Lifetime%2A> свойства дескриптора.  
+6.  <xref:System.IdentityModel.SecurityTokenService.GetTokenLifetime%2A> Метод, чтобы получить время существования маркера и наборов <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Lifetime%2A> свойства дескриптора.  
   
 7.  <xref:System.IdentityModel.SecurityTokenService.GetProofToken%2A> Метод, чтобы получить маркер проверки для включения в выданный маркер и задает <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Proof%2A> свойства дескриптора.  
   
-8.  <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> Метод для получения утверждений для включения в выданный маркер и задает <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Subject%2A> свойства дескриптора. Необходимо переопределить этот метод.  
+8.  <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> Метод получать утверждения для включения в выданный маркер и задает <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Subject%2A> свойства дескриптора. Этот метод необходимо переопределить.  
   
-9. <xref:System.IdentityModel.SecurityTokenService.GetResponse%2A> Метод для создания ответа (RSTR), содержащий выданного маркера.  
+9. <xref:System.IdentityModel.SecurityTokenService.GetResponse%2A> Метод, чтобы создать ответ (RSTR), содержащий выданный маркер.  
   
- Можно переопределить <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод для реализации пользовательского маркера конвейера; Однако это обычно не требуется в средах разработки и тестирования, для которых наиболее пользовательские реализации <xref:System.IdentityModel.SecurityTokenService> предназначены класса. Во многих случаях можно переопределить <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> и <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> методов и при необходимости переопределить <xref:System.IdentityModel.SecurityTokenService.ValidateRequest%2A> метод для предоставления обслуживания STS для вашей среды. Если дальнейшей необходимости настройки можно предоставить его путем переопределения методов, которые реализуют каждый этап конвейера выдачи маркера перечисленные выше по умолчанию.  
+ Можно переопределить <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод для реализации конвейера выдачи пользовательских маркеров; тем не менее это обычно не является обязательным в средах разработки и тестирования, для которого наиболее пользовательские реализации <xref:System.IdentityModel.SecurityTokenService> предназначены класса. Во многих случаях переопределить <xref:System.IdentityModel.SecurityTokenService.GetOutputClaimsIdentity%2A> и <xref:System.IdentityModel.SecurityTokenService.GetScope%2A> методов и при необходимости переопределить <xref:System.IdentityModel.SecurityTokenService.ValidateRequest%2A> метод, чтобы предоставить обслуживанию службы маркеров безопасности для вашей среды. Если дальнейшей необходимости настройки часто его можно было предоставить путем переопределения методов, реализующих каждого этапа конвейера выдачи токена, перечисленные выше значение по умолчанию.  
   
  ]]></format>
         </remarks>
@@ -1028,7 +1034,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -1148,7 +1154,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию этого метода создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
+ Реализация по умолчанию этот метод создает исключение <xref:System.IdentityModel.Protocols.WSTrust.InvalidRequestException>.  
   
  ]]></format>
         </remarks>
@@ -1179,13 +1185,22 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.SecurityTokenService.ValidateRequest%2A> Метод вызывается из конвейера выдачи маркера ( <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод) для проверки входящих RST. RST проверяется на соответствие требованиям службы маркеров безопасности (политика) и соответствующее исключение возникает в том случае, если оно является недопустимым.  
+ <xref:System.IdentityModel.SecurityTokenService.ValidateRequest%2A> Метод вызывается из конвейера выдачи маркера ( <xref:System.IdentityModel.SecurityTokenService.Issue%2A> метод) для проверки входящих RST. RST проверяется на соответствие требованиям службы маркеров безопасности (политики) и соответствующее исключение возникает в том случае, если оно является недопустимым.  
   
- Реализация по умолчанию <xref:System.IdentityModel.SecurityTokenService> класс поддерживает только шаблон RST RSTR и только привязки проблема спецификации WS-Trust ( <xref:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.RequestType%2A> запроса должно быть присвоено <xref:System.IdentityModel.Protocols.WSTrust.RequestTypes.Issue?displayProperty=nameWithType>). Реализация по умолчанию этого метода, обеспечивающий выполнение этих требований (и другие, указаны в раздел "исключения"). Можно переопределить этот метод, если необходимо принудительно установить требования различных проверки для вашей собственной STS.  
+ Реализация по умолчанию <xref:System.IdentityModel.SecurityTokenService> класс поддерживает только шаблон RST RSTR и только привязки в спецификации WS-Trust Issue ( <xref:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.RequestType%2A> запроса должно быть присвоено <xref:System.IdentityModel.Protocols.WSTrust.RequestTypes.Issue?displayProperty=nameWithType>). Реализация по умолчанию этот метод, обеспечивающий выполнение этих требований (и другим пользователям, указаны в раздел "исключения"). Этот метод можно переопределить, если необходимо принудительно установить требования проверки для вашей пользовательской STS.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.IdentityModel.Protocols.WSTrust.InvalidRequestException">Свойство <paramref name="request" /> имеет значение <see langword="null" />.  -или- Для свойства <see cref="P:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.RequestType" /> запроса не задано значение <see cref="F:System.IdentityModel.Protocols.WSTrust.RequestTypes.Issue" />.  -или- Свойство <see cref="P:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.KeyType" /> запроса не равно <see langword="null" /> или одной из констант, определенных в классе <see cref="T:System.IdentityModel.Protocols.WSTrust.KeyTypes" />.  -или- Свойство <see cref="P:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.KeyType" /> запроса имеет значение <see cref="F:System.IdentityModel.Protocols.WSTrust.KeyTypes.Bearer" />, а элемент <see langword="KeySize" /> присутствует, но его значение не равно нулю.</exception>
+        <exception cref="T:System.IdentityModel.Protocols.WSTrust.InvalidRequestException">Свойство <paramref name="request" /> имеет значение <see langword="null" />.  
+  
+- или - 
+Для свойства <see cref="P:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.RequestType" /> запроса не задано значение <see cref="F:System.IdentityModel.Protocols.WSTrust.RequestTypes.Issue" />.  
+  
+- или - 
+Свойство <see cref="P:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.KeyType" /> запроса не равно <see langword="null" /> или одной из констант, определенных в классе <see cref="T:System.IdentityModel.Protocols.WSTrust.KeyTypes" />.  
+  
+- или - 
+Свойство <see cref="P:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.KeyType" /> запроса имеет значение <see cref="F:System.IdentityModel.Protocols.WSTrust.KeyTypes.Bearer" />, а элемент <see langword="KeySize" /> присутствует, но его значение не равно нулю.</exception>
         <exception cref="T:System.IdentityModel.UnsupportedTokenTypeBadRequestException">Служба токенов безопасности не поддерживает тип токена запроса (на основе значения свойства <see cref="P:System.IdentityModel.Protocols.WSTrust.WSTrustMessage.TokenType" /> запроса).</exception>
         <altmember cref="M:System.IdentityModel.SecurityTokenService.Issue(System.Security.Claims.ClaimsPrincipal,System.IdentityModel.Protocols.WSTrust.RequestSecurityToken)" />
       </Docs>
