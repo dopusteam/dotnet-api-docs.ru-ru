@@ -1,11 +1,11 @@
 <Type Name="JoinBlock&lt;T1,T2&gt;" FullName="System.Threading.Tasks.Dataflow.JoinBlock&lt;T1,T2&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="a1d82317325c4553d070824b677fcc1638301eee" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="0398d374aec4fd481a2f65d6a0134abe4cd3e882" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36606563" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39804527" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class JoinBlock&lt;T1,T2&gt; : System.Threading.Tasks.Dataflow.IReceivableSourceBlock&lt;Tuple&lt;T1,T2&gt;&gt;, System.Threading.Tasks.Dataflow.ISourceBlock&lt;Tuple&lt;T1,T2&gt;&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit JoinBlock`2&lt;T1, T2&gt; extends System.Object implements class System.Threading.Tasks.Dataflow.IDataflowBlock, class System.Threading.Tasks.Dataflow.IReceivableSourceBlock`1&lt;class System.Tuple`2&lt;!T1, !T2&gt;&gt;, class System.Threading.Tasks.Dataflow.ISourceBlock`1&lt;class System.Tuple`2&lt;!T1, !T2&gt;&gt;" />
@@ -35,6 +35,14 @@
       <InterfaceName>System.Threading.Tasks.Dataflow.ISourceBlock&lt;System.Tuple&lt;T1,T2&gt;&gt;</InterfaceName>
     </Interface>
   </Interfaces>
+  <Attributes>
+    <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1">
+      <AttributeName>System.Diagnostics.DebuggerDisplay("{DebuggerDisplayContent,nq}")</AttributeName>
+    </Attribute>
+    <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1">
+      <AttributeName>System.Diagnostics.DebuggerTypeProxy(typeof(System.Threading.Tasks.Dataflow.JoinBlock`2/DebugView))</AttributeName>
+    </Attribute>
+  </Attributes>
   <Docs>
     <typeparam name="T1">Указывает тип данных, принимаемых первым целевым объектом блока.</typeparam>
     <typeparam name="T2">Указывает тип данных, принимаемых вторым целевым объектом блока.</typeparam>
@@ -123,7 +131,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- После <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.Complete%2A> был вызван для блока потока данных, этот блок завершается и его <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.Completion%2A> задача перейдет в конечное состояние после обработки всех ранее доступных данных. <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.Complete%2A> не блокируется, ожидая завершения могла выполняться, но вместо этого будет инициировать запрос; ожидает завершения могла выполняться, <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.Completion%2A> задание может быть использовано.  
+ После <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.Complete%2A> был вызван для блока потока данных, этот блок завершается и его <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.Completion%2A> задача перейдет в конечное состояние после обработки все ранее доступные данные. <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.Complete%2A> не блокируется, ожидая завершения, возможно, но вместо этого будет инициировать запрос; для ожидания завершения, возможно, <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.Completion%2A> задача может использоваться.  
   
  ]]></format>
         </remarks>
@@ -157,7 +165,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Блок потока данных считается завершенной, когда он не обрабатывается в данный момент при его гарантирует, что он не будет обрабатывать новые сообщения и сообщения. Возвращенный <xref:System.Threading.Tasks.Task> будет переход в завершенное состояние, при завершении блоку. Она переключится <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.RanToCompletion> семантику определенные состояния, когда блок завершения обработки успешно согласно блок потока данных. Она переключится <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Faulted> состояние после завершения обработки преждевременно из-за необработанного исключения блок потока данных, и она переключится <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Canceled> состояние после завершения блока потока данных Обработка преждевременно из-за получении запроса отмены. Если задача завершается в <xref:System.Threading.Tasks.TaskStatus.Faulted> состояние, его `Exception` свойство будет возвращать <xref:System.AggregateException> содержащий одно или несколько исключений, вызвавших сбой блока.  
+ Блок потока данных считается завершенной, когда он не обрабатывается в настоящее время сообщение и когда он гарантирует, что он не будет обрабатывать последующие сообщения. Возвращенный <xref:System.Threading.Tasks.Task> будет переход в завершенное состояние после завершения блоку. Будет выполнен переход к <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.RanToCompletion> состояние, когда блок завершения обработки успешно, в соответствии с блока потока данных определенных семантику. Будет выполнен переход к <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Faulted> состояние, когда блок потока данных завершило обработку преждевременно из-за необработанного исключения, и будет выполнен переход к <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Canceled> состояние после завершения блока потока данных Обработка преждевременно из-за получения запрос на отмену. Если задача завершается в <xref:System.Threading.Tasks.TaskStatus.Faulted> состояние, его `Exception` свойство возвратит <xref:System.AggregateException> содержащий одно или несколько исключений, приведшей к сбою блока.  
   
  ]]></format>
         </remarks>
@@ -252,7 +260,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- После <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.System%23Threading%23Tasks%23Dataflow%23IDataflowBlock%23Fault%2A> был вызван для блока потока данных, этот блок завершается и его <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.Completion%2A> перейдет в конечное состояние задачи. Сбой блока, как отмена блока, приводит буферизованных сообщений (необработанные входящие сообщения а также unoffered выходных сообщений), будут утеряны.  
+ После <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.System%23Threading%23Tasks%23Dataflow%23IDataflowBlock%23Fault%2A> был вызван для блока потока данных, этот блок завершается и его <xref:System.Threading.Tasks.Dataflow.JoinBlock%602.Completion%2A> задача перейдет в конечное состояние. Завершение со сбоем блок, как отмена блок, приводит буферизованные сообщения (необработанные входные сообщения как и unoffered выходных сообщений), будут потеряны.  
   
  ]]></format>
         </remarks>
@@ -267,7 +275,7 @@
       <MemberSignature Language="C++ CLI" Value=" virtual Tuple&lt;T1, T2&gt; ^ System.Threading.Tasks.Dataflow.ISourceBlock&lt;System.Tuple&lt;T1,T2&gt;&gt;.ConsumeMessage(System::Threading::Tasks::Dataflow::DataflowMessageHeader messageHeader, System::Threading::Tasks::Dataflow::ITargetBlock&lt;Tuple&lt;T1, T2&gt; ^&gt; ^ target, [Runtime::InteropServices::Out] bool % messageConsumed) = System::Threading::Tasks::Dataflow::ISourceBlock&lt;Tuple&lt;T1, T2&gt; ^&gt;::ConsumeMessage;" />
       <MemberType>Method</MemberType>
       <Implements>
-        <InterfaceMember>M:System.Threading.Tasks.Dataflow.ISourceBlock`1.ConsumeMessage(System.Threading.Tasks.Dataflow.DataflowMessageHeader,System.Threading.Tasks.Dataflow.ITargetBlock{`0},System.Boolean@)</InterfaceMember>
+        <InterfaceMember>M:System.Threading.Tasks.Dataflow.ISourceBlock`1.ConsumeMessage(System.Threading.Tasks.Dataflow.DataflowMessageHeader,System.Threading.Tasks.Dataflow.ITargetBlock{`0},System.Boolean)</InterfaceMember>
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Threading.Tasks.Dataflow</AssemblyName>
@@ -282,7 +290,7 @@
       <Parameters>
         <Parameter Name="messageHeader" Type="System.Threading.Tasks.Dataflow.DataflowMessageHeader" />
         <Parameter Name="target" Type="System.Threading.Tasks.Dataflow.ITargetBlock&lt;System.Tuple&lt;T1,T2&gt;&gt;" />
-        <Parameter Name="messageConsumed" Type="System.Boolean&amp;" RefType="out" />
+        <Parameter Name="messageConsumed" Type="System.Boolean" RefType="out" />
       </Parameters>
       <Docs>
         <param name="messageHeader">To be added.</param>
@@ -456,7 +464,7 @@
       </ReturnValue>
       <Parameters>
         <Parameter Name="filter" Type="System.Predicate&lt;System.Tuple&lt;T1,T2&gt;&gt;" />
-        <Parameter Name="item" Type="System.Tuple&lt;T1,T2&gt;&amp;" RefType="out" />
+        <Parameter Name="item" Type="System.Tuple&lt;T1,T2&gt;" RefType="out" />
       </Parameters>
       <Docs>
         <param name="filter">Значение предиката должно быть успешно передано, чтобы оно было получено.  Элемент <c>filter</c> может представлять собой <see langword="null" />, и в этом случае все элементы будут переданы.</param>
@@ -469,7 +477,7 @@
 ## Remarks  
  Этот метод не блокирует ожидание источника для получения элемента.  
   
- После проверки для элемента, будет возвращено ли элемент был доступен.  
+ После проверки для элемента, будет возвращена ли элемент был доступен.  
   
  ]]></format>
         </remarks>
@@ -494,7 +502,7 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="items" Type="System.Collections.Generic.IList&lt;System.Tuple&lt;T1,T2&gt;&gt;&amp;" RefType="out" />
+        <Parameter Name="items" Type="System.Collections.Generic.IList&lt;System.Tuple&lt;T1,T2&gt;&gt;" RefType="out" />
       </Parameters>
       <Docs>
         <param name="items">Элементы, полученные от источника.</param>
@@ -506,7 +514,7 @@
 ## Remarks  
  Этот метод не блокирует ожидание источника для получения элемента.  
   
- После проверки для элементов, будет возвращено ли элемент был доступен.  
+ После проверки для элементов, будет возвращена ли элемент был доступен.  
   
  ]]></format>
         </remarks>
