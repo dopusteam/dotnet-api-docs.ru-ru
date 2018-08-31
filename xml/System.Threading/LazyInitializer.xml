@@ -1,11 +1,11 @@
 <Type Name="LazyInitializer" FullName="System.Threading.LazyInitializer">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="d7d6511fffc182b113bbc69c98954d618ef23f1e" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="755905ca4152d31c2708d3f8171aedcdd452aa77" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36406903" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39998210" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class LazyInitializer" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit LazyInitializer extends System.Object" />
@@ -34,17 +34,17 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>Обеспечивает процедуры инициализации адаптирующегося типа.</summary>
+    <summary>Обеспечивает процедуры неактивной инициализации.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Эти подпрограммы позволяют избежать необходимости выделять выделенный, отложенной инициализации экземпляра, вместо использования ссылок, чтобы убедиться, что целевые объекты были инициализированы, поскольку они доступны.  
+ Эти подпрограммы избежать необходимости выделять экземпляр выделенной, отложенной инициализации, вместо использования ссылок, чтобы убедиться, что целевые объекты были инициализированы, поскольку они доступны.  
   
    
   
 ## Examples  
- В следующем примере демонстрируется использование EnsureInitialized отложенная инициализация значение, используя значение типа Boolean для отслеживания ли инициализация уже был выполнен и объект для использования в качестве взаимно исключающей блокировки.  
+ В следующем примере демонстрируется использование EnsureInitialized выполнять отложенную инициализацию значение, используя значение типа Boolean для отслеживания ли инициализация уже произошло и объект для использования в качестве взаимоисключающую блокировку.  
   
 ```vb  
 Dim _data As ExpensiveData = Nothing  
@@ -65,7 +65,7 @@ ExpensiveData _data = null;
   
  ]]></format>
     </remarks>
-    <threadsafe>Методы <see cref="T:System.Threading.LazyInitializer" /> являются потокобезопасными и могут быть вызваны из нескольких потоков одновременно.</threadsafe>
+    <threadsafe>Методы <see cref="T:System.Threading.LazyInitializer" /> являются поточно ориентированными и может быть вызвана из нескольких потоков одновременно.</threadsafe>
   </Docs>
   <Members>
     <MemberGroup MemberName="EnsureInitialized&lt;T&gt;">
@@ -114,7 +114,7 @@ ExpensiveData _data = null;
         </TypeParameter>
       </TypeParameters>
       <Parameters>
-        <Parameter Name="target" Type="T&amp;" RefType="ref" />
+        <Parameter Name="target" Type="T" RefType="ref" />
       </Parameters>
       <Docs>
         <typeparam name="T">Тип инициализируемой ссылки.</typeparam>
@@ -125,11 +125,11 @@ ExpensiveData _data = null;
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод может использоваться только со ссылочными типами. Чтобы обеспечить инициализацию типов значений, см. другие перегрузки EnsureInitialized.  
+ Этот метод может использоваться только со ссылочными типами. Чтобы обеспечить инициализацию типов значений, см. в разделе другие перегрузки EnsureInitialized.  
   
  Этот метод может использоваться одновременно несколькими потоками для инициализации `target`.  
   
- В случае, когда несколько потоков, доступ к этому методу одновременно несколько экземпляров `T` может быть создан, но только один будет храниться в `target`. В таких ситуаций этот метод не уничтожает объекты, которые не были сохранены. Если такие объекты должны быть уничтожены, именно вызывающий объект для определения, если объект не был использован и затем соответствующим образом удалить объект.  
+ В случае, если несколько потоков, доступа к этому методу параллельно, несколько экземпляров `T` может создаваться, но только один будет храниться в `target`. В случае наступления этот метод не удалит объекты, которые не были сохранены. Если необходимо удалить такие объекты, то вызывающий объект для определения того, если объект не использовался и затем соответствующим образом удалить объект.  
   
  ]]></format>
         </remarks>
@@ -172,7 +172,7 @@ ExpensiveData _data = null;
         </TypeParameter>
       </TypeParameters>
       <Parameters>
-        <Parameter Name="target" Type="T&amp;" RefType="ref" />
+        <Parameter Name="target" Type="T" RefType="ref" />
         <Parameter Name="valueFactory" Type="System.Func&lt;T&gt;" />
       </Parameters>
       <Docs>
@@ -185,11 +185,11 @@ ExpensiveData _data = null;
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод может использоваться только со ссылочными типами и `valueFactory` не может возвращать пустую ссылку (Nothing в Visual Basic). Чтобы обеспечить инициализацию типов значений или разрешить значение null ссылочных типов, см. другие перегрузки EnsureInitialized.  
+ Этот метод может использоваться только со ссылочными типами, и `valueFactory` не может возвращать пустую ссылку (Nothing в Visual Basic). Чтобы обеспечить инициализацию типов значений или разрешить значение null ссылочных типов, см. в разделе другие перегрузки EnsureInitialized.  
   
  Этот метод может использоваться одновременно несколькими потоками для инициализации `target`.  
   
- В случае, когда несколько потоков, доступ к этому методу одновременно несколько экземпляров `T` может быть создан, но только один будет храниться в `target`. В таких ситуаций этот метод не уничтожает объекты, которые не были сохранены. Если такие объекты должны быть уничтожены, именно вызывающий объект для определения, если объект не был использован и затем соответствующим образом удалить объект.  
+ В случае, если несколько потоков, доступа к этому методу параллельно, несколько экземпляров `T` может создаваться, но только один будет храниться в `target`. В случае наступления этот метод не удалит объекты, которые не были сохранены. Если необходимо удалить такие объекты, то вызывающий объект для определения того, если объект не использовался и затем соответствующим образом удалить объект.  
   
  ]]></format>
         </remarks>
@@ -229,9 +229,9 @@ ExpensiveData _data = null;
         <TypeParameter Name="T" />
       </TypeParameters>
       <Parameters>
-        <Parameter Name="target" Type="T&amp;" RefType="ref" />
-        <Parameter Name="initialized" Type="System.Boolean&amp;" RefType="ref" />
-        <Parameter Name="syncLock" Type="System.Object&amp;" RefType="ref" />
+        <Parameter Name="target" Type="T" RefType="ref" />
+        <Parameter Name="initialized" Type="System.Boolean" RefType="ref" />
+        <Parameter Name="syncLock" Type="System.Object" RefType="ref" />
       </Parameters>
       <Docs>
         <typeparam name="T">Тип инициализируемой ссылки.</typeparam>
@@ -244,7 +244,7 @@ ExpensiveData _data = null;
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если `intialized` задано как true, то Дополнительная инициализация не выполняется.  
+ Если `intialized` имеет значение true, то Дополнительная инициализация не выполняется.  
   
  ]]></format>
         </remarks>
@@ -276,8 +276,8 @@ ExpensiveData _data = null;
         </TypeParameter>
       </TypeParameters>
       <Parameters>
-        <Parameter Name="target" Type="T&amp;" RefType="ref" />
-        <Parameter Name="syncLock" Type="System.Object&amp;" RefType="ref" />
+        <Parameter Name="target" Type="T" RefType="ref" />
+        <Parameter Name="syncLock" Type="System.Object" RefType="ref" />
         <Parameter Name="valueFactory" Type="System.Func&lt;T&gt;" />
       </Parameters>
       <Docs>
@@ -321,9 +321,9 @@ ExpensiveData _data = null;
         <TypeParameter Name="T" />
       </TypeParameters>
       <Parameters>
-        <Parameter Name="target" Type="T&amp;" RefType="ref" />
-        <Parameter Name="initialized" Type="System.Boolean&amp;" RefType="ref" />
-        <Parameter Name="syncLock" Type="System.Object&amp;" RefType="ref" />
+        <Parameter Name="target" Type="T" RefType="ref" />
+        <Parameter Name="initialized" Type="System.Boolean" RefType="ref" />
+        <Parameter Name="syncLock" Type="System.Object" RefType="ref" />
         <Parameter Name="valueFactory" Type="System.Func&lt;T&gt;" />
       </Parameters>
       <Docs>
@@ -338,7 +338,7 @@ ExpensiveData _data = null;
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если `intialized` задано как true, то Дополнительная инициализация не выполняется.  
+ Если `intialized` имеет значение true, то Дополнительная инициализация не выполняется.  
   
  ]]></format>
         </remarks>
