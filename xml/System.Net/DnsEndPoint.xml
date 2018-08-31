@@ -1,11 +1,11 @@
 <Type Name="DnsEndPoint" FullName="System.Net.DnsEndPoint">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="452414c29969d2f9f5115a4da2a2f3b74dd3b958" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="748c7b007a41e374cced38761c1fe30263928bf4" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36549493" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39887920" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class DnsEndPoint : System.Net.EndPoint" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit DnsEndPoint extends System.Net.EndPoint" />
@@ -33,12 +33,12 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>Представляет сетевую конечную точку в качестве имени узла или строкового представления IP-адреса и номера порта.</summary>
+    <summary>Представляет сетевую конечную точку в виде имени узла или строкового представления IP-адреса и номера порта.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint> Класс содержит имя узла или IP-адреса и порта удаленного сведения, необходимые приложению для подключения к службе на узле. Объединяя имя узла или IP адрес и номер порта службы, <xref:System.Net.DnsEndPoint> класс создает точку подключения к службе.  
+ <xref:System.Net.DnsEndPoint> Класс содержит имя узла или IP-адрес и порт удаленного сведения, необходимые приложению для подключения к службе на узле. Объединяя имя узла или IP адрес и номер порта службы, <xref:System.Net.DnsEndPoint> класс создает точку подключения к службе.  
   
  ]]></format>
     </remarks>
@@ -77,6 +77,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <Parameters>
         <Parameter Name="host" Type="System.String" />
         <Parameter Name="port" Type="System.Int32" />
@@ -89,15 +94,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.%23ctor%28System.String%2CSystem.Int32%29> Конструктор может использоваться для инициализации <xref:System.Net.DnsEndPoint> класса, используя имя узла или строку, представляющую IP-адрес и порт. Этот конструктор задает <xref:System.Net.DnsEndPoint.AddressFamily%2A> свойства <xref:System.Net.Sockets.AddressFamily.Unknown>.  
+ <xref:System.Net.DnsEndPoint.%23ctor%28System.String%2CSystem.Int32%29> Конструктор может использоваться для инициализации <xref:System.Net.DnsEndPoint> класса с помощью имени узла или строковое представление IP-адрес и порт. Этот конструктор задает <xref:System.Net.DnsEndPoint.AddressFamily%2A> свойства <xref:System.Net.Sockets.AddressFamily.Unknown>.  
   
- При использовании этого конструктора с именем узла, а не строкового представления IP-адреса, семейства адресов <xref:System.Net.DnsEndPoint> останется <xref:System.Net.Sockets.AddressFamily.Unknown> даже после использования. <xref:System.Net.DnsEndPoint.AddressFamily%2A> Любой <xref:System.Net.Sockets.Socket> , создается путем вызова метода <xref:System.Net.Sockets.Socket.ConnectAsync%2A> метод будет семейства адресов первый адрес, к которому подключение может быть успешно установлено (не обязательно первый адрес для разрешения).  
+ Когда устранить с помощью этого конструктора с именем узла, а не является строковым представлением IP-адрес, семейства адресов <xref:System.Net.DnsEndPoint> останется <xref:System.Net.Sockets.AddressFamily.Unknown> даже после использования. <xref:System.Net.DnsEndPoint.AddressFamily%2A> Свойства любого <xref:System.Net.Sockets.Socket> , созданный путем вызова <xref:System.Net.Sockets.Socket.ConnectAsync%2A> метод будет семейства адресов первый адрес, к которому подключение может быть успешно установлено (не обязательно первый адрес для разрешения).  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Параметр <paramref name="host" /> содержит пустую строку.</exception>
         <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="host" /> равно <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">Значение <paramref name="port" /> меньше <see cref="F:System.Net.IPEndPoint.MinPort" />.  - или-  Значение <paramref name="port" /> больше <see cref="F:System.Net.IPEndPoint.MaxPort" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="port" /> меньше значения <see cref="F:System.Net.IPEndPoint.MinPort" />.  
+  
+-или- 
+ Значение <paramref name="port" /> больше значения <see cref="F:System.Net.IPEndPoint.MaxPort" />.</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -130,21 +138,27 @@
       <Docs>
         <param name="host">Имя узла или строковое представление IP-адреса.</param>
         <param name="port">Номер порта, связанный с адресом, или 0 для указания любого доступного порта. Значение <c>port</c> указывается в порядке узла.</param>
-        <param name="addressFamily">Одно из значений перечисления <see cref="T:System.Net.Sockets.AddressFamily" />.</param>
+        <param name="addressFamily">Одно из значений <see cref="T:System.Net.Sockets.AddressFamily" />.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.DnsEndPoint" /> с именем узла или строковым представлением IP-адреса, номера порта и семейства адресов.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.%23ctor%28System.String%2CSystem.Int32%2CSystem.Net.Sockets.AddressFamily%29> Конструктор может использоваться для инициализации <xref:System.Net.DnsEndPoint> класса, используя имя узла или строку, представляющую IP-адреса, порта и семейства адресов.  
+ <xref:System.Net.DnsEndPoint.%23ctor%28System.String%2CSystem.Int32%2CSystem.Net.Sockets.AddressFamily%29> Конструктор может использоваться для инициализации <xref:System.Net.DnsEndPoint> класса с помощью имени узла или строковое представление IP-адреса, порта и семейства адресов.  
   
- При использовании конструктора с именем узла, а не строкового представления IP-адреса, семейство адресов ограничивает разрешение DNS предпочитают адреса значение семейства указанный адрес. При использовании конструктора с семейство адресов, указанный как <xref:System.Net.Sockets.AddressFamily.Unknown>, семейства адресов <xref:System.Net.DnsEndPoint> останется <xref:System.Net.Sockets.AddressFamily.Unknown> даже после использования. <xref:System.Net.DnsEndPoint.AddressFamily%2A> Любой <xref:System.Net.Sockets.Socket> , создается путем вызова метода <xref:System.Net.Sockets.Socket.ConnectAsync%2A> метод будет семейства адресов первый адрес, к которому подключение может быть успешно установлено (не обязательно первый адрес для разрешения).  
+ При использовании конструктора с именем узла, а не является строковым представлением IP-адресом, семейство адресов ограничивает разрешения DNS предпочитаю адресов семейства значения указанного адреса. При использовании конструктора с семейство адресов, заданный как <xref:System.Net.Sockets.AddressFamily.Unknown>, семейства адресов <xref:System.Net.DnsEndPoint> останется <xref:System.Net.Sockets.AddressFamily.Unknown> даже после использования. <xref:System.Net.DnsEndPoint.AddressFamily%2A> Свойства любого <xref:System.Net.Sockets.Socket> , созданный путем вызова <xref:System.Net.Sockets.Socket.ConnectAsync%2A> метод будет семейства адресов первый адрес, к которому подключение может быть успешно установлено (не обязательно первый адрес для разрешения).  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Параметр <paramref name="host" /> содержит пустую строку.  -или- <paramref name="addressFamily" /> имеет значение <see cref="F:System.Net.Sockets.AddressFamily.Unknown" />.</exception>
+        <exception cref="T:System.ArgumentException">Параметр <paramref name="host" /> содержит пустую строку.  
+  
+-или- 
+ <paramref name="addressFamily" /> — <see cref="F:System.Net.Sockets.AddressFamily.Unknown" />.</exception>
         <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="host" /> равно <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">Значение <paramref name="port" /> меньше <see cref="F:System.Net.IPEndPoint.MinPort" />.  - или-  Значение <paramref name="port" /> больше <see cref="F:System.Net.IPEndPoint.MaxPort" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="port" /> меньше значения <see cref="F:System.Net.IPEndPoint.MinPort" />.  
+  
+-или- 
+ Значение <paramref name="port" /> больше значения <see cref="F:System.Net.IPEndPoint.MaxPort" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="AddressFamily">
@@ -170,12 +184,17 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Net.Sockets.AddressFamily</ReturnType>
       </ReturnValue>
       <Docs>
         <summary>Возвращает семейство IP-адресов.</summary>
-        <value>Одно из значений перечисления <see cref="T:System.Net.Sockets.AddressFamily" />.</value>
+        <value>Одно из значений <see cref="T:System.Net.Sockets.AddressFamily" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -218,12 +237,12 @@
       <Docs>
         <param name="comparand">Экземпляр <see cref="T:System.Net.DnsEndPoint" /> для сравнения с текущим экземпляром.</param>
         <summary>Сравнивает два объекта <see cref="T:System.Net.DnsEndPoint" />.</summary>
-        <returns>Значение <see langword="true" />, если два экземпляра <see cref="T:System.Net.DnsEndPoint" /> равны, в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если два экземпляра класса <see cref="T:System.Net.DnsEndPoint" /> равны, в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.Equals%2A> Метод сравнивает текущий <xref:System.Net.DnsEndPoint> экземпляра с `comparand` параметра и возвращает `true` , если два экземпляра содержат ту же конечную точку.  
+ <xref:System.Net.DnsEndPoint.Equals%2A> Метод сравнивает текущий <xref:System.Net.DnsEndPoint> с экземпляром `comparand` параметра и возвращает `true` Если два экземпляра содержат ту же конечную точку.  
   
  ]]></format>
         </remarks>
@@ -263,7 +282,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.GetHashCode%2A> Метод возвращает хэш-кода <xref:System.Net.DnsEndPoint>. Это значение может использоваться в качестве ключа в хэш-таблицах.  
+ <xref:System.Net.DnsEndPoint.GetHashCode%2A> Метод возвращает хэш-код <xref:System.Net.DnsEndPoint>. Это значение может использоваться как ключ в хэш-таблицы.  
   
  ]]></format>
         </remarks>
@@ -292,6 +311,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
@@ -302,7 +326,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.Host%2A> Свойство указывает имя или строка представление узла IP-адреса для экземпляра <xref:System.Net.DnsEndPoint> класса.  
+ <xref:System.Net.DnsEndPoint.Host%2A> Свойство указывает узла имени или строковым представлением IP-адреса для экземпляра <xref:System.Net.DnsEndPoint> класса.  
   
  ]]></format>
         </remarks>
@@ -331,6 +355,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
@@ -374,7 +403,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.DnsEndPoint.ToString%2A> Метод возвращает строку, содержащую семейство адресов, имя узла или строку IP-адреса и номера порта.  
+ <xref:System.Net.DnsEndPoint.ToString%2A> Метод возвращает строка, содержащая семейство адресов, имя узла или строку IP-адреса и номер порта.  
   
  ]]></format>
         </remarks>

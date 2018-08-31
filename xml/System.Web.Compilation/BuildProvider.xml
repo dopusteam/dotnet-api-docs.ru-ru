@@ -1,11 +1,11 @@
 <Type Name="BuildProvider" FullName="System.Web.Compilation.BuildProvider">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="6d499c9f89c7b0355944d2903e4f01091e6cc6b9" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="da596f0a9f800dca2121847318a4b186a0b1d0a9" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37608218" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39873243" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class BuildProvider" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit BuildProvider extends System.Object" />
@@ -75,6 +75,11 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <Parameters />
       <Docs>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Web.Compilation.BuildProvider" />.</summary>
@@ -107,7 +112,7 @@
         <ReturnType>System.Web.Compilation.CompilerType</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Представляет тип компилятора, используемый поставщиком построения для создания исходного кода для пользовательского типа файлов.</summary>
+        <summary>Представляет тип компилятора, используемый поставщиком построения для создания исходного кода пользовательского типа файлов.</summary>
         <value>Доступный только для чтения объект <see cref="T:System.Web.Compilation.CompilerType" />, представляющий генератор кода, компилятор кода и параметры компилятора, с помощью которых осуществляется построение исходного кода для виртуального пути. Базовый класс возвращает значение <see langword="null" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -151,8 +156,8 @@
         <Parameter Name="assemblyBuilder" Type="System.Web.Compilation.AssemblyBuilder" />
       </Parameters>
       <Docs>
-        <param name="assemblyBuilder">Построитель сборок, который ссылается на исходный код, созданный поставщиком компоновки.</param>
-        <summary>Формирует исходный код для виртуального пути поставщика компоновки и добавляет исходный код в заданный построитель сборок.</summary>
+        <param name="assemblyBuilder">Построитель сборок, который ссылается на исходный код, созданный поставщиком построения.</param>
+        <summary>Создает исходный код для виртуального пути к поставщику построения и добавляет исходный код в заданный построитель сборок.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -195,7 +200,7 @@
         <ReturnType>System.CodeDom.CodeCompileUnit</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="linePragmasTable" Type="System.Collections.IDictionary&amp;" RefType="out" />
+        <Parameter Name="linePragmasTable" Type="System.Collections.IDictionary" RefType="out" />
       </Parameters>
       <Docs>
         <param name="linePragmasTable">При возвращении этого метода в нем содержится словарь, в котором перечислены все соответствующие номера и директивы pragma строк исходного кода. Этот параметр передается неинициализированным.</param>
@@ -231,8 +236,8 @@
         <Parameter Name="results" Type="System.CodeDom.Compiler.CompilerResults" />
       </Parameters>
       <Docs>
-        <param name="results">Результат компиляции для виртуального пути поставщика компоновки.</param>
-        <summary>Создает строку, которая должна быть сохранена в скомпилированной сборке.</summary>
+        <param name="results">Результаты компиляции для виртуального пути поставщика построения.</param>
+        <summary>Создает строку, которую необходимо сохранить в скомпилированной сборке.</summary>
         <returns>Строка, которую необходимо сохранить в среде построения, или значение <see langword="null" />, если в экземпляре <see cref="T:System.Web.Compilation.BuildProvider" /> не реализуется метод <see cref="M:System.Web.Compilation.BuildProvider.GetCustomString(System.CodeDom.Compiler.CompilerResults)" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -321,7 +326,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="language" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="language" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Web.HttpException">Параметр <paramref name="language" /> не соответствует компилятору, настроенному для данного поставщика построения.</exception>
         <altmember cref="T:System.Web.Compilation.CompilerType" />
         <altmember cref="M:System.Web.Compilation.BuildProvider.GetDefaultCompilerType" />
@@ -349,9 +355,9 @@
         <Parameter Name="results" Type="System.CodeDom.Compiler.CompilerResults" />
       </Parameters>
       <Docs>
-        <param name="results">Результат компиляции для виртуального пути поставщика компоновки.</param>
-        <summary>Возвращает тип, сформированный поставщиком построения на основе виртуального пути.</summary>
-        <returns>Тип, сформированный поставщиком построения для виртуального пути. Базовый класс возвращает значение <see langword="null" />.</returns>
+        <param name="results">Результаты компиляции для виртуального пути поставщика построения.</param>
+        <summary>Возвращает тип, созданный поставщиком построения из виртуального пути.</summary>
+        <returns>Тип, созданный поставщиком построения для виртуального пути. Базовый класс возвращает значение <see langword="null" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -385,7 +391,7 @@
         <Parameter Name="results" Type="System.CodeDom.Compiler.CompilerResults" />
       </Parameters>
       <Docs>
-        <param name="results">Результат компиляции для виртуального пути поставщика компоновки.</param>
+        <param name="results">Результаты компиляции для виртуального пути поставщика построения.</param>
         <summary>Возвращает значение, определяющее действия, которые необходимо выполнить после построения виртуального пути.</summary>
         <returns>Значение <see cref="T:System.Web.Compilation.BuildProviderResultFlags" />, указывающее, какие действия необходимо выполнить после построения виртуального пути в среде построения ASP.NET.</returns>
         <remarks>
@@ -608,6 +614,11 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Collections.ICollection</ReturnType>
       </ReturnValue>
@@ -715,7 +726,7 @@
         <ReturnType>System.Collections.ICollection</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Представляет коллекцию виртуальных путей, которые должны быть построены перед тем, как поставщик построения сможет создать код.</summary>
+        <summary>Представляет коллекцию виртуальных путей, которые необходимо построить до того, как поставщик построения создаст код.</summary>
         <value>Доступная только для чтения коллекция строк, представляющих виртуальные пути, от которых зависит данный экземпляр поставщика построения.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
