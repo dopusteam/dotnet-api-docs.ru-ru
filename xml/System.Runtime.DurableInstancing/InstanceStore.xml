@@ -1,11 +1,11 @@
 <Type Name="InstanceStore" FullName="System.Runtime.DurableInstancing.InstanceStore">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="d14fb4c0552691179d47eb6e214410054e826b0f" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="8972e8c961043629bb8c0c72a45e02d752733a77" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36540130" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39993467" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class InstanceStore" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit InstanceStore extends System.Object" />
@@ -32,7 +32,7 @@
  Поставщики сохраняемости могут вызывать класс InstanceHandle.Free для дескрипторов, переданных TryCommand, даже после завершения выполнения команды. Однако поставщики сохраняемости не должны содержать жесткие ссылки на объекты InstanceHandle или InstanceOwner, поскольку это может помешать сборке мусора в InstanceStore.  
   
 > [!WARNING]
->  Невозможно изменить определения рабочих процессов для сохраненных рабочих процессов. Если определение рабочего процесса был изменен после его сохранить, произойдет сбой выполнения рабочего процесса, после перезагрузки рабочего процесса.  
+>  Невозможно изменить определения рабочих процессов для сохраненных рабочих процессов. Если определение рабочего процесса изменяется после сохранения значение, среда выполнения рабочего процесса аварийно при повторной загрузке рабочего процесса.  
   
  ]]></format>
     </remarks>
@@ -132,7 +132,7 @@
  Если команда выполнима, то поставщик сохраняемости вызывает необходимые методы, чтобы предоставить результаты команды.  
   
 > [!WARNING]
->  Несмотря на то, что этот метод объявляется как `virtual` вместо `abstract`, реализация отсутствует. Этот метод должен быть переопределен для обеспечения функций.  
+>  Несмотря на то, что этот метод объявляется как `virtual` вместо `abstract`, реализация отсутствует. Этот метод необходимо переопределить для обеспечения функций.  
   
  ]]></format>
         </remarks>
@@ -289,6 +289,14 @@
         <AssemblyName>System.Runtime.DurableInstancing</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>set: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Runtime.DurableInstancing.InstanceOwner</ReturnType>
       </ReturnValue>
@@ -304,7 +312,7 @@
  Для свойства DefaultInstanceOwner надо установить значение null, когда его использование больше не требуется. Объекты InstanceStore могут не удаляться при сборке мусора, если значение DefaultInstanceOwner отлично от null.  
   
 > [!WARNING]
->  Несмотря на то, что этот метод объявляется как `virtual` вместо `abstract`, реализация отсутствует. Этот метод должен быть переопределен для обеспечения функций.  
+>  Несмотря на то, что этот метод объявляется как `virtual` вместо `abstract`, реализация отсутствует. Этот метод необходимо переопределить для обеспечения функций.  
   
  ]]></format>
         </remarks>
@@ -370,7 +378,7 @@
 ## Remarks  
   
 > [!WARNING]
->  Несмотря на то, что этот метод объявляется как `virtual` вместо `abstract`, реализация отсутствует. Этот метод должен быть переопределен для обеспечения функций.  
+>  Несмотря на то, что этот метод объявляется как `virtual` вместо `abstract`, реализация отсутствует. Этот метод необходимо переопределить для обеспечения функций.  
   
  ]]></format>
         </remarks>
@@ -434,9 +442,9 @@
  Узел вызывает метод <xref:System.Runtime.DurableInstancing.InstanceStore.Execute%2A>, чтобы асинхронно выполнить команду сохраняемости по отношению к дескриптору экземпляра, полученного за счет вызова метода <xref:System.Runtime.DurableInstancing.InstanceStore.CreateInstanceHandle%2A>. Дескриптор экземпляра может быть привязан к сущностям, которые представляют контекст и предмет команды, такой как экземпляр, владельца экземпляра или блокировку экземпляра.  Только одна команда может применяться к дескриптору экземпляра в данный момент времени.  
   
 > [!WARNING]
->  Если этот метод выполняется с <xref:System.Activities.DurableInstancing.CreateWorkflowOwnerCommand>, он создаст <xref:System.Runtime.DurableInstancing.InstanceOwner> и привязать ее к экземпляру. Это означает, что другие процессы будут иметь доступ к рабочего процесса; При завершении процесса, рабочий процесс не может восстановить или выполнен. Если рабочий процесс выполняется повторно, <xref:System.Runtime.DurableInstancing.InstanceLockedException> будет создано.  
+>  Если этот метод выполняется с помощью <xref:System.Activities.DurableInstancing.CreateWorkflowOwnerCommand>, он создаст <xref:System.Runtime.DurableInstancing.InstanceOwner> и привяжите его к экземпляру. Это означает, что другие процессы будут иметь возможность доступа к этот рабочий процесс; Если процесс заканчивается, невозможно восстановить или выполнения рабочего процесса. Если такой рабочий процесс выполняется еще раз, <xref:System.Runtime.DurableInstancing.InstanceLockedException> будет создано.  
 >   
->  Если <xref:System.Activities.DurableInstancing.CreateWorkflowOwnerCommand> — не используется, в хранилище экземпляров будет создан временный <xref:System.Runtime.DurableInstancing.InstanceOwner> , будут удалены в конце процесса. Тем не менее, если процесс заканчивается до момента последней сохраняемости рабочего процесса, это исключение возникнет, если период времени, указанный в **атрибута hostlockrenewalperiod классе** истечет.  
+>  Если <xref:System.Activities.DurableInstancing.CreateWorkflowOwnerCommand> — не используется, хранилище экземпляров будет создан временный <xref:System.Runtime.DurableInstancing.InstanceOwner> , будут удалены в конце процесса. Тем не менее, если процесс заканчивается до момента окончательной сохраняемости рабочего процесса, это исключение возникает, если период времени, указанного в **HostLockRenewalPeriod** истечет.  
   
  ]]></format>
         </remarks>
