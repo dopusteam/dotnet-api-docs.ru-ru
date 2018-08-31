@@ -1,17 +1,18 @@
 <Type Name="GC" FullName="System.GC">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="11996d97bef6121bce982a8368bef5e8197c8a44" />
-    <Meta Name="ms.sourcegitcommit" Value="1465f1a9bce3970cd9e95769eaa641b92a0a22d5" />
+    <Meta Name="ms.openlocfilehash" Value="bc70883d1f178e5912deca211e366c1112bd5e7e" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="04/18/2018" />
-    <Meta Name="ms.locfileid" Value="31469403" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39926586" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class GC" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit GC extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.GC" />
   <TypeSignature Language="VB.NET" Value="Public Class GC" />
   <TypeSignature Language="C++ CLI" Value="public ref class GC abstract sealed" />
+  <TypeSignature Language="F#" Value="type GC = class" />
   <AssemblyInfo>
     <AssemblyName>System.Runtime</AssemblyName>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
@@ -23,6 +24,8 @@
   </AssemblyInfo>
   <AssemblyInfo>
     <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <AssemblyVersion>2.0.5.0</AssemblyVersion>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -40,54 +43,54 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Сборщик мусора — это компонент времени выполнения, который управляет выделением и освобождением памяти для управляемых. Методы в этом классе влияют при выполнении сборки мусора для объекта и освобождение ресурсов, выделенных с помощью объекта. Свойства этого класса предоставляют сведения о общий объем доступной памяти в системе и возрастную категорию или создание память, выделенная для объекта.  
+ Сборщик мусора является в компонент среды выполнения, который управляет выделением и освобождением управляемой памяти. Методы этого класса влияет на выполнение сбора мусора на объект и освобождать ресурсы, выделенные объекту. Свойства этого класса предоставляют информацию о общий объем памяти, доступной в системе и возрастную категорию или поколения, память, выделенная для объекта.  
   
- Сборщик мусора отслеживает и уничтожает объекты, находящиеся в управляемой памяти. Периодически сборщик мусора выполняет сборку мусора освободить память, выделенную для объектов, для которых не существует допустимых ссылок. Сборка мусора происходит автоматически, если запрос на выделение памяти не может быть удовлетворено доступного объема свободной памяти. Кроме того, приложение может принудительно запустить с помощью сбора мусора <xref:System.GC.Collect%2A> метод.  
+ Сборщик мусора отслеживает и уничтожает объекты, находящиеся в управляемой памяти. Периодически сборщик мусора выполняет сборку мусора для освобождения памяти, выделенной для объектов, для которых не существует допустимых ссылок. Сборка мусора происходит автоматически, если запрос на выделение памяти не могут быть удовлетворены с помощью доступной свободной памяти. Кроме того, приложение может принудительно запустить сбор мусора с помощью <xref:System.GC.Collect%2A> метод.  
   
- Сборка мусора состоит из следующих шагов:  
+ Сборка мусора состоит из следующих действий:  
   
 1.  Сборщик мусора выполняет поиск управляемых объектов, на которые имеются ссылки в управляемом коде.  
   
 2.  Сборщик мусора пытается завершить объекты, на которые нет ссылок.  
   
-3.  Сборщик мусора освобождает объекты, на которые нет ссылок и освобождает память.  
+3.  Сборщик мусора освобождает объекты, на которые нет ссылок и возвращает их память.  
   
- Этот раздел включает следующие подразделы:  
+ В этом разделе содержатся следующие подразделы.  
   
- [Сборщик мусора и неуправляемые ресурсы](#unmanaged)   
- [Время существования объектов и версий](#generations)   
+ [Сборщик мусора и неуправляемых ресурсов](#unmanaged)   
+ [Время существования объекта и поколений](#generations)   
  [Отключение сбора мусора](#NoGCRegion)  
   
 <a name="unmanaged"></a>   
-## <a name="the-garbage-collector-and-unmanaged-resources"></a>Сборщик мусора и неуправляемые ресурсы  
- Во время сбора сборщик мусора не освобождает объект, при обнаружении одну или несколько ссылок на объект в управляемом коде. Тем не менее сборщик мусора не распознает ссылки на объект из неуправляемого кода и может уничтожать объекты, которые используются исключительно в неуправляемом коде, если явно запрещено сделать это. <xref:System.GC.KeepAlive%2A> Метод предоставляет механизм, который не позволяет сборщику мусора уничтожать объекты, которые по-прежнему используются в неуправляемом коде.  
+## <a name="the-garbage-collector-and-unmanaged-resources"></a>Сборщик мусора и неуправляемых ресурсов  
+ Во время сбора сборщик мусора не освобождает объект при обнаружении одну или несколько ссылок на объект в управляемом коде. Тем не менее сборщик мусора не распознает ссылки на объект из неуправляемого кода и может уничтожать объекты, которые используются исключительно в неуправляемом коде, если явно запрещено сделать это. <xref:System.GC.KeepAlive%2A> Метод предоставляет механизм, который не позволяет сборщику мусора сбор объектов, которые по-прежнему используются в неуправляемом коде.  
   
- Помимо распределения управляемой памяти реализации сборщика мусора не работают со сведениями о ресурсах, принадлежащих объекту, таких как дескрипторы файлов или подключения к базе данных. Если тип использует неуправляемые ресурсы, которые должны быть освобождены до освобождения экземпляров типа, этот тип может реализовать метод завершения.  
+ Помимо распределения управляемой памяти реализации сборщика мусора не работают со сведениями о ресурсах, принадлежащих объекту, такие как дескрипторы файлов или подключения к базе данных. Если тип использует неуправляемые ресурсы, которые должны быть освобождены до освобождения экземпляров типа, тип может реализовать метод завершения.  
   
- В большинстве случаев финализаторы реализуются путем переопределения <xref:System.Object.Finalize%2A?displayProperty=nameWithType> метод; Однако типы, написанные на C# или C++ реализуют деструкторы, которые компилятор преобразует в переопределения <xref:System.Object.Finalize%2A?displayProperty=nameWithType>. В большинстве случаев Если у объекта есть метод завершения, сборщик мусора вызывает его до освобождения объекта. Тем не менее сборщик мусора не требуется вызывать методы завершения во всех случаях; например <xref:System.GC.SuppressFinalize%2A> метод явным образом запрещает метода завершения объекта вызова. Кроме того сборщик мусора не требуется для использования определенного потока для завершения объектов или гарантировал порядок вызова методов завершения для объектов, которые ссылаются друг на друга, но в остальном доступных для сборки мусора.  
+ В большинстве случаев методы завершения реализуются путем переопределения <xref:System.Object.Finalize%2A?displayProperty=nameWithType> метода; тем не менее, типы, написанные на C# или C++ реализуют деструкторы, которые компилятор преобразует в переопределения <xref:System.Object.Finalize%2A?displayProperty=nameWithType>. В большинстве случаев Если объект имеет метод завершения, сборщик мусора вызывает его перед освобождением объекта. Тем не менее сборщик мусора не является обязательным для вызова методов завершения во всех ситуациях; например <xref:System.GC.SuppressFinalize%2A> метод явным образом запрещает финализатор объекта вызова. Кроме того сборщик мусора не требуется использовать из определенного потока для завершения объектов или гарантирует порядок, в котором вызываются методы завершения для объектов, которые ссылаются друг на друга, но в остальном доступных для сборки мусора.  
   
- В сценариях, где ресурсы должны быть освобождены в определенное время, классы могут реализовывать <xref:System.IDisposable> интерфейс, содержащий <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> метод, который выполняет задачи управления и очистку ресурсов. Классы, реализующие <xref:System.IDisposable.Dispose%2A> , необходимо указать как часть своего контракта класса, и время вызова метода очистки объекта потребителями класса. Сборщик мусора не, по умолчанию вызывает <xref:System.IDisposable.Dispose%2A> метод, однако реализации <xref:System.IDisposable.Dispose%2A> метод можно вызывать методы в <xref:System.GC> класса для настройки поведения сборщика мусора.  
+ В сценариях, где в определенное время, в котором необходимо освободить ресурсы, классы могут реализовывать <xref:System.IDisposable> интерфейс, содержащий <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> метод, который выполняет задачи управления и очистки ресурсов. Классы, реализующие <xref:System.IDisposable.Dispose%2A> , необходимо указать как часть своего контракта класса, при потребителями класса вызовите метод, чтобы очистить объект. Сборщик мусора не, по умолчанию вызывает <xref:System.IDisposable.Dispose%2A> метод, однако реализации <xref:System.IDisposable.Dispose%2A> метод можно вызывать методы в <xref:System.GC> класс для настройки поведения сборщика мусора.  
   
- Дополнительные сведения о завершении объекта и шаблон dispose см. в разделе [очистки неуправляемых ресурсов](~/docs/standard/garbage-collection/unmanaged.md).  
+ Дополнительные сведения о завершение объекта и шаблон dispose, см. в разделе [очистки неуправляемых ресурсов](~/docs/standard/garbage-collection/unmanaged.md).  
   
 <a name="generations"></a>   
-## <a name="object-aging-and-generations"></a>Время существования объектов и версий  
- В среде CLR сборщик мусора поддерживает концепцию возраста объектов поколений. Поколение — это единица измерения относительного времени хранения объектов в памяти. Номер поколения, или возраст объекта указывает поколения, к которой принадлежит объект. Объекты, создаваемые дополнительные недавно входят новые поколения и имеют меньший номер поколения, чем объекты, созданные ранее в приложение жизненного цикла. Объекты в поколении самые последние находятся в поколении 0. Данная реализация сборщика мусора поддерживает три поколения объектов поколения 0, 1 и 2. Можно извлечь значение <xref:System.GC.MaxGeneration%2A> свойства, чтобы определить максимальный номер поколения поддерживается системой.  
+## <a name="object-aging-and-generations"></a>Время существования объекта и поколений  
+ Сборщик мусора в среда CLR поддерживает время существования объекта, с помощью поколений. Поколение — это единица измерения относительного времени хранения объектов в памяти. Номер поколения, или возраст объекта указывает поколения, к которой принадлежит объект. Объекты, создаваемые дополнительные недавно входят новые поколения и имеют меньший номер поколения, чем цикл объекты, созданные ранее в жизни приложения. Объекты в самого последнего поколения находятся в поколении 0. Эта реализация сборщика мусора поддерживает три поколения объектов поколений 0, 1 и 2. Можно получить значение <xref:System.GC.MaxGeneration%2A> свойства, чтобы определить максимальный номер поколения поддерживается системой.  
   
- Время существования объекта позволяет приложениям целевой сборка мусора на определенное число поколений, вместо сборщику мусора обрабатывать все поколения. Перегруженные версии <xref:System.GC.Collect%2A> метод, который включает `generation` позволяют указать мусора старших поколений.  
+ Время существования объекта позволяет приложениям целевой сборка мусора на конкретный набор поколений, а не что сборщику мусора обрабатывать все поколения. Перегруженные версии <xref:System.GC.Collect%2A> метод, который включают `generation` параметра позволяют пользователю указать старших поколений, для быть подвергнута сбору мусора.  
   
 <a name="NoGCRegion"></a>   
 ## <a name="disallowing-garbage-collection"></a>Отключение сбора мусора  
- Начиная с [!INCLUDE[net_v46](~/includes/net-v46-md.md)], сборщик мусора поддерживает GC режим задержки без области, можно использовать во время выполнения критического пути, в какой сборке мусора коллекции может отрицательно сказаться на производительности приложения. Сборка Мусора режим задержки без области необходимо указать объем памяти, который может быть выделен без помех сборщиком мусора. Если среда выполнения может выделить память, среда выполнения не выполнит сбор мусора во время выполнения кода на критическом пути.  
+ Начиная с [!INCLUDE[net_v46](~/includes/net-v46-md.md)], сборщик мусора поддерживает GC режим задержки без области, можно использовать во время выполнения критических путей, в какие сборки мусора коллекции может отрицательно сказаться на производительности приложения. Сборщик Мусора режим задержки без области, необходимо указать объем памяти, который может быть выделен, не мешая сборщиком мусора. Если среда выполнения может выделить память, среда выполнения не выполнит сбор мусора во время выполнения кода на критическом пути.  
   
- Определение начала критический путь без области сборки Мусора путем вызова одной из перегрузок <xref:System.GC.TryStartNoGCRegion%2A>. Укажите окончание его критическим путем вызова <xref:System.GC.EndNoGCRegion%2A> метод.  
+ Определение начала критический путь без области сборки Мусора путем вызова одной из перегрузок <xref:System.GC.TryStartNoGCRegion%2A>. Укажите в конец его критического пути, вызвав <xref:System.GC.EndNoGCRegion%2A> метод.  
   
- Не удается вложить вызовы <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в данный момент в режим задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> успешно выполнен.  
+ Не удается вложить вызовы к <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в настоящее время находится в режиме задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> выполнена успешно.  
   
    
   
 ## Examples  
- В следующем примере несколько методов сборки Мусора поколения памяти данные о блоке неиспользуемых объектов и печати на консоль. Неиспользуемые объекты затем собираются и отображаются результирующие итоги памяти.  
+ В следующем примере несколько методов сборки Мусора поколения памяти данные о блоке неиспользуемых объектов и вывода его на консоль. Неиспользуемые объекты затем собираются и отображаются результирующие итоги памяти.  
   
  [!code-cpp[System.GC.Collect Int Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.gc.collect int example/CPP/class1.cpp#1)]
  [!code-csharp[System.GC.Collect Int Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.gc.collect int example/CS/class1.cs#1)]
@@ -104,6 +107,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.AddMemoryPressure(System.Int64)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub AddMemoryPressure (bytesAllocated As Long)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void AddMemoryPressure(long bytesAllocated);" />
+      <MemberSignature Language="F#" Value="static member AddMemoryPressure : int64 -&gt; unit" Usage="System.GC.AddMemoryPressure bytesAllocated" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -116,6 +120,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -124,7 +129,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -135,31 +140,29 @@
         <Parameter Name="bytesAllocated" Type="System.Int64" />
       </Parameters>
       <Docs>
-        <param name="bytesAllocated">Дополнительный объем выделенной неуправляемой памяти.</param>
-        <summary>Информирует среду выполнения о выделении большого объема неуправляемой памяти, которую необходимо учесть при планировании сборки мусора.</summary>
+        <param name="bytesAllocated">Объем, на который увеличен объем выделенной неуправляемой памяти.</param>
+        <summary>Информирует среду CLR о выделении большого объема неуправляемой памяти, которую необходимо учесть при планировании сборки мусора.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- При определении времени запланировать сбор мусора, среда выполнения учитывает выделенный объем управляемой памяти. Если маленький управляемый объект выделяет большой объем неуправляемой памяти, среда выполнения учитывает только управляемую память и поэтому недооценивает срочность планирования сборки мусора. <xref:System.GC.AddMemoryPressure%2A> Метод информирует среду выполнения о этот дополнительную нагрузку на системную память.  
+ При определении времени запланировать сбор мусора, среда выполнения учитывает объем управляемой памяти выделяется. Если маленький управляемый объект выделяет большой объем неуправляемой памяти, среда выполнения учитывает только управляемую память и поэтому недооценивает срочность планировании сборки мусора. <xref:System.GC.AddMemoryPressure%2A> Метод информирует среду CLR о этот дополнительную нагрузку на системную память.  
   
- В простейшей схеме использования управляемый объект выделяет неуправляемую память в конструкторе и освобождает его в `Dispose` или `Finalize` метод. Вызовите <xref:System.GC.AddMemoryPressure%2A> метод после выделения неуправляемой памяти и вызывать <xref:System.GC.RemoveMemoryPressure%2A> метод после ее освобождения.  
+ Самый простой шаблон использования, управляемый объект выделяет неуправляемую память в конструкторе и освобождает его в `Dispose` или `Finalize` метод. Вызовите <xref:System.GC.AddMemoryPressure%2A> метод после выделения неуправляемой памяти и вызовите <xref:System.GC.RemoveMemoryPressure%2A> метод после ее освобождения.  
   
- В более сложных сценариях, где выделения неуправляемой памяти существенно изменяется за время жизни управляемого объекта, можно вызвать <xref:System.GC.AddMemoryPressure%2A> и <xref:System.GC.RemoveMemoryPressure%2A> методов для взаимодействия эти добавочных изменений в среду выполнения.  
+ В более сложных сценариях, где выделения неуправляемой памяти значительно изменяется в течение времени существования управляемого объекта, можно вызвать <xref:System.GC.AddMemoryPressure%2A> и <xref:System.GC.RemoveMemoryPressure%2A> методы для взаимодействия эти добавочные изменения в среду выполнения.  
   
 > [!CAUTION]
->  Необходимо гарантировать, что удаляется точно степень давления, можно добавить. Невыполнение этого может отрицательно сказаться на производительности системы в приложениях, выполняемых в течение длительного времени.  
+>  Необходимо гарантировать, что удаляется именно степень давления, добавляемые. Невыполнение этого может отрицательно сказаться на производительности системы в приложениях, выполняемых в течение длительных периодов времени.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="bytesAllocated" /> меньше или равно 0.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Значение <paramref name="bytesAllocated" /> меньше или равно 0.  
   
- - или -  
-  
- На 32-разрядном компьютере <paramref name="bytesAllocated" /> больше <see cref="F:System.Int32.MaxValue" />.</exception>
+-или- 
+На 32-разрядном компьютере <paramref name="bytesAllocated" /> больше <see cref="F:System.Int32.MaxValue" />.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">для возможности вызова неуправляемого кода, при обработке приоритетом сборки мусора. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></permission>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName="CancelFullGCNotification">
@@ -168,9 +171,11 @@
       <MemberSignature Language="DocId" Value="M:System.GC.CancelFullGCNotification" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub CancelFullGCNotification ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void CancelFullGCNotification();" />
+      <MemberSignature Language="F#" Value="static member CancelFullGCNotification : unit -&gt; unit" Usage="System.GC.CancelFullGCNotification " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -184,7 +189,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -198,12 +203,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод отменяет уведомление о сборке мусора, зарегистрированный с помощью <xref:System.GC.RegisterForFullGCNotification%2A> метод. Нет необходимости вызывать этот метод перед настройкой пороговые значения параметра в последующих вызовах <xref:System.GC.RegisterForFullGCNotification%2A> метод.  
+ Этот метод отменяет уведомление о сборке мусора, зарегистрированный с помощью <xref:System.GC.RegisterForFullGCNotification%2A> метод. Нет необходимости вызывать этот метод перед настройкой пороговые значения параметров в последующих вызовах <xref:System.GC.RegisterForFullGCNotification%2A> метод.  
   
    
   
 ## Examples  
- В следующем примере отменяется регистрация сборки мусора. Данный пример является частью большего примера, приведенного для [сборке мусора](~/docs/standard/garbage-collection/notifications.md) раздела.  
+ В следующем примере отменяется регистрация сборки мусора. Этот пример является частью большего примера для [уведомлений сборки мусора](~/docs/standard/garbage-collection/notifications.md) раздела.  
   
  [!code-cpp[GCNotification#7](~/samples/snippets/cpp/VS_Snippets_CLR/GCNotification/cpp/program.cpp#7)]
  [!code-csharp[GCNotification#7](~/samples/snippets/csharp/VS_Snippets_CLR/GCNotification/cs/Program.cs#7)]
@@ -211,9 +216,9 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">Этот член недоступен, если включена параллельная сборка мусора. Сведения об отключении параллельной сборки мусора см. в статье, посвященной параметру среды выполнения [&lt;gcConcurrent&gt;](~/docs/framework/configure-apps/file-schema/runtime/gcconcurrent-element.md).</exception>
-        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">Для полного доверия для непосредственного вызывающего. Этот член не может быть использован частично доверенным кодом.</permission>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+        <exception cref="T:System.InvalidOperationException">Данный элемент недоступен, если включена параллельная сборка мусора. Сведения об отключении параллельной сборки мусора см. в статье, посвященной параметру среды выполнения [&lt;gcConcurrent&gt;](~/docs/framework/configure-apps/file-schema/runtime/gcconcurrent-element.md).</exception>
+        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">для полного доверия для непосредственного вызывающего объекта. Этот член не может быть использован частично доверенным кодом.</permission>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <MemberGroup MemberName="Collect">
@@ -235,6 +240,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.Collect" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub Collect ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Collect();" />
+      <MemberSignature Language="F#" Value="static member Collect : unit -&gt; unit" Usage="System.GC.Collect " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -247,6 +253,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -255,7 +263,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -269,11 +277,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Используйте этот метод, чтобы попытаться освободить всю память, который недоступен. Он выполняет блокирующей сборки мусора для всех поколений.  
+ Этот метод позволяет восстанавливать всю память, который недоступен. Он выполняет блокирующей сборки мусора для всех поколений.  
   
- Все объекты, независимо от того, как долго они находятся в памяти, считаются для коллекции. Тем не менее объекты, на которые имеются ссылки в управляемом коде, не собираются. Используйте этот метод, чтобы принудительно предпринять попытку высвободить максимальный объем доступной памяти.  
+ Все объекты, независимо от того, как долго они находятся в памяти, считаются для коллекции; Тем не менее объекты, упоминаемые в управляемом коде не собираются. Этот метод позволяет принудительно предпринять попытку освободить максимальный объем доступной памяти.  
   
- Начиная с [!INCLUDE[net_v451](~/includes/net-v451-md.md)], можно сжать кучи больших объектов (LOH), задав <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode%2A?displayProperty=nameWithType> свойства <xref:System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce?displayProperty=nameWithType> перед вызовом <xref:System.GC.Collect%2A> метода, как приведенный ниже пример иллюстрирует.  
+ Начиная с [!INCLUDE[net_v451](~/includes/net-v451-md.md)], можно сжать кучу больших объектов (LOH), задав <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode%2A?displayProperty=nameWithType> свойства <xref:System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce?displayProperty=nameWithType> перед вызовом <xref:System.GC.Collect%2A> метод, как показано следующем примере.  
   
  [!code-csharp[System.Runtime.GCSettings#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.runtime.gcsettings/cs/lohcompactionmode1.cs#1)]
  [!code-vb[System.Runtime.GCSettings#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.runtime.gcsettings/vb/lohcompactionmode1.vb#1)]  
@@ -281,7 +289,7 @@
    
   
 ## Examples  
- В следующем примере демонстрируется использование <xref:System.GC.Collect%2A> метод, чтобы выполнить сборку мусора для всех поколений памяти. Код создает число неиспользуемых объектов, а затем вызывает <xref:System.GC.Collect%2A> метод для их удаления из памяти.  
+ Следующий пример демонстрирует, как использовать <xref:System.GC.Collect%2A> метод, чтобы выполнить сборку мусора для всех поколений памяти. Код создает число неиспользуемых объектов, а затем вызывает <xref:System.GC.Collect%2A> метод для их удаления из памяти.  
   
  [!code-cpp[System.GC.Collect Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.GC.Collect Example/CPP/class1.cpp#1)]
  [!code-csharp[System.GC.Collect Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.GC.Collect Example/CS/class1.cs#1)]
@@ -297,6 +305,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.Collect(System.Int32)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub Collect (generation As Integer)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Collect(int generation);" />
+      <MemberSignature Language="F#" Value="static member Collect : int -&gt; unit" Usage="System.GC.Collect generation" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -309,6 +318,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -329,18 +340,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Используйте этот метод для освобождения памяти, который недоступен. Тем не менее с помощью этого метода не гарантирует что всей недоступной памяти в указанном поколении.  
+ Используйте этот метод для освобождения памяти, который недоступен. Тем не менее с помощью этого метода не гарантирует что всю память, недоступны в указанном поколении.  
   
- Если реализована время существования объекта, сборщик мусора не собирать объекты с номер поколения, превышающего заданного поколения. Если не используется время существования объекта, сборщик мусора считает, что все объекты во время сборки мусора.  
+ Если реализуется время существования объекта, сборщик мусора не собирать объекты с номер поколения больше заданного поколения. Если время существования объекта не реализован, сборщик мусора считает, что все объекты во время сборки мусора.  
   
  Используйте <xref:System.GC.MaxGeneration%2A> свойства, чтобы определить максимальное допустимое значение параметра `generation` параметр.  
   
- Чтобы сборщик мусора учитывать все объекты, независимо от их поколения, используйте версию этого метода, который не имеет параметров. Чтобы сборщик мусора освобождает объекты, на основе <xref:System.GCCollectionMode> установка, использование <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%29?displayProperty=nameWithType> перегрузки метода.  
+ Чтобы сборщик мусора учесть все объекты, независимо от их создания, используйте версию этого метода, который не принимает параметров. Чтобы сборщик мусора освобождает объекты, на основе <xref:System.GCCollectionMode> задание, используйте <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%29?displayProperty=nameWithType> перегрузки метода.  
   
    
   
 ## Examples  
- В следующем примере демонстрируется использование <xref:System.GC.Collect%2A> метод, чтобы выполнить сборку мусора для отдельных уровней памяти. Код создает число неиспользуемых объектов, а затем вызывает <xref:System.GC.Collect%2A> метод для их удаления из памяти.  
+ Следующий пример демонстрирует, как использовать <xref:System.GC.Collect%2A> метод, чтобы выполнить сборку мусора для отдельных уровней памяти. Код создает число неиспользуемых объектов, а затем вызывает <xref:System.GC.Collect%2A> метод для их удаления из памяти.  
   
  [!code-cpp[System.GC.Collect Int Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.gc.collect int example/CPP/class1.cpp#1)]
  [!code-csharp[System.GC.Collect Int Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.gc.collect int example/CS/class1.cs#1)]
@@ -348,8 +359,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Недопустимый параметр <paramref name="generation" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Недопустимый параметр <paramref name="generation" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="Collect">
@@ -358,6 +368,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.Collect(System.Int32,System.GCCollectionMode)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub Collect (generation As Integer, mode As GCCollectionMode)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Collect(int generation, GCCollectionMode mode);" />
+      <MemberSignature Language="F#" Value="static member Collect : int * GCCollectionMode -&gt; unit" Usage="System.GC.Collect (generation, mode)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -370,6 +381,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -378,7 +390,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -392,37 +404,35 @@
       <Docs>
         <param name="generation">Количество старших поколений, для которых следует выполнить сборку мусора.</param>
         <param name="mode">Значение перечисления, указывающее, является ли сборка мусора принудительной (<see cref="F:System.GCCollectionMode.Default" /> или <see cref="F:System.GCCollectionMode.Forced" />) или оптимизированной (<see cref="F:System.GCCollectionMode.Optimized" />).</param>
-        <summary>Принудительно запускает немедленную сборку мусора начиная с нулевого поколения и вплоть до указанного поколения в момент времени, заданный значением <see cref="T:System.GCCollectionMode" />.</summary>
+        <summary>Принудительно начинает немедленную сборку мусора начиная с нулевого поколения и вплоть до указанного поколения в момент времени, заданный значением <see cref="T:System.GCCollectionMode" />.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Используйте `mode` для указания, является ли сборка мусора должно выполняться немедленно или только если время является оптимальным для освобождения объектов. С помощью этого метода не гарантирует что всей недоступной памяти в указанном поколении.  
+ Используйте `mode` параметр для указания сборки мусора должна ли выполняться немедленно или только если время является оптимальным для освобождения объектов. С помощью этого метода не гарантирует что всю память, недоступны в указанном поколении.  
   
- Чтобы настроить степень вмешательства сборщика мусора в приложении в критические периоды, установите <xref:System.Runtime.GCSettings.LatencyMode%2A> свойство.  
+ Чтобы настроить степень вмешательства сборщика мусора критические периоды, в приложении, установите <xref:System.Runtime.GCSettings.LatencyMode%2A> свойство.  
   
- Сборщик мусора не пытается освободить объекты номер поколения, выше, чем указано в `generation` параметра. Используйте <xref:System.GC.MaxGeneration%2A> свойства, чтобы определить максимальное допустимое значение параметра `generation`.  
+ Сборщик мусора не собирает объекты с номер поколения, выше, чем указано в `generation` параметра. Используйте <xref:System.GC.MaxGeneration%2A> свойства, чтобы определить максимальное допустимое значение `generation`.  
   
- Чтобы сборщик мусора учитывать все объекты, независимо от их поколения, используйте версию этого метода, который не имеет параметров.  
+ Чтобы сборщик мусора учесть все объекты, независимо от их создания, используйте версию этого метода, который не принимает параметров.  
   
- Чтобы сборщик мусора освобождает объекты, вплоть до указанного поколения объектов, используйте <xref:System.GC.Collect%28System.Int32%29?displayProperty=nameWithType> перегрузки метода. При указании максимальное поколение, освобождаются все объекты.  
+ Чтобы сборщик мусора освобождает объекты, вплоть до указанного поколения объектов, используйте <xref:System.GC.Collect%28System.Int32%29?displayProperty=nameWithType> перегрузки метода. При указании максимально возможного поколения собираются все объекты.  
   
    
   
 ## Examples  
- Следующий пример вызывает сборку мусора для объектов поколения 2 с <xref:System.GCCollectionMode.Optimized> параметр.  
+ Следующий пример принудительно проводит сборку мусора для объектов поколения 2 с <xref:System.GCCollectionMode.Optimized> параметр.  
   
  [!code-csharp[System.GC.GCCollectionMode#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.GC.GCCollectionMode/cs/Program.cs#1)]
  [!code-vb[System.GC.GCCollectionMode#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.GC.GCCollectionMode/vb/program.vb#1)]  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Недопустимый параметр <paramref name="generation" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Недопустимый параметр <paramref name="generation" />.  
   
- - или -  
-  
- <paramref name="mode" /> не является одним из значений <see cref="T:System.GCCollectionMode" />.</exception>
+-или- 
+ Параметр <paramref name="mode" /> не является одним из значений <see cref="T:System.GCCollectionMode" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="Collect">
@@ -431,6 +441,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.Collect(System.Int32,System.GCCollectionMode,System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub Collect (generation As Integer, mode As GCCollectionMode, blocking As Boolean)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Collect(int generation, GCCollectionMode mode, bool blocking);" />
+      <MemberSignature Language="F#" Value="static member Collect : int * GCCollectionMode * bool -&gt; unit" Usage="System.GC.Collect (generation, mode, blocking)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -451,7 +462,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -466,30 +477,27 @@
       <Docs>
         <param name="generation">Количество старших поколений, для которых следует выполнить сборку мусора.</param>
         <param name="mode">Значение перечисления, указывающее, является ли сборка мусора принудительной (<see cref="F:System.GCCollectionMode.Default" /> или <see cref="F:System.GCCollectionMode.Forced" />) или оптимизированной (<see cref="F:System.GCCollectionMode.Optimized" />).</param>
-        <param name="blocking">
-          Значение <see langword="true" /> для выполнения блокирующей сборки мусора; значение <see langword="false" /> для выполнения фоновой сборки мусора, где это возможно.</param>
-        <summary>Принудительная сборка мусора с поколения 0 до указанного поколения во время, указанное значением <see cref="T:System.GCCollectionMode" />, со значением, указывающим, должна ли сборка быть блокирующей.</summary>
+        <param name="blocking">Значение <see langword="true" /> для выполнения сборки мусора с блокировкой; значение <see langword="false" /> для выполнения фоновой сборки мусора, где это возможно.</param>
+        <summary>Принудительная сборка мусора с поколения 0 до указанного поколения во время, указанное значением <see cref="T:System.GCCollectionMode" />, со значением, указывающим, должна ли коллекция быть блокирующей.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
  В следующей таблице перечислены взаимодействия `mode` и `blocking` параметры:  
   
-|`mode`|`blocking` равно `true`|`blocking` равно `false`|  
+|`mode`|Параметр `blocking` содержит значение `true`|Параметр `blocking` содержит значение `false`|  
 |-|-|-|  
-|<xref:System.GCCollectionMode.Forced> или <xref:System.GCCollectionMode.Default>|Блокирующий сбор выполнится, как только это станет возможным. Если выполняется фоновая сборка мусора и `generation` равен 0 или 1, <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%29> метод немедленно запускает заблокированной коллекции и возвращает при завершении коллекции. Если выполняется фоновая сборка мусора и `generation` 2, метод ожидает, пока фоновая сборка мусора завершения работы вызывает блокирующие сборки поколения 2 и возвращает.|Сборка выполнится, как только это станет возможным. Метод <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%29> запрашивает фоновую сборку, но не гарантирует этот режим. В зависимости от обстоятельств может выполняться блокирующая сборка. Если фоновая сборка уже выполняется, метод возвращает управление немедленно.|  
-|<xref:System.GCCollectionMode.Optimized>|В зависимости от текущего состояния сборщика мусора и значения параметра `generation` может выполняться блокирующая сборка. Сборщик мусора пытается обеспечить оптимальную производительность.|Сборка может быть выполнена в зависимости от состояния сборщика мусора. Метод <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%29> запрашивает фоновую сборку, но не гарантирует этот режим. В зависимости от обстоятельств может выполняться блокирующая сборка. Сборщик мусора пытается обеспечить оптимальную производительность. Если фоновая сборка уже выполняется, метод возвращает управление немедленно.|  
+|<xref:System.GCCollectionMode.Forced> или <xref:System.GCCollectionMode.Default>|Заблокированная коллекция выполняется, как только это станет возможным. Если фоновая сборка выполняется и `generation` равен 0 или 1, <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%29> метод немедленно активирует блокирующую сборку и возвращает при завершении коллекции. Если фоновая сборка выполняется и `generation` равно 2, метод дожидается завершения фоновой сборки, активирует блокирующую сборку поколения 2 и возвращает.|Коллекция выполняется, как только это станет возможным. Метод <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%29> запрашивает фоновую коллекцию, однако это не гарантированно. В зависимости от обстоятельств блокирующая коллекция может выполняться. Если фоновая сборка уже выполняется, метод возвращает управление немедленно.|  
+|<xref:System.GCCollectionMode.Optimized>|Заблокированная коллекция может быть выполнена в зависимости от состояния сборщика мусора и параметра `generation`. Сборщик мусора пытается обеспечить оптимальную производительность.|Коллекция может быть выполнена в зависимости от состояния сборщика мусора. Метод <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%29> запрашивает фоновую коллекцию, однако это не гарантированно. В зависимости от обстоятельств блокирующая коллекция может выполняться. Сборщик мусора пытается обеспечить оптимальную производительность. Если фоновая сборка уже выполняется, метод возвращает управление немедленно.|  
   
- Если вызов <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%29> метод выполняет полной блокирующей сборки мусора, можно также сжать кучи больших объектов, задав <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode%2A?displayProperty=nameWithType> свойства <xref:System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce?displayProperty=nameWithType> перед вызовом <xref:System.GC.Collect%2A> метод.  
+ Если в вызове <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%29> полной блокирующей сборки мусора выполняет метод, можно также сжать кучу больших объектов, задав <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode%2A?displayProperty=nameWithType> свойства <xref:System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce?displayProperty=nameWithType> перед вызовом <xref:System.GC.Collect%2A> метод.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Недопустимый параметр <paramref name="generation" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Недопустимый параметр <paramref name="generation" />.  
   
- - или -  
-  
- <paramref name="mode" /> не является одним из значений <see cref="T:System.GCCollectionMode" />.</exception>
+-или- 
+ Параметр <paramref name="mode" /> не является одним из значений <see cref="T:System.GCCollectionMode" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="Collect">
@@ -498,6 +506,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.Collect(System.Int32,System.GCCollectionMode,System.Boolean,System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub Collect (generation As Integer, mode As GCCollectionMode, blocking As Boolean, compacting As Boolean)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void Collect(int generation, GCCollectionMode mode, bool blocking, bool compacting);" />
+      <MemberSignature Language="F#" Value="static member Collect : int * GCCollectionMode * bool * bool -&gt; unit" Usage="System.GC.Collect (generation, mode, blocking, compacting)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -514,7 +523,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -530,25 +539,23 @@
       <Docs>
         <param name="generation">Количество старших поколений, для которых следует выполнить сборку мусора.</param>
         <param name="mode">Значение перечисления, указывающее, является ли сборка мусора принудительной (<see cref="F:System.GCCollectionMode.Default" /> или <see cref="F:System.GCCollectionMode.Forced" />) или оптимизированной (<see cref="F:System.GCCollectionMode.Optimized" />).</param>
-        <param name="blocking">
-          Значение <see langword="true" /> для выполнения блокирующей сборки мусора; значение <see langword="false" /> для выполнения фоновой сборки мусора, где это возможно.</param>
-        <param name="compacting">
-          Значение <see langword="true" />, чтобы сжимать кучу маленьких объектов; значение <see langword="false" />, чтобы только очищать.</param>
+        <param name="blocking">Значение <see langword="true" /> для выполнения сборки мусора с блокировкой; значение <see langword="false" /> для выполнения фоновой сборки мусора, где это возможно.</param>
+        <param name="compacting">Значение <see langword="true" />, чтобы сжимать кучу маленьких объектов; значение <see langword="false" />, чтобы только очищать.</param>
         <summary>Принудительная сборка мусора с поколения 0 до указанного поколения во время, указанное значением <see cref="T:System.GCCollectionMode" />, со значениями, указывающими, должна ли сборка быть блокирующей и сжимающей.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если `blocking` — `false`, сборщик Мусора решает, следует ли выполнять фоновый рисунок или блокирующей сборки мусора. Если `compacting` — `true`, он выполняет блокирующей сборки мусора.  
+ Если `blocking` является `false`, сборщик Мусора решает, следует ли для выполнения фоновых или блокирующей сборки мусора. Если `compacting` является `true`, он выполняет блокирующей сборки мусора.  
   
- Если `compacting` — `true`, среда выполнения сжимает кучу небольших объектов (SOH). Для кучи больших объектов (LOH) не сжимается, если не <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode%2A?displayProperty=nameWithType> свойству <xref:System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce?displayProperty=nameWithType>. Обратите внимание, что в нем все блокировка сборки мусора, не только полностью блокирующие сборки мусора.  
+ Если `compacting` является `true`, среда выполнения сжимает кучу небольших объектов (SOH). Куча больших объектов (LOH) не сжимается, если не <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode%2A?displayProperty=nameWithType> свойству <xref:System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce?displayProperty=nameWithType>. Обратите внимание, что сюда входят все блокирующие сборки мусора, не только полностью блокирующие сборки мусора.  
   
- Можно вызвать <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%2CSystem.Boolean%29> способ уменьшить до наименьшего возможного размера, в управляемой куче, как показано в следующем фрагменте кода.  
+ Вы можете вызвать <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%2CSystem.Boolean%29> метод уменьшить размер управляемой кучи до минимального размера, как показано в следующем фрагменте кода.  
   
  [!code-csharp[System.GC.Collect#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.gc.collect/cs/collect4.cs#1)]
  [!code-vb[System.GC.Collect#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.gc.collect/vb/collect4.vb#1)]  
   
- Указание `true` для `compacting` аргумент гарантирует со сжатием, полной блокирующей сборки мусора. Установка <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode%2A?displayProperty=nameWithType> свойства <xref:System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce?displayProperty=nameWithType> гарантирует сжимаются LOH и состояние работоспособности.  
+ Указание `true` для `compacting` аргумент гарантирует со сжатием, полной блокирующей сборки мусора. Установка <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode%2A?displayProperty=nameWithType> свойства <xref:System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce?displayProperty=nameWithType> гарантирует, что SOH и LOH сжимаются.  
   
  ]]></format>
         </remarks>
@@ -560,6 +567,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.CollectionCount(System.Int32)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function CollectionCount (generation As Integer) As Integer" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static int CollectionCount(int generation);" />
+      <MemberSignature Language="F#" Value="static member CollectionCount : int -&gt; int" Usage="System.GC.CollectionCount generation" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -572,6 +580,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -580,10 +589,10 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
         </Attribute>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -601,12 +610,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если вы реализуете собственное управление ресурсами, может потребоваться принудительно запустить сборку мусора периодически путем вызова <xref:System.GC.Collect%2A> метод. Поскольку это ресурсоемкая операция, пропустив вызов после сборки мусора недавно может повысить производительность. Сохранить значение, возвращаемое <xref:System.GC.CollectionCount%2A> сразу после вызова <xref:System.GC.Collect%2A>. В следующий раз, необходимо вызвать <xref:System.GC.Collect%2A>, сравнения текущего значения, возвращенного <xref:System.GC.CollectionCount%2A> сохраненному значению. Если два значения равны, ни одна из коллекций произошла за этот промежуток времени, и имеет смысл для вызова <xref:System.GC.Collect%2A> еще раз.  
+ Если вы реализуете собственное управление ресурсами, может потребоваться принудительно запустить сборку мусора периодически путем вызова <xref:System.GC.Collect%2A> метод. Так как это ресурсоемкая операция, можно повысить производительность, пропуская указанный вызов, когда сбор мусора выполнена недавно. Сохраните значение, возвращенное <xref:System.GC.CollectionCount%2A> сразу после вызова <xref:System.GC.Collect%2A>. В следующий раз, необходимо вызвать <xref:System.GC.Collect%2A>, сравнить текущее значение, возвращенное <xref:System.GC.CollectionCount%2A> сохраненному значению. Если два значения равны, ни одна из коллекций произошло до этого времени, и следует вызвать <xref:System.GC.Collect%2A> еще раз.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Значение параметра <paramref name="generation" /> меньше 0.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="generation" /> меньше 0.</exception>
       </Docs>
     </Member>
     <Member MemberName="EndNoGCRegion">
@@ -615,6 +623,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.EndNoGCRegion" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub EndNoGCRegion ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void EndNoGCRegion();" />
+      <MemberSignature Language="F#" Value="static member EndNoGCRegion : unit -&gt; unit" Usage="System.GC.EndNoGCRegion " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -631,7 +640,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -645,13 +654,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.GC.EndNoGCRegion%2A> Вызывает исключение <xref:System.InvalidOperationException> если сборщик мусора не входит в режим задержки без области сборки Мусора. Это происходит при выполнении любого из следующих условий:  
+ <xref:System.GC.EndNoGCRegion%2A> Вызывает метод <xref:System.InvalidOperationException> если сборщик мусора не находится в режиме задержки без области сборки Мусора. Это происходит при любом из следующих условий:  
   
 -   <xref:System.GC.TryStartNoGCRegion%2A> Метод не был вызван ранее.  
   
 -   Вызов <xref:System.GC.TryStartNoGCRegion%2A> возвращаемое значение метода `false`.  
   
--   Вызов <xref:System.GC.TryStartNoGCRegion%2A> метод исключение.  
+-   Вызов <xref:System.GC.TryStartNoGCRegion%2A> метод вызвал исключение.  
   
  С помощью следующего кода можно предотвратить возникновение исключений для любой из следующих причин:  
   
@@ -662,13 +671,11 @@
         </remarks>
         <exception cref="T:System.InvalidOperationException">Сборщик мусора не находится в режиме задержки без области сборки мусора.  
   
- - или -  
+-или- 
+Режим задержки без области сборки мусора был завершен заранее, поскольку была вызвана сборка мусора.  
   
- Режим задержки без области сборки мусора был завершен заранее, поскольку была вызвана сборка мусора.  
-  
- - или -  
-  
- Выделение памяти превышает объем, указанный в вызове метода <see cref="M:System.GC.TryStartNoGCRegion(System.Int64)" />.</exception>
+-или- 
+Выделение памяти превышает объем, указанный в вызове метода <see cref="M:System.GC.TryStartNoGCRegion(System.Int64)" />.</exception>
         <altmember cref="M:System.GC.TryStartNoGCRegion(System.Int64)" />
         <altmember cref="P:System.Runtime.GCSettings.LatencyMode" />
       </Docs>
@@ -679,6 +686,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.GetAllocatedBytesForCurrentThread" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function GetAllocatedBytesForCurrentThread () As Long" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static long GetAllocatedBytesForCurrentThread();" />
+      <MemberSignature Language="F#" Value="static member GetAllocatedBytesForCurrentThread : unit -&gt; int64" Usage="System.GC.GetAllocatedBytesForCurrentThread " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -712,6 +720,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.GetGeneration(System.Object)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function GetGeneration (obj As Object) As Integer" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static int GetGeneration(System::Object ^ obj);" />
+      <MemberSignature Language="F#" Value="static member GetGeneration : obj -&gt; int" Usage="System.GC.GetGeneration obj" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -722,6 +731,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -730,7 +741,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -748,12 +759,12 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Используйте этот метод, чтобы определить возраст объекта, а затем использовать эти сведения с <xref:System.GC.Collect%2A> метод, чтобы сборщик мусора для сбора объектов этого поколения. Например используйте этот метод, если у вас есть набор объектов, которые были созданы группы и стали недоступными одновременно.  
+ Этот метод позволяет определить возраст объекта, а затем использовать эти сведения с <xref:System.GC.Collect%2A> объектов способ принудительного сборщику мусора этого поколения. Например используйте этот метод при наличии набора объектов, которые создаются в виде группы и стали недоступными в то же время.  
   
    
   
 ## Examples  
- В следующем примере демонстрируется использование <xref:System.GC.GetGeneration%2A> метод, чтобы определить возраст объекта. Затем в примере выполняется сборки мусора для очистки памяти и сравнения pre и post итоги памяти коллекцию в консоли.  
+ Следующий пример демонстрирует, как использовать <xref:System.GC.GetGeneration%2A> метод, чтобы определить возраст объекта. Затем в примере выполняется сборки мусора для очистки памяти. и сравнения pre и post итоги памяти коллекции в консоли.  
   
  [!code-cpp[System.GC.Collect Int Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.gc.collect int example/CPP/class1.cpp#1)]
  [!code-csharp[System.GC.Collect Int Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.gc.collect int example/CS/class1.cs#1)]
@@ -770,9 +781,12 @@
       <MemberSignature Language="DocId" Value="M:System.GC.GetGeneration(System.WeakReference)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function GetGeneration (wo As WeakReference) As Integer" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static int GetGeneration(WeakReference ^ wo);" />
+      <MemberSignature Language="F#" Value="static member GetGeneration : WeakReference -&gt; int" Usage="System.GC.GetGeneration wo" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -786,7 +800,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -804,7 +818,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Examples  
- В следующем примере показано использование <xref:System.GC.GetGeneration%2A> метод, чтобы определить возраст объект слабой ссылки.  
+ В следующем примере показано использование <xref:System.GC.GetGeneration%2A> метод, чтобы определить, как давно обновлялось объект слабой ссылки.  
   
  [!code-cpp[System.GC.GetGenerationWeak Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.GC.GetGenerationWeak Example/CPP/systemgcgetgenerationweak.cpp#1)]
  [!code-csharp[System.GC.GetGenerationWeak Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.GC.GetGenerationWeak Example/CS/systemgcgetgenerationweak.cs#1)]
@@ -822,6 +836,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.GetTotalMemory(System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function GetTotalMemory (forceFullCollection As Boolean) As Long" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static long GetTotalMemory(bool forceFullCollection);" />
+      <MemberSignature Language="F#" Value="static member GetTotalMemory : bool -&gt; int64" Usage="System.GC.GetTotalMemory forceFullCollection" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -834,6 +849,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -841,6 +858,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2">
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Int64</ReturnType>
       </ReturnValue>
@@ -849,19 +871,19 @@
       </Parameters>
       <Docs>
         <param name="forceFullCollection">
-          Значение <see langword="true" />, указывающий, что перед возвратом этот метод может дождаться выполнения сборки мусора; в противном случае — <see langword="false" />.</param>
+          <see langword="true" />, чтобы указать, что перед возвратом этот метод может дождаться выполнения сборки мусора; в противном случае — <see langword="false" />.</param>
         <summary>Извлекает предполагаемое количество выделенных в данный момент байтов. Параметр указывает, может ли этот метод выдержать короткий интервал времени ожидания перед возвратом, пока система выполняет сборку мусора и завершает объекты.</summary>
         <returns>Наилучшая доступная аппроксимация числа байтов, распределенных в данный момент в управляемой памяти.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если `forceFullCollection` параметр `true`, этот метод ожидает короткий интервал времени перед возвратом, пока система выполняет сборку мусора и завершает объекты. Длительность интервала — внутренне определяемый предел зависит от числа завершенных циклов сборки мусора и изменения восстановленного объема памяти между циклами. Сборщик мусора не гарантирует, что собираются все недоступной памяти.  
+ Если `forceFullCollection` параметр `true`, этот метод ожидает короткий интервал времени перед возвратом, пока система выполняет сборку мусора и завершает объекты. Длительность интервала находится внутри заданного зависит от числа циклов сборки мусора завершена и изменения восстановленного объема памяти между циклами. Сборщик мусора не гарантирует, что собираются все недоступной памяти.  
   
    
   
 ## Examples  
- В следующем примере демонстрируется использование <xref:System.GC.GetTotalMemory%2A> метода для возврата и отображения число байтов, выделенных в данный момент в управляемой памяти.  
+ Следующий пример демонстрирует, как использовать <xref:System.GC.GetTotalMemory%2A> метод для возврата и отображения число байтов, выделенных в данный момент в управляемой памяти.  
   
  [!code-cpp[System.GC.Collect Int Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.gc.collect int example/CPP/class1.cpp#1)]
  [!code-csharp[System.GC.Collect Int Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.gc.collect int example/CS/class1.cs#1)]
@@ -877,6 +899,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.KeepAlive(System.Object)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub KeepAlive (obj As Object)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void KeepAlive(System::Object ^ obj);" />
+      <MemberSignature Language="F#" Value="static member KeepAlive : obj -&gt; unit" Usage="System.GC.KeepAlive obj" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -889,6 +912,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -897,8 +922,11 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -914,16 +942,16 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Назначение <xref:System.GC.KeepAlive%2A> проще гарантировать наличие ссылки на объект, который может быть преждевременно освобожден сборщиком мусора. Является распространенным сценарием, где это может произойти при отсутствии ссылок на объект в управляемом коде или в данных, но он по-прежнему используется в неуправляемый код, например API-интерфейсов Win32, неуправляемые библиотеки DLL или методы, с помощью COM.  
+ Цель <xref:System.GC.KeepAlive%2A> метод является обеспечить наличие ссылки на объект, который находится под угрозой из преждевременно освобождается сборщиком мусора. Обычно такая ситуация может сложиться — при отсутствии ссылок на объект в управляемом коде или данных, но он по-прежнему используется в неуправляемый код, например API-интерфейсов Win32, неуправляемой библиотеки DLL, или методов с использованием модели COM.  
   
- Этот метод ссылается `obj` параметр в результате этого объекта недоступным для сборщика мусора начала процедуры к точке, в порядке выполнения, где вызывается этот метод. Код этого метода в конце, а не в начале диапазона инструкций, где `obj` должны быть доступны.  
+ Ссылается на этот метод `obj` параметра, что делает этот объект становится недоступным для сборки мусора в начале подпрограммы к точке, в порядке их выполнения, где вызывается этот метод. Код этого метода в конце, а не в начале диапазона инструкций, где `obj` должны быть доступны.  
   
- <xref:System.GC.KeepAlive%2A> Метод не выполняет никаких действий и не производит побочных эффектов Кроме увеличения времени существования объекта, переданного в качестве параметра.  
+ <xref:System.GC.KeepAlive%2A> Метод не выполняет никаких действий и создает без побочных эффектов, отличный от увеличения времени существования объекта, переданного в качестве параметра.  
   
    
   
 ## Examples  
- В следующем примере кода создается объект в начале его `Main` метода и не ссылается на объект до самого конца при <xref:System.GC.KeepAlive%2A> вызывается метод. Объект сохраняется в течение 30 секунд `Main` метода, несмотря на вызовы <xref:System.GC.Collect%2A> и <xref:System.GC.WaitForPendingFinalizers%2A> методы.  
+ В следующем примере кода создает объект в начале его `Main` метода и не ссылается на объект до самого конца при <xref:System.GC.KeepAlive%2A> вызывается метод. Объект сохраняется в течение 30-секундной `Main` метод, несмотря на вызовы <xref:System.GC.Collect%2A> и <xref:System.GC.WaitForPendingFinalizers%2A> методы.  
   
  [!code-cpp[System.GC.KeepAlive Example2#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.GC.KeepAlive Example2/CPP/gckeepalive.cpp#1)]
  [!code-csharp[System.GC.KeepAlive Example2#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.GC.KeepAlive Example2/CS/gckeepalive.cs#1)]
@@ -939,6 +967,7 @@
       <MemberSignature Language="DocId" Value="P:System.GC.MaxGeneration" />
       <MemberSignature Language="VB.NET" Value="Public Shared ReadOnly Property MaxGeneration As Integer" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static property int MaxGeneration { int get(); };" />
+      <MemberSignature Language="F#" Value="member this.MaxGeneration : int" Usage="System.GC.MaxGeneration" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -951,6 +980,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -959,7 +990,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>get: System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -973,11 +1004,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Номер поколения, или возраст объекта является определяемым относительная мера времени существования объекта зависящая от. Недавно созданные объекты в поколении 0 и старые объекты находящиеся в поколение меньше или равно поколение возвращенных <xref:System.GC.MaxGeneration%2A> свойство.  
+ Номер поколения, или возраст объекта — это определяемое реализацией относительная мера из объекта зависящая от. Недавно созданные объекты являются в поколении 0. они самые старые объекты в поколении, меньше или равно поколение возвращаемые <xref:System.GC.MaxGeneration%2A> свойство.  
   
- Сборщик мусора предполагает, что память, выделенная является наиболее вероятные мусора более старые памяти. Таким образом, сборщик мусора повышает эффективность своей работы, настраивая номера поколений при каждом высвобождении памяти, и <xref:System.GC.MaxGeneration%2A> значение свойства может увеличиваться с течением времени.  
+ Сборщик мусора предполагает, что память, выделенная скорее всего будет под сбор мусора, чем старые памяти. Таким образом, сборщик мусора повышает его производительность, настраивая номера поколений каждый раз, он освобождает память, и <xref:System.GC.MaxGeneration%2A> значение свойства может увеличиваться с течением времени.  
   
- Если реализована концепция возраста объектов, <xref:System.GC.MaxGeneration%2A> свойство возвращает максимальный номер поколения используется системой; в противном случае это свойство возвращает ноль.  
+ Если время существования объекта реализован, <xref:System.GC.MaxGeneration%2A> свойство возвращает максимальный номер поколения используемой системой; в противном случае это свойство возвращает ноль.  
   
    
   
@@ -991,9 +1022,7 @@
  ]]></format>
         </remarks>
         <block subset="none" type="overrides">
-          <para>Для этой реализации значение, возвращаемое <see cref="P:System.GC.MaxGeneration" /> свойство гарантированно остаются постоянными в течение всего времени выполнения приложения.  
-  
- Используйте <see cref="P:System.GC.MaxGeneration" /> свойства, чтобы определить максимальное значение, можно указать при вызове <see cref="M:System.GC.Collect(System.Int32)" /> метода, принимающего поколения в качестве параметра.</para>
+          <para>Для этой реализации значение, возвращаемое функцией <see cref="P:System.GC.MaxGeneration" /> свойство гарантированно не изменяются в течение времени существования выполнения приложения.  Используйте <see cref="P:System.GC.MaxGeneration" /> свойства, чтобы определить максимальное значение, которое можно указать при вызове <see cref="M:System.GC.Collect(System.Int32)" /> метод, принимающий параметр поколения.</para>
         </block>
         <altmember cref="M:System.GC.GetGeneration(System.Object)" />
       </Docs>
@@ -1004,9 +1033,11 @@
       <MemberSignature Language="DocId" Value="M:System.GC.RegisterForFullGCNotification(System.Int32,System.Int32)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub RegisterForFullGCNotification (maxGenerationThreshold As Integer, largeObjectHeapThreshold As Integer)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void RegisterForFullGCNotification(int maxGenerationThreshold, int largeObjectHeapThreshold);" />
+      <MemberSignature Language="F#" Value="static member RegisterForFullGCNotification : int * int -&gt; unit" Usage="System.GC.RegisterForFullGCNotification (maxGenerationThreshold, largeObjectHeapThreshold)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1020,7 +1051,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1039,34 +1070,34 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Для каждого поколения сборщик мусора Задает пороговое значение для распределения в этом поколении. Когда размер выделений превышает этот порог, сбора мусора запускается для этого поколения. Для например, если пороговое значение поколения 2 составляет 20 МБ (то есть, остается после первого поколения 20 МБ, перешедшие в поколение 2) и более 20 МБ уцелел поколения 1 и предлагается в поколение 2, будет предпринята попытка следующей сборки мусора как сборки поколения 2. Аналогично Если куча больших объектов (LOH) пороговое значение — 20 МБ и приложения выделил более 20 МБ больших объектов, следующая сборка мусора также применяется как сборки поколения 2 (поскольку LOH собираются только в gen2 сборки мусора).  
+ Для каждого поколения сборщик мусора Задает пороговое значение для выделений памяти в этом поколении. Превышение этого порогового значения, размер выделений мусора этого поколения. Для примера, если пороговое значение поколения 2 составляет 20 МБ (что означает, что 20 МБ выдерживает его поколения 1 и перешедшие в поколение 2) и более чем 20 МБ уцелел после сборки поколения 1 и предлагается в поколение 2, будет предпринята попытка следующей сборки мусора как сборки поколения 2. Аналогичным образом Если куча больших объектов (LOH) пороговое значение — 20 МБ и приложения выделил более чем 20 МБ больших объектов, следующей сборки мусора также будет выполняться как поколения 2, (поскольку LOH собирается только в сборках мусора поколения 2).  
   
- `maxGenerationThreshold` И `largeObjectHeapThreshold` пороговые значения управления заранее объем уведомляются прежде, чем полная сборка мусора происходит. Чем больше порогового значения, дополнительные выделения, которые могут возникать между уведомления и следующей сборке мусора.  
+ `maxGenerationThreshold` И `largeObjectHeapThreshold` пороговые значения контролировать, насколько заранее вы получите уведомление, прежде чем произойдет полная сборка мусора. Чем больше порогового значения, дополнительные распределения, которые могут возникать между уведомлений и следующей сборке мусора.  
   
- Если у вас есть ситуации, в которых полная сборка мусора средой CLR может неблагоприятно повлиять на производительность приложения, вы можете запросить уведомления, когда среда выполнения собирается выполнить полную сборку мусора и обходить эту сборку вызывая сборку самостоятельно (с помощью <xref:System.GC.Collect%2A> метод) Если предпочтительна, по-прежнему выполняются условия. Помимо изменения расписание сбора мусора самостоятельно, полной сборки Мусора уведомлений можно использовать в следующих сценариях:  
+ Если у вас есть ситуации, в которых полная сборка мусора средой CLR бы отрицательно на производительность приложения, вы можете запросить получать уведомления, когда среда выполнения собирается выполнить полную сборку мусора и обходить эту сборку вызывая сборку самостоятельно (с помощью <xref:System.GC.Collect%2A> метод) Если предпочтительна, по-прежнему выполняются условия. Помимо изменения расписание сбора мусора самостоятельно, полный текст уведомления сборки Мусора полезно в следующих сценариях:  
   
--   За метод полной сборкой мусора, и при появлении одного приближается, уменьшите размер динамических данных (например, освободив некоторых записей кэша). В результате Если производится сбор мусора, является возможность освободить больше памяти.  
+-   Мониторинг для подхода полная сборка мусора и, если вы получите уведомление, что один приближается, снижается размер динамических данных (например, освободив некоторые записи кэша). Таким образом когда происходит сборка мусора, имеет возможность освободить больше памяти.  
   
--   Мониторинг для выполнения полной сборкой мусора, чтобы вы можете собирать статистику.  Например может потребоваться измерения размера кучи по завершении сборки Мусора, чтобы знать размер данных в режиме реального времени. (После полной сборки Мусора кучи — минимальный размер).  
+-   Вы отслеживать завершения полной сборки мусора, таким образом, вы можете собирать статистику.  Например может потребоваться измерить размер кучи по завершении сборки Мусора, чтобы знать размер данных в реальном времени. (После полной сборки Мусора, кучи — наименьший размер.)  
   
- Дополнительные сведения о том, что представляет полную сборку мусора см. в разделе [сборке мусора](~/docs/standard/garbage-collection/notifications.md).  
+ Дополнительные сведения о что представляет полную сборку мусора, см. в разделе [уведомлений сборки мусора](~/docs/standard/garbage-collection/notifications.md).  
   
- При регистрации уведомления о сборке мусора, чтобы настроить уведомления при приближении к полной сборкой мусора, и при ее завершении. Этот шаблон напоминает как операционная система отслеживает уведомления о нехватке памяти.  
+ При регистрации уведомлений о сборке мусора, вы можете получать при приближении полной сборки мусора и когда она готова. Этот шаблон похож на том, как операционная система отслеживает уведомления о нехватке памяти.  
   
  Следуйте приведенным ниже рекомендациям для указания `maxGenerationThreshold` и `largeObjectHeapThreshold` параметры:  
   
--   Чем больше порогового значения, дополнительные выделения произойдет между уведомления и полная сборка мусора.  
+-   Больше верхнего порогового значения, дополнительные выделения происходит между уведомление и полной сборки мусора.  
   
-     Большее значение порога обеспечивает дополнительные возможности для выполнения, чтобы проверить приближение сборки. Это повышает вероятность того, что вы получите уведомление. Однако не следует задавать слишком большое пороговое значение, так как дополнительные выделения прежде, чем среда выполнения вызывает следующую сборку.  
+     Больше верхнего порогового значения обеспечивает дополнительные возможности для среды выполнения проверить приближение сборки. Это увеличивает вероятность того, что вы получите уведомление. Тем не менее следует не задано слишком высокое пороговое значение, так как дополнительные выделения прежде, чем среда выполнения вызывает следующую сборку.  
   
-     Если коллекция самостоятельно после уведомления с использованием высокого порогового значения, меньше объектов уничтожаются не будет удален при следующей коллекции среды выполнения.  
+     Когда вы сборку мусора самостоятельно после уведомления, используя значение верхнего порогового значения, меньше объектов были удалены, не будет утилизирован очередную сборку мусора среды выполнения.  
   
--   Чем меньше пороговое значение, меньшее число распределения между уведомлением и полная сборка мусора.  
+-   Чем меньше порогового значения, меньше операции выделения памяти от уведомления до полной сборки мусора.  
   
    
   
 ## Examples  
- В следующем примере показано, как зарегистрировать уведомление о сборке мусора и запустить поток, чтобы отслеживать состояние уведомления о сборке мусора. Данный пример кода является частью большего примера, приведенного для [сборке мусора](~/docs/standard/garbage-collection/notifications.md) раздела.  
+ В следующем примере показано, как зарегистрировать уведомление о сборке мусора и запустить поток, чтобы отслеживать состояние уведомления о сборке мусора. Данный пример кода является частью большего примера для [уведомлений сборки мусора](~/docs/standard/garbage-collection/notifications.md) раздела.  
   
  [!code-cpp[GCNotification#2](~/samples/snippets/cpp/VS_Snippets_CLR/GCNotification/cpp/program.cpp#2)]
  [!code-csharp[GCNotification#2](~/samples/snippets/csharp/VS_Snippets_CLR/GCNotification/cs/Program.cs#2)]
@@ -1074,10 +1105,9 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Значение параметра <paramref name="maxGenerationThreshold" /> или <paramref name="largeObjectHeapThreshold" /> не входит в диапазон от 1 до 99.</exception>
-        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">Для полного доверия для непосредственного вызывающего. Этот член не может быть использован частично доверенным кодом.</permission>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+        <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="maxGenerationThreshold" /> или <paramref name="largeObjectHeapThreshold" /> не входит в диапазон от 1 до 99.</exception>
+        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">для полного доверия для непосредственного вызывающего объекта. Этот член не может быть использован частично доверенным кодом.</permission>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName="RemoveMemoryPressure">
@@ -1086,6 +1116,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.RemoveMemoryPressure(System.Int64)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub RemoveMemoryPressure (bytesAllocated As Long)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void RemoveMemoryPressure(long bytesAllocated);" />
+      <MemberSignature Language="F#" Value="static member RemoveMemoryPressure : int64 -&gt; unit" Usage="System.GC.RemoveMemoryPressure bytesAllocated" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -1098,6 +1129,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1106,7 +1138,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1117,31 +1149,29 @@
         <Parameter Name="bytesAllocated" Type="System.Int64" />
       </Parameters>
       <Docs>
-        <param name="bytesAllocated">Объем освобожденной неуправляемой памяти.</param>
-        <summary>Информирует среду выполнения о том, что неуправляемая память освобождена и ее более не требуется учитывать при планировании сборки мусора.</summary>
+        <param name="bytesAllocated">Объем, на который увеличен объем освобожденной неуправляемой памяти.</param>
+        <summary>Информирует среду CLR о том, что неуправляемая память освобождения и ее более не требуется учитывать при планировании сборки мусора.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- При определении времени запланировать сбор мусора, среда выполнения учитывает выделенный объем управляемой памяти. Если маленький управляемый объект выделяет большой объем неуправляемой памяти, среда выполнения учитывает только управляемую память и поэтому недооценивает срочность планирования сборки мусора. <xref:System.GC.AddMemoryPressure%2A> Метод информирует среду выполнения о этот дополнительную нагрузку на системной памяти и <xref:System.GC.RemoveMemoryPressure%2A> метод информирует среду выполнения, что была снята дополнительную нагрузку.  
+ При определении времени запланировать сбор мусора, среда выполнения учитывает объем управляемой памяти выделяется. Если маленький управляемый объект выделяет большой объем неуправляемой памяти, среда выполнения учитывает только управляемую память и поэтому недооценивает срочность планировании сборки мусора. <xref:System.GC.AddMemoryPressure%2A> Метод информирует среду CLR о этот дополнительную нагрузку на память системы и <xref:System.GC.RemoveMemoryPressure%2A> метод сообщает среде выполнения отжатии дополнительных давление.  
   
- В простейшей схеме использования управляемый объект выделяет неуправляемую память в конструкторе и освобождает его в `Dispose` или `Finalize` метод. Вызовите <xref:System.GC.AddMemoryPressure%2A> метод после выделения неуправляемой памяти и вызывать <xref:System.GC.RemoveMemoryPressure%2A> метод после ее освобождения.  
+ Самый простой шаблон использования, управляемый объект выделяет неуправляемую память в конструкторе и освобождает его в `Dispose` или `Finalize` метод. Вызовите <xref:System.GC.AddMemoryPressure%2A> метод после выделения неуправляемой памяти и вызовите <xref:System.GC.RemoveMemoryPressure%2A> метод после ее освобождения.  
   
- В более сложных сценариях, где выделения неуправляемой памяти существенно изменяется за время жизни управляемого объекта, можно вызвать <xref:System.GC.AddMemoryPressure%2A> и <xref:System.GC.RemoveMemoryPressure%2A> методов для взаимодействия эти добавочных изменений в среду выполнения.  
+ В более сложных сценариях, где выделения неуправляемой памяти значительно изменяется в течение времени существования управляемого объекта, можно вызвать <xref:System.GC.AddMemoryPressure%2A> и <xref:System.GC.RemoveMemoryPressure%2A> методы для взаимодействия эти добавочные изменения в среду выполнения.  
   
 > [!CAUTION]
->  Необходимо гарантировать, что удаляется точно степень давления, можно добавить. Невыполнение этого может отрицательно сказаться на производительности системы в приложениях, выполняемых в течение длительного времени.  
+>  Необходимо гарантировать, что удаляется именно степень давления, добавляемые. Невыполнение этого может отрицательно сказаться на производительности системы в приложениях, выполняемых в течение длительных периодов времени.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="bytesAllocated" /> меньше или равно 0.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Значение <paramref name="bytesAllocated" /> меньше или равно 0.  
   
- - или -  
-  
- На 32-разрядном компьютере <paramref name="bytesAllocated" /> больше <see cref="F:System.Int32.MaxValue" />.</exception>
+-или- 
+На 32-разрядном компьютере <paramref name="bytesAllocated" /> больше <see cref="F:System.Int32.MaxValue" />.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">для возможности вызова неуправляемого кода, при обработке приоритетом сборки мусора. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.UnmanagedCode" /></permission>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName="ReRegisterForFinalize">
@@ -1150,6 +1180,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.ReRegisterForFinalize(System.Object)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub ReRegisterForFinalize (obj As Object)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void ReRegisterForFinalize(System::Object ^ obj);" />
+      <MemberSignature Language="F#" Value="static member ReRegisterForFinalize : obj -&gt; unit" Usage="System.GC.ReRegisterForFinalize obj" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -1162,6 +1193,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1170,7 +1203,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1187,11 +1220,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.GC.ReRegisterForFinalize%2A> Добавляет метод `obj` параметра к списку объектов, запрашивающих завершения, прежде чем сборщик мусора освобождает объект. `obj` Параметр должен иметь код, вызывающий этот метод.  
+ <xref:System.GC.ReRegisterForFinalize%2A> Добавляет метод `obj` параметр к списку объектов, которые запрашивают завершения, прежде чем сборщик мусора освободит объект. `obj` Параметр должен быть вызывающая сторона этого метода.  
   
- Вызов <xref:System.GC.ReRegisterForFinalize%2A> метод не гарантирует, что сборщик мусора вызовет метод завершения объекта.  
+ Вызов <xref:System.GC.ReRegisterForFinalize%2A> не гарантирует, что сборщик мусора вызывает финализатор объекта.  
   
- По умолчанию все объекты, которые реализуют финализаторы добавляются в список объектов, которые требуют завершения; Тем не менее, может быть уже завершен или может отключен путем вызова объекта <xref:System.GC.SuppressFinalize%2A> метод.  
+ По умолчанию все объекты, реализующие методы завершения добавляются в список объектов, которые требуют завершения; Тем не менее, объект может быть уже завершен или может отключен путем вызова <xref:System.GC.SuppressFinalize%2A> метод.  
   
  Метод завершения может использовать этот метод, чтобы восстановить себя или объект, который он ссылается.  
   
@@ -1207,7 +1240,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="obj" /> имеет значение <see langword="null" />.</exception>
+          <paramref name="obj" /> — <see langword="null" />.</exception>
         <altmember cref="M:System.GC.SuppressFinalize(System.Object)" />
       </Docs>
     </Member>
@@ -1217,6 +1250,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.SuppressFinalize(System.Object)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub SuppressFinalize (obj As Object)" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void SuppressFinalize(System::Object ^ obj);" />
+      <MemberSignature Language="F#" Value="static member SuppressFinalize : obj -&gt; unit" Usage="System.GC.SuppressFinalize obj" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -1229,6 +1263,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1237,11 +1273,14 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
         </Attribute>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline across NGen image boundaries")</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -1252,19 +1291,19 @@
       </Parameters>
       <Docs>
         <param name="obj">Объект, метод завершения для которого не должен выполняться.</param>
-        <summary>Сообщает среде CLR, что она на не должна вызывать метод завершения для указанного объекта.</summary>
+        <summary>Сообщает среде CLR, что она не должна вызывать метод завершения для указанного объекта.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот метод устанавливает бит в заголовке объекта `obj`, который среда выполнения проверяет при вызове метода завершения. Метод завершения, которое представляется <xref:System.Object.Finalize%2A?displayProperty=nameWithType> метод, используется для освобождения неуправляемых ресурсов, перед объект сбора мусора. Если `obj` не метод завершения, вызов <xref:System.GC.SuppressFinalize%2A> метод не оказывает влияния.  
+ Этот метод устанавливает для бита в заголовке объекта `obj`, который среда выполнения проверяет при вызове метода завершения. Метод завершения, который представляется <xref:System.Object.Finalize%2A?displayProperty=nameWithType> метод, используемый для освобождения неуправляемых ресурсов, прежде чем объекта сборщиком мусора. Если `obj` не метод завершения, вызов <xref:System.GC.SuppressFinalize%2A> метод не оказывает влияния.  
   
- Объекты, реализующие <xref:System.IDisposable> интерфейс этот метод можно вызывать из объекта <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> реализацию, чтобы помешать сборщику мусора вызвать <xref:System.Object.Finalize%2A?displayProperty=nameWithType> на объекте, который не требует его. Как правило, это делается во избежание метода завершения освободить неуправляемые ресурсы, которые уже был освобожден <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> реализации.  
+ Объекты, реализующие <xref:System.IDisposable> интерфейс этот метод можно вызывать из объекта <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> реализацию, чтобы помешать сборщику мусора вызвать <xref:System.Object.Finalize%2A?displayProperty=nameWithType> на объекте, который она не является обязательной. Как правило, это позволяет предотвратить метода завершения освободить неуправляемые ресурсы, которые уже был освобожден, <xref:System.IDisposable.Dispose%2A?displayProperty=nameWithType> реализации.  
   
    
   
 ## Examples  
- В следующем примере демонстрируется использование <xref:System.GC.SuppressFinalize%2A> метода в классе ресурса во избежание избыточной сборки мусора от их вызова. В этом примере [шаблон удаления](~/docs/standard/design-guidelines/dispose-pattern.md) освободить как управляемые ресурсы (то есть объекты, реализующие <xref:System.IDisposable>) и неуправляемые ресурсы.  
+ Следующий пример демонстрирует, как использовать <xref:System.GC.SuppressFinalize%2A> метод в класс ресурсов для предотвращения избыточной сборки мусора из вызова. В примере используется [шаблон удаления](~/docs/standard/design-guidelines/dispose-pattern.md) освободить как управляемые ресурсы (то есть объекты, реализующие <xref:System.IDisposable>) и неуправляемые ресурсы.  
   
  [!code-csharp[System.GC.SuppressFinalize#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.gc.suppressfinalize/cs/suppressfinalize1.cs#1)]
  [!code-vb[System.GC.SuppressFinalize#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.gc.suppressfinalize/vb/suppressfinalize1.vb#1)]  
@@ -1272,7 +1311,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">
-          Свойство <paramref name="obj" /> имеет значение <see langword="null" />.</exception>
+          <paramref name="obj" /> — <see langword="null" />.</exception>
         <altmember cref="M:System.GC.ReRegisterForFinalize(System.Object)" />
         <altmember cref="M:System.Object.Finalize" />
       </Docs>
@@ -1291,7 +1330,7 @@
 ## Remarks  
   
 > [!IMPORTANT]
->  Не удается вложить вызовы <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в данный момент в режим задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> успешно выполнен.  
+>  Не удается вложить вызовы к <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в настоящее время находится в режиме задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> выполнена успешно.  
   
  ]]></format>
         </remarks>
@@ -1304,6 +1343,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.TryStartNoGCRegion(System.Int64)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function TryStartNoGCRegion (totalSize As Long) As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool TryStartNoGCRegion(long totalSize);" />
+      <MemberSignature Language="F#" Value="static member TryStartNoGCRegion : int64 -&gt; bool" Usage="System.GC.TryStartNoGCRegion totalSize" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -1320,7 +1360,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1333,20 +1373,19 @@
       <Docs>
         <param name="totalSize">Объем памяти в байтах для выделения без запуска сборки мусора. Он должен быть меньше или равен размеру временного сегмента. Сведения о размере эфемерных сегментов см. в разделе "Эфемерные поколения и сегменты" статьи [Основы сборки мусора](~/docs/standard/garbage-collection/fundamentals.md).</param>
         <summary>Пытается запретить сборку мусора во время выполнения критического пути, если доступен указанный достаточный объем памяти.</summary>
-        <returns>
-          Значение <see langword="true" />, если среде выполнения удалось зафиксировать необходимый объем памяти и сборщик мусора может перейти в режим задержки без области сборки мусора; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если среде выполнения удалось зафиксировать необходимый объем памяти и сборщик мусора может перейти в режим задержки без области сборки мусора; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.GC.TryStartNoGCRegion%28System.Int64%29> Метод предпринимает попытку сборщика мусора в GC режим задержки без области, запрещающая сбора мусора, пока приложение выполняет критической области кода.  Если среда выполнения не сможет изначально назначить запрошенный объем памяти, сборщик мусора выполняет полной блокирующей сборки мусора, при попытке освободить память. Сборщик мусора переходит в режим задержки без области сборки Мусора он может выделить необходимый объем памяти, что в данном случае является фактически 2 * `totalSize` байт (он пытается выделить `totalSize` байт для кучи маленьких объектов и `totalSize` байт для кучи больших объектов).  
+ <xref:System.GC.TryStartNoGCRegion%28System.Int64%29> Метод пытается перевести сборщик мусора в GC режим задержки без области, который не разрешает сбор мусора, пока приложение выполняет критической области кода.  Если среда выполнения не может изначально выделяемый запрошенного объема памяти, сборщик мусора выполняет полной блокирующей сборки мусора, при попытке освободить память. Сборщик мусора переходит в режим задержки без области сборки Мусора, если он может выделить необходимый объем памяти, что в данном случае является фактически 2 * `totalSize` байт (он пытается выделить `totalSize` байт для кучи маленьких объектов и `totalSize` байт для куча больших объектов).  
   
- `totalSize` должно быть достаточно большим для обработки всех операций выделения памяти, которые происходят в критический путь. Сюда входят выделения, приложения, а также параметры распределения, среда выполнения предоставляет от имени приложения.  
+ `totalSize` должно быть достаточно большим для обработки всех операций выделения памяти, которые происходят в критический путь. Сюда входят выделения, приложение, а также параметры распределения, среда выполнения предоставляет от имени приложения.  
   
 > [!IMPORTANT]
->  Не удается вложить вызовы <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в данный момент в режим задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> успешно выполнен.  
+>  Не удается вложить вызовы к <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в настоящее время находится в режиме задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> выполнена успешно.  
   
- Выход из глобального Каталога режим задержки без области путем вызова <xref:System.GC.EndNoGCRegion%2A> метод.  
+ Сборщик Мусора режим задержки без области можно выйти посредством вызова метода <xref:System.GC.EndNoGCRegion%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -1362,6 +1401,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.TryStartNoGCRegion(System.Int64,System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function TryStartNoGCRegion (totalSize As Long, disallowFullBlockingGC As Boolean) As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool TryStartNoGCRegion(long totalSize, bool disallowFullBlockingGC);" />
+      <MemberSignature Language="F#" Value="static member TryStartNoGCRegion : int64 * bool -&gt; bool" Usage="System.GC.TryStartNoGCRegion (totalSize, disallowFullBlockingGC)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -1378,7 +1418,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1391,25 +1431,23 @@
       </Parameters>
       <Docs>
         <param name="totalSize">Объем памяти в байтах для выделения без запуска сборки мусора. Он должен быть меньше или равен размеру временного сегмента. Сведения о размере эфемерных сегментов см. в разделе "Эфемерные поколения и сегменты" статьи [Основы сборки мусора](~/docs/standard/garbage-collection/fundamentals.md).</param>
-        <param name="disallowFullBlockingGC">
-          Значение <see langword="true" />, чтобы пропустить полную блокирующую сборку мусора, если сборщику мусора изначально не удалось выделить <c>totalSize</c> байтов; в противном случае значение <see langword="false" />.</param>
+        <param name="disallowFullBlockingGC">Значение <see langword="true" />, чтобы пропустить полную блокирующую сборку мусора, если сборщику мусора изначально не удалось выделить <c>totalSize</c> байтов; в противном случае значение <see langword="false" />.</param>
         <summary>Пытается запретить сборку мусора во время выполнения критического пути, если доступен указанный объем памяти, и устанавливает, будет ли выполняться полная блокирующая сборка мусора, если изначально не хватает памяти.</summary>
-        <returns>
-          Значение <see langword="true" />, если среде выполнения удалось зафиксировать необходимый объем памяти и сборщик мусора может перейти в режим задержки без области сборки мусора; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если среде выполнения удалось зафиксировать необходимый объем памяти и сборщик мусора может перейти в режим задержки без области сборки мусора; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.GC.TryStartNoGCRegion%28System.Int64%2CSystem.Boolean%29> Метод предпринимает попытку сборщика мусора в GC режим задержки без области, запрещающая сбора мусора, пока приложение выполняет критической области кода.  Если среда выполнения не может изначально выделить запрошенного объема памяти и `disallowFullBlockingGC` аргумент `false`, сборщик мусора выполняет полной блокирующей сборки мусора, пытаясь освободить память; в противном случае происходит сбой выделения, и метод возвращает `false`. Сборщик мусора переходит в режим задержки без области сборки Мусора он может выделить необходимый объем памяти, что в данном случае является фактически 2 * `totalSize` (он пытается выделить `totalSize` для кучи маленьких объектов и `totalSize` для кучи больших объектов).  
+ <xref:System.GC.TryStartNoGCRegion%28System.Int64%2CSystem.Boolean%29> Метод пытается перевести сборщик мусора в GC режим задержки без области, который не разрешает сбор мусора, пока приложение выполняет критической области кода.  Если среда выполнения не может изначально выделяемый запрошенного объема памяти и `disallowFullBlockingGC` аргумент `false`, сборщик мусора выполняет полной блокирующей сборки мусора, при попытке освободить память; в противном случае выделение происходит сбой и метод возвращает `false`. Сборщик мусора переходит в режим задержки без области сборки Мусора, если он может выделить необходимый объем памяти, что в данном случае является фактически 2 * `totalSize` (он пытается выделить `totalSize` для кучи маленьких объектов и `totalSize` для больших объектов куча).  
   
- `totalSize` должно быть достаточно большим для обработки всех операций выделения памяти, которые происходят в критический путь. Сюда входят выделения, приложения, а также параметры распределения, среда выполнения предоставляет от имени приложения.  
+ `totalSize` должно быть достаточно большим для обработки всех операций выделения памяти, которые происходят в критический путь. Сюда входят выделения, приложение, а также параметры распределения, среда выполнения предоставляет от имени приложения.  
   
- Установка `disallowFullBlockingGC` для `true` для предотвращения блокировки полной сборки мусора коллекции, если изначально не хватает памяти наиболее полезна в сценариях балансировки нагрузки: одну систему можно вызвать этот метод и сообщает о себе как Готово к приему запросов, если он возвращает `true`, и иметь подсистемы балансировки нагрузки, которые перенаправляют запросы с другими системами, если он возвращает `false`. Затем его можно сделать полной блокирующей сборки мусора, если он не обрабатывает запросы путем вызова <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%2CSystem.Boolean%29> метод.  
+ Установка `disallowFullBlockingGC` для `true` для предотвращения полной блокирующей сборки мусора коллекция, если изначально не хватает памяти наиболее полезен в сценарии балансировки нагрузки: одной системы можно вызвать этот метод и сообщает о себе как Готово к приему запросов, если он возвращает `true`, и Подсистема балансировки нагрузки перенаправлять запросы в другие системы, если он возвращает `false`. Его можно затем выполните полной блокирующей сборки мусора, когда он не обрабатывает запросы путем вызова <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%2CSystem.Boolean%29> метод.  
   
 > [!IMPORTANT]
->  Не удается вложить вызовы <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в данный момент в режим задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> успешно выполнен.  
+>  Не удается вложить вызовы к <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в настоящее время находится в режиме задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> выполнена успешно.  
   
- Выход из глобального Каталога режим задержки без области путем вызова <xref:System.GC.EndNoGCRegion%2A> метод.  
+ Сборщик Мусора режим задержки без области можно выйти посредством вызова метода <xref:System.GC.EndNoGCRegion%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -1425,6 +1463,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.TryStartNoGCRegion(System.Int64,System.Int64)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function TryStartNoGCRegion (totalSize As Long, lohSize As Long) As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool TryStartNoGCRegion(long totalSize, long lohSize);" />
+      <MemberSignature Language="F#" Value="static member TryStartNoGCRegion : int64 * int64 -&gt; bool" Usage="System.GC.TryStartNoGCRegion (totalSize, lohSize)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -1441,7 +1480,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1456,20 +1495,19 @@
         <param name="totalSize">Объем памяти в байтах для выделения без запуска сборки мусора. Значение <c>totalSize</c> –<c>lohSize</c> должно быть меньше или равно размеру временного сегмента. Сведения о размере эфемерных сегментов см. в разделе "Эфемерные поколения и сегменты" статьи [Основы сборки мусора](~/docs/standard/garbage-collection/fundamentals.md).</param>
         <param name="lohSize">Число байтов в <c>totalSize</c> для назначения кучи больших объектов.</param>
         <summary>Пытается запретить сборку мусора во время выполнения критического пути, если указанный объем памяти доступен для кучи больших объектов и для кучи маленьких объектов.</summary>
-        <returns>
-          Значение <see langword="true" />, если среде выполнения удалось зафиксировать необходимый объем памяти и сборщик мусора может перейти в режим задержки без области сборки мусора; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если среде выполнения удалось зафиксировать необходимый объем памяти и сборщик мусора может перейти в режим задержки без области сборки мусора; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.GC.TryStartNoGCRegion%28System.Int64%2CSystem.Int64%29> Метод предпринимает попытку сборщика мусора в GC режим задержки без области, запрещающая сбора мусора, пока приложение выполняет критической области кода.  Если среда выполнения не сможет изначально назначить запрошенный объем памяти, сборщик мусора выполняет полной блокирующей сборки мусора, при попытке освободить память. Сборщик мусора переходит в режим задержки без области сборки Мусора он может выделить `lohSize` для LOH и `totalSize` — `lohSize` для кучи маленьких объектов (SOH).  
+ <xref:System.GC.TryStartNoGCRegion%28System.Int64%2CSystem.Int64%29> Метод пытается перевести сборщик мусора в GC режим задержки без области, который не разрешает сбор мусора, пока приложение выполняет критической области кода.  Если среда выполнения не может изначально выделяемый запрошенного объема памяти, сборщик мусора выполняет полной блокирующей сборки мусора, при попытке освободить память. Сборщик мусора переходит в режим задержки без области сборки Мусора, если он может выделить `lohSize` для кучи массивных Объектов и `totalSize` — `lohSize` для кучи маленьких объектов (SOH).  
   
- `lohSize` должно быть достаточно большим для обработки всех операций выделения памяти, происходящие на критическом пути для LOH и `totalSize` — `lohSize` должно быть достаточно большим для обработки всех операций выделения памяти, происходящие на критическом пути для состояние работоспособности. Сюда входят выделения, приложения, а также параметры распределения, среда выполнения предоставляет от имени приложения.  
+ `lohSize` должен быть достаточно большим для обработки всех операций выделения памяти, которые происходят в критический путь для кучи массивных Объектов, и `totalSize` — `lohSize` должен быть достаточно большим для обработки всех операций выделения памяти, которые происходят в критический путь для SOH. Сюда входят выделения, приложение, а также параметры распределения, среда выполнения предоставляет от имени приложения.  
   
 > [!IMPORTANT]
->  Не удается вложить вызовы <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в данный момент в режим задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> успешно выполнен.  
+>  Не удается вложить вызовы к <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в настоящее время находится в режиме задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> выполнена успешно.  
   
- Выход из глобального Каталога режим задержки без области путем вызова <xref:System.GC.EndNoGCRegion%2A> метод.  
+ Сборщик Мусора режим задержки без области можно выйти посредством вызова метода <xref:System.GC.EndNoGCRegion%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -1485,6 +1523,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.TryStartNoGCRegion(System.Int64,System.Int64,System.Boolean)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function TryStartNoGCRegion (totalSize As Long, lohSize As Long, disallowFullBlockingGC As Boolean) As Boolean" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static bool TryStartNoGCRegion(long totalSize, long lohSize, bool disallowFullBlockingGC);" />
+      <MemberSignature Language="F#" Value="static member TryStartNoGCRegion : int64 * int64 * bool -&gt; bool" Usage="System.GC.TryStartNoGCRegion (totalSize, lohSize, disallowFullBlockingGC)" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -1501,7 +1540,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1516,25 +1555,23 @@
       <Docs>
         <param name="totalSize">Объем памяти в байтах для выделения без запуска сборки мусора. Значение <c>totalSize</c> –<c>lohSize</c> должно быть меньше или равно размеру временного сегмента. Сведения о размере эфемерных сегментов см. в разделе "Эфемерные поколения и сегменты" статьи [Основы сборки мусора](~/docs/standard/garbage-collection/fundamentals.md).</param>
         <param name="lohSize">Число байтов в <c>totalSize</c> для назначения кучи больших объектов.</param>
-        <param name="disallowFullBlockingGC">
-          Значение <see langword="true" />, чтобы пропустить полную блокирующую сборку мусора, если сборщику мусора изначально не удалось выделить указанную память в куче малых и в куче больших объектов; в противном случае — значение <see langword="false" />.</param>
+        <param name="disallowFullBlockingGC">Значение <see langword="true" />, чтобы пропустить полную блокирующую сборку мусора, если сборщику мусора изначально не удалось выделить указанную память в куче малых и в куче больших объектов; в противном случае — значение <see langword="false" />.</param>
         <summary>Пытается запретить сборку мусора во время выполнения критического пути, если доступен указанный объем памяти для кучи больших объектов и для кучи маленьких объектов, и устанавливает, будет ли выполняться полная блокирующая сборка мусора, если изначально не хватает памяти.</summary>
-        <returns>
-          Значение <see langword="true" />, если среде выполнения удалось зафиксировать необходимый объем памяти и сборщик мусора может перейти в режим задержки без области сборки мусора; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если среде выполнения удалось зафиксировать необходимый объем памяти и сборщик мусора может перейти в режим задержки без области сборки мусора; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.GC.TryStartNoGCRegion%28System.Int64%2CSystem.Int64%2CSystem.Boolean%29> Метод предпринимает попытку сборщика мусора в GC режим задержки без области, запрещающая сбора мусора, пока приложение выполняет критической области кода.  Если среда выполнения не может изначально выделить запрошенного объема памяти и `disallowFullBlockingGC` аргумент `false`, сборщик мусора выполняет полной блокирующей сборки мусора, пытаясь освободить память; в противном случае происходит сбой выделения, и метод возвращает `false`. Сборщик мусора переходит в режим задержки без области сборки Мусора он может выделить `lohSize` для LOH и `totalSize` — `lohSize` для кучи маленьких объектов (SOH).  
+ <xref:System.GC.TryStartNoGCRegion%28System.Int64%2CSystem.Int64%2CSystem.Boolean%29> Метод пытается перевести сборщик мусора в GC режим задержки без области, который не разрешает сбор мусора, пока приложение выполняет критической области кода.  Если среда выполнения не может изначально выделяемый запрошенного объема памяти и `disallowFullBlockingGC` аргумент `false`, сборщик мусора выполняет полной блокирующей сборки мусора, при попытке освободить память; в противном случае выделение происходит сбой и метод возвращает `false`. Сборщик мусора переходит в режим задержки без области сборки Мусора, если он может выделить `lohSize` для кучи массивных Объектов и `totalSize` — `lohSize` для кучи маленьких объектов (SOH).  
   
- `lohSize` должно быть достаточно большим для обработки всех операций выделения памяти, происходящие на критическом пути для LOH и `totalSize` — `lohSize` должно быть достаточно большим для обработки всех операций выделения памяти, происходящие на критическом пути для состояние работоспособности. Сюда входят выделения, приложения, а также параметры распределения, среда выполнения предоставляет от имени приложения.  
+ `lohSize` должен быть достаточно большим для обработки всех операций выделения памяти, которые происходят в критический путь для кучи массивных Объектов, и `totalSize` — `lohSize` должен быть достаточно большим для обработки всех операций выделения памяти, которые происходят в критический путь для SOH. Сюда входят выделения, приложение, а также параметры распределения, среда выполнения предоставляет от имени приложения.  
   
- Установка `disallowFullBlockingGC` для `true` для предотвращения блокировки полной сборки мусора коллекции, если изначально не хватает памяти наиболее полезна в сценариях балансировки нагрузки: одну систему можно вызвать этот метод и сообщает о себе как Готово к приему запросов, если он возвращает `true`, и иметь подсистемы балансировки нагрузки, которые перенаправляют запросы с другими системами, если он возвращает `false`. Затем его можно сделать полной блокирующей сборки мусора, если он не обрабатывает запросы путем вызова <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%2CSystem.Boolean%29> метод.  
+ Установка `disallowFullBlockingGC` для `true` для предотвращения полной блокирующей сборки мусора коллекция, если изначально не хватает памяти наиболее полезен в сценарии балансировки нагрузки: одной системы можно вызвать этот метод и сообщает о себе как Готово к приему запросов, если он возвращает `true`, и Подсистема балансировки нагрузки перенаправлять запросы в другие системы, если он возвращает `false`. Его можно затем выполните полной блокирующей сборки мусора, когда он не обрабатывает запросы путем вызова <xref:System.GC.Collect%28System.Int32%2CSystem.GCCollectionMode%2CSystem.Boolean%2CSystem.Boolean%29> метод.  
   
 > [!IMPORTANT]
->  Не удается вложить вызовы <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в данный момент в режим задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> успешно выполнен.  
+>  Не удается вложить вызовы к <xref:System.GC.TryStartNoGCRegion%2A> метод и вы должны вызывать только <xref:System.GC.EndNoGCRegion%2A> метод, если среда выполнения в настоящее время находится в режиме задержки без области сборки Мусора. Другими словами, не следует вызывать <xref:System.GC.TryStartNoGCRegion%2A> несколько раз (после первого вызова метода, последующие вызовы не будет выполнено), и не должен ожидать вызовы <xref:System.GC.EndNoGCRegion%2A> для успешного выполнения только потому, что первый вызов <xref:System.GC.TryStartNoGCRegion%2A> выполнена успешно.  
   
- Выход из глобального Каталога режим задержки без области путем вызова <xref:System.GC.EndNoGCRegion%2A> метод.  
+ Сборщик Мусора режим задержки без области можно выйти посредством вызова метода <xref:System.GC.EndNoGCRegion%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -1551,7 +1588,7 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Возвращает состояние зарегистрированного уведомления, чтобы определить, является ли неизбежной полная, блокирующая сборка мусора средой CLR.</summary>
+        <summary>Возвращает состояние зарегистрированного уведомления, чтобы определить, является ли неизбежной полная блокировка сборки мусора средой CLR.</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="WaitForFullGCApproach">
@@ -1560,9 +1597,11 @@
       <MemberSignature Language="DocId" Value="M:System.GC.WaitForFullGCApproach" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function WaitForFullGCApproach () As GCNotificationStatus" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static GCNotificationStatus WaitForFullGCApproach();" />
+      <MemberSignature Language="F#" Value="static member WaitForFullGCApproach : unit -&gt; GCNotificationStatus" Usage="System.GC.WaitForFullGCApproach " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1576,7 +1615,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1585,24 +1624,24 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает состояние зарегистрированного уведомления, чтобы определить, является ли неизбежной полная, блокирующая сборка мусора средой CLR.</summary>
+        <summary>Возвращает состояние зарегистрированного уведомления, чтобы определить, является ли неизбежной полная блокировка сборки мусора средой CLR.</summary>
         <returns>Состояние зарегистрированного уведомления о сборке мусора.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Используйте <xref:System.GCNotificationStatus> перечисления, возвращаемый этим методом, чтобы определить состояние текущего уведомления о сборке мусора, зарегистрированный с помощью <xref:System.GC.RegisterForFullGCNotification%2A> метод. Можно также использовать <xref:System.GC.WaitForFullGCComplete%2A> метод, чтобы определить, завершена ли полная сборка мусора.  
+ Используйте <xref:System.GCNotificationStatus> перечисление, возвращенное этим методом, чтобы определить состояние текущего уведомления сбора мусора, зарегистрированный с помощью <xref:System.GC.RegisterForFullGCNotification%2A> метод. Можно также использовать <xref:System.GC.WaitForFullGCComplete%2A> метод, чтобы определить, завершена ли полная сборка мусора.  
   
- При перечислении возвращает <xref:System.GCNotificationStatus.Succeeded>, можно выполнять задачи, такие как дополнительные объекты, предотвращая выделяется и вызывая сборку самостоятельно с <xref:System.GC.Collect%2A> метод. Обратите внимание, что уведомление не гарантирует, что полная сборка мусора происходит, только то, что условия Достигнуто пороговое значение, подходящей для полная сборка мусора возникает.  
+ При возвращении перечисления <xref:System.GCNotificationStatus.Succeeded>, вы можете выполнять задачи, такие как дополнительные объекты, предотвращая выделяется и вызывая сборку самостоятельно с помощью <xref:System.GC.Collect%2A> метод. Обратите внимание, что уведомление не гарантирует, что полная сборка мусора будет выполнена, только то, что условия Достигнуто пороговое значение, подходящую для полной сборки мусора возникает.  
   
- Этот метод бесконечно ожидает уведомления о сборке мусора может быть получена. Если вы хотите указать время ожидания для метода, возвращающего не удается получить уведомления, используйте <xref:System.GC.WaitForFullGCApproach%28System.Int32%29?displayProperty=nameWithType> перегрузки метода. Если этот метод вызывается без указания времени ожидания, можно вызвать <xref:System.GC.CancelFullGCNotification%2A> метод, если ожидается больше, чем основной.  
+ Этот метод бесконечно ожидает уведомление о сборке мусора получить невозможно. Если вы хотите указать время ожидания для метода для возврата, если не удается получить уведомление, используйте <xref:System.GC.WaitForFullGCApproach%28System.Int32%29?displayProperty=nameWithType> перегрузки метода. Если этот метод вызывается без указания времени ожидания, можно вызвать <xref:System.GC.CancelFullGCNotification%2A> метод, если ожидается больше, чем предпочтительные.  
   
- С помощью вызова этого метода необходимо следовать <xref:System.GC.WaitForFullGCComplete%2A> метод, чтобы убедиться в том, что у вас уже есть полная сборка мусора. Вызов этого метода только дает неопределенные результаты.  
+ Этот метод с вызовом необходимо следовать <xref:System.GC.WaitForFullGCComplete%2A> метод, чтобы убедиться в том, что имеется полная сборка мусора. Вызов этого метода только дает неопределенные результаты.  
   
    
   
 ## Examples  
- В следующем примере показано, как этот метод используется для определения того, достигает ли полная блокировка сборки мусора. Каждый раз, когда находится в состоянии уведомление <xref:System.GCNotificationStatus.Succeeded>, пользовательский метод `OnFullGCApproachNotify` вызывается для выполнения действий в ответ на приближение сборки. Данный пример кода является частью большего примера, приведенного для [сборке мусора](~/docs/standard/garbage-collection/notifications.md) раздела.  
+ В следующем примере показано, как этот метод позволяет определить, приближается ли полная блокировка сборки мусора. Каждый раз, когда находится в состоянии уведомление <xref:System.GCNotificationStatus.Succeeded>, пользовательский метод `OnFullGCApproachNotify` вызывается для выполнения действий в соответствии с размером около коллекции. Данный пример кода является частью большего примера для [уведомлений сборки мусора](~/docs/standard/garbage-collection/notifications.md) раздела.  
   
  [!code-cpp[GCNotification#3](~/samples/snippets/cpp/VS_Snippets_CLR/GCNotification/cpp/program.cpp#3)]
  [!code-csharp[GCNotification#3](~/samples/snippets/csharp/VS_Snippets_CLR/GCNotification/cs/Program.cs#3)]
@@ -1610,8 +1649,8 @@
   
  ]]></format>
         </remarks>
-        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">Для полного доверия для непосредственного вызывающего. Этот член не может быть использован частично доверенным кодом.</permission>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">для полного доверия для непосредственного вызывающего объекта. Этот член не может быть использован частично доверенным кодом.</permission>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName="WaitForFullGCApproach">
@@ -1620,9 +1659,11 @@
       <MemberSignature Language="DocId" Value="M:System.GC.WaitForFullGCApproach(System.Int32)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function WaitForFullGCApproach (millisecondsTimeout As Integer) As GCNotificationStatus" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static GCNotificationStatus WaitForFullGCApproach(int millisecondsTimeout);" />
+      <MemberSignature Language="F#" Value="static member WaitForFullGCApproach : int -&gt; GCNotificationStatus" Usage="System.GC.WaitForFullGCApproach millisecondsTimeout" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1636,7 +1677,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1654,22 +1695,21 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Используйте <xref:System.GCNotificationStatus> перечисления, возвращаемый этим методом, чтобы определить состояние текущего уведомления о сборке мусора, зарегистрированный с помощью <xref:System.GC.RegisterForFullGCNotification%2A> метод. Можно также использовать <xref:System.GC.WaitForFullGCComplete%2A> метод, чтобы определить, завершена ли полная сборка мусора.  
+ Используйте <xref:System.GCNotificationStatus> перечисление, возвращенное этим методом, чтобы определить состояние текущего уведомления сбора мусора, зарегистрированный с помощью <xref:System.GC.RegisterForFullGCNotification%2A> метод. Можно также использовать <xref:System.GC.WaitForFullGCComplete%2A> метод, чтобы определить, завершена ли полная сборка мусора.  
   
- Обратите внимание, что этот метод возвращает немедленно каждый раз, когда извлечь состояние уведомления сбора мусора, независимо от значения, указанного в `millisecondsTimeout`. Если состояние уведомления сбора мусора не может быть получен до `millisecondsTimeout` время ожидания, этот метод возвращает <xref:System.GCNotificationStatus.NotApplicable>.  
+ Обратите внимание, что этот метод возвращается сразу же каждый раз, когда получается состояние уведомления сбора мусора, независимо от значения, указанного в `millisecondsTimeout`. Если состояние уведомления сбора мусора не будет получена перед `millisecondsTimeout` раз, этот метод возвращает <xref:System.GCNotificationStatus.NotApplicable>.  
   
- При перечислении возвращает <xref:System.GCNotificationStatus.Succeeded>, можно выполнять задачи, такие как дополнительные объекты, предотвращая выделяется и вызывая сборку самостоятельно с <xref:System.GC.Collect%2A> метод. Обратите внимание, что уведомление не гарантирует, что полная сборка мусора происходит, только то, что условия Достигнуто пороговое значение, подходящей для полная сборка мусора возникает.  
+ При возвращении перечисления <xref:System.GCNotificationStatus.Succeeded>, вы можете выполнять задачи, такие как дополнительные объекты, предотвращая выделяется и вызывая сборку самостоятельно с помощью <xref:System.GC.Collect%2A> метод. Обратите внимание, что уведомление не гарантирует, что полная сборка мусора будет выполнена, только то, что условия Достигнуто пороговое значение, подходящую для полной сборки мусора возникает.  
   
- Можно вызвать <xref:System.GC.CancelFullGCNotification%2A> метод, если не может ожидать интервал времени ожидания, которое должно пройти.  
+ Вы можете вызвать <xref:System.GC.CancelFullGCNotification%2A> метод, если вы не можете ждать период ожидания, которое должно пройти.  
   
- С помощью вызова этого метода необходимо следовать <xref:System.GC.WaitForFullGCComplete%2A> метод, чтобы убедиться в том, что у вас уже есть полная сборка мусора. Вызов этого метода только дает неопределенные результаты.  
+ Этот метод с вызовом необходимо следовать <xref:System.GC.WaitForFullGCComplete%2A> метод, чтобы убедиться в том, что имеется полная сборка мусора. Вызов этого метода только дает неопределенные результаты.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          Параметр <paramref name="millisecondsTimeout" /> должен быть неотрицательным или не больше <see cref="F:System.Int32.MaxValue" /> или -1.</exception>
-        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">Для полного доверия для непосредственного вызывающего. Этот член не может быть использован частично доверенным кодом.</permission>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="millisecondsTimeout" /> должен быть неотрицательным или не больше <see cref="F:System.Int32.MaxValue" /> или -1.</exception>
+        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">для полного доверия для непосредственного вызывающего объекта. Этот член не может быть использован частично доверенным кодом.</permission>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <MemberGroup MemberName="WaitForFullGCComplete">
@@ -1688,9 +1728,11 @@
       <MemberSignature Language="DocId" Value="M:System.GC.WaitForFullGCComplete" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function WaitForFullGCComplete () As GCNotificationStatus" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static GCNotificationStatus WaitForFullGCComplete();" />
+      <MemberSignature Language="F#" Value="static member WaitForFullGCComplete : unit -&gt; GCNotificationStatus" Usage="System.GC.WaitForFullGCComplete " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1704,7 +1746,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1719,18 +1761,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Используйте <xref:System.GCNotificationStatus> перечисления, возвращаемый этим методом, чтобы определить состояние текущего уведомления о сборке мусора, зарегистрированный с помощью <xref:System.GC.RegisterForFullGCNotification%2A> метод. Можно также использовать <xref:System.GC.WaitForFullGCApproach%2A> метод, чтобы определить, является ли неизбежной полная сборка мусора.  
+ Используйте <xref:System.GCNotificationStatus> перечисление, возвращенное этим методом, чтобы определить состояние текущего уведомления сбора мусора, зарегистрированный с помощью <xref:System.GC.RegisterForFullGCNotification%2A> метод. Можно также использовать <xref:System.GC.WaitForFullGCApproach%2A> метод, чтобы определить, является ли неизбежной полная сборка мусора.  
   
- При перечислении возвращает <xref:System.GCNotificationStatus.Succeeded>, можно выполнять задачи, такие как возобновление работы и получить число коллекций с <xref:System.GC.CollectionCount%2A> свойство.  
+ При возвращении перечисления <xref:System.GCNotificationStatus.Succeeded>, вы можете выполнять задачи, такие как возобновление работы и получения число коллекций с <xref:System.GC.CollectionCount%2A> свойство.  
   
- Этот метод бесконечно ожидает уведомления о сборке мусора может быть получена. Если вы хотите указать время ожидания для метода, возвращающего не удается получить уведомления, используйте <xref:System.GC.WaitForFullGCApproach%28System.Int32%29?displayProperty=nameWithType> перегрузки метода. Если этот метод вызывается без указания времени ожидания, можно вызвать <xref:System.GC.CancelFullGCNotification%2A> метод, если ожидается больше, чем основной.  
+ Этот метод бесконечно ожидает уведомление о сборке мусора получить невозможно. Если вы хотите указать время ожидания для метода для возврата, если не удается получить уведомление, используйте <xref:System.GC.WaitForFullGCApproach%28System.Int32%29?displayProperty=nameWithType> перегрузки метода. Если этот метод вызывается без указания времени ожидания, можно вызвать <xref:System.GC.CancelFullGCNotification%2A> метод, если ожидается больше, чем предпочтительные.  
   
- Вызов этого метода должен стоять вызов <xref:System.GC.WaitForFullGCApproach%2A> метод, чтобы убедиться в том, что у вас уже есть полная сборка мусора. Сам по себе вызов этого метода может привести к непредсказуемым результатам.  
+ Вызов этого метода необходимо указывать с помощью вызова <xref:System.GC.WaitForFullGCApproach%2A> метод, чтобы убедиться в том, что имеется полная сборка мусора. Сам по себе вызов этого метода может привести к непредсказуемым результатам.  
   
    
   
 ## Examples  
- В следующем примере показано, как использовать этот метод, чтобы определить, завершена ли полная сборка мусора. Каждый раз, когда находится в состоянии уведомление <xref:System.GCNotificationStatus.Succeeded>, пользовательский метод `OnFullGCCompletedNotify` вызывается для выполнения действий в ответ на выполненной сборки мусора. Данный пример кода является частью большего примера, приведенного для [сборке мусора](~/docs/standard/garbage-collection/notifications.md) раздела.  
+ В следующем примере показано, как этот метод позволяет определить, завершена ли полная сборка мусора. Каждый раз, когда находится в состоянии уведомление <xref:System.GCNotificationStatus.Succeeded>, пользовательский метод `OnFullGCCompletedNotify` вызывается для выполнения действий в ответ на выполненной сборки. Данный пример кода является частью большего примера для [уведомлений сборки мусора](~/docs/standard/garbage-collection/notifications.md) раздела.  
   
  [!code-cpp[GCNotification#4](~/samples/snippets/cpp/VS_Snippets_CLR/GCNotification/cpp/program.cpp#4)]
  [!code-csharp[GCNotification#4](~/samples/snippets/csharp/VS_Snippets_CLR/GCNotification/cs/Program.cs#4)]
@@ -1738,8 +1780,8 @@
   
  ]]></format>
         </remarks>
-        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">Для полного доверия для непосредственного вызывающего. Этот член не может быть использован частично доверенным кодом.</permission>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">для полного доверия для непосредственного вызывающего объекта. Этот член не может быть использован частично доверенным кодом.</permission>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName="WaitForFullGCComplete">
@@ -1748,9 +1790,11 @@
       <MemberSignature Language="DocId" Value="M:System.GC.WaitForFullGCComplete(System.Int32)" />
       <MemberSignature Language="VB.NET" Value="Public Shared Function WaitForFullGCComplete (millisecondsTimeout As Integer) As GCNotificationStatus" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static GCNotificationStatus WaitForFullGCComplete(int millisecondsTimeout);" />
+      <MemberSignature Language="F#" Value="static member WaitForFullGCComplete : int -&gt; GCNotificationStatus" Usage="System.GC.WaitForFullGCComplete millisecondsTimeout" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1764,7 +1808,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1782,22 +1826,21 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Используйте <xref:System.GCNotificationStatus> перечисления, возвращаемый этим методом, чтобы определить состояние текущего уведомления о сборке мусора, зарегистрированный с помощью <xref:System.GC.RegisterForFullGCNotification%2A> метод. Можно также использовать <xref:System.GC.WaitForFullGCApproach%2A> метод, чтобы определить, является ли неизбежной полная сборка мусора.  
+ Используйте <xref:System.GCNotificationStatus> перечисление, возвращенное этим методом, чтобы определить состояние текущего уведомления сбора мусора, зарегистрированный с помощью <xref:System.GC.RegisterForFullGCNotification%2A> метод. Можно также использовать <xref:System.GC.WaitForFullGCApproach%2A> метод, чтобы определить, является ли неизбежной полная сборка мусора.  
   
- Обратите внимание, что этот метод возвращает немедленно каждый раз, когда извлечь состояние уведомления сбора мусора, независимо от значения, указанного в `millisecondsTimeout`. Если состояние уведомления сбора мусора не может быть получен до `millisecondsTimeout` время ожидания, этот метод возвращает <xref:System.GCNotificationStatus.NotApplicable>.  
+ Обратите внимание, что этот метод возвращается сразу же каждый раз, когда получается состояние уведомления сбора мусора, независимо от значения, указанного в `millisecondsTimeout`. Если состояние уведомления сбора мусора не будет получена перед `millisecondsTimeout` раз, этот метод возвращает <xref:System.GCNotificationStatus.NotApplicable>.  
   
- При перечислении возвращает <xref:System.GCNotificationStatus.Succeeded>, можно выполнять задачи, такие как возобновление работы и получить число коллекций с <xref:System.GC.CollectionCount%2A> свойство.  
+ При возвращении перечисления <xref:System.GCNotificationStatus.Succeeded>, вы можете выполнять задачи, такие как возобновление работы и получения число коллекций с <xref:System.GC.CollectionCount%2A> свойство.  
   
- Можно вызвать <xref:System.GC.CancelFullGCNotification%2A> метод, если не может ожидать интервал времени ожидания, которое должно пройти.  
+ Вы можете вызвать <xref:System.GC.CancelFullGCNotification%2A> метод, если вы не можете ждать период ожидания, которое должно пройти.  
   
- Вызов этого метода должен стоять вызов <xref:System.GC.WaitForFullGCApproach%2A> метод, чтобы убедиться в том, что у вас уже есть полная сборка мусора. Сам по себе вызов этого метода может привести к непредсказуемым результатам.  
+ Вызов этого метода необходимо указывать с помощью вызова <xref:System.GC.WaitForFullGCApproach%2A> метод, чтобы убедиться в том, что имеется полная сборка мусора. Сам по себе вызов этого метода может привести к непредсказуемым результатам.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">
-          Параметр <paramref name="millisecondsTimeout" /> должен быть неотрицательным или не больше <see cref="F:System.Int32.MaxValue" /> или -1.</exception>
-        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">Для полного доверия для непосредственного вызывающего. Этот член не может быть использован частично доверенным кодом.</permission>
-        <permission cref="T:System.Security.SecurityCriticalAttribute">требуется полное доверие для непосредственно вызывающего метода. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
+        <exception cref="T:System.InvalidOperationException">Параметр <paramref name="millisecondsTimeout" /> должен быть неотрицательным или не больше <see cref="F:System.Int32.MaxValue" /> или -1.</exception>
+        <permission cref="F:System.Security.Permissions.SecurityAction.LinkDemand">для полного доверия для непосредственного вызывающего объекта. Этот член не может быть использован частично доверенным кодом.</permission>
+        <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
     <Member MemberName="WaitForPendingFinalizers">
@@ -1806,6 +1849,7 @@
       <MemberSignature Language="DocId" Value="M:System.GC.WaitForPendingFinalizers" />
       <MemberSignature Language="VB.NET" Value="Public Shared Sub WaitForPendingFinalizers ()" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static void WaitForPendingFinalizers();" />
+      <MemberSignature Language="F#" Value="static member WaitForPendingFinalizers : unit -&gt; unit" Usage="System.GC.WaitForPendingFinalizers " />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -1818,6 +1862,8 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
+        <AssemblyVersion>1.0.5000.0</AssemblyVersion>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
         <AssemblyVersion>2.0.5.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -1825,6 +1871,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2">
+          <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
@@ -1835,14 +1886,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Когда сборщик мусора находит объекты, которые могут быть освобождены, он проверяет каждый объект, чтобы определить его требования к завершению. Если объект реализует метод завершения и завершения не отключен, вызвав <xref:System.GC.SuppressFinalize%2A>, то объект помещается в список объектов, которые помечены как готовые к завершению. Сборщик мусора вызывает <xref:System.Object.Finalize%2A> методы для объектов в этом списке и удаляет элементы из списка. Этот метод блокируется, пока все методы завершения выполнено до завершения.  
+ Когда сборщик мусора находит объекты, которые могут быть освобождены, он проверяет каждый объект, для определения требований к финализации объекта. Если объект реализует метод завершения и завершения не отключен, вызвав <xref:System.GC.SuppressFinalize%2A>, то объект помещается в список объектов, которые помечены как готовые к завершению. Сборщик мусора вызывает <xref:System.Object.Finalize%2A> методы для объектов в этом списке и удаляет элементы из списка. Этот метод блокируется до завершения всех выполненных до завершения.  
   
- Поток, на котором выполняются методы завершения не определен, поэтому нет никакой гарантии, что этот метод будет завершена. Тем не менее, этот поток может быть прерван другим потоком <xref:System.GC.WaitForPendingFinalizers%2A> метод идет. Например может запустить другой поток, который ожидает в течение заданного времени и прервет этот поток, если он все еще находится в приостановленном состоянии.  
+ Поток, на котором выполняются методы завершения не определен, поэтому нет никакой гарантии, что этот метод будет завершена. Тем не менее, этот поток может быть прерван другим потоком <xref:System.GC.WaitForPendingFinalizers%2A> метод выполняется. Например можно запустить другой поток, который ожидает в течение определенного периода времени и затем прерывает работу потока, если он по-прежнему находится в приостановленном состоянии.  
   
    
   
 ## Examples  
- В следующем примере демонстрируется использование <xref:System.GC.WaitForPendingFinalizers%2A> методе для приостановки текущего потока до завершения всех объектов.  
+ Следующий пример демонстрирует, как использовать <xref:System.GC.WaitForPendingFinalizers%2A> методе для приостановки текущего потока до завершения всех объектов.  
   
  [!code-cpp[System.GC.WaitForPendingFinalizers Example#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.GC.WaitForPendingFinalizers Example/CPP/class1.cpp#1)]
  [!code-csharp[System.GC.WaitForPendingFinalizers Example#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.GC.WaitForPendingFinalizers Example/CS/class1.cs#1)]
