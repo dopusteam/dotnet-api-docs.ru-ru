@@ -1,11 +1,11 @@
 <Type Name="BaseVsaSite" FullName="Microsoft.JScript.Vsa.BaseVsaSite">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="5bb8771fd5b64748931e9d817e3b4b76d4a51ab3" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="62e913f76c3bdf230942371b14d1e55f2bba89e9" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36664813" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39858703" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class BaseVsaSite : Microsoft.JScript.Vsa.IJSVsaSite" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit BaseVsaSite extends System.Object implements class Microsoft.JScript.Vsa.IJSVsaSite" />
@@ -26,12 +26,12 @@
     </Interface>
   </Interfaces>
   <Attributes>
-    <Attribute>
+    <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2">
       <AttributeName>System.Obsolete("Use of this type is not recommended because it is being deprecated in Visual Studio 2005; there will be no replacement for this feature. Please see the ICodeCompiler documentation for additional help.")</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>Обеспечивает связь между ведущим приложением и обработчиком сценариев.</summary>
+    <summary>Разрешение связи между основным приложением и обработчиком скрипта.</summary>
     <remarks>To be added.</remarks>
   </Docs>
   <Members>
@@ -46,6 +46,11 @@
         <AssemblyName>Microsoft.JScript</AssemblyName>
         <AssemblyVersion>10.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <Parameters />
       <Docs>
         <summary>Создает новый сайт.</summary>
@@ -103,7 +108,7 @@
       <MemberSignature Language="F#" Value="abstract member GetCompiledState :  *  -&gt; unit&#xA;override this.GetCompiledState :  *  -&gt; unit" Usage="baseVsaSite.GetCompiledState (pe, debugInfo)" />
       <MemberType>Method</MemberType>
       <Implements>
-        <InterfaceMember>M:Microsoft.JScript.Vsa.IJSVsaSite.GetCompiledState(System.Byte[]@,System.Byte[]@)</InterfaceMember>
+        <InterfaceMember>M:Microsoft.JScript.Vsa.IJSVsaSite.GetCompiledState(System.Byte[],System.Byte[])</InterfaceMember>
       </Implements>
       <AssemblyInfo>
         <AssemblyName>Microsoft.JScript</AssemblyName>
@@ -113,8 +118,8 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="pe" Type="System.Byte[]&amp;" RefType="out" />
-        <Parameter Name="debugInfo" Type="System.Byte[]&amp;" RefType="out" />
+        <Parameter Name="pe" Type="System.Byte[]" RefType="out" />
+        <Parameter Name="debugInfo" Type="System.Byte[]" RefType="out" />
       </Parameters>
       <Docs>
         <param name="pe">Задаваемая Сборка.</param>
@@ -148,8 +153,8 @@
       <Docs>
         <param name="itemName">Указанное имя элемента.</param>
         <param name="eventSourceName">Указанное имя источника события.</param>
-        <summary>Возвращает ссылку на источник события, ранее добавленный в обработчик сценариев с помощью метода <see cref="M:Microsoft.JScript.Vsa.IJSVsaCodeItem.AddEventSource(System.String,System.String)" />.</summary>
-        <returns>Возвращает источник события в обработчик.</returns>
+        <summary>Получает ссылку на источник событий, ранее добавленный к обработчику скрипта с помощью метода <see cref="M:Microsoft.JScript.Vsa.IJSVsaCodeItem.AddEventSource(System.String,System.String)" />.</summary>
+        <returns>Возвращает источник событий обработчику.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -175,8 +180,8 @@
         <Parameter Name="name" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="name">Возвращает ссылку на глобальный элемент, например предоставленный ведущим приложением объект приложения.</param>
-        <summary>Возвращает ссылку на глобальный элемент, например предоставленный ведущим приложением объект приложения.</summary>
+        <param name="name">Получает ссылку на глобальный элемент, например подготовленный основным приложением объект приложения.</param>
+        <summary>Получает ссылку на глобальный элемент, например подготовленный основным приложением объект приложения.</summary>
         <returns>Возвращает ссылку на глобальный объект.</returns>
         <remarks>To be added.</remarks>
       </Docs>
@@ -232,9 +237,9 @@
         <Parameter Name="error" Type="Microsoft.JScript.Vsa.IJSVsaError" />
       </Parameters>
       <Docs>
-        <param name="error">Объект <see cref="T:Microsoft.JScript.Vsa.IJSVsaError" />, который представляет ошибку, вызывающую неполадки.</param>
-        <summary>Уведомляет ведущее приложение о способе ответа на ошибки компилятора, с которыми сталкивается обработчик сценариев.</summary>
-        <returns>Возвращает TRUE, если компилятору дано указание продолжать передавать сведения об ошибках в объект <see cref="T:Microsoft.JScript.Vsa.IJSVsaSite" />. Возвращает FALSE, если компилятору дано указание прекратить передачу сведений об ошибках в объект <see langword="IVsaSite" />.</returns>
+        <param name="error">Объект <see cref="T:Microsoft.JScript.Vsa.IJSVsaError" />, представляющий собой неопределенную ошибку.</param>
+        <summary>Уведомляет основное приложение о способе ответа на ошибки компилятора, обусловленные обработчиком скрипта.</summary>
+        <returns>Возвращает TRUE, если компилятор ориентирован на продолжение записи ошибок для объекта <see cref="T:Microsoft.JScript.Vsa.IJSVsaSite" />. Возвращает значение FALSE, если компилятор ориентирован на прекращение предоставления сведений об ошибках объекту <see langword="IVsaSite" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>

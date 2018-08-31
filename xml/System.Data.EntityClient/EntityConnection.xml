@@ -1,11 +1,11 @@
 <Type Name="EntityConnection" FullName="System.Data.EntityClient.EntityConnection">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="6d12645c4c9a89326c15fcd23dab736705558354" />
-    <Meta Name="ms.sourcegitcommit" Value="5a49536d99d2d0b54e4cb7280870903e043272df" />
+    <Meta Name="ms.openlocfilehash" Value="384a4e9b8077be465ec13086c481928809fbf963" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="07/03/2018" />
-    <Meta Name="ms.locfileid" Value="37682703" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39833041" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class EntityConnection : System.Data.Common.DbConnection" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit EntityConnection extends System.Data.Common.DbConnection" />
@@ -117,7 +117,7 @@
         <Parameter Name="connectionString" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="connectionString">Строка соединения этого поставщика.</param>
+        <param name="connectionString">Строка подключения, соответствующая конкретному поставщику.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Data.EntityClient.EntityConnection" /> на основании строки подключения.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -177,8 +177,17 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="workspace" /> или параметра <paramref name="connection" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">В рабочей области отсутствует концептуальная модель.  -или- В рабочей области отсутствует файл сопоставлений.  -или- В рабочей области отсутствует модель хранения.  -или- <paramref name="connection" /> находится не в закрытом состоянии.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="workspace" /> или <paramref name="connection" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">В рабочей области отсутствует концептуальная модель.  
+  
+-или- 
+В рабочей области отсутствует файл сопоставлений.  
+  
+-или- 
+В рабочей области отсутствует модель хранения.  
+  
+-или- 
+<paramref name="connection" /> не в закрытом состоянии.</exception>
         <exception cref="T:System.Data.ProviderIncompatibleException">
           <paramref name="connection" /> не от поставщика совместимой ADO.NET Entity Framework.</exception>
       </Docs>
@@ -247,7 +256,13 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">Базовый поставщик неизвестен.  -или- Вызов <see cref="M:System.Data.EntityClient.EntityConnection.BeginTransaction" /> был произведен с <see cref="T:System.Data.EntityClient.EntityConnection" />, уже имеющего текущую транзакцию.  -или- Состояние <see cref="T:System.Data.EntityClient.EntityConnection" /> не равно <see cref="F:System.Data.ConnectionState.Open" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Базовый поставщик неизвестен.  
+  
+-или- 
+Вызов <see cref="M:System.Data.EntityClient.EntityConnection.BeginTransaction" /> был произведен с <see cref="T:System.Data.EntityClient.EntityConnection" />, уже имеющего текущую транзакцию.  
+  
+-или- 
+Состояние <see cref="T:System.Data.EntityClient.EntityConnection" /> не равно <see cref="F:System.Data.ConnectionState.Open" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="BeginTransaction">
@@ -280,7 +295,13 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">Базовый поставщик неизвестен.  -или- Вызов <see cref="M:System.Data.EntityClient.EntityConnection.BeginTransaction" /> был произведен с <see cref="T:System.Data.EntityClient.EntityConnection" />, уже имеющего текущую транзакцию.  -или- Состояние <see cref="T:System.Data.EntityClient.EntityConnection" /> не равно <see cref="F:System.Data.ConnectionState.Open" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Базовый поставщик неизвестен.  
+  
+-или- 
+Вызов <see cref="M:System.Data.EntityClient.EntityConnection.BeginTransaction" /> был произведен с <see cref="T:System.Data.EntityClient.EntityConnection" />, уже имеющего текущую транзакцию.  
+  
+-или- 
+Состояние <see cref="T:System.Data.EntityClient.EntityConnection" /> не равно <see cref="F:System.Data.ConnectionState.Open" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="ChangeDatabase">
@@ -334,7 +355,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Закрывает соединение с базой данных.</summary>
+        <summary>Закрытие подключения к базе данных.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -369,20 +390,20 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Предоставляет доступ к базовой соединения с источником данных, используемый `EntityClient` объекта. Для соединения с источником данных. В следующей таблице перечислены допустимые имена для значений ключевых слов в строке соединения <xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A>.  
+ `EntityClient` Строка подключения состоит из последовательности пар "ключевое слово/значение параметра", разделенных точкой с запятой. Знак равенства (=) соединяет каждое ключевое слово и его значение. В следующей таблице перечислены допустимые имена для значений ключевых слов в строке соединения <xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A>.  
   
 |Ключевое слово|Описание:|  
 |-------------|-----------------|  
 |`Provider`|Необходимо, если не задано ключевое слово `Name`. Имя поставщика, которое используется для получения объекта <xref:System.Data.Common.DbProviderFactory>, относящегося к базовому поставщику. Это - постоянное значение.<br /><br /> Когда `Name` не содержится ключевое слово в строке подключения, непустое значение для `Provider` ключевое слово является обязательным. Это ключевое слово является взаимоисключающим по отношению к ключевому слову `Name`.|  
 |`Provider Connection String`|Необязательный. Указывает зависящую от поставщика строку соединения, которая передается в базовый источник данных. Эта строка соединения должна быть выражена с помощью пар «ключевое слово/значение», допустимых для этого поставщика данных. Применение недопустимого ключевого слова `Provider Connection String` приводит к возникновению ошибки времени выполнения при его проверке в источнике данных.<br /><br /> Это ключевое слово является взаимоисключающим по отношению к ключевому слову `Name`.<br /><br /> Значение `Provider Connection String` должно быть заключено в кавычки. Ниже представлен пример такого кода.<br /><br /> `Provider Connection String ="Server=serverName; User ID = userID";`<br /><br /> Следующий пример работать не будет:<br /><br /> `Provider Connection String =Server=serverName; User ID = userID`|  
-|`Metadata`|Необходимо, если не задано ключевое слово `Name`. Если он открыт, будет возвращаться подключение к данным источника. Ниже представлен пример такого кода.<br /><br /> `Metadata=`<br /><br /> `c:\model &#124; c:\model\sql\mapping.msl;`<br /><br /> Пустые пространства, расположенные с обеих сторон вертикальной черты (|), не учитываются.<br /><br /> Это ключевое слово является взаимоисключающим по отношению к ключевому слову `Name`.|  
+|`Metadata`|Необходимо, если не задано ключевое слово `Name`. Разделением вертикальной чертой список каталогов, файлов и расположений ресурсов, в котором следует искать и сведения о сопоставлении. Ниже представлен пример такого кода.<br /><br /> `Metadata=`<br /><br /> `c:\model &#124; c:\model\sql\mapping.msl;`<br /><br /> Пустые пространства, расположенные с обеих сторон вертикальной черты (|), не учитываются.<br /><br /> Это ключевое слово является взаимоисключающим по отношению к ключевому слову `Name`.|  
 |`Name`|По желанию можно определить имя соединения в файле конфигурации приложения, в котором предоставляются необходимые для строки соединения пары «ключевое слово/значение». В этом случае нельзя задавать эти пары непосредственно в строке соединения. Применение ключевого слова `Name` в файле конфигурации не допускается.<br /><br /> Если в строке соединения не содержится ключевое слово `Name`, то необходимо задать непустые значения для ключевого слова Provider.<br /><br /> Это ключевое слово является взаимоисключающим по отношению к другим ключевым словам строки соединения.|  
   
  Приложение может предоставлять непосредственно в ключевое слово/значение <xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A> свойства, либо можно задать значение для `Name` ключевое слово. Если `Name` указывается ключевое слово, ключевое слово/значения строки подключения извлекаются из файла конфигурации приложения, следующим образом:  
   
  `Name=AdventureWorksEntities;`  
   
- Если `Name` используется ключевое слово в <xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A> свойство, другие ключевые слова не допускаются. Соединение с источником данных возвращается в виде `Name` объекта из `connectionStrings` свойство , или из  свойство . `Provider`, `Metadata`, И `Provider Connection String` значения извлекаются из файла конфигурации во время выполнения.  
+ Если `Name` используется ключевое слово в <xref:System.Data.EntityClient.EntityConnection.ConnectionString%2A> свойство, другие ключевые слова не допускаются. `Name` Слово ссылается на именованную строку соединения, хранящиеся в `connectionStrings` раздела файла конфигурации приложения, как показано в следующем примере. `Provider`, `Metadata`, И `Provider Connection String` значения извлекаются из файла конфигурации во время выполнения.  
   
   
   
@@ -484,6 +505,11 @@ Provider Connection String= 'Data Source=localhost;
         <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Data.Common.DbCommand</ReturnType>
       </ReturnValue>
@@ -507,6 +533,11 @@ Provider Connection String= 'Data Source=localhost;
         <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
@@ -542,7 +573,7 @@ Provider Connection String= 'Data Source=localhost;
       </ReturnValue>
       <Docs>
         <summary>Возвращает имя или сетевой адрес источника данных, с которым должно быть установлено соединение.</summary>
-        <value>Имя источника данных. Значение по умолчанию - пустая строка.</value>
+        <value>Имя источника данных. Значение по умолчанию — пустая строка.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -567,6 +598,11 @@ Provider Connection String= 'Data Source=localhost;
         <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Data.Common.DbProviderFactory</ReturnType>
       </ReturnValue>
@@ -647,8 +683,11 @@ Provider Connection String= 'Data Source=localhost;
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2">
           <AttributeName>System.CLSCompliant(false)</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -773,6 +812,11 @@ Provider Connection String= 'Data Source=localhost;
         <AssemblyVersion>3.5.0.0</AssemblyVersion>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Data.Common.DbConnection</ReturnType>
       </ReturnValue>
