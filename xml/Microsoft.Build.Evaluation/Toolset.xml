@@ -1,11 +1,11 @@
 <Type Name="Toolset" FullName="Microsoft.Build.Evaluation.Toolset">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ea8ec3b298507abec3154ba6ea36812060798ce2" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="0acb1685fc4773b6d4f058145bcdeef2a0150ff5" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36736885" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="40001049" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Toolset" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Toolset extends System.Object" />
@@ -22,7 +22,7 @@
   </Base>
   <Interfaces />
   <Attributes>
-    <Attribute>
+    <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2">
       <AttributeName>System.Diagnostics.DebuggerDisplay("ToolsVersion={ToolsVersion} ToolsPath={ToolsPath} #Properties={properties.Count}")</AttributeName>
     </Attribute>
   </Attributes>
@@ -32,7 +32,7 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- UNDONE: неизменность (danmose) проверки. Если это не является неизменяемым, добавьте механизм для уведомления проекта коллекции в секунду в целях увеличения их toolsetVersion.  
+ UNDONE: неизменяемости (danmose) проверки. Если это не является неизменяемым, добавьте механизм для уведомления проекта коллекции в секунду в целях увеличения их toolsetVersion.  
   
  ]]></format>
     </remarks>
@@ -58,6 +58,11 @@
         <AssemblyName>Microsoft.Build</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <Parameters>
         <Parameter Name="toolsVersion" Type="System.String" />
         <Parameter Name="toolsPath" Type="System.String" />
@@ -94,7 +99,9 @@
       <Docs>
         <param name="toolsVersion">Имя набора инструментов</param>
         <param name="toolsPath">Путь к задачам и целевым объектам этого набора инструментов</param>
-        <param name="buildProperties">Свойства, которые должны быть связаны с этим набором инструментов.  Может иметь значение null. В этом случае используется пустая группа свойств.</param>
+        <param name="buildProperties">Свойства, которые должны быть связаны с этим набором инструментов.  
+  
+Может иметь значение null. В этом случае используется пустая группа свойств.</param>
         <param name="projectCollection">Коллекция проектов, из которой нужно получить свойства.</param>
         <param name="msbuildOverrideTasksPath">Путь для поиска файлов задач переопределения msbuild.</param>
         <summary>Создает набор инструментов с заданными версией, путем и свойствами построения. Глобальные зарезервированные свойства и свойства среды взяты из заданной коллекции проектов.</summary>
@@ -123,7 +130,9 @@
       <Docs>
         <param name="toolsVersion">Имя набора инструментов.</param>
         <param name="toolsPath">Путь к задачам и целевым объектам этого набора инструментов.</param>
-        <param name="buildProperties">Свойства, которые должны быть связаны с этим набором инструментов.  Может иметь значение null. В этом случае используется пустая группа свойств.</param>
+        <param name="buildProperties">Свойства, которые должны быть связаны с этим набором инструментов.  
+  
+Может иметь значение null. В этом случае используется пустая группа свойств.</param>
         <param name="projectCollection">Коллекция проектов, из которой нужно получить свойства.</param>
         <param name="subToolsets">Набор поднаборов инструментов для добавления в данный набор инструментов.</param>
         <param name="msbuildOverrideTasksPath">Путь для поиска файлов задач переопределения msbuild. Набор поднаборов инструментов для добавления в данный набор инструментов.</param>
@@ -153,9 +162,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если [!INCLUDE[vs_dev10_long](~/includes/vs-dev10-long-md.md)] будет установлено, использовать базовый набор инструментов и возврата версии набора инструментов sub «10.0».  
+ Если [!INCLUDE[vs_dev10_long](~/includes/vs-dev10-long-md.md)] будет установлено, использовать базовый набор инструментов и возвращает версию поднабора инструментов «10.0».  
   
- В противном случае используйте набор инструментов с наивысшим версиями sub найден. Наборы инструментов Sub с номером версии упорядочиваются по номерам; любые дополнительные вложенные наборы инструментов добавляются в начало списка в порядке их нахождения. Возвращает значение null, если нет наборы инструментов не sub и [!INCLUDE[vs_dev10_long](~/includes/vs-dev10-long-md.md)] не установлен.  
+ В противном случае используйте найти наибольшее с версией поднабора инструментов. Вложенных наборов инструментов с нумерованной версиями упорядочиваются в числовом виде; любые дополнительные вложенных наборов инструментов добавляются к началу списка, в том порядке, найти. Возвращает значение null, если имеется не поднабору инструментов и [!INCLUDE[vs_dev10_long](~/includes/vs-dev10-long-md.md)] не установлен.  
   
  ]]></format>
         </remarks>
@@ -193,9 +202,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если сам набор инструментов как свойство имеет значение «VisualStudioVersion», версия набора инструментов sub равно «VisualStudioVersion».  
+ Если «VisualStudioVersion» задано как свойство сам набор инструментов, версию поднабора инструментов присваивается «VisualStudioVersion».  
   
- В противном случае задана версия набора инструментов sub DefaultSubToolsetVersion набора инструментов.  
+ В противном случае имеет значение версию поднабора инструментов DefaultSubToolsetVersion набора инструментов.  
   
  ]]></format>
         </remarks>
@@ -229,13 +238,13 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если переданный глобальное свойство существует в наборе глобальных свойств «VisualStudioVersion» версия набора инструментов sub равно «VisualStudioVersion».  
+ При передаче «VisualStudioVersion» глобальное свойство существует в наборе глобальных свойств, затем версию поднабора инструментов имеет значение «VisualStudioVersion».  
   
- В противном случае если «VisualStudioVersion» задано как свойство сам набор инструментов, версия набора инструментов sub присваивается «VisualStudioVersion».  
+ В противном случае если «VisualStudioVersion» задано как свойство сам набор инструментов, версию поднабора инструментов присваивается «VisualStudioVersion».  
   
- В противном случае, если версия Visual Studio, соответствующая версия решения (версия Visual Studio = версия решения – 1), передаваемый в сопоставлениях существующего набора средств sub, версия набора инструментов sub присваивается версия Visual Studio.  
+ В противном случае, если версия Visual Studio, соответствующая версия решения (версия Visual Studio = версия решения – 1) передается в maps существующих поднабору инструментов, то версию поднабора инструментов присваивается версия Visual Studio.  
   
- В противном случае задана версия набора инструментов sub DefaultSubToolsetVersion набора инструментов.  
+ В противном случае имеет значение версию поднабора инструментов DefaultSubToolsetVersion набора инструментов.  
   
  ]]></format>
         </remarks>
@@ -269,9 +278,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если свойство не найдено в наборе инструментов sub, выполняет поиск свойств в базовый набор инструментов.  
+ Если свойство не найдено в поднабору инструментов, выполняет поиск свойства в базовый набор инструментов.  
   
- Если свойство не найдено в наборе инструментов sub или базовый набор инструментов, возвращает значение null.  
+ Если свойство не найдено в поднабора инструментов или базовый набор инструментов, возвращает значение null.  
   
  ]]></format>
         </remarks>
@@ -331,6 +340,11 @@
         <AssemblyName>Microsoft.Build</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
@@ -341,7 +355,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Соответствует $(MSBuildToolsPath) в файле проекта или целей.  
+ Соответствует $(MSBuildToolsPath) в файле проекта или целевых объектов.  
   
  ]]></format>
         </remarks>
@@ -359,6 +373,11 @@
         <AssemblyName>Microsoft.Build</AssemblyName>
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
