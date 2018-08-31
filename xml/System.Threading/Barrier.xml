@@ -1,11 +1,11 @@
 <Type Name="Barrier" FullName="System.Threading.Barrier">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="d271267ac0284159a3b1b51c2d7ecb5e4260d584" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="719976617af141ff2c2b5fa4cf1717f2e6def395" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36606336" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39998746" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Barrier : IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Barrier extends System.Object implements class System.IDisposable" />
@@ -38,10 +38,10 @@
     </Interface>
   </Interfaces>
   <Attributes>
-    <Attribute>
+    <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
       <AttributeName>System.Diagnostics.DebuggerDisplay("Participant Count={ParticipantCount},Participants Remaining={ParticipantsRemaining}")</AttributeName>
     </Attribute>
-    <Attribute>
+    <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
       <AttributeName>System.Runtime.InteropServices.ComVisible(false)</AttributeName>
     </Attribute>
   </Attributes>
@@ -51,19 +51,19 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Группа задач взаимодействует путем перемещения через последовательность этапов, где каждая задача в группе сигнализирует появился в <xref:System.Threading.Barrier> в определенный этап и неявно ожидает поступления остальных. Соответствует <xref:System.Threading.Barrier> может использоваться в нескольких этапах.  
+ Группы задач совместной работы, перемещения через последовательность этапов, где каждая задача в группе сигнализирует появился в <xref:System.Threading.Barrier> в определенный этап и неявно ожидает поступления остальных. Же <xref:System.Threading.Barrier> может использоваться для нескольких этапов.  
   
    
   
 ## Examples  
- В следующем примере показано использование барьера:  
+ В следующем примере показано, как использование барьера:  
   
  [!code-csharp[System.Threading.Barrier#01](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.threading.barrier/cs/barrier.cs#01)]
  [!code-vb[System.Threading.Barrier#01](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.threading.barrier/vb/barrier.vb#01)]  
   
  ]]></format>
     </remarks>
-    <threadsafe>Все открытые и защищенные члены <see cref="T:System.Threading.Barrier" /> являются потокобезопасными и могут быть использованы одновременно из нескольких потоков, за исключением Dispose, который должен быть только используется, когда все операции в <see cref="T:System.Threading.Barrier" /> завершена.</threadsafe>
+    <threadsafe>Все открытые и защищенные члены <see cref="T:System.Threading.Barrier" /> являются потокобезопасными и могут быть использованы одновременно из нескольких потоков, за исключением Dispose, который должен быть только используется, когда все другие операции с <see cref="T:System.Threading.Barrier" /> завершена.</threadsafe>
   </Docs>
   <Members>
     <MemberGroup MemberName=".ctor">
@@ -101,6 +101,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <Parameters>
         <Parameter Name="participantCount" Type="System.Int32" />
       </Parameters>
@@ -147,7 +152,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- `postPhaseAction` Делегат будет выполняться после всех участников достигнувших барьера на одном этапе. Участники не будет освобожден к следующему этапу до завершения выполнения делегата postPhaseAction.  
+ `postPhaseAction` Делегат будет выполнен после всех участников крайнему барьера в один этап. Участники не будет освобожден к следующему этапу до завершения выполнения делегата postPhaseAction.  
   
  ]]></format>
         </remarks>
@@ -193,8 +198,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже удален.</exception>
-        <exception cref="T:System.InvalidOperationException">Добавление участника приведет к превышению 32 767 счетчиком участников барьера.  -или- Метод был вызван из действия после этапа.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже был удален.</exception>
+        <exception cref="T:System.InvalidOperationException">Добавление участника приведет к превышению 32 767 счетчиком участников барьера.  
+  
+-или- 
+Метод был вызван из действия после этапа.</exception>
       </Docs>
     </Member>
     <Member MemberName="AddParticipants">
@@ -239,8 +247,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже удален.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="participantCount" /> меньше 0.  -или- Добавление участников <paramref name="participantCount" /> приведет к превышению лимита на 32 767 участников барьера.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже был удален.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="participantCount" /> меньше 0.  
+  
+-или- 
+Добавление участников <paramref name="participantCount" /> приведет к превышению 32 767 счетчиком участников барьера.</exception>
         <exception cref="T:System.InvalidOperationException">Метод был вызван из действия после этапа.</exception>
       </Docs>
     </Member>
@@ -268,6 +279,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>get: System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Int64</ReturnType>
       </ReturnValue>
@@ -327,7 +343,7 @@
 ## Remarks  
  Вызовите метод `Dispose` по окончании использования класса <xref:System.Threading.Barrier>. Метод `Dispose` оставляет класс <xref:System.Threading.Barrier> в непригодном для использования состоянии. После вызова метода `Dispose`, необходимо освободить все ссылки на <xref:System.Threading.Barrier> , сборщик мусора мог освободить память, <xref:System.Threading.Barrier> занимаемую.  
   
- Дополнительные сведения см. в разделе [очистки неуправляемых ресурсов](~/docs/standard/garbage-collection/unmanaged.md) и [метода](~/docs/standard/garbage-collection/implementing-dispose.md).  
+ Дополнительные сведения см. в разделе [очистки неуправляемых ресурсов](~/docs/standard/garbage-collection/unmanaged.md) и [реализация метода Dispose](~/docs/standard/garbage-collection/implementing-dispose.md).  
   
 > [!NOTE]
 >  Всегда вызывайте метод `Dispose` перед освобождением последней ссылки на класс <xref:System.Threading.Barrier>. В противном случае используемые им ресурсы не будут освобождены до тех пор, пока сборщик мусора не вызовет для объекта <xref:System.Threading.Barrier> метод `Finalize`.  
@@ -369,12 +385,12 @@
       </Parameters>
       <Docs>
         <param name="disposing">Значение true, чтобы освободить управляемые и неуправляемые ресурсы; значение false, чтобы освободить только неуправляемые ресурсы.</param>
-        <summary>Освобождает неуправляемые ресурсы, используемые журналом <see cref="T:System.Threading.Barrier" />, и при необходимости освобождает также управляемые ресурсы.</summary>
+        <summary>Освобождает неуправляемые (а при необходимости и управляемые) ресурсы, используемые объектом <see cref="T:System.Threading.Barrier" />.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- В отличие от большинства элементов <xref:System.Threading.Barrier>, Dispose, не является потокобезопасным и не может использоваться параллельно с другими членами данного экземпляра.  
+ В отличие от большинства элементов <xref:System.Threading.Barrier>, Dispose, не является поточно ориентированной и не может использоваться параллельно с другими членами данного экземпляра.  
   
  ]]></format>
         </remarks>
@@ -447,7 +463,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это может быть равно 0, во время выполнения делегат действие следующего этапа, или если ParticipantCount равняется 0.  
+ Это может быть равно 0, во время выполнения делегат действие следующего этапа или если ParticipantCount равно 0.  
   
  ]]></format>
         </remarks>
@@ -477,6 +493,11 @@
         <AssemblyName>netstandard</AssemblyName>
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="netframework-4.0">
+          <AttributeName>System.Runtime.TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")</AttributeName>
+        </Attribute>
+      </Attributes>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
@@ -484,8 +505,11 @@
       <Docs>
         <summary>Уведомляет <see cref="T:System.Threading.Barrier" /> о удалении одного участника.</summary>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже удален.</exception>
-        <exception cref="T:System.InvalidOperationException">Барьер уже содержит 0 участников.  -или- Метод был вызван из действия после этапа.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже был удален.</exception>
+        <exception cref="T:System.InvalidOperationException">Барьер уже содержит 0 участников.  
+  
+-или- 
+Метод был вызван из действия после этапа.</exception>
       </Docs>
     </Member>
     <Member MemberName="RemoveParticipants">
@@ -525,13 +549,19 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если `participantCount` уже ожидают участников барьера, это удалении, действия выполняется и все участники активируются, как если бы этот удаляемый участник успешно достигли барьера.  
+ Если `participantCount` участников уже ожидают барьера, это удалении, выполнения действия и все участники активируются, как если бы этот удаляемый участник успешно достигли барьера.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже удален.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже был удален.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Общее число участников меньше указанного <paramref name="participantCount" /></exception>
-        <exception cref="T:System.InvalidOperationException">Барьер уже содержит 0 участников.  -или- Метод был вызван из действия после этапа.  -или- Текущее количество участников меньше указанного participantCount</exception>
+        <exception cref="T:System.InvalidOperationException">Барьер уже содержит 0 участников.  
+  
+-или- 
+Метод был вызван из действия после этапа.  
+  
+-или- 
+текущее количество участников меньше указанного participantCount</exception>
       </Docs>
     </Member>
     <MemberGroup MemberName="SignalAndWait">
@@ -576,7 +606,7 @@
       <Docs>
         <summary>Сообщает, что участник достиг барьера  и ожидает достижения барьера другими участниками.</summary>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже удален.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже был удален.</exception>
         <exception cref="T:System.InvalidOperationException">Метод был вызван из действия после этапа, барьер в настоящий момент имеет 0 участников или барьер получает сигналы от большего числа потоков, чем зарегистрировано участников.</exception>
         <exception cref="T:System.Threading.BarrierPostPhaseException">Если создается исключение из действия следующего этапа барьера после того, как все участвующие потоки вызвали SignalAndWait, исключение будет вставлено в BarrierPostPhaseException и создано для всех участвующих потоков.</exception>
       </Docs>
@@ -616,8 +646,8 @@
         <summary>Сообщает, что участник достиг барьера  и ожидает достижения барьера всеми другими участниками, используя 32-разрядное знаковое целое число для измерения времени ожидания.</summary>
         <returns>Значение true, если все участники достигли барьера за указанное время; в противном случае — значение false.</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже удален.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="millisecondsTimeout" /> является отрицательным числом, отличным от –1, что означает бесконечное время ожидания.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже был удален.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="millisecondsTimeout" /> является отрицательным числом, отличным от -1, которое представляет неограниченное время ожидания.</exception>
         <exception cref="T:System.InvalidOperationException">Метод был вызван из действия после этапа, барьер в настоящий момент имеет 0 участников или барьер получает сигналы от большего числа потоков, чем зарегистрировано участников.</exception>
         <exception cref="T:System.Threading.BarrierPostPhaseException">Если создается исключение из действия следующего этапа барьера после того, как все участвующие потоки вызвали SignalAndWait, исключение будет вставлено в BarrierPostPhaseException и создано для всех участвующих потоков.</exception>
       </Docs>
@@ -657,7 +687,7 @@
         <remarks>To be added.</remarks>
         <exception cref="T:System.OperationCanceledException">
           <paramref name="cancellationToken" /> был отменен.</exception>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже удален.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже был удален.</exception>
         <exception cref="T:System.InvalidOperationException">Метод был вызван из действия после этапа, барьер в настоящий момент имеет 0 участников или барьер получает сигналы от большего числа потоков, чем зарегистрировано участников.</exception>
       </Docs>
     </Member>
@@ -692,11 +722,11 @@
         <Parameter Name="timeout" Type="System.TimeSpan" />
       </Parameters>
       <Docs>
-        <param name="timeout">Период <see cref="T:System.TimeSpan" />, представляющий время ожидания в миллисекундах, или период <see cref="T:System.TimeSpan" />, представляющий -1 миллисекунду для неограниченного ожидания.</param>
+        <param name="timeout">Объект <see cref="T:System.TimeSpan" />, представляющий время ожидания в миллисекундах, или объект <see cref="T:System.TimeSpan" />, представляющий -1 миллисекунду для неограниченного ожидания.</param>
         <summary>Сообщает, что участник достиг барьера и ожидает достижения барьера всеми другими участниками, используя объект <see cref="T:System.TimeSpan" /> для измерения интервала времени.</summary>
         <returns>Значение true, если все остальные участники достигли барьера; в противном случае — значение false.</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже удален.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже был удален.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
           <paramref name="timeout" /> является отрицательным числом, отличным от значения –1 миллисекунды, которое представляет неограниченное время ожидания, или превышает 32 767.</exception>
         <exception cref="T:System.InvalidOperationException">Метод был вызван из действия после этапа, барьер в настоящий момент имеет 0 участников или барьер получает сигналы от большего числа потоков, чем зарегистрировано участников.</exception>
@@ -741,14 +771,14 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если `cancellationToken` была отменена до сигнала действует, то <xref:System.OperationCanceledException> возникает исключение и <xref:System.Threading.Barrier.ParticipantsRemaining%2A> значение не уменьшается. Если `cancellationToken` не отменено или будет отменен после сигнал вступает в силу затем <xref:System.Threading.Barrier.ParticipantsRemaining%2A> уменьшается и не <xref:System.OperationCanceledException> возникает исключение.  
+ Если `cancellationToken` была отменена до выполнения сигнал, а затем <xref:System.OperationCanceledException> возникает исключение и <xref:System.Threading.Barrier.ParticipantsRemaining%2A> не уменьшается значение. Если `cancellationToken` не отменено или будет отменен после сигнала вступает в силу затем <xref:System.Threading.Barrier.ParticipantsRemaining%2A> уменьшается и не <xref:System.OperationCanceledException> возникает исключение.  
   
  ]]></format>
         </remarks>
         <exception cref="T:System.OperationCanceledException">
           <paramref name="cancellationToken" /> был отменен.</exception>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже удален.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="millisecondsTimeout" /> является отрицательным числом, отличным от –1, что означает бесконечное время ожидания.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже был удален.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="millisecondsTimeout" /> является отрицательным числом, отличным от -1, которое представляет неограниченное время ожидания.</exception>
         <exception cref="T:System.InvalidOperationException">Метод был вызван из действия после этапа, барьер в настоящий момент имеет 0 участников или барьер получает сигналы от большего числа потоков, чем зарегистрировано участников.</exception>
       </Docs>
     </Member>
@@ -783,16 +813,15 @@
         <Parameter Name="cancellationToken" Type="System.Threading.CancellationToken" />
       </Parameters>
       <Docs>
-        <param name="timeout">Период <see cref="T:System.TimeSpan" />, представляющий время ожидания в миллисекундах, или период <see cref="T:System.TimeSpan" />, представляющий -1 миллисекунду для неограниченного ожидания.</param>
+        <param name="timeout">Объект <see cref="T:System.TimeSpan" />, представляющий время ожидания в миллисекундах, или объект <see cref="T:System.TimeSpan" />, представляющий -1 миллисекунду для неограниченного ожидания.</param>
         <param name="cancellationToken">Токен отмены <see cref="T:System.Threading.CancellationToken" />, который следует контролировать.</param>
         <summary>Сообщает, что участник достиг барьера и ожидает достижения барьера всеми другими участниками, используя объект <see cref="T:System.TimeSpan" /> для измерения интервала времени. Кроме того, метод контролирует токен отмены.</summary>
         <returns>Значение true, если все остальные участники достигли барьера; в противном случае — значение false.</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.OperationCanceledException">
           <paramref name="cancellationToken" /> был отменен.</exception>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже удален.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">
-          <paramref name="timeout" /> является отрицательным числом, отличным от -1 миллисекунды, которое представляет неограниченное время ожидания.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр уже был удален.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="timeout" /> является отрицательным числом, отличным от -1, которое представляет неограниченное время ожидания.</exception>
         <exception cref="T:System.InvalidOperationException">Метод был вызван из действия после этапа, барьер в настоящий момент имеет 0 участников или барьер получает сигналы от большего числа потоков, чем зарегистрировано участников.</exception>
       </Docs>
     </Member>
