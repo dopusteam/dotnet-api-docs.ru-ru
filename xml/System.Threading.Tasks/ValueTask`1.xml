@@ -1,11 +1,11 @@
 <Type Name="ValueTask&lt;TResult&gt;" FullName="System.Threading.Tasks.ValueTask&lt;TResult&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="a87a03e250539c4f13f9c7f115f45efb6c3db9bf" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="c8672fa3529ccb52aa4fac0237bffff6dbd35876" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36406938" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39961507" />
   </Metadata>
   <TypeSignature Language="C#" Value="public struct ValueTask&lt;TResult&gt; : IEquatable&lt;System.Threading.Tasks.ValueTask&lt;TResult&gt;&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit ValueTask`1&lt;TResult&gt; extends System.ValueType implements class System.IEquatable`1&lt;valuetype System.Threading.Tasks.ValueTask`1&lt;!TResult&gt;&gt;" />
@@ -35,10 +35,10 @@
     </Interface>
   </Interfaces>
   <Attributes>
-    <Attribute>
+    <Attribute FrameworkAlternate="netcore-1.1;netcore-2.0;netcore-2.1">
       <AttributeName>System.Runtime.CompilerServices.AsyncMethodBuilder(typeof(System.Runtime.CompilerServices.AsyncValueTaskMethodBuilder`1))</AttributeName>
     </Attribute>
-    <Attribute>
+    <Attribute FrameworkAlternate="netcore-2.1">
       <AttributeName>System.Runtime.CompilerServices.IsReadOnly</AttributeName>
     </Attribute>
   </Attributes>
@@ -49,16 +49,16 @@
       <format type="text/markdown"><![CDATA[ 
 
 ## Remarks  
-Метод может возвращать экземпляр этого типа значения, когда это скорее всего, результат операции будет доступен синхронно, и если он должно быть настолько часто, приводящее расходам на новый <xref:System.Threading.Tasks.Task%601> для каждого вызова будут чрезмерно высокой.   
+Метод может возвращать экземпляр этого типа значения, где оно, вероятно, что результат его работы будут доступны синхронно, и когда он должно быть настолько часто, приводящее расходам на новый <xref:System.Threading.Tasks.Task%601> для каждого вызова будут чрезмерно высокой.   
 
-Метод лишен недостатков использования <xref:System.Threading.Tasks.ValueTask%601> вместо <xref:System.Threading.Tasks.Task%601>. Например, в то время как <xref:System.Threading.Tasks.ValueTask%601> может помочь избежать выделение в случае успешного результата доступно синхронно, он также содержит два поля, в то время как <xref:System.Threading.Tasks.Task%601> как ссылка типа состоит из одного поля. Это означает, что вызов метода возвращает два поля, стоит данных вместо одного, являющееся дополнительные данные для копирования. Это также означает, что если метод, возвращающий <xref:System.Threading.Tasks.ValueTask%601> ожидать внутри асинхронного метода, конечный автомат для асинхронного метода будут больше, так как он должен хранить структурой, в которой два поля, а не только одну ссылку.   
+Есть и недостатки использования <xref:System.Threading.Tasks.ValueTask%601> вместо <xref:System.Threading.Tasks.Task%601>. Например, хотя <xref:System.Threading.Tasks.ValueTask%601> поможет избежать распределения в случае успешного результата где доступны синхронно, он также содержит два поля, тогда как <xref:System.Threading.Tasks.Task%601> как ссылку на тип состоит из одного поля. Это означает, что вызов метода возвращает два поля стоит данных вместо одного, это дополнительные данные для копирования. Это также означает, что если метод, возвращающий <xref:System.Threading.Tasks.ValueTask%601> оказывается внутри асинхронного метода, конечный автомат для этого асинхронного метода будет больше, так как должен сохраняться структуры, содержащий два поля, а не одна ссылка.   
 
-Для использует отличные от использования результат асинхронной операции с помощью await, <xref:System.Threading.Tasks.ValueTask%601> может привести к более сложные модели программирования, которая требует дополнительные выделения. Например, рассмотрим метод, который может возвращать либо <xref:System.Threading.Tasks.Task%601> с кэшированную задачу в результате общие или <xref:System.Threading.Tasks.ValueTask%601>. Если потребитель результата будет использовать в качестве <xref:System.Threading.Tasks.Task%601> в методе, например <xref:System.Threading.Tasks.Task.WhenAll%2A> или <xref:System.Threading.Tasks.Task.WhenAny%2A>, <xref:System.Threading.Tasks.ValueTask%601> необходимо сначала преобразовать в <xref:System.Threading.Tasks.Task%601> с помощью <xref:System.Threading.Tasks.ValueTask%601.AsTask%2A>, что приведет к распределения, которое будет было избежать, если кэшированные <xref:System.Threading.Tasks.Task%601> была использована в первую очередь.   
+Для использует отличные от использования результат асинхронной операции с помощью await, <xref:System.Threading.Tasks.ValueTask%601> может привести к более сложные модели программирования, которая требует дополнительные выделения. Например, рассмотрим метод, который может возвращать либо <xref:System.Threading.Tasks.Task%601> с кэшированную задачу как общий результат или <xref:System.Threading.Tasks.ValueTask%601>. Если результата необходимо использовать в качестве <xref:System.Threading.Tasks.Task%601> в методе, подобном <xref:System.Threading.Tasks.Task.WhenAll%2A> или <xref:System.Threading.Tasks.Task.WhenAny%2A>, <xref:System.Threading.Tasks.ValueTask%601> необходимо сначала преобразовать в <xref:System.Threading.Tasks.Task%601> с помощью <xref:System.Threading.Tasks.ValueTask%601.AsTask%2A>, что приведет к распределения, которое бы было избежать при кэшированные <xref:System.Threading.Tasks.Task%601> была использована в первую очередь.   
 
-Таким образом, должно быть по умолчанию любые асинхронные методы для возврата <xref:System.Threading.Tasks.Task> или <xref:System.Threading.Tasks.Task%601>. Следует только в том случае, если анализ производительности оказывается оправдан <xref:System.Threading.Tasks.ValueTask%601> использоваться вместо <xref:System.Threading.Tasks.Task%601>. Нет ни одна из версий неуниверсальных <xref:System.Threading.Tasks.ValueTask%601>, как <xref:System.Threading.Tasks.Task.CompletedTask> свойство может использоваться для передать обратно в случае успешного завершения одноэлементный там, где метод возвратить <xref:System.Threading.Tasks.Task> завершается синхронно и успешно.   
+Таким образом, выбор по умолчанию для любого асинхронного метода следует возвращать <xref:System.Threading.Tasks.Task> или <xref:System.Threading.Tasks.Task%601>. Следует только в том случае, если анализ производительности оказывается оправданной <xref:System.Threading.Tasks.ValueTask%601> использоваться вместо <xref:System.Threading.Tasks.Task%601>. Отсутствует версия неуниверсальных из <xref:System.Threading.Tasks.ValueTask%601>, как <xref:System.Threading.Tasks.Task.CompletedTask> свойство может использоваться для вернет в случае успешного завершения одноэлементный там, где метод возвратить <xref:System.Threading.Tasks.Task> завершается синхронно и успешно.   
 
 > [!NOTE]
->  Использование <xref:System.Threading.Tasks.ValueTask%601> тип поддерживается начиная с C# 7 и не поддерживается в любой версии Visual Basic.
+>  Использование <xref:System.Threading.Tasks.ValueTask%601> тип поддерживается, начиная с C# 7 и не поддерживается в любой версии Visual Basic.
  ]]></format>
     </remarks>
   </Docs>
@@ -88,7 +88,7 @@
         <param name="task">Задача.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Threading.Tasks.ValueTask`1" />, используя указанную задачу, которая представляет операцию.</summary>
         <remarks></remarks>
-        <exception cref="T:System.ArgumentNullException">Аргумент <paramref name="task" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Аргумент <paramref name="task" /> равен пустой ссылке (<see langword="null" />).</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -218,7 +218,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-1.1;netcore-2.0">
           <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
         </Attribute>
       </Attributes>
@@ -259,7 +259,8 @@
       <Docs>
         <param name="obj">Объект, который требуется сравнить с текущим объектом.</param>
         <summary>Определяет, равен ли заданный объект текущему объекту.</summary>
-        <returns>Значение <see langword="true" />, если указанный объект равен текущему объекту; в противном случае — значение <see langword="false" />.</returns>
+        <returns>
+          <see langword="true" />, если заданный объект равен текущему объекту; в противном случае — <see langword="false" />.</returns>
         <remarks></remarks>
       </Docs>
     </Member>
@@ -293,7 +294,8 @@
       <Docs>
         <param name="other">Объект, который требуется сравнить с текущим объектом.</param>
         <summary>Определяет, равен ли заданный объект <see cref="T:System.Threading.Tasks.ValueTask`1" /> текущему объекту <see cref="T:System.Threading.Tasks.ValueTask`1" />.</summary>
-        <returns>Значение <see langword="true" />, если указанный объект равен текущему объекту; в противном случае — значение <see langword="false" />.</returns>
+        <returns>
+          <see langword="true" />, если заданный объект равен текущему объекту; в противном случае — <see langword="false" />.</returns>
         <remarks></remarks>
       </Docs>
     </Member>
@@ -321,7 +323,7 @@
       <Parameters />
       <Docs>
         <summary>Создает объект типа awaiter для этого значения.</summary>
-        <returns>Объект типа awaiter.</returns>
+        <returns>Awaiter.</returns>
         <remarks></remarks>
       </Docs>
     </Member>
@@ -348,7 +350,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает хэш-код данного экземпляра.</summary>
+        <summary>Возвращает хэш-код для данного экземпляра.</summary>
         <returns>Хэш-код для текущего объекта.</returns>
         <remarks></remarks>
       </Docs>
@@ -377,7 +379,7 @@
       <Docs>
         <summary>Возвращает значение, указывающее, представляет ли этот объект отмененную операцию.</summary>
         <value>
-          <see langword="true" /> Если этот объект представляет отмененной операции; в противном случае <see langword="false" />.</value>
+          <see langword="true" /> Если объект представляет отмененной операции; в противном случае <see langword="false" />.</value>
         <remarks></remarks>
       </Docs>
     </Member>
@@ -405,7 +407,7 @@
       <Docs>
         <summary>Возвращает значение, указывающее, представляет ли этот объект завершенную операцию.</summary>
         <value>
-          <see langword="true" /> Если этот объект представляет завершенной операции; в противном случае <see langword="false" />.</value>
+          <see langword="true" /> Если этот объект представляет завершенную операцию; в противном случае <see langword="false" />.</value>
         <remarks></remarks>
       </Docs>
     </Member>
@@ -433,7 +435,7 @@
       <Docs>
         <summary>Возвращает значение, указывающее, представляет ли этот объект успешно завершенную операцию.</summary>
         <value>
-          <see langword="true" /> Если этот объект представляет успешного завершения операции; в противном случае <see langword="false" />.</value>
+          <see langword="true" /> Если этот объект представляет успешно завершенную операцию; в противном случае <see langword="false" />.</value>
         <remarks></remarks>
       </Docs>
     </Member>
@@ -461,7 +463,7 @@
       <Docs>
         <summary>Возвращает значение, указывающее, представляет ли этот объект операцию, завершившуюся ошибкой.</summary>
         <value>
-          <see langword="true" /> Если этот объект представляет сбойной операцией; в противном случае <see langword="false" />.</value>
+          <see langword="true" /> Если объект представляет сбойной операцией; в противном случае <see langword="false" />.</value>
         <remarks></remarks>
       </Docs>
     </Member>
@@ -580,9 +582,9 @@
         <remarks>
           <format type="text/markdown"><![CDATA[  
 ## Remarks  
- Если этот <xref:System.Threading.Tasks.ValueTask%601> формирует оболочку для успешного результата, это свойство возвращает его напрямую.
+ Если этот <xref:System.Threading.Tasks.ValueTask%601> оболочку успешный результат, это свойство возвращает его напрямую.
 
- При переносе <xref:System.Threading.Tasks.Task%601>, поведение <xref:System.Threading.Tasks.ValueTask%601.Result%2A> похож на режим доступа к <xref:System.Threading.Tasks.Task%601.Result%2A> на задачу оболочки: Если задача не завершена, обращение к свойству блокирует вызывающий поток до завершения; Если задача была завершена успешно это свойство возвращает результат. Если задача завершилась ошибкой или был cancellecd, доступ к свойству вызывает исключение. Исключение не упаковывается в <xref:System.AggregateException>, который отличается от поведения <xref:System.Threading.Tasks.Task%601.Result%2A> в подобной ситуации.
+ При переносе <xref:System.Threading.Tasks.Task%601>, поведение <xref:System.Threading.Tasks.ValueTask%601.Result%2A> аналогично поведению доступа к <xref:System.Threading.Tasks.Task%601.Result%2A> на задачи оболочки: Если задача не завершена, обращение к свойству блокирует вызывающий поток до завершения; Если задача была завершена успешно свойство возвращает результат; Если задача завершилась ошибкой или был cancellecd, обращение к свойству вызывает исключение. Исключение не заключены в <xref:System.AggregateException>, который отличается от поведения <xref:System.Threading.Tasks.Task%601.Result%2A> в подобной ситуации.
   
  ]]></format>
         </remarks>
@@ -611,7 +613,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает строку, представляющую текущий объект.</summary>
+        <summary>Возвращает строку, которая представляет текущий объект.</summary>
         <returns>Строка, представляющая текущий объект.</returns>
         <remarks></remarks>
       </Docs>

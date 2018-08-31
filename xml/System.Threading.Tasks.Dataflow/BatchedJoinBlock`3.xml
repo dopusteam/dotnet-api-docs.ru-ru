@@ -1,11 +1,11 @@
 <Type Name="BatchedJoinBlock&lt;T1,T2,T3&gt;" FullName="System.Threading.Tasks.Dataflow.BatchedJoinBlock&lt;T1,T2,T3&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="8606718b32494704ffcc05ac7e648214f1306d21" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="f7231cb90133f62333027a16591f39293cb83feb" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36407559" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39961546" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class BatchedJoinBlock&lt;T1,T2,T3&gt; : System.Threading.Tasks.Dataflow.IReceivableSourceBlock&lt;Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;&gt;, System.Threading.Tasks.Dataflow.ISourceBlock&lt;Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit BatchedJoinBlock`3&lt;T1, T2, T3&gt; extends System.Object implements class System.Threading.Tasks.Dataflow.IDataflowBlock, class System.Threading.Tasks.Dataflow.IReceivableSourceBlock`1&lt;class System.Tuple`3&lt;class System.Collections.Generic.IList`1&lt;!T1&gt;, class System.Collections.Generic.IList`1&lt;!T2&gt;, class System.Collections.Generic.IList`1&lt;!T3&gt;&gt;&gt;, class System.Threading.Tasks.Dataflow.ISourceBlock`1&lt;class System.Tuple`3&lt;class System.Collections.Generic.IList`1&lt;!T1&gt;, class System.Collections.Generic.IList`1&lt;!T2&gt;, class System.Collections.Generic.IList`1&lt;!T3&gt;&gt;&gt;" />
@@ -36,6 +36,14 @@
       <InterfaceName>System.Threading.Tasks.Dataflow.ISourceBlock&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;&gt;</InterfaceName>
     </Interface>
   </Interfaces>
+  <Attributes>
+    <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1">
+      <AttributeName>System.Diagnostics.DebuggerDisplay("{DebuggerDisplayContent,nq}")</AttributeName>
+    </Attribute>
+    <Attribute FrameworkAlternate="netcore-1.0;netcore-1.1">
+      <AttributeName>System.Diagnostics.DebuggerTypeProxy(typeof(System.Threading.Tasks.Dataflow.BatchedJoinBlock`3/DebugView))</AttributeName>
+    </Attribute>
+  </Attributes>
   <Docs>
     <typeparam name="T1">Указывает тип данных, принимаемых первым целевым объектом блока.</typeparam>
     <typeparam name="T2">Указывает тип данных, принимаемых вторым целевым объектом блока.</typeparam>
@@ -102,7 +110,7 @@
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Threading.Tasks.Dataflow.BatchedJoinBlock`3" /> с указанной конфигурацией.</summary>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="batchSize" /> должен быть положительным.</exception>
-        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="dataflowBlockOptions" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="dataflowBlockOptions" /> имеет значение <see langword="null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="BatchSize">
@@ -157,7 +165,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- После <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%603.Complete%2A> был вызван для блока потока данных, этот блок завершается и его <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%603.Completion%2A> задача перейдет в конечное состояние после обработки всех ранее доступных данных. <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%603.Complete%2A> не блокируется, ожидая завершения могла выполняться, но вместо этого будет инициировать запрос; ожидает завершения могла выполняться, <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%603.Completion%2A> задание может быть использовано.  
+ После <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%603.Complete%2A> был вызван для блока потока данных, этот блок завершается и его <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%603.Completion%2A> задача перейдет в конечное состояние после обработки все ранее доступные данные. <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%603.Complete%2A> не блокируется, ожидая завершения, возможно, но вместо этого будет инициировать запрос; для ожидания завершения, возможно, <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%603.Completion%2A> задача может использоваться.  
   
  ]]></format>
         </remarks>
@@ -191,7 +199,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Блок потока данных считается завершенной, когда он не обрабатывается в данный момент при его гарантирует, что он не будет обрабатывать новые сообщения и сообщения. Возвращенный <xref:System.Threading.Tasks.Task> будет переход в завершенное состояние, при завершении блоку. Она переключится <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.RanToCompletion> состояния, когда блок завершения обработки успешно согласно блок потока данных определен семантику, она переключится <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Faulted> состояние после блока потока данных завершена обработка преждевременно из-за необработанного исключения, и она переключится <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Canceled> состояние после завершения обработки преждевременно из-за получения запроса отмены блок потока данных. Если задача завершается в <xref:System.Threading.Tasks.TaskStatus.Faulted> состояние, его `Exception` свойство будет возвращать <xref:System.AggregateException> содержащий одно или несколько исключений, вызвавших сбой блока.  
+ Блок потока данных считается завершенной, когда он не обрабатывается в настоящее время сообщение и когда он гарантирует, что он не будет обрабатывать последующие сообщения. Возвращенный <xref:System.Threading.Tasks.Task> будет переход в завершенное состояние после завершения блоку. Будет выполнен переход к <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.RanToCompletion> состояние, когда блок завершения обработки успешно, в соответствии с блока потока данных определен семантику, будет выполнен переход к <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Faulted> состояние, когда блок потока данных имеет завершена обработка преждевременно из-за необработанного исключения, и будет выполнен переход к <xref:System.Threading.Tasks.TaskStatus> <xref:System.Threading.Tasks.TaskStatus.Canceled> состояние после завершения обработки преждевременно из-за получения запроса отмены блока потока данных. Если задача завершается в <xref:System.Threading.Tasks.TaskStatus.Faulted> состояние, его `Exception` свойство возвратит <xref:System.AggregateException> содержащий одно или несколько исключений, приведшей к сбою блока.  
   
  ]]></format>
         </remarks>
@@ -286,11 +294,11 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- После <xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Fault%2A> был вызван для блока потока данных, этот блок завершается и его <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%603.Completion%2A> перейдет в конечное состояние задачи. Сбой блока, как отмена блока, приводит буферизованных сообщений (необработанные входящие сообщения а также unoffered выходных сообщений), будут утеряны.  
+ После <xref:System.Threading.Tasks.Dataflow.IDataflowBlock.Fault%2A> был вызван для блока потока данных, этот блок завершается и его <xref:System.Threading.Tasks.Dataflow.BatchedJoinBlock%603.Completion%2A> задача перейдет в конечное состояние. Завершение со сбоем блок, как отмена блок, приводит буферизованные сообщения (необработанные входные сообщения как и unoffered выходных сообщений), будут потеряны.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="exception" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="exception" /> имеет значение <see langword="null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="System.Threading.Tasks.Dataflow.ISourceBlock&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;&gt;.ConsumeMessage">
@@ -301,7 +309,7 @@
       <MemberSignature Language="C++ CLI" Value=" virtual Tuple&lt;System::Collections::Generic::IList&lt;T1&gt; ^, System::Collections::Generic::IList&lt;T2&gt; ^, System::Collections::Generic::IList&lt;T3&gt; ^&gt; ^ System.Threading.Tasks.Dataflow.ISourceBlock&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;&gt;.ConsumeMessage(System::Threading::Tasks::Dataflow::DataflowMessageHeader messageHeader, System::Threading::Tasks::Dataflow::ITargetBlock&lt;Tuple&lt;System::Collections::Generic::IList&lt;T1&gt; ^, System::Collections::Generic::IList&lt;T2&gt; ^, System::Collections::Generic::IList&lt;T3&gt; ^&gt; ^&gt; ^ target, [Runtime::InteropServices::Out] bool % messageConsumed) = System::Threading::Tasks::Dataflow::ISourceBlock&lt;Tuple&lt;System::Collections::Generic::IList&lt;T1&gt; ^, System::Collections::Generic::IList&lt;T2&gt; ^, System::Collections::Generic::IList&lt;T3&gt; ^&gt; ^&gt;::ConsumeMessage;" />
       <MemberType>Method</MemberType>
       <Implements>
-        <InterfaceMember>M:System.Threading.Tasks.Dataflow.ISourceBlock`1.ConsumeMessage(System.Threading.Tasks.Dataflow.DataflowMessageHeader,System.Threading.Tasks.Dataflow.ITargetBlock{`0},System.Boolean@)</InterfaceMember>
+        <InterfaceMember>M:System.Threading.Tasks.Dataflow.ISourceBlock`1.ConsumeMessage(System.Threading.Tasks.Dataflow.DataflowMessageHeader,System.Threading.Tasks.Dataflow.ITargetBlock{`0},System.Boolean)</InterfaceMember>
       </Implements>
       <AssemblyInfo>
         <AssemblyName>System.Threading.Tasks.Dataflow</AssemblyName>
@@ -316,7 +324,7 @@
       <Parameters>
         <Parameter Name="messageHeader" Type="System.Threading.Tasks.Dataflow.DataflowMessageHeader" />
         <Parameter Name="target" Type="System.Threading.Tasks.Dataflow.ITargetBlock&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;&gt;" />
-        <Parameter Name="messageConsumed" Type="System.Boolean&amp;" RefType="out" />
+        <Parameter Name="messageConsumed" Type="System.Boolean" RefType="out" />
       </Parameters>
       <Docs>
         <param name="messageHeader">To be added.</param>
@@ -507,7 +515,7 @@
       </ReturnValue>
       <Parameters>
         <Parameter Name="filter" Type="System.Predicate&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;&gt;" />
-        <Parameter Name="item" Type="System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;&amp;" RefType="out" />
+        <Parameter Name="item" Type="System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;" RefType="out" />
       </Parameters>
       <Docs>
         <param name="filter">Значение предиката должно быть успешно передано, чтобы оно было получено.  Элемент <c>filter</c> может представлять собой <see langword="null" />, и в этом случае все элементы будут переданы.</param>
@@ -520,7 +528,7 @@
 ## Remarks  
  Этот метод не блокирует ожидание источника для получения элемента.  
   
- После проверки для элемента, будет возвращено ли элемент был доступен.  
+ После проверки для элемента, будет возвращена ли элемент был доступен.  
   
  ]]></format>
         </remarks>
@@ -545,7 +553,7 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="items" Type="System.Collections.Generic.IList&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;&gt;&amp;" RefType="out" />
+        <Parameter Name="items" Type="System.Collections.Generic.IList&lt;System.Tuple&lt;System.Collections.Generic.IList&lt;T1&gt;,System.Collections.Generic.IList&lt;T2&gt;,System.Collections.Generic.IList&lt;T3&gt;&gt;&gt;" RefType="out" />
       </Parameters>
       <Docs>
         <param name="items">Элементы, полученные от источника.</param>
@@ -557,7 +565,7 @@
 ## Remarks  
  Этот метод не блокирует ожидание источника для получения элемента.  
   
- После проверки для элементов, будет возвращено ли элемент был доступен.  
+ После проверки для элементов, будет возвращена ли элемент был доступен.  
   
  ]]></format>
         </remarks>
