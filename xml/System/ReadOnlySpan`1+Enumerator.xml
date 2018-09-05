@@ -1,11 +1,11 @@
 <Type Name="ReadOnlySpan&lt;T&gt;+Enumerator" FullName="System.ReadOnlySpan&lt;T&gt;+Enumerator">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="fc94437a20ca5897c34c2c6b72bd98d0b1ad88ab" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.openlocfilehash" Value="86d7d7a33e1ae9a6e4873c250f5677c8774d3826" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
-    <Meta Name="ms.locfileid" Value="36428465" />
+    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
+    <Meta Name="ms.locfileid" Value="39944045" />
   </Metadata>
   <TypeSignature Language="C#" Value="public struct ReadOnlySpan&lt;T&gt;.Enumerator" />
   <TypeSignature Language="ILAsm" Value=".class nested public sequential ansi sealed beforefieldinit ReadOnlySpan`1/Enumerator&lt;T&gt; extends System.ValueType" />
@@ -25,18 +25,34 @@
   </Base>
   <Interfaces />
   <Attributes>
-    <Attribute>
+    <Attribute FrameworkAlternate="netcore-2.1">
       <AttributeName>System.Runtime.CompilerServices.IsByRefLike</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <summary>Предоставляет перечислитель для элементов <see cref="T:System.ReadOnlySpan`1" />.</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[C# [foreach](~/docs/csharp/language-reference/keywords/foreach-in.md) языка C# и [для каждого... Далее](~/docs/visual-basic/language-reference/statements/for-each-next-statement.md) конструкция в Visual Basic скрывает сложность перечислителей. Вместо непосредственного использования перечислителя, с помощью `foreach` или `For Each...Next` рекомендуется. 
+
+Изначально перечислитель располагается перед первым элементом в <xref:System.ReadOnlySpan`1>. В этой позиции значение свойства <xref:System.ReadOnlySpan`1.Enumerator.Current> не определено. Необходимо вызвать <xref:System.ReadOnlySpan`1.Enumerator.MoveNext%2A> Чтобы переместить перечислитель к первому элементу в <xref:System.ReadOnlySpan`1> до считывания значения свойства <xref:System.ReadOnlySpan`1.Enumerator.Current>.
+
+<xref:System.ReadOnlySpan`1.Enumerator.Current> Возвращает значение до <xref:System.ReadOnlySpan`1.Enumerator.MoveNext%2A> вызывается. <xref:System.ReadOnlySpan`1.Enumerator.MoveNext%2A> Задает <xref:System.ReadOnlySpan`1.Enumerator.Current> к следующему элементу в <xref:System.ReadOnlySpan`1>.
+
+Если <xref:System.ReadOnlySpan`1.Enumerator.MoveNext%2A> выходит за границы <xref:System.ReadOnlySpan`1>, <xref:System.ReadOnlySpan`1.Enumerator.MoveNext%2A> возвращает `false`. Когда перечислитель находится в этом состоянии, последующие вызовы <xref:System.ReadOnlySpan`1.Enumerator.MoveNext%2A> также возвращать `false` и <xref:System.ReadOnlySpan`1.Enumerator.Current> не определено. Невозможно задать <xref:System.ReadOnlySpan`1.Enumerator.Current> к первому элементу в <xref:System.ReadOnlySpan`1> снова; вместо этого следует создать новый экземпляр перечислителя. 
+
+Хотя <xref:System.ReadOnlySpan`1> выделена в стеке базовых данных, на котором <xref:System.ReadOnlySpan`1> точек, может быть. Таким образом, перечисление <xref:System.ReadOnlySpan`1> само по себе не является потокобезопасной процедурой. Для обеспечения потокобезопасности при перечислении, необходимо реализовать собственную синхронизацию.
+
+В отличие от некоторых других структур перечислитель в .NET <xref:System.ReadOnlySpan`1.Enumerator>:
+
+- Не реализует <xref:System.Collections.IEnumerator> или <xref:System.Collections.Generic.IEnumerator`1> интерфейс. Это обусловлено <xref:System.ReadOnlySpan`1.Enumerator> — [структура ссылки](~/docs/csharp/reference-semantics-with-value-types.md#ref-struct-type) и не могут быть упакованы.
+
+- Не включает `Reset` метод, который можно задать перечислитель в исходное положение перед первым элементом в элементе управления span. ( <xref:System.Collections.IEnumerator.Reset?displayProperty=nameWithType> Метод должен быть реализован как часть интерфейса, но большинство средства реализации исключение или нет реализации.)]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName="Current">
       <MemberSignature Language="C#" Value="public T&amp; Current { get; }" />
-      <MemberSignature Language="ILAsm" Value=".property instance class System.T&amp; modreq(System.Runtime.InteropServices.InAttribute) Current" />
+      <MemberSignature Language="ILAsm" Value=".property instance T&amp; modreq(System.Runtime.InteropServices.InAttribute) Current" />
       <MemberSignature Language="DocId" Value="P:System.ReadOnlySpan`1.Enumerator.Current" />
       <MemberSignature Language="VB.NET" Value="Public ReadOnly Property Current As T&amp;" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; property T&amp; ^ Current { T&amp; ^ get(); };" />
@@ -47,17 +63,25 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute>
+        <Attribute FrameworkAlternate="netcore-2.1">
           <AttributeName>System.Runtime.CompilerServices.IsReadOnly</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
-        <ReturnType>System.T&amp;</ReturnType>
+        <ReturnType>T&amp;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>Возвращает ссылку на элемент в текущей позиции перечислителя.</summary>
+        <value>Элемент коллекции <see cref="T:System.ReadOnlySpan`1" />, находящийся в текущей позиции перечислителя.</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[`Current` не определено в рамках одного из следующих условий: 
+
+- Сразу после создания перечислителя, перечислитель располагается перед первым элементом в элементе управления span. <xref:System.ReadOnlySpan`1.Enumerator.MoveNext*> необходимо вызвать, чтобы переместить перечислитель к первому элементу диапазона до считывания значения свойства `Current`.
+
+- Последнего вызова <xref:System.ReadOnlySpan`1.Enumerator.MoveNext*> возвращается `false`, который указывает конец диапазона. 
+
+`Current` Возвращает значение до <xref:System.ReadOnlySpan`1.Enumerator.MoveNext*> вызывается. <xref:System.ReadOnlySpan`1.Enumerator.MoveNext*> Задает `Current` к следующему элементу в диапазоне.]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="MoveNext">
@@ -77,9 +101,13 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>Перемещает перечислитель к следующему элементу <see cref="System.ReadOnlySpan`1" />.</summary>
+        <returns>`true`, если перечислитель успешно перемещен к следующему элементу; `false`, если пройден конец диапазона.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[Вновь созданный перечислитель располагается перед первым элементом в диапазон и первый вызов `MoveNext` перемещает перечислитель к первому элементу в диапазоне. 
+
+Если `MoveNext` выходит за границы диапазона, `MoveNext` возвращает `false`. Когда перечислитель находится в этом состоянии, последующие вызовы `MoveNext` также возвращать `false`.]]></format>
+        </remarks>
       </Docs>
     </Member>
   </Members>
