@@ -1,10 +1,10 @@
 <Type Name="SessionSecurityTokenHandler" FullName="System.IdentityModel.Tokens.SessionSecurityTokenHandler">
   <Metadata>
     <Meta Name="ms.openlocfilehash" Value="698670494d510916b922e88a119093c8c15bf740" />
-    <Meta Name="ms.sourcegitcommit" Value="6a0b904069161bbaec4ffd02aa7d9cf38c61e72e" />
+    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="06/24/2018" />
+    <Meta Name="ms.lasthandoff" Value="08/24/2018" />
     <Meta Name="ms.locfileid" Value="36480119" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class SessionSecurityTokenHandler : System.IdentityModel.Tokens.SecurityTokenHandler" />
@@ -28,33 +28,33 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> Класс выполняет сериализацию десериализует и проверяет маркеры сеанса. Маркеры сеанса являются маркерами типа <xref:System.IdentityModel.Tokens.SessionSecurityToken>. <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> Класс выполняет сериализацию маркеров, в формат файла cookie. По умолчанию класс выполняет сериализацию маркеров в Feb2005 WS-Secure Conversation и WS-Secure Conversation 1.3 `<wsc:SecurityContextToken>` элементов. Токены сеанса используются <xref:System.IdentityModel.Services.WSFederationAuthenticationModule> (WSFAM) и <xref:System.IdentityModel.Services.SessionAuthenticationModule> (SAM) для хранения сведений о сеансе, это в первую очередь <xref:System.Security.Claims.ClaimsPrincipal> связанные с проверкой подлинности пользователя и время начала и окончания срока действия сеанса.  
+ <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> Классе сериализует десериализует и проверяет маркеры сеанса. Маркеры сеанса — это маркеры типа <xref:System.IdentityModel.Tokens.SessionSecurityToken>. <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> Класс выполняет сериализацию маркеров или из этого формата файлов cookie. По умолчанию класс выполняет сериализацию маркеров в Feb2005 WS-Secure Conversation и WS-Secure Conversation 1.3 `<wsc:SecurityContextToken>` элементов. Маркеры сеанса используются <xref:System.IdentityModel.Services.WSFederationAuthenticationModule> (WSFAM) и <xref:System.IdentityModel.Services.SessionAuthenticationModule> (SAM) для хранения сведений о сеансе, это в первую очередь <xref:System.Security.Claims.ClaimsPrincipal> связанные с прошедшим проверку подлинности пользователя и время начала и окончания срока действия сеанса.  
   
- В сценариях с пассивной <xref:System.IdentityModel.Services.WSFederationAuthenticationModule> вызывает <xref:System.IdentityModel.Services.SessionAuthenticationModule> (SAM) из конвейера проверки подлинности для создания токена сеанса из <xref:System.Security.Claims.ClaimsPrincipal> , представляющий авторизованного пользователя. Использует настроенными SAM <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> для создания маркера и для его сериализации в файл cookie (и для десериализации маркера из файла cookie при последующих запросах). SAM используется экземпляр настроенными <xref:System.IdentityModel.Services.CookieHandler> класс куки-файл для обратной записи в HTTP-ответе. Этот файл cookie затем возвращаются клиенту, и при последующих запросах клиент может представить куки-файл, а не вносить в круговом поставщика удостоверений для повторного получения маркера безопасности. Дополнительные сведения о работу сеансов с WIF см. в разделе [управление сеансами WIF](~/docs/framework/security/wif-session-management.md).  
+ В пассивных сценариях <xref:System.IdentityModel.Services.WSFederationAuthenticationModule> вызывает <xref:System.IdentityModel.Services.SessionAuthenticationModule> (SAM) из конвейера проверки подлинности для создания токена сеанса из <xref:System.Security.Claims.ClaimsPrincipal> , представляющий пользователя, прошедшего проверку подлинности. SAM использует настроенными <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> для создания токена и выполнить его сериализацию в файл cookie (и нужно десериализовать токен из файла cookie при последующих запросах). SAM используется экземпляр с настроенными <xref:System.IdentityModel.Services.CookieHandler> класс для записи файла cookie обратно в HTTP-ответа. Затем этот файл cookie возвращается клиенту, и при последующих запросах клиент может предоставить файл cookie, а не вносить круговом пути поставщика удостоверения, чтобы повторно получить маркер безопасности. Дополнительные сведения о сеансах работы с применением WIF, см. в разделе [управление сеансами WIF](~/docs/framework/security/wif-session-management.md).  
   
 > [!NOTE]
->  \<SecurityTokenHandlers > элемент конфигурации, которые можно использовать для указания <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> , несет ответственность за для защиты сеансов приложения. Разработчикам следует проявлять осторожность при изменении этого параметра конфигурации, как неправильно настроенных системы может привести к компрометации приложения. Например, указание производном ГИПЕРССЫЛКУ "http://msdn.microsoft.com/library/hh193426%28v=vs.110%29.aspx" \t «_blank» <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> и передается пустая коллекция преобразований (CookieTransform) с базой, приведет к появлению удостоверения пользователей, сериализуемый в файл cookie, не защищенные. Это может позволить злоумышленнику изменить идентификацию и таким образом изменить права доступа.  
+>  \<SecurityTokenHandlers > элемент конфигурации можно использовать для указания <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> , несет ответственность за обеспечение безопасности сеансов приложения. Разработчикам следует проявлять осторожность при изменении этого параметра конфигурации, как неправильно настроенные системы может привести к компрометации приложения. Например, указание производном ГИПЕРССЫЛКУ "http://msdn.microsoft.com/library/hh193426%28v=vs.110%29.aspx" \t «_blank» <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> и передается пустая коллекция преобразований (CookieTransform) в базовый приведет удостоверений пользователей, сериализуемого в файле cookie, который не был защищен. Это может позволить злоумышленнику изменить идентификацию и таким образом изменить права доступа.  
   
- Если токен сеанса — в режиме «ссылка», то есть, его <xref:System.IdentityModel.Tokens.SessionSecurityToken.IsReferenceMode%2A?displayProperty=nameWithType> свойство `true`, сеанс, обработчик маркеров сериализует только свойства маркера сеанса, которые необходимы для его ключ повторно <xref:System.IdentityModel.Tokens.SessionSecurityTokenCache>. В случае по умолчанию <xref:System.IdentityModel.Tokens.SessionSecurityTokenCacheKey> класс используется для представления ключей кэша, и записывает обработчик маркеров <xref:System.IdentityModel.Tokens.SessionSecurityToken.ContextId%2A?displayProperty=nameWithType> и <xref:System.IdentityModel.Tokens.SessionSecurityToken.KeyGeneration%2A?displayProperty=nameWithType> свойства токена. Если маркер сеанса не находится в режиме «ссылка» т. е <xref:System.IdentityModel.Tokens.SessionSecurityToken.IsReferenceMode%2A?displayProperty=nameWithType> свойство `false`, затем, в дополнение к свойствам сказано вызывает обработчик <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ApplyTransforms%2A> метод на массив байтов, сериализованных из токена и хранилища результирующее значение в файле cookie, а также. Дополнительные сведения о сериализацией токен. в разделе <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%28System.Xml.XmlWriter%2CSystem.IdentityModel.Tokens.SecurityToken%29?displayProperty=nameWithType> метод.  
+ Если токен сеанса в режиме ссылки, то есть его <xref:System.IdentityModel.Tokens.SessionSecurityToken.IsReferenceMode%2A?displayProperty=nameWithType> свойство `true`, сеанс, обработчик маркеров выполняется сериализация только свойств маркера сеанса, которые необходимы для повторного создания его ключу в <xref:System.IdentityModel.Tokens.SessionSecurityTokenCache>. В случае по умолчанию <xref:System.IdentityModel.Tokens.SessionSecurityTokenCacheKey> класс используется для представления ключей кэша, а обработчик токенов записывает <xref:System.IdentityModel.Tokens.SessionSecurityToken.ContextId%2A?displayProperty=nameWithType> и <xref:System.IdentityModel.Tokens.SessionSecurityToken.KeyGeneration%2A?displayProperty=nameWithType> свойства токена. Если маркер сеанса не находится в режиме ссылки, то есть <xref:System.IdentityModel.Tokens.SessionSecurityToken.IsReferenceMode%2A?displayProperty=nameWithType> свойство `false`, затем наряду со свойствами, было сказано ранее, обработчик вызывает <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ApplyTransforms%2A> метод сериализации из маркера и сохраняет массив байтов результирующее значение в файле cookie, а также. Дополнительные сведения о способ сериализации маркера, см. в разделе <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%28System.Xml.XmlWriter%2CSystem.IdentityModel.Tokens.SecurityToken%29?displayProperty=nameWithType> метод.  
   
- <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.Transforms%2A> Свойство получает список преобразований, которые применяются к сеансу маркер в <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ApplyTransforms%2A> метод. Все преобразования являются производными от <xref:System.IdentityModel.CookieTransform> класса. В этом случае <xref:System.IdentityModel.DeflateCookieTransform> и <xref:System.IdentityModel.ProtectedDataCookieTransform> применяются. <xref:System.IdentityModel.ProtectedDataCookieTransform> Использует API защиты данных (DPAPI) для защиты файла cookie материала. API-интерфейс использует ключ, который относится к компьютеру, на котором выполняется в алгоритмах его защиты. По этой причине маркера обработчик сеанса по умолчанию не может использоваться в сценариях веб-ферм, поскольку в таких сценариях токены, записанных на одном компьютере может потребоваться прочитать на другом компьютере. Чтобы обойти эту проблему, можно использовать различные способы. Например, с их помощью можно выполнять следующее.  
+ <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.Transforms%2A> Свойство получает список преобразований, которые применяются к сеансу маркер в <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ApplyTransforms%2A> метод. Все преобразования являются производными от <xref:System.IdentityModel.CookieTransform> класса. В этом случае <xref:System.IdentityModel.DeflateCookieTransform> и <xref:System.IdentityModel.ProtectedDataCookieTransform> применяются. <xref:System.IdentityModel.ProtectedDataCookieTransform> Использует API защиты данных (DPAPI) для защиты файла cookie материала. API-интерфейс использует ключ, который относится к компьютеру, на котором она выполняется в свои алгоритмы защиты. По этой причине маркера обработчик сеанса по умолчанию не выполняется в веб-ферме, поскольку в таких случаях маркеры, написанные на одном компьютере может потребоваться считать на другом компьютере. Вы можете использовать многие стратегии для обхода этой проблемы. Например, с их помощью можно выполнять следующее.  
   
--   Замените имя по умолчанию <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> с <xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler>. <xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler> Дает возможность указать ключи подписывания и шифрования в среде ASP.NET `<machineKey>` элемент в файле конфигурации.  
+-   Замените значение по умолчанию <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> с <xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler>. <xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler> Позволяет указать ключи подписывания и шифрования в среде ASP.NET `<machineKey>` элемент в файле конфигурации.  
   
--   Добавьте обработчик для <xref:System.IdentityModel.Services.FederatedAuthentication.FederationConfigurationCreated?displayProperty=nameWithType> событий в файл global.asax.cs и заменить сеанса по умолчанию маркер обработчика с экземпляром <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> , содержащее список преобразований, который включает <xref:System.IdentityModel.RsaSignatureCookieTransform> и <xref:System.IdentityModel.RsaEncryptionCookieTransform>. Можно создать новый экземпляр путем вызова одного из конструкторов, принимающих список преобразований.  
+-   Создать обработчик для <xref:System.IdentityModel.Services.FederatedAuthentication.FederationConfigurationCreated?displayProperty=nameWithType> событий в файле global.asax.cs и заменить сеанс по умолчанию маркер обработчик с экземпляром <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> , имеет список преобразований, который содержит <xref:System.IdentityModel.RsaSignatureCookieTransform> и <xref:System.IdentityModel.RsaEncryptionCookieTransform>. Можно создать новый экземпляр путем вызова одного из конструкторов, принимающих список преобразований.  
   
--   Производные пользовательское преобразование из <xref:System.IdentityModel.CookieTransform> базового класса и используйте описанный выше метод для включения в список преобразований для применения.  
+-   Производные пользовательское преобразование из <xref:System.IdentityModel.CookieTransform> базового класса и используем вышеуказанный метод для включения в список преобразований, применяемых.  
   
--   Создайте производный пользовательский обработчик маркеров из <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> и реализовать собственный механизм.  
+-   Производные настраиваемый обработчик токенов из <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> и реализовать собственный механизм.  
   
- Дополнительные сведения об использовании сеансов в сценариях веб-фермы см. в разделе [WIF и веб-ферм](~/docs/framework/security/wif-and-web-farms.md).  
+ Дополнительные сведения об использовании сеансов в веб-ферме см. в разделе [WIF и веб-фермы](~/docs/framework/security/wif-and-web-farms.md).  
   
- <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> Включается в коллекцию обработчиков токенов по умолчанию; тем не менее, можно заменить его обработчик маркеров пользовательского сеанса, указав первый [ &lt;удалить&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/remove.md) элемента под [ &lt;securityTokenHandlers&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/securitytokenhandlers.md) элемента, который требуется удалить из коллекции, а затем добавить настраиваемый обработчик маркеров с помощью обработчика по умолчанию [ &lt;добавить&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/add.md) элемент. По умолчанию, можно указать время существования маркера по умолчанию, включив [ &lt;sessionTokenRequirement&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/sessiontokenrequirement.md) элемента под `<add>` элемента. Можно разработать пользовательский обработчик маркеров пользовательские элементы конфигурации в группе вступили в силу `<add>` элемент путем переопределения <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.LoadCustomConfiguration%2A> метод, чтобы предоставить логику для их обработки.  
+ <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> Включается в коллекции обработчиков токена по умолчанию; тем не менее, можно заменить его обработчик токенов пользовательского сеанса путем указания [ &lt;удалить&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/remove.md) элемента под [ &lt;securityTokenHandlers&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/securitytokenhandlers.md) элемент нужно удалить из коллекции и затем добавление пользовательского обработчика маркеров с помощью обработчика по умолчанию [ &lt;добавить&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/add.md) элемент. По умолчанию, можно указать время жизни токена по умолчанию, включив [ &lt;sessionTokenRequirement&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/sessiontokenrequirement.md) элемента под `<add>` элемент. Можно разработать пользовательский обработчик пользовательские элементы конфигурации в группе вступили в силу `<add>` элемент путем переопределения <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.LoadCustomConfiguration%2A> метод, чтобы предоставить логику для их обработки.  
   
    
   
 ## Examples  
- Следующий код XML показывает, как заменить обработчик сеанса по умолчанию безопасности маркера в обработчик маркеров коллекции с экземпляром <xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler> в конфигурации.  
+ Следующий код XML показывает, как заменить экземпляр по умолчанию сеанс обработчик токенов безопасности в коллекцию обработчиков токенов <xref:System.IdentityModel.Services.Tokens.MachineKeySessionSecurityTokenHandler> класс в конфигурации.  
   
 ```xml  
 <securityTokenHandlers>  
@@ -98,7 +98,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.TokenLifetime%2A> И <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.Transforms%2A> свойства инициализируются для <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.DefaultLifetime> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.DefaultCookieTransforms>.  
+ <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.TokenLifetime%2A> И <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.Transforms%2A> инициализируются значением свойства <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.DefaultLifetime> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.DefaultCookieTransforms>.  
   
  ]]></format>
         </remarks>
@@ -186,9 +186,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если кодировка файла cookie преобразует применяются в том порядке, в котором они появляются в <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.Transforms%2A> свойство. При декодировании файл cookie, они применяются в обратном порядке.  
+ Кодировка файла cookie при преобразует применяются в порядке, в котором они появляются в <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.Transforms%2A> свойство. При декодировании файла cookie, они применяются в обратном порядке.  
   
- Вызывается из <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%2A> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ReadToken%2A> методы для кодирования и декодирования материала куки-файл.  
+ Вызывается из <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%2A> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ReadToken%2A> методы для кодирования и декодирования материал файла cookie.  
   
  ]]></format>
         </remarks>
@@ -285,7 +285,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это свойство используется в <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%2A> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ReadToken%2A> методов, чтобы определить элемент, под которой закодированный токен материала следует считывании или записи.  
+ Это свойство используется в <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%2A> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ReadToken%2A> методы, чтобы определить элемент, под которой закодированный токен материал должен записываться или чтения.  
   
  ]]></format>
         </remarks>
@@ -311,12 +311,12 @@
       </ReturnValue>
       <Docs>
         <summary>Получает пространство имен для элемента файла cookie.</summary>
-        <value>Пространство имен для элемента файла cookie. Пространство имен по умолчанию является «http://schemas.microsoft.com/ws/2006/05/security».</value>
+        <value>Пространство имен для элемента файла cookie. Пространство имен по умолчанию — "http://schemas.microsoft.com/ws/2006/05/security«.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это свойство используется в <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%2A> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ReadToken%2A> методов, чтобы определить пространство имен элемента, с которой следует считывании или записи закодированный токен материала.  
+ Это свойство используется в <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%2A> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ReadToken%2A> метода, которые определяют пространство имен элемента, под которой закодированный токен материал должен записываться или чтения.  
   
  ]]></format>
         </remarks>
@@ -386,7 +386,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Создает и возвращает маркер безопасности сеанса с помощью следующих свойств в дескрипторе маркера: <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Subject%2A?displayProperty=nameWithType>, и <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Lifetime%2A?displayProperty=nameWithType>. Если <xref:System.IdentityModel.Tokens.SecurityTokenHandlerConfiguration.SaveBootstrapContext%2A?displayProperty=nameWithType> свойству `true` в конфигурации обработчика токенов, определяемое <xref:System.IdentityModel.Tokens.SecurityTokenHandler.Configuration%2A> свойство, контекст начальной загрузки создается из <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Token%2A?displayProperty=nameWithType> свойство и сохраняется в токен сеанса.  
+ Создает и возвращает токен безопасности сеанса, используя следующие свойства в дескриптор токена: <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Subject%2A?displayProperty=nameWithType>, и <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Lifetime%2A?displayProperty=nameWithType>. Если <xref:System.IdentityModel.Tokens.SecurityTokenHandlerConfiguration.SaveBootstrapContext%2A?displayProperty=nameWithType> свойству `true` в конфигурации обработчика токенов, заданное свойством <xref:System.IdentityModel.Tokens.SecurityTokenHandler.Configuration%2A> свойство, контекст начальной загрузки создается из <xref:System.IdentityModel.Tokens.SecurityTokenDescriptor.Token%2A?displayProperty=nameWithType> свойство и сохраняется в токен сеанса.  
   
  ]]></format>
         </remarks>
@@ -478,7 +478,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Поддерживаются идентификаторы URI следующего типа: "http://schemas.microsoft.com/ws/2006/05/servicemodel/tokens/SecureConversation«,»http://docs.oasis-open.org/ws-sx/ws-secureconversation/200512/sct», и «http://schemas.xmlsoap.org/ws/2005/02/sc/sct».  
+ Поддерживаются идентификаторы URI следующего типа: "http://schemas.microsoft.com/ws/2006/05/servicemodel/tokens/SecureConversation«,»http://docs.oasis-open.org/ws-sx/ws-secureconversation/200512/sct«, и"http://schemas.xmlsoap.org/ws/2005/02/sc/sct«.  
   
  ]]></format>
         </remarks>
@@ -509,7 +509,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Вызывается инфраструктурой конфигурации для инициализации <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> экземпляра. Инициализирует <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.TokenLifetime%2A> свойство из `lifetime` атрибут [ &lt;sessionTokenRequirement&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/sessiontokenrequirement.md) элемент в файле конфигурации.  
+ Вызывается инфраструктурой конфигурации для инициализации <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler> экземпляра. Инициализирует <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.TokenLifetime%2A> свойства из `lifetime` атрибут [ &lt;sessionTokenRequirement&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/sessiontokenrequirement.md) элемент в файле конфигурации.  
   
  ]]></format>
         </remarks>
@@ -528,7 +528,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию выполняет десериализацию маркера из WS-Secure Conversation 1.3 или WS-Secure Conversation Feb2005 `<wsc:SecurityContextToken>` элемента.  
+ Реализация по умолчанию выполняет десериализацию токена из WS-Secure Conversation 1.3 или WS-Secure Conversation Feb2005 `<wsc:SecurityContextToken>` элемент.  
   
  ]]></format>
         </remarks>
@@ -560,9 +560,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Модуль чтения должен быть установлен на Feb2005 WS-Secure Conversation и WS-Secure Conversation 1.3 `<wsc:SecurityContextToken>` элемента.  
+ Модуль чтения должен быть установлен на Feb2005 WS-Secure Conversation и WS-Secure Conversation 1.3 `<wsc:SecurityContextToken>` элемент.  
   
- Реализация по умолчанию вызывает <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ReadToken%28System.Xml.XmlReader%2CSystem.IdentityModel.Selectors.SecurityTokenResolver%29?displayProperty=nameWithType> метод, используя Сопоставитель токенов по умолчанию.  
+ Реализация по умолчанию вызывает <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ReadToken%28System.Xml.XmlReader%2CSystem.IdentityModel.Selectors.SecurityTokenResolver%29?displayProperty=nameWithType> метод, используя Сопоставитель токена по умолчанию.  
   
  ]]></format>
         </remarks>
@@ -633,15 +633,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Модуль чтения должен быть установлен на Feb2005 WS-Secure Conversation и WS-Secure Conversation 1.3 `<wsc:SecurityContextToken>` элемента.  
+ Модуль чтения должен быть установлен на Feb2005 WS-Secure Conversation и WS-Secure Conversation 1.3 `<wsc:SecurityContextToken>` элемент.  
   
- Если кэширование маркера материала, считывается из кэша маркера, который является экземпляром объекта <xref:System.IdentityModel.Tokens.SessionSecurityTokenCache> класса. В противном случае маркер материала считывается из дочерний элемент элемента `<wsc:SecurityContextToken>` элемент, который задается параметром <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.CookieElementName%2A> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.CookieNamespace%2A> свойства и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ApplyTransforms%2A> метод вызывается для расшифровки куки-файл.  
+ Если кэшируется маркер материал, он считывается из кэша токенов, который является экземпляром объекта <xref:System.IdentityModel.Tokens.SessionSecurityTokenCache> класса. В противном случае токена материал считывается из дочерним элементом элемента `<wsc:SecurityContextToken>` элемент, который задается параметром <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.CookieElementName%2A> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.CookieNamespace%2A> свойства и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ApplyTransforms%2A> метод вызывается для расшифровки файла cookie.  
   
- Дополнительные сведения о сериализацией маркеров сеансов в `<SecurityContextToken` элемент, в разделе <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%28System.Xml.XmlWriter%2CSystem.IdentityModel.Tokens.SecurityToken%29?displayProperty=nameWithType> метод.  
+ Дополнительные сведения о сериализацией маркеров сеанса в `<SecurityContextToken` элемент, см. в разделе <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%28System.Xml.XmlWriter%2CSystem.IdentityModel.Tokens.SecurityToken%29?displayProperty=nameWithType> метод.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="reader" /> имеет значение <see langword="null" />.  -или- <paramref name="tokenResolver" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="reader" /> имеет значение <see langword="null" />.  
+  
+- или - 
+ Свойство <paramref name="tokenResolver" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.IdentityModel.Tokens.SecurityTokenException">Средство чтения не находится на объекте <see cref="T:System.IdentityModel.Tokens.SessionSecurityToken" /> или не удается прочитать объект <see cref="T:System.IdentityModel.Tokens.SessionSecurityToken" />.</exception>
       </Docs>
     </Member>
@@ -670,10 +673,10 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Задает список преобразований, возвращенных <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.Transforms%2A> свойство. Преобразования применяются в том порядке, в котором они появляются в списке при кодировании куки-файл и в обратном порядке при декодировании куки-файл.  
+ Задает список преобразований, возвращенный <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.Transforms%2A> свойство. Преобразования применяются в порядке, в котором они появляются в списке при кодировании файл cookie, так и в обратном порядке при декодировании файла cookie.  
   
 > [!WARNING]
->  Если `transforms` параметр `null`, будет порождено исключение <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ApplyTransforms%2A> метод при вызове чтобы закодировать или декодировать файл cookie.  
+>  Если `transforms` параметр `null`, будет создано исключение из <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ApplyTransforms%2A> метод при вызове закодировать или декодировать файл cookie.  
   
  ]]></format>
         </remarks>
@@ -701,7 +704,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- По умолчанию если [ &lt;sessionTokenRequirement&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/sessiontokenrequirement.md) элемент задается в файле конфигурации <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.TokenLifetime%2A> значение инициализируется свойство `lifetime` атрибутов по <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.LoadCustomConfiguration%2A> метод.  
+ По умолчанию если [ &lt;sessionTokenRequirement&gt; ](~/docs/framework/configure-apps/file-schema/windows-identity-foundation/sessiontokenrequirement.md) элемент указан в файле конфигурации <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.TokenLifetime%2A> значение инициализируется свойство `lifetime` атрибутов по <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.LoadCustomConfiguration%2A> метод.  
   
  ]]></format>
         </remarks>
@@ -782,9 +785,9 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Маркер не является допустимым при его <xref:System.IdentityModel.Tokens.SecurityToken.ValidFrom%2A> свойству присвоено значение, которое происходит позже чем <xref:System.DateTime.UtcNow%2A>, или, если его <xref:System.IdentityModel.Tokens.SecurityToken.ValidTo%2A> свойству присвоено значение, которое происходит, более ранней, чем <xref:System.DateTime.UtcNow%2A>.  
+ Маркер не является допустимым при его <xref:System.IdentityModel.Tokens.SecurityToken.ValidFrom%2A> свойству присваивается значение, которое происходит позже чем <xref:System.DateTime.UtcNow%2A>, или, если его <xref:System.IdentityModel.Tokens.SecurityToken.ValidTo%2A> свойству присваивается значение, происходящее более ранней, чем <xref:System.DateTime.UtcNow%2A>.  
   
- Вызывается из <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ValidateToken%2A> методов для проверки сеанса.  
+ Вызывается из <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ValidateToken%2A> методы для проверки сеанса.  
   
  ]]></format>
         </remarks>
@@ -870,14 +873,17 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Выполняет проверку, чтобы убедиться в том, что указанный маркер область для идентификатора указанной конечной точки и, если да, вызывает <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ValidateToken%28System.IdentityModel.Tokens.SecurityToken%29?displayProperty=nameWithType> метода; в противном случае вызывает <xref:System.IdentityModel.Tokens.SecurityTokenException>.  
+ Выполняет проверку, чтобы убедиться, что указанный токен имеет область для идентификатора указанной конечной точке и, если да, вызывает <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ValidateToken%28System.IdentityModel.Tokens.SecurityToken%29?displayProperty=nameWithType> метода; в противном случае создает <xref:System.IdentityModel.Tokens.SecurityTokenException>.  
   
 > [!IMPORTANT]
->  Маркеров сеансов, имеющих <xref:System.IdentityModel.Tokens.SessionSecurityToken.EndpointId%2A> свойства, которое является `null` или считается пустым быть глобальную область. Это представляет потенциальную угрозу безопасности. По этой причине следует убедиться в том, <xref:System.IdentityModel.Tokens.SessionSecurityToken.EndpointId%2A> свойство задается в ваших токенов сеанса.  
+>  Маркеры сеанса, имеющих <xref:System.IdentityModel.Tokens.SessionSecurityToken.EndpointId%2A> свойства, которое является `null` или пустой считаются быть глобальную область. Это представляет потенциальную угрозу безопасности. По этой причине вы убедитесь, что <xref:System.IdentityModel.Tokens.SessionSecurityToken.EndpointId%2A> свойство задается в токенов сеанса.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="token" /> имеет значение <see langword="null" />.  -или- <paramref name="endpointId" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="token" /> имеет значение <see langword="null" />.  
+  
+- или - 
+ Свойство <paramref name="endpointId" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.InvalidOperationException">
           <paramref name="token" /> не может быть назначен из <see cref="T:System.IdentityModel.Tokens.SessionSecurityToken" />.</exception>
         <exception cref="T:System.IdentityModel.Tokens.SecurityTokenException">Свойство <see cref="P:System.IdentityModel.Tokens.SessionSecurityToken.EndpointId" /> заданного токена не является <see langword="null" /> или пустым и его значение отличается от значения, заданного параметром <paramref name="endpointId" />.</exception>
@@ -895,7 +901,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию сериализует маркер в WS-Secure Conversation 1.3 или WS-Secure Conversation Feb2005 `<wsc:SecurityContextToken>` элемента.  
+ Реализация по умолчанию сериализует токен в WS-Secure Conversation Feb2005 или WS-Secure Conversation 1.3 `<wsc:SecurityContextToken>` элемент.  
   
  ]]></format>
         </remarks>
@@ -928,7 +934,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Сериализует указанный маркер путем создания и записи XML через <xref:System.IO.MemoryStream> и вызову <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%28System.Xml.XmlWriter%2CSystem.IdentityModel.Tokens.SecurityToken%29?displayProperty=nameWithType> метод. См. в этой перегрузки для получения дополнительных сведений.  
+ Сериализует указанный токен путем создания и записи XML через <xref:System.IO.MemoryStream> и вызова <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.WriteToken%28System.Xml.XmlWriter%2CSystem.IdentityModel.Tokens.SecurityToken%29?displayProperty=nameWithType> метод. См. в разделе эту перегрузку для получения дополнительных сведений.  
   
  ]]></format>
         </remarks>
@@ -963,13 +969,19 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Реализация по умолчанию сериализует указанный маркер, как WS-Secure Conversation Feb2005 или WS-Secure Conversation 1.3 `<wsc:SecurityContextToken>` элемент, в зависимости от значения <xref:System.IdentityModel.Tokens.SessionSecurityToken.SecureConversationVersion%2A?displayProperty=nameWithType> свойство. <xref:System.IdentityModel.Tokens.SessionSecurityToken.Id%2A?displayProperty=nameWithType> Свойство сериализуется как `Id` атрибута. <xref:System.IdentityModel.Tokens.SessionSecurityToken.ContextId%2A?displayProperty=nameWithType> Свойство сериализуется как `<Identifier>` дочерний элемент. В противном случае `null` <xref:System.IdentityModel.Tokens.SessionSecurityToken.KeyGeneration%2A?displayProperty=nameWithType> свойство сериализуется как `<Instance>` элемента. Наконец Если <xref:System.IdentityModel.Tokens.SessionSecurityToken.IsReferenceMode%2A?displayProperty=nameWithType> свойство `false`, весь токен сериализуется в двоичный массив, который передается в <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ApplyTransforms%2A> метод для кодирования. Закодированный токен записывается как значение в кодировке base64 элемент и пространство имен, определенное <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.CookieElementName%2A> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.CookieNamespace%2A> свойства. Если <xref:System.IdentityModel.Tokens.SessionSecurityToken.IsReferenceMode%2A?displayProperty=nameWithType> свойство `true`, маркер не сериализуется.  
+ Реализация по умолчанию сериализует указанный токен в качестве WS-Secure Conversation 1.3 или WS-Secure Conversation Feb2005 `<wsc:SecurityContextToken>` элемент, в зависимости от значения <xref:System.IdentityModel.Tokens.SessionSecurityToken.SecureConversationVersion%2A?displayProperty=nameWithType> свойство. <xref:System.IdentityModel.Tokens.SessionSecurityToken.Id%2A?displayProperty=nameWithType> Свойство сериализуется как `Id` атрибута. <xref:System.IdentityModel.Tokens.SessionSecurityToken.ContextId%2A?displayProperty=nameWithType> Свойство сериализуется как `<Identifier>` дочерний элемент. В противном случае `null` <xref:System.IdentityModel.Tokens.SessionSecurityToken.KeyGeneration%2A?displayProperty=nameWithType> свойство сериализуется как `<Instance>` элемент. Наконец Если <xref:System.IdentityModel.Tokens.SessionSecurityToken.IsReferenceMode%2A?displayProperty=nameWithType> свойство `false`, весь токен сериализуется в двоичный массив, который передается <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.ApplyTransforms%2A> метод для кодирования. Зашифрованную лексему записывается как значение в кодировке base64 элемент и пространство имен, определяемое <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.CookieElementName%2A> и <xref:System.IdentityModel.Tokens.SessionSecurityTokenHandler.CookieNamespace%2A> свойства. Если <xref:System.IdentityModel.Tokens.SessionSecurityToken.IsReferenceMode%2A?displayProperty=nameWithType> свойство `true`, маркер не сериализуется.  
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="writer" /> имеет значение <see langword="null" />.  -или- <paramref name="token" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="writer" /> имеет значение <see langword="null" />.  
+  
+- или - 
+ Свойство <paramref name="token" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.InvalidOperationException">
-          <paramref name="token" /> не может быть назначен из <see cref="T:System.IdentityModel.Tokens.SessionSecurityToken" />.  -или- <see cref="P:System.IdentityModel.Tokens.SessionSecurityToken.SecureConversationVersion" /> токена задает версию WS-Secure Conversation, не поддерживаемую обработчиком.</exception>
+          <paramref name="token" /> не может быть назначен из <see cref="T:System.IdentityModel.Tokens.SessionSecurityToken" />.  
+  
+- или - 
+<see cref="P:System.IdentityModel.Tokens.SessionSecurityToken.SecureConversationVersion" /> токена задает версию WS-Secure Conversation, не поддерживаемую обработчиком.</exception>
         <altmember cref="P:System.IdentityModel.Tokens.SessionSecurityTokenHandler.CanWriteToken" />
       </Docs>
     </Member>
