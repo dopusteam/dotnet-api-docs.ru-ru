@@ -1,11 +1,11 @@
 <Type Name="XmlEntity" FullName="System.Xml.XmlEntity">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="d92f2c2275bcf1488827d027cc54896d42bb5c2a" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="3072a28ce08bfefe6bb190fb9714f19d64888ee1" />
+    <Meta Name="ms.sourcegitcommit" Value="9dda17222b9f7d3edf130133bfb1370d5b410a4b" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39986272" />
+    <Meta Name="ms.lasthandoff" Value="09/22/2018" />
+    <Meta Name="ms.locfileid" Value="46599252" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class XmlEntity : System.Xml.XmlNode" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit XmlEntity extends System.Xml.XmlNode" />
@@ -37,6 +37,7 @@
     <summary>Представляет объявление сущности, например &lt;!ENTITY... &gt;.</summary>
     <remarks>To be added.</remarks>
     <altmember cref="P:System.Xml.XmlDocumentType.Entities" />
+    <related type="Article" href="http://msdn.microsoft.com/library/b5e52844-4820-47c0-a61d-de2da33e9f54">Модель объектов XML-документов (DOM)</related>
   </Docs>
   <Members>
     <Member MemberName="BaseURI">
@@ -72,8 +73,8 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Получает универсальный код ресурса (URI) текущего узела.</summary>
-        <value>Размещение, из которого загружен узел.</value>
+        <summary>Получает базовый универсальный код ресурса (URI) текущего узла.</summary>
+        <value>Расположение, из которого загружен узел.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -93,16 +94,16 @@
   
  Если документ загружается из http://server/mydata.xml, `BaseURI` возвращает следующее:  
   
-|NodeType|Имя|BaseURI|  
+|NodeType|name|BaseURI|  
 |--------------|----------|-------------|  
 |Атрибут|num|http://server/mydata.xml|  
 |Document|#document|http://server/mydata.xml|  
-|DocumentType|элемент|http://server/mydata.xml|  
-|Сущность|xyz|http://server/mydata.xml|  
+|DocumentType;|элемент|http://server/mydata.xml|  
+|Объект|xyz|http://server/mydata.xml|  
 |Элемент|элемент|http://server/mydata.xml|  
 |EntityReference|xyz|http://server/mydata.xml|  
 |Элемент|тест|http://server/a/b.xml|  
-|Текст|#text|http://server/a/b.xml|  
+|Text|#text|http://server/a/b.xml|  
   
  `BaseURI` выполняет поиск границ ссылок на сущности, поэтому если сущности раскрываются, эти сведения не сохраняются, и это свойство возвращает расположение `XmlDocument` объект во всех случаях.  
   
@@ -123,19 +124,19 @@
   
  Если XML-документ загружается из http://localhost/mydata.xml, `BaseURI` возвращает следующие действия для каждого узла:  
   
-|NodeType|Имя|BaseURI|  
+|NodeType|name|BaseURI|  
 |--------------|----------|-------------|  
 |Document|#document|http://localhost/mydata.xml|  
-|DocumentType|MyData|http://localhost/doctype.dtd|  
+|DocumentType;|MyData|http://localhost/doctype.dtd|  
 |Элемент|baa|http://localhost/mydata.xml|  
-|Сущность|xyz|http://localhost/doctype.dtd|  
+|Объект|xyz|http://localhost/doctype.dtd|  
 |EntityReference|xyz|http://localhost/mydata.xml|  
 |Атрибут|woof|http://localhost/mydata.xml|  
   
 > [!NOTE]
 >  Базовый URI атрибута по умолчанию совпадает с базовым URI элемента, к которому они принадлежат.  
   
- Это свойство является расширением Майкрософт для модели DOM.  
+ Это свойство является расширением Microsoft для объектной модели документа (DOM).  
   
  ]]></format>
         </remarks>
@@ -172,8 +173,8 @@
         <Parameter Name="deep" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="deep">Значение <see langword="true" /> для рекурсивного создания точной копии поддерева указанного узела; <see langword="false" /> только для создания точной копии самого узела.</param>
-        <summary>Создает дубликат этого узела. Невозможно получить точные копии узлов сущности. При вызове этого метода для объекта <see cref="T:System.Xml.XmlEntity" /> создается исключение.</summary>
+        <param name="deep">Значение <see langword="true" /> для рекурсивного клонирования поддерева указанного узла; значение <see langword="false" /> для клонирования только самого узла.</param>
+        <summary>Создает дубликат этого узла. Невозможно получить точные копии узлов сущности. При вызове этого метода для объекта <see cref="T:System.Xml.XmlEntity" /> создается исключение.</summary>
         <returns>Возвращает копию узла <see cref="T:System.Xml.XmlNode" />, из которого вызывается метод.</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.InvalidOperationException">Невозможно получить точные копии узлов сущности. При вызове этого метода для объекта <see cref="T:System.Xml.XmlEntity" /> создается исключение.</exception>
@@ -208,14 +209,14 @@
       </ReturnValue>
       <Docs>
         <summary>Последовательно соединенные значения узла и его дочерних узлов.</summary>
-        <value>Последовательно соединенные значения узела и его дочерних узов.</value>
+        <value>Последовательно соединенные значения узла и его дочерних узлов.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
  `XmlEntity` узлы доступны только для чтения. Задание этого свойства вызывает исключение.  
   
- Это свойство является расширением Майкрософт для модели DOM.  
+ Это свойство является расширением Microsoft для объектной модели документа (DOM).  
   
  ]]></format>
         </remarks>
@@ -263,7 +264,7 @@
 ## Remarks  
  `XmlEntity` узлы доступны только для чтения. Задание этого свойства вызывает исключение.  
   
- Это свойство является расширением Майкрософт для модели DOM.  
+ Это свойство является расширением Microsoft для объектной модели документа (DOM).  
   
  ]]></format>
         </remarks>
@@ -383,7 +384,7 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает имя узела.</summary>
+        <summary>Возвращает имя узла.</summary>
         <value>Имя сущности.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -432,7 +433,7 @@
         <ReturnType>System.Xml.XmlNodeType</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает тип узела.</summary>
+        <summary>Возвращает тип узла.</summary>
         <value>Тип узла. Для узлов <see langword="XmlEntity" /> значение равно XmlNodeType.Entity.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -546,7 +547,7 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Это свойство является расширением Майкрософт для модели DOM.  
+ Это свойство является расширением Microsoft для объектной модели документа (DOM).  
   
  ]]></format>
         </remarks>
@@ -691,9 +692,8 @@
         <Parameter Name="w" Type="System.Xml.XmlWriter" />
       </Parameters>
       <Docs>
-        <param name="w">
-          <see langword="XmlWriter" />, в котором необходимо выполнить сохранение.</param>
-        <summary>Сохраняет все дочерние узлы в заданном классе <see cref="T:System.Xml.XmlWriter" />. Для узлов <see langword="XmlEntity" /> этот метод бесполезен.</summary>
+        <param name="w">Объект <see langword="XmlWriter" />, в котором необходимо выполнить сохранение.</param>
+        <summary>Сохраняет все дочерние узлы узла в заданном <see cref="T:System.Xml.XmlWriter" />. Для узлов <see langword="XmlEntity" /> этот метод бесполезен.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -735,8 +735,7 @@
         <Parameter Name="w" Type="System.Xml.XmlWriter" />
       </Parameters>
       <Docs>
-        <param name="w">
-          <see langword="XmlWriter" />, в котором необходимо выполнить сохранение.</param>
+        <param name="w">Объект <see langword="XmlWriter" />, в котором необходимо выполнить сохранение.</param>
         <summary>Сохраняет узел в заданном <see cref="T:System.Xml.XmlWriter" />. Для узлов <see langword="XmlEntity" /> этот метод бесполезен.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
