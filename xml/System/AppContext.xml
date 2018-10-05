@@ -1,11 +1,11 @@
 <Type Name="AppContext" FullName="System.AppContext">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="22baeef40fafd807844df877ee179199629f82f1" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="c2c4803637c97019a9a061ec4bca736535264ba3" />
+    <Meta Name="ms.sourcegitcommit" Value="9dda17222b9f7d3edf130133bfb1370d5b410a4b" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39909634" />
+    <Meta Name="ms.lasthandoff" Value="09/22/2018" />
+    <Meta Name="ms.locfileid" Value="46621013" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class AppContext" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit AppContext extends System.Object" />
@@ -61,7 +61,7 @@
  Когда среда CLR запускает приложение, он автоматически считывает параметры реестра в режиме совместимости и загружает файл конфигурации приложения для заполнения приложения <xref:System.AppContext> экземпляра. Так как <xref:System.AppContext> экземпляр заполняется программным способом вызывающим или средой выполнения, не нужно предпринимать никаких действий, например, вызов <xref:System.AppContext.SetSwitch%2A> метод, чтобы настроить <xref:System.AppContext> экземпляра.  
   
 ### <a name="checking-the-setting"></a>Проверка параметра  
- Затем можно проверить, если объект-получатель объявило значение коммутатора и соответствующим образом путем вызова act <xref:System.AppContext.TryGetSwitch%2A?displayProperty=nameWithType> метод. Этот метод возвращает `true` Если `switchName` аргумента найдено, и при возвращении метода, ее `isEnabled` аргумент указывает значение переключателя.  В противном случае метод возвращает `false`.  
+ Затем можно проверить, если объект-получатель объявило значение коммутатора и соответствующим образом путем вызова act <xref:System.AppContext.TryGetSwitch%2A?displayProperty=nameWithType> метод. Этот метод возвращает `true` Если `switchName` аргумента найдено, и при возвращении метода, ее `isEnabled` аргумент указывает значение переключателя.  В противном случае метод возвращает значение `false`.  
   
 ### <a name="an-example"></a>Пример  
  Следующий пример иллюстрирует использование <xref:System.AppContext> класс, позволяющий выбрать исходное поведение метода библиотеки клиент.   Ниже приведен версии 1.0 библиотеки с именем `StringLibrary`. Он определяет `SubstringStartsAt` метод, который выполняет порядковое сравнение для определения начальный индекс подстроки в строку большего размера.  
@@ -111,7 +111,7 @@
 ## <a name="appcontext-for-library-consumers"></a>AppContext для пользователей библиотеки  
  Если вы являетесь потребитель библиотеки, <xref:System.AppContext> класс позволяет воспользоваться преимуществами библиотеки или метод библиотеки механизм явного отказа для новых функциональных возможностей.   Отдельные методы библиотеки классов, который вы вызываете определяют определенного переключатели для включения или отключения нового поведения. Логическое значение переключателя. Если это `false`, который обычно является значением по умолчанию, новое поведение включено; в случае `true`, новое поведение отключена, и член ведет себя по-другому.  
   
- Значение параметра можно задать одним из трех способов:  
+ Значение параметра можно задать одним из четырех способов:  
   
 -   Путем вызова <xref:System.AppContext.SetSwitch%28System.String%2CSystem.Boolean%29?displayProperty=nameWithType> метод в коде.  `switchName` Аргумент определяет имя коммутатора и `isEnabled` свойство определяет значение переключателя. Поскольку <xref:System.AppContext> является статическим классом, он доступен на основе на уровне домена приложения.  
   
@@ -133,12 +133,21 @@
 -   Добавив строковое значение, имя которого является имя переключателя для `HKLM\SOFTWARE\Microsoft\.NETFramework\AppContext` разделом реестра. Его значение должно быть строковым представлением <xref:System.Boolean> , может быть проанализировано по <xref:System.Boolean.Parse%2A?displayProperty=nameWithType> метод, то есть он должен иметь значение «ИСТИНА», «true», «False» или «false». Если среда выполнения обнаруживает любое другое значение, он игнорирует ключ.  
   
      С помощью реестра для определения <xref:System.AppContext> коммутатора есть области компьютера; то есть он влияет на каждое приложение, работающее на компьютере.  
-  
+
+- Для приложений ASP.NET, добавить [ \<Добавить >](~/docs/framework/configure-apps/file-schema/appsettings/add-element-for-appsettings.md) элемент [ \<appSettings >](~/docs/framework/configure-apps/file-schema/appsettings/index.md) раздел файла web.config. Пример:
+
+   ```xml
+   <appSettings>
+      <add key="AppContext.SetSwitch:switchName1" value="switchValue1" />
+      <add key="AppContext.SetSwitch:switchName2" value="switchValue2" />
+   </appSettings>
+   ```
+   
  Если вы задали тому же коммутатору в более чем одним способом, является порядок очередности для определения параметра, который переопределяет другие:  
   
 1.  Программный параметр.  
   
-2.  Параметр в файле конфигурации приложения.  
+2.  Параметр в файле конфигурации приложения или в файле web.config.  
   
 3.  Параметр реестра.  
   
@@ -161,6 +170,8 @@
 
  ]]></format>
     </remarks>
+    <related type="Article" href="http://msdn.microsoft.com/library/1eb2fae3-de4b-45b6-852f-517c39b751bd">&lt;Среда выполнения&gt; элемент</related>
+    <related type="Article" href="http://msdn.microsoft.com/library/4ce07f47-7ddb-4d91-b067-501bd8b88752">&lt;AppContextSwitchOverrides&gt; элемент</related>
   </Docs>
   <Members>
     <Member MemberName="BaseDirectory">
@@ -286,7 +297,7 @@
       </Parameters>
       <Docs>
         <param name="switchName">Имя переключателя.</param>
-        <param name="isEnabled">Значение ключа.</param>
+        <param name="isEnabled">Значение переключателя.</param>
         <summary>Задает значение переключателя.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -324,7 +335,7 @@
 
 .NET core поддерживает программные вызовы с <xref:System.AppContext.SetSwitch%2A> только метод. Поддерживаются следующие параметры:
 
-|Параметр|Значения|Описание|
+|Параметр|Значения|Описание:|
 |--|--|--|
 |`System.Net.Http.useSocketsHttpHandler` |`true`|`false`|Определяет, является ли общие сетевые интерфейсы API, такие как <xref:System.Net.Http.HttpClient> использовать <xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType> (`true`) или <xref:System.Net.Http.HttpClientHandler?displayProperty=nameWithType> (`false`).|   
   
@@ -336,10 +347,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <paramref name="switchName" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">
-          <paramref name="switchName" /> — <see cref="F:System.String.Empty" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="switchName" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Свойство <paramref name="switchName" /> имеет значение <see cref="F:System.String.Empty" />.</exception>
         <altmember cref="M:System.AppContext.TryGetSwitch(System.String,System.Boolean@)" />
       </Docs>
     </Member>
@@ -452,10 +461,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">
-          <paramref name="switchName" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">
-          <paramref name="switchName" /> — <see cref="F:System.String.Empty" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="switchName" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Свойство <paramref name="switchName" /> имеет значение <see cref="F:System.String.Empty" />.</exception>
         <altmember cref="M:System.AppContext.SetSwitch(System.String,System.Boolean)" />
       </Docs>
     </Member>
