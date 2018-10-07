@@ -1,11 +1,11 @@
 <Type Name="DateTimeOffset" FullName="System.DateTimeOffset">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="7177608ecfd38cebca1459c9a10fe90d5c0b87d4" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="f15a8e565fc1ce413f650bd2a479468cbfcb4a7f" />
+    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39829112" />
+    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
+    <Meta Name="ms.locfileid" Value="48673085" />
   </Metadata>
   <TypeSignature Language="C#" Value="public struct DateTimeOffset : IComparable, IComparable&lt;DateTimeOffset&gt;, IEquatable&lt;DateTimeOffset&gt;, IFormattable, System.Runtime.Serialization.IDeserializationCallback, System.Runtime.Serialization.ISerializable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit DateTimeOffset extends System.ValueType implements class System.IComparable, class System.IComparable`1&lt;valuetype System.DateTimeOffset&gt;, class System.IEquatable`1&lt;valuetype System.DateTimeOffset&gt;, class System.IFormattable, class System.Runtime.Serialization.IDeserializationCallback, class System.Runtime.Serialization.ISerializable" />
@@ -55,6 +55,11 @@
       <InterfaceName>System.Runtime.Serialization.ISerializable</InterfaceName>
     </Interface>
   </Interfaces>
+  <Attributes>
+    <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
+      <AttributeName>Serializable</AttributeName>
+    </Attribute>
+  </Attributes>
   <Docs>
     <summary>Представляет момент времени, который обычно выражается в виде даты и времени суток, относительно времени в формате UTC.</summary>
     <remarks>
@@ -101,6 +106,8 @@
   
  ]]></format>
     </remarks>
+    <related type="Article" href="~/docs/standard/datetime/choosing-between-datetime.md">Выбор между типами DateTime, DateTimeOffset, TimeSpan и TimeZoneInfo</related>
+    <related type="ExternalDocumentation" href="https://code.msdn.microsoft.com/NET-Framework-4-Formatting-9c4dae8d">Пример. Служебная программа форматирования .NET Framework 4</related>
   </Docs>
   <Members>
     <MemberGroup MemberName=".ctor">
@@ -168,10 +175,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Дата и время в формате UTC, полученные в результате применения смещения, наступают раньше, чем <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Дата и время в формате UTC, которые получаются в результате применения смещения, более раннего чем <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Дата и время в формате UTC, полученные в результате применения смещения, наступают позже, чем <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Дата и время в формате UTC, которые получаются в результате применения смещения, более позднего чем <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/instantiating-a-datetimeoffset-object.md">Создание экземпляра объекта DateTimeOffset</related>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -230,18 +238,20 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Значение параметра <paramref name="dateTime.Kind" /> равно <see cref="F:System.DateTimeKind.Utc" />, а значение параметра <paramref name="offset" /> не равно нулю.  
+        <exception cref="T:System.ArgumentException">
+          <paramref name="dateTime.Kind" /> равно <see cref="F:System.DateTimeKind.Utc" />, а <paramref name="offset" /> не равно нулю.  
   
--или- 
+- или - 
  <paramref name="dateTime.Kind" /> равно <see cref="F:System.DateTimeKind.Local" />, а <paramref name="offset" /> не равно смещению местного часового пояса в системе.  
   
--или- 
+- или - 
  <paramref name="offset" /> не указано в целых минутах.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">
           <paramref name="offset" /> меньше -14 часов или больше 14 часов.  
   
--или- 
- Параметр <see cref="P:System.DateTimeOffset.UtcDateTime" /> меньше <see cref="F:System.DateTimeOffset.MinValue" /> или больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+ Значение <see cref="P:System.DateTimeOffset.UtcDateTime" /> меньше <see cref="F:System.DateTimeOffset.MinValue" /> или больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/instantiating-a-datetimeoffset-object.md">Создание экземпляра объекта DateTimeOffset</related>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -276,7 +286,7 @@
         <Parameter Name="offset" Type="System.TimeSpan" />
       </Parameters>
       <Docs>
-        <param name="ticks">Дата и время, представленные в виде нескольких 100-наносекундных интервалов, закончившихся в 00:00 1 января 0001 г.</param>
+        <param name="ticks">Дата и время, представленные в виде числа 100-наносекундных интервалов, прошедших с 00:00 1 января 0001 г.</param>
         <param name="offset">Смещение по времени от времени в формате UTC.</param>
         <summary>Инициализирует новый экземпляр структуры <see cref="T:System.DateTimeOffset" /> с использованием заданного количества тактов и смещения.</summary>
         <remarks>
@@ -298,14 +308,16 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Значение параметра <paramref name="offset" /> не равно целому количеству минут.</exception>
+        <exception cref="T:System.ArgumentException">
+          <paramref name="offset" /> не следует указывать в целых минутах.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Свойство <see cref="P:System.DateTimeOffset.UtcDateTime" /> является более ранним, чем <see cref="F:System.DateTimeOffset.MinValue" />, или более поздним, чем <see cref="F:System.DateTimeOffset.MaxValue" />.  
   
--или- 
- Параметр <paramref name="ticks" /> меньше <see langword="DateTimeOffset.MinValue.Ticks" /> или больше <see langword="DateTimeOffset.MaxValue.Ticks" />.  
+- или - 
+ Значение <paramref name="ticks" /> меньше <see langword="DateTimeOffset.MinValue.Ticks" /> или больше <see langword="DateTimeOffset.MaxValue.Ticks" />.  
   
--или- 
- Значение параметра <paramref name="Offset" /> меньше -14 часов или больше 14 часов.</exception>
+- или - 
+ <paramref name="Offset" /> меньше -14 часов или больше 14 часов.</exception>
+        <related type="Article" href="~/docs/standard/datetime/instantiating-a-datetimeoffset-object.md">Создание экземпляра объекта DateTimeOffset</related>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -352,7 +364,7 @@
         <param name="minute">Минуты (от 0 до 59).</param>
         <param name="second">Секунды (от 0 до 59).</param>
         <param name="offset">Смещение по времени от времени в формате UTC.</param>
-        <summary>Инициализирует новый экземпляр структуры <see cref="T:System.DateTimeOffset" />, используя год, месяц, день, час, минуту, секунду и смещение.</summary>
+        <summary>Инициализирует новый экземпляр структуры <see cref="T:System.DateTimeOffset" />, используя указанный год, месяц, день, час, минуту, секунду и смещение.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -372,26 +384,27 @@
         <exception cref="T:System.ArgumentException">Параметр <paramref name="offset" /> не представляет целое количество минут.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение <paramref name="year" /> меньше единицы или больше 9999.  
   
--или- 
+- или - 
  Значение <paramref name="month" /> меньше единицы или больше 12.  
   
--или- 
+- или - 
  Значение параметра <paramref name="day" /> меньше единицы или больше чем число дней в параметре <paramref name="month" />.  
   
--или- 
+- или - 
  Параметр <paramref name="hour" /> меньше нуля или больше 23.  
   
--или- 
+- или - 
  Параметр <paramref name="minute" /> меньше 0 или больше 59.  
   
 -или- 
  Параметр <paramref name="second" /> меньше 0 или больше 59.  
   
--или- 
+- или - 
  Значение параметра <paramref name="offset" /> меньше –14 часов или больше 14 часов.  
   
--или- 
+- или - 
 Момент времени, заданный в свойстве <see cref="P:System.DateTimeOffset.UtcDateTime" />, наступает раньше <see cref="F:System.DateTimeOffset.MinValue" /> или позже <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/instantiating-a-datetimeoffset-object.md">Создание экземпляра объекта DateTimeOffset</related>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -440,7 +453,7 @@
         <param name="second">Секунды (от 0 до 59).</param>
         <param name="millisecond">Миллисекунды (от 0 до 999).</param>
         <param name="offset">Смещение по времени от времени в формате UTC.</param>
-        <summary>Инициализирует новый экземпляр структуры <see cref="T:System.DateTimeOffset" />, используя год, месяц, день, час, минуту, секунду, миллисекунду и смещение.</summary>
+        <summary>Инициализирует новый экземпляр структуры <see cref="T:System.DateTimeOffset" />, используя указанные год, месяц, день, час, минуту, секунду, миллисекунду и смещение.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -460,29 +473,30 @@
         <exception cref="T:System.ArgumentException">Параметр <paramref name="offset" /> не представляет целое количество минут.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение <paramref name="year" /> меньше единицы или больше 9999.  
   
--или- 
+- или - 
  Значение <paramref name="month" /> меньше единицы или больше 12.  
   
--или- 
+- или - 
  Значение параметра <paramref name="day" /> меньше единицы или больше чем число дней в параметре <paramref name="month" />.  
   
--или- 
+- или - 
  Параметр <paramref name="hour" /> меньше нуля или больше 23.  
   
--или- 
+- или - 
  Параметр <paramref name="minute" /> меньше 0 или больше 59.  
   
 -или- 
  Параметр <paramref name="second" /> меньше 0 или больше 59.  
   
--или- 
+- или - 
  Параметр <paramref name="millisecond" /> имеет значение меньше 0 или больше 999.  
   
--или- 
+- или - 
  Параметр <paramref name="offset" /> меньше –14 или больше 14.  
   
--или- 
+- или - 
 Момент времени, заданный в свойстве <see cref="P:System.DateTimeOffset.UtcDateTime" />, наступает раньше <see cref="F:System.DateTimeOffset.MinValue" /> или позже <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/instantiating-a-datetimeoffset-object.md">Создание экземпляра объекта DateTimeOffset</related>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -528,7 +542,7 @@
         <param name="millisecond">Миллисекунды (от 0 до 999).</param>
         <param name="calendar">Календарь, используемый для анализа параметров <c>year</c>, <c>month</c> и <c>day</c>.</param>
         <param name="offset">Смещение по времени от времени в формате UTC.</param>
-        <summary>Инициализирует новый экземпляр структуры <see cref="T:System.DateTimeOffset" />, используя год, месяц, день, час, минуту, секунду, миллисекунду и смещение для заданного календаря.</summary>
+        <summary>Инициализирует новый экземпляр структуры <see cref="T:System.DateTimeOffset" />, используя указанные год, месяц, день, час, минуту, секунду, миллисекунду и смещение для заданного календаря.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -546,35 +560,36 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">Параметр <paramref name="offset" /> не представляет целое количество минут.</exception>
-        <exception cref="T:System.ArgumentNullException">Аргумент <paramref name="calendar" /> не может иметь значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="calendar" /> не может иметь значение <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="year" /> меньше заданного для параметра <paramref name="calendar" /> значения <see langword="MinSupportedDateTime.Year" /> или больше чем <see langword="MaxSupportedDateTime.Year" />.  
   
--или- 
+- или - 
  Значение параметра <paramref name="month" /> меньше или больше чем число месяцев, заданное в параметре <paramref name="year" /> параметра <paramref name="calendar" />.  
   
--или- 
+- или - 
  Значение параметра <paramref name="day" /> меньше единицы или больше чем число дней в параметре <paramref name="month" />.  
   
--или- 
+- или - 
  Параметр <paramref name="hour" /> меньше нуля или больше 23.  
   
--или- 
+- или - 
  Параметр <paramref name="minute" /> меньше 0 или больше 59.  
   
 -или- 
  Параметр <paramref name="second" /> меньше 0 или больше 59.  
   
--или- 
+- или - 
  Параметр <paramref name="millisecond" /> имеет значение меньше 0 или больше 999.  
   
--или- 
+- или - 
  Значение параметра <paramref name="offset" /> меньше –14 часов или больше 14 часов.  
   
--или- 
+- или - 
 Параметры <paramref name="year" />, <paramref name="month" /> и <paramref name="day" /> не удается представить как значения типа даты и времени.  
   
--или- 
+- или - 
 Момент времени, заданный в свойстве <see cref="P:System.DateTimeOffset.UtcDateTime" />, наступает раньше <see cref="F:System.DateTimeOffset.MinValue" /> или позже <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/instantiating-a-datetimeoffset-object.md">Создание экземпляра объекта DateTimeOffset</related>
       </Docs>
     </Member>
     <Member MemberName="Add">
@@ -638,11 +653,12 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
         <altmember cref="M:System.DateTimeOffset.op_Addition(System.DateTimeOffset,System.TimeSpan)" />
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <Member MemberName="AddDays">
@@ -705,10 +721,10 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="AddHours">
@@ -771,10 +787,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <Member MemberName="AddMilliseconds">
@@ -827,10 +844,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <Member MemberName="AddMinutes">
@@ -885,10 +903,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <Member MemberName="AddMonths">
@@ -947,10 +966,10 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="AddSeconds">
@@ -1011,10 +1030,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <Member MemberName="AddTicks">
@@ -1080,10 +1100,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <Member MemberName="AddYears">
@@ -1142,10 +1163,10 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="Compare">
@@ -1183,12 +1204,23 @@
         <Parameter Name="second" Type="System.DateTimeOffset" />
       </Parameters>
       <Docs>
-        <param name="first">Первый сравниваемый объект.</param>
-        <param name="second">Второй сравниваемый объект.</param>
+        <param name="first">Первый из сравниваемых объектов.</param>
+        <param name="second">Второй из сравниваемых объектов.</param>
         <summary>Сравнивает два объекта <see cref="T:System.DateTimeOffset" />, и указывает, как соотносятся между собой указанные в них моменты времени: первый раньше второго, первый и второй равны, или же первый позже второго.</summary>
         <returns>Знаковое целое число, позволяющее определить, наступает ли момент, указанный в параметре <paramref name="first" />, раньше или одновременно с моментом, указанным в параметре <paramref name="second" />, как показано в следующей таблице.  
   
- <list type="table"><listheader><term> Возвращаемое значение </term><description> Значение </description></listheader><item><term> Меньше нуля </term><description><paramref name="first" /> ранее чем <paramref name="second" />.  </description></item><item><term> Ноль </term><description><paramref name="first" /> равно <paramref name="second" />.  </description></item><item><term> Больше нуля </term><description><paramref name="first" /> позднее чем <paramref name="second" />. </description></item></list></returns>
+ <list type="table"><listheader><term> Возвращаемое значение 
+ </term><description> Значение 
+ </description></listheader><item><term> Меньше нуля 
+ </term><description>Момент, указанный в параметре <paramref name="first" />, наступает раньше, чем момент, указанный в параметре <paramref name="second" />.  
+  
+ </description></item><item><term> Нуль 
+ </term><description><paramref name="first" /> равно <paramref name="second" />.  
+  
+ </description></item><item><term> Больше нуля 
+ </term><description>Момент, указанный в параметре <paramref name="first" />, наступает позже, чем момент, указанный в параметре <paramref name="second" />.  
+  
+ </description></item></list></returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1249,11 +1281,23 @@
         <Parameter Name="other" Type="System.DateTimeOffset" />
       </Parameters>
       <Docs>
-        <param name="other">Объект, который требуется сравнить с текущим объектом <see cref="T:System.DateTimeOffset" />.</param>
+        <param name="other">Объект, сравниваемый с текущим объектом <see cref="T:System.DateTimeOffset" />.</param>
         <summary>Сравнивает текущий объект <see cref="T:System.DateTimeOffset" /> с заданным объектом <see cref="T:System.DateTimeOffset" /> и указывает, когда наступает момент, заданный в первом объекте: раньше, позже или одновременно с моментом, указанным во втором объекте <see cref="T:System.DateTimeOffset" />.</summary>
         <returns>Целое число со знаком, позволяющее определить, как соотносятся между собой текущий объект <see cref="T:System.DateTimeOffset" /> и параметр <paramref name="other" />. Возможные соотношения показаны в следующей таблице.  
   
- <list type="table"><listheader><term> Возвращаемое значение </term><description> Описание </description></listheader><item><term> Меньше нуля </term><description> Текущий объект <see cref="T:System.DateTimeOffset" /> более ранний, чем параметр <paramref name="other" />.  </description></item><item><term> Ноль </term><description> Текущий объект <see cref="T:System.DateTimeOffset" /> совпадает с параметром <paramref name="other" />.  </description></item><item><term> Больше нуля.  </term><description> Текущий объект <see cref="T:System.DateTimeOffset" /> более поздний, чем параметр <paramref name="other" />. </description></item></list></returns>
+ <list type="table"><listheader><term> Возвращаемое значение 
+ </term><description> Описание: 
+ </description></listheader><item><term> Меньше нуля 
+ </term><description> Момент времени в объекте <see cref="T:System.DateTimeOffset" /> наступает раньше момента времени в параметре <paramref name="other" />.  
+  
+ </description></item><item><term> Нуль 
+ </term><description> Моменты времени в текущем объекте <see cref="T:System.DateTimeOffset" /> и параметре <paramref name="other" /> совпадают.  
+  
+ </description></item><item><term> Больше нуля.  
+  
+ </term><description> Момент времени в текущем объекте <see cref="T:System.DateTimeOffset" /> наступает позже момента времени в параметре <paramref name="other" />.  
+  
+ </description></item></list></returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1325,6 +1369,8 @@
   
  ]]></format>
         </remarks>
+        <related type="Article" href="~/docs/standard/base-types/standard-date-and-time-format-strings.md">Строки стандартного формата даты и времени</related>
+        <related type="Article" href="~/docs/standard/base-types/custom-date-and-time-format-strings.md">Собственные строки формата DateTime</related>
       </Docs>
     </Member>
     <Member MemberName="DateTime">
@@ -1358,7 +1404,7 @@
         <ReturnType>System.DateTime</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Получает значение <see cref="T:System.DateTime" />, представляющее дату и время в текущем объекте <see cref="T:System.DateTimeOffset" />.</summary>
+        <summary>Получает значение <see cref="T:System.DateTime" />, представляющее дату и время текущего объекта <see cref="T:System.DateTimeOffset" />.</summary>
         <value>Дата и время текущего объекта <see cref="T:System.DateTimeOffset" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1381,6 +1427,7 @@
  ]]></format>
         </remarks>
         <altmember cref="P:System.DateTimeOffset.LocalDateTime" />
+        <related type="Article" href="~/docs/standard/datetime/converting-between-datetime-and-offset.md">Взаимное преобразование структур DateTime и DateTimeOffset</related>
       </Docs>
     </Member>
     <Member MemberName="Day">
@@ -1481,7 +1528,7 @@
 ## Remarks  
  Значение константы в <xref:System.DayOfWeek> перечисления в диапазоне от <xref:System.DayOfWeek.Sunday?displayProperty=nameWithType> для <xref:System.DayOfWeek.Saturday?displayProperty=nameWithType>. Если приведенное к целочисленному типу, его значение в диапазоне от нуля (означающее <xref:System.DayOfWeek.Sunday?displayProperty=nameWithType>) до 6 (что означает <xref:System.DayOfWeek.Saturday?displayProperty=nameWithType>).  
   
- Название дня недели для определенной даты также можно отобразить с помощью описатель формата «D» или описатель настраиваемого формата «dddd». Примеры.  
+ Название дня недели для определенной даты также можно отобразить с помощью описатель формата «D» или описатель настраиваемого формата «dddd». Пример:  
   
  [!code-csharp[System.DateTimeOffset.Properties#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.DateTimeOffset.Properties/cs/Properties.cs#4)]
  [!code-vb[System.DateTimeOffset.Properties#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.DateTimeOffset.Properties/vb/Properties.vb#4)]  
@@ -1718,8 +1765,8 @@
         <Parameter Name="second" Type="System.DateTimeOffset" />
       </Parameters>
       <Docs>
-        <param name="first">Первый сравниваемый объект.</param>
-        <param name="second">Второй сравниваемый объект.</param>
+        <param name="first">Первый из сравниваемых объектов.</param>
+        <param name="second">Второй из сравниваемых объектов.</param>
         <summary>Определяет, представляют ли два заданных объекта <see cref="T:System.DateTimeOffset" /> один и тот же момент времени.</summary>
         <returns>Значение <see langword="true" />, если два объекта <see cref="T:System.DateTimeOffset" /> имеют одинаковые значения <see cref="P:System.DateTimeOffset.UtcDateTime" />; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
@@ -1838,8 +1885,8 @@
         <Parameter Name="fileTime" Type="System.Int64" />
       </Parameters>
       <Docs>
-        <param name="fileTime">Временная характеристика файла Windows, выраженная в тактах.</param>
-        <summary>Преобразует заданную временную характеристику файла Windows в ее эквивалент по местному времени.</summary>
+        <param name="fileTime">Время файла Windows, выраженное в тактах.</param>
+        <summary>Преобразует заданное время файла Windows в его эквивалент по местному времени.</summary>
         <returns>Объект, представляющий дату и время <paramref name="fileTime" /> со смещением, равным смещению местного времени.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1863,7 +1910,7 @@
         </remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="filetime" /> меньше нуля.  
   
--или- 
+- или - 
  Значение <paramref name="filetime" /> больше значения <see langword="DateTimeOffset.MaxValue.Ticks" />.</exception>
       </Docs>
     </Member>
@@ -1911,7 +1958,7 @@
         </remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="milliseconds" /> меньше –62 135 596 800 000.  
   
--или- 
+- или - 
  Значение <paramref name="milliseconds" /> больше 253 402 300 799 999.</exception>
         <altmember cref="M:System.DateTimeOffset.FromUnixTimeSeconds(System.Int64)" />
         <altmember cref="M:System.DateTimeOffset.ToUnixTimeMilliseconds" />
@@ -1961,7 +2008,7 @@
         </remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="seconds" /> меньше –62 135 596 800.  
   
--или- 
+- или - 
  Значение <paramref name="seconds" /> больше 253 402 300 799.</exception>
         <altmember cref="M:System.DateTimeOffset.FromUnixTimeMilliseconds(System.Int64)" />
         <altmember cref="M:System.DateTimeOffset.ToUnixTimeSeconds" />
@@ -2000,7 +2047,7 @@
       <Parameters />
       <Docs>
         <summary>Возвращает хэш-код для текущего объекта <see cref="T:System.DateTimeOffset" />.</summary>
-        <returns>Хэш-код в виде 32-битовым целым числом со знаком.</returns>
+        <returns>Хэш-код в виде 32-разрядного целого числа со знаком.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -2498,16 +2545,15 @@
       </Docs>
     </Member>
     <Member MemberName="op_Addition">
-      <MemberSignature Language="C#" Value="public static DateTimeOffset operator + (DateTimeOffset dateTimeOffset, TimeSpan timeSpan);" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig specialname valuetype System.DateTimeOffset op_Addition(valuetype System.DateTimeOffset dateTimeOffset, valuetype System.TimeSpan timeSpan) cil managed" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="DocId" Value="M:System.DateTimeOffset.op_Addition(System.DateTimeOffset,System.TimeSpan)" FrameworkAlternate="netframework-2.0" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static DateTimeOffset operator +(DateTimeOffset dateTimeOffset, TimeSpan timeSpan);" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="F#" Value="static member ( + ) : DateTimeOffset * TimeSpan -&gt; DateTimeOffset" Usage="dateTimeOffset + timeSpan" FrameworkAlternate="netframework-2.0" />
+      <MemberSignature Language="C#" Value="public static DateTimeOffset operator + (DateTimeOffset dateTimeOffset, TimeSpan timeSpan);" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig specialname valuetype System.DateTimeOffset op_Addition(valuetype System.DateTimeOffset dateTimeOffset, valuetype System.TimeSpan timeSpan) cil managed" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8" />
+      <MemberSignature Language="DocId" Value="M:System.DateTimeOffset.op_Addition(System.DateTimeOffset,System.TimeSpan)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static DateTimeOffset operator +(DateTimeOffset dateTimeOffset, TimeSpan timeSpan);" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8" />
+      <MemberSignature Language="F#" Value="static member ( + ) : DateTimeOffset * TimeSpan -&gt; DateTimeOffset" Usage="dateTimeOffset + timeSpan" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="C#" Value="public static DateTimeOffset operator + (DateTimeOffset dateTimeTz, TimeSpan timeSpan);" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5" />
       <MemberSignature Language="ILAsm" Value=".method public static hidebysig specialname valuetype System.DateTimeOffset op_Addition(valuetype System.DateTimeOffset dateTimeTz, valuetype System.TimeSpan timeSpan) cil managed" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5" />
-      <MemberSignature Language="DocId" Value="M:System.DateTimeOffset.op_Addition(System.DateTimeOffset,System.TimeSpan)" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static DateTimeOffset operator +(DateTimeOffset dateTimeTz, TimeSpan timeSpan);" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5" />
-      <MemberSignature Language="F#" Value="static member ( + ) : DateTimeOffset * TimeSpan -&gt; DateTimeOffset" Usage="dateTimeTz + timeSpan" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="F#" Value="static member ( + ) : DateTimeOffset * TimeSpan -&gt; DateTimeOffset" Usage="dateTimeTz + timeSpan" FrameworkAlternate="netframework-2.0" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -2532,7 +2578,7 @@
         <ReturnType>System.DateTimeOffset</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="dateTimeOffset" Type="System.DateTimeOffset" Index="0" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+        <Parameter Name="dateTimeOffset" Type="System.DateTimeOffset" Index="0" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8" />
         <Parameter Name="dateTimeTz" Type="System.DateTimeOffset" Index="0" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5" />
         <Parameter Name="timeSpan" Type="System.TimeSpan" Index="1" />
       </Parameters>
@@ -2555,11 +2601,12 @@
   
  Эквивалентный метод для этого оператора является <xref:System.DateTimeOffset.Add%28System.TimeSpan%29?displayProperty=nameWithType>.]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
         <altmember cref="M:System.DateTimeOffset.Add(System.TimeSpan)" />
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <Member MemberName="op_Equality">
@@ -2597,8 +2644,8 @@
         <Parameter Name="right" Type="System.DateTimeOffset" />
       </Parameters>
       <Docs>
-        <param name="left">Первый сравниваемый объект.</param>
-        <param name="right">Второй сравниваемый объект.</param>
+        <param name="left">Первый из сравниваемых объектов.</param>
+        <param name="right">Второй из сравниваемых объектов.</param>
         <summary>Определяет, представляют ли два заданных объекта <see cref="T:System.DateTimeOffset" /> один и тот же момент времени.</summary>
         <returns>Значение <see langword="true" />, если объекты <see cref="T:System.DateTimeOffset" /> имеют одинаковые значения <see cref="P:System.DateTimeOffset.UtcDateTime" />; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
@@ -2657,8 +2704,8 @@
         <Parameter Name="right" Type="System.DateTimeOffset" />
       </Parameters>
       <Docs>
-        <param name="left">Первый сравниваемый объект.</param>
-        <param name="right">Второй сравниваемый объект.</param>
+        <param name="left">Первый из сравниваемых объектов.</param>
+        <param name="right">Второй из сравниваемых объектов.</param>
         <summary>Определяет, больше ли (или меньше) значение одного указанного объекта <see cref="T:System.DateTimeOffset" /> значения другого указанного объекта <see cref="T:System.DateTimeOffset" />.</summary>
         <returns>Значение <see langword="true" /> если момент времени в значении <see cref="P:System.DateTimeOffset.UtcDateTime" /> параметра <paramref name="left" /> наступает позже, чем момент в значении <see cref="P:System.DateTimeOffset.UtcDateTime" /> параметра <paramref name="right" />; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
@@ -2718,8 +2765,8 @@
         <Parameter Name="right" Type="System.DateTimeOffset" />
       </Parameters>
       <Docs>
-        <param name="left">Первый сравниваемый объект.</param>
-        <param name="right">Второй сравниваемый объект.</param>
+        <param name="left">Первый из сравниваемых объектов.</param>
+        <param name="right">Второй из сравниваемых объектов.</param>
         <summary>Определяет, действительно ли значение одного указанного объекта <see cref="T:System.DateTimeOffset" /> больше или равно значению другого указанного объекта <see cref="T:System.DateTimeOffset" />.</summary>
         <returns>
           <see langword="true" /> если значение <see cref="P:System.DateTimeOffset.UtcDateTime" /> параметра <paramref name="left" /> соответствует тому же или более позднему моменту времени, чем момент, заданный значением <see cref="P:System.DateTimeOffset.UtcDateTime" /> параметра <paramref name="right" />; в противном случае — значение <see langword="false" />.</returns>
@@ -2798,10 +2845,10 @@
   
  Имеет эквивалентный метод для этого оператора <xref:System.DateTimeOffset.%23ctor%28System.DateTime%29?displayProperty=nameWithType>]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Дата и время в формате UTC, полученные в результате применения смещения, наступают раньше, чем <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Дата и время в формате UTC, которые получаются в результате применения смещения, более раннего чем <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Дата и время в формате UTC, полученные в результате применения смещения, наступают позже, чем <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Дата и время в формате UTC, которые получаются в результате применения смещения, более позднего чем <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="op_Inequality">
@@ -2839,8 +2886,8 @@
         <Parameter Name="right" Type="System.DateTimeOffset" />
       </Parameters>
       <Docs>
-        <param name="left">Первый сравниваемый объект.</param>
-        <param name="right">Второй сравниваемый объект.</param>
+        <param name="left">Первый из сравниваемых объектов.</param>
+        <param name="right">Второй из сравниваемых объектов.</param>
         <summary>Определяет, указывают ли два заданных объекта <see cref="T:System.DateTimeOffset" /> на разные моменты времени.</summary>
         <returns>Значение <see langword="true" /> если параметры <paramref name="left" /> и <paramref name="right" /> обладают разными значениями свойства <see cref="P:System.DateTimeOffset.UtcDateTime" />; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
@@ -2902,8 +2949,8 @@
         <Parameter Name="right" Type="System.DateTimeOffset" />
       </Parameters>
       <Docs>
-        <param name="left">Первый сравниваемый объект.</param>
-        <param name="right">Второй сравниваемый объект.</param>
+        <param name="left">Первый из сравниваемых объектов.</param>
+        <param name="right">Второй из сравниваемых объектов.</param>
         <summary>Определяет, меньше ли значение одного указанного объекта <see cref="T:System.DateTimeOffset" />, чем значение другого указанного объекта <see cref="T:System.DateTimeOffset" />.</summary>
         <returns>Значение <see langword="true" /> если момент времени в значении <see cref="P:System.DateTimeOffset.UtcDateTime" /> параметра <paramref name="left" /> наступает раньше, чем момент в значении <see cref="P:System.DateTimeOffset.UtcDateTime" /> параметра <paramref name="right" />; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
@@ -2963,8 +3010,8 @@
         <Parameter Name="right" Type="System.DateTimeOffset" />
       </Parameters>
       <Docs>
-        <param name="left">Первый сравниваемый объект.</param>
-        <param name="right">Второй сравниваемый объект.</param>
+        <param name="left">Первый из сравниваемых объектов.</param>
+        <param name="right">Второй из сравниваемых объектов.</param>
         <summary>Определяет, меньше ли значение одного указанного объекта <see cref="T:System.DateTimeOffset" />, чем значение другого указанного объекта <see cref="T:System.DateTimeOffset" />.</summary>
         <returns>Значение <see langword="true" /> если момент времени в значении <see cref="P:System.DateTimeOffset.UtcDateTime" /> параметра <paramref name="left" /> наступает раньше, чем момент в значении <see cref="P:System.DateTimeOffset.UtcDateTime" /> параметра <paramref name="right" />; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
@@ -3055,19 +3102,19 @@
  Эквивалентный метод для этого оператора является <xref:System.DateTimeOffset.Subtract%28System.TimeSpan%29?displayProperty=nameWithType>.]]></format>
         </remarks>
         <altmember cref="M:System.DateTimeOffset.Subtract(System.DateTimeOffset)" />
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <Member MemberName="op_Subtraction">
-      <MemberSignature Language="C#" Value="public static DateTimeOffset operator - (DateTimeOffset dateTimeOffset, TimeSpan timeSpan);" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="ILAsm" Value=".method public static hidebysig specialname valuetype System.DateTimeOffset op_Subtraction(valuetype System.DateTimeOffset dateTimeOffset, valuetype System.TimeSpan timeSpan) cil managed" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="DocId" Value="M:System.DateTimeOffset.op_Subtraction(System.DateTimeOffset,System.TimeSpan)" FrameworkAlternate="netframework-2.0" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; static DateTimeOffset operator -(DateTimeOffset dateTimeOffset, TimeSpan timeSpan);" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
-      <MemberSignature Language="F#" Value="static member ( - ) : DateTimeOffset * TimeSpan -&gt; DateTimeOffset" Usage="dateTimeOffset - timeSpan" FrameworkAlternate="netframework-2.0" />
+      <MemberSignature Language="C#" Value="public static DateTimeOffset operator - (DateTimeOffset dateTimeOffset, TimeSpan timeSpan);" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig specialname valuetype System.DateTimeOffset op_Subtraction(valuetype System.DateTimeOffset dateTimeOffset, valuetype System.TimeSpan timeSpan) cil managed" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8" />
+      <MemberSignature Language="DocId" Value="M:System.DateTimeOffset.op_Subtraction(System.DateTimeOffset,System.TimeSpan)" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; static DateTimeOffset operator -(DateTimeOffset dateTimeOffset, TimeSpan timeSpan);" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8" />
+      <MemberSignature Language="F#" Value="static member ( - ) : DateTimeOffset * TimeSpan -&gt; DateTimeOffset" Usage="dateTimeOffset - timeSpan" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="C#" Value="public static DateTimeOffset operator - (DateTimeOffset dateTimeTz, TimeSpan timeSpan);" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5" />
       <MemberSignature Language="ILAsm" Value=".method public static hidebysig specialname valuetype System.DateTimeOffset op_Subtraction(valuetype System.DateTimeOffset dateTimeTz, valuetype System.TimeSpan timeSpan) cil managed" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5" />
-      <MemberSignature Language="DocId" Value="M:System.DateTimeOffset.op_Subtraction(System.DateTimeOffset,System.TimeSpan)" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       <MemberSignature Language="C++ CLI" Value="public:&#xA; static DateTimeOffset operator -(DateTimeOffset dateTimeTz, TimeSpan timeSpan);" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5" />
-      <MemberSignature Language="F#" Value="static member ( - ) : DateTimeOffset * TimeSpan -&gt; DateTimeOffset" Usage="dateTimeTz - timeSpan" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="F#" Value="static member ( - ) : DateTimeOffset * TimeSpan -&gt; DateTimeOffset" Usage="dateTimeTz - timeSpan" FrameworkAlternate="netframework-2.0" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
@@ -3092,7 +3139,7 @@
         <ReturnType>System.DateTimeOffset</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="dateTimeOffset" Type="System.DateTimeOffset" Index="0" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+        <Parameter Name="dateTimeOffset" Type="System.DateTimeOffset" Index="0" FrameworkAlternate="netcore-1.0;netcore-1.1;netcore-2.0;netcore-2.1;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;netstandard-1.3;netstandard-1.4;netstandard-1.5;netstandard-1.6;netstandard-2.0;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8" />
         <Parameter Name="dateTimeTz" Type="System.DateTimeOffset" Index="0" FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5" />
         <Parameter Name="timeSpan" Type="System.TimeSpan" Index="1" />
       </Parameters>
@@ -3117,6 +3164,7 @@
         </remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше, чем значение <see cref="F:System.DateTimeOffset.MinValue" /> или больше, чем значение <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
         <altmember cref="M:System.DateTimeOffset.Subtract(System.TimeSpan)" />
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <MemberGroup MemberName="Parse">
@@ -3200,12 +3248,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше -14 часов.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          <paramref name="input" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше –14 часов.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.FormatException">Параметр <paramref name="input" /> не содержит допустимое строковое представление даты и времени.  
   
--или- 
+- или - 
  Параметр <paramref name="input" /> содержит строковое представление значения смещения без даты или времени.</exception>
         <altmember cref="Overload:System.DateTimeOffset.TryParse" />
         <altmember cref="Overload:System.DateTimeOffset.ParseExact" />
@@ -3284,12 +3331,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше -14 часов.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          <paramref name="input" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше –14 часов.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.FormatException">Параметр <paramref name="input" /> не содержит допустимое строковое представление даты и времени.  
   
--или- 
+- или - 
  Параметр <paramref name="input" /> содержит строковое представление значения смещения без даты или времени.</exception>
         <altmember cref="Overload:System.DateTimeOffset.TryParse" />
         <altmember cref="Overload:System.DateTimeOffset.ParseExact" />
@@ -3305,6 +3351,12 @@
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.DateTimeOffset</ReturnType>
@@ -3397,7 +3449,7 @@
   
  В следующей таблице показаны члены <xref:System.Globalization.DateTimeStyles?displayProperty=nameWithType> перечисления, которые поддерживаются.  
   
-|Член DateTimeStyles|Описание|  
+|Член DateTimeStyles|Описание:|  
 |---------------------------|-----------------|  
 |<xref:System.Globalization.DateTimeStyles.AdjustToUniversal>|Выполняет синтаксический анализ строки, представленной `input` и, если необходимо, преобразует его в формат UTC. Это эквивалентно анализа строки и затем вызвать метод <xref:System.DateTimeOffset.ToUniversalTime%2A?displayProperty=nameWithType> метод возвращаемого <xref:System.DateTimeOffset> объекта.|  
 |<xref:System.Globalization.DateTimeStyles.AllowInnerWhite>|Несмотря на то что допустимым, это значение игнорируется. Внутренние пробелы допустимо использовать в \<Дата > и \<время > элементы.|  
@@ -3421,21 +3473,20 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше -14 часов.  
+        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше –14 часов.  
   
--или- 
- Параметр <paramref name="styles" /> не является допустимым значением <see cref="T:System.Globalization.DateTimeStyles" />.  
+- или - 
+ <paramref name="styles" /> не является допустимым значением <see cref="T:System.Globalization.DateTimeStyles" />.  
   
--или- 
+- или - 
  Параметр <paramref name="styles" /> содержит недопустимое значение <see cref="T:System.Globalization.DateTimeStyles" />.  
   
--или- 
+- или - 
  Параметр <paramref name="styles" /> содержит значения <see cref="T:System.Globalization.DateTimeStyles" />, совместное использование которых недопустимо.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          <paramref name="input" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.FormatException">Параметр <paramref name="input" /> не содержит допустимое строковое представление даты и времени.  
   
--или- 
+- или - 
  Параметр <paramref name="input" /> содержит строковое представление значения смещения без даты или времени.</exception>
         <altmember cref="Overload:System.DateTimeOffset.TryParse" />
         <altmember cref="Overload:System.DateTimeOffset.ParseExact" />
@@ -3529,26 +3580,27 @@
 
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше -14 часов.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          <paramref name="input" /> — <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше –14 часов.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.  
   
--или- 
- <paramref name="format" /> — <see langword="null" />.</exception>
+- или - 
+ Свойство <paramref name="format" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.FormatException">Параметр <paramref name="input" /> является пустой строкой ("").  
   
--или- 
+- или - 
  Параметр <paramref name="input" /> не содержит допустимое строковое представление даты и времени.  
   
--или- 
+- или - 
  Параметр <paramref name="format" /> равен пустой строке.  
   
--или- 
+- или - 
 Компонент часов и обозначение AM/PM в <paramref name="input" /> не совпадают.</exception>
         <block subset="none" type="usage">
           <para>В [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], <see cref="Overload:System.DateTimeOffset.ParseExact" /> вызывает метод <see cref="T:System.FormatException" /> Если анализируемая строка содержит компонент часов и обозначение AM/PM, которых нет в соглашении. В [!INCLUDE[net_v35_short](~/includes/net-v35-short-md.md)] и более ранних версий, обозначение AM/PM игнорируется.</para>
         </block>
         <altmember cref="Overload:System.DateTimeOffset.TryParseExact" />
+        <related type="Article" href="~/docs/standard/base-types/standard-date-and-time-format-strings.md">Строки стандартных форматов даты и времени</related>
+        <related type="Article" href="~/docs/standard/base-types/custom-date-and-time-format-strings.md">Строки настраиваемых форматов даты и времени</related>
       </Docs>
     </Member>
     <Member MemberName="ParseExact">
@@ -3561,6 +3613,12 @@
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.DateTimeOffset</ReturnType>
@@ -3599,15 +3657,15 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше -14 часов.  
--или-  
+        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше –14 часов.  
+- или -  
 В параметре <paramref name="styles" /> содержится неподдерживаемое значение.  
--или-  
+- или -  
 Параметр <paramref name="styles" /> содержит значения <see cref="T:System.Globalization.DateTimeStyles" />, совместное использование которых недопустимо.</exception>
         <exception cref="T:System.FormatException">Параметр <paramref name="input" /> — это пустой диапазон символов.  
  -или- Параметр <paramref name="input" /> не содержит допустимое строковое представление даты и времени.  
  -или- Параметр<paramref name="format" /> — это пустой диапазон символов.  
- -или-  
+ - или -  
  Компонент часов и обозначение AM/PM в <paramref name="input" /> не совпадают.</exception>
       </Docs>
     </Member>
@@ -3621,6 +3679,12 @@
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.DateTimeOffset</ReturnType>
@@ -3676,15 +3740,15 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше -14 часов.  
+        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше –14 часов.  
 -или- Параметр <paramref name="styles" /> содержит неподдерживаемое значение.  
--или-  
+- или -  
 Параметр <paramref name="styles" /> содержит значения <see cref="T:System.Globalization.DateTimeStyles" />, совместное использование которых недопустимо.</exception>
         <exception cref="T:System.FormatException">Параметр <paramref name="input" /> — это пустой диапазон символов.  
 -или- Параметр <paramref name="input" /> не содержит допустимое строковое представление даты и времени.  
--или-  
+- или -  
 Ни один из элементов <paramref name="formats" /> не содержит допустимый описатель формата.  
--или-  
+- или -  
 Компонент часов и обозначение AM/PM в <paramref name="input" /> не совпадают.</exception>
       </Docs>
     </Member>
@@ -3785,32 +3849,33 @@
 
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше -14 часов.  
+        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше –14 часов.  
   
--или- 
+- или - 
 В параметре <paramref name="styles" /> содержится неподдерживаемое значение.  
   
--или- 
+- или - 
 Параметр <paramref name="styles" /> содержит значения <see cref="T:System.Globalization.DateTimeStyles" />, совместное использование которых недопустимо.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          <paramref name="input" /> — <see langword="null" />.  
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.  
   
--или- 
- <paramref name="format" /> — <see langword="null" />.</exception>
+- или - 
+ Свойство <paramref name="format" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.FormatException">Параметр <paramref name="input" /> является пустой строкой ("").  
   
--или- 
+- или - 
  Параметр <paramref name="input" /> не содержит допустимое строковое представление даты и времени.  
   
--или- 
+- или - 
  Параметр <paramref name="format" /> равен пустой строке.  
   
--или- 
+- или - 
 Компонент часов и обозначение AM/PM в <paramref name="input" /> не совпадают.</exception>
         <block subset="none" type="usage">
           <para>В [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], <see cref="Overload:System.DateTimeOffset.ParseExact" /> вызывает метод <see cref="T:System.FormatException" /> Если анализируемая строка содержит компонент часов и обозначение AM/PM, которых нет в соглашении. В [!INCLUDE[net_v35_short](~/includes/net-v35-short-md.md)] и более ранних версий, обозначение AM/PM игнорируется.</para>
         </block>
         <altmember cref="Overload:System.DateTimeOffset.TryParseExact" />
+        <related type="Article" href="~/docs/standard/base-types/standard-date-and-time-format-strings.md">Строки стандартных форматов даты и времени</related>
+        <related type="Article" href="~/docs/standard/base-types/custom-date-and-time-format-strings.md">Строки настраиваемых форматов даты и времени</related>
       </Docs>
     </Member>
     <Member MemberName="ParseExact">
@@ -3901,29 +3966,30 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше -14 часов.  
+        <exception cref="T:System.ArgumentException">Смещение больше 14 часов или меньше –14 часов.  
   
--или- 
+- или - 
  Параметр <paramref name="styles" /> содержит недопустимое значение.  
   
--или- 
+- или - 
 Параметр <paramref name="styles" /> содержит значения <see cref="T:System.Globalization.DateTimeStyles" />, совместное использование которых недопустимо.</exception>
-        <exception cref="T:System.ArgumentNullException">
-          <paramref name="input" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="input" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.FormatException">Параметр <paramref name="input" /> является пустой строкой ("").  
   
--или- 
+- или - 
  Параметр <paramref name="input" /> не содержит допустимое строковое представление даты и времени.  
   
--или- 
+- или - 
 Ни один из элементов <paramref name="formats" /> не содержит допустимый описатель формата.  
   
--или- 
+- или - 
 Компонент часов и обозначение AM/PM в <paramref name="input" /> не совпадают.</exception>
         <block subset="none" type="usage">
           <para>В [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], <see cref="Overload:System.DateTimeOffset.ParseExact" /> вызывает метод <see cref="T:System.FormatException" /> Если анализируемая строка содержит компонент часов и обозначение AM/PM, которых нет в соглашении. В [!INCLUDE[net_v35_short](~/includes/net-v35-short-md.md)] и более ранних версий, обозначение AM/PM игнорируется.</para>
         </block>
         <altmember cref="Overload:System.DateTimeOffset.TryParseExact" />
+        <related type="Article" href="~/docs/standard/base-types/standard-date-and-time-format-strings.md">Строки стандартных форматов даты и времени</related>
+        <related type="Article" href="~/docs/standard/base-types/custom-date-and-time-format-strings.md">Строки настраиваемых форматов даты и времени</related>
       </Docs>
     </Member>
     <Member MemberName="Second">
@@ -4032,8 +4098,8 @@
         <Parameter Name="value" Type="System.DateTimeOffset" />
       </Parameters>
       <Docs>
-        <param name="value">Объект, который представляет вычитаемое значение.</param>
-        <summary>Вычитает значение <see cref="T:System.DateTimeOffset" />, представляющее определенную дату и время в текущем объекте <see cref="T:System.DateTimeOffset" />.</summary>
+        <param name="value">Объект, представляющий вычитаемое значение.</param>
+        <summary>Вычитает значение <see cref="T:System.DateTimeOffset" />, представляющее определенную дату и время, из текущего объекта <see cref="T:System.DateTimeOffset" />.</summary>
         <returns>Объект, задающий интервал между двумя объектами <see cref="T:System.DateTimeOffset" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -4056,6 +4122,7 @@
   
  ]]></format>
         </remarks>
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <Member MemberName="Subtract">
@@ -4118,10 +4185,11 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Результирующее значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
+        <exception cref="T:System.ArgumentOutOfRangeException">Итоговое значение <see cref="T:System.DateTimeOffset" /> меньше <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
-Результирующее значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+- или - 
+Итоговое значение <see cref="T:System.DateTimeOffset" /> больше <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
+        <related type="Article" href="~/docs/standard/datetime/performing-arithmetic-operations.md">Выполнение арифметических операций с датами и временем</related>
       </Docs>
     </Member>
     <Member MemberName="System.IComparable.CompareTo">
@@ -4160,10 +4228,21 @@
         <Parameter Name="obj" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="obj">Объект для сравнения с текущим объектом <see cref="T:System.DateTimeOffset" />.</param>
+        <param name="obj">Объект, который требуется сравнить с текущим объектом <see cref="T:System.DateTimeOffset" />.</param>
         <summary>Сравнивает значение текущего объекта <see cref="T:System.DateTimeOffset" /> с другим объектом того же типа.</summary>
-        <returns>32-разрядное целое число со знаком, позволяющее определить, больше, меньше или равно значение текущего объекта <see cref="T:System.DateTimeOffset" /> значению параметра <paramref name="obj" />. Возвращаемые значения метода интерпретируются следующим образом. 
- <list type="table"><listheader><term> Возвращаемое значение </term><description> Описание </description></listheader><item><term> Меньше нуля </term><description> Текущий объект <see cref="T:System.DateTimeOffset" /> меньше (более ранний), чем параметр <paramref name="obj" />.  </description></item><item><term> Ноль </term><description> Текущий объект <see cref="T:System.DateTimeOffset" /> равен параметру <paramref name="obj" /> (соответствует тому же времени).  </description></item><item><term> Больше нуля </term><description> Текущий объект <see cref="T:System.DateTimeOffset" /> больше (более поздний), чем параметр <paramref name="obj" />. </description></item></list></returns>
+        <returns>32-разрядное целое число со знаком, позволяющее определить, больше, меньше или равно значение текущего объекта <see cref="T:System.DateTimeOffset" /> значению параметра <paramref name="obj" />. Возвращаемые значения метода интерпретируются следующим образом: 
+ <list type="table"><listheader><term> Возвращаемое значение 
+ </term><description> Описание: 
+ </description></listheader><item><term> Меньше нуля 
+ </term><description> Текущий объект <see cref="T:System.DateTimeOffset" /> меньше параметра <paramref name="obj" /> (заданный в нем момент времени наступает раньше).  
+  
+ </description></item><item><term> Нуль 
+ </term><description> Текущий объект <see cref="T:System.DateTimeOffset" /> равен параметру <paramref name="obj" /> (соответствует тому же моменту времени).  
+  
+ </description></item><item><term> Больше нуля 
+ </term><description> Текущий объект <see cref="T:System.DateTimeOffset" /> больше параметра <paramref name="obj" /> (заданный в нем момент времени наступает позже).  
+  
+ </description></item></list></returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -4230,7 +4309,7 @@
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute FrameworkAlternate="netcore-2.0;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netcore-2.0;netframework-4.8">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -4243,10 +4322,10 @@
       </Parameters>
       <Docs>
         <param name="info">Объект, который требуется заполнить данными.</param>
-        <param name="context">Целевой объект сериализации (см. раздел, посвященный структуре <see cref="T:System.Runtime.Serialization.StreamingContext" />).</param>
+        <param name="context">Конечный объект для этой сериализации (см. раздел, посвященный <see cref="T:System.Runtime.Serialization.StreamingContext" />).</param>
         <summary>Передает объекту <see cref="T:System.Runtime.Serialization.SerializationInfo" /> данные, необходимые для сериализации текущего объекта <see cref="T:System.DateTimeOffset" />.</summary>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="info" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="info" /> имеет значение <see langword="null" />.</exception>
         <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
@@ -4527,11 +4606,11 @@ Me.ToUtcDateTime().ToFileTime()
         </remarks>
         <exception cref="T:System.ArgumentException">Результирующий объект <see cref="T:System.DateTimeOffset" /> имеет значение <see cref="P:System.DateTimeOffset.DateTime" />, соответствующее более раннему моменту времени, чем <see cref="F:System.DateTimeOffset.MinValue" />.  
   
--или- 
+- или - 
 Результирующий объект <see cref="T:System.DateTimeOffset" /> имеет значение <see cref="P:System.DateTimeOffset.DateTime" />, соответствующее более позднему моменту времени, чем <see cref="F:System.DateTimeOffset.MaxValue" />.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="offset" /> меньше -14 часов.  
   
--или- 
+- или - 
  Значение параметра <paramref name="offset" /> больше 14 часов.</exception>
       </Docs>
     </Member>
@@ -4605,10 +4684,12 @@ Me.ToUtcDateTime().ToFileTime()
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Дата и время находятся за пределами диапазона дат, поддерживаемого календарем, используемым для текущих языка и региональных параметров.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Дата и время находятся за пределами диапазона дат, поддерживаемого календарем, принятым для текущего языка и региональных параметров.</exception>
         <block subset="none" type="usage">
           <para>
-            <see cref="M:System.DateTimeOffset.ToString" /> Метод возвращает строковое представление даты и времени в календаре, текущего языка и региональных параметров. Если значение текущего <see cref="T:System.DateTimeOffset" /> экземпляра более ранняя, чем <see cref="P:System.Globalization.Calendar.MinSupportedDateTime" /> или более поздней версии, чем <see cref="P:System.Globalization.Calendar.MaxSupportedDateTime" />, метод вызывает <see cref="T:System.ArgumentOutOfRangeException" />. Ниже приведен пример. Он выполняет попытку отформатировать дату, которая находится вне диапазона от <see cref="T:System.Globalization.HijriCalendar" /> класса, если текущий язык — арабский (Сирия).  [! code-csharp[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/cs/datetimeoffset.tostring.argumentoutofrangeexception2.cs#2)] [! код vb[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/vb/datetimeoffset.tostring.argumentoutofrangeexception2.vb#2)]</para>
+            <see cref="M:System.DateTimeOffset.ToString" /> Метод возвращает строковое представление даты и времени в календаре, текущего языка и региональных параметров. Если значение текущего <see cref="T:System.DateTimeOffset" /> экземпляра более ранняя, чем <see cref="P:System.Globalization.Calendar.MinSupportedDateTime" /> или более поздней версии, чем <see cref="P:System.Globalization.Calendar.MaxSupportedDateTime" />, метод вызывает <see cref="T:System.ArgumentOutOfRangeException" />. Ниже приведен пример. Он выполняет попытку отформатировать дату, которая находится вне диапазона от <see cref="T:System.Globalization.HijriCalendar" /> класса, если текущий язык — арабский (Сирия).  
+  
+[! code-csharp[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/cs/datetimeoffset.tostring.argumentoutofrangeexception2.cs#2)] [! код vb[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/vb/datetimeoffset.tostring.argumentoutofrangeexception2.vb#2)]</para>
         </block>
       </Docs>
     </Member>
@@ -4681,7 +4762,9 @@ Me.ToUtcDateTime().ToFileTime()
         <exception cref="T:System.ArgumentOutOfRangeException">Дата и время находятся за пределами диапазона дат, поддерживаемых календарем, который используется <paramref name="formatProvider" />.</exception>
         <block subset="none" type="usage">
           <para>
-            <see cref="M:System.DateTimeOffset.ToString(System.IFormatProvider)" /> Метод возвращает строковое представление даты и времени в календаре, языка и региональных параметров, представленных <paramref name="formatProvider" /> параметра. Его календарь определяется <see cref="P:System.Globalization.DateTimeFormatInfo.Calendar" /> свойство. Если значение текущего <see cref="T:System.DateTimeOffset" /> экземпляра более ранняя, чем <see cref="P:System.Globalization.Calendar.MinSupportedDateTime" /> или более поздней версии, чем <see cref="P:System.Globalization.Calendar.MaxSupportedDateTime" />, метод вызывает <see cref="T:System.ArgumentOutOfRangeException" />. Ниже приведен пример. Он выполняет попытку отформатировать дату, которая находится вне диапазона от <see cref="T:System.Globalization.JapaneseCalendar" /> класса.  [! code-csharp[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/cs/datetimeoffset.tostring.argumentoutofrangeexception1.cs#1)] [! код vb[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/vb/datetimeoffset.tostring.argumentoutofrangeexception1.vb#1)]</para>
+            <see cref="M:System.DateTimeOffset.ToString(System.IFormatProvider)" /> Метод возвращает строковое представление даты и времени в календаре, языка и региональных параметров, представленных <paramref name="formatProvider" /> параметра. Его календарь определяется <see cref="P:System.Globalization.DateTimeFormatInfo.Calendar" /> свойство. Если значение текущего <see cref="T:System.DateTimeOffset" /> экземпляра более ранняя, чем <see cref="P:System.Globalization.Calendar.MinSupportedDateTime" /> или более поздней версии, чем <see cref="P:System.Globalization.Calendar.MaxSupportedDateTime" />, метод вызывает <see cref="T:System.ArgumentOutOfRangeException" />. Ниже приведен пример. Он выполняет попытку отформатировать дату, которая находится вне диапазона от <see cref="T:System.Globalization.JapaneseCalendar" /> класса.  
+  
+[! code-csharp[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/cs/datetimeoffset.tostring.argumentoutofrangeexception1.cs#1)] [! код vb[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/vb/datetimeoffset.tostring.argumentoutofrangeexception1.vb#1)]</para>
         </block>
       </Docs>
     </Member>
@@ -4758,13 +4841,17 @@ Me.ToUtcDateTime().ToFileTime()
         </remarks>
         <exception cref="T:System.FormatException">Длина параметра <paramref name="format" /> равна единице, но он не является одним из знаков стандартного описателя формата, определенных для объекта <see cref="T:System.Globalization.DateTimeFormatInfo" />.  
   
--или- 
+- или - 
  Параметр <paramref name="format" /> не содержит допустимый пользовательский шаблон формата.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException">Дата и время находятся за пределами диапазона дат, поддерживаемого календарем, используемым для текущих языка и региональных параметров.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Дата и время находятся за пределами диапазона дат, поддерживаемого календарем, принятым для текущего языка и региональных параметров.</exception>
         <block subset="none" type="usage">
           <para>
-            <see cref="M:System.DateTimeOffset.ToString(System.String)" /> Метод возвращает строковое представление даты и времени в календаре, текущего языка и региональных параметров. Если значение текущего <see cref="T:System.DateTimeOffset" /> экземпляра более ранняя, чем <see cref="P:System.Globalization.Calendar.MinSupportedDateTime" /> или более поздней версии, чем <see cref="P:System.Globalization.Calendar.MaxSupportedDateTime" />, метод вызывает <see cref="T:System.ArgumentOutOfRangeException" />. Ниже приведен пример. Он выполняет попытку отформатировать дату, которая находится вне диапазона от <see cref="T:System.Globalization.HebrewCalendar" /> класса, если текущий язык — иврит (Израиль).  [! code-csharp[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/cs/datetimeoffset.tostring.argumentoutofrangeexception3.cs#3)] [! код vb[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/vb/datetimeoffset.tostring.argumentoutofrangeexception3.vb#3)]</para>
+            <see cref="M:System.DateTimeOffset.ToString(System.String)" /> Метод возвращает строковое представление даты и времени в календаре, текущего языка и региональных параметров. Если значение текущего <see cref="T:System.DateTimeOffset" /> экземпляра более ранняя, чем <see cref="P:System.Globalization.Calendar.MinSupportedDateTime" /> или более поздней версии, чем <see cref="P:System.Globalization.Calendar.MaxSupportedDateTime" />, метод вызывает <see cref="T:System.ArgumentOutOfRangeException" />. Ниже приведен пример. Он выполняет попытку отформатировать дату, которая находится вне диапазона от <see cref="T:System.Globalization.HebrewCalendar" /> класса, если текущий язык — иврит (Израиль).  
+  
+[! code-csharp[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/cs/datetimeoffset.tostring.argumentoutofrangeexception3.cs#3)] [! код vb[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/vb/datetimeoffset.tostring.argumentoutofrangeexception3.vb#3)]</para>
         </block>
+        <related type="Article" href="~/docs/standard/base-types/standard-date-and-time-format-strings.md">Строки стандартных форматов даты и времени</related>
+        <related type="Article" href="~/docs/standard/base-types/custom-date-and-time-format-strings.md">Строки настраиваемых форматов даты и времени</related>
       </Docs>
     </Member>
     <Member MemberName="ToString">
@@ -4851,13 +4938,18 @@ Me.ToUtcDateTime().ToFileTime()
         </remarks>
         <exception cref="T:System.FormatException">Длина параметра <paramref name="format" /> равна единице, но он не является одним из знаков стандартного описателя формата, определенных для объекта <see cref="T:System.Globalization.DateTimeFormatInfo" />.  
   
--или- 
+- или - 
  Параметр <paramref name="format" /> не содержит допустимый пользовательский шаблон формата.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Дата и время находятся за пределами диапазона дат, поддерживаемых календарем, который используется <paramref name="formatProvider" />.</exception>
         <block subset="none" type="usage">
           <para>
-            <see cref="M:System.DateTimeOffset.ToString(System.String,System.IFormatProvider)" /> Метод возвращает строковое представление даты и времени в календарь, используемый <paramref name="formatProvider" /> параметра. Его календарь определяется <see cref="P:System.Globalization.DateTimeFormatInfo.Calendar" /> свойство. Если значение текущего <see cref="T:System.DateTimeOffset" /> экземпляра более ранняя, чем <see cref="P:System.Globalization.Calendar.MinSupportedDateTime" /> или более поздней версии, чем <see cref="P:System.Globalization.Calendar.MaxSupportedDateTime" />, метод вызывает <see cref="T:System.ArgumentOutOfRangeException" />. Ниже приведен пример. Он выполняет попытку отформатировать дату, которая находится вне диапазона от <see cref="T:System.Globalization.UmAlQuraCalendar" /> класса.  [! code-csharp[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/cs/datetimeoffset.tostring.argumentoutofrangeexception4.cs#4)] [! код vb[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/vb/datetimeoffset.tostring.argumentoutofrangeexception4.vb#4)]</para>
+            <see cref="M:System.DateTimeOffset.ToString(System.String,System.IFormatProvider)" /> Метод возвращает строковое представление даты и времени в календарь, используемый <paramref name="formatProvider" /> параметра. Его календарь определяется <see cref="P:System.Globalization.DateTimeFormatInfo.Calendar" /> свойство. Если значение текущего <see cref="T:System.DateTimeOffset" /> экземпляра более ранняя, чем <see cref="P:System.Globalization.Calendar.MinSupportedDateTime" /> или более поздней версии, чем <see cref="P:System.Globalization.Calendar.MaxSupportedDateTime" />, метод вызывает <see cref="T:System.ArgumentOutOfRangeException" />. Ниже приведен пример. Он выполняет попытку отформатировать дату, которая находится вне диапазона от <see cref="T:System.Globalization.UmAlQuraCalendar" /> класса.  
+  
+[! code-csharp[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/cs/datetimeoffset.tostring.argumentoutofrangeexception4.cs#4)] [! код vb[System.DateTimeOffset.ToString.ArgumentOutOfRangeException#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.datetimeoffset.tostring.argumentoutofrangeexception/vb/datetimeoffset.tostring.argumentoutofrangeexception4.vb#4)]</para>
         </block>
+        <related type="Article" href="~/docs/standard/base-types/standard-date-and-time-format-strings.md">Строки стандартных форматов даты и времени</related>
+        <related type="Article" href="~/docs/standard/base-types/custom-date-and-time-format-strings.md">Строки настраиваемых форматов даты и времени</related>
+        <related type="ExternalDocumentation" href="https://code.msdn.microsoft.com/NET-Framework-4-Formatting-9c4dae8d">Пример. Служебная программа форматирования .NET Framework 4</related>
       </Docs>
     </Member>
     <Member MemberName="ToUniversalTime">
@@ -5025,6 +5117,12 @@ Me.ToUtcDateTime().ToFileTime()
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
@@ -5068,6 +5166,12 @@ Me.ToUtcDateTime().ToFileTime()
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -5155,6 +5259,7 @@ Me.ToUtcDateTime().ToFileTime()
  ]]></format>
         </remarks>
         <altmember cref="Overload:System.DateTimeOffset.Parse" />
+        <related type="ExternalDocumentation" href="https://code.msdn.microsoft.com/NET-Framework-4-Formatting-9c4dae8d">Пример. Служебная программа форматирования .NET Framework 4</related>
       </Docs>
     </Member>
     <Member MemberName="TryParse">
@@ -5168,6 +5273,12 @@ Me.ToUtcDateTime().ToFileTime()
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -5290,10 +5401,10 @@ Me.ToUtcDateTime().ToFileTime()
         </remarks>
         <exception cref="T:System.ArgumentException">Параметр <paramref name="styles" /> содержит неопределенное значение <see cref="T:System.Globalization.DateTimeStyles" />.  
   
--или- 
- <see cref="F:System.Globalization.DateTimeStyles.NoCurrentDateDefault" /> не поддерживается.  
+- или - 
+ Тип <see cref="F:System.Globalization.DateTimeStyles.NoCurrentDateDefault" /> не поддерживается.  
   
--или- 
+- или - 
  Параметр <paramref name="styles" /> содержит взаимоисключающие значения <see cref="T:System.Globalization.DateTimeStyles" />.</exception>
         <altmember cref="Overload:System.DateTimeOffset.Parse" />
       </Docs>
@@ -5322,6 +5433,12 @@ Me.ToUtcDateTime().ToFileTime()
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -5392,6 +5509,12 @@ Me.ToUtcDateTime().ToFileTime()
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -5553,10 +5676,10 @@ Me.ToUtcDateTime().ToFileTime()
         </remarks>
         <exception cref="T:System.ArgumentException">Параметр <paramref name="styles" /> содержит неопределенное значение <see cref="T:System.Globalization.DateTimeStyles" />.  
   
--или- 
- <see cref="F:System.Globalization.DateTimeStyles.NoCurrentDateDefault" /> не поддерживается.  
+- или - 
+ Тип <see cref="F:System.Globalization.DateTimeStyles.NoCurrentDateDefault" /> не поддерживается.  
   
--или- 
+- или - 
  Параметр <paramref name="styles" /> содержит взаимоисключающие значения <see cref="T:System.Globalization.DateTimeStyles" />.</exception>
         <block subset="none" type="usage">
           <para>В [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], <see cref="Overload:System.DateTimeOffset.TryParseExact" /> возвращает <see langword="false" /> Если анализируемая строка содержит компонент часов и обозначение AM/PM, которых нет в соглашении. В [!INCLUDE[net_v35_short](~/includes/net-v35-short-md.md)] и более ранних версий, обозначение AM/PM игнорируется.</para>
@@ -5656,10 +5779,10 @@ Me.ToUtcDateTime().ToFileTime()
         </remarks>
         <exception cref="T:System.ArgumentException">Параметр <paramref name="styles" /> содержит неопределенное значение <see cref="T:System.Globalization.DateTimeStyles" />.  
   
--или- 
- <see cref="F:System.Globalization.DateTimeStyles.NoCurrentDateDefault" /> не поддерживается.  
+- или - 
+ Тип <see cref="F:System.Globalization.DateTimeStyles.NoCurrentDateDefault" /> не поддерживается.  
   
--или- 
+- или - 
  Параметр <paramref name="styles" /> содержит взаимоисключающие значения <see cref="T:System.Globalization.DateTimeStyles" />.</exception>
         <block subset="none" type="usage">
           <para>В [!INCLUDE[net_v40_short](~/includes/net-v40-short-md.md)], <see cref="Overload:System.DateTimeOffset.TryParseExact" /> возвращает <see langword="false" /> Если анализируемая строка содержит компонент часов и обозначение AM/PM, которых нет в соглашении. В [!INCLUDE[net_v35_short](~/includes/net-v35-short-md.md)] и более ранних версий, обозначение AM/PM игнорируется.</para>
@@ -5677,6 +5800,12 @@ Me.ToUtcDateTime().ToFileTime()
       <AssemblyInfo>
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>mscorlib</AssemblyName>
+      </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>netstandard</AssemblyName>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.DateTimeOffset</ReturnType>

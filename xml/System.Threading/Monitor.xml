@@ -1,11 +1,11 @@
 <Type Name="Monitor" FullName="System.Threading.Monitor">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="954622f2462225c1791594afeb678ab93b5bb509" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="df70f7cc62e1ef013835d69cf0220d9e8b42bc5a" />
+    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39989892" />
+    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
+    <Meta Name="ms.locfileid" Value="48729804" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class Monitor" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Monitor extends System.Object" />
@@ -36,7 +36,7 @@
   </Base>
   <Interfaces />
   <Attributes>
-    <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
+    <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
       <AttributeName>System.Runtime.InteropServices.ComVisible(true)</AttributeName>
     </Attribute>
   </Attributes>
@@ -135,9 +135,9 @@
 ## <a name="pulse-pulseall-and-wait"></a>Ожидания, Pulse и PulseAll  
  Как только поток владеет блокировкой и он перешел критический раздел, который защищает блокировки, оно может вызвать <xref:System.Threading.Monitor.Wait%2A?displayProperty=nameWithType>, <xref:System.Threading.Monitor.Pulse%2A?displayProperty=nameWithType>, и <xref:System.Threading.Monitor.PulseAll%2A?displayProperty=nameWithType> методы.  
   
- <xref:System.Threading.Monitor.Wait%2A> снимает блокировку, если она является, ожидающий поток или потоков, чтобы получить блокировку и войдет в критический раздел и ожидает уведомления с помощью вызова <xref:System.Threading.Monitor.Pulse%2A?displayProperty=nameWithType> или <xref:System.Threading.Monitor.PulseAll%2A?displayProperty=nameWithType> метод. Когда <xref:System.Threading.Monitor.Wait%2A> уведомляется, он возвращает значение и снова получает блокировку.  
+ Когда поток, содержащий вызовы блокировки <xref:System.Threading.Monitor.Wait%2A>, блокировка снимается, и поток добавляется в очередь ожидания синхронизированный объект. Первый поток в очередь готовности, если таковые имеются, получает блокировку и войдет в критический раздел. Поток перемещается из очереди ожидания в очередь готовности при либо <xref:System.Threading.Monitor.Pulse%2A?displayProperty=nameWithType> (для перемещения, поток должен быть в голове очереди ожидания) или <xref:System.Threading.Monitor.PulseAll%2A?displayProperty=nameWithType> метод вызывается на поток, удерживающий блокировку. <xref:System.Threading.Monitor.Wait%2A> Возвращает метод, если вызывающий поток снова получает блокировку.  
   
- Как <xref:System.Threading.Monitor.Pulse%2A>, так и <xref:System.Threading.Monitor.PulseAll%2A> сигнализируют следующему потоку в очереди ожидания о том, что можно продолжать работу.  
+ Когда поток, содержащий вызовы блокировки <xref:System.Threading.Monitor.Pulse%2A>, поток в голове очереди ожидания перемещается в очередь готовности. Вызов <xref:System.Threading.Monitor.PulseAll%2A> метод перемещает все потоки из очереди ожидания в очередь готовности.  
   
 <a name="WaitHandles"></a>   
 ## <a name="monitors-and-wait-handles"></a>Мониторы и дескрипторы ожидания  
@@ -174,6 +174,8 @@
     </remarks>
     <threadsafe>Данный тип потокобезопасен.</threadsafe>
     <altmember cref="T:System.Threading.Thread" />
+    <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
+    <related type="Article" href="~/docs/standard/threading/threading-objects-and-features.md">Объекты и функциональные возможности работы с потоками</related>
   </Docs>
   <Members>
     <MemberGroup MemberName="Enter">
@@ -214,7 +216,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -252,6 +254,8 @@
         </remarks>
         <exception cref="T:System.ArgumentNullException">Параметр <paramref name="obj" /> имеет значение <see langword="null" />.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <altmember cref="T:System.Threading.Monitor" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <Member MemberName="Enter">
@@ -352,10 +356,10 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
+        <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
           <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
         </Attribute>
-        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -390,6 +394,8 @@
         <exception cref="T:System.ArgumentNullException">Параметр <paramref name="obj" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Threading.SynchronizationLockException">Данный поток не владеет блокировкой для указанного объекта.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <altmember cref="T:System.Threading.Monitor" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <Member MemberName="IsEntered">
@@ -417,7 +423,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
+        <Attribute FrameworkAlternate="netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -471,7 +477,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -506,6 +512,8 @@
         <exception cref="T:System.ArgumentNullException">Параметр <paramref name="obj" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Threading.SynchronizationLockException">Вызывающий поток не владеет блокировкой для указанного объекта.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <altmember cref="T:System.Threading.Monitor" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <Member MemberName="PulseAll">
@@ -535,7 +543,7 @@
         <AssemblyVersion>2.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-1.0;netstandard-1.1;netstandard-1.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -567,6 +575,8 @@
         <exception cref="T:System.ArgumentNullException">Параметр <paramref name="obj" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.Threading.SynchronizationLockException">Вызывающий поток не владеет блокировкой для указанного объекта.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <altmember cref="T:System.Threading.Monitor" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <MemberGroup MemberName="TryEnter">
@@ -645,6 +655,7 @@
         </remarks>
         <exception cref="T:System.ArgumentNullException">Параметр <paramref name="obj" /> имеет значение <see langword="null" />.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <Member MemberName="TryEnter">
@@ -785,6 +796,7 @@
         <exception cref="T:System.ArgumentOutOfRangeException">
           <paramref name="millisecondsTimeout" /> является отрицательным числом и не равно <see cref="F:System.Threading.Timeout.Infinite" />.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <Member MemberName="TryEnter">
@@ -844,6 +856,7 @@
         <exception cref="T:System.ArgumentNullException">Параметр <paramref name="obj" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение <paramref name="timeout" /> (в миллисекундах) является отрицательным. Оно не равно <see cref="F:System.Threading.Timeout.Infinite" /> (-1 миллисекунда) или больше <see cref="F:System.Int32.MaxValue" />.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <Member MemberName="TryEnter">
@@ -987,6 +1000,7 @@
         <exception cref="T:System.ArgumentNullException">Параметр <paramref name="obj" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение <paramref name="timeout" /> (в миллисекундах) является отрицательным. Оно не равно <see cref="F:System.Threading.Timeout.Infinite" /> (-1 миллисекунда) или больше <see cref="F:System.Int32.MaxValue" />.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <MemberGroup MemberName="Wait">
@@ -1065,6 +1079,8 @@
         <exception cref="T:System.Threading.SynchronizationLockException">Вызывающий поток не владеет блокировкой для указанного объекта.</exception>
         <exception cref="T:System.Threading.ThreadInterruptedException">Поток, который вызывает <see langword="Wait" />, позже прерывается из состояния ожидания. Это происходит, когда другой поток вызывает метод <see cref="M:System.Threading.Thread.Interrupt" /> этого потока.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <altmember cref="T:System.Threading.Monitor" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <Member MemberName="Wait">
@@ -1141,6 +1157,8 @@
         <exception cref="T:System.Threading.ThreadInterruptedException">Поток, который вызывает <see langword="Wait" />, позже прерывается из состояния ожидания. Это происходит, когда другой поток вызывает метод <see cref="M:System.Threading.Thread.Interrupt" /> этого потока.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="millisecondsTimeout" /> отрицательно и не равно <see cref="F:System.Threading.Timeout.Infinite" />.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <altmember cref="T:System.Threading.Monitor" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <Member MemberName="Wait">
@@ -1217,6 +1235,8 @@
         <exception cref="T:System.Threading.ThreadInterruptedException">Поток, который вызывает <see langword="Wait" />, позже прерывается из состояния ожидания. Это происходит, когда другой поток вызывает метод <see cref="M:System.Threading.Thread.Interrupt" /> этого потока.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="timeout" /> в миллисекундах отрицательно и не равно <see cref="F:System.Threading.Timeout.Infinite" /> (–1 миллисекунда), или больше чем <see cref="F:System.Int32.MaxValue" />.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <altmember cref="T:System.Threading.Monitor" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <Member MemberName="Wait">
@@ -1244,7 +1264,7 @@
         <AssemblyVersion>4.1.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
-        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0">
+        <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
           <AttributeName>System.Security.SecuritySafeCritical</AttributeName>
         </Attribute>
       </Attributes>
@@ -1301,6 +1321,8 @@
         <exception cref="T:System.Threading.ThreadInterruptedException">Поток, который вызывает <see langword="Wait" />, позже прерывается из состояния ожидания. Это происходит, когда другой поток вызывает метод <see cref="M:System.Threading.Thread.Interrupt" /> этого потока.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Значение параметра <paramref name="millisecondsTimeout" /> отрицательно и не равно <see cref="F:System.Threading.Timeout.Infinite" />.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <altmember cref="T:System.Threading.Monitor" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
     <Member MemberName="Wait">
@@ -1380,6 +1402,8 @@
         <exception cref="T:System.Threading.ThreadInterruptedException">Для потока, который вызывает Wait, состояние ожидания позже прерывается. Это происходит, когда другой поток вызывает метод <see cref="M:System.Threading.Thread.Interrupt" /> этого потока.</exception>
         <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="timeout" /> имеет отрицательное значение и не представляет <see cref="F:System.Threading.Timeout.Infinite" /> (-1 миллисекунда) или больше, чем <see cref="F:System.Int32.MaxValue" />.</exception>
         <altmember cref="T:System.Threading.Thread" />
+        <altmember cref="T:System.Threading.Monitor" />
+        <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
       </Docs>
     </Member>
   </Members>
