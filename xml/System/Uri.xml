@@ -1,11 +1,11 @@
 <Type Name="Uri" FullName="System.Uri">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="bc748165070ca7c2fc35cc5a3d821923907161f7" />
-    <Meta Name="ms.sourcegitcommit" Value="41742a1055cefdeaf2f9d76364f4bad3c9f83126" />
+    <Meta Name="ms.openlocfilehash" Value="6a2e8da0423adb69adab3d2953a45d27b12eeb0c" />
+    <Meta Name="ms.sourcegitcommit" Value="dc6ea82452beeb642259a38f3c2fad756ebd3d9f" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="10/16/2018" />
-    <Meta Name="ms.locfileid" Value="48689803" />
+    <Meta Name="ms.lasthandoff" Value="11/07/2018" />
+    <Meta Name="ms.locfileid" Value="51264571" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class Uri : System.Runtime.Serialization.ISerializable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit Uri extends System.Object implements class System.Runtime.Serialization.ISerializable" />
@@ -71,7 +71,9 @@
 -   Если имя узла представляет собой адрес IPv6, используется канонический адрес IPv6. ScopeId и другие необязательные данные IPv6 удаляются.  
   
 -   Удаляет значение по умолчанию, а также номера портов пустой.
-
+  
+-   Преобразует явные путями file:// схема неявное путей без file:// схема (например, «C:\my\file»).
+  
 -   Escape-символы (также известный как закодированные октетов), у которых нет зарезервированных цели декодирование (также известный как неэкранированную форму). Эти незарезервированные символы: прописные и строчные буквы (% 41-% 5а и % 61-% 7A), десятичные цифры (% 30-% 39), дефис (% 2D), период (% 2E), символ подчеркивания (% 5F), а тильда (% 7E).
 
 -   Канонизирует путь для иерархических URI на сжатие последовательности таких как /. /, /... /, и / / (ли экранируется последовательности). Обратите внимание, что некоторые схемы, для которых эти последовательности не сжимаются.
@@ -168,6 +170,14 @@ http://myUrl/
  Расширен был также и класс <xref:System.GenericUriParser?displayProperty=nameWithType>, который теперь позволяет создавать настраиваемые средства синтаксического анализа, поддерживающие IRI и IDN. Поведение объекта <xref:System.GenericUriParser?displayProperty=nameWithType> задается путем передачи побитового сочетания значений, доступных в перечислении <xref:System.GenericUriParserOptions?displayProperty=nameWithType>, конструктору <xref:System.GenericUriParser?displayProperty=nameWithType>. Тип <xref:System.GenericUriParserOptions.IriParsing?displayProperty=nameWithType> указывает на то, что средство синтаксического анализа поддерживает правила анализа, определенные стандартом RFC 3987 для международных кодов ресурсов (IRI). Используется ли IRI, зависит от рассмотренных ранее значений конфигурации.  
   
  Тип <xref:System.GenericUriParserOptions.Idn?displayProperty=nameWithType> указывает на то, что средство синтаксического анализа поддерживает анализ международных доменных имен (IDN) узлов. Используется ли IDN, зависит от рассмотренных ранее значений конфигурации.  
+  
+## <a name="implicit-file-path-support"></a>Поддержка путь неявных файлов
+ <xref:System.Uri> может также использоваться для представления локального пути. Эти пути могут быть представлены *явно* в URI, которые начинаются с file:// схема, и *неявно* в URI, которые не имеют file:// схема. В примерах двух следующих URI допустимы и представляют один и тот же путь файла:
+```csharp
+Uri uri1 = new Uri("C:/test/path/file.txt") // Implicit file path.
+Uri uri2 = new Uri("file:///C:/test/path/file.txt") // Explicit file path.
+```
+ Эти неявные пути не соответствуют спецификации URI и поэтому следует избегать, если это возможно. При использовании .NET Core в системах на основе Unix, пути к файлам неявное может быть особенно проблематично, так как неявные абсолютный путь на диске *неотличимы* из относительный путь. При наличии такой неоднозначности, <xref:System.Uri> по умолчанию для интерпретации путь в абсолютный URI.
   
 ## <a name="performance-considerations"></a>Особенности производительности  
  Если вы используете *Web.config * файл, содержащий URI для инициализации приложений, дополнительные времени должна обрабатывать коды URI, в случае нестандартных идентификаторов схем. В таком случае инициализируйте части приложения, затронутых при необходимости коды URI, не указанное время начала.  
