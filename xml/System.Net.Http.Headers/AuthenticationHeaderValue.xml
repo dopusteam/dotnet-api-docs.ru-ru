@@ -1,11 +1,11 @@
 <Type Name="AuthenticationHeaderValue" FullName="System.Net.Http.Headers.AuthenticationHeaderValue">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="d2d4e6bc9793c0f3ad5cca72b73b46287d6e66fa" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="f69aa75129282047974f0411d4cc15216acb8cfe" />
+    <Meta Name="ms.sourcegitcommit" Value="62bcacfee0d33822edac327292243489b9b4b3c6" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39924132" />
+    <Meta Name="ms.lasthandoff" Value="11/01/2018" />
+    <Meta Name="ms.locfileid" Value="50747106" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class AuthenticationHeaderValue : ICloneable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit AuthenticationHeaderValue extends System.Object implements class System.ICloneable" />
@@ -34,7 +34,7 @@
     </Interface>
   </Interfaces>
   <Docs>
-    <summary>Представляет сведения об аутентификации в значениях заголовка Authorization, ProxyAuthorization, WWW-Authneticate и Proxy-Authenticate.</summary>
+    <summary>Представляет сведения проверке подлинности в значениях заголовков Authorization, ProxyAuthorization, WWW-Authneticate и Proxy-Authenticate.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
@@ -81,9 +81,28 @@
         <Parameter Name="scheme" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="scheme">Схема, которую требуется использовать для авторизации.</param>
+        <param name="scheme">Схема, используемая при авторизации.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />.</summary>
-        <remarks>To be added.</remarks>
+        <remarks>
+          <format type="text/markdown"><![CDATA[ 
+Пример
+```csharp
+HttpClient client = new HttpClient();
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ACCESS_TOKEN);
+```
+
+```vb
+Dim client = New HttpClient()
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(ACCESS_TOKEN)
+```
+
+Выдаст следующий заголовок:
+```
+Authorization: ACCESS_TOKEN
+```
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -111,10 +130,28 @@
         <Parameter Name="parameter" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="scheme">Схема, которую требуется использовать для авторизации.</param>
-        <param name="parameter">Учетные данные, содержащие сведения для аутентификации агента пользователя для запрашиваемого ресурса.</param>
+        <param name="scheme">Схема, используемая при авторизации.</param>
+        <param name="parameter">Учетные данные, содержащие сведения для проверки подлинности агента пользователя для запрашиваемого ресурса.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />.</summary>
-        <remarks>To be added.</remarks>
+        <remarks>
+          <format type="text/markdown"><![CDATA[ 
+Пример
+```csharp
+HttpClient client = new HttpClient();
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ACCESS_TOKEN);
+```
+
+```vb
+Dim client = new HttpClient()
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ACCESS_TOKEN)
+```
+
+ Выдаст следующий заголовок:
+```
+Authorization: Bearer ACCESS_TOKEN
+```
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Equals">
@@ -146,7 +183,7 @@
       <Docs>
         <param name="obj">Объект, который требуется сравнить с текущим объектом.</param>
         <summary>Определяет, равен ли заданный объект <see cref="T:System.Object" /> текущему объекту <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />.</summary>
-        <returns>Значение <see langword="true" />, если заданный объект <see cref="T:System.Object" /> равен текущему объекту; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если указанный объект <see cref="T:System.Object" /> равен текущему объекту. В противном случае — <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -213,8 +250,8 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Получает учетные данные, содержащие сведения для аутентификации агента пользователя для запрашиваемого ресурса.</summary>
-        <value>Учетные данные, содержащие сведения об аутентификации.</value>
+        <summary>Возвращает учетные данные, содержащие сведения о проверке подлинности агента пользователя для запрашиваемого ресурса.</summary>
+        <value>Учетные данные, содержащие сведения о проверке подлинности.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -245,13 +282,14 @@
         <Parameter Name="input" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="input">Строка представляющая сведения о значении заголовка аутентификации.</param>
+        <param name="input">Строка, представляющая сведения о значении заголовка проверки подлинности.</param>
         <summary>Преобразует строку в экземпляр <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />.</summary>
         <returns>Экземпляр <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />.</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="input" /> имеет ссылку <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">
+          <paramref name="input" /> — это пустая ссылка (<see langword="null" />).</exception>
         <exception cref="T:System.FormatException">
-          <paramref name="input" /> не является допустимыми сведениями о значении заголовка аутентификации.</exception>
+          <paramref name="input" /> не представляет допустимые сведения о значении заголовка проверки подлинности.</exception>
       </Docs>
     </Member>
     <Member MemberName="Scheme">
@@ -278,8 +316,8 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Получает схему, используемую для авторизации.</summary>
-        <value>Схема, которую требуется использовать для авторизации.</value>
+        <summary>Возвращает схему, используемую при авторизации.</summary>
+        <value>Схема, используемая при авторизации.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -308,7 +346,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Создает новый объект, являющийся копией текущего экземпляра <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />.</summary>
+        <summary>Создает новый объект <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />, являющийся копией текущего экземпляра.</summary>
         <returns>Копия текущего экземпляра.</returns>
         <remarks>To be added.</remarks>
       </Docs>
@@ -371,10 +409,11 @@
         <Parameter Name="parsedValue" Type="System.Net.Http.Headers.AuthenticationHeaderValue" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="input">Строка, которую следует проверить.</param>
-        <param name="parsedValue">Возвращает версию строки <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />.</param>
-        <summary>Определяет, является ли строка допустимой информацией <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />.</summary>
-        <returns>Значение <see langword="true" />, если параметр <paramref name="input" /> является допустимой информацией <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />; в противном случае — значение <see langword="false" />.</returns>
+        <param name="input">Проверяемая строка.</param>
+        <param name="parsedValue">Версия <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" /> строки.</param>
+        <summary>Определяет, является ли строка допустимыми сведениями <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />.</summary>
+        <returns>
+          <see langword="true" />, если <paramref name="input" /> представляет допустимые сведения <see cref="T:System.Net.Http.Headers.AuthenticationHeaderValue" />. В противном случае — <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>

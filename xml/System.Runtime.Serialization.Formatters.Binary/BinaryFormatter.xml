@@ -1,11 +1,11 @@
 <Type Name="BinaryFormatter" FullName="System.Runtime.Serialization.Formatters.Binary.BinaryFormatter">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="3d3f18c3be90584fc6fefb3d92e79dfac68da8f4" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="4f66f7862b6b883ed332228a0af53a2514289c8b" />
+    <Meta Name="ms.sourcegitcommit" Value="723b8a6d92667ba86fcda96190bad3b4a03283b3" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48671096" />
+    <Meta Name="ms.lasthandoff" Value="11/09/2018" />
+    <Meta Name="ms.locfileid" Value="51312741" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class BinaryFormatter : System.Runtime.Remoting.Messaging.IRemotingFormatter" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit BinaryFormatter extends System.Object implements class System.Runtime.Remoting.Messaging.IRemotingFormatter, class System.Runtime.Serialization.IFormatter" />
@@ -36,6 +36,9 @@
     <Interface>
       <InterfaceName>System.Runtime.Remoting.Messaging.IRemotingFormatter</InterfaceName>
     </Interface>
+    <Interface>
+      <InterfaceName>System.Runtime.Serialization.IFormatter</InterfaceName>
+    </Interface>
   </Interfaces>
   <Attributes>
     <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0;netframework-4.8">
@@ -59,7 +62,7 @@
  Процедура сериализации для ответа метода идентична вызова метода, за исключением первый объект из объекта должен поддерживать graph <xref:System.Runtime.Remoting.Messaging.IMethodReturnMessage> интерфейс. Для десериализации ответа метода, используйте <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse%2A> метод. Чтобы сэкономить время, сведения о вызывающем объекте не отправляются на удаленный объект при вызове метода. Вместо этого эти сведения получаются из исходного вызова метода, который передается <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse%2A> метод в <xref:System.Runtime.Remoting.Messaging.IMethodCallMessage> параметра. Первый объект в графе, возвращенном <xref:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.DeserializeMethodResponse%2A> поддерживает метод <xref:System.Runtime.Remoting.Messaging.IMethodReturnMessage> интерфейс.  
   
 > [!IMPORTANT]
->  Использование двоичной сериализации для десериализации ненадежных данных может привести к угрозам безопасности. Дополнительные сведения см. в разделе [проверки данных](https://www.owasp.org/index.php/Data_Validation).  
+>  Использование двоичной сериализации для десериализации ненадежных данных может привести к угрозам безопасности. Дополнительные сведения: [Data Validation](https://www.owasp.org/index.php/Data_Validation) (Проверка данных).  
   
 ## <a name="unpaired-surrogates"></a>Непарные символы  
  Любые Непарные символы, теряются при двоичной сериализации. Например, следующая строка содержит значение верхнего суррогатного символа Юникода `(\ud800`) между двумя `Test` слов:  
@@ -191,7 +194,7 @@
         <Parameter Name="context" Type="System.Runtime.Serialization.StreamingContext" />
       </Parameters>
       <Docs>
-        <param name="selector">Используемый <see cref="T:System.Runtime.Serialization.ISurrogateSelector" />. Может принимать значение <see langword="null" />.</param>
+        <param name="selector">Используемый <see cref="T:System.Runtime.Serialization.ISurrogateSelector" />. Может иметь значение <see langword="null" />.</param>
         <param name="context">Новые источник и назначение для сериализованных данных.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter" /> с заданными суррогатным селектором и потоковым контекстом.</summary>
         <remarks>
@@ -454,7 +457,7 @@
       </Parameters>
       <Docs>
         <param name="serializationStream">Поток, из которого десериализуется граф объекта.</param>
-        <param name="handler">Обработчик <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />, который обрабатывает любые заголовки в потоке <c>serializationStream</c>. Может принимать значение <see langword="null" />.</param>
+        <param name="handler">Обработчик <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />, который обрабатывает любые заголовки в потоке <c>serializationStream</c>. Может иметь значение <see langword="null" />.</param>
         <summary>Десериализует заданный поток в граф объекта. Предоставленный <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" /> обрабатывает любые заголовки в этом потоке.</summary>
         <returns>Десериализованный объект или верхний объект (корень) графа объектов.</returns>
         <remarks>
@@ -515,7 +518,7 @@
       </Parameters>
       <Docs>
         <param name="serializationStream">Поток, из которого десериализуется граф объекта.</param>
-        <param name="handler">Обработчик <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />, который обрабатывает любые заголовки в потоке <c>serializationStream</c>. Может принимать значение <see langword="null" />.</param>
+        <param name="handler">Обработчик <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />, который обрабатывает любые заголовки в потоке <c>serializationStream</c>. Может иметь значение <see langword="null" />.</param>
         <param name="methodCallMessage">
           <see cref="T:System.Runtime.Remoting.Messaging.IMethodCallMessage" />, содержащее дополнительные сведения об источнике вызова.</param>
         <summary>Десериализует ответ удаленному вызову метода от предоставленного <see cref="T:System.IO.Stream" />.</summary>
@@ -695,7 +698,7 @@
       <Docs>
         <param name="serializationStream">Поток, для которого необходимо сериализовать объект.</param>
         <param name="graph">Объект в корне сериализуемого графа.</param>
-        <param name="headers">Удаленные заголовки, включаемые в сериализацию. Может принимать значение <see langword="null" />.</param>
+        <param name="headers">Удаленные заголовки, включаемые в сериализацию. Может иметь значение <see langword="null" />.</param>
         <summary>Сериализует объект или граф объектов с указанной вершиной (корнем) в заданный поток, присоединяя предоставленные заголовки.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -829,7 +832,7 @@
       </Parameters>
       <Docs>
         <param name="serializationStream">Поток, из которого десериализуется граф объекта.</param>
-        <param name="handler">Обработчик <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />, который обрабатывает любые заголовки в потоке <c>serializationStream</c>. Может принимать значение <see langword="null" />.</param>
+        <param name="handler">Обработчик <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />, который обрабатывает любые заголовки в потоке <c>serializationStream</c>. Может иметь значение <see langword="null" />.</param>
         <summary>Десериализует заданный поток в граф объекта. Предоставленный <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" /> обрабатывает любые заголовки в этом потоке.</summary>
         <returns>Десериализованный объект или верхний объект (корень) графа объектов.</returns>
         <remarks>
@@ -892,7 +895,7 @@
       </Parameters>
       <Docs>
         <param name="serializationStream">Поток, из которого десериализуется граф объекта.</param>
-        <param name="handler">Обработчик <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />, который обрабатывает любые заголовки в потоке <c>serializationStream</c>. Может принимать значение <see langword="null" />.</param>
+        <param name="handler">Обработчик <see cref="T:System.Runtime.Remoting.Messaging.HeaderHandler" />, который обрабатывает любые заголовки в потоке <c>serializationStream</c>. Может иметь значение <see langword="null" />.</param>
         <param name="methodCallMessage">
           <see cref="T:System.Runtime.Remoting.Messaging.IMethodCallMessage" />, содержащее дополнительные сведения об источнике вызова.</param>
         <summary>Десериализует ответ удаленному вызову метода от предоставленного <see cref="T:System.IO.Stream" />.</summary>

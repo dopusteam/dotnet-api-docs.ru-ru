@@ -1,11 +1,11 @@
 <Type Name="Span&lt;T&gt;" FullName="System.Span&lt;T&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="ed04128e65524eee587eec2d84c3879e4073a91a" />
-    <Meta Name="ms.sourcegitcommit" Value="9dda17222b9f7d3edf130133bfb1370d5b410a4b" />
+    <Meta Name="ms.openlocfilehash" Value="882e05e21dfecfb02fbc683ac8abfa9b1e46c5c7" />
+    <Meta Name="ms.sourcegitcommit" Value="723b8a6d92667ba86fcda96190bad3b4a03283b3" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="09/22/2018" />
-    <Meta Name="ms.locfileid" Value="46641008" />
+    <Meta Name="ms.lasthandoff" Value="11/09/2018" />
+    <Meta Name="ms.locfileid" Value="51310915" />
   </Metadata>
   <TypeSignature Language="C#" Value="public struct Span&lt;T&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit Span`1&lt;T&gt; extends System.ValueType" />
@@ -42,9 +42,51 @@
     <remarks>
       <format type="text/markdown"><![CDATA[  
 
-`Span<T>` — [структура ссылки](~/docs/csharp/reference-semantics-with-value-types.md#ref-struct-type) , расположенной в стеке, а не в управляемой куче. Ref struct типы имеют ряд ограничений, чтобы убедиться, что они не преобразуется управляемой куче, включая, что они не могут быть упакованы, и они не могут быть назначены переменным типа <xref:System.Object>, `dynamic`и любой другой тип интерфейса.
+`Span<T>` — [структура ссылки](~/docs/csharp/reference-semantics-with-value-types.md#ref-struct-type) , расположенной в стеке, а не в управляемой куче. Ref struct типы имеют ряд ограничений, чтобы убедиться, что они не преобразуется управляемой куче, включая, что они не могут быть упакованы, они не могут быть назначены переменным типа <xref:System.Object>, `dynamic` или любой другой тип интерфейса, они не могут быть поля в ссылочный тип и их нельзя сравнивать `await` и `yield` границы. Кроме того, вызовы два метода <xref:System.Span%601.Equals(System.Object)> и <xref:System.Span%601.GetHashCode%2A>, исключение <xref:System.NotSupportedException>. 
 
-Объект `Span<T>` экземпляр часто используется для хранения элементов в массиве или в части массива. В отличие от массива, однако `Span<T>` экземпляр может указывать на управляемую память, внутренней памяти или управляемых памяти в стеке.
+> [!IMPORTANT]
+> Так как он является типом только для стека `Span<T>` не подходит для многих сценариев, требующих хранения ссылки на буферы в куче. Это верно, к примеру, подпрограмм, которые выполняют вызовы метода asynchrous. Для таких scenarious можно использовать бесплатно <xref:System.Memory%601?displayProperty=nameWithType> и <xref:System.ReadOnlyMemory%601?displayProperty=nameWithType> типов.
+
+Для диапазонов, которые представляют структуры неизменное или только для чтения, используйте <xref:System.ReadOnlySpan%601?displayProperty=nameWithType>.
+
+## <a name="spant-and-memory"></a>Диапазон\<T > и памяти
+
+Объект `Span<T>` представляет непрерывную область произвольной памяти. Объект `Span<T>` экземпляр часто используется для хранения элементов в массиве или в части массива. В отличие от массива, однако `Span<T>` экземпляр может указывать на управляемую память, внутренней памяти или управляемых памяти в стеке. В следующем примере создается `Span<Byte>` из массива:
+
+[!code-csharp[Creating a Span\<Byte> from an array](~/samples/snippets/csharp/api/system/span/program.cs#1)]
+     
+В следующем примере создается `Span<Byte>` из 100 байт внутренней памяти:
+
+[!code-csharp[Creating a Span\<Byte> from native memory](~/samples/snippets/csharp/api/system/span/program.cs#2)]
+
+В следующем примере используется C# [stackalloc](~/docs/csharp/language-reference/keywords/stackalloc.md) ключевых слов для выделения 100 байт памяти в стеке:
+
+[!code-csharp[Creating a Span\<Byte> from stack-allocated memory](~/samples/snippets/csharp/api/system/span/program.cs#3)]
+
+Так как `Span<T>` — это абстракция над произвольный блок памяти, методы `Span<T>` классов и методов с `Span<T>` параметры работают с любой `Span<T>` объекта независимо от типа памяти, содержащейся в нем. Например каждый из отдельных разделов кода, инициализирующие диапазон и вычислять сумму его элементов можно изменить в одиночной инициализации и методы расчетов, как в примере ниже показаны:
+
+[!code-csharp[Creating a Span\<Byte> from stack-allocated memory](~/samples/snippets/csharp/api/system/span/program.cs#4)]
+
+## <a name="spant-and-arrays"></a>Диапазон\<T > и массивы
+
+При его переносе в массиве, `Span<T>` можно заключить весь массив, как и в примерах в [диапазон\<T > и памяти](#spant-and-memory) раздел. Так как он поддерживает Создание срезов, `Span<T>` также может указывать любой непрерывный диапазон в массиве.  
+
+В следующем примере создается срез средних пять элементов целое число 10 элементов массива. Обратите внимание на то, что код удваивает значения каждого целого числа в срез. Как показывает вывод, изменения, внесенные в диапазоне, отражаются в значения массива.
+
+[!code-csharp[Creating a slice from a portion of a span](~/samples/snippets/csharp/api/system/span/slice/program.cs)]
+
+## <a name="spant-and-slices"></a>Диапазон\<T > и срезы
+
+`Span\<T>` включает в себя две перегрузки <xref:System.Span%601.Slice%2A> метод этой формы среза вне текущей области, который начинается с указанного индекса. Это позволяет обрабатывать данные в `Span\<T>` как набор логические фрагменты, которые могут обрабатываться при необходимости частями конвейер обработки данных без ущерба для производительности. Например так как современные серверные протоколы часто являются текстовыми, работы со строками и подстроки особенно важна. В <xref:System.String> класса, основной метод для извлечения подстроки является <xref:System.String.Substring%2A>. Для конвейеры данных, которые используют обширные строками его использование предлагает некоторые снижения производительности, так как оно:
+
+1. Создает новую строку для хранения подстроки.
+
+2. Копирует определенное подмножество символов из исходной строки в новой строке.
+
+Эта операция выделения и копирования, можно устранить с помощью `Span\<T>` или <xref:System.ReadOnlySpan%601>, как показано в следующем примере:
+
+[!code-csharp[Creating a slice from a substring](~/samples/snippets/csharp/api/system/span/slice2/program.cs)]
+
 
       ]]></format>
     </remarks>
