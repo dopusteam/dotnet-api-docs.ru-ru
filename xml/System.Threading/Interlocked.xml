@@ -1,11 +1,11 @@
 <Type Name="Interlocked" FullName="System.Threading.Interlocked">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="7fd6b58d4830bad8e69f870f2d493afbb5945295" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="2c4ca68eab5cab83362bc1249915513f4de221da" />
+    <Meta Name="ms.sourcegitcommit" Value="d71cc71109ed3cbcf3406a10a3cd7ac7e30f5e0c" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48769818" />
+    <Meta Name="ms.lasthandoff" Value="11/10/2018" />
+    <Meta Name="ms.locfileid" Value="51525779" />
   </Metadata>
   <TypeSignature Language="C#" Value="public static class Interlocked" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Interlocked extends System.Object" />
@@ -57,9 +57,12 @@
 3.  Store значение в переменной экземпляра.  
   
  Если вы не используете <xref:System.Threading.Interlocked.Increment%2A> и <xref:System.Threading.Interlocked.Decrement%2A>, поток может быть вытеснен после выполнения первых двух шагов. Другой поток, затем можно выполнить все три шага. Когда первый поток возобновляет выполнение, он переопределяет значение в переменной экземпляра, и последствия инкремент или декремент выполняется вторым потоком теряется.  
+
+ <xref:System.Threading.Interlocked.Add%2A> Метод атомарным образом добавляет к целочисленной переменной значение целого числа и возвращает новое значение переменной.  
   
  <xref:System.Threading.Interlocked.Exchange%2A> Метод атомарным образом меняет местами значения указанных переменных. <xref:System.Threading.Interlocked.CompareExchange%2A> Метод объединяет две операции: сравнение двух значений и сохранение третьего значения в одной из переменных, на основе результата сравнения. Операции сравнения и обмена выполняются в виде атомарной операции.  
-  
+
+ Убедитесь, что все записи или доступ на чтение к общей переменной является атомарной. В противном случае они могут быть повреждены или загруженное значение могут быть неправильными.    
    
   
 ## Examples  
@@ -195,8 +198,6 @@
   
 ## Remarks  
  Этот метод обрабатывает условие, заключая: Если значение в `location1` — <xref:System.Int64.MaxValue?displayProperty=nameWithType> и `value` равно 1, в результате <xref:System.Int64.MinValue?displayProperty=nameWithType>; Если `value` равно 2, в результате (<xref:System.Int64.MinValue?displayProperty=nameWithType> + 1); и т. д. Исключение не возникает.  
-  
- <xref:System.Threading.Interlocked.Read%2A> Метод и 64-разрядных перегрузок <xref:System.Threading.Interlocked.Increment%2A>, <xref:System.Threading.Interlocked.Decrement%2A>, и <xref:System.Threading.Interlocked.Add%2A> методы атомарны действительно только в системах, где <xref:System.IntPtr?displayProperty=nameWithType> 64 бита. В других системах эти методы являются атомарными по отношению друг к другу, но не по отношению к другими способами доступа к данным. Таким образом, чтобы быть поточно-ориентированным на 32-разрядных системах, доступа к 64-разрядное значение необходимо устанавливать с помощью членами <xref:System.Threading.Interlocked> класса.  
   
  ]]></format>
         </remarks>
@@ -522,21 +523,23 @@
         <Parameter Name="comparand" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="location1">Целевой объект, который будет сравниваться со значением параметра <c>comparand</c> и, возможно, будет заменен.</param>
-        <param name="value">Объект, который заменит целевой объект, если результатом сравнения будет равенство.</param>
-        <param name="comparand">Объект, который сравнивается с объектом в <c>location1</c>.</param>
+        <param name="location1">Целевой объект, который будет сравниваться по ссылке со значением параметра <c>comparand</c> и, возможно, будет заменен.</param>
+        <param name="value">Объект, который заменит целевой объект, если результатом сравнения по ссылке будет равенство.</param>
+        <param name="comparand">Объект, который сравнивается по ссылке с объектом в <c>location1</c>.</param>
         <summary>Сравнивает два объекта на равенство ссылок и, если они равны, заменяет первый объект.</summary>
         <returns>Исходное значение в позиции <paramref name="location1" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
-## Remarks  
- Если `comparand` и объект в `location1` равны, то `value` хранится в `location1`. В противном случае операция не выполняется. Операции сравнения и обмена выполняются в виде атомарной операции. Возвращаемое значение <xref:System.Threading.Interlocked.CompareExchange%2A> собой исходное значение в `location1`независимо от того, имеет место обмен или нет.  
-  
- Начиная с .NET Framework версии 2.0, <xref:System.Threading.Interlocked.CompareExchange%60%601%28%60%600%40%2C%60%600%2C%60%600%29> перегрузку метода предоставляет типобезопасной альтернативой для ссылочных типов.  
-  
+## Remarks
+
+> [!IMPORTANT]
+> Начиная с .NET Framework 2.0, <xref:System.Threading.Interlocked.CompareExchange%60%601%28%60%600%40%2C%60%600%29> перегрузку метода предоставляет типобезопасной альтернативой для ссылочных типов. Рекомендуется вызывать вместо этой перегрузки.
+
+Если `comparand` и объект в `location1` равны по ссылке, затем `value` хранится в `location1`. В противном случае операция не выполняется. Операции сравнения и обмена выполняются в виде атомарной операции. Возвращаемое значение <xref:System.Threading.Interlocked.CompareExchange%2A> собой исходное значение в `location1`независимо от того, имеет место обмен или нет.  
+
 > [!NOTE]
->  Объекты сравниваются на равенство ссылок, а не <xref:System.Object.Equals%2A?displayProperty=nameWithType>. В результате два упакованных экземпляра одной и той же тип значения (например, целочисленное значение 3) всегда могут быть не равны, и операция не выполняется. Не используйте эту перегрузку с типами значений.  
+>  Объекты сравниваются на предмет равенства ссылок, а не равенство значений. В результате два упакованных экземпляра одной и той же тип значения (например, целочисленное значение 3) всегда могут быть не равны, и операция не выполняется. Не используйте эту перегрузку с типами значений.  
   
  ]]></format>
         </remarks>
@@ -666,16 +669,16 @@
       </Parameters>
       <Docs>
         <typeparam name="T">Тип, используемый для <c>location1</c>, <c>значение</c>, и <c>comparand</c>. Этот тип должен быть ссылочным типом.</typeparam>
-        <param name="location1">Целевой объект, значение которого сравнивается с объектом <c>comparand</c> и может быть заменено. Это ссылочный параметр (<see langword="ref" /> в C#, <see langword="ByRef" /> в Visual Basic).</param>
-        <param name="value">Значение, которым будет заменено целевое значение, если проверка покажет равенство.</param>
-        <param name="comparand">Значение, которое сравнивается со значением в позиции <c>location1</c>.</param>
-        <summary>Сравнивает два экземпляра указанного ссылочного типа <paramref name="T" /> на равенство и, если это так, заменяет один из них.</summary>
+        <param name="location1">Целевой объект, значение которого сравнивается по ссылке с объектом <c>comparand</c> и, возможно, будет заменено. Это ссылочный параметр (<see langword="ref" /> в C#, <see langword="ByRef" /> в Visual Basic).</param>
+        <param name="value">Значение, которым будет заменено целевое значение, если результатом сравнения по ссылке будет равенство.</param>
+        <param name="comparand">Значение, которое сравнивается по ссылке со значением в позиции <c>location1</c>.</param>
+        <summary>Сравнивает два экземпляра указанного ссылочного типа <paramref name="T" /> на равенство ссылок. Если они равны, заменяет первый экземпляр.</summary>
         <returns>Исходное значение в позиции <paramref name="location1" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Если `comparand` и значение в `location1` равны, то `value` хранится в `location1`. В противном случае операция не выполняется. Сравнение и обмен выполняются в виде атомарной операции. Этот метод возвращается исходное значение в `location1`независимо от того, имеет место обмен или нет.  
+ Если `comparand` и значение в `location1` равны по ссылке, затем `value` хранится в `location1`. В противном случае операция не выполняется. Сравнение и обмен выполняются в виде атомарной операции. Этот метод возвращается исходное значение в `location1`независимо от того, имеет место обмен или нет.  
   
  Этот метод поддерживает только ссылочные типы. Существуют перегрузки <xref:System.Threading.Interlocked.CompareExchange%2A> метод для типов значений <xref:System.Int32>, <xref:System.Int64>, <xref:System.IntPtr>, <xref:System.Single>, и <xref:System.Double>, но не поддерживается для других типов значений.  
   
@@ -814,8 +817,6 @@
   
 ## Remarks  
  Этот метод обрабатывает условие, заключая: Если `location`  =  <xref:System.Int64.MinValue?displayProperty=nameWithType>, `location` - 1 = <xref:System.Int64.MaxValue?displayProperty=nameWithType>. Исключение не возникает.  
-  
- <xref:System.Threading.Interlocked.Read%2A> Метод и 64-разрядных перегрузок <xref:System.Threading.Interlocked.Increment%2A>, <xref:System.Threading.Interlocked.Decrement%2A>, и <xref:System.Threading.Interlocked.Add%2A> методы атомарны действительно только в системах, где <xref:System.IntPtr?displayProperty=nameWithType> 64 бита. В других системах эти методы являются атомарными по отношению друг к другу, но не по отношению к другими способами доступа к данным. Таким образом, чтобы быть поточно-ориентированным на 32-разрядных системах, доступа к 64-разрядное значение необходимо устанавливать с помощью членами <xref:System.Threading.Interlocked> класса.  
   
  ]]></format>
         </remarks>
@@ -1099,8 +1100,9 @@
   
 ## Remarks
 
-> [!NOTE]
-> Начиная с .NET Framework версии 2.0, <xref:System.Threading.Interlocked.Exchange%60%601%28%60%600%40%2C%60%600%29> перегрузку метода предоставляет типобезопасной альтернативой для ссылочных типов.  
+> [!IMPORTANT]
+> Начиная с .NET Framework 2.0, <xref:System.Threading.Interlocked.Exchange%60%601%28%60%600%40%2C%60%600%29> перегрузку метода предоставляет типобезопасной альтернативой для ссылочных типов. Рекомендуется вызывать вместо этой перегрузки.
+
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">Адрес <paramref name="location1" /> является пустым указателем.</exception>
@@ -1357,8 +1359,6 @@
 ## Remarks  
  Этот метод обрабатывает условие, заключая: Если `location`  =  <xref:System.Int64.MaxValue?displayProperty=nameWithType>, `location` + 1 = <xref:System.Int64.MinValue?displayProperty=nameWithType>. Исключение не возникает.  
   
- <xref:System.Threading.Interlocked.Read%2A> Метод и 64-разрядных перегрузок <xref:System.Threading.Interlocked.Increment%2A>, <xref:System.Threading.Interlocked.Decrement%2A>, и <xref:System.Threading.Interlocked.Add%2A> методы атомарны действительно только в системах, где <xref:System.IntPtr?displayProperty=nameWithType> 64 бита. В других системах эти методы являются атомарными по отношению друг к другу, но не по отношению к другими способами доступа к данным. Таким образом, чтобы быть поточно-ориентированным на 32-разрядных системах, доступа к 64-разрядное значение необходимо устанавливать с помощью членами <xref:System.Threading.Interlocked> класса.  
-  
  ]]></format>
         </remarks>
         <exception cref="T:System.NullReferenceException">Адрес <paramref name="location" /> является пустым указателем.</exception>
@@ -1486,11 +1486,6 @@
   
 ## Remarks  
  <xref:System.Threading.Interlocked.Read%2A> Метод необязателен в 64-разрядных системах, так как 64-разрядной операции чтения уже являются атомарными. В 32-разрядных системах, 64-разрядной операции чтения не являются атомарными, пока не будет выполнена с помощью <xref:System.Threading.Interlocked.Read%2A>.  
-  
- <xref:System.Threading.Interlocked.Read%2A> Метод и 64-разрядных перегрузок <xref:System.Threading.Interlocked.Increment%2A>, <xref:System.Threading.Interlocked.Decrement%2A>, и <xref:System.Threading.Interlocked.Add%2A> методы атомарны действительно только в системах, где <xref:System.IntPtr?displayProperty=nameWithType> 64 бита. В других системах эти методы являются атомарными по отношению друг к другу, но не по отношению к другими способами доступа к данным. Таким образом, чтобы быть поточно-ориентированным на 32-разрядных системах, доступа к 64-разрядное значение необходимо устанавливать с помощью членами <xref:System.Threading.Interlocked> класса.  
-  
-> [!NOTE]
->  <xref:System.IntPtr> — Это тип платформы.  
   
  ]]></format>
         </remarks>

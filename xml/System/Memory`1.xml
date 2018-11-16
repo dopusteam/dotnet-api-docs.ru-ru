@@ -1,11 +1,11 @@
 <Type Name="Memory&lt;T&gt;" FullName="System.Memory&lt;T&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="00be17c21bc4fa5326d034206ecb27336d158aee" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="acdfc981d37b8a9354e73ed0e9c1c4fc8e87d12e" />
+    <Meta Name="ms.sourcegitcommit" Value="d71cc71109ed3cbcf3406a10a3cd7ac7e30f5e0c" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39776823" />
+    <Meta Name="ms.lasthandoff" Value="11/10/2018" />
+    <Meta Name="ms.locfileid" Value="51525751" />
   </Metadata>
   <TypeSignature Language="C#" Value="public struct Memory&lt;T&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit Memory`1&lt;T&gt; extends System.ValueType" />
@@ -16,6 +16,9 @@
   <AssemblyInfo>
     <AssemblyName>System.Runtime</AssemblyName>
     <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Memory</AssemblyName>
   </AssemblyInfo>
   <TypeParameters>
     <TypeParameter Name="T" />
@@ -30,9 +33,23 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <typeparam name="T">To be added.</typeparam>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <typeparam name="T">Тип элементов в <see cref="T:System.Memory`1" />.</typeparam>
+    <summary>Представляет непрерывную область памяти.</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+  
+Как и <xref:System.Span%601>, `Memory<T>` представляет непрерывную область памяти. В отличие от <xref:System.Span%601>, но при этом `Memory<T>` не [структура ссылки](~/docs/csharp/reference-semantics-with-value-types.md?view=netcore-2.1.md#ref-struct-type). Это означает, что `Memory<T>` может размещаться в управляемой куче, тогда как <xref:System.Span%601> невозможно. В результате `Memory<T>` структура не имеет те же ограничения, что <xref:System.Span%601> экземпляра. В частности:
+
+- Он может использоваться как поле в классе.
+
+- Он может использоваться между `await` и `yield` границы.
+
+В дополнение к `Memory<T>`, можно использовать <xref:System.ReadOnlyMemory%601?displayProperty=nameWithType> представляют собой неизменяемый или память только для чтения.
+
+    ]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -47,13 +64,28 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <Parameters>
         <Parameter Name="array" Type="T[]" />
       </Parameters>
       <Docs>
-        <param name="array">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="array">Массив, из которого создается объект <see cref="T:System.Memory`1" />.</param>
+        <summary>Создает новый объект <see cref="T:System.Memory`1" /> по всему указанному массиву.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+Если `array` — `null`, возвращает этот конструктор <xref:System.Memory%601> со `default<T>` значение.
+
+      ]]></format>
+        </remarks>
+        <exception cref="T:System.ArrayTypeMismatchException">
+          <paramref name="T" /> является ссылочным типом, а <paramref name="array" /> не является массивом типа <paramref name="T" />.
+        
+- или -
+
+Массив является <see href="~/docs/csharp/programming-guide/concepts/covariance-contravariance/index.md">ковариантным.</see></exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -68,17 +100,32 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <Parameters>
         <Parameter Name="array" Type="T[]" />
         <Parameter Name="start" Type="System.Int32" />
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="array">To be added.</param>
-        <param name="start">To be added.</param>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="array">Исходный массив.</param>
+        <param name="start">Индекс первого элемента, который будет включен в новый объект <see cref="T:System.Memory`1" />.</param>
+        <param name="length">Количество элементов, которые будут включены в новый объект <see cref="T:System.Memory`1" />.</param>
+        <summary>Создает объект <see cref="T:System.Memory`1" />, который включает определенное число элементов массива, начиная с указанного индекса.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+Если `array` — `null`, возвращает этот конструктор <xref:System.Memory%601> со `default<T>` значение.
+
+       ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentOutOfRangeException">
+          <paramref name="array" /> имеет значение <see langword="null" />, но <paramref name="start" /> или <paramref name="length" /> не равно нулю.<p />
+— или —<p /><paramref name="start" /> выходит за пределы растрового массива. <p />
+— или —<p /><paramref name="start" /> и <paramref name="length" /> превышает количество элементов в массиве.</exception>
+        <exception cref="T:System.ArrayTypeMismatchException">
+          <paramref name="T" /> является ссылочным типом, а <paramref name="array" /> не является массивом типа <paramref name="T" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="CopyTo">
@@ -93,6 +140,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
@@ -100,9 +150,16 @@
         <Parameter Name="destination" Type="System.Memory&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="destination">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="destination">Назначение</param>
+        <summary>Копирует содержимое объекта <see cref="T:System.Memory`1" /> в целевой объект <see cref="T:System.Memory`1" />.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+Этот метод копирует все содержимое текущего <xref:System.Memory%601> экземпляр `destination` даже в том случае, если содержимое текущего экземпляра и `destination` перекрываются.
+
+         ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">Длина <paramref name="destination" /> меньше, чем длина текущего экземпляра.</exception>
       </Docs>
     </Member>
     <Member MemberName="Empty">
@@ -117,12 +174,15 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>Возвращает пустой объект <see cref="T:System.Memory`1" />.</summary>
+        <value>Пустой объект.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -138,6 +198,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
@@ -145,10 +208,22 @@
         <Parameter Name="other" Type="System.Memory&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="other">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="other">Объект для сравнения с текущим экземпляром.</param>
+        <summary>Определяет, равен ли указанный объект <see cref="T:System.Memory`1" /> текущему объекту.</summary>
+        <returns>Значение <see langword="true" />, если объект <paramref name="other" /> равен текущему экземпляру; в противном случае — значение <see langword="false" />.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+Два объекта равны. Если:
+
+   - `other` — <xref:System.Memory%601> или <xref:System.ReadOnlyMemory%601> объекта.
+   
+   - Оба объекта указывают на тот же массив и иметь одинаковую длину.
+
+`Equals(Memory<T>)` Метод выполняет проверку на равенство ссылок; Эта функция не сравнивает элементы <xref:System.Memory%601> на предмет равенства.
+
+         ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Equals">
@@ -163,6 +238,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="netcore-2.1">
           <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
@@ -175,10 +253,16 @@
         <Parameter Name="obj" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="obj">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="obj">Объект для сравнения с текущим экземпляром.</param>
+        <summary>Определяет, равен ли заданный объект текущему объекту.</summary>
+        <returns>Значение <see langword="true" />, если объект <paramref name="obj" /> равен текущему экземпляру; в противном случае — значение <see langword="false" />.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+Два <xref:System.Memory%601> объекты считаются равными, если оба объекта, выберите тот же массив и иметь одинаковую длину. Обратите внимание на то, что проверка на равенство не проверяет, равны ли содержимое.
+   
+         ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetHashCode">
@@ -193,6 +277,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <Attributes>
         <Attribute FrameworkAlternate="netcore-2.1">
           <AttributeName>System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)</AttributeName>
@@ -203,8 +290,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <summary>Возвращает хэш-код данного экземпляра.</summary>
+        <returns>Хэш-код в виде 32-разрядного целого числа со знаком.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -220,13 +307,17 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>Определяет, является ли текущий экземпляр пустым.</summary>
+        <value>
+          <see langword="true" /> Если текущий экземпляр является пустым; в противном случае <see langword="false" />.</value>
+        <remarks>Объект <see cref="T:System.Memory`1" /> объект является пустым, если его длина равна 0.</remarks>
       </Docs>
     </Member>
     <Member MemberName="Length">
@@ -241,12 +332,15 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>Возвращает количество элементов в текущем экземпляре.</summary>
+        <value>Число элементов в текущем экземпляре.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -262,6 +356,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -269,9 +366,9 @@
         <Parameter Name="segment" Type="System.ArraySegment&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="segment">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="segment">Преобразуемый объект.</param>
+        <summary>Определяет неявное преобразование объекта <see cref="T:System.ArraySegment`1" /> в объект <see cref="T:System.Memory`1" />.</summary>
+        <returns>Преобразованный объект <see cref="T:System.ArraySegment`1" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -287,6 +384,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.ReadOnlyMemory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -294,9 +394,9 @@
         <Parameter Name="memory" Type="System.Memory&lt;T&gt;" />
       </Parameters>
       <Docs>
-        <param name="memory">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="memory">Преобразуемый объект.</param>
+        <summary>Определяется неявное преобразование объекта <see cref="T:System.Memory`1" /> в объект <see cref="T:System.ReadOnlyMemory`1" />.</summary>
+        <returns>Преобразованный объект.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -312,6 +412,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -319,9 +422,9 @@
         <Parameter Name="array" Type="T[]" />
       </Parameters>
       <Docs>
-        <param name="array">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="array">Преобразуемый массив.</param>
+        <summary>Определяет неявное преобразование массива в объект <see cref="T:System.Memory`1" />.</summary>
+        <returns>Преобразованный объект.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -337,14 +440,30 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Buffers.MemoryHandle</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>Создает дескриптор для объекта <see cref="T:System.Memory`1" />.</summary>
+        <returns>Дескриптор для объекта <see cref="T:System.Memory`1" />.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+## Remarks
+
+## <a name="see-also"></a>См. также
+
+Сборщик мусора не будет перемещаться память до возвращенного <xref:System.Buffers.MemoryHandle> удаления объекта. Это позволяет получить и использовать адрес в памяти.
+
+<xref:System.Type.IsPrimitive> 
+
+         ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException">Экземпляр с элементами, не являющимися примитивами (требующими преобразования), не может быть закреплен.</exception>
       </Docs>
     </Member>
     <Member MemberName="Slice">
@@ -359,6 +478,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -366,10 +488,12 @@
         <Parameter Name="start" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="start">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="start">Индекс, с которого нужно начать срез.</param>
+        <summary>Формирует срез текущей области памяти, начиная с начинается с указанного индекса.</summary>
+        <returns>Объект, содержащий все элементы текущего экземпляра: от <paramref name="start" /> до последнего элемента экземпляра.</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeExceptionException">
+          <paramref name="start" /> меньше нуля либо больше или равен <see cref="P:System.Memory`1.Length" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="Slice">
@@ -384,6 +508,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -392,11 +519,17 @@
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="start">To be added.</param>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="start">Индекс, с которого нужно начать срез.</param>
+        <param name="length">Количество элементов, добавляемых в срез.</param>
+        <summary>Формирует срез текущей области памяти, начиная с указанного индекса до указанной длины.</summary>
+        <returns>Объект, содержащий число элементов, равное <paramref name="length" />, из текущего экземпляра, начиная с <paramref name="start" />.</returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentOutOfRangeExceptionException">
+          <paramref name="start" /> меньше нуля либо больше или равен <see cref="P:System.Memory`1.Length" />.
+
+- или -
+
+<paramref name="length" /> больше, чем <see cref="P:System.Memory`1.Length" /> - <paramref name="start" /></exception>
       </Docs>
     </Member>
     <Member MemberName="Span">
@@ -411,12 +544,15 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Span&lt;T&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>Возвращает массив из текущего экземпляра.</summary>
+        <value>Диапазон, созданные из текущего <see cref="T:System.Memory`1" /> объекта.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -432,14 +568,25 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>T[]</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>Копирует содержимое из памяти в новый массив.</summary>
+        <returns>Массив, содержащий элементы в текущей области памяти.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+Так как вызов метода < xref=System.Memory%601.ToArray%2A > выполняет выделение кучи, он обычно следует избегать. Тем не менее иногда это необходимо, чтобы воспользоваться преимуществами функциональности, которая доступна только для массивов.
+
+Каждый вызов `ToArray` метод возвращает новый массив. 
+
+         ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="ToString">
@@ -454,14 +601,23 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>Возвращает строковое представление конкретного объекта <see cref="T:System.Memory`1" />.</summary>
+        <returns>Строковое представление этого объекта <see cref="T:System.Memory`1" />.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+Для `Memory<Char>`, `ToString` возвращает <xref:System.String> , содержащий символы, на которые указывают <xref:System.Memory%601>. В противном случае возвращается <xref:System.String> с именем типа и количество элементов, <xref:System.Memory%601> содержит.
+
+         ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="TryCopyTo">
@@ -476,6 +632,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
@@ -484,9 +643,15 @@
       </Parameters>
       <Docs>
         <param name="destination">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>Копирует содержимое из памяти в целевой экземпляр <see cref="T:System.Memory`1" />.</summary>
+        <returns>Если копирование выполнено успешно, возвращается значение <see langword="true" />. В противном возвращается <see langword="false" />.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[  
+
+Этот метод копирует все содержимое текущего <xref:System.Memory%601> экземпляр `destination` даже в том случае, если содержимое текущего экземпляра и `destination` перекрываются.
+
+         ]]></format>
+        </remarks>
       </Docs>
     </Member>
   </Members>

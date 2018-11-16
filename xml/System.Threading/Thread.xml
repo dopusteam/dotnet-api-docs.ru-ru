@@ -1,11 +1,11 @@
 <Type Name="Thread" FullName="System.Threading.Thread">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="7c33ebbf7fda315ea7cdcd851f00c29b10d280bd" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="38eda2875476a401d6a3442e5e40cebc592a4863" />
+    <Meta Name="ms.sourcegitcommit" Value="996ba67625b61917bcf75bfefe6dcb016019c2d8" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48741634" />
+    <Meta Name="ms.lasthandoff" Value="11/02/2018" />
+    <Meta Name="ms.locfileid" Value="50965478" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class Thread : System.Runtime.ConstrainedExecution.CriticalFinalizerObject, System.Runtime.InteropServices._Thread" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit Thread extends System.Runtime.ConstrainedExecution.CriticalFinalizerObject implements class System.Runtime.InteropServices._Thread" />
@@ -142,7 +142,11 @@
 <a name="Culture"></a>   
 ## <a name="culture-and-threads"></a>Язык и региональные параметры и потоков  
  Каждый поток имеет региональных параметрах, представленное <xref:System.Threading.Thread.CurrentCulture%2A> свойства, а также язык и региональные параметры пользовательского интерфейса, представленного <xref:System.Threading.Thread.CurrentUICulture%2A> свойство.  Текущий язык и региональные параметры поддерживает таких операций с учетом языка и региональных параметров как синтаксического анализа и форматирования, сравнение и сортировка строк, а также определяет систему письма и календарь, используемый потоком. Текущий язык и региональные параметры пользовательского интерфейса предоставляет получение региональных ресурсов в файлах ресурсов.  
-  
+
+> [!IMPORTANT]
+> <xref:System.Threading.Thread.CurrentCulture> И <xref:System.Threading.Thread.CurrentUICulture> свойства не работают надежно, при использовании любого потока, отличного от текущего потока. В .NET Framework чтение эти свойства, является надежным, несмотря на то, что задание этих свойств для потока, отличного от текущего потока не является. В .NET Core <xref:System.InvalidOperationException> возникает, если поток пытается читать или записывать эти свойства в другом потоке.
+> Мы рекомендуем использовать <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=nameWithType> и <xref:System.Globalization.CultureInfo.CurrentUICulture?displayProperty=nameWithType> свойства, чтобы получить и задать текущего языка и региональных параметров.
+
  При создании экземпляра нового потока, его язык и региональные параметры пользовательского интерфейса определяются текущий язык и региональные параметры и язык и региональные параметры пользовательского интерфейса, а не языка и региональных параметров пользовательского интерфейса потока, из которого создается новый поток. Таким образом, к примеру, если текущий язык и региональные параметры системы является английский (США) и текущий язык потока основного приложения — французский (Франция), язык и региональные параметры нового потока, созданных вызывающими <xref:System.Threading.Thread.%23ctor%28System.Threading.ParameterizedThreadStart%29> конструктора из основного потока является английский (США) и французского (Франция). Дополнительные сведения см. в разделе «Язык и региональные параметры и потоки» из <xref:System.Globalization.CultureInfo> разделе, посвященном классу.  
   
 > [!IMPORTANT]
@@ -153,9 +157,9 @@
 -   Вы можете передать <xref:System.Globalization.CultureInfo> объект, представляющий этот язык для <xref:System.Threading.ParameterizedThreadStart> делегировать или <xref:System.Threading.ThreadPool.QueueUserWorkItem%28System.Threading.WaitCallback%2CSystem.Object%29?displayProperty=nameWithType> метод.  
   
 -   Для приложений, выполняющихся [!INCLUDE[net_v45](~/includes/net-v45-md.md)] и более поздних версиях можно определить язык и региональные параметры пользовательского интерфейса, должно быть присвоено для всех потоков, созданных в домене приложения, задав значение <xref:System.Globalization.CultureInfo.DefaultThreadCurrentCulture%2A?displayProperty=nameWithType> и <xref:System.Globalization.CultureInfo.DefaultThreadCurrentUICulture%2A?displayProperty=nameWithType> свойства. Обратите внимание на то, что это параметр на уровне домена приложения.  
-  
- Дополнительные сведения и примеры см. в разделе «Язык и региональные параметры и потоки» из <xref:System.Globalization.CultureInfo> разделе, посвященном классу.  
-  
+
+ Дополнительные сведения и примеры см. в разделе «Язык и региональные параметры и потоки» из <xref:System.Globalization.CultureInfo> разделе, посвященном классу.
+
 <a name="Properties"></a>   
 ## <a name="getting-information-about-and-controlling-threads"></a>Получение сведений о и управление потоками  
  Можно получить несколько значений свойств, которые предоставляют сведения о потоке. В некоторых случаях можно также задать значения этих свойств для управления ее работой потока. Эти свойства потока:  
@@ -1099,13 +1103,15 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
   
 ## Remarks  
  <xref:System.Globalization.CultureInfo> Объект, возвращаемый этим свойством, а также связанных с ним объектов, определить формат по умолчанию для дат, времени, чисел, денежных значений, сортировки порядок текста, регистр соглашения, а операции сравнения строк. См. в разделе <xref:System.Globalization.CultureInfo> класса Дополнительные сведения о языке и региональных параметрах имена и идентификаторы, различия между инвариантные, нейтральные и конкретные языки и региональные параметры, и влияет на способ сведения о культуре, потоков и доменов приложений. См. в разделе <xref:System.Globalization.CultureInfo.CurrentCulture%2A?displayProperty=nameWithType> свойство, чтобы узнать, как определяется язык и региональные параметры потока по умолчанию, и как пользователи задать сведения о культуре для их компьютеров.  
-  
+
+> [!IMPORTANT]
+> <xref:System.Threading.Thread.CurrentCulture> Свойство работает ненадежно при использовании любого потока, отличного от текущего потока. В .NET Framework чтение свойства надежен, несмотря на то, что указывать его для потока, отличного от текущего потока не. В .NET Core <xref:System.InvalidOperationException> возникает, если поток пытается прочитать или записать <xref:System.Threading.Thread.CurrentCulture> свойство в другом потоке.
+> Мы рекомендуем использовать <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=nameWithType> свойство для получения и задания текущего языка и региональных параметров.
+
  Начиная с версии [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)], можно задать <xref:System.Threading.Thread.CurrentCulture%2A> свойство для нейтрального языка и региональных параметров. Это обусловлено поведением <xref:System.Globalization.CultureInfo> класс был изменен: когда он представляет нейтрального языка и региональных параметров, значения его свойств (в частности, <xref:System.Globalization.CultureInfo.Calendar%2A>, <xref:System.Globalization.CultureInfo.CompareInfo%2A>, <xref:System.Globalization.CultureInfo.DateTimeFormat%2A>, <xref:System.Globalization.CultureInfo.NumberFormat%2A>, и <xref:System.Globalization.CultureInfo.TextInfo%2A> свойства) теперь отразить определенного языка и региональных параметров, который связан с нейтральным языком и региональными параметрами. В более ранних версиях .NET Framework <xref:System.Threading.Thread.CurrentCulture%2A> вызвал свойство <xref:System.NotSupportedException> исключение, когда была назначена нейтрального языка и региональных параметров.  
   
-   
-  
 ## Examples  
- В следующем примере кода показан потоковый оператор, который позволяет пользовательскому интерфейсу Windows Forms для отображения в языка и региональных параметров, который задается в панели управления. Необходим дополнительный код.  
+ В следующем примере показано потоковый оператор, который позволяет пользовательскому интерфейсу приложения Windows Forms для отображения в языка и региональных параметров, который задается в панели управления. Необходим дополнительный код.  
   
  [!code-cpp[System.Threading.Thread.Culture#1](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.Threading.Thread.Culture/CPP/source.cpp#1)]
  [!code-csharp[System.Threading.Thread.Culture#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.Threading.Thread.Culture/CS/source.cs#1)]
@@ -1114,6 +1120,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">Для свойства задано значение <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Только в .NET Core. Чтение или запись данных о языке и региональных параметрах потока из другого потока не поддерживается.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">для задания этого свойства. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlThread" /></permission>
       </Docs>
     </Member>
@@ -1276,7 +1283,11 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
   
 ## Remarks  
  Язык и региональные параметры пользовательского интерфейса указывает ресурсы, необходимые приложению для поддержки пользовательского ввода и вывода, и по умолчанию является таким же, как язык и региональные параметры операционной системы. См. в разделе <xref:System.Globalization.CultureInfo> класса Дополнительные сведения о языке и региональных параметрах имена и идентификаторы, различия между инвариантные, нейтральные и конкретные языки и региональные параметры, и влияет на способ сведения о культуре, потоков и доменов приложений. См. в разделе <xref:System.Globalization.CultureInfo.CurrentUICulture%2A?displayProperty=nameWithType> свойство, чтобы узнать, как определяется язык и региональные параметры для потока по умолчанию пользовательского интерфейса.  
-  
+
+> [!IMPORTANT]
+> <xref:System.Threading.Thread.CurrentUICulture> Свойство работает ненадежно при использовании любого потока, отличного от текущего потока. В .NET Framework чтение свойства надежен, несмотря на то, что указывать его для потока, отличного от текущего потока не. В .NET Core <xref:System.InvalidOperationException> возникает, если поток пытается прочитать или записать <xref:System.Threading.Thread.CurrentUICulture> свойство в другом потоке.
+> Мы рекомендуем использовать <xref:System.Globalization.CultureInfo.CurrentUICulture?displayProperty=nameWithType> свойство для получения и задания текущего языка и региональных параметров.
+
  <xref:System.Globalization.CultureInfo> Возвращаемый этим свойством, может быть нейтрального языка и региональных параметров. Нейтральные языки и региональные параметры не должны использоваться с форматированием методы, такие как <xref:System.String.Format%28System.IFormatProvider%2CSystem.String%2CSystem.Object%5B%5D%29?displayProperty=nameWithType>, <xref:System.DateTime.ToString%28System.String%2CSystem.IFormatProvider%29?displayProperty=nameWithType>, и <xref:System.Convert.ToString%28System.Char%2CSystem.IFormatProvider%29?displayProperty=nameWithType>. Используйте <xref:System.Globalization.CultureInfo.CreateSpecificCulture%2A?displayProperty=nameWithType> метод для получения конкретного языка и региональных параметров, или использовать <xref:System.Threading.Thread.CurrentCulture%2A> свойство.  
   
 > [!NOTE]
@@ -1300,6 +1311,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
         </remarks>
         <exception cref="T:System.ArgumentNullException">Для свойства задано значение <see langword="null" />.</exception>
         <exception cref="T:System.ArgumentException">Свойству присвоено имя языка и региональных параметров, которое не может использоваться для нахождения файла ресурсов. Имена файлов ресурсов могут содержать только буквы, цифры, дефисы или символы подчеркивания.</exception>
+        <exception cref="T:System.InvalidOperationException">Только в .NET Core. Чтение или запись данных о языке и региональных параметрах потока из другого потока не поддерживается.</exception>
       </Docs>
     </Member>
     <Member MemberName="DisableComObjectEagerCleanup">
@@ -2133,7 +2145,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.Security.SecurityException">Вызывающий поток не имеет соответствующего разрешения <see cref="T:System.Security.Permissions.SecurityPermission" />.</exception>
+        <exception cref="T:System.Security.SecurityException">У вызывающего объекта отсутствует соответствующее разрешение <see cref="T:System.Security.Permissions.SecurityPermission" />.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">для дополнительных операций в потоках. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlThread" />.</permission>
         <altmember cref="T:System.Threading.ThreadState" />
         <related type="Article" href="~/docs/standard/threading/pausing-and-resuming-threads.md">Приостановка и прерывание потоков</related>
@@ -2728,7 +2740,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
  ]]></format>
         </remarks>
         <exception cref="T:System.Threading.ThreadStateException">Поток достиг конечного состояния, например <see cref="F:System.Threading.ThreadState.Aborted" />.</exception>
-        <exception cref="T:System.ArgumentException">Задаваемое значение не является правильным значением <see cref="T:System.Threading.ThreadPriority" />.</exception>
+        <exception cref="T:System.ArgumentException">Значение, указанное для операции задания, не является допустимым значением <see cref="T:System.Threading.ThreadPriority" />.</exception>
         <altmember cref="T:System.Threading.ThreadPriority" />
         <related type="Article" href="~/docs/standard/threading/scheduling-threads.md">Планирование потоков</related>
       </Docs>
@@ -2781,8 +2793,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
  ]]></format>
         </remarks>
         <exception cref="T:System.PlatformNotSupportedException">Только в .NET Core: этот элемент не поддерживается.</exception>
-        <exception cref="T:System.Threading.ThreadStateException">
-          <see langword="Abort" /> не был вызван для текущего потока.</exception>
+        <exception cref="T:System.Threading.ThreadStateException">Метод <see langword="Abort" /> не был вызван в текущем потоке.</exception>
         <exception cref="T:System.Security.SecurityException">Вызывающая сторона не имеет требуемого разрешения безопасности для текущего потока.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">для дополнительных операций в потоках. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlThread" />.</permission>
         <related type="Article" href="~/docs/standard/threading/destroying-threads.md">Удаление потоков</related>
@@ -2839,7 +2850,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
         </remarks>
         <exception cref="T:System.PlatformNotSupportedException">Только в .NET Core: этот элемент не поддерживается.</exception>
         <exception cref="T:System.Threading.ThreadStateException">Поток не был запущен, бездействует или не находится в приостановленном состоянии.</exception>
-        <exception cref="T:System.Security.SecurityException">Вызывающий поток не имеет соответствующего разрешения <see cref="T:System.Security.Permissions.SecurityPermission" />.</exception>
+        <exception cref="T:System.Security.SecurityException">У вызывающего объекта отсутствует соответствующее разрешение <see cref="T:System.Security.Permissions.SecurityPermission" />.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">для дополнительных операций в потоках. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlThread" /></permission>
         <related type="Article" href="~/docs/standard/threading/pausing-and-resuming-threads.md">Приостановка и прерывание потоков</related>
         <related type="Article" href="~/docs/standard/threading/managed-thread-states.md">Состояния управляемых потоков</related>
@@ -2908,7 +2919,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
         </remarks>
         <exception cref="T:System.PlatformNotSupportedException">Только в .NET Core: этот элемент не поддерживается на платформах Linux и macOS.</exception>
         <exception cref="T:System.ArgumentException">
-          <paramref name="state" /> не является действительным состоянием апартамента.</exception>
+          <paramref name="state" /> не является допустимым состоянием подразделения.</exception>
         <exception cref="T:System.Threading.ThreadStateException">Поток уже запущен.</exception>
         <exception cref="T:System.InvalidOperationException">Состояние подразделения уже инициализировано.</exception>
       </Docs>
@@ -3433,7 +3444,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
         </remarks>
         <exception cref="T:System.PlatformNotSupportedException">Только в .NET Core: этот элемент не поддерживается.</exception>
         <exception cref="T:System.Threading.ThreadStateException">Поток не запущен или удален.</exception>
-        <exception cref="T:System.Security.SecurityException">Вызывающий поток не имеет соответствующего разрешения <see cref="T:System.Security.Permissions.SecurityPermission" />.</exception>
+        <exception cref="T:System.Security.SecurityException">У вызывающего объекта отсутствует соответствующее разрешение <see cref="T:System.Security.Permissions.SecurityPermission" />.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">для дополнительных операций в потоках. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlThread" />.</permission>
         <related type="Article" href="~/docs/standard/threading/pausing-and-resuming-threads.md">Приостановка и прерывание потоков</related>
         <related type="Article" href="~/docs/standard/threading/managed-thread-states.md">Состояния управляемых потоков</related>
@@ -3755,7 +3766,7 @@ Main thread: ThreadProc.Join has returned.  Press Enter to end program.
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentException">
-          <paramref name="state" /> не является действительным состоянием апартамента.</exception>
+          <paramref name="state" /> не является допустимым состоянием подразделения.</exception>
         <exception cref="T:System.Threading.ThreadStateException">Поток уже запущен.</exception>
       </Docs>
     </Member>

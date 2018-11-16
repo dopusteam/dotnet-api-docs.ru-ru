@@ -1,11 +1,11 @@
 <Type Name="ThreadState" FullName="System.Threading.ThreadState">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="5caa2caa6d22a6bccdc3cfc010bb3f89f6737e58" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="b0f3e8d9dab97678b690e340db3f71242cb82e32" />
+    <Meta Name="ms.sourcegitcommit" Value="723b8a6d92667ba86fcda96190bad3b4a03283b3" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48595344" />
+    <Meta Name="ms.lasthandoff" Value="11/09/2018" />
+    <Meta Name="ms.locfileid" Value="51314881" />
   </Metadata>
   <TypeSignature Language="C#" Value="public enum ThreadState" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed ThreadState extends System.Enum" />
@@ -55,30 +55,38 @@
  <xref:System.Threading.ThreadState> Определяет набор всех состояний возможное выполнение потоков. После создания потока он находится в по крайней мере одно из состояний, до его окончания. Потокам, созданным в общеязыковой изначально находятся в `Unstarted` state, хотя внешние потоки, приходящие в среду выполнения уже находятся в `Running` состояние. `Unstarted` Перешел поток в `Running` состояния путем вызова <xref:System.Threading.Thread.Start%2A>. Не все комбинации `ThreadState` значения являются допустимыми; например, поток не может быть одновременно `Aborted` и `Unstarted` состояний.  
   
 > [!IMPORTANT]
->  Существует две нумерации состояние потока,<xref:System.Threading.ThreadState?displayProperty=nameWithType> и <xref:System.Diagnostics.ThreadState?displayProperty=nameWithType>.  
+>  Существует две нумерации состояние потока: <xref:System.Threading.ThreadState?displayProperty=nameWithType> и <xref:System.Diagnostics.ThreadState?displayProperty=nameWithType>.  
   
  В следующей таблице показаны действия, которые вызывают изменение состояния.  
   
 |Действие|Состояния потока|  
 |------------|-----------------|  
-|Поток создается среда CLR.|Незапущенные|  
-|Другой поток вызывает <xref:System.Threading.Thread.Start%2A?displayProperty=nameWithType> на новый поток, а вызов метода.<br /><br /> <xref:System.Threading.Thread.Start%2A> Метод не возвращает, пока новый поток был запущен. Нет способа узнать, в какой момент новый поток начнет выполнение, во время вызова <xref:System.Threading.Thread.Start%2A>.|Работает|  
-|Поток вызывает метод <xref:System.Threading.Thread.Sleep%2A>|: WaitSleepJoin|  
-|Поток вызывает <xref:System.Threading.Monitor.Wait%2A> другого объекта.|: WaitSleepJoin|  
-|Поток вызывает <xref:System.Threading.Thread.Join%2A> другого потока.|: WaitSleepJoin|  
-|Другой поток вызывает метод <xref:System.Threading.Thread.Interrupt%2A>|Работает|  
-|Другой поток вызывает метод <xref:System.Threading.Thread.Suspend%2A>|SuspendRequested|  
-|Поток отвечает на запрос <xref:System.Threading.Thread.Suspend%2A>.|Приостановлено|  
-|Другой поток вызывает метод <xref:System.Threading.Thread.Resume%2A>|Работает|  
-|Другой поток вызывает метод <xref:System.Threading.Thread.Abort%2A>|AbortRequested|  
-|Поток отвечает на запрос <xref:System.Threading.Thread.Abort%2A>.|Остановлено|  
+|Поток создается среда CLR.|<xref:System.Threading.ThreadState.Unstarted>|  
+|Другой поток вызывает <xref:System.Threading.Thread.Start%2A?displayProperty=nameWithType> на новый поток, а вызов метода.<br /><br /> <xref:System.Threading.Thread.Start%2A> Метод не возвращает, пока новый поток был запущен. Нет способа узнать, в какой момент новый поток начнет выполнение, во время вызова <xref:System.Threading.Thread.Start%2A>.|<xref:System.Threading.ThreadState.Running>|  
+|Поток вызывает метод <xref:System.Threading.Thread.Sleep%2A>|<xref:System.Threading.ThreadState.WaitSleepJoin>|  
+|Поток вызывает <xref:System.Threading.Monitor.Wait%2A> другого объекта.|<xref:System.Threading.ThreadState.WaitSleepJoin>|  
+|Поток вызывает <xref:System.Threading.Thread.Join%2A> другого потока.|<xref:System.Threading.ThreadState.WaitSleepJoin>|  
+|Другой поток вызывает метод <xref:System.Threading.Thread.Interrupt%2A>|<xref:System.Threading.ThreadState.Running>|  
+|Другой поток вызывает метод <xref:System.Threading.Thread.Suspend%2A>|<xref:System.Threading.ThreadState.SuspendRequested>|  
+|Поток отвечает на запрос <xref:System.Threading.Thread.Suspend%2A>.|<xref:System.Threading.ThreadState.Suspended>|  
+|Другой поток вызывает метод <xref:System.Threading.Thread.Resume%2A>|<xref:System.Threading.ThreadState.Running>|  
+|Другой поток вызывает метод <xref:System.Threading.Thread.Abort%2A>|<xref:System.Threading.ThreadState.AbortRequested>|  
+|Поток отвечает на запрос <xref:System.Threading.Thread.Abort%2A>.|<xref:System.Threading.ThreadState.Stopped>|  
 |Поток завершается.|Остановлено|  
   
- В дополнение к состояний, приведенных выше, есть также `Background` состояние, которое указывает, является ли поток выполняется в фоновом режиме или передний план.  
+ В дополнение к состояний, приведенных выше, есть также <xref:System.Threading.ThreadState.Background> состояние, которое указывает, является ли поток выполняется в фоновом режиме или передний план.  
   
- Поток может быть более одного состояния в определенный момент времени. Например, если поток заблокируется при вызове <xref:System.Threading.Monitor.Wait%2A>и другой поток вызывает <xref:System.Threading.Thread.Abort%2A> для заблокированного потока, заблокированного потока будет находиться в `WaitSleepJoin` и `AbortRequested` состояний, в то же время. В данном случае, как только поток возвращается из вызова <xref:System.Threading.Monitor.Wait%2A> или прерван, он будет получать <xref:System.Threading.ThreadAbortException> для начала аварийного завершения.  
+ Поток может быть более одного состояния в определенный момент времени. Например, если поток заблокируется при вызове <xref:System.Threading.Monitor.Wait%2A>и другой поток вызывает <xref:System.Threading.Thread.Abort%2A> для заблокированного потока, заблокированного потока будет находиться в <xref:System.Threading.ThreadState.WaitSleepJoin> и <xref:System.Threading.ThreadState.AbortRequested> состояний, в то же время. В данном случае, как только поток возвращается из вызова <xref:System.Threading.Monitor.Wait%2A> или прерван, он будет получать <xref:System.Threading.ThreadAbortException> для начала аварийного завершения.  
   
- <xref:System.Threading.Thread.ThreadState%2A?displayProperty=nameWithType> Свойство потока предоставляет текущее состояние потока. Приложения должны использовать битовую маску, чтобы определить, выполняется ли поток. Так как значение для `Running` является ноль (0), проверить ли поток выполняется с помощью кода C#, таких как `(myThread.ThreadState & (ThreadState.Stopped | ThreadState.Unstarted)) == 0` или Visual Basic, такие как `(myThread.ThreadState And (ThreadState.Stopped Or ThreadState.Unstarted)) = 0`.  
+ <xref:System.Threading.Thread.ThreadState%2A?displayProperty=nameWithType> Свойство потока предоставляет текущее состояние потока. Приложения должны использовать битовую маску, чтобы определить, выполняется ли поток. Так как значение для <xref:System.Threading.ThreadState.Running> является ноль (0), проверить ли поток выполняется в следующем примере кода:
+
+```csharp
+(myThread.ThreadState & (ThreadState.Stopped | ThreadState.Unstarted)) == 0
+```
+
+```vb
+(myThread.ThreadState And (ThreadState.Stopped Or ThreadState.Unstarted)) = 0
+```
   
  ]]></format>
     </remarks>
@@ -215,7 +223,7 @@
       </ReturnValue>
       <MemberValue>0</MemberValue>
       <Docs>
-        <summary>Поток был запущен, он не заблокирован, и нет ожидающего исключения <see cref="T:System.Threading.ThreadAbortException" />.</summary>
+        <summary>Поток был запущен, но не останавливался.</summary>
       </Docs>
     </Member>
     <Member MemberName="Stopped">
