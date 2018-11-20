@@ -1,11 +1,11 @@
 <Type Name="DynamicMethod" FullName="System.Reflection.Emit.DynamicMethod">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="27f229b19693e5f93b88f14817c1ac384a6931af" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="7442e33d0c8711218cfea94b20299fe61d4a9c40" />
+    <Meta Name="ms.sourcegitcommit" Value="16d2d159872fd213cae4b8f371d7ae9c8b027c89" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48701191" />
+    <Meta Name="ms.lasthandoff" Value="11/17/2018" />
+    <Meta Name="ms.locfileid" Value="51881211" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class DynamicMethod : System.Reflection.MethodInfo" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit DynamicMethod extends System.Reflection.MethodInfo" />
@@ -1130,7 +1130,7 @@
         <Parameter Name="inherit" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="inherit">Значение <see langword="true" /> для поиска цепочки наследования метода с целью поиска пользовательских атрибутов; <see langword="false" /> для проверки только текущего метода.</param>
+        <param name="inherit">Значение <see langword="true" /> для поиска цепочки наследования метода для обнаружения настраиваемых атрибутов; значение <see langword="false" /> для проверки только текущего метода.</param>
         <summary>Возвращает все настраиваемые атрибуты, определенные для метода.</summary>
         <returns>Массив объектов, представляющих все настраиваемые атрибуты метода.</returns>
         <remarks>
@@ -1173,10 +1173,11 @@
         <Parameter Name="inherit" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="attributeType">Тип <see cref="T:System.Type" />, представляющий тип возвращаемого пользовательского атрибута.</param>
-        <param name="inherit">Значение <see langword="true" /> для поиска цепочки наследования метода с целью поиска пользовательских атрибутов; <see langword="false" /> для проверки только текущего метода.</param>
+        <param name="attributeType">
+          <see cref="T:System.Type" />, представляющий тип возвращаемого настраиваемого атрибута.</param>
+        <param name="inherit">Значение <see langword="true" /> для поиска цепочки наследования метода для обнаружения настраиваемых атрибутов; значение <see langword="false" /> для проверки только текущего метода.</param>
         <summary>Возвращает настраиваемые атрибуты заданного типа, которые были применены к методу.</summary>
-        <returns>Массив объектов, представляющий атрибуты метода, которые или являются типом <paramref name="attributeType" />, или производными из типа <paramref name="attributeType" />.</returns>
+        <returns>Массив объектов, представляющих атрибуты метода, которые относятся к типу <paramref name="attributeType" /> или являются производными от типа <paramref name="attributeType" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1219,8 +1220,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает объект <see cref="T:System.Reflection.Emit.DynamicILInfo" />, который может быть использован для создания основного текста метода из токенов метаданных, областей и потоков MSIL.</summary>
-        <returns>Объект <see cref="T:System.Reflection.Emit.DynamicILInfo" />, который может быть использован для создания основного текста метода из токенов метаданных, областей и потоков MSIL.</returns>
+        <summary>Возвращает объект <see cref="T:System.Reflection.Emit.DynamicILInfo" />, который может использоваться для создания тела метода из маркеров метаданных, областей и потоков промежуточного языка Майкрософт (MSIL).</summary>
+        <returns>Объект <see cref="T:System.Reflection.Emit.DynamicILInfo" />, который может использоваться для создания тела метода из маркеров метаданных, областей и потоков MSIL.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1373,7 +1374,7 @@
       <Parameters />
       <Docs>
         <summary>Возвращает флаги реализации для метода.</summary>
-        <returns>Битовая комбинация значений <see cref="T:System.Reflection.MethodImplAttributes" />, представляющих флаги реализации этого метода.</returns>
+        <returns>Битовая комбинация значений <see cref="T:System.Reflection.MethodImplAttributes" />, представляющая флаги реализации для метода.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1454,7 +1455,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает или задает значение, указывающее, инициализированы ли локальные переменные в методе нулевым значением.</summary>
-        <value>Значение <see langword="true" />, если локальные переменные в методе инициализированы нулевым значением; в противном случае — значение <see langword="false" />. Значение по умолчанию: <see langword="true" />.</value>
+        <value>Значение <see langword="true" />, если локальные переменные в методе инициализированы нулевым значением; в противном случае — значение <see langword="false" />. Значение по умолчанию — <see langword="true" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1508,12 +1509,12 @@
       </Parameters>
       <Docs>
         <param name="obj">Эти параметры игнорируются для динамических методов, поскольку они являются статическими. Задайте имя <see langword="null" />.</param>
-        <param name="invokeAttr">Побитовое сочетание значений <see cref="T:System.Reflection.BindingFlags" />.</param>
-        <param name="binder">Объект <see cref="T:System.Reflection.Binder" />, который допускает связывание, приведение типов аргументов, вызов элементов и извлечение объектов <see cref="T:System.Reflection.MemberInfo" /> путем отражения. Если указан <c>модуль привязки</c><see langword="null" />, используется модуль привязки по умолчанию. Дополнительные сведения см. в разделе <see cref="T:System.Reflection.Binder" />.</param>
-        <param name="parameters">Список аргументов. Это массив аргументов с тем же числом, порядком и типом, что и параметры вызываемого метода. Если параметров нет, значением этого параметра должно быть <see langword="null" />.</param>
-        <param name="culture">Экземпляр объекта <see cref="T:System.Globalization.CultureInfo" />, используемого для управления приведением типов. Если значение этого объекта — <see langword="null" />, для текущего потока используется <see cref="T:System.Globalization.CultureInfo" />. Например, эти сведения необходимы для правильного преобразования строки <see cref="T:System.String" />, которая представляет 1000, в значение <see cref="T:System.Double" />, так как 1000 в различных языках и региональных параметрах представляется по-разному.</param>
+        <param name="invokeAttr">Битовая комбинация значений <see cref="T:System.Reflection.BindingFlags" />.</param>
+        <param name="binder">Объект <see cref="T:System.Reflection.Binder" />, который допускает привязку, приведение типов аргументов, вызов элементов и извлечение объектов <see cref="T:System.Reflection.MemberInfo" /> путем отражения. Если указан <c>модуль привязки</c><see langword="null" />, используется модуль привязки по умолчанию. Дополнительные сведения см. в разделе <see cref="T:System.Reflection.Binder" />.</param>
+        <param name="parameters">Список аргументов. Это массив аргументов с тем же числом, порядком и типом, что и параметры вызываемого метода. Если параметров нет, этот параметр должен иметь значение <see langword="null" />.</param>
+        <param name="culture">Экземпляр объекта <see cref="T:System.Globalization.CultureInfo" />, используемого для управления приведением типов. Если значение этого объекта — <see langword="null" />, для текущего потока используется <see cref="T:System.Globalization.CultureInfo" />. Например, эти сведения необходимы для правильного преобразовывая объекта <see cref="T:System.String" />, представляющего 1000, в значение <see cref="T:System.Double" />, поскольку в разных языках и региональных параметрах 1000 представляется по-разному.</param>
         <summary>Вызывает динамический метод, используя указанные параметры и учитывая ограничения заданного модуля привязки и указанные сведения о языке и региональных параметрах.</summary>
-        <returns>Объект <see cref="T:System.Object" />, содержащий возвращенное значение вызванного метода.</returns>
+        <returns>Объект <see cref="T:System.Object" />, содержащий возвращаемое значение вызванного метода.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1547,13 +1548,13 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.NotSupportedException">Соглашение о вызове <see cref="F:System.Reflection.CallingConventions.VarArgs" /> не поддерживается.</exception>
-        <exception cref="T:System.Reflection.TargetParameterCountException">Количество элементов в <paramref name="parameters" /> не соответствует количеству параметров в динамическом методе.</exception>
-        <exception cref="T:System.ArgumentException">Тип <paramref name="parameters" /> одного или нескольких элементов не сопоставляется с типом соответствующего параметра динамического метода.</exception>
-        <exception cref="T:System.Reflection.TargetInvocationException">Динамический метод связан с модулем, не размещен анонимно и был сконструирован с параметром <paramref name="skipVisibility" />, равным <see langword="false" />, однако динамический метод получает доступ к элементам, которые не являются <see langword="public" /> или <see langword="internal" /> (<see langword="Friend" /> в Visual Basic).  
+        <exception cref="T:System.NotSupportedException">Соглашение о вызовах <see cref="F:System.Reflection.CallingConventions.VarArgs" /> не поддерживается.</exception>
+        <exception cref="T:System.Reflection.TargetParameterCountException">Число элементов в <paramref name="parameters" /> не соответствует числу параметров в динамическом методе.</exception>
+        <exception cref="T:System.ArgumentException">Тип одного или нескольких элементов <paramref name="parameters" /> не соответствует типу соответствующего параметра динамического метода.</exception>
+        <exception cref="T:System.Reflection.TargetInvocationException">Динамический метод связан с модулем, не размещен анонимно и был создан с параметром <paramref name="skipVisibility" />, для которого задано значение <see langword="false" />, однако он получает доступ к членам, которые не имеют тип <see langword="public" /> или <see langword="internal" /> (<see langword="Friend" /> в Visual Basic).  
   
 - или - 
-Динамический метод размещен анонимно и был сконструирован с параметром <paramref name="skipVisibility" />, равным <see langword="false" />, однако он получает доступ к элементам, которые не являются <see langword="public" />.  
+Динамический метод размещен анонимно и был создан с параметром <paramref name="skipVisibility" />, для которого задано значение <see langword="false" />, однако он получает доступ к членам, которые не имеют тип <see langword="public" />.  
   
 - или - 
 Динамический метод содержит непроверяемый код. См. подраздел "Проверка" в разделе примечаний для <see cref="T:System.Reflection.Emit.DynamicMethod" />.</exception>
@@ -1586,11 +1587,11 @@
         <Parameter Name="inherit" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="attributeType">Тип <see cref="T:System.Type" />, представляющий искомый тип атрибута.</param>
-        <param name="inherit">Значение <see langword="true" /> для поиска цепочки наследования метода с целью поиска пользовательских атрибутов; <see langword="false" /> для проверки только текущего метода.</param>
+        <param name="attributeType">
+          <see cref="T:System.Type" />, представляющий тип искомого настраиваемого атрибута.</param>
+        <param name="inherit">Значение <see langword="true" /> для поиска цепочки наследования метода для обнаружения настраиваемых атрибутов; значение <see langword="false" /> для проверки только текущего метода.</param>
         <summary>Указывает, определен ли заданный тип настраиваемых атрибутов.</summary>
-        <returns>
-          <see langword="true" />, если указанный пользовательский атрибут определен; в противном случае — <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если заданный тип настраиваемых атрибутов определен; в противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1630,7 +1631,7 @@
       </ReturnValue>
       <Docs>
         <summary>Получает значение, которое указывает, является ли текущий динамический метод критическим с точки зрения безопасности или надежным с точки зрения безопасности и, следовательно, может ли он выполнять важные операции.</summary>
-        <value>Значение <see langword="true" />, если текущий динамический метод является критически важным для безопасности или защищенным критически важным для безопасности; значение <see langword="false" />, если он является прозрачным.</value>
+        <value>Значение <see langword="true" />, если текущий динамический метод является критическим с точки зрения безопасности или надежным с точки зрения безопасности; значение <see langword="false" />, если он является прозрачным.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1675,8 +1676,8 @@
         <related type="Article" href="~/docs/framework/reflection-and-codedom/security-issues-in-reflection-emit.md">Вопросы безопасности в порождаемом отражении</related>
         <related type="Article" href="~/docs/framework/reflection-and-codedom/security-considerations-for-reflection.md">Соображения о безопасности для отражения</related>
         <related type="Article" href="~/docs/framework/security/security-changes.md">Изменения системы безопасности в платформе .NET Framework версии 4.0</related>
-        <related type="Article" href="http://msdn.microsoft.com/library/5fd8f46d-3961-46a7-84af-2eb1f48e75cf">Прозрачный с точки зрения безопасности код, уровень 1</related>
-        <related type="Article" href="http://msdn.microsoft.com/library/4d05610a-0da6-4f08-acea-d54c9d6143c0">Прозрачный с точки зрения безопасности код, уровень 2</related>
+        <related type="Article" href="https://msdn.microsoft.com/library/5fd8f46d-3961-46a7-84af-2eb1f48e75cf">Прозрачный с точки зрения безопасности код, уровень 1</related>
+        <related type="Article" href="https://msdn.microsoft.com/library/4d05610a-0da6-4f08-acea-d54c9d6143c0">Прозрачный с точки зрения безопасности код, уровень 2</related>
       </Docs>
     </Member>
     <Member MemberName="IsSecuritySafeCritical">
@@ -1704,7 +1705,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает значение, которое указывает, является ли текущий динамический метод надежным с точки зрения безопасности на текущем уровне доверия и, следовательно, может ли он выполнять критически важные операции и предоставлять доступ прозрачному коду.</summary>
-        <value>Значение <see langword="true" />, если текущий динамический метод является защищенным критически важным для безопасности на текущем уровне доверия; значение <see langword="false" />, если он является критически важным для безопасности или прозрачным.</value>
+        <value>Значение <see langword="true" />, если динамический метод надежен с точки зрения безопасности на текущем уровне доверия; значение <see langword="false" />, если он является критическим с точки зрения безопасности или прозрачным.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1749,8 +1750,8 @@
         <related type="Article" href="~/docs/framework/reflection-and-codedom/security-issues-in-reflection-emit.md">Вопросы безопасности в порождаемом отражении</related>
         <related type="Article" href="~/docs/framework/reflection-and-codedom/security-considerations-for-reflection.md">Соображения о безопасности для отражения</related>
         <related type="Article" href="~/docs/framework/security/security-changes.md">Изменения системы безопасности в платформе .NET Framework версии 4.0</related>
-        <related type="Article" href="http://msdn.microsoft.com/library/5fd8f46d-3961-46a7-84af-2eb1f48e75cf">Прозрачный с точки зрения безопасности код, уровень 1</related>
-        <related type="Article" href="http://msdn.microsoft.com/library/4d05610a-0da6-4f08-acea-d54c9d6143c0">Прозрачный с точки зрения безопасности код, уровень 2</related>
+        <related type="Article" href="https://msdn.microsoft.com/library/5fd8f46d-3961-46a7-84af-2eb1f48e75cf">Прозрачный с точки зрения безопасности код, уровень 1</related>
+        <related type="Article" href="https://msdn.microsoft.com/library/4d05610a-0da6-4f08-acea-d54c9d6143c0">Прозрачный с точки зрения безопасности код, уровень 2</related>
       </Docs>
     </Member>
     <Member MemberName="IsSecurityTransparent">
@@ -1778,7 +1779,7 @@
       </ReturnValue>
       <Docs>
         <summary>Получает значение, которое указывает, является ли текущий динамический метод прозрачным на текущем уровне доверия и, следовательно, не может выполнять критические операции.</summary>
-        <value>Значение <see langword="true" />, если текущий динамический метод является прозрачным на текущем уровне доверия; в противном случае — значение <see langword="false" />.</value>
+        <value>Значение <see langword="true" />, если этот динамический метод является прозрачным на текущем уровне доверия; в противном случае — значение <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1823,8 +1824,8 @@
         <related type="Article" href="~/docs/framework/reflection-and-codedom/security-issues-in-reflection-emit.md">Вопросы безопасности в порождаемом отражении</related>
         <related type="Article" href="~/docs/framework/reflection-and-codedom/security-considerations-for-reflection.md">Соображения о безопасности для отражения</related>
         <related type="Article" href="~/docs/framework/security/security-changes.md">Изменения системы безопасности в платформе .NET Framework версии 4.0</related>
-        <related type="Article" href="http://msdn.microsoft.com/library/5fd8f46d-3961-46a7-84af-2eb1f48e75cf">Прозрачный с точки зрения безопасности код, уровень 1</related>
-        <related type="Article" href="http://msdn.microsoft.com/library/4d05610a-0da6-4f08-acea-d54c9d6143c0">Прозрачный с точки зрения безопасности код, уровень 2</related>
+        <related type="Article" href="https://msdn.microsoft.com/library/5fd8f46d-3961-46a7-84af-2eb1f48e75cf">Прозрачный с точки зрения безопасности код, уровень 1</related>
+        <related type="Article" href="https://msdn.microsoft.com/library/4d05610a-0da6-4f08-acea-d54c9d6143c0">Прозрачный с точки зрения безопасности код, уровень 2</related>
       </Docs>
     </Member>
     <Member MemberName="MethodHandle">
@@ -1901,7 +1902,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает модуль, с которым логически связан динамический метод.</summary>
-        <value>Модуль <see cref="T:System.Reflection.Module" />, с которым логически связан текущий динамический метод.</value>
+        <value>Модуль <see cref="T:System.Reflection.Module" />, с которым связан текущий динамический метод.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2112,7 +2113,7 @@
       </ReturnValue>
       <Docs>
         <summary>Получает настраиваемые атрибуты типа возвращаемого значения для динамического метода.</summary>
-        <value>Объект <see cref="T:System.Reflection.ICustomAttributeProvider" />, представляющий пользовательские атрибуты возвращаемого типа для динамического метода.</value>
+        <value>Объект <see cref="T:System.Reflection.ICustomAttributeProvider" />, представляющий настраиваемые атрибуты типа возвращаемого значения для динамического метода.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
