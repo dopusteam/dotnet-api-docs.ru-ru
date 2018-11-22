@@ -1,11 +1,11 @@
 <Type Name="SecurityException" FullName="System.Security.SecurityException">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="bbe9a3a2ac6a061fce4f9c54fed4cb071361ccd7" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="197b4df6270b7d149647445635f5ef61b1d2e588" />
+    <Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48706943" />
+    <Meta Name="ms.lasthandoff" Value="11/20/2018" />
+    <Meta Name="ms.locfileid" Value="52199770" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class SecurityException : SystemException" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit SecurityException extends System.SystemException" />
@@ -300,7 +300,7 @@
       </Parameters>
       <Docs>
         <param name="message">Сообщение об ошибке, указывающее причину создания исключения.</param>
-        <param name="inner">Исключение, которое является причиной текущего исключения. Если значение параметра <c>inner</c> не равно <see langword="null" />, текущее исключение возникает в блоке <see langword="catch" />, обрабатывающем внутреннее исключение.</param>
+        <param name="inner">Исключение, которое является причиной текущего исключения. Если значение параметра <paramref name="inner" /> не равно <see langword="null" />, текущее исключение сгенерировано в блоке <see langword="catch" />, обрабатывающем внутреннее исключение.</param>
         <summary>Инициализирует новый экземпляр класса <see cref="T:System.Security.SecurityException" /> указанным сообщением об ошибке и ссылкой на внутреннее исключение, вызвавшее данное исключение.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -361,7 +361,7 @@
       <Docs>
         <param name="message">Сообщение об ошибке, указывающее причину создания исключения.</param>
         <param name="type">Тип разрешения, вызвавшего исключение.</param>
-        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Security.SecurityException" /> с указанным сообщением об ошибке и типом разрешения, вызвавшим создание исключения.</summary>
+        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Security.SecurityException" /> с указанным сообщением об ошибке и типом разрешения, которое стало причиной текущего исключения.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -419,7 +419,7 @@
         <param name="message">Сообщение об ошибке, указывающее причину создания исключения.</param>
         <param name="type">Тип разрешения, вызвавшего исключение.</param>
         <param name="state">Состояние разрешения, вызвавшего исключение.</param>
-        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Security.SecurityException" /> с указанным сообщением об ошибке, типом разрешения, вызвавшим исключение, и состоянием разрешения.</summary>
+        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Security.SecurityException" /> с указанным сообщением об ошибке, типом разрешения, которое стало причиной текущего исключения, и состоянием разрешения.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -478,10 +478,11 @@
         <param name="message">Сообщение об ошибке, указывающее причину создания исключения.</param>
         <param name="deny">Отклоненное разрешение или набор разрешений.</param>
         <param name="permitOnly">Разрешение "только на разрешение" или набор разрешений.</param>
-        <param name="method">Объект <see cref="T:System.Reflection.MethodInfo" />, определяющий метод, который вызвал исключение.</param>
+        <param name="method">Объект <see cref="T:System.Reflection.MethodInfo" />, определяющий метод, который обнаружил исключение.</param>
         <param name="demanded">Затребованное разрешение, набор разрешений или коллекция наборов разрешений.</param>
-        <param name="permThatFailed">Интерфейс <see cref="T:System.Security.IPermission" />, который определяет разрешение, вызвавшее сбой.</param>
-        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Security.SecurityException" /> для исключения, вызванного методом Deny в стеке.</summary>
+        <param name="permThatFailed">
+          <see cref="T:System.Security.IPermission" />, определяющий разрешение, которое вызвало сбой.</param>
+        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Security.SecurityException" /> для исключения, вызванного отказом в стеке.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -551,15 +552,16 @@
       </Parameters>
       <Docs>
         <param name="message">Сообщение об ошибке, указывающее причину создания исключения.</param>
-        <param name="assemblyName">Объект <see cref="T:System.Reflection.AssemblyName" />, определяющий имя сборки, вызвавшей исключение.</param>
-        <param name="grant">Объект <see cref="T:System.Security.PermissionSet" />, представляющий разрешения, выданные сборке.</param>
-        <param name="refused">Объект <see cref="T:System.Security.PermissionSet" />, представляющий отклоненное разрешение или набор разрешений.</param>
-        <param name="method">Объект <see cref="T:System.Reflection.MethodInfo" />, представляющий метод, который вызвал исключение.</param>
+        <param name="assemblyName">Объект <see cref="T:System.Reflection.AssemblyName" />, указывающий зону сборки, вызвавшую исключение.</param>
+        <param name="grant">Объект <see cref="T:System.Security.PermissionSet" />, представляющий разрешения, предоставленные сборке.</param>
+        <param name="refused">Объект <see cref="T:System.Security.PermissionSet" />, представляющий отклоненные разрешения или набор разрешений.</param>
+        <param name="method">Объект <see cref="T:System.Reflection.MethodInfo" />, представляющий метод, который обнаружил исключение.</param>
         <param name="action">Одно из значений перечисления <see cref="T:System.Security.Permissions.SecurityAction" />.</param>
         <param name="demanded">Затребованное разрешение, набор разрешений или коллекция наборов разрешений.</param>
-        <param name="permThatFailed">Интерфейс <see cref="T:System.Security.IPermission" />, который представляет разрешение, вызвавшее сбой.</param>
-        <param name="evidence">Свидетельство <see cref="T:System.Security.Policy.Evidence" /> сборки, вызвавшей исключение.</param>
-        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Security.SecurityException" /> для исключения, вызванного недостаточным набором выданных разрешений.</summary>
+        <param name="permThatFailed">Объект <see cref="T:System.Security.IPermission" />, представляющий разрешение, которое вызвало сбой.</param>
+        <param name="evidence">
+          <see cref="T:System.Security.Policy.Evidence" /> для сборки, вызвавшей исключение.</param>
+        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Security.SecurityException" /> для исключения, вызванного недостаточным набором прав.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -785,7 +787,7 @@
       </ReturnValue>
       <Docs>
         <summary>Получает или задает сведения о сборке, вызвавшей сбой.</summary>
-        <value>Объект <see cref="T:System.Reflection.AssemblyName" />, который определяет сборку, вызвавшую сбой.</value>
+        <value>Имя <see cref="T:System.Reflection.AssemblyName" />, определяющее сборку, вызвавшую сбой.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -842,7 +844,7 @@
       </ReturnValue>
       <Docs>
         <summary>Получает или задает первое разрешение в наборе разрешений или коллекции наборов разрешений, вызвавшее сбой требования.</summary>
-        <value>Объект <see cref="T:System.Security.IPermission" />, представляющий первое разрешение, вызвавшее сбой.</value>
+        <value>Объект <see cref="T:System.Security.IPermission" />, представляющий первое разрешение, которое завершилось ошибкой.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -893,7 +895,7 @@
       <Docs>
         <param name="info">Объект <see cref="T:System.Runtime.Serialization.SerializationInfo" />, хранящий сериализованные данные объекта, относящиеся к выдаваемому исключению.</param>
         <param name="context">Объект <see cref="T:System.Runtime.Serialization.StreamingContext" />, содержащий контекстные сведения об источнике или назначении.</param>
-        <summary>Задает объект <see cref="T:System.Runtime.Serialization.SerializationInfo" /> со сведениями об исключении <see cref="T:System.Security.SecurityException" />.</summary>
+        <summary>Заполняет <see cref="T:System.Runtime.Serialization.SerializationInfo" /> сведениями об исключении <see cref="T:System.Security.SecurityException" />.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -950,7 +952,7 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Получает или задает выданный набор разрешений для сборки, вызвавшей исключение <see cref="T:System.Security.SecurityException" />.</summary>
+        <summary>Получает или задает набор предоставленных разрешений сборки, вызвавшей <see cref="T:System.Security.SecurityException" />.</summary>
         <value>XML-представление набора предоставленных разрешений для сборки.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1188,7 +1190,7 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Получает или задает отклоненный набор разрешений для сборки, вызвавшей исключение <see cref="T:System.Security.SecurityException" />.</summary>
+        <summary>Возвращает или задает отклоненный набор разрешений сборки, вызвавшей <see cref="T:System.Security.SecurityException" />.</summary>
         <value>XML-представление отклоненного набора разрешений сборки.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1239,8 +1241,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает представление текущего исключения <see cref="T:System.Security.SecurityException" />.</summary>
-        <returns>Строковое представление текущего исключения <see cref="T:System.Security.SecurityException" />.</returns>
+        <summary>Возвращает представление текущего <see cref="T:System.Security.SecurityException" />.</summary>
+        <returns>Строковое представление текущего <see cref="T:System.Security.SecurityException" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1314,7 +1316,7 @@
       </ReturnValue>
       <Docs>
         <summary>Получает или задает зону сборки, вызвавшую исключение.</summary>
-        <value>Одно из значений перечисления <see cref="T:System.Security.SecurityZone" />, определяющее зону сборки, вызвавшей исключение.</value>
+        <value>Одно из значений <see cref="T:System.Security.SecurityZone" />, которое определяет зону сборки, вызвавшую исключение.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
