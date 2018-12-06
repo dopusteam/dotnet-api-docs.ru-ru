@@ -1,11 +1,11 @@
 <Type Name="MemoryManager&lt;T&gt;" FullName="System.Buffers.MemoryManager&lt;T&gt;">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="5047a443f74813c69439bd383ddec25478572d83" />
-    <Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" />
+    <Meta Name="ms.openlocfilehash" Value="ce1f4dd9e0f3e75e828feeef7ffb2401986c3572" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="08/25/2018" />
-    <Meta Name="ms.locfileid" Value="39835923" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52614688" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class MemoryManager&lt;T&gt; : System.Buffers.IMemoryOwner&lt;T&gt;, System.Buffers.IPinnable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit MemoryManager`1&lt;T&gt; extends System.Object implements class System.Buffers.IMemoryOwner`1&lt;!T&gt;, class System.Buffers.IPinnable, class System.IDisposable" />
@@ -16,6 +16,9 @@
   <AssemblyInfo>
     <AssemblyName>System.Runtime</AssemblyName>
     <AssemblyVersion>4.2.1.0</AssemblyVersion>
+  </AssemblyInfo>
+  <AssemblyInfo>
+    <AssemblyName>System.Memory</AssemblyName>
   </AssemblyInfo>
   <TypeParameters>
     <TypeParameter Name="T" />
@@ -30,11 +33,23 @@
     <Interface>
       <InterfaceName>System.Buffers.IPinnable</InterfaceName>
     </Interface>
+    <Interface>
+      <InterfaceName>System.IDisposable</InterfaceName>
+    </Interface>
   </Interfaces>
   <Docs>
-    <typeparam name="T">To be added.</typeparam>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <typeparam name="T">Тип элементов в буфере памяти, управляемым данным диспетчером памяти.</typeparam>
+    <summary>Абстрактный базовый класс, который используется для замены реализации <see cref="T:System.Memory`1" />.</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+
+`MemoryManager<T>` Класс используется для расширения знаний типов, <xref:System.Memory%601> может представлять. Например, можно получить из `MemoryManager<T>` разрешающее <xref:System.Memory%601> поддерживаться <xref:System.Runtime.InteropServices.SafeHandle>.
+
+> [!NOTE]
+> `MemoryManager<T>` Класс предназначен для более сложных сценариев. Большинство разработчиков не обязательно должны использовать его.
+
+       ]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -48,9 +63,12 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
+        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Buffers.MemoryManager`1" />.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -66,6 +84,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -73,9 +94,9 @@
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="length">Количество элементов в буфере памяти, начиная со смещения 0.</param>
+        <summary>Возвращает буфер памяти, состоящий из указанного числа элементов, из памяти, управляемой текущим диспетчером памяти.</summary>
+        <returns>Буфер памяти.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -91,6 +112,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
@@ -99,10 +123,10 @@
         <Parameter Name="length" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="start">To be added.</param>
-        <param name="length">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="start">Смещение к элементу, с которого начинается возвращенный буфер памяти.</param>
+        <param name="length">Количество элементов, добавляемых в возвращенный буфер памяти.</param>
+        <summary>Возвращает буфер памяти, состоящий из указанного числа элементов, начиная с указанного смещения, из памяти, управляемой текущим диспетчером памяти.</summary>
+        <returns>Буфер памяти, который состоит из <paramref name="length" /> элементов, начиная со смещения <paramref name="start" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -118,6 +142,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
@@ -125,8 +152,8 @@
         <Parameter Name="disposing" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="disposing">To be added.</param>
-        <summary>To be added.</summary>
+        <param name="disposing">Значение <see langword="true" /> позволяет освободить как управляемые, так и неуправляемые ресурсы; значение <see langword="false" /> освобождает только неуправляемые ресурсы.</param>
+        <summary>Освобождает все ресурсы, используемые текущим диспетчером памяти.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -142,13 +169,16 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Span&lt;T&gt;</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <summary>Возвращает диапазон памяти, в который входит базовый буфер памяти.</summary>
+        <returns>Диапазон памяти, в который входит базовый буфер памяти.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -167,12 +197,15 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Memory&lt;T&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>Получает блок памяти, обрабатываемый этим <see cref="T:System.Buffers.MemoryManager`1" />.</summary>
+        <value>Блок памяти обрабатываемые этим <see cref="T:System.Buffers.MemoryManager`1" />.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -190,6 +223,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Buffers.MemoryHandle</ReturnType>
       </ReturnValue>
@@ -197,9 +233,9 @@
         <Parameter Name="elementIndex" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="elementIndex">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="elementIndex">Смещение к элементу в буфере памяти, к которому относятся возвращенные точки <see cref="T:System.Buffers.MemoryHandle" />.</param>
+        <summary>Возвращает дескриптор памяти, которая была закреплена и адрес которой можно получить.</summary>
+        <returns>Дескриптор памяти, которая была закреплена.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -217,13 +253,16 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Освобождает все ресурсы, используемые диспетчером памяти.</summary>
+        <remarks>Этот метод предоставляет диспетчер памяти <see cref="M:System.IDisposable.Dispose" /> реализации.</remarks>
       </Docs>
     </Member>
     <Member MemberName="TryGetArray">
@@ -238,6 +277,9 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
@@ -245,10 +287,10 @@
         <Parameter Name="segment" Type="System.ArraySegment&lt;T&gt;" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="segment">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="segment">Сегмент массива для записи.</param>
+        <summary>Возвращает сегмент массива.</summary>
+        <returns>Значение <see langword="true" />, если методу удалось извлечь сегмент массива; в противном случае — значение <see langword="false" />.</returns>
+        <remarks>Если этот метод не переопределен, он возвращает фрагмент массива по умолчанию.</remarks>
       </Docs>
     </Member>
     <Member MemberName="Unpin">
@@ -266,12 +308,15 @@
         <AssemblyName>System.Runtime</AssemblyName>
         <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
+      <AssemblyInfo>
+        <AssemblyName>System.Memory</AssemblyName>
+      </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
+        <summary>Открепляет закрепленную память, чтобы сборщик мусора мог ее переместить.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
