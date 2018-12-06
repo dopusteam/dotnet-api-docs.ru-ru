@@ -1,11 +1,11 @@
 <Type Name="DataProtectionPermission" FullName="System.Security.Permissions.DataProtectionPermission">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="c230dac272281136888d1c3f860361f6984fd620" />
-    <Meta Name="ms.sourcegitcommit" Value="0ec122ee5f3681159b8460ab15b409fd6e3d3ae0" />
+    <Meta Name="ms.openlocfilehash" Value="41a7bb2eee8b809a2721729d0eb8082c27f92ff9" />
+    <Meta Name="ms.sourcegitcommit" Value="c0c07dbd19cd7017243f9ac36915755f79bc8da6" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="10/04/2018" />
-    <Meta Name="ms.locfileid" Value="48592355" />
+    <Meta Name="ms.lasthandoff" Value="11/27/2018" />
+    <Meta Name="ms.locfileid" Value="52377101" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class DataProtectionPermission : System.Security.CodeAccessPermission, System.Security.Permissions.IUnrestrictedPermission" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit DataProtectionPermission extends System.Security.CodeAccessPermission implements class System.Security.Permissions.IUnrestrictedPermission" />
@@ -27,8 +27,8 @@
     </Interface>
   </Interfaces>
   <Attributes>
-    <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;xamarinmac-3.0;netframework-4.8">
-      <AttributeName>Serializable</AttributeName>
+    <Attribute FrameworkAlternate="netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinmac-3.0">
+      <AttributeName>System.Serializable</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
@@ -215,7 +215,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Заданное значение не является действительным сочетанием значений <see cref="T:System.Security.Permissions.DataProtectionPermissionFlags" />.</exception>
+        <exception cref="T:System.ArgumentException">Указанное значение не является допустимым сочетанием значений <see cref="T:System.Security.Permissions.DataProtectionPermissionFlags" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="FromXml">
@@ -242,8 +242,8 @@
         <Parameter Name="e" Type="System.Security.SecurityElement" Index="0" FrameworkAlternate="xamarinmac-3.0" />
       </Parameters>
       <Docs>
-        <param name="securityElement">Объект <see cref="T:System.Security.SecurityElement" />, который содержит кодировку XML, используемую для восстановления разрешения.</param>
-        <param name="e">Объект <see cref="T:System.Security.SecurityElement" />, который содержит кодировку XML, используемую для восстановления разрешения.</param>
+        <param name="securityElement">Объект <see cref="T:System.Security.SecurityElement" />, содержащий кодировку XML, используемую для восстановления разрешения.</param>
+        <param name="e">Объект <see cref="T:System.Security.SecurityElement" />, содержащий кодировку XML, используемую для восстановления разрешения.</param>
         <summary>Восстанавливает разрешение с определенным состоянием из кодировки XML.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -266,10 +266,11 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException">Свойство <paramref name="securityElement" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Параметр <paramref name="securityElement" /> не является допустимым элементом разрешения.  
+        <exception cref="T:System.ArgumentException">
+          <paramref name="securityElement" /> не является допустимым элементом разрешения.  
   
 - или - 
-Номер версии параметра <paramref name="securityElement" /> не поддерживается.</exception>
+Номер версии <paramref name="securityElement" /> не поддерживается.</exception>
       </Docs>
     </Member>
     <Member MemberName="Intersect">
@@ -294,7 +295,7 @@
       <Docs>
         <param name="target">Разрешение, пересекающееся с текущим разрешением. Его тип должен совпадать с типом текущего разрешения.</param>
         <summary>Создает и возвращает разрешение, представляющее собой пересечение текущего и указанного разрешений.</summary>
-        <returns>Новое разрешение, представляющее собой пересечение текущего и указанного разрешений. Если пересечение пусто, новое разрешение имеет значение <see langword="null" />.</returns>
+        <returns>Новое разрешение, представляющее собой пересечение текущего и указанного разрешений. Это новое разрешение равно <see langword="null" />, если пересечение является пустым.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -312,7 +313,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Параметр <paramref name="target" /> не имеет значение <see langword="null" /> и не задает разрешение того же типа, что и текущее разрешение.</exception>
+        <exception cref="T:System.ArgumentException">
+          <paramref name="target" /> не имеет значение <see langword="null" /> и не указывает разрешение того же типа, что и текущее разрешение.</exception>
       </Docs>
     </Member>
     <Member MemberName="IsSubsetOf">
@@ -337,7 +339,7 @@
       <Docs>
         <param name="target">Разрешение на проверку наличия связи подмножеств. Его тип должен совпадать с типом текущего разрешения.</param>
         <summary>Определяет, является ли текущее разрешение подмножеством указанного разрешения.</summary>
-        <returns>Значение <see langword="true" />, если текущее разрешение является подмножеством заданного разрешения; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если текущее разрешение является подмножеством указанного разрешения. В противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -358,7 +360,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Параметр <paramref name="target" /> не имеет значение <see langword="null" /> и не задает разрешение того же типа, что и текущее разрешение.</exception>
+        <exception cref="T:System.ArgumentException">
+          <paramref name="target" /> не имеет значение <see langword="null" /> и не указывает разрешение того же типа, что и текущее разрешение.</exception>
       </Docs>
     </Member>
     <Member MemberName="IsUnrestricted">
@@ -380,7 +383,7 @@
       <Parameters />
       <Docs>
         <summary>Возвращает значение, указывающее, является ли текущее разрешение неограниченным.</summary>
-        <returns>Значение <see langword="true" />, если текущее разрешение неограниченно; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если текущее разрешение является неограниченным. В противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -485,7 +488,8 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Параметр <paramref name="target" /> не имеет значение <see langword="null" /> и не задает разрешение того же типа, что и текущее разрешение.</exception>
+        <exception cref="T:System.ArgumentException">
+          <paramref name="target" /> не имеет значение <see langword="null" /> и не указывает разрешение того же типа, что и текущее разрешение.</exception>
       </Docs>
     </Member>
   </Members>
