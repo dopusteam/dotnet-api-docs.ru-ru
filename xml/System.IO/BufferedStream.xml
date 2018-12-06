@@ -1,11 +1,11 @@
 <Type Name="BufferedStream" FullName="System.IO.BufferedStream">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="844e045e034922791bd6f5c66770ed7166f90a00" />
-    <Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" />
+    <Meta Name="ms.openlocfilehash" Value="9cf5c6dc99590b2f24b7725c166fa854be4af0d8" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="11/20/2018" />
-    <Meta Name="ms.locfileid" Value="52255085" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52598919" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class BufferedStream : System.IO.Stream" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit BufferedStream extends System.IO.Stream" />
@@ -561,8 +561,52 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Закрывает поток и освобождает все ресурсы (особенно системные ресурсы, например, сокеты и дескрипторы файлов), связанные с текущим буферизованным потоком.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Все данные, записанные ранее в буфер копируется в базовый источник данных или репозиторий перед закрытием буферизованного потока. Таким образом, нет необходимости вызывать <xref:System.IO.BufferedStream.Flush> перед вызовом Close. После вызова метода Close все операции в буферизованный поток может вызывать исключения.
+
+Сброс потока его основной кодировщик не очищается только явным образом при вызове <xref:System.IO.BufferedStream.Flush> или закрыть. Параметр <xref:System.IO.StreamWriter.AutoFlush> равным true означает, что данные будут сброшены из буфера в поток, но состояние кодировщика не сбрасывается. Это позволяет кодировщику сохранить свое состояние (частичные символы), чтобы правильно выполнить кодировку следующего блока символов. Этот сценарий влияет на UTF8 и UTF7, в которых определенные символы кодируются только после того как кодировщик получает смежные символ или символы.
+
+При попытке управлять потоком, после его закрытия может выдавать <xref:System.ObjectDisposedException>.
+
+## Examples  
+Данный пример кода является частью большего примера для <xref:System.IO.BufferedStream> класса.
+
+```vb
+' When bufStream is closed, netStream is in turn 
+' closed, which in turn shuts down the connection 
+' and closes clientSocket.
+Console.WriteLine(vbCrLf & "Shutting down the connection.")
+bufStream.Close()
+```
+
+```csharp
+// When bufStream is closed, netStream is in turn
+// closed, which in turn shuts down the connection
+// and closes clientSocket.
+Console.WriteLine("\nShutting down the connection.");
+bufStream.Close();
+```
+
+```cpp
+// When bufStream is closed, netStream is in turn closed,
+// which in turn shuts down the connection and closes
+// clientSocket.
+Console::WriteLine( "\nShutting down connection." );
+bufStream->Close();
+
+```
+
+]]></format>
+        </remarks>
+        <exception cref="T:System.IO.IOException">Произошла ошибка при попытке закрытия потока.</exception>
+        <altmember cref="M:System.IO.BufferedStream.Flush" />
+        <related type="Article" href="~/docs/standard/io/index.md">Файловый и потоковый ввод-вывод</related>
+        <related type="Article" href="~/docs/standard/io/how-to-read-text-from-a-file.md">Практическое руководство. Считывание текста из файла</related>
+        <related type="Article" href="~/docs/standard/io/how-to-write-text-to-a-file.md">Практическое руководство. Запись текста в файл</related>
       </Docs>
     </Member>
     <Member MemberName="Dispose">

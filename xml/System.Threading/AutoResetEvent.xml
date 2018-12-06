@@ -1,11 +1,11 @@
 <Type Name="AutoResetEvent" FullName="System.Threading.AutoResetEvent">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="8fce8768b4a2ba80422edde0871cb31a0a891d1f" />
-    <Meta Name="ms.sourcegitcommit" Value="16d2d159872fd213cae4b8f371d7ae9c8b027c89" />
+    <Meta Name="ms.openlocfilehash" Value="c64c681a3837ebc150b0f23474a66a22791e1e98" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="11/17/2018" />
-    <Meta Name="ms.locfileid" Value="51871747" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52605575" />
   </Metadata>
   <TypeSignature Language="C#" Value="public sealed class AutoResetEvent : System.Threading.EventWaitHandle" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit AutoResetEvent extends System.Threading.EventWaitHandle" />
@@ -88,7 +88,6 @@
     <threadsafe>Этот класс является потокобезопасным.</threadsafe>
     <altmember cref="T:System.Threading.WaitHandle" />
     <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
-    <related type="Article" href="https://msdn.microsoft.com/library/6d39c48d-6b37-4a9b-8631-f2924cfd9c18">AutoResetEvent</related>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -148,7 +147,6 @@
         </remarks>
         <altmember cref="T:System.Threading.WaitHandle" />
         <related type="Article" href="~/docs/standard/threading/index.md">Управляемая поточность</related>
-        <related type="Article" href="https://msdn.microsoft.com/library/6d39c48d-6b37-4a9b-8631-f2924cfd9c18">AutoResetEvent</related>
       </Docs>
     </Member>
     <Member MemberName="Reset">
@@ -174,8 +172,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <summary>Задает несигнальное состояние события, вызывая блокирование потоков.</summary>
+        <returns>Значение <see langword="true" />, если операция выполнена успешно; в противном случае — значение <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -202,9 +200,19 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>Задает сигнальное состояние события, позволяя одному или нескольким ожидающим потокам продолжить.</summary>
+        <returns>Значение <see langword="true" />, если операция выполнена успешно; в противном случае — значение <see langword="false" />.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Метод Set освобождает один поток. Если нет ожидающих потоков, дескриптор ожидания остается сигнальным до поток попытается ожидать ее, или пока не будет вызван его метод Reset.
+
+> [!IMPORTANT]
+> Нет никакой гарантии, что при каждом вызове метода Set выпустит потока. Если два вызова находятся слишком близко друг к другу, что второй вызов происходит до выпустила поток, освобождается только один поток, как если не произошел второй вызов. Кроме того Если вызывается метод Set, при наличии потоки, ожидающие и <xref:System.Threading.AutoResetEvent> уже есть сигнал, вызов не оказывает влияния.
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
   </Members>
