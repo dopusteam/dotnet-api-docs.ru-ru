@@ -1,11 +1,11 @@
 <Type Name="RelatedEnd" FullName="System.Data.Objects.DataClasses.RelatedEnd">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="c3fcee3a79374bee386da7966a336f597aef0f04" />
-    <Meta Name="ms.sourcegitcommit" Value="16d2d159872fd213cae4b8f371d7ae9c8b027c89" />
+    <Meta Name="ms.openlocfilehash" Value="59186487ee63d29a10e4f974f73fe97241df86c8" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="11/17/2018" />
-    <Meta Name="ms.locfileid" Value="51862128" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52608474" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class RelatedEnd : System.Data.Objects.DataClasses.IRelatedEnd" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract serializable beforefieldinit RelatedEnd extends System.Object implements class System.Data.Objects.DataClasses.IRelatedEnd" />
@@ -31,7 +31,7 @@
       <AttributeName>System.Runtime.Serialization.DataContract</AttributeName>
     </Attribute>
     <Attribute FrameworkAlternate="netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8">
-      <AttributeName>Serializable</AttributeName>
+      <AttributeName>System.Serializable</AttributeName>
     </Attribute>
   </Attributes>
   <Docs>
@@ -115,11 +115,20 @@
         <Parameter Name="allowCollection" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <typeparam name="TEntity">To be added.</typeparam>
-        <param name="entities">To be added.</param>
-        <param name="allowCollection">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <typeparam name="TEntity">Тип <see cref="T:System.Collections.Generic.IEnumerable`1" /> коллекцию объектов сущности для присоединения.</typeparam>
+        <param name="entities">Коллекция <see cref="T:System.Collections.Generic.IEnumerable`1" /> объектов сущностей.</param>
+        <param name="allowCollection">Указывает, является ли присоединяемый объект частью коллекции.</param>
+        <summary>Определяет связь между двумя присоединенными объектами.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Метод `Attach<TEntity>(IEnumerable<TEntity>, Boolean)` предназначен для определения связи между объектом и связанным объектом, если оба объекта уже присоединены к контексту объекта. Задайте связанный объект в свойстве <xref:System.Data.Objects.DataClasses.EntityReference%601.Value> объекта <xref:System.Data.Objects.DataClasses.EntityReference%601> или вызовите метод <xref:System.Data.Objects.DataClasses.EntityCollection%601.Add%2A> для коллекции <xref:System.Data.Objects.DataClasses.EntityCollection%601>, если связанный объект еще не присоединен к контексту объекта. Если оба объекта отсоединены, связь также можно определить, если задать связанный объект в свойстве <xref:System.Data.Objects.DataClasses.EntityReference%601.Value> объекта <xref:System.Data.Objects.DataClasses.EntityReference%601> или вызвать метод <xref:System.Data.Objects.DataClasses.EntityCollection%601.Add%2A> для коллекции <xref:System.Data.Objects.DataClasses.EntityCollection%601> и затем присоединить корневой объект в графе объектов. Дополнительные сведения см. в разделе [присоединение и отсоединение объектов](https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/bb896271(v=vs.100)).
+
+Метод `Attach<TEntity>(IEnumerable<TEntity>, Boolean)` вызывается службами объектов во время операции присоединения к связанному элементу.
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetEnumerator">
@@ -320,12 +329,19 @@
         <Parameter Name="setIsLoaded" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <typeparam name="TEntity">To be added.</typeparam>
-        <param name="collection">To be added.</param>
-        <param name="mergeOption">To be added.</param>
-        <param name="setIsLoaded">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <typeparam name="TEntity">Тип коллекции <see cref="T:System.Collections.Generic.IEnumerable`1" /> объектов сущностей для слияния.</typeparam>
+        <param name="collection">Коллекция <see cref="T:System.Collections.Generic.IEnumerable`1" /> объектов-сущностей для добавления к этому связанному элементу.</param>
+        <param name="mergeOption">Параметр <see cref="T:System.Data.Objects.MergeOption" />, используемый для слияния объектов в существующую коллекцию <see cref="T:System.Data.Objects.DataClasses.EntityCollection`1" />.</param>
+        <param name="setIsLoaded">Показывает, является ли набор связанных объектов полным и соответствующим серверу. Операции, подобные <see cref="M:System.Data.Objects.DataClasses.EntityCollection`1.Load(System.Data.Objects.MergeOption)" />, устанавливают флаг setIsLoaded в значение <see langword="true" />, но метод <see cref="Overload:System.Data.Objects.DataClasses.EntityCollection`1.Attach" /> устанавливает его в значение <see langword="false" />.</param>
+        <summary>Выполняет слияние связанных сущностей в локальную коллекцию <see cref="T:System.Data.Objects.DataClasses.EntityCollection`1" />.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Метод `Merge<TEntity>` вызывается службами объектов при выполнении операций со связями.
+
+]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="OnDeserialized">
@@ -825,12 +841,28 @@
         <Parameter Name="allowCollection" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <typeparam name="TEntity">To be added.</typeparam>
-        <param name="entity">To be added.</param>
-        <param name="index">To be added.</param>
-        <param name="allowCollection">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <typeparam name="TEntity">Тип проверяемого объекта.</typeparam>
+        <param name="entity">Проверяемый объект.</param>
+        <param name="index">Позиция проверяемого объекта в коллекции.</param>
+        <param name="allowCollection">Показывает, является ли объект элементом коллекции.</param>
+        <summary>Определяет, можно ли присоединить объект к локальной коллекции или ссылке.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Метод `ValidateEntityForAttach<TEntity>` вызывается службами объектов при выполнении операции присоединения.
+
+]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">Если присоединяемый объект имеет значение <see langword="null" />.
+
+- или -
+
+Объект, присоединяемый к связанному элементу, не существует в контексте <see cref="T:System.Data.Objects.ObjectContext" />, где существует исходный объект.
+
+- или -
+
+Присоединяемый объект находится в состоянии <see cref="F:System.Data.EntityState.Added" /> или <see cref="F:System.Data.EntityState.Deleted" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="ValidateLoad&lt;TEntity&gt;">
@@ -855,12 +887,30 @@
         <Parameter Name="relatedEndName" Type="System.String" />
       </Parameters>
       <Docs>
-        <typeparam name="TEntity">To be added.</typeparam>
-        <param name="mergeOption">To be added.</param>
-        <param name="relatedEndName">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <typeparam name="TEntity">Тип проверяемого объекта.</typeparam>
+        <param name="mergeOption">Параметр <see cref="T:System.Data.Objects.MergeOption" />, используемый для слияния объектов в существующую коллекцию <see cref="T:System.Data.Objects.DataClasses.EntityCollection`1" />.</param>
+        <param name="relatedEndName">Имя связанного элемента.</param>
+        <summary>Подтверждает, что связанный объект или объекты можно успешно загрузить в локальную коллекцию или ссылку.</summary>
+        <returns>Запрос <see cref="T:System.Data.Objects.ObjectQuery`1" />, используемый для загрузки объектов в связанный элемент.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Службы объектов получают запрос <xref:System.Data.Objects.ObjectQuery%601> путем вызова [IRelatedEnd.CreateSourceQuery](xref:System.Data.Objects.DataClasses.RelatedEnd.System%23Data%23Objects%23DataClasses%23IRelatedEnd%23CreateSourceQuery) метод.
+
+Службы объектов вызывают метод `ValidateLoad<TEntity>` перед выполнением операции загрузки, чтобы обеспечить успешное завершение операции.
+
+]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">Если исходный объект был получен с помощью запроса <see cref="F:System.Data.Objects.MergeOption.NoTracking" />, а параметр <see cref="T:System.Data.Objects.MergeOption" /> отличен от <see cref="F:System.Data.Objects.MergeOption.NoTracking" /> или связанные объекты уже загружены.
+
+- или -
+
+Если исходный объект не присоединен к <see cref="T:System.Data.Objects.ObjectContext" />.
+
+- или -
+
+Если исходный объект отслеживается, но находится в состоянии <see cref="F:System.Data.EntityState.Added" /> или <see cref="F:System.Data.EntityState.Deleted" />, либо параметр <see cref="T:System.Data.Objects.MergeOption" />, используемый для <see cref="Overload:System.Data.Objects.DataClasses.RelatedEnd.Load" />, имеет значение <see cref="F:System.Data.Objects.MergeOption.NoTracking" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="ValidateOwnerForAttach">
@@ -880,8 +930,16 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Подтверждает, что объект, которому принадлежит связанный элемент, поддерживает операцию присоединения.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+Службы объектов вызывают метод ValidateOwnerForAttach перед выполнением операции присоединения, чтобы обеспечить успешное завершение операции.
+
+]]></format>
+        </remarks>
+        <exception cref="T:System.InvalidOperationException">Если исходный объект не присоединен к контексту <see cref="T:System.Data.Objects.ObjectContext" />, был возвращен запросом <see cref="F:System.Data.Objects.MergeOption.NoTracking" /> либо не находится в состоянии <see cref="F:System.Data.EntityState.Modified" /> или <see cref="F:System.Data.EntityState.Unchanged" />.</exception>
       </Docs>
     </Member>
   </Members>
