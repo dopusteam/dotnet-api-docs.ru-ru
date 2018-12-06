@@ -1,11 +1,11 @@
 <Type Name="XmlSchemaDatatype" FullName="System.Xml.Schema.XmlSchemaDatatype">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="74bc8e0e2454425283232d342b277674583e9a17" />
-    <Meta Name="ms.sourcegitcommit" Value="9dda17222b9f7d3edf130133bfb1370d5b410a4b" />
+    <Meta Name="ms.openlocfilehash" Value="fd74f89cbe9b2982b49752ff9b6b16016e220713" />
+    <Meta Name="ms.sourcegitcommit" Value="0e1f030650a307c745ee84ed547ef858acaea587" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="09/22/2018" />
-    <Meta Name="ms.locfileid" Value="46595378" />
+    <Meta Name="ms.lasthandoff" Value="11/29/2018" />
+    <Meta Name="ms.locfileid" Value="52589585" />
   </Metadata>
   <TypeSignature Language="C#" Value="public abstract class XmlSchemaDatatype" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit XmlSchemaDatatype extends System.Object" />
@@ -340,12 +340,32 @@
         <Parameter Name="nsmgr" Type="System.Xml.XmlNamespaceManager" />
       </Parameters>
       <Docs>
-        <param name="s">To be added.</param>
-        <param name="nameTable">To be added.</param>
-        <param name="nsmgr">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="s">Строка, чтобы проверить на соответствие простому типу.</param>
+        <param name="nameTable">
+          <see cref="T:System.Xml.XmlNameTable" />, чтобы использовать для атомизации при синтаксическом разборе строки, если данный объект <see cref="T:System.Xml.Schema.XmlSchemaDatatype" /> представляет тип xs:NCName.</param>
+        <param name="nsmgr">Объект <see cref="T:System.Xml.XmlNamespaceManager" /> для использования при синтаксическом разборе строки, если данный объект <see cref="T:System.Xml.Schema.XmlSchemaDatatype" /> представляет тип xs:QName.</param>
+        <summary>При переопределении в производном классе проверяет заданную строку на соответствие встроенному или пользовательскому простому типу.</summary>
+        <returns>Объект <see cref="T:System.Object" />, который может быть безопасно приведен к типу, возвращаемому свойством <see cref="P:System.Xml.Schema.XmlSchemaDatatype.ValueType" />.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks  
+<xref:System.Xml.Schema.XmlSchemaDatatype.ParseValue%2A> Метод проверяет указанную строку на наличие встроенных или пользовательских простого типа. Например, если это <xref:System.Xml.Schema.XmlSchemaDatatype> представляет типа xs: Date, то экземпляр <xref:System.DateTime> возвращается.
+
+Ниже приведены шаги, выполняемые во время <xref:System.Xml.Schema.XmlSchemaDatatype.ParseValue%2A> процесс проверки метода.
+
+1. Преобразует указанную строку в соответствующий тип Common Language Runtime (CLR).
+
+2. Убедитесь, что значение выходит за границы, которые определены для простого типа.
+
+Преобразованное значение затем возвращается как <xref:System.Object> и может быть безопасно приведен к типу, который возвращается <xref:System.Xml.Schema.XmlSchemaDatatype.ValueType> свойство.
+
+Когда <xref:System.Xml.Schema.XmlSchemaDatatype> представляет тип списка, со значением входной строки преобразуется в список один или несколько объектов. Когда <xref:System.Xml.Schema.XmlSchemaDatatype> представляет тип списка, предпринята попытка проанализировать входное значение в качестве типа члена объединения. При сбое попытки синтаксического анализа, затем производится попытка преобразования следующего элемента объединения до синтаксического анализа прошла успешно или нет других типов элементов для синтаксического анализа. Если синтаксический анализ завершается неудачно, создается исключение.
+
+]]></format>
+        </remarks>
+        <exception cref="T:System.Xml.Schema.XmlSchemaValidationException">Входное значение не является допустимым экземпляром типа W3C XML-схемы.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение для анализа не может быть NULL (Nothing в Visual Basic).</exception>
       </Docs>
     </Member>
     <Member MemberName="TokenizedType">
