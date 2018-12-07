@@ -1,11 +1,11 @@
 <Type Name="EventWrittenEventArgs" FullName="System.Diagnostics.Tracing.EventWrittenEventArgs">
   <Metadata>
-    <Meta Name="ms.openlocfilehash" Value="46860fca723a945b6916f0d8377e0f4796e46365" />
-    <Meta Name="ms.sourcegitcommit" Value="9e06b87bcfa4347dbbaaa4b3cc36b43b93b5badb" />
+    <Meta Name="ms.openlocfilehash" Value="6267829fa563f5420f5249f7a6248c140d093992" />
+    <Meta Name="ms.sourcegitcommit" Value="9d1bf7e4c6d697123f26c810c1a049a755634634" />
     <Meta Name="ms.translationtype" Value="HT" />
     <Meta Name="ms.contentlocale" Value="ru-RU" />
-    <Meta Name="ms.lasthandoff" Value="11/20/2018" />
-    <Meta Name="ms.locfileid" Value="52240044" />
+    <Meta Name="ms.lasthandoff" Value="12/06/2018" />
+    <Meta Name="ms.locfileid" Value="52981972" />
   </Metadata>
   <TypeSignature Language="C#" Value="public class EventWrittenEventArgs : EventArgs" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit EventWrittenEventArgs extends System.EventArgs" />
@@ -37,7 +37,29 @@
   <Interfaces />
   <Docs>
     <summary>Предоставляет данные для обратного вызова <see cref="M:System.Diagnostics.Tracing.EventListener.OnEventWritten(System.Diagnostics.Tracing.EventWrittenEventArgs)" />.</summary>
-    <remarks>To be added.</remarks>
+    <remarks>
+      <format type="text/markdown"><![CDATA[  
+  
+## Remarks  
+
+Каждый раз, когда отправляется событие <xref:System.Diagnostics.Tracing.EventListener>, <xref:System.Diagnostics.Tracing.EventListener.OnEventWritten%2A?displayProperty=nameWithType> вызывается метод обратного вызова. Он передается `EventWrittenEventArgs` экземпляр, содержащий сведения, связанные с событием. Все значения свойств `EventWrittenEventArgs` класс допустимы только во время обратного вызова. 
+
+В следующих разделах содержатся дополнительные сведения об отдельных `EventWrittenEventArgs` свойства.
+
+### <a name="activityid-property"></a>Свойство ActivityId
+
+При использовании <xref:System.Activities.Activity?displayProperty=nameWithType> и его производные классы потоков, которые могут быть помечены как наличие в действие, связанное с ними. `ActivityId` Свойство возвращает идентификатор действия потока, который зафиксировал событие. Обратите внимание, что потоки содержать действие, в этом случае это свойство возвращает <xref:System.Guid.Empty?displayProperty=nameWithType>.
+
+### <a name="osthreadid-and-timestamp-properties"></a>Свойства нельзя получить OSThreadId и метки времени 
+
+Начиная с .NET Core 2.2, <xref:System.Diagnostics.Tracing.EventListener> объекты могут подписываться на события собственной среды выполнения (например, события сборки Мусора, JIT-компилятора и threadpool) в дополнение к события, генерируемые <xref:System.Diagnostics.Tracing.EventSource> объектов. В предыдущих версиях .NET Core и всех версий платформы .NET Framework, thead идентификатор и отметку времени можно собирать из среды, так как их отправки синхронно, в том же потоке, создавшего их. Не все события собственной среды выполнения могут подготавливаться синхронно, тем не менее. Некоторые события, например события сборки Мусора, создаются при управлении выполнение потока приостановлено. Эти события буферизуются в машинном коде и отправляются, и поток dispatcher, когда управляемый код выполнить снова. Поскольку эти события буферизуются, среде не позволяет надежно получить идентификатор потока и метки времени. По этой причине начиная с .NET Core 2.2, идентификатор потока и метки времени доступны как члены `EventWrittenEventArgs` класса.
+
+### <a name="relatedactivityid-property"></a>Свойство RelatedActivityId
+
+ Сопутствующее действие является действием, которое тесно связаны в текущий поток. Как правило, это действие, вызвавшее текущее действие (события с `Start` opcode обычно делается) или действие, которое было создано текущего (события с `Send` opcode обычно делается). При использовании, `RelatedActivityID` передается явным образом с методом, выполняющим ведения журнала. Многие события не передавайте `RelatedActivityId`, в этом случае это свойство возвращает <xref:System.Guid.Empty?displayProperty=nameWithType>.
+
+ ]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName="ActivityId">
@@ -76,18 +98,7 @@
       <Docs>
         <summary>Получает идентификатор действий в потоке, куда было записано событие.</summary>
         <value>Идентификатор действий в потоке, куда было записано событие.</value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- Получение значения <xref:System.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId%2A> свойство обращается к локальной памяти потока. Это подразумевает следующее:  
-  
--   <xref:System.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId%2A> Поле является допустимым только в течение <xref:System.Diagnostics.Tracing.EventListener.OnEventWritten%2A?displayProperty=nameWithType> обратного вызова.  
-  
--   Если идентификатор действия изменяется во время обратного вызова, возвращенный идентификатор действия <xref:System.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId%2A> свойство является недопустимым.  
-  
- ]]></format>
-        </remarks>
+        <remarks>To be added.</remarks>
         <altmember cref="P:System.Diagnostics.Tracing.EventWrittenEventArgs.RelatedActivityId" />
         <altmember cref="M:System.Diagnostics.Tracing.EventSource.SetCurrentThreadActivityId(System.Guid)" />
       </Docs>
@@ -390,8 +401,8 @@
         <ReturnType>System.Int64</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>Получает идентификатор потока для потока операционной системы, который записал событие. (.NET Core 2.2 и более поздних версий.)</summary>
+        <value>Получает идентификатор потока для потока операционной системы, который записал событие.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -499,14 +510,7 @@
       <Docs>
         <summary>Возвращает идентификатор действия, которое связано с действием, представленным текущим экземпляром.</summary>
         <value>Идентификатор связанного действия, либо значение <see cref="F:System.Guid.Empty" />, если отсутствует связанная действие.</value>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- <xref:System.Diagnostics.Tracing.EventWrittenEventArgs.RelatedActivityId%2A> Является дочерним элементом <xref:System.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId%2A> свойство. Идентификатор действия можно связать с несколькими идентификаторы связанных действий.  
-  
- ]]></format>
-        </remarks>
+        <remarks>To be added.</remarks>
         <altmember cref="P:System.Diagnostics.Tracing.EventWrittenEventArgs.ActivityId" />
         <altmember cref="M:System.Diagnostics.Tracing.EventSource.WriteEventWithRelatedActivityId(System.Int32,System.Guid,System.Object[])" />
       </Docs>
@@ -601,8 +605,8 @@
         <ReturnType>System.DateTime</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>Получает время, в которое изначально было создано событие, как метку времени <see cref="System.DateTime" />. (.NET Core 2.2 и более поздних версий.)</summary>
+        <value>Дата и время, когда событие было зарегистрировано. Система пытается быть максимально точным.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
