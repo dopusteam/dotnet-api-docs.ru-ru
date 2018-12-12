@@ -1,1 +1,1 @@
-<span data-ttu-id="68820-101">Windows NT 4.0</span><span class="sxs-lookup"><span data-stu-id="68820-101">Windows NT 4.0</span></span>
+<span data-ttu-id="09210-101">Windows NT 4.0</span><span class="sxs-lookup"><span data-stu-id="09210-101">Windows NT 4.0</span></span>

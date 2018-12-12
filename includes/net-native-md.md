@@ -1,1 +1,1 @@
-<span data-ttu-id="e6fb2-101">.NET Native</span><span class="sxs-lookup"><span data-stu-id="e6fb2-101">.NET Native</span></span>
+<span data-ttu-id="ed1d5-101">.NET Native</span><span class="sxs-lookup"><span data-stu-id="ed1d5-101">.NET Native</span></span>
