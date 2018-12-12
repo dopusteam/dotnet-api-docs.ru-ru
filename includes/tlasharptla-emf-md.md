@@ -1,1 +1,1 @@
-<span data-ttu-id="8b13b-101">EMF (Enhanced Metafile —расширенный метафайл)</span><span class="sxs-lookup"><span data-stu-id="8b13b-101">Enhanced Metafile (EMF)</span></span>
+<span data-ttu-id="d373a-101">EMF (Enhanced Metafile —расширенный метафайл)</span><span class="sxs-lookup"><span data-stu-id="d373a-101">Enhanced Metafile (EMF)</span></span>

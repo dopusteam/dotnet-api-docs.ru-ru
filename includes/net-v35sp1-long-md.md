@@ -1,1 +1,1 @@
-<span data-ttu-id="b6dc8-101">.NET Framework 3.5 с пакетом обновления 1 (SP1)</span><span class="sxs-lookup"><span data-stu-id="b6dc8-101">.NET Framework 3.5 Service Pack 1</span></span>
+<span data-ttu-id="e3e83-101">.NET Framework 3.5 с пакетом обновления 1 (SP1)</span><span class="sxs-lookup"><span data-stu-id="e3e83-101">.NET Framework 3.5 Service Pack 1</span></span>

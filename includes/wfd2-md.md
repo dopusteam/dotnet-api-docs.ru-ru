@@ -1,1 +1,1 @@
-<span data-ttu-id="07f6b-101">Конструктор рабочих процессов</span><span class="sxs-lookup"><span data-stu-id="07f6b-101">Workflow Designer</span></span>
+<span data-ttu-id="654f8-101">Конструктор рабочих процессов</span><span class="sxs-lookup"><span data-stu-id="654f8-101">Workflow Designer</span></span>

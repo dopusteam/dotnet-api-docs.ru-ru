@@ -1,1 +1,1 @@
-<span data-ttu-id="6078f-101">независимый поставщик программных продуктов (ISV)</span><span class="sxs-lookup"><span data-stu-id="6078f-101">independent software vendor (ISV)</span></span>
+<span data-ttu-id="63ead-101">независимый поставщик программных продуктов (ISV)</span><span class="sxs-lookup"><span data-stu-id="63ead-101">independent software vendor (ISV)</span></span>

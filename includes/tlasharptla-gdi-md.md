@@ -1,1 +1,1 @@
-<span data-ttu-id="8f589-101">Интерфейс графических устройств (GDI) Microsoft Windows</span><span class="sxs-lookup"><span data-stu-id="8f589-101">Microsoft Windows Graphics Device Interface (GDI)</span></span>
+<span data-ttu-id="1e2a2-101">Интерфейс графических устройств (GDI) Microsoft Windows</span><span class="sxs-lookup"><span data-stu-id="1e2a2-101">Microsoft Windows Graphics Device Interface (GDI)</span></span>

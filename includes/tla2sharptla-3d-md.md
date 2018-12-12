@@ -1,1 +1,1 @@
-<span data-ttu-id="06cdc-101">Трехмерный</span><span class="sxs-lookup"><span data-stu-id="06cdc-101">3-D</span></span>
+<span data-ttu-id="92aaa-101">Трехмерный</span><span class="sxs-lookup"><span data-stu-id="92aaa-101">3-D</span></span>

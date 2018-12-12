@@ -1,1 +1,1 @@
-<span data-ttu-id="80280-101">библиотека динамической компоновки (DLL)</span><span class="sxs-lookup"><span data-stu-id="80280-101">dynamic-link library (DLL)</span></span>
+<span data-ttu-id="dc702-101">библиотека динамической компоновки (DLL)</span><span class="sxs-lookup"><span data-stu-id="dc702-101">dynamic-link library (DLL)</span></span>
