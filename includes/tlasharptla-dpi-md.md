@@ -1,1 +1,1 @@
-<span data-ttu-id="3e976-101">точек на дюйм (dpi)</span><span class="sxs-lookup"><span data-stu-id="3e976-101">dots per inch (dpi)</span></span>
+<span data-ttu-id="1e4eb-101">точек на дюйм (dpi)</span><span class="sxs-lookup"><span data-stu-id="1e4eb-101">dots per inch (dpi)</span></span>

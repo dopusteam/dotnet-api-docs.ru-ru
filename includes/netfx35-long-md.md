@@ -1,1 +1,1 @@
-<span data-ttu-id="20efb-101">.NET Framework 3,5</span><span class="sxs-lookup"><span data-stu-id="20efb-101">.NET Framework version 3.5</span></span>
+<span data-ttu-id="f5970-101">.NET Framework 3,5</span><span class="sxs-lookup"><span data-stu-id="f5970-101">.NET Framework version 3.5</span></span>

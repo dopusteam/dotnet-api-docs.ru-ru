@@ -1,1 +1,1 @@
-<span data-ttu-id="53461-101">ASP.NET 2.0</span><span class="sxs-lookup"><span data-stu-id="53461-101">ASP.NET 2.0</span></span>
+<span data-ttu-id="be3ac-101">ASP.NET 2.0</span><span class="sxs-lookup"><span data-stu-id="be3ac-101">ASP.NET 2.0</span></span>

@@ -1,1 +1,1 @@
-<span data-ttu-id="fc386-101">Windows Vista</span><span class="sxs-lookup"><span data-stu-id="fc386-101">Windows Vista</span></span>
+<span data-ttu-id="2f8f6-101">Windows Vista</span><span class="sxs-lookup"><span data-stu-id="2f8f6-101">Windows Vista</span></span>
