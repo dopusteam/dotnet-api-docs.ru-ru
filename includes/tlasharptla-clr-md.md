@@ -1,1 +1,1 @@
-<span data-ttu-id="659f6-101">среда CLR</span><span class="sxs-lookup"><span data-stu-id="659f6-101">common language runtime (CLR)</span></span>
+<span data-ttu-id="5453d-101">среда CLR</span><span class="sxs-lookup"><span data-stu-id="5453d-101">common language runtime (CLR)</span></span>
