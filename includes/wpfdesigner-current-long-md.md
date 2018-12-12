@@ -1,1 +1,1 @@
-<span data-ttu-id="c1252-101">Конструктор WPF для Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c1252-101">WPF Designer for Visual Studio</span></span>
+<span data-ttu-id="e090c-101">Конструктор WPF для Visual Studio</span><span class="sxs-lookup"><span data-stu-id="e090c-101">WPF Designer for Visual Studio</span></span>
