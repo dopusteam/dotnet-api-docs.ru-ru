@@ -1,1 +1,1 @@
-<span data-ttu-id="001e2-101">Язык XrML</span><span class="sxs-lookup"><span data-stu-id="001e2-101">XrML</span></span>
+<span data-ttu-id="e3ec9-101">Язык XrML</span><span class="sxs-lookup"><span data-stu-id="e3ec9-101">XrML</span></span>
