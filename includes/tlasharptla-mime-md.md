@@ -1,1 +1,1 @@
-<span data-ttu-id="3bd0a-101">Стандарт MIME (Multipurpose Internet Mail Extensions)</span><span class="sxs-lookup"><span data-stu-id="3bd0a-101">Multipurpose Internet Mail Extensions (MIME)</span></span>
+<span data-ttu-id="70d7c-101">Стандарт MIME (Multipurpose Internet Mail Extensions)</span><span class="sxs-lookup"><span data-stu-id="70d7c-101">Multipurpose Internet Mail Extensions (MIME)</span></span>

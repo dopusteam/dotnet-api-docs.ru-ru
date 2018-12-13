@@ -1,1 +1,1 @@
-<span data-ttu-id="cf3d3-101">Режим WYSIWYG (режим точного отображения)</span><span class="sxs-lookup"><span data-stu-id="cf3d3-101">"what you see is what you get" (WYSIWYG)</span></span>
+<span data-ttu-id="62850-101">Режим WYSIWYG (режим точного отображения)</span><span class="sxs-lookup"><span data-stu-id="62850-101">"what you see is what you get" (WYSIWYG)</span></span>
