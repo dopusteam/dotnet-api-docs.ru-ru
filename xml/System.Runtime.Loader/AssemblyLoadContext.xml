@@ -1,5 +1,5 @@
 <Type Name="AssemblyLoadContext" FullName="System.Runtime.Loader.AssemblyLoadContext">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="1a5798f3c81e8fb04f46cc72b9ff78a79f39acec" /><Meta Name="ms.sourcegitcommit" Value="434f60616a9793fa8436744549fc856e94f7a648" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="08/24/2018" /><Meta Name="ms.locfileid" Value="36536424" /></Metadata><TypeSignature Language="C#" Value="public abstract class AssemblyLoadContext" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="d94f0ea7088ccab0622ff14804fdf4c480aa9e68" /><Meta Name="ms.sourcegitcommit" Value="d8bd5d494445ce3fcad1321267cb87548d23a45b" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="12/15/2018" /><Meta Name="ms.locfileid" Value="53447452" /></Metadata><TypeSignature Language="C#" Value="public abstract class AssemblyLoadContext" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit AssemblyLoadContext extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Runtime.Loader.AssemblyLoadContext" />
   <TypeSignature Language="VB.NET" Value="Public MustInherit Class AssemblyLoadContext" />
@@ -20,8 +20,54 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>To be added.</summary>
-    <remarks>To be added.</remarks>
+    <summary><span data-ttu-id="c775d-101">Представляет концепцию области среды выполнения для привязки.</span><span class="sxs-lookup"><span data-stu-id="c775d-101">Represents the runtime's concept of a scope for binding.</span></span> <span data-ttu-id="c775d-102">Это абстрактный класс.</span><span class="sxs-lookup"><span data-stu-id="c775d-102">This class is abstract.</span></span></summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[
+
+## Remarks
+ <span data-ttu-id="c775d-103"><xref:System.Runtime.Loader.AssemblyLoadContext> Представляет контекст загрузки.</span><span class="sxs-lookup"><span data-stu-id="c775d-103">The <xref:System.Runtime.Loader.AssemblyLoadContext> represents a load context.</span></span> <span data-ttu-id="c775d-104">По существу контекст загрузки создает область для загрузки, разрешение и потенциально выгрузки набор сборок.</span><span class="sxs-lookup"><span data-stu-id="c775d-104">Conceptually, a load context creates a scope for loading, resolving, and potentially unloading a set of assemblies.</span></span>
+ 
+ <span data-ttu-id="c775d-105"><xref:System.Runtime.Loader.AssemblyLoadContext> является абстрактным классом.</span><span class="sxs-lookup"><span data-stu-id="c775d-105"><xref:System.Runtime.Loader.AssemblyLoadContext> is an abstract class.</span></span> <span data-ttu-id="c775d-106"><xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType> Должна быть реализована для создания конкретного класса.</span><span class="sxs-lookup"><span data-stu-id="c775d-106">The <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType> needs to be implemented to create a concrete class.</span></span>
+ 
+ <span data-ttu-id="c775d-107"><xref:System.Runtime.Loader.AssemblyLoadContext> Существует в основном для обеспечения изоляции привязки сборок.</span><span class="sxs-lookup"><span data-stu-id="c775d-107">The <xref:System.Runtime.Loader.AssemblyLoadContext> exists primarily to provide assembly binding isolation.</span></span> <span data-ttu-id="c775d-108">Она позволяет несколько версий одной сборки для загрузки в одном процессе.</span><span class="sxs-lookup"><span data-stu-id="c775d-108">It allows multiple versions of the same assembly to be loaded within a single process.</span></span> <span data-ttu-id="c775d-109">Он заменяет изоляции механизмов, предоставляемых средой несколько <xref:System.AppDomain> экземпляров в .NET Framework.</span><span class="sxs-lookup"><span data-stu-id="c775d-109">It replaces the isolation mechanisms provided by multiple <xref:System.AppDomain> instances in the .NET Framework.</span></span>
+ 
+ > [!NOTE]
+ > <span data-ttu-id="c775d-110"><xref:System.Runtime.Loader.AssemblyLoadContext> не поддерживает все функции безопасности.</span><span class="sxs-lookup"><span data-stu-id="c775d-110"><xref:System.Runtime.Loader.AssemblyLoadContext> does not provide any security features.</span></span> <span data-ttu-id="c775d-111">Весь код имеет полные права процесса.</span><span class="sxs-lookup"><span data-stu-id="c775d-111">All code has full permissions of the process.</span></span>
+
+### <a name="usage-in-the-runtime"></a><span data-ttu-id="c775d-112">Использование в среде выполнения</span><span class="sxs-lookup"><span data-stu-id="c775d-112">Usage in the runtime</span></span>
+ <span data-ttu-id="c775d-113">Среда выполнения реализует двух контекстов загрузки сборки: \* <xref:System.Runtime.Loader.AssemblyLoadContext.Default?displayProperty=nameWithType> представляет контекст привязки по умолчанию среды выполнения, который используется для главной сборки приложения и зависимые статические.</span><span class="sxs-lookup"><span data-stu-id="c775d-113">The runtime implements two assembly load contexts: \* <xref:System.Runtime.Loader.AssemblyLoadContext.Default?displayProperty=nameWithType> represents the runtime's default binding context which is used for the application main assembly and its static dependencies.</span></span>
+<span data-ttu-id="c775d-114">\* <xref:System.Reflection.Assembly.LoadFile(System.String)?displayProperty=nameWithType> Метод изолирует сборки, он загружает путем создания экземпляра основная <xref:System.Runtime.Loader.AssemblyLoadContext>.</span><span class="sxs-lookup"><span data-stu-id="c775d-114">\* The <xref:System.Reflection.Assembly.LoadFile(System.String)?displayProperty=nameWithType> method isolates the assemblies it loads by instantiating the most basic <xref:System.Runtime.Loader.AssemblyLoadContext>.</span></span> <span data-ttu-id="c775d-115">Он имеет схему упрощенный изоляции, которая загружает каждой сборки в свой собственный <xref:System.Runtime.Loader.AssemblyLoadContext> с решения нет зависимостей.</span><span class="sxs-lookup"><span data-stu-id="c775d-115">It has a simplistic isolation scheme which loads each assembly in its own <xref:System.Runtime.Loader.AssemblyLoadContext> with no dependency resolution.</span></span>
+ 
+### <a name="application-usage"></a><span data-ttu-id="c775d-116">Использование приложения</span><span class="sxs-lookup"><span data-stu-id="c775d-116">Application usage</span></span>
+ <span data-ttu-id="c775d-117">Приложение может создать свой собственный <xref:System.Runtime.Loader.AssemblyLoadContext> для создания пользовательского решения расширенных сценариях привязки.</span><span class="sxs-lookup"><span data-stu-id="c775d-117">An application can create its own <xref:System.Runtime.Loader.AssemblyLoadContext> to create a custom solution for advanced binding scenarios.</span></span> <span data-ttu-id="c775d-118">Настройка раздел посвящен определению механизмы разрешения зависимостей.</span><span class="sxs-lookup"><span data-stu-id="c775d-118">The customization focuses on defining dependency resolution mechanisms.</span></span>
+ 
+ <span data-ttu-id="c775d-119"><xref:System.Runtime.Loader.AssemblyLoadContext> Предоставляет две точки расширения для реализации разрешение управляемой сборки: 1.</span><span class="sxs-lookup"><span data-stu-id="c775d-119">The <xref:System.Runtime.Loader.AssemblyLoadContext> provides two extension points to implement managed assembly resolution: 1.</span></span> <span data-ttu-id="c775d-120"><xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType> Предоставляет первый вероятность <xref:System.Runtime.Loader.AssemblyLoadContext> для разрешения сборки, загрузить его и вернуть его.</span><span class="sxs-lookup"><span data-stu-id="c775d-120">The <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType> provides the first chance for the <xref:System.Runtime.Loader.AssemblyLoadContext> to resolve the assembly, load it and return it.</span></span> <span data-ttu-id="c775d-121">Если <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType> возвращает `null`, загрузчик пытается загрузить сборку в <xref:System.Runtime.Loader.AssemblyLoadContext.Default?displayProperty=nameWithType>.</span><span class="sxs-lookup"><span data-stu-id="c775d-121">If the <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType> returns `null`, the loader will try to load the assembly into the <xref:System.Runtime.Loader.AssemblyLoadContext.Default?displayProperty=nameWithType>.</span></span>
+<span data-ttu-id="c775d-122">2.</span><span class="sxs-lookup"><span data-stu-id="c775d-122">2.</span></span> <span data-ttu-id="c775d-123">Если <xref:System.Runtime.Loader.AssemblyLoadContext.Default?displayProperty=nameWithType> не удается разрешить сборку исходного <xref:System.Runtime.Loader.AssemblyLoadContext> возвращает вторую попытку разрешить сборку.</span><span class="sxs-lookup"><span data-stu-id="c775d-123">If the <xref:System.Runtime.Loader.AssemblyLoadContext.Default?displayProperty=nameWithType> is unable to resolve the assembly, the original <xref:System.Runtime.Loader.AssemblyLoadContext> gets a second chance to resolve the assembly.</span></span> <span data-ttu-id="c775d-124">Среда выполнения вызывает <xref:System.Runtime.Loader.AssemblyLoadContext.Resolving> событий.</span><span class="sxs-lookup"><span data-stu-id="c775d-124">The runtime raises the <xref:System.Runtime.Loader.AssemblyLoadContext.Resolving> event.</span></span>
+ 
+ <span data-ttu-id="c775d-125">Кроме того <xref:System.Runtime.Loader.AssemblyLoadContext.LoadUnmanagedDll(System.String)?displayProperty=nameWithType> виртуальный метод предоставляет возможность настройки разрешения сборки по умолчанию неуправляемые.</span><span class="sxs-lookup"><span data-stu-id="c775d-125">Additionally the <xref:System.Runtime.Loader.AssemblyLoadContext.LoadUnmanagedDll(System.String)?displayProperty=nameWithType> virtual method allows customization of the default unmanaged assembly resolution.</span></span> <span data-ttu-id="c775d-126">Реализация по умолчанию возвращает `null`, что вызывает поиск среды выполнения использовать ее стандартную политику поиска, этого достаточно для большинства сценариев.</span><span class="sxs-lookup"><span data-stu-id="c775d-126">The default implementation returns `null`, which causes the runtime search to use its default search policy which is sufficient for most scenarios.</span></span>
+
+### <a name="technical-challenges"></a><span data-ttu-id="c775d-127">Технические проблемы</span><span class="sxs-lookup"><span data-stu-id="c775d-127">Technical challenges</span></span>
+ * <span data-ttu-id="c775d-128">Это не позволяет загружать несколько версий среды выполнения в одном процессе.</span><span class="sxs-lookup"><span data-stu-id="c775d-128">It is not possible to load multiple versions of the runtime in a single process.</span></span>
+     > [!CAUTION]
+     > <span data-ttu-id="c775d-129">Загрузка нескольких копий или разные версии сборки .NET framework может привести к непредвиденным и трудно диагностировать поведение.</span><span class="sxs-lookup"><span data-stu-id="c775d-129">Loading multiple copies or different versions of framework assemblies can lead to unexpected and hard to diagnose behavior.</span></span>
+     
+     > [!TIP]
+     > <span data-ttu-id="c775d-130">Используйте границы процессов с удаленного взаимодействия и/или межпроцессного взаимодействия, чтобы решить эту проблему изоляции.</span><span class="sxs-lookup"><span data-stu-id="c775d-130">Use process boundaries with remoting and/or interprocess communication to solve this isolation problem.</span></span>
+ 
+ * <span data-ttu-id="c775d-131">Время загрузки сборки может затруднить тестирование и отладка.</span><span class="sxs-lookup"><span data-stu-id="c775d-131">The timing of assembly loading can make testing and debugging difficult.</span></span> <span data-ttu-id="c775d-132">Сборки обычно загружаются без их зависимости немедленно устранена.</span><span class="sxs-lookup"><span data-stu-id="c775d-132">Assemblies are typically loaded without their dependencies immediately being resolved.</span></span> <span data-ttu-id="c775d-133">Зависимости загружаются в том случае, когда они нужны:</span><span class="sxs-lookup"><span data-stu-id="c775d-133">The dependencies are loaded as they are needed:</span></span>
+     * <span data-ttu-id="c775d-134">Если код ветвей в зависимой сборки.</span><span class="sxs-lookup"><span data-stu-id="c775d-134">When code branches into a dependent assembly.</span></span>
+     * <span data-ttu-id="c775d-135">Когда код загружает ресурсы.</span><span class="sxs-lookup"><span data-stu-id="c775d-135">When code loads resources.</span></span>
+     * <span data-ttu-id="c775d-136">Когда код явным образом загружает сборки.</span><span class="sxs-lookup"><span data-stu-id="c775d-136">When code explicitly loads assemblies.</span></span>
+ 
+ * <span data-ttu-id="c775d-137">Реализация <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType> можно добавить новые зависимости, которые может потребоваться быть изолированы, чтобы разрешить разные версии существует.</span><span class="sxs-lookup"><span data-stu-id="c775d-137">The implementation of <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)?displayProperty=nameWithType> can add new dependencies which may need to be isolated to allow different versions to exist.</span></span> <span data-ttu-id="c775d-138">Самым естественным выбором реализации следует поместить эти зависимости в контексте по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="c775d-138">The most natural implementation would place these dependencies in the default context.</span></span> <span data-ttu-id="c775d-139">Тщательная разработка можно изолировать новые зависимости.</span><span class="sxs-lookup"><span data-stu-id="c775d-139">Careful design can isolate the new dependencies.</span></span>
+ 
+ * <span data-ttu-id="c775d-140">Процесс изоляции привязки создает несколько типов с одинаковым именем типа.</span><span class="sxs-lookup"><span data-stu-id="c775d-140">The binding isolation process creates multiple types with the same type name.</span></span>
+     * <span data-ttu-id="c775d-141">Это может привести к непредвиденным сообщения об ошибках, например «тип Foo.Foo не может быть приведен к типу Foo.Foo.»</span><span class="sxs-lookup"><span data-stu-id="c775d-141">This can lead to confusing error messages, for example "type Foo.Foo cannot be cast to type Foo.Foo."</span></span>
+     * <span data-ttu-id="c775d-142">Маршалинг через границы изоляции является нетривиальным.</span><span class="sxs-lookup"><span data-stu-id="c775d-142">Marshalling across isolation boundaries is non-trivial.</span></span> <span data-ttu-id="c775d-143">Обычным решением будет использовать интерфейс, определенный в сборке, которая загружается только в контексте загрузки по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="c775d-143">A typical solution would be to use an interface defined in an assembly which is only loaded into the default load context.</span></span>
+ 
+ ]]></format>
+    </remarks>
+    <related type="Article" href="https://github.com/dotnet/coreclr/blob/master/Documentation/design-docs/assemblyloadcontext.md"><span data-ttu-id="c775d-144">AssemblyLoadContext CoreCLR проектный документ</span><span class="sxs-lookup"><span data-stu-id="c775d-144">AssemblyLoadContext CoreCLR design document</span></span></related>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -43,8 +89,16 @@
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary><span data-ttu-id="c775d-145">Инициализирует новый экземпляр класса <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-145">Initializes a new instance of the <see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> class.</span></span></summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+
+<span data-ttu-id="c775d-146">Данный конструктор является защищенным.</span><span class="sxs-lookup"><span data-stu-id="c775d-146">This constructor is protected.</span></span> <span data-ttu-id="c775d-147">Может вызываться только из <xref:System.Runtime.Loader.AssemblyLoadContext> класса или его производных классов.</span><span class="sxs-lookup"><span data-stu-id="c775d-147">It can only be called from the <xref:System.Runtime.Loader.AssemblyLoadContext> class or its derived classes.</span></span>
+
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Default">
@@ -69,8 +123,8 @@
         <ReturnType>System.Runtime.Loader.AssemblyLoadContext</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary><span data-ttu-id="c775d-148">Возвращает значение по умолчанию для объекта <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-148">Gets the default <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />.</span></span> <span data-ttu-id="c775d-149">Контекст по умолчанию содержит основную сборку приложения и его статические зависимости.</span><span class="sxs-lookup"><span data-stu-id="c775d-149">The default context contains the main application assembly and its static dependencies.</span></span></summary>
+        <value><span data-ttu-id="c775d-150">Контекст загрузки сборки по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="c775d-150">The default assembly load context.</span></span></value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -99,11 +153,14 @@
         <Parameter Name="assemblyPath" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="assemblyPath">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assemblyPath"><span data-ttu-id="c775d-151">Путь к сборке.</span><span class="sxs-lookup"><span data-stu-id="c775d-151">The path to the assembly.</span></span></param>
+        <summary><span data-ttu-id="c775d-152">Получает <see cref="T:System.Reflection.AssemblyName" /> для пути к сборке.</span><span class="sxs-lookup"><span data-stu-id="c775d-152">Gets an <see cref="T:System.Reflection.AssemblyName" /> for an assembly path.</span></span></summary>
+        <returns><span data-ttu-id="c775d-153">Объект, содержащий полностью проанализированное имя для этой сборки в <paramref name="assemblyPath" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-153">An object that contains the fully parsed assembly name for the assembly at <paramref name="assemblyPath" />.</span></span></returns>
         <remarks>To be added.</remarks>
-      </Docs>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="c775d-154">Свойство <paramref name="assemblyPath" /> имеет значение <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-154"><paramref name="assemblyPath" /> is <see langword="null" />.</span></span></exception>
+        <exception cref="T:System.IO.FileNotFoundException"><span data-ttu-id="c775d-155">Не удается найти сборку.</span><span class="sxs-lookup"><span data-stu-id="c775d-155">The assembly cannot be found.</span></span></exception>
+        <exception cref="T:System.BadImageFormatException"><span data-ttu-id="c775d-156">Сборка не является допустимой.</span><span class="sxs-lookup"><span data-stu-id="c775d-156">The assembly is not a valid assembly.</span></span></exception>
+       </Docs>
     </Member>
     <Member MemberName="GetLoadContext">
       <MemberSignature Language="C#" Value="public static System.Runtime.Loader.AssemblyLoadContext GetLoadContext (System.Reflection.Assembly assembly);" />
@@ -129,10 +186,11 @@
         <Parameter Name="assembly" Type="System.Reflection.Assembly" />
       </Parameters>
       <Docs>
-        <param name="assembly">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assembly"><span data-ttu-id="c775d-157">Сборка</span><span class="sxs-lookup"><span data-stu-id="c775d-157">An assembly.</span></span></param>
+        <summary><span data-ttu-id="c775d-158">Получает <see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> с указанным <see cref="T:System.Reflection.Assembly" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-158">Gets the <see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> containing the specified <see cref="T:System.Reflection.Assembly" />.</span></span></summary>
+        <returns><span data-ttu-id="c775d-159">Контекст загрузки сборки с <paramref name="assembly" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-159">The assembly load context containing the <paramref name="assembly" />.</span></span></returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="c775d-160">Свойство <paramref name="assembly" /> имеет значение <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-160"><paramref name="assembly" /> is <see langword="null" />.</span></span></exception>
       </Docs>
     </Member>
     <Member MemberName="Load">
@@ -159,10 +217,20 @@
         <Parameter Name="assemblyName" Type="System.Reflection.AssemblyName" />
       </Parameters>
       <Docs>
-        <param name="assemblyName">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="assemblyName"><span data-ttu-id="c775d-161">Объект, описывающий загружаемую сборку.</span><span class="sxs-lookup"><span data-stu-id="c775d-161">The object that describes the assembly to be loaded.</span></span></param>
+        <summary><span data-ttu-id="c775d-162">При переопределении в производном классе позволяет сборке разрешаться и загружаться в зависимости от <see cref="T:System.Reflection.AssemblyName" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-162">When overridden in a derived class, allows an assembly to be resolved and loaded based on its <see cref="T:System.Reflection.AssemblyName" />.</span></span></summary>
+        <returns><span data-ttu-id="c775d-163">Загруженная сборка или <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-163">The loaded assembly, or <see langword="null" />.</span></span></returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+ 
+## Remarks
+ <span data-ttu-id="c775d-164">Во время разрешения сборки <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)> у метода, чтобы разрешить имя сборки в загруженной сборки.</span><span class="sxs-lookup"><span data-stu-id="c775d-164">During assembly resolution, the <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)> method has the first chance to resolve the assembly name to a loaded assembly.</span></span> <span data-ttu-id="c775d-165">Его можно загрузить сборку или возвращать `null`.</span><span class="sxs-lookup"><span data-stu-id="c775d-165">It can either load an assembly or return `null`.</span></span> <span data-ttu-id="c775d-166">Если он возвращает `null`, процесс продолжается.</span><span class="sxs-lookup"><span data-stu-id="c775d-166">If it returns `null`, the resolution process continues.</span></span> <span data-ttu-id="c775d-167">См. в разделе <xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName(System.Reflection.AssemblyName)> для описания полного процесса.</span><span class="sxs-lookup"><span data-stu-id="c775d-167">See <xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName(System.Reflection.AssemblyName)> for the full process description.</span></span>
+ 
+ > [!IMPORTANT]
+ > <span data-ttu-id="c775d-168">Чтобы предотвратить переполнение стека рекурсивный, не следует вызывать этот экземпляр <xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName(System.Reflection.AssemblyName)> метод из этого метода.</span><span class="sxs-lookup"><span data-stu-id="c775d-168">To prevent recursive stack overflow, do not call this instance's <xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName(System.Reflection.AssemblyName)> method from this method.</span></span>
+ 
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="LoadFromAssemblyName">
@@ -189,10 +257,32 @@
         <Parameter Name="assemblyName" Type="System.Reflection.AssemblyName" />
       </Parameters>
       <Docs>
-        <param name="assemblyName">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="assemblyName"><span data-ttu-id="c775d-169">Объект, который описывает сборку, подлежащую загрузке.</span><span class="sxs-lookup"><span data-stu-id="c775d-169">The object that describes the assembly to load.</span></span></param>
+        <summary><span data-ttu-id="c775d-170">Разрешает и загружает сборку в зависимости от <see cref="T:System.Reflection.AssemblyName" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-170">Resolves and loads an assembly given its <see cref="T:System.Reflection.AssemblyName" />.</span></span></summary>
+        <returns><span data-ttu-id="c775d-171">Загруженная сборка или исключение.</span><span class="sxs-lookup"><span data-stu-id="c775d-171">The loaded assembly, or throws.</span></span></returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+ <span data-ttu-id="c775d-172"><xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName%2A> Загружает сборку, разрешая <xref:System.Reflection.AssemblyName>.</span><span class="sxs-lookup"><span data-stu-id="c775d-172"><xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName%2A> loads an assembly by resolving the <xref:System.Reflection.AssemblyName>.</span></span> <span data-ttu-id="c775d-173">Это активирует полным разрешением.</span><span class="sxs-lookup"><span data-stu-id="c775d-173">This triggers a full resolution.</span></span> <span data-ttu-id="c775d-174">Последовательность резервных разрешение продолжает этот процесс: 1.</span><span class="sxs-lookup"><span data-stu-id="c775d-174">The resolution fallback sequence follows this process: 1.</span></span> <span data-ttu-id="c775d-175">Этот метод вызывает <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)>.</span><span class="sxs-lookup"><span data-stu-id="c775d-175">The method calls <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)>.</span></span>
+         > [!IMPORTANT]
+         > <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)> must not call this method to prevent recursive stack overflow.
+     2. Unless the assembly is loaded or an exception is thrown, the method attempts to load the assembly in the default <xref:System.Runtime.Loader.AssemblyLoadContext>.
+     3. Unless the assembly is loaded or an exception is thrown, the method fires the <xref:System.Runtime.Loader.AssemblyLoadContext.Resolving> event.
+     4. Unless the assembly is loaded or an exception is thrown, the method fires the <xref:System.AppDomain.AssemblyResolve> event.
+ 
+ > [!NOTE]
+ > <span data-ttu-id="c775d-176"><xref:System.IO.FileLoadException> возникает, если `assemblyRef` указывает полное имя сборки и первой сборки, которая соответствует простое имя имеет несовместимую версию или языка и региональных параметров.</span><span class="sxs-lookup"><span data-stu-id="c775d-176"><xref:System.IO.FileLoadException> is thrown if `assemblyRef` specifies the full assembly name, and the first assembly that matches the simple name has a incompatible version or culture.</span></span> <span data-ttu-id="c775d-177">Загрузчик не производит поиск других сборок, которые соответствуют простым именем.</span><span class="sxs-lookup"><span data-stu-id="c775d-177">The loader does not continue probing for other assemblies that match the simple name.</span></span>
+ 
+ <span data-ttu-id="c775d-178">Каждый <xref:System.Runtime.Loader.AssemblyLoadContext> можно загрузить только: \* одну версию исполняемого файла сборки.</span><span class="sxs-lookup"><span data-stu-id="c775d-178">Each <xref:System.Runtime.Loader.AssemblyLoadContext> can load only: \* One version of an executable assembly.</span></span>
+<span data-ttu-id="c775d-179">\* Одну версию вспомогательной сборки для каждого языка и региональных параметров.</span><span class="sxs-lookup"><span data-stu-id="c775d-179">\* One version of a satellite assembly for each culture.</span></span>
+ 
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="c775d-180">Свойство <paramref name="assemblyName" /> имеет значение <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-180"><paramref name="assemblyName" /> is <see langword="null" />.</span></span></exception>
+        <exception cref="T:System.IO.FileNotFoundException"><span data-ttu-id="c775d-181"><paramref name="assemblyName" /> не найден.</span><span class="sxs-lookup"><span data-stu-id="c775d-181"><paramref name="assemblyName" /> is not found.</span></span></exception>
+        <exception cref="T:System.BadImageFormatException"><span data-ttu-id="c775d-182"><paramref name="assemblyName" /> не является допустимой сборкой.</span><span class="sxs-lookup"><span data-stu-id="c775d-182"><paramref name="assemblyName" /> is not a valid assembly.</span></span></exception>
+        <exception cref="T:System.IO.FileLoadException"><span data-ttu-id="c775d-183">Загружены сборка или модуль, которые не соответствуют <paramref name="assemblyName" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-183">An assembly or module was loaded which did not match the <paramref name="assemblyName" />.</span></span></exception>
       </Docs>
     </Member>
     <Member MemberName="LoadFromAssemblyPath">
@@ -220,10 +310,15 @@
         <Parameter Name="assemblyPath" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="assemblyPath">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assemblyPath"><span data-ttu-id="c775d-184">Полный путь к загружаемому файлу.</span><span class="sxs-lookup"><span data-stu-id="c775d-184">The fully qualified path of the file to load.</span></span></param>
+        <summary><span data-ttu-id="c775d-185">Загружает содержимое файла сборки, находящегося по указанному пути.</span><span class="sxs-lookup"><span data-stu-id="c775d-185">Loads the contents of an assembly file on the specified path.</span></span></summary>
+        <returns><span data-ttu-id="c775d-186">Загруженная сборка.</span><span class="sxs-lookup"><span data-stu-id="c775d-186">The loaded assembly.</span></span></returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentException"><span data-ttu-id="c775d-187">Аргумент <paramref name="assemblyPath" /> не является абсолютным путем.</span><span class="sxs-lookup"><span data-stu-id="c775d-187">The <paramref name="assemblyPath" /> argument is not an absolute path.</span></span></exception>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="c775d-188">Параметр <paramref name="assemblyPath" /> имеет значение <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-188">The <paramref name="assemblyPath" /> parameter is <see langword="null" />.</span></span></exception>
+        <exception cref="T:System.IO.FileLoadException"><span data-ttu-id="c775d-189">Не удалось загрузить файл, который был найден.</span><span class="sxs-lookup"><span data-stu-id="c775d-189">A file that was found could not be loaded.</span></span></exception>
+        <exception cref="T:System.IO.FileNotFoundException"><span data-ttu-id="c775d-190">Параметр <paramref name="assemblyPath" /> представляет собой пустую строку ("") или не существует.</span><span class="sxs-lookup"><span data-stu-id="c775d-190">The <paramref name="assemblyPath" /> parameter is an empty string ("") or does not exist.</span></span></exception>
+        <exception cref="T:System.BadImageFormatException"><span data-ttu-id="c775d-191"><paramref name="assemblyPath" /> не является допустимой сборкой.</span><span class="sxs-lookup"><span data-stu-id="c775d-191"><paramref name="assemblyPath" /> is not a valid assembly.</span></span></exception>
       </Docs>
     </Member>
     <Member MemberName="LoadFromNativeImagePath">
@@ -252,11 +347,26 @@
         <Parameter Name="assemblyPath" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="nativeImagePath">To be added.</param>
-        <param name="assemblyPath">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="nativeImagePath"><span data-ttu-id="c775d-192">Полный путь к загружаемому файлу.</span><span class="sxs-lookup"><span data-stu-id="c775d-192">The fully qualified path of the file to load.</span></span></param>
+        <param name="assemblyPath"><span data-ttu-id="c775d-193">Полный путь к версии IL файла для загрузки или <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-193">The fully qualified path of the IL version of the file to load, or <see langword="null" />.</span></span></param>
+        <summary><span data-ttu-id="c775d-194">Загружает содержимое собственного образа файла управляемой сборки по указанному пути.</span><span class="sxs-lookup"><span data-stu-id="c775d-194">Loads the contents of the native image of a managed assembly file on the specified path.</span></span></summary>
+        <returns><span data-ttu-id="c775d-195">Загруженная сборка.</span><span class="sxs-lookup"><span data-stu-id="c775d-195">The loaded assembly.</span></span></returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+ <span data-ttu-id="c775d-196">Для управляемой сборки образов в машинном коде — предварительно скомпилированные JIT-компилятором для оптимизации выполнения на определенной платформе.</span><span class="sxs-lookup"><span data-stu-id="c775d-196">The native image of a managed assembly is pre-jitted to optimize running on a specific platform.</span></span>
+ 
+ <span data-ttu-id="c775d-197">Путь к сборке ссылается на путь к IL версию сборки.</span><span class="sxs-lookup"><span data-stu-id="c775d-197">The assembly path refers to the path to the IL version of the assembly.</span></span> <span data-ttu-id="c775d-198">Это необязательный аргумент IL-код обычно в составе образа в машинном коде.</span><span class="sxs-lookup"><span data-stu-id="c775d-198">It is an optional argument as the IL is typically included in the native image.</span></span> <span data-ttu-id="c775d-199">Он используется средой выполнения как переход на резервный ресурс Если образа в машинном коде не найден.</span><span class="sxs-lookup"><span data-stu-id="c775d-199">It can be used by the runtime as a fallback if the native image is not found.</span></span>
+ 
+ ]]></format>
+        </remarks>
+        <exception cref="T:System.ArgumentException"><span data-ttu-id="c775d-200">Аргумент <paramref name="nativeImagePath" /> не является абсолютным путем.</span><span class="sxs-lookup"><span data-stu-id="c775d-200">The <paramref name="nativeImagePath" /> argument is not an absolute path.</span></span></exception>
+        <exception cref="T:System.ArgumentException"><span data-ttu-id="c775d-201">Аргумент <paramref name="assemblyPath" /> не является абсолютным путем.</span><span class="sxs-lookup"><span data-stu-id="c775d-201">The <paramref name="assemblyPath" /> argument is not an absolute path.</span></span></exception>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="c775d-202">Параметр <paramref name="nativeImagePath" /> имеет значение <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-202">The <paramref name="nativeImagePath" /> parameter is <see langword="null" />.</span></span></exception>
+        <exception cref="T:System.IO.FileLoadException"><span data-ttu-id="c775d-203">Не удалось загрузить файл, который был найден.</span><span class="sxs-lookup"><span data-stu-id="c775d-203">A file that was found could not be loaded.</span></span></exception>
+        <exception cref="T:System.IO.FileNotFoundException"><span data-ttu-id="c775d-204">Параметр <paramref name="nativeImagePath" /> представляет собой пустую строку ("") или не существует.</span><span class="sxs-lookup"><span data-stu-id="c775d-204">The <paramref name="nativeImagePath" /> parameter is an empty string ("") or does not exist.</span></span></exception>
+        <exception cref="T:System.BadImageFormatException"><span data-ttu-id="c775d-205"><paramref name="assemblyPath" /> не является допустимой сборкой.</span><span class="sxs-lookup"><span data-stu-id="c775d-205"><paramref name="assemblyPath" /> is not a valid assembly.</span></span></exception>
       </Docs>
     </Member>
     <Member MemberName="LoadFromStream">
@@ -283,10 +393,12 @@
         <Parameter Name="assembly" Type="System.IO.Stream" />
       </Parameters>
       <Docs>
-        <param name="assembly">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assembly"><span data-ttu-id="c775d-206">Массив байтов, который является образом в формате COFF, содержащим управляемую сборку.</span><span class="sxs-lookup"><span data-stu-id="c775d-206">A byte array that is a COFF-based image containing a managed assembly.</span></span></param>
+        <summary><span data-ttu-id="c775d-207">Загружает сборку с образом в формате COFF, содержащим управляемую сборку.</span><span class="sxs-lookup"><span data-stu-id="c775d-207">Loads the assembly with a common object file format (COFF)-based image containing a managed assembly.</span></span></summary>
+        <returns><span data-ttu-id="c775d-208">Загруженная сборка.</span><span class="sxs-lookup"><span data-stu-id="c775d-208">The loaded assembly.</span></span></returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="c775d-209">Свойство <paramref name="assembly" /> имеет значение <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-209"><paramref name="assembly" /> is <see langword="null" />.</span></span></exception>
+        <exception cref="T:System.BadImageFormatException"><span data-ttu-id="c775d-210"><paramref name="assembly" /> не является допустимой сборкой.</span><span class="sxs-lookup"><span data-stu-id="c775d-210"><paramref name="assembly" /> is not a valid assembly.</span></span></exception>
       </Docs>
     </Member>
     <Member MemberName="LoadFromStream">
@@ -314,11 +426,13 @@
         <Parameter Name="assemblySymbols" Type="System.IO.Stream" />
       </Parameters>
       <Docs>
-        <param name="assembly">To be added.</param>
-        <param name="assemblySymbols">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="assembly"><span data-ttu-id="c775d-211">Массив байтов, который является образом в формате COFF, содержащим управляемую сборку.</span><span class="sxs-lookup"><span data-stu-id="c775d-211">A byte array that is a COFF-based image containing a managed assembly.</span></span></param>
+        <param name="assemblySymbols"><span data-ttu-id="c775d-212">Массив байтов, содержащий необработанные байты, которые представляют символы для сборки.</span><span class="sxs-lookup"><span data-stu-id="c775d-212">A byte array that contains the raw bytes representing the symbols for the assembly.</span></span></param>
+        <summary><span data-ttu-id="c775d-213">Загружает сборку с образом в формате COFF, содержащим управляемую сборку и (дополнительно) символы для сборки.</span><span class="sxs-lookup"><span data-stu-id="c775d-213">Loads the assembly with a common object file format (COFF)-based image containing a managed assembly, optionally including symbols for the assembly.</span></span></summary>
+        <returns><span data-ttu-id="c775d-214">Загруженная сборка.</span><span class="sxs-lookup"><span data-stu-id="c775d-214">The loaded assembly.</span></span></returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="c775d-215">Свойство <paramref name="assembly" /> имеет значение <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-215"><paramref name="assembly" /> is <see langword="null" />.</span></span></exception>
+        <exception cref="T:System.BadImageFormatException"><span data-ttu-id="c775d-216"><paramref name="assembly" /> не является допустимой сборкой.</span><span class="sxs-lookup"><span data-stu-id="c775d-216"><paramref name="assembly" /> is not a valid assembly.</span></span></exception>
       </Docs>
     </Member>
     <Member MemberName="LoadUnmanagedDll">
@@ -346,10 +460,19 @@
         <Parameter Name="unmanagedDllName" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="unmanagedDllName">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="unmanagedDllName"><span data-ttu-id="c775d-217">Имя неуправляемые библиотеки.</span><span class="sxs-lookup"><span data-stu-id="c775d-217">Name of the unmanaged library.</span></span> <span data-ttu-id="c775d-218">Как правило, это имя файла без пути или расширений.</span><span class="sxs-lookup"><span data-stu-id="c775d-218">Typically this is the filename without its path or extensions.</span></span></param>
+        <summary><span data-ttu-id="c775d-219">Позволяет производному классу загружать неуправляемую библиотеку по имени.</span><span class="sxs-lookup"><span data-stu-id="c775d-219">Allows derived class to load an unmanaged library by name.</span></span></summary>
+        <returns><span data-ttu-id="c775d-220">Дескриптор для загруженной библиотеки или <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-220">A handle to the loaded library, or <see langword="null" />.</span></span></returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+ <span data-ttu-id="c775d-221">Реализация по умолчанию всегда возвращают `null`.</span><span class="sxs-lookup"><span data-stu-id="c775d-221">The default implementation always return `null`.</span></span> <span data-ttu-id="c775d-222">Когда `null` возвращается, среда выполнения загружает библиотеку вместе с его политики по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="c775d-222">When `null` is returned, the runtime loads the library with its default policy.</span></span>
+ 
+ <span data-ttu-id="c775d-223">Этот виртуальный метод может переопределяться настройка алгоритма поиска неуправляемую библиотеку.</span><span class="sxs-lookup"><span data-stu-id="c775d-223">This virtual method can be overridden to customize the unmanaged library search algorithm.</span></span> <span data-ttu-id="c775d-224">При переопределении имя может использоваться для идентификации библиотеки.</span><span class="sxs-lookup"><span data-stu-id="c775d-224">When overridden the name can be used to identify the library.</span></span> <span data-ttu-id="c775d-225">Загруженной библиотеки совпадение запрошенного не требуется имя, но могут быть преобразованы, при необходимости.</span><span class="sxs-lookup"><span data-stu-id="c775d-225">The loaded library does not need to match the requested name, but can be transformed as needed.</span></span> <span data-ttu-id="c775d-226">Сюда могут входить, изменив имя для определенного имени платформы.</span><span class="sxs-lookup"><span data-stu-id="c775d-226">This could include adjusting the name for platform specific naming.</span></span>
+ 
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="LoadUnmanagedDllFromPath">
@@ -377,10 +500,13 @@
         <Parameter Name="unmanagedDllPath" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="unmanagedDllPath">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="unmanagedDllPath"><span data-ttu-id="c775d-227">Путь к неуправляемой библиотеке.</span><span class="sxs-lookup"><span data-stu-id="c775d-227">The path to the unmanaged library.</span></span></param>
+        <summary><span data-ttu-id="c775d-228">Загружает неуправляемую библиотеку из указанного пути.</span><span class="sxs-lookup"><span data-stu-id="c775d-228">Loads an unmanaged library from the specified path.</span></span></summary>
+        <returns><span data-ttu-id="c775d-229">Дескриптор для загруженной библиотеки.</span><span class="sxs-lookup"><span data-stu-id="c775d-229">A handle to the loaded library.</span></span></returns>
         <remarks>To be added.</remarks>
+        <exception cref="T:System.ArgumentNullException"><span data-ttu-id="c775d-230">Свойство <paramref name="unmanagedDllPath" /> имеет значение <see langword="null" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-230"><paramref name="unmanagedDllPath" /> is <see langword="null" />.</span></span></exception>
+        <exception cref="T:System.ArgumentException"><span data-ttu-id="c775d-231">Аргумент <paramref name="unmanagedDllPath" /> не является абсолютным путем.</span><span class="sxs-lookup"><span data-stu-id="c775d-231">The <paramref name="unmanagedDllPath" /> argument is not an absolute path.</span></span></exception>
+        <exception cref="T:System.IO.FileNotFoundException"><span data-ttu-id="c775d-232">Не удается найти неуправляемую библиотеку.</span><span class="sxs-lookup"><span data-stu-id="c775d-232">The unmanaged library cannot be found.</span></span></exception>
       </Docs>
     </Member>
     <Member MemberName="Resolving">
@@ -405,8 +531,22 @@
         <ReturnType>System.Func&lt;System.Runtime.Loader.AssemblyLoadContext,System.Reflection.AssemblyName,System.Reflection.Assembly&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary><span data-ttu-id="c775d-233">Происходит, когда разрешение сборки завершается неудачей при попытке загрузки в этот контекст загрузки сборки.</span><span class="sxs-lookup"><span data-stu-id="c775d-233">Occurs when the resolution of an assembly fails when attempting to load into this assembly load context.</span></span></summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+ <span data-ttu-id="c775d-234">Он отвечает за обработчик этого события для возврата сборку, заданную, или для возврата `null` Если сборка не распознан.</span><span class="sxs-lookup"><span data-stu-id="c775d-234">It is the responsibility of the handler for this event to return the assembly that is specified, or to return `null` if the assembly is not recognized.</span></span>
+ 
+ > [!IMPORTANT]
+ >  <span data-ttu-id="c775d-235">Если более чем один обработчик событий зарегистрирован для данного события, обработчики событий вызываются в порядке, пока обработчик события возвращает значение, которое не `null`.</span><span class="sxs-lookup"><span data-stu-id="c775d-235">If more than one event handler is registered for this event, the event handlers are called in order until an event handler returns a value that isn't `null`.</span></span> <span data-ttu-id="c775d-236">Последующие обработчики учитываются.</span><span class="sxs-lookup"><span data-stu-id="c775d-236">Subsequent event handlers are ignored.</span></span>
+ 
+ <span data-ttu-id="c775d-237">Дополнительные сведения об обработке событий см. в разделе [обработка и вызов событий](~/docs/standard/events/index.md).</span><span class="sxs-lookup"><span data-stu-id="c775d-237">For more information about handling events, see [Handling and Raising Events](~/docs/standard/events/index.md).</span></span>
+ 
+ <span data-ttu-id="c775d-238">Примечательно, что можно добавить обработчик для данного события, для какого-либо <xref:System.Runtime.Loader.AssemblyLoadContext>, включая контекст по умолчанию.</span><span class="sxs-lookup"><span data-stu-id="c775d-238">It is noteworthy that a handler can be added for this event on any <xref:System.Runtime.Loader.AssemblyLoadContext>, including the default context.</span></span>
+ 
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="SetProfileOptimizationRoot">
@@ -491,7 +631,7 @@
         <ReturnType>System.Action&lt;System.Runtime.Loader.AssemblyLoadContext&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
+        <summary><span data-ttu-id="c775d-239">Происходит при выгрузке <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />.</span><span class="sxs-lookup"><span data-stu-id="c775d-239">Occurs when the <see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> is unloaded .</span></span></summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
