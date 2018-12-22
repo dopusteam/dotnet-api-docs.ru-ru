@@ -70,8 +70,8 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает или задает значение, указывающее, требуется ли коду <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Execution" /> для выполнения.</summary>
-        <value><see langword="true" /> Если код должен иметь <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Execution" /> для выполнения; в противном случае <see langword="false" />.</value>
+        <summary>Возвращает или задает значение, показывающее, требуется ли коду для его выполнения разрешение <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Execution" />.</summary>
+        <value>Значение <see langword="true" />, если код для выполнения должен обладать разрешением <see cref="F:System.Security.Permissions.SecurityPermissionFlag.Execution" />; в противном случае — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -114,8 +114,8 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Определяет, требуется ли текущий поток перенаправления контекста безопасности, если состояние безопасности должен создаваться повторно в последующий момент времени.</summary>
-        <returns><see langword="false" /> Если стек не содержит домены приложения с частичным доверием не сборок с частичным доверием и нет активного <see cref="M:System.Security.CodeAccessPermission.PermitOnly" /> или <see cref="M:System.Security.CodeAccessPermission.Deny" /> модификаторы. <see langword="true" /> Если среда CLR не может гарантировать, что стек не содержит ни один из них.</returns>
+        <summary>Определяет, требует ли текущий поток перенаправления контекста безопасности, если состояние безопасности потока понадобится впоследствии создать повторно.</summary>
+        <returns>Значение <see langword="false" />, если стек не содержит доменов приложения и сборок с частичным доверием, а также активных в настоящее время модификаторов метода <see cref="M:System.Security.CodeAccessPermission.PermitOnly" /> или <see cref="M:System.Security.CodeAccessPermission.Deny" />; значение <see langword="true" />, если среда CLR не может гарантировать, что стек не содержит ни одного из вышеперечисленных элементов.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -158,9 +158,9 @@
         <Parameter Name="evidence" Type="System.Security.Policy.Evidence" />
       </Parameters>
       <Docs>
-        <param name="evidence">Свидетельство узла в соответствии с набором разрешений.</param>
+        <param name="evidence">Свидетельство узла, которое нужно сопоставить с набором разрешений.</param>
         <summary>Получает набор разрешений, который можно безопасно выдать приложению, имеющему предоставленное свидетельство.</summary>
-        <returns>Набор разрешений, который может использоваться для выдачи приложению, имеющему предоставленное свидетельство.</returns>
+        <returns>Набор разрешений, который используется для выдачи приложению, имеющему предоставленное свидетельство.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -187,7 +187,7 @@
    
   
 ## Examples  
- В следующем примере показано, как использовать <xref:System.Security.SecurityManager.GetStandardSandbox%2A> задать метод, чтобы получить разрешения для изолированного приложения. Дополнительные сведения о выполнении приложения в песочнице см. в разделе [как: выполнение частично доверенного кода в изолированной среде](~/docs/framework/misc/how-to-run-partially-trusted-code-in-a-sandbox.md).  
+ В следующем примере показано, как использовать <xref:System.Security.SecurityManager.GetStandardSandbox%2A> задать метод, чтобы получить разрешения для изолированного приложения. Дополнительные сведения о выполнении приложения в песочнице см. в разделе [как: Запустите частично доверенного кода в изолированной среде](~/docs/framework/misc/how-to-run-partially-trusted-code-in-a-sandbox.md).  
   
  [!code-csharp[sandboxingApis#1](~/samples/snippets/csharp/VS_Snippets_CLR/SandboxingAPIs/CS/program.cs#1)]
  [!code-vb[sandboxingApis#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/SandboxingAPIs/VB/program.vb#1)]  
@@ -230,8 +230,8 @@
         <Parameter Name="origin" Type="System.Collections.ArrayList" RefType="out" />
       </Parameters>
       <Docs>
-        <param name="zone">Выходной параметр, который содержит <see cref="T:System.Collections.ArrayList" /> из предоставленных <see cref="P:System.Security.Permissions.ZoneIdentityPermissionAttribute.Zone" /> объектов.</param>
-        <param name="origin">Выходной параметр, который содержит <see cref="T:System.Collections.ArrayList" /> из предоставленных <see cref="T:System.Security.Permissions.UrlIdentityPermission" /> объектов.</param>
+        <param name="zone">Выходной параметр, который содержит список <see cref="T:System.Collections.ArrayList" /> объектов <see cref="P:System.Security.Permissions.ZoneIdentityPermissionAttribute.Zone" />, для которых предоставлен доступ.</param>
+        <param name="origin">Выходной параметр, который содержит список <see cref="T:System.Collections.ArrayList" /> объектов <see cref="T:System.Security.Permissions.UrlIdentityPermission" />, для которых предоставлен доступ.</param>
         <summary>Получает идентификатор разрешенной зоны и наборы разрешений идентификатора URL для текущей сборки.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -244,7 +244,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.Security.SecurityException">Запрос <see cref="T:System.Security.Permissions.StrongNameIdentityPermission" /> не удалось.</exception>
+        <exception cref="T:System.Security.SecurityException">Запрос для <see cref="T:System.Security.Permissions.StrongNameIdentityPermission" /> не прошел.</exception>
         <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
       </Docs>
     </Member>
@@ -286,9 +286,9 @@
         <Parameter Name="perm" Type="System.Security.IPermission" />
       </Parameters>
       <Docs>
-        <param name="perm">Разрешение для проверки разрешений вызывающей стороны.</param>
-        <summary>Определяет, разрешен ли разрешение вызывающему объекту.</summary>
-        <returns><see langword="true" /> Если разрешения, предоставленные вызывающему включать разрешение <paramref name="perm" />; в противном случае <see langword="false" />.</returns>
+        <param name="perm">Разрешение, предоставление которого вызывающему объекту проверяется.</param>
+        <summary>Определяет наличие разрешения у вызывающего объекта.</summary>
+        <returns>Значение <see langword="true" />, если разрешение <paramref name="perm" /> входит в число разрешений, предоставленных вызывающему объекту; в противном случае — <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -347,13 +347,13 @@
         <exception cref="T:System.ArgumentException">Файл, указанный параметром <paramref name="path" />, не существует.</exception>
         <exception cref="T:System.Security.SecurityException">В коде, который вызывает этот метод, отсутствует <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlPolicy" />.  
   
-- или - 
+-или- 
 В коде, который вызывает этот метод, отсутствует <see cref="F:System.Security.Permissions.FileIOPermissionAccess.Read" />.  
   
 - или - 
 В коде, который вызывает этот метод, отсутствует <see cref="F:System.Security.Permissions.FileIOPermissionAccess.Write" />.  
   
-- или - 
+-или- 
 В коде, который вызывает этот метод, отсутствует <see cref="F:System.Security.Permissions.FileIOPermissionAccess.PathDiscovery" />.</exception>
         <exception cref="T:System.NotSupportedException">Этот метод использует политику разграничения доступа кода (CAS), которая является устаревшей для [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)]. Чтобы включить политику CAS для обеспечения совместимости с предыдущими версиями .NET Framework, используйте [элемент &lt;legacyCasPolicy&gt;](~/docs/framework/configure-apps/file-schema/runtime/netfx40-legacysecuritypolicy-element.md).</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">возможность просмотра и изменения политики. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlPolicy" /></permission>
@@ -399,7 +399,7 @@
         <Parameter Name="type" Type="System.Security.PolicyLevelType" />
       </Parameters>
       <Docs>
-        <param name="str">XML-представление уровня политики безопасности в той же форме, в котором он находится в файле конфигурации.</param>
+        <param name="str">XML-представление уровня политики безопасности в той же форме, в которой оно содержится в файле конфигурации.</param>
         <param name="type">Одно из значений перечисления, указывающее тип уровня политики для загрузки.</param>
         <summary>Загружает <see cref="T:System.Security.Policy.PolicyLevel" /> из указанной строки.</summary>
         <returns>Уровень загруженной политики.</returns>
@@ -879,8 +879,8 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает или задает значение, указывающее, включена ли безопасность.</summary>
-        <value><see langword="true" /> Если включена безопасность; в противном случае <see langword="false" />.</value>
+        <summary>Возвращает или задает значение, определяющее, активирована ли система безопасности.</summary>
+        <value>Значение <see langword="true" />, если система безопасности активирована; в противном случае — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
