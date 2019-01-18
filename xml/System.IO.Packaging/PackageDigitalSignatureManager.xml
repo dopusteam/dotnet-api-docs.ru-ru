@@ -1,5 +1,5 @@
 <Type Name="PackageDigitalSignatureManager" FullName="System.IO.Packaging.PackageDigitalSignatureManager">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="e6eb371976675bde6275fcdc173b46cdbcf823fd" /><Meta Name="ms.sourcegitcommit" Value="adc8598fd19d91438cacaa8fa7ce613e28c8218e" /><Meta Name="ms.translationtype" Value="HT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="12/11/2018" /><Meta Name="ms.locfileid" Value="53229328" /></Metadata><TypeSignature Language="C#" Value="public sealed class PackageDigitalSignatureManager" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="eff9c18a0bad996a88f6665e20ab0bb43e85d1c8" /><Meta Name="ms.sourcegitcommit" Value="112ca25eddde8ac8b788d67c406b7745ba914261" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="01/15/2019" /><Meta Name="ms.locfileid" Value="54313990" /></Metadata><TypeSignature Language="C#" Value="public sealed class PackageDigitalSignatureManager" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit PackageDigitalSignatureManager extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.IO.Packaging.PackageDigitalSignatureManager" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class PackageDigitalSignatureManager" />
@@ -149,7 +149,7 @@
       <Parameters />
       <Docs>
         <summary>Ставит вторые подписи для всех подписей в пакете с выбранным пользователем сертификатом X.509.</summary>
-        <returns>Подпись, добавленная в качестве скрепляющей, или <see langword="null" />, если не удалось найти сертификат или если пользователь отменил выбор сертификата в диалоговом окне.</returns>
+        <returns>Подпись, добавленная в качестве второй, или значение <see langword="null" />, если сертификат не найден или пользователь отменил диалоговое окно выбора сертификата.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -183,11 +183,11 @@
         <Parameter Name="certificate" Type="System.Security.Cryptography.X509Certificates.X509Certificate" />
       </Parameters>
       <Docs>
-        <param name="certificate">Сертификат X.509, добавляемый в качестве скрепляющей подписи.</param>
+        <param name="certificate">Сертификат X.509, добавляемый в качестве второй подписи.</param>
         <summary>Ставит вторые подписи для всех подписей в пакете с указанным сертификатом X.509.</summary>
-        <returns>Подпись, добавленная в качестве скрепляющей.</returns>
+        <returns>Подпись, добавленная в качестве второй.</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">Параметр <paramref name="certificate" /> содержит значение <see langword="null" /></exception>
+        <exception cref="T:System.ArgumentNullException"><paramref name="certificate" /> равно <see langword="null" /></exception>
         <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=74494">Цифровые подписи Framework стандарта Open Packaging Conventions</related>
       </Docs>
     </Member>
@@ -212,14 +212,14 @@
         <Parameter Name="signatures" Type="System.Collections.Generic.IEnumerable&lt;System.Uri&gt;" />
       </Parameters>
       <Docs>
-        <param name="certificate">Сертификат X.509, используемый во второй подписи для каждого из указанных объектов <paramref name="signatures" />.</param>
-        <param name="signatures">Список сигнатур, для которых требуется скрепляющая подпись.</param>
+        <param name="certificate">Сертификат X.509 для добавления второй подписи для каждого из указанных <paramref name="signatures" />.</param>
+        <param name="signatures">Список подписей, для которых требуется поставить вторую подпись.</param>
         <summary>Добавляет вторую подпись для списка подписей с помощью заданного сертификата X.509.</summary>
-        <returns>Цифровая подпись, использованная в качестве скрепляющей подписи для каждого из объектов <paramref name="signatures" />.</returns>
+        <returns>Цифровая подпись, используемая для добавления второй подписи для каждого из <paramref name="signatures" />.</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.ArgumentNullException">Параметр <paramref name="certificate" /> или <paramref name="signatures" /> имеет значение <see langword="null" />.</exception>
         <exception cref="T:System.InvalidOperationException">Пакет не содержит подписанных объектов <see cref="T:System.IO.Packaging.PackagePart" />.</exception>
-        <exception cref="T:System.ArgumentException">В пакете нет подписанных частей <see cref="T:System.IO.Packaging.PackageDigitalSignature" />.</exception>
+        <exception cref="T:System.ArgumentException">Пакет не содержит частей <see cref="T:System.IO.Packaging.PackageDigitalSignature" />.</exception>
         <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=74494">Цифровые подписи Framework стандарта Open Packaging Conventions</related>
       </Docs>
     </Member>
@@ -484,8 +484,8 @@
         <Parameter Name="signatureUri" Type="System.Uri" />
       </Parameters>
       <Docs>
-        <param name="signatureUri">[!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] удаляемой подписи <see cref="T:System.IO.Packaging.PackageDigitalSignature" />.</param>
-        <summary>Удаляет цифровую подпись с заданным [!INCLUDE[TLA#tla_uri](~/includes/tlasharptla-uri-md.md)].</summary>
+        <param name="signatureUri">Тип [!INCLUDE[TLA2#tla_uri](~/includes/tla2sharptla-uri-md.md)] удаляемого объекта <see cref="T:System.IO.Packaging.PackageDigitalSignature" />.</param>
+        <summary>Удаляет цифровую подпись с указанным кодом [!INCLUDE[TLA#tla_uri](~/includes/tlasharptla-uri-md.md)].</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -540,9 +540,9 @@
         <Parameter Name="parts" Type="System.Collections.Generic.IEnumerable&lt;System.Uri&gt;" />
       </Parameters>
       <Docs>
-        <param name="parts">Список [!INCLUDE[TLA#tla_uri#plural](~/includes/tlasharptla-urisharpplural-md.md)] элементов <see cref="T:System.IO.Packaging.PackagePart" />, которые требуется подписать.</param>
+        <param name="parts">Список [!INCLUDE[TLA#tla_uri#plural](~/includes/tlasharptla-urisharpplural-md.md)] для подписывания элементов <see cref="T:System.IO.Packaging.PackagePart" />.</param>
         <summary>Запрашивает у пользователя сертификат X.509, который затем используется для цифровой подписи указанного списка частей пакета.</summary>
-        <returns>Цифровая подпись, использованная для подписания списка объектов <paramref name="parts" />.</returns>
+        <returns>Цифровая подпись для подписи списка <paramref name="parts" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -590,10 +590,10 @@
         <Parameter Name="certificate" Type="System.Security.Cryptography.X509Certificates.X509Certificate" />
       </Parameters>
       <Docs>
-        <param name="parts">Список [!INCLUDE[TLA#tla_uri#plural](~/includes/tlasharptla-urisharpplural-md.md)] элементов <see cref="T:System.IO.Packaging.PackagePart" />, которые требуется подписать.</param>
-        <param name="certificate">Сертификат X.509, используемый для создания цифровой подписи для каждого из указанных объектов <paramref name="parts" />.</param>
+        <param name="parts">Список [!INCLUDE[TLA#tla_uri#plural](~/includes/tlasharptla-urisharpplural-md.md)] для подписывания элементов <see cref="T:System.IO.Packaging.PackagePart" />.</param>
+        <param name="certificate">Сертификат X.509, используемый для цифровой подписи каждого указанного <paramref name="parts" />.</param>
         <summary>Подписывает список частей пакета с указанным сертификатом X.509.</summary>
-        <returns>Цифровая подпись, использованная для подписания заданного списка объектов <paramref name="parts" />, или <see langword="null" />, если сертификат не найден или если пользователь нажал кнопку "Отмена" в диалоговом окне выбора сертификата.</returns>
+        <returns>Цифровая подпись используется для подписи указанного списка <paramref name="parts" />; или <see langword="null" />, если не удалось найти сертификат либо пользователь щелкнул "Отмена" в диалоговом окне выбора сертификатов.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -634,7 +634,7 @@
         <param name="certificate">Сертификат X.509, используемый для создания цифровой подписи для каждой из указанных частей и связей.</param>
         <param name="relationshipSelectors">Список подписываемых объектов <see cref="T:System.IO.Packaging.PackageRelationship" />.</param>
         <summary>Подписывает список частей пакета и взаимоотношений пакета заданным сертификатом X.509.</summary>
-        <returns>Цифровая подпись, использованная для подписания элементов списков <paramref name="parts" /> и <paramref name="relationshipSelectors" />.</returns>
+        <returns>Цифровая подпись, используемая для подписывания элементов, указанных в списках <paramref name="parts" /> и <paramref name="relationshipSelectors" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -651,7 +651,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Ни в списке <paramref name="parts" />, ни в списке <paramref name="relationshipSelectors" /> не указаны объекты для подписания.</exception>
+        <exception cref="T:System.ArgumentException">Ни <paramref name="parts" />, ни <paramref name="relationshipSelectors" /> не указывают объекты для подписи.</exception>
         <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=74494">Цифровые подписи Framework стандарта Open Packaging Conventions</related>
       </Docs>
     </Member>
@@ -681,9 +681,9 @@
         <param name="parts">Список [!INCLUDE[TLA#tla_uri#plural](~/includes/tlasharptla-urisharpplural-md.md)] для объектов <see cref="T:System.IO.Packaging.PackagePart" />, которые требуется подписать.</param>
         <param name="certificate">Сертификат X.509, используемый для создания цифровой подписи для каждой из указанных частей и связей.</param>
         <param name="relationshipSelectors">Список подписываемых объектов <see cref="T:System.IO.Packaging.PackageRelationship" />.</param>
-        <param name="signatureId">Строка идентификации, которую следует связать с сигнатурой.</param>
+        <param name="signatureId">Идентификационная строка, которую следует связать с подписью.</param>
         <summary>Подписывает список частей пакета и взаимоотношений пакета заданным сертификатом X.509 и [!INCLUDE[TLA#tla_id](~/includes/tlasharptla-id-md.md)].</summary>
-        <returns>Цифровая подпись, использованная для подписания элементов списков <paramref name="parts" /> и <paramref name="relationshipSelectors" />.</returns>
+        <returns>Цифровая подпись, используемая для подписывания элементов, указанных в списках <paramref name="parts" /> и <paramref name="relationshipSelectors" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -704,7 +704,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Ни в списке <paramref name="parts" />, ни в списке <paramref name="relationshipSelectors" /> не указаны элементы для подписания.</exception>
+        <exception cref="T:System.ArgumentException">В списках <paramref name="parts" /> и <paramref name="relationshipSelectors" /> отсутствуют элементы для подписывания.</exception>
         <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=74494">Цифровые подписи Framework стандарта Open Packaging Conventions</related>
       </Docs>
     </Member>
@@ -741,11 +741,11 @@
         <param name="parts">Список [!INCLUDE[TLA#tla_uri#plural](~/includes/tlasharptla-urisharpplural-md.md)] для объектов <see cref="T:System.IO.Packaging.PackagePart" />, которые требуется подписать.</param>
         <param name="certificate">Сертификат X.509, используемый для создания цифровой подписи для каждой из указанных частей и связей.</param>
         <param name="relationshipSelectors">Список подписываемых объектов <see cref="T:System.IO.Packaging.PackageRelationship" />.</param>
-        <param name="signatureId">Строка идентификации, которую следует связать с сигнатурой.</param>
+        <param name="signatureId">Идентификационная строка, которую следует связать с подписью.</param>
         <param name="signatureObjects">Список пользовательских объектов данных, которые требуется подписать.</param>
         <param name="objectReferences">Список ссылок на подписываемые пользовательские объекты.</param>
         <summary>Подписывает список частей пакета, связей пакета или пользовательских объектов с использованием указанного сертификата X.509 и подписи [!INCLUDE[TLA#tla_id](~/includes/tlasharptla-id-md.md)].</summary>
-        <returns>Цифровая подпись, использованная для подписания элементов списков <paramref name="parts" /> и <paramref name="relationshipSelectors" />.</returns>
+        <returns>Цифровая подпись, используемая для подписывания элементов, указанных в списках <paramref name="parts" /> и <paramref name="relationshipSelectors" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -879,7 +879,7 @@
 ## Remarks  
  Значение по умолчанию <xref:System.IO.Packaging.PackageDigitalSignatureManager.TimeFormat%2A> является «Гггг-мм-DDThh:mm:ss.sTZD».  
   
- Даты и времени форматов имеют синтаксис «W3C форматы даты и времени» спецификации по [ http://www.w3.org/TR/Note-datetime.html ](http://www.w3.org/TR/Note-datetime.html). Компоненты, показанные ниже должен присутствовать и используйте синтаксис и знаки препинания, как определено.  
+ Даты и времени форматов соответствовать синтаксису [спецификации W3C Date and Time Formats](https://www.w3.org/TR/Note-datetime.html). Компоненты, показанные ниже должен присутствовать и используйте синтаксис и знаки препинания, как определено.  
   
 |TimeFormat|Описание|Пример|  
 |----------------|-----------------|-------------|  
@@ -943,7 +943,7 @@
   
 |Content|ContentType|Идентификатор алгоритма преобразования|  
 |-------------|-----------------|------------------------------------|  
-|Relationship|«application/vnd.openxmlformats-package.relationships+xml»|<xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl>|  
+|Relationship|"application/vnd.openxmlformats-package.relationships+xml"|<xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl>|  
 |Цифровая подпись|«application/vnd.openxmlformats-package.digital-signature-xmlsignature+xml»|<xref:System.Security.Cryptography.Xml.SignedXml.XmlDsigC14NTransformUrl>|  
   
  ]]></format>
@@ -978,7 +978,7 @@
       <Docs>
         <param name="certificate">Проверяемый сертификат X.509.</param>
         <summary>Проверяет указанный сертификат X.509.</summary>
-        <returns><see cref="F:System.Security.Cryptography.X509Certificates.X509ChainStatusFlags.NoError" /> (значение 0), если сертификат успешно прошел проверку, в противном случае — перечисление битовых значений флагов ошибок.</returns>
+        <returns><see cref="F:System.Security.Cryptography.X509Certificates.X509ChainStatusFlags.NoError" /> (значение 0), если сертификат проверен успешно; в противном случае побитовое перечисление флагов ошибок.</returns>
         <remarks>To be added.</remarks>
         <altmember cref="M:System.IO.Packaging.PackageDigitalSignatureManager.VerifySignatures(System.Boolean)" />
         <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=74494">Цифровые подписи Framework стандарта Open Packaging Conventions</related>
@@ -1004,9 +1004,9 @@
         <Parameter Name="exitOnFailure" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="exitOnFailure"><see langword="true" /> для выхода при первом обнаружении ошибки, или <see langword="false" /> для проверки всех сигнатур.</param>
-        <summary>Проверяет подписи всех подписанных частей пакета.</summary>
-        <returns><see cref="F:System.IO.Packaging.VerifyResult.Success" /> (значение 0), если все подписи успешно прошли проверку, в противном случае — перечисление, идентифицирующее ошибку.</returns>
+        <param name="exitOnFailure">Значение <see langword="true" /> для выхода при первом сбое; в противном случае — значение <see langword="false" /> для продолжения обработки и проверки всех подписей.</param>
+        <summary>Проверяет подписи всех подписанных частей в пакете.</summary>
+        <returns>Значение <see cref="F:System.IO.Packaging.VerifyResult.Success" /> (0), если все подписи проверены успешно; в противном случае — значение перечисления, которое идентифицирует ошибку.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
