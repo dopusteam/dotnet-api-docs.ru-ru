@@ -1,5 +1,5 @@
 <Type Name="CultureTypes" FullName="System.Globalization.CultureTypes">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="90d1c338aff0fdcc586e0c7ccc25f989c82f8e2e" /><Meta Name="ms.sourcegitcommit" Value="c0c07dbd19cd7017243f9ac36915755f79bc8da6" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="11/27/2018" /><Meta Name="ms.locfileid" Value="52357162" /></Metadata><TypeSignature Language="C#" Value="public enum CultureTypes" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="caa908feb7e94236c27b517f82513196ba6daa07" /><Meta Name="ms.sourcegitcommit" Value="a489a0c68ea6b109393f1400bbd772073b4befd4" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="01/20/2019" /><Meta Name="ms.locfileid" Value="54416973" /></Metadata><TypeSignature Language="C#" Value="public enum CultureTypes" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed CultureTypes extends System.Enum" />
   <TypeSignature Language="DocId" Value="T:System.Globalization.CultureTypes" />
   <TypeSignature Language="VB.NET" Value="Public Enum CultureTypes" />
@@ -44,10 +44,22 @@
 
 Эти значения языка и региональных параметров типа возвращаются <xref:System.Globalization.CultureInfo.CultureTypes%2A?displayProperty=nameWithType> свойства, а также служат фильтр, ограничивающий языков и региональных параметров, возвращаемых <xref:System.Globalization.CultureInfo.GetCultures%2A?displayProperty=nameWithType> метод. Дополнительные сведения о языков и региональных параметров, см. в разделе <xref:System.Globalization.CultureInfo>.  
   
-Как правило, приложение должно перечислять все языки и региональные параметры с помощью `CultureTypes.AllCultures` значение. Это позволяет использовать перечисления пользовательских языков и региональных параметров, а также других типов языка и региональных параметров.  
+Как правило, перечислить все языки и региональные параметры с помощью `CultureTypes.AllCultures` значение. Это позволяет использовать перечисления пользовательских языков и региональных параметров, а также других типов языка и региональных параметров.  
   
 Обратите внимание, что все `CultureTypes` члены рекомендованных к использованию за исключением `CultureTypes.AllCultures`, `CultureTypes.NeutralCultures`, и `CultureTypes.SpecificCultures`.  
+
+.NET распознает следующие типы языка и региональных параметров, которые включены в перечисления, возвращенный `CultureTypes.AllTypes` член перечисления:
+
+- **Конкретные языки**, которые определяют, страну или регион и язык. Имена этих языков и региональных параметров соответствуют стандарту RFC 4646. Формат `<languagecode2>-<country/regioncode2>`, где `<languagecode2>` — двухбуквенный код, в нижнем регистре, производный от ISO 639-1, и `<country/regioncode2>` прописные двухбуквенный код является производным от ISO 3166. Например, код en-US, означающий английский язык (США), относится к конкретным языкам и региональным параметрам. Пользовательские конкретных языков и региональных параметров (то есть, языков и региональных параметров, которые являются приложения -, а не системный) может иметь любое имя определяемое пользователем, не только совместимые со стандартами из них.  
+
+- **Нейтральные культуры**, которые определяют язык дублирующие страны или региона. Имена нейтральные культуры представляют двухбуквенный код в нижнем регистре, производный от ISO 639-1. Например, en (английский) относится к нейтральным языкам и региональным параметрам. Пользовательских нейтральных языков и региональных параметров (то есть, языков и региональных параметров, которые являются приложения -, а не системный) может быть любое определяемое пользователем имя, не только двухбуквенный код.
   
+  Инвариантный язык и региональные параметры включен в массив языков и региональных параметров, возвращаемых <xref:System.Globalization.CultureInfo.GetCultures%2A?displayProperty=nameWithType> метод, который задает это значение.  
+
+- **Пользовательские языки и региональные параметры**, которые являются определяемые приложением языков и региональных параметров. Пользовательские языки и региональные параметры могут представлять конкретных языков или нейтральные культуры и может иметь любое имя приложения. 
+
+   В версиях Windows до Windows 10 `UserCustomCulture` значение будет назначено пользовательские языки и региональные параметры, созданные разработчиком. В Windows 10 `UserCustomCulture` также значения для системы, не поддерживаемый полный набор региональные данные и, не имеющих уникальные локальные идентификаторы языков и региональных параметров. (Все языки и региональные параметры типа `UserCustomCulture` совместно использовать <xref:System.Globalization.CultureInfo.LCID%2A?displayProperty=nameWithType> значение `LOCALE_CUSTOM_UNSPECIFIED` (0x1000 или 4096)). В результате `CultureInfo.GetCultures(CultureTypes.UserCustomCulture)` метод возвращает разные наборы языков и региональных параметров в разных версиях Windows.  
+
 ## Examples  
 
 В следующем примере демонстрируется `CultureTypes.AllCultures` член перечисления и <xref:System.Globalization.CultureInfo.CultureTypes%2A> свойство.  
@@ -201,17 +213,6 @@
       <MemberValue>1</MemberValue>
       <Docs>
         <summary>Языки и региональные параметры, которые связаны с языком, но не являются специфичными для страны или региона.</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
-
-Имена языков и региональных параметров .NET представляют двухбуквенный код в нижнем регистре, производный от ISO 639-1. Например, en (английский) относится к нейтральным языкам и региональным параметрам. Пользовательские языки и региональные параметры (то есть, языков и региональных параметров, которые являются приложения -, а не системный) может быть любое определяемое пользователем имя, не только двухбуквенный код.  
-  
- Инвариантный язык и региональные параметры включен в массив языков и региональных параметров, возвращаемых <xref:System.Globalization.CultureInfo.GetCultures%2A?displayProperty=nameWithType> метод, который задает это значение.  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="ReplacementCultures">
@@ -275,17 +276,6 @@
       <MemberValue>2</MemberValue>
       <Docs>
         <summary>Конкретные языки и региональные параметры, характерные для стран или регионов.</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks 
-
-Имена этих языков и региональных параметров соответствуют стандарту RFC 4646 (Windows Vista и более поздние версии). Формат &lt;languagecode2&gt;-&lt;country/regioncode2&gt;, где &lt;languagecode2&gt; — двухбуквенный код в нижнем регистре, производный от ISO 639-1, а &lt;country/regioncode2&gt; — двухбуквенный код в верхнем регистре в соответствии с ISO 3166. Например, код en-US, означающий английский язык (США), относится к конкретным языкам и региональным параметрам.
-
-Пользовательские языки и региональные параметры (то есть, языков и региональных параметров, которые являются приложения -, а не системный) может иметь любое указанное пользователем имя, не только стандартные, совместимые из них.  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="UserCustomCulture">
@@ -317,15 +307,6 @@
       <MemberValue>8</MemberValue>
       <Docs>
         <summary>**Этот элемент считается нерекомендуемым.** Пользовательские языки и региональные параметры, созданные пользователем.</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
-
-В версиях Windows до Windows 10 `UserCustomCulture` значение будет назначено пользовательские языки и региональные параметры, созданные разработчиком. В Windows 10 `UserCustomCulture` также значения для системы, не поддерживаемый полный набор региональные данные и, не имеющих уникальные локальные идентификаторы языков и региональных параметров. (Все языки и региональные параметры типа `UserCustomCulture` совместно использовать <xref:System.Globalization.CultureInfo.LCID%2A?displayProperty=nameWithType> значение `LOCALE_CUSTOM_UNSPECIFIED` (0x1000 или 4096)). В результате `CultureInfo.GetCultures(CultureTypes.UserCustomCulture)` метод возвращает разные наборы языков и региональных параметров в разных версиях Windows.  
-  
- ]]></format>
-        </remarks>
       </Docs>
     </Member>
     <Member MemberName="WindowsOnlyCultures">

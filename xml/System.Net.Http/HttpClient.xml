@@ -1,5 +1,5 @@
 <Type Name="HttpClient" FullName="System.Net.Http.HttpClient">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="3b44ea987abd73ea55c4988dbcf16b845d245596" /><Meta Name="ms.sourcegitcommit" Value="adc8598fd19d91438cacaa8fa7ce613e28c8218e" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="12/11/2018" /><Meta Name="ms.locfileid" Value="53233098" /></Metadata><TypeSignature Language="C#" Value="public class HttpClient : System.Net.Http.HttpMessageInvoker" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="50674ebbb7fa95260ef9df597b4c302873920ae6" /><Meta Name="ms.sourcegitcommit" Value="8c966994f39ffe6e7c21611e9ec1b91247a68500" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="01/26/2019" /><Meta Name="ms.locfileid" Value="55084698" /></Metadata><TypeSignature Language="C#" Value="public class HttpClient : System.Net.Http.HttpMessageInvoker" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit HttpClient extends System.Net.Http.HttpMessageInvoker" />
   <TypeSignature Language="DocId" Value="T:System.Net.Http.HttpClient" />
   <TypeSignature Language="VB.NET" Value="Public Class HttpClient&#xA;Inherits HttpMessageInvoker" />
@@ -79,29 +79,50 @@ public class GoodController : ApiController
 | Windows и .NET Framework      | <xref:System.Net.HttpWebRequest>                                                          |
 | Windows/Mono                | <xref:System.Net.HttpWebRequest>                                                          |
 | Windows или UWP                 | Машинный код Windows <xref:System.Net.Http.WinHttpHandler> (поддержкой HTTP 2.0)                   |
-| Windows и .NET Core           | Машинный код Windows <xref:System.Net.Http.WinHttpHandler> (поддержкой HTTP 2.0)                   |
+| Windows и .NET Core 1.0 2.0   | Машинный код Windows <xref:System.Net.Http.WinHttpHandler> (поддержкой HTTP 2.0)                   |
 | Android и Xamarin             | Выбрать во время сборки. Можно либо использовать <xref:System.Net.HttpWebRequest> или настроить для использования собственного Android [`HttpURLConnection`](https://developer.xamarin.com/api/type/Java.Net.HttpURLConnection/) |
 | iOS, tvOS, watchOS и Xamarin  | Выбрать во время сборки. Можно либо использовать <xref:System.Net.HttpWebRequest> или настроить для использования Apple [ `NSUrlSession` ](https://developer.xamarin.com/api/type/MonoTouch.Foundation.NSUrlSession/) (поддержкой HTTP 2.0) |
 | macOS и Xamarin               | Выбрать во время сборки. Можно либо использовать <xref:System.Net.HttpWebRequest> или настроить для использования Apple [ `NSUrlSession` ](https://developer.xamarin.com/api/type/MonoTouch.Foundation.NSUrlSession/) (поддержкой HTTP 2.0) |
-| macOS/Mono                  | <xref:System.Net.HttpWebRequest>                                                                          |
-| macOS и .NET Core             | `libcurl`-на основе транспорта HTTP (HTTP 2.0 поддерживает)                                         |
+| macOS/Mono                  | <xref:System.Net.HttpWebRequest>                                                          |
+| macOS и .NET Core 1.0 2.0     | `libcurl`-на основе транспорта HTTP (HTTP 2.0 поддерживает)                                         |
 | Linux/Mono                  | <xref:System.Net.HttpWebRequest>                                                          |
-| Linux и .NET Core             | `libcurl`-на основе транспорта HTTP (HTTP 2.0 поддерживает)                                         |
-
+| Linux/.NET Core 1.0-2.0     | `libcurl`-на основе транспорта HTTP (HTTP 2.0 поддерживает)                                         |
+| .NET core 2.1 и более поздние версии     | <xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType>                    |
 Пользователи также могут настроить конкретный транспорт для <xref:System.Net.Http.HttpClient> путем вызова <xref:System.Net.Http.HttpClient.%23ctor*> конструктор, принимающий <xref:System.Net.Http.HttpMessageHandler>.
 
 ### <a name="httpclient-and-net-core"></a>HttpClient и .NET Core
 
-Начиная с .NET Core 2.1 <xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType> вместо класса `HttpClientHandler` предоставляет реализацию, используемые сетевые классы более высокого уровня HTTP, например `HttpClient`. Можно настроить приложение на использование более старой версии <xref:System.Net.Http.HttpClientHandler?displayProperty=nameWithType> вместо путем вызова <xref:System.AppContext.SetSwitch%2A> метод следующим образом:
+Начиная с .NET Core 2.1 <xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType> вместо класса `HttpClientHandler` предоставляет реализацию, используемые сетевые классы более высокого уровня HTTP, например `HttpClient`. Использование <xref:System.Net.Http.SocketsHttpHandler> предлагает ряд преимуществ:
 
-```csharp
-AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", false);
-```
+- Значительное улучшение производительности по сравнению с предыдущей реализацией.
 
-```vb
-AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
-``` 
+- Устранение зависимости платформы, что упрощает развертывание и обслуживание. Например `libcurl` больше не является зависимость от .NET Core для macOS и .NET Core для Linux.
+
+- Согласованного поведения на всех платформах .NET.
+
+Если это изменение нежелательно, можно настроить приложение на использование более старой версии <xref:System.Net.Http.HttpClientHandler?displayProperty=nameWithType> вместо этого в следующих случаях:
+
+- Путем вызова <xref:System.AppContext.SetSwitch%2A?displayProperty=nameWithType> метод следующим образом:
+
+   ```csharp
+   AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", false);
+   ```
+
+   ```vb
+   AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
+   ``` 
+- Определив `System.Net.Http.useSocketsHttpHandler` переключиться в *. netcore.runtimeconfig.json* файла конфигурации:
+
+  ```json
+  "runtimeOptions": {
+    "configProperties": {
+        "System.Net.Http.useSocketsHttpHandler": false
+    }
+  }
+  ```
   
+- Путем задания переменной среды с именем `DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER` и установив значение либо `false` или 0.
+
 ## Examples  
  [!code-csharp[System.Net.Http.HttpClient#1](~/samples/snippets/csharp/VS_Snippets_Misc/system.net.http.httpclient/cs/source.cs#1)]  
   
@@ -199,7 +220,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="handler">Стек обработчика HTTP-данных, используемый для отправки запросов.</param>
-        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.Http.HttpClient" /> с указанным обработчиком.</summary>
+        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.Http.HttpClient" /> указанным обработчиком.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -208,7 +229,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="handler" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="handler" /> — <see langword="null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -236,11 +257,11 @@ public class GoodController : ApiController
         <Parameter Name="disposeHandler" Type="System.Boolean" />
       </Parameters>
       <Docs>
-        <param name="handler"><see cref="T:System.Net.Http.HttpMessageHandler" />,  отвечающий за обработку сообщений откликов HTTP.</param>
+        <param name="handler">Компонент <see cref="T:System.Net.Http.HttpMessageHandler" />, отвечающий за обработку сообщений ответов HTTP.</param>
         <param name="disposeHandler">Значение <see langword="true" />, если внутренний обработчик должен быть удален с помощью [HttpClient.Dispose](xref:System.Net.Http.HttpMessageInvoker.Dispose). Значение <see langword="false" />, если планируется повторно использовать внутренний обработчик.</param>
-        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.Http.HttpClient" /> с указанным обработчиком.</summary>
+        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Net.Http.HttpClient" /> указанным обработчиком.</summary>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="handler" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="handler" /> — <see langword="null" />.</exception>
       </Docs>
     </Member>
     <Member MemberName="BaseAddress">
@@ -267,7 +288,7 @@ public class GoodController : ApiController
         <ReturnType>System.Uri</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Получает или задает базовый адрес универсального кода ресурса (URI) интернет-ресурса, используемого при отправке запросов.</summary>
+        <summary>Возвращает или задает базовый адрес универсального кода ресурса (URI) интернет-ресурса, используемого при отправке запросов.</summary>
         <value>Базовый адрес универсального кода ресурса (URI) интернет-ресурса, используемого при отправке запросов.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -304,7 +325,7 @@ public class GoodController : ApiController
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Отменить все ожидающие запросы на этом экземпляре.</summary>
+        <summary>Отмена всех ожидающих запросов на этом экземпляре.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -339,7 +360,7 @@ public class GoodController : ApiController
         <ReturnType>System.Net.Http.Headers.HttpRequestHeaders</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Получает заголовки, которые должны отправляться с каждым запросом.</summary>
+        <summary>Возвращает заголовки, которые должны отправляться с каждым запросом.</summary>
         <value>Заголовки, которые должны отправляться с каждым запросом.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -360,7 +381,7 @@ public class GoodController : ApiController
         <AssemblyVersion>4.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Отправляет запрос DELETE согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса DELETE согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="DeleteAsync">
@@ -391,7 +412,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
-        <summary>Отправляет запрос DELETE согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса DELETE согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -401,8 +422,8 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">Сообщение запроса уже было отправлено экземпляром <see cref="T:System.Net.Http.HttpClient" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Экземпляр <see cref="T:System.Net.Http.HttpClient" /> уже отправил сообщение с запросом.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -434,7 +455,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
-        <summary>Отправляет запрос DELETE согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса DELETE согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -444,8 +465,8 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">Сообщение запроса уже было отправлено экземпляром <see cref="T:System.Net.Http.HttpClient" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Экземпляр <see cref="T:System.Net.Http.HttpClient" /> уже отправил сообщение с запросом.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -478,7 +499,7 @@ public class GoodController : ApiController
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="cancellationToken">Токен отмены, который может использоваться другими объектами или потоками для получения уведомления об отмене.</param>
-        <summary>Отправить запрос DELETE к указанному URI с токеном отмены в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса DELETE к указанному URI с токеном отмены в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -488,8 +509,8 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">Сообщение запроса уже было отправлено экземпляром <see cref="T:System.Net.Http.HttpClient" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Экземпляр <see cref="T:System.Net.Http.HttpClient" /> уже отправил сообщение с запросом.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -522,7 +543,7 @@ public class GoodController : ApiController
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="cancellationToken">Токен отмены, который может использоваться другими объектами или потоками для получения уведомления об отмене.</param>
-        <summary>Отправить запрос DELETE к указанному URI с токеном отмены в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса DELETE к указанному URI с токеном отмены в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -532,8 +553,8 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">Сообщение запроса уже было отправлено экземпляром <see cref="T:System.Net.Http.HttpClient" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Экземпляр <see cref="T:System.Net.Http.HttpClient" /> уже отправил сообщение с запросом.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -565,7 +586,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="disposing">Значение <see langword="true" /> для освобождения управляемых и неуправляемых ресурсов; значение <see langword="false" /> для освобождения только неуправляемых ресурсов.</param>
-        <summary>Освобождает неуправляемые ресурсы, используемые объектом <see cref="T:System.Net.Http.HttpClient" />, и при необходимости удаляет управляемые ресурсы.</summary>
+        <summary>Освобождает неуправляемые ресурсы, используемые объектом <see cref="T:System.Net.Http.HttpClient" />, и опционально удаляет управляемые ресурсы.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -588,7 +609,7 @@ public class GoodController : ApiController
         <AssemblyVersion>4.1.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -627,7 +648,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -637,7 +658,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -669,7 +690,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -679,7 +700,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -713,7 +734,7 @@ public class GoodController : ApiController
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="completionOption">Значение параметра завершения операции HTTP, указывающее, когда следует считать операцию завершенной.</param>
-        <summary>Отправить запрос GET указанному универсальному коду ресурса (URI) с параметром "выполнение HTTP" в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса GET указанному универсальному коду ресурса (URI) с параметром "выполнение HTTP" в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -723,7 +744,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -756,7 +777,7 @@ public class GoodController : ApiController
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="cancellationToken">Токен отмены, который может использоваться другими объектами или потоками для получения уведомления об отмене.</param>
-        <summary>Отправить запрос DELETE указанному универсальному коду ресурса (URI) с токеном отмены в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса DELETE указанному универсальному коду ресурса (URI) с токеном отмены в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -766,7 +787,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -800,7 +821,7 @@ public class GoodController : ApiController
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="completionOption">Значение параметра завершения операции HTTP, указывающее, когда следует считать операцию завершенной.</param>
-        <summary>Отправить запрос GET указанному универсальному коду ресурса (URI) с параметром "выполнение HTTP" в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса GET указанному универсальному коду ресурса (URI) с параметром "выполнение HTTP" в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -810,7 +831,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -843,7 +864,7 @@ public class GoodController : ApiController
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="cancellationToken">Токен отмены, который может использоваться другими объектами или потоками для получения уведомления об отмене.</param>
-        <summary>Отправить запрос DELETE указанному универсальному коду ресурса (URI) с токеном отмены в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса DELETE указанному универсальному коду ресурса (URI) с токеном отмены в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -853,7 +874,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -888,7 +909,7 @@ public class GoodController : ApiController
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="completionOption">Значение параметра завершения операции HTTP, указывающее, когда следует считать операцию завершенной.</param>
         <param name="cancellationToken">Токен отмены, который может использоваться другими объектами или потоками для получения уведомления об отмене.</param>
-        <summary>Отправить запрос GET к указанному универсальному коду ресурса (URI) с параметром "выполнение HTTP" и токеном отмены в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса GET к указанному универсальному коду ресурса (URI) с параметром "выполнение HTTP" и токеном отмены в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -898,7 +919,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -933,7 +954,7 @@ public class GoodController : ApiController
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="completionOption">Значение параметра завершения операции HTTP, указывающее, когда следует считать операцию завершенной.</param>
         <param name="cancellationToken">Токен отмены, который может использоваться другими объектами или потоками для получения уведомления об отмене.</param>
-        <summary>Отправить запрос GET к указанному универсальному коду ресурса (URI) с параметром "выполнение HTTP" и токеном отмены в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса GET к указанному универсальному коду ресурса (URI) с параметром "выполнение HTTP" и токеном отмены в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -943,7 +964,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -955,7 +976,7 @@ public class GoodController : ApiController
         <AssemblyVersion>4.1.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) и возвращает тело отклика в виде массива байтов в асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) и возврат текста ответа в виде массива байтов в асинхронной операции.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1009,7 +1030,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1046,7 +1067,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) и возвращает тело отклика в виде массива байтов в асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) и возврат текста ответа в виде массива байтов в асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1056,7 +1077,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1068,7 +1089,7 @@ public class GoodController : ApiController
         <AssemblyVersion>4.1.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) и возвращает тело отклика в виде потока в асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) и возврат текста ответа в виде потока в асинхронной операции.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1112,7 +1133,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) и возвращает тело отклика в виде потока в асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) и возврат текста ответа в виде потока в асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1122,7 +1143,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1159,7 +1180,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) и возвращает тело отклика в виде потока в асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) и возврат текста ответа в виде потока в асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1169,7 +1190,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1181,7 +1202,7 @@ public class GoodController : ApiController
         <AssemblyVersion>4.1.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) и возвращает тело отклика в виде строки в асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) и возврат текста ответа в виде строки в асинхронной операции.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1225,7 +1246,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) и возвращает тело отклика в виде строки в асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) и возврат текста ответа в виде строки в асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1235,7 +1256,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1272,7 +1293,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
-        <summary>Отправляет запрос GET согласно указанному универсальному коду ресурса (URI) и возвращает тело отклика в виде строки в асинхронной операции.</summary>
+        <summary>Отправка запроса GET согласно указанному универсальному коду ресурса (URI) и возврат текста ответа в виде строки в асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1282,7 +1303,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1310,7 +1331,7 @@ public class GoodController : ApiController
         <ReturnType>System.Int64</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Получает или задает максимальное число байтов в буфере при чтении содержимого отклика.</summary>
+        <summary>Возвращает или задает максимальное число байтов в буфере при чтении содержимого отклика.</summary>
         <value>Максимальное число байтов в буфере при чтении содержимого отклика. Значением по умолчанию для этого свойства является 2 гигабайта.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1322,7 +1343,7 @@ public class GoodController : ApiController
         </remarks>
         <exception cref="T:System.ArgumentOutOfRangeException">Указанный размер меньше или равен нулю.</exception>
         <exception cref="T:System.InvalidOperationException">Операция для текущего экземпляра уже запущена.</exception>
-        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр был удален.</exception>
+        <exception cref="T:System.ObjectDisposedException">Текущий экземпляр удален.</exception>
       </Docs>
     </Member>
     <Member MemberName="PatchAsync">
@@ -1506,7 +1527,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1550,7 +1571,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1585,7 +1606,7 @@ public class GoodController : ApiController
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="content">Содержимое HTTP-запроса, отправляемое на сервер.</param>
         <param name="cancellationToken">Токен отмены, который может использоваться другими объектами или потоками для получения уведомления об отмене.</param>
-        <summary>Отправить запрос POST с токеном отмены в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса POST с токеном отмены в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1595,7 +1616,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1630,7 +1651,7 @@ public class GoodController : ApiController
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="content">Содержимое HTTP-запроса, отправляемое на сервер.</param>
         <param name="cancellationToken">Токен отмены, который может использоваться другими объектами или потоками для получения уведомления об отмене.</param>
-        <summary>Отправить запрос POST с токеном отмены в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса POST с токеном отмены в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1640,7 +1661,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1703,7 +1724,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1747,7 +1768,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1782,7 +1803,7 @@ public class GoodController : ApiController
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="content">Содержимое HTTP-запроса, отправляемое на сервер.</param>
         <param name="cancellationToken">Токен отмены, который может использоваться другими объектами или потоками для получения уведомления об отмене.</param>
-        <summary>Отправить запрос PUT с токеном отмены в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса PUT с токеном отмены в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1792,7 +1813,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1827,7 +1848,7 @@ public class GoodController : ApiController
         <param name="requestUri">Универсальный код ресурса (URI), по которому отправляется запрос.</param>
         <param name="content">Содержимое HTTP-запроса, отправляемое на сервер.</param>
         <param name="cancellationToken">Токен отмены, который может использоваться другими объектами или потоками для получения уведомления об отмене.</param>
-        <summary>Отправить запрос PUT с токеном отмены в качестве асинхронной операции.</summary>
+        <summary>Отправка запроса PUT с токеном отмены в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1837,7 +1858,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="requestUri" /> имеет значение <see langword="null" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="requestUri" /> — <see langword="null" />.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1849,7 +1870,7 @@ public class GoodController : ApiController
         <AssemblyVersion>4.1.1.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>Отправляет HTTP-запрос в качестве асинхронной операции.</summary>
+        <summary>Отправка HTTP-запроса в качестве асинхронной операции.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -1888,7 +1909,7 @@ public class GoodController : ApiController
       </Parameters>
       <Docs>
         <param name="request">Сообщение HTTP-запроса для отправки.</param>
-        <summary>Отправляет HTTP-запрос в качестве асинхронной операции.</summary>
+        <summary>Отправка HTTP-запроса в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1898,8 +1919,8 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="request" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">Сообщение запроса уже было отправлено экземпляром <see cref="T:System.Net.Http.HttpClient" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="request" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Экземпляр <see cref="T:System.Net.Http.HttpClient" /> уже отправил сообщение с запросом.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1933,7 +1954,7 @@ public class GoodController : ApiController
       <Docs>
         <param name="request">Сообщение HTTP-запроса для отправки.</param>
         <param name="completionOption">Когда должна завершиться операция (как только будет доступен отклик или после считывания всего содержимого отклика).</param>
-        <summary>Отправляет HTTP-запрос в качестве асинхронной операции.</summary>
+        <summary>Отправка HTTP-запроса в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1943,8 +1964,8 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="request" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">Сообщение запроса уже было отправлено экземпляром <see cref="T:System.Net.Http.HttpClient" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="request" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Экземпляр <see cref="T:System.Net.Http.HttpClient" /> уже отправил сообщение с запросом.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -1977,7 +1998,7 @@ public class GoodController : ApiController
       <Docs>
         <param name="request">Сообщение HTTP-запроса для отправки.</param>
         <param name="cancellationToken">Токен отмены для отмены операции.</param>
-        <summary>Отправляет HTTP-запрос в качестве асинхронной операции.</summary>
+        <summary>Отправка HTTP-запроса в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -1987,8 +2008,8 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="request" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">Сообщение запроса уже было отправлено экземпляром <see cref="T:System.Net.Http.HttpClient" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="request" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Экземпляр <see cref="T:System.Net.Http.HttpClient" /> уже отправил сообщение с запросом.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -2023,7 +2044,7 @@ public class GoodController : ApiController
         <param name="request">Сообщение HTTP-запроса для отправки.</param>
         <param name="completionOption">Когда должна завершиться операция (как только будет доступен отклик или после считывания всего содержимого отклика).</param>
         <param name="cancellationToken">Токен отмены для отмены операции.</param>
-        <summary>Отправляет HTTP-запрос в качестве асинхронной операции.</summary>
+        <summary>Отправка HTTP-запроса в качестве асинхронной операции.</summary>
         <returns>Объект задачи, представляющий асинхронную операцию.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -2033,8 +2054,8 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentNullException">Свойство <paramref name="request" /> имеет значение <see langword="null" />.</exception>
-        <exception cref="T:System.InvalidOperationException">Сообщение запроса уже было отправлено экземпляром <see cref="T:System.Net.Http.HttpClient" />.</exception>
+        <exception cref="T:System.ArgumentNullException">Значение параметра <paramref name="request" /> — <see langword="null" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Экземпляр <see cref="T:System.Net.Http.HttpClient" /> уже отправил сообщение с запросом.</exception>
         <exception cref="T:System.Net.Http.HttpRequestException">Не удалось выполнить запрос из-за ключевой проблемы, например подключения к сети, ошибки DNS, проверки сертификата сервера или времени ожидания.</exception>
       </Docs>
     </Member>
@@ -2078,7 +2099,7 @@ public class GoodController : ApiController
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException">Указанное время ожидания меньше или равно нулю и не является <see cref="F:System.Threading.Timeout.InfiniteTimeSpan" />.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Указанное значение времени ожидания меньше или равно нулю и не является <see cref="F:System.Threading.Timeout.InfiniteTimeSpan" />.</exception>
         <exception cref="T:System.InvalidOperationException">Операция для текущего экземпляра уже запущена.</exception>
         <exception cref="T:System.ObjectDisposedException">Текущий экземпляр удален.</exception>
       </Docs>
