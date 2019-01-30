@@ -1,5 +1,5 @@
 <Type Name="HttpClientHandler" FullName="System.Net.Http.HttpClientHandler">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="ba3ed49c9a90efc55711df6801abd12d767b3a33" /><Meta Name="ms.sourcegitcommit" Value="9e3550fb2088d4faf2043f0acb29da4555519937" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="12/12/2018" /><Meta Name="ms.locfileid" Value="53291604" /></Metadata><TypeSignature Language="C#" Value="public class HttpClientHandler : System.Net.Http.HttpMessageHandler" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="4e4378873f3a5fa6c23c6de9bded7f111e986d3e" /><Meta Name="ms.sourcegitcommit" Value="8c966994f39ffe6e7c21611e9ec1b91247a68500" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="01/26/2019" /><Meta Name="ms.locfileid" Value="55084620" /></Metadata><TypeSignature Language="C#" Value="public class HttpClientHandler : System.Net.Http.HttpMessageHandler" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit HttpClientHandler extends System.Net.Http.HttpMessageHandler" />
   <TypeSignature Language="DocId" Value="T:System.Net.Http.HttpClientHandler" />
   <TypeSignature Language="VB.NET" Value="Public Class HttpClientHandler&#xA;Inherits HttpMessageHandler" />
@@ -22,24 +22,37 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>Обработчик сообщений по умолчанию, используемый <see cref="T:System.Net.Http.HttpClient" />.</summary>
+    <summary>Обработчик сообщений по умолчанию, используемый <see cref="T:System.Net.Http.HttpClient" /> в .NET Framework и .NET Core 2.0 и более ранней версии.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Net.Http.HttpClientHandler> Класс и производные от него классы позволяют разработчикам настраивать различные параметры, от прокси-серверов для проверки подлинности.  
+ `HttpClientHandler` Класс и производные от него классы позволяют разработчикам настраивать различные параметры, от прокси-серверов для проверки подлинности.  
   
 ### <a name="httpclienthandler-in-net-core"></a>HttpClientHandler в .NET Core
 
-Начиная с .NET Core 2.1 <xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType> вместо класса `HttpClientHandler` предоставляет реализацию, используемую с более высокого уровня HTTP, сетевые интерфейсы API. Можно настроить приложение для использования `HttpClientHandler` вместо путем вызова <xref:System.AppContext.SetSwitch%2A> метод следующим образом:
+Начиная с .NET Core 2.1 <xref:System.Net.Http.SocketsHttpHandler?displayProperty=nameWithType> вместо класса `HttpClientHandler` предоставляет реализацию, используемую с более высокого уровня HTTP, сетевые интерфейсы API. Можно настроить приложение для использования `HttpClientHandler` вместо этого в любом из следующих способов:
 
-```csharp
-AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", false);
-```
-```vb
-AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
-``` 
+- Путем вызова <xref:System.AppContext.SetSwitch%2A?displayProperty=nameWithType> метод следующим образом:
+
+  ```csharp
+  AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", false);
+  ```
+  ```vb
+  AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
+  ``` 
+Определив `System.Net.Http.useSocketsHttpHandler` переключиться в *. netcore.runtimeconfig.json* файла конфигурации:
+
+  ```json
+  "runtimeOptions": {
+    "configProperties": {
+        "System.Net.Http.useSocketsHttpHandler": false
+    }
+  }
+  ```
   
+- Путем задания переменной среды с именем `DOTNET_SYSTEM_NET_HTTP_USESOCKETSHTTPHANDLER` и установив значение либо `false` или 0.
+
 ## Examples  
  [!code-csharp[System.Net.Http.HttpClientHandler#1](~/samples/snippets/csharp/VS_Snippets_Misc/system.net.http.httpclienthandler/cs/source.cs#1)]  
   
@@ -48,7 +61,7 @@ AppContext.SetSwitch("System.Net.Http.useSocketsHttpHandler", False)
  ]]></format>
     </remarks>
     <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkID=245696">Подключение к веб-службы</related>
-    <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=245697">Краткое руководство: Подключение с помощью HttpClient</related>
+    <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=245697">Краткое руководство. Подключение с помощью HttpClient</related>
     <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=245699">Как использовать обработчики HttpClient</related>
     <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=245698">Как защитить подключения HttpClient</related>
     <related type="ExternalDocumentation" href="https://go.microsoft.com/fwlink/?LinkId=242550">Пример HttpClient</related>
