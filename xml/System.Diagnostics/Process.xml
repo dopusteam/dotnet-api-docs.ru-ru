@@ -59,58 +59,58 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Объект <xref:System.Diagnostics.Process> компонент предоставляет доступ к процессу, который выполняется на компьютере. Процесс, проще говоря, — работающего приложения. Поток — это базовая единица, к которой операционная система выделяет время процессора. Поток может исполнять любую часть кода процесса, включая части, выполняющейся в данный момент другим потоком.  
+ Компонент <xref:System.Diagnostics.Process> предоставляет доступ к процессу, который выполняется на компьютере. Процесс, упрощенно говоря, представляет из себя работающее приложение. Поток — это базовая единица, которой операционная система выделяет время процессора. Поток может исполнять любую часть кода процесса, включая части, выполняющиеся в данный момент другим потоком.  
   
- <xref:System.Diagnostics.Process> Компонент — это полезное средство для запуска и остановки, управление и наблюдение за приложениями. Можно использовать <xref:System.Diagnostics.Process> компонент, для получения списка процессов, работающих под управлением, или вы можете запустить новый процесс. Объект <xref:System.Diagnostics.Process> компонент используется для доступа к системным процессам. После <xref:System.Diagnostics.Process> инициализации компонента, его можно использовать для получения сведений о запущенном процессе. Такая информация включает в себя набор потоков, загруженные модули (файлы .dll и .exe), и информацию о производительности, таких как объем памяти, используемой процессом.  
+ Компонент <xref:System.Diagnostics.Process> — это полезное средство для запуска, остановки, контроля и мониторинга приложений. Компонент <xref:System.Diagnostics.Process> можно использовать для получения списка запущенных процессов или для запуска нового процесса. <xref:System.Diagnostics.Process> используется для доступа к системным процессам. После инициализации компонента <xref:System.Diagnostics.Process> его можно использовать для получения сведений о запущенном процессе. Эти сведения включают в себя набор потоков, загруженные модули (файлы .dll и .exe) и информацию о производительности, например объем памяти, используемой процессом.  
   
- Этот тип реализует <xref:System.IDisposable> интерфейс. Когда вы закончите, используя тип, следует освободить его прямо или косвенно. Чтобы удалить тип напрямую, вызовите его <xref:System.IDisposable.Dispose%2A> метод в `try` / `finally` блока. Чтобы избавиться от его косвенно, используйте языковой конструкции, такие как `using` (в C#) или `Using` (в Visual Basic). Дополнительные сведения см. в разделе «С помощью объекта, реализует IDisposable» <xref:System.IDisposable> разделу интерфейса.  
-  
-> [!NOTE]
->  32-разрядных процессов не может получить доступ к модулям 64-разрядном процессе. При попытке получить сведения о 64-разрядном процессе из 32-разрядном процессе, вы получите <xref:System.ComponentModel.Win32Exception> исключение. 64-разрядный процесс, с другой стороны, можно получить доступ к модулям 32-разрядном процессе.  
-  
- Компонент обработки получает сведения о группу свойств за один раз. После <xref:System.Diagnostics.Process> компонент получил информацию о один член, ни в одну группу, он будет кэшировать значения для других свойств в этой группе и не будет получать новые сведения о других членах группы до вызова метода <xref:System.Diagnostics.Process.Refresh%2A> метод. Таким образом, значение свойства, не обязательно будет новее, чем последнего вызова <xref:System.Diagnostics.Process.Refresh%2A> метод. Схемы групп, зависят от операционной системы.  
-  
- Если у вас есть путь к переменной, объявленной в вашей системе, с помощью кавычки, необходимо полностью указать этот путь при запуске любого процесса, в этом расположении. В противном случае система не найдет путь. Например если `c:\mypath` не находится в системном пути, и он добавляется с использованием кавычек: `path = %path%;"c:\mypath"`, необходимо полностью указать любой процесс в `c:\mypath` при запуске.  
-  
- Системный процесс однозначно идентифицируется в системе идентификатор процесса. Как и многие ресурсы Windows процесс также определяется его дескриптор, который не может быть уникальным на компьютере. Дескриптор является универсальный термин для идентификатора ресурса. Операционная система сохраняет дескриптор процесса, доступный через <xref:System.Diagnostics.Process.Handle%2A> свойство <xref:System.Diagnostics.Process> компонент, даже в том случае, если процесс завершился. Таким образом, можно получить процесса для администраторов информация, например <xref:System.Diagnostics.Process.ExitCode%2A> (обычно либо ноль для успеха или ненулевой код ошибки) и <xref:System.Diagnostics.Process.ExitTime%2A>. Дескрипторы являются чрезвычайно важным ресурсом, поэтому происходит утечка дескрипторов более опасна, чем утечка памяти.  
+ Этот тип реализует интерфейс <xref:System.IDisposable>. По окончании использования его следует прямо или косвенно освободить. Чтобы освободить тип прямо, вызовите его метод <xref:System.IDisposable.Dispose%2A> в блоке `try`/`finally`. Чтобы освободить его косвенно, используйте языковые конструкции, такие как `using` (в C#) или `Using` (в Visual Basic). Дополнительные сведения см. в разделе "Использование объекта, реализующего IDisposable" в статье об интерфейсе <xref:System.IDisposable>.  
   
 > [!NOTE]
->  Этот класс содержит запрос компоновки и требования наследования на уровне класса, который применяется ко всем элементам. Объект <xref:System.Security.SecurityException> возникает, если непосредственный вызывающий оператор или производного класса не имеет разрешения полного доверия. Дополнительные сведения о требованиях безопасности см. в разделе [требования связывания](~/docs/framework/misc/link-demands.md).  
+>  32-разрядные процессы не могут получить доступ к модулям 64-разрядных процессов. При попытке получить сведения о 64-разрядном процессе из 32-разрядного процесса вы получите исключение <xref:System.ComponentModel.Win32Exception>. С другой стороны, 64-разрядный процесс может получить доступ к модулям 32-разрядного процесса.  
+  
+ Компонент Process получает сведения о группе свойств одновременно. После того, как компонент <xref:System.Diagnostics.Process> получит информацию о хотя бы одном члене любой группы, он будет кэшировать значения для других свойств в этой группе и не будет получать новые сведения о других членах группы до вызова метода <xref:System.Diagnostics.Process.Refresh%2A>. Таким образом, значение свойства не обязательно будет новее, чем в момент последнего вызова метода <xref:System.Diagnostics.Process.Refresh%2A>. Схемы разделения на группы зависят от операционной системы.   
+  
+ Если в системе есть заключенный в кавычки путь в переменной path, при запуске любого процесса из этого расположения необходимо указание полного пути. В противном случае система не найдет этот путь. Например если в переменной path нет пути `c:\mypath` и он добавляется к ней с использованием кавычек (`path = %path%;"c:\mypath"`), при запуске любого процесса из `c:\mypath` необходимо полностью указывать путь к файлу.   
+  
+ Системный процесс однозначно идентифицируется в системе идентификатором процесса. Как и многие ресурсы Windows, процесс также идентифицируется его дескриптором, который необязательно является уникальным в пределах одного компьютера. Дескриптор — это универсальный термин, обозначающий идентификатор ресурса. Операционная система сохраняет дескриптор процесса, доступный через свойство <xref:System.Diagnostics.Process.Handle%2A> компонента <xref:System.Diagnostics.Process>, даже после завершения процесса. Таким образом, можно получить административную информацию о процессе, например <xref:System.Diagnostics.Process.ExitCode%2A> (обычно ноль в случае успешного завершения или ненулевой код ошибки) и <xref:System.Diagnostics.Process.ExitTime%2A>. Дескрипторы являются чрезвычайно важным ресурсом, поэтому утечка дескрипторов более опасна, чем утечка памяти.   
+  
+> [!NOTE]
+> Этот класс содержит требования связывания и наследования на уровне класса, которые применяются ко всем элементам. Если непосредственно вызывающий оператор или производный класс не имеет разрешения полного доверия, возникает исключение <xref:System.Security.SecurityException>. Дополнительные сведения о требованиях безопасности см. в разделе [Требования связывания](~/docs/framework/misc/link-demands.md).   
   
 <a name="Core"></a>   
-## <a name="includenetcoreincludesnet-core-mdmd-notes"></a>[!INCLUDE[net_core](~/includes/net-core-md.md)] Примечания  
- В .NET Framework <xref:System.Diagnostics.Process> класс по умолчанию использует <xref:System.Console> кодировок, которые обычно являются кода кодировок страниц, для потоков ввода, вывода и ошибок. Пример кода, в системах, языком и региональными параметрами является английский (США), кодовую страницу 437, — это кодировка по умолчанию для <xref:System.Console> класса. Тем не менее [!INCLUDE[net_core](~/includes/net-core-md.md)] можно освободить только ограниченный набор этих кодировок. Если это так, он использует <xref:System.Text.Encoding.UTF8%2A?displayProperty=nameWithType> качестве кодировки по умолчанию.  
+## Примечания по <a name="includenetcoreincludesnet-core-mdmd-notes"></a>[!INCLUDE[net_core](~/includes/net-core-md.md)]  
+ В .NET Framework класс <xref:System.Diagnostics.Process> по умолчанию использует кодировки <xref:System.Console>, которые обычно являются кодовыми страницами, для потоков ввода, вывода и ошибок. Например, в системах, где в настройках языка и региональных параметров установлен английский (США), кодировкой по умолчанию для класса <xref:System.Console> является кодовая страница 437. Однако, в [!INCLUDE[net_core](~/includes/net-core-md.md)] может быть доступен только ограниченный набор кодировок. Если это так, в качестве кодировки по умолчанию будет использоваться <xref:System.Text.Encoding.UTF8%2A?displayProperty=nameWithType>.  
   
- Если <xref:System.Diagnostics.Process> объекта зависит от конкретных кодовых страниц, вы можете по-прежнему сделать их доступными, выполнив указанные ниже *перед* вызова любых <xref:System.Diagnostics.Process> методов:  
+ Если объект <xref:System.Diagnostics.Process> зависит от конкретных кодовых страниц, вы можете по-прежнему сделать их доступными, выполнив указанные ниже действия *перед* вызовом любых методов класса <xref:System.Diagnostics.Process>:  
   
-1.  Добавьте ссылку на сборку System.Text.Encoding.CodePages.dll в проект.  
+1.  Добавьте в проект ссылку на сборку System.Text.Encoding.CodePages.dll.  
   
-2.  Получить <xref:System.Text.EncodingProvider> объекта из <xref:System.Text.CodePagesEncodingProvider.Instance%2A?displayProperty=nameWithType> свойство.  
+2.  Получите объект <xref:System.Text.EncodingProvider> из свойства <xref:System.Text.CodePagesEncodingProvider.Instance%2A?displayProperty=nameWithType>.  
   
-3.  Передайте <xref:System.Text.EncodingProvider> объект <xref:System.Text.Encoding.RegisterProvider%2A?displayProperty=nameWithType> метод для установки дополнительных кодировках, поддерживаемых поставщик кодировки.  
+3.  Передайте объект <xref:System.Text.EncodingProvider> в метод <xref:System.Text.Encoding.RegisterProvider%2A?displayProperty=nameWithType> для установки дополнительных кодировок, поддерживаемых поставщиком кодировки.  
   
- <xref:System.Diagnostics.Process> Класс будет автоматически использовать кодировку системы по умолчанию вместо UTF8, при условии, что вы зарегистрировали поставщик кодировки перед вызовом любых <xref:System.Diagnostics.Process> методов.  
+ Класс <xref:System.Diagnostics.Process> будет автоматически использовать кодировку системы по умолчанию вместо UTF8, при условии, что вы зарегистрировали поставщик кодировки перед вызовом любых методов класса <xref:System.Diagnostics.Process>.  
   
    
   
 ## Examples  
- В следующем примере используется экземпляр <xref:System.Diagnostics.Process> класса для запуска процесса.  
+ В следующем примере для запуска процесса используется экземпляр класса <xref:System.Diagnostics.Process>.  
   
  [!code-cpp[Process.Start_instance#1](~/samples/snippets/cpp/VS_Snippets_CLR/Process.Start_instance/CPP/processstart.cpp#1)]
  [!code-csharp[Process.Start_instance#1](~/samples/snippets/csharp/VS_Snippets_CLR/Process.Start_instance/CS/processstart.cs#1)]
  [!code-vb[Process.Start_instance#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Process.Start_instance/VB/processstart.vb#1)]  
   
- В следующем примере используется <xref:System.Diagnostics.Process> классов самого и статический <xref:System.Diagnostics.Process.Start%2A> метод для запуска процесса.  
+ В следующем примере для запуска процесса используется сам класс <xref:System.Diagnostics.Process> и его статический метод <xref:System.Diagnostics.Process.Start%2A>.  
   
  [!code-cpp[Process.Start_static#1](~/samples/snippets/cpp/VS_Snippets_CLR/Process.Start_static/CPP/processstartstatic.cpp#1)]
  [!code-csharp[Process.Start_static#1](~/samples/snippets/csharp/VS_Snippets_CLR/Process.Start_static/CS/processstartstatic.cs#1)]
  [!code-vb[Process.Start_static#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Process.Start_static/VB/processstartstatic.vb#1)]  
   
- Следующие F# примере определяется `runProc` функцию, которая запускает процесс, захватывает все выходные данные и сведения об ошибке и записывает количество миллисекунд, выполнения процесса.  `runProc` Функция имеет три параметра: имя приложения, чтобы запустить, аргументы для передачи в приложение и начальный каталог.  
+ В следующем примере F# задается функция `runProc`, которая запускает процесс, получает все выходные данные и сведения об ошибках и записывает время выполнения процесса в миллисекундах. Функция `runProc` имеет три параметра: имя запускаемого приложения, аргументы для передачи в приложение и начальный каталог.  Функция `runProc` имеет три параметра: имя запускаемого приложения, аргументы для передачи в приложение и начальный каталог.  
   
  [!code-fsharp[System.Diagnostics.Process#1](~/samples/snippets/fsharp/VS_Snippets_CLR_System/system.diagnostics.process/fs/Start1.fs#1)]  
   
- Код для `runProc` функции было написано с [ImaginaryDevelopment](http://fssnip.net/authors/ImaginaryDevelopment) и доступен в разделе [публичной лицензии Microsoft](https://opensource.org/licenses/ms-pl).  
+ Код функции `runProc` был написан [ImaginaryDevelopment](http://fssnip.net/authors/ImaginaryDevelopment) и доступен на условиях [Открытой лицензии Майкрософт](https://opensource.org/licenses/ms-pl).  
   
  ]]></format>
     </remarks>
@@ -121,7 +121,7 @@
     <altmember cref="M:System.Diagnostics.Process.CloseMainWindow" />
     <altmember cref="M:System.Diagnostics.Process.Kill" />
     <altmember cref="T:System.Diagnostics.ProcessThread" />
-    <related type="ExternalDocumentation" href="https://code.msdn.microsoft.com/windowsdesktop/Using-the-NET-Process-Class-d70597ef">С помощью класса .NET процесса</related>
+    <related type="ExternalDocumentation" href="https://code.msdn.microsoft.com/windowsdesktop/Using-the-NET-Process-Class-d70597ef">Использование класса Process в .NET</related>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
