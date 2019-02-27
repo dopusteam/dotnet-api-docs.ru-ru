@@ -1,5 +1,5 @@
 <Type Name="AppDomain" FullName="System.AppDomain">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="dcd9ac88a0a161873d835922b453f3bf3a1ce079" /><Meta Name="ms.sourcegitcommit" Value="756d085f27705e86604f1bba5f2086ee23761acf" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="01/30/2019" /><Meta Name="ms.locfileid" Value="55322428" /></Metadata><TypeSignature Language="C#" Value="public sealed class AppDomain : MarshalByRefObject, _AppDomain, System.Security.IEvidenceFactory" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="cdac2e516a30ea450dd69c45beaa288a38b2c399" /><Meta Name="ms.sourcegitcommit" Value="8e213bb5e6801f6e29861ba72664978ad00e34fa" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="02/18/2019" /><Meta Name="ms.locfileid" Value="56351456" /></Metadata><TypeSignature Language="C#" Value="public sealed class AppDomain : MarshalByRefObject, _AppDomain, System.Security.IEvidenceFactory" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit AppDomain extends System.MarshalByRefObject implements class System._AppDomain, class System.Security.IEvidenceFactory" />
   <TypeSignature Language="DocId" Value="T:System.AppDomain" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class AppDomain&#xA;Inherits MarshalByRefObject&#xA;Implements _AppDomain, IEvidenceFactory" />
@@ -161,6 +161,9 @@
         </Attribute>
         <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netcore-3.0">
+          <AttributeName>System.Obsolete("AppDomain.AppendPrivatePath has been deprecated. Please investigate the use of AppDomainSetup.PrivateBinPath instead. https://go.microsoft.com/fwlink/?linkid=14202")</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -408,7 +411,7 @@
         <ReturnType>System.ResolveEventHandler</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Происходит, когда разрешение сборки завершается неудачей.</summary>
+        <summary>происходит, когда разрешение сборки завершается неудачей.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -544,6 +547,9 @@
         <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
+        <Attribute FrameworkAlternate="netcore-3.0">
+          <AttributeName>System.Obsolete("AppDomain.ClearPrivatePath has been deprecated. Please investigate the use of AppDomainSetup.PrivateBinPath instead. https://go.microsoft.com/fwlink/?linkid=14202")</AttributeName>
+        </Attribute>
       </Attributes>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -614,6 +620,9 @@
         <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
+        <Attribute FrameworkAlternate="netcore-3.0">
+          <AttributeName>System.Obsolete("AppDomain.ClearShadowCopyPath has been deprecated. Please investigate the use of AppDomainSetup.ShadowCopyDirectories instead. https://go.microsoft.com/fwlink/?linkid=14202")</AttributeName>
+        </Attribute>
       </Attributes>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -679,7 +688,7 @@
         <Parameter Name="typeName" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="assemblyName">Имя файла, который содержит сборку, определяющую запрошенный тип.</param>
+        <param name="assemblyName">Имя файла, содержащего сборку, определяющую запрошенный тип.</param>
         <param name="typeName">Имя запрошенного типа.</param>
         <summary>Создает новый экземпляр заданного типа COM. Параметры задают имя файла сборки, содержащей этот тип, и имя типа.</summary>
         <returns>Объект, являющийся оболочкой для нового экземпляра, заданного параметром <paramref name="typeName" />. Необходимо распаковать возвращенное значение, чтобы получить доступ к реальному объекту.</returns>
@@ -709,7 +718,7 @@
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
         <exception cref="T:System.MissingMethodException">Открытый конструктор без параметров не найден.</exception>
         <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyName" /> не найден.</exception>
-        <exception cref="T:System.MemberAccessException"><paramref name="typeName" /> является абстрактным классом.  
+        <exception cref="T:System.MemberAccessException">Класс <paramref name="typeName" /> является абстрактным.  
   
 -или- 
 Этот элемент был вызван при помощи механизма позднего связывания.</exception>
@@ -758,10 +767,10 @@
         <Parameter Name="hashAlgorithm" Type="System.Configuration.Assemblies.AssemblyHashAlgorithm" />
       </Parameters>
       <Docs>
-        <param name="assemblyFile">Имя файла, который содержит сборку, определяющую запрошенный тип.</param>
+        <param name="assemblyFile">Имя файла, содержащего сборку, определяющую запрошенный тип.</param>
         <param name="typeName">Имя запрошенного типа.</param>
-        <param name="hashValue">Представляет значение вычисляемого хэш-кода.</param>
-        <param name="hashAlgorithm">Представляет хэш-алгоритм, используемый манифестом сборки.</param>
+        <param name="hashValue">Представляет значение вычисленного хэш-кода.</param>
+        <param name="hashAlgorithm">Представляет алгоритм хэширования, используемый манифестом сборки.</param>
         <summary>Создает новый экземпляр заданного типа COM. Параметры задают имя файла сборки, содержащей этот тип, и имя типа.</summary>
         <returns>Объект, являющийся оболочкой для нового экземпляра, заданного параметром <paramref name="typeName" />. Необходимо распаковать возвращенное значение, чтобы получить доступ к реальному объекту.</returns>
         <remarks>
@@ -781,7 +790,7 @@
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
         <exception cref="T:System.MissingMethodException">Открытый конструктор без параметров не найден.</exception>
         <exception cref="T:System.IO.FileNotFoundException"><paramref name="assemblyFile" /> не найден.</exception>
-        <exception cref="T:System.MemberAccessException"><paramref name="typeName" /> является абстрактным классом.  
+        <exception cref="T:System.MemberAccessException">Класс <paramref name="typeName" /> является абстрактным.  
   
 -или- 
 Этот элемент был вызван при помощи механизма позднего связывания.</exception>
@@ -1043,7 +1052,7 @@
         <param name="friendlyName">Понятное имя домена. Это понятное имя может отображаться в пользовательском интерфейсе для определения домена. Дополнительные сведения см. в описании <see cref="P:System.AppDomain.FriendlyName" />.</param>
         <param name="securityInfo">Свидетельство, идентифицирующее код, который выполняется в домене приложения. Передайте значение <see langword="null" /> для использования свидетельства текущего домена приложения.</param>
         <param name="info">Объект, в котором содержатся сведения об инициализации домена приложения.</param>
-        <param name="grantSet">Набор разрешений по умолчанию, который предоставляется всем сборкам, загружаемым в новый домен приложения, который не имеет специальные разрешения.</param>
+        <param name="grantSet">Используемый по умолчанию набор разрешений, которые предоставляются всем сборкам, загружаемым в новый домен приложения, не имеющих специальных разрешений.</param>
         <param name="fullTrustAssemblies">Массив строгих имен, представляющих сборки, которые будут считаться обладающими полным доверием в новом домене приложения.</param>
         <summary>Создает новый домен приложения с использованием заданного имени, свидетельства, сведений об установке домена приложения, используемого по умолчанию набора разрешений и массива сборок с полным доверием.</summary>
         <returns>Вновь созданный домен приложения.</returns>
@@ -1108,7 +1117,7 @@
         <param name="securityInfo">Свидетельство, идентифицирующее код, который выполняется в домене приложения. Передайте значение <see langword="null" /> для использования свидетельства текущего домена приложения.</param>
         <param name="appBasePath">Базовый каталог, в котором распознаватель сборок производит поиск. Дополнительные сведения см. в разделе <see cref="P:System.AppDomain.BaseDirectory" />.</param>
         <param name="appRelativeSearchPath">Путь, соответствующий базовому каталогу, в котором распознаватель сборок будет производить поиск закрытых сборок. Дополнительные сведения см. в разделе <see cref="P:System.AppDomain.RelativeSearchPath" />.</param>
-        <param name="shadowCopyFiles">Если значение <see langword="true" />, теневая копия сборки загружается в этот домен приложения.</param>
+        <param name="shadowCopyFiles">Если <see langword="true" />, теневая копия сборки загружается в этот домен приложения.</param>
         <summary>Создает новый домен приложения с заданным именем с использованием свидетельства, пути к базовой папке приложения, относительного пути поиска и параметра, указывающего, должна ли загружаться теневая копия сборки в домен приложения.</summary>
         <returns>Вновь созданный домен приложения.</returns>
         <remarks>
@@ -1233,6 +1242,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -1304,6 +1314,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -1375,6 +1386,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -1562,6 +1574,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -1641,6 +1654,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -1719,6 +1733,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -1925,6 +1940,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -1942,7 +1958,7 @@
         <Parameter Name="typeName" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="assemblyFile">Имя (включая путь) файла, который содержит сборку, определяющую запрошенный тип. Эта сборка загружается с помощью метода <see cref="M:System.Reflection.Assembly.LoadFrom(System.String)" />.</param>
+        <param name="assemblyFile">Имя (включая путь) файла, который содержит сборку, определяющую запрошенный тип. Сборка загружается с помощью метода <see cref="M:System.Reflection.Assembly.LoadFrom(System.String)" />.</param>
         <param name="typeName">Полное имя запрошенного типа, включая пространство имен, но не сборку (см. описание свойства <see cref="P:System.Type.FullName" />).</param>
         <summary>Создает новый экземпляр заданного типа, определенного в указанном файле сборки.</summary>
         <returns>Объект, являющийся оболочкой для нового экземпляра, или значение <see langword="null" />, если объект <paramref name="typeName" /> не найден. Необходимо распаковать возвращенное значение, чтобы получить доступ к реальному объекту.</returns>
@@ -2026,6 +2042,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -2044,7 +2061,7 @@
         <Parameter Name="activationAttributes" Type="System.Object[]" />
       </Parameters>
       <Docs>
-        <param name="assemblyFile">Имя (включая путь) файла, который содержит сборку, определяющую запрошенный тип. Эта сборка загружается с помощью метода <see cref="M:System.Reflection.Assembly.LoadFrom(System.String)" />.</param>
+        <param name="assemblyFile">Имя (включая путь) файла, который содержит сборку, определяющую запрошенный тип. Сборка загружается с помощью метода <see cref="M:System.Reflection.Assembly.LoadFrom(System.String)" />.</param>
         <param name="typeName">Полное имя запрошенного типа, включая пространство имен, но не сборку (см. описание свойства <see cref="P:System.Type.FullName" />).</param>
         <param name="activationAttributes">Массив, состоящий из одного или нескольких атрибутов, которые могут участвовать в активации. Обычно это массив, содержащий один объект <see cref="T:System.Runtime.Remoting.Activation.UrlAttribute" />, определяющий URL-адрес, необходимый для активации удаленного объекта.    
   
@@ -2099,6 +2116,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -2122,7 +2140,7 @@
         <Parameter Name="activationAttributes" Type="System.Object[]" />
       </Parameters>
       <Docs>
-        <param name="assemblyFile">Имя (включая путь) файла, который содержит сборку, определяющую запрошенный тип. Эта сборка загружается с помощью метода <see cref="M:System.Reflection.Assembly.LoadFrom(System.String)" />.</param>
+        <param name="assemblyFile">Имя (включая путь) файла, который содержит сборку, определяющую запрошенный тип. Сборка загружается с помощью метода <see cref="M:System.Reflection.Assembly.LoadFrom(System.String)" />.</param>
         <param name="typeName">Полное имя запрошенного типа, включая пространство имен, но не сборку (см. описание свойства <see cref="P:System.Type.FullName" />).</param>
         <param name="ignoreCase">Логическое значение, указывающее, следует ли учитывать регистр при поиске.</param>
         <param name="bindingAttr">Сочетание битовых флагов (от нуля и более), влияющих на поиск конструктора <paramref name="typeName" />. Если значение параметра <paramref name="bindingAttr" /> равно нулю, проводится поиск открытых конструкторов с учетом регистра.</param>
@@ -2218,7 +2236,7 @@
         <Parameter Name="securityAttributes" Type="System.Security.Policy.Evidence" />
       </Parameters>
       <Docs>
-        <param name="assemblyFile">Имя (включая путь) файла, который содержит сборку, определяющую запрошенный тип. Эта сборка загружается с помощью метода <see cref="M:System.Reflection.Assembly.LoadFrom(System.String)" />.</param>
+        <param name="assemblyFile">Имя (включая путь) файла, который содержит сборку, определяющую запрошенный тип. Сборка загружается с помощью метода <see cref="M:System.Reflection.Assembly.LoadFrom(System.String)" />.</param>
         <param name="typeName">Полное имя запрошенного типа, включая пространство имен, но не сборку (см. описание свойства <see cref="P:System.Type.FullName" />).</param>
         <param name="ignoreCase">Логическое значение, указывающее, следует ли учитывать регистр при поиске.</param>
         <param name="bindingAttr">Сочетание битовых флагов (от нуля и более), влияющих на поиск конструктора <paramref name="typeName" />. Если значение параметра <paramref name="bindingAttr" /> равно нулю, проводится поиск открытых конструкторов с учетом регистра.</param>
@@ -2281,12 +2299,16 @@
       </Docs>
     </MemberGroup>
     <Member MemberName="CreateInstanceFromAndUnwrap">
-      <MemberSignature Language="C#" Value="public object CreateInstanceFromAndUnwrap (string assemblyName, string typeName);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object CreateInstanceFromAndUnwrap(string assemblyName, string typeName) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.AppDomain.CreateInstanceFromAndUnwrap(System.String,System.String)" />
-      <MemberSignature Language="VB.NET" Value="Public Function CreateInstanceFromAndUnwrap (assemblyName As String, typeName As String) As Object" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ CreateInstanceFromAndUnwrap(System::String ^ assemblyName, System::String ^ typeName);" />
-      <MemberSignature Language="F#" Value="member this.CreateInstanceFromAndUnwrap : string * string -&gt; obj" Usage="appDomain.CreateInstanceFromAndUnwrap (assemblyName, typeName)" />
+      <MemberSignature Language="C#" Value="public object CreateInstanceFromAndUnwrap (string assemblyName, string typeName);" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object CreateInstanceFromAndUnwrap(string assemblyName, string typeName) cil managed" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="DocId" Value="M:System.AppDomain.CreateInstanceFromAndUnwrap(System.String,System.String)" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateInstanceFromAndUnwrap (assemblyName As String, typeName As String) As Object" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ CreateInstanceFromAndUnwrap(System::String ^ assemblyName, System::String ^ typeName);" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="F#" Value="member this.CreateInstanceFromAndUnwrap : string * string -&gt; obj" Usage="appDomain.CreateInstanceFromAndUnwrap (assemblyName, typeName)" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="C#" Value="public object CreateInstanceFromAndUnwrap (string assemblyFile, string typeName);" FrameworkAlternate="netcore-3.0" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object CreateInstanceFromAndUnwrap(string assemblyFile, string typeName) cil managed" FrameworkAlternate="netcore-3.0" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateInstanceFromAndUnwrap (assemblyFile As String, typeName As String) As Object" FrameworkAlternate="netcore-3.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ CreateInstanceFromAndUnwrap(System::String ^ assemblyFile, System::String ^ typeName);" FrameworkAlternate="netcore-3.0" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -2297,6 +2319,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -2310,11 +2333,13 @@
         <ReturnType>System.Object</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="assemblyName" Type="System.String" />
-        <Parameter Name="typeName" Type="System.String" />
+        <Parameter Name="assemblyName" Type="System.String" Index="0" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+        <Parameter Name="assemblyFile" Type="System.String" Index="0" FrameworkAlternate="netcore-3.0" />
+        <Parameter Name="typeName" Type="System.String" Index="1" FrameworkAlternate="netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       </Parameters>
       <Docs>
         <param name="assemblyName">Имя файла и путь сборки, которая определяет запрошенный тип.</param>
+        <param name="assemblyFile">To be added.</param>
         <param name="typeName">Полное имя запрошенного типа, включая пространство имен, но не сборку (см. описание свойства <see cref="P:System.Type.FullName" />).</param>
         <summary>Создает новый экземпляр заданного типа, определенного в указанном файле сборки.</summary>
         <returns>Запрашиваемый объект или значение <see langword="null" />, если объект <paramref name="typeName" /> не найден.</returns>
@@ -2348,12 +2373,16 @@
       </Docs>
     </Member>
     <Member MemberName="CreateInstanceFromAndUnwrap">
-      <MemberSignature Language="C#" Value="public object CreateInstanceFromAndUnwrap (string assemblyName, string typeName, object[] activationAttributes);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object CreateInstanceFromAndUnwrap(string assemblyName, string typeName, object[] activationAttributes) cil managed" />
-      <MemberSignature Language="DocId" Value="M:System.AppDomain.CreateInstanceFromAndUnwrap(System.String,System.String,System.Object[])" />
-      <MemberSignature Language="VB.NET" Value="Public Function CreateInstanceFromAndUnwrap (assemblyName As String, typeName As String, activationAttributes As Object()) As Object" />
-      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ CreateInstanceFromAndUnwrap(System::String ^ assemblyName, System::String ^ typeName, cli::array &lt;System::Object ^&gt; ^ activationAttributes);" />
-      <MemberSignature Language="F#" Value="member this.CreateInstanceFromAndUnwrap : string * string * obj[] -&gt; obj" Usage="appDomain.CreateInstanceFromAndUnwrap (assemblyName, typeName, activationAttributes)" />
+      <MemberSignature Language="C#" Value="public object CreateInstanceFromAndUnwrap (string assemblyName, string typeName, object[] activationAttributes);" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object CreateInstanceFromAndUnwrap(string assemblyName, string typeName, object[] activationAttributes) cil managed" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="DocId" Value="M:System.AppDomain.CreateInstanceFromAndUnwrap(System.String,System.String,System.Object[])" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateInstanceFromAndUnwrap (assemblyName As String, typeName As String, activationAttributes As Object()) As Object" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ CreateInstanceFromAndUnwrap(System::String ^ assemblyName, System::String ^ typeName, cli::array &lt;System::Object ^&gt; ^ activationAttributes);" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="F#" Value="member this.CreateInstanceFromAndUnwrap : string * string * obj[] -&gt; obj" Usage="appDomain.CreateInstanceFromAndUnwrap (assemblyName, typeName, activationAttributes)" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+      <MemberSignature Language="C#" Value="public object CreateInstanceFromAndUnwrap (string assemblyFile, string typeName, object[] activationAttributes);" FrameworkAlternate="netcore-3.0" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object CreateInstanceFromAndUnwrap(string assemblyFile, string typeName, object[] activationAttributes) cil managed" FrameworkAlternate="netcore-3.0" />
+      <MemberSignature Language="VB.NET" Value="Public Function CreateInstanceFromAndUnwrap (assemblyFile As String, typeName As String, activationAttributes As Object()) As Object" FrameworkAlternate="netcore-3.0" />
+      <MemberSignature Language="C++ CLI" Value="public:&#xA; System::Object ^ CreateInstanceFromAndUnwrap(System::String ^ assemblyFile, System::String ^ typeName, cli::array &lt;System::Object ^&gt; ^ activationAttributes);" FrameworkAlternate="netcore-3.0" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyName>mscorlib</AssemblyName>
@@ -2364,6 +2393,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -2377,12 +2407,14 @@
         <ReturnType>System.Object</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="assemblyName" Type="System.String" />
-        <Parameter Name="typeName" Type="System.String" />
-        <Parameter Name="activationAttributes" Type="System.Object[]" />
+        <Parameter Name="assemblyName" Type="System.String" Index="0" FrameworkAlternate="netcore-2.0;netcore-2.1;netcore-2.2;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+        <Parameter Name="assemblyFile" Type="System.String" Index="0" FrameworkAlternate="netcore-3.0" />
+        <Parameter Name="typeName" Type="System.String" Index="1" FrameworkAlternate="netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
+        <Parameter Name="activationAttributes" Type="System.Object[]" Index="2" FrameworkAlternate="netcore-3.0;netframework-1.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8;xamarinandroid-7.1;xamarinios-10.8;xamarinmac-3.0" />
       </Parameters>
       <Docs>
         <param name="assemblyName">Имя файла и путь сборки, которая определяет запрошенный тип.</param>
+        <param name="assemblyFile">To be added.</param>
         <param name="typeName">Полное имя запрошенного типа, включая пространство имен, но не сборку (см. описание свойства <see cref="P:System.Type.FullName" />).</param>
         <param name="activationAttributes">Массив, состоящий из одного или нескольких атрибутов, которые могут участвовать в активации. Обычно это массив, содержащий один объект <see cref="T:System.Runtime.Remoting.Activation.UrlAttribute" />, определяющий URL-адрес, необходимый для активации удаленного объекта.    
   
@@ -2433,6 +2465,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -2705,10 +2738,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
-Свойство <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит прямую либо обратную косую черту.</exception>
+Значение свойства <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
       </Docs>
     </Member>
@@ -2750,7 +2783,7 @@
         <param name="access">Режим доступа для динамической сборки.</param>
         <param name="assemblyAttributes">Перечислимый список атрибутов, которые будут применены к сборке, или значение <see langword="null" />, если атрибуты отсутствуют.</param>
         <summary>Определяет динамическую сборку с указанным именем, режимом доступа и настраиваемыми атрибутами.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2779,7 +2812,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
 Значение свойства <see langword="Name" /> объекта <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
@@ -2834,7 +2867,7 @@
         <param name="access">Режим, в котором будет осуществляться доступ к динамической сборке.</param>
         <param name="evidence">Свидетельство, предоставляемое для динамической сборки. Используемое свидетельство является постоянным, как конечный набор свидетельств, используемых для разрешения политики.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа и свидетельства.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2864,10 +2897,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
-Свойство <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит прямую либо обратную косую черту.</exception>
+Значение свойства <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">на загрузку сборки со свидетельством. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlEvidence" />.</permission>
       </Docs>
@@ -2912,9 +2945,9 @@
       <Docs>
         <param name="name">Уникальный идентификатор динамической сборки.</param>
         <param name="access">Режим, в котором будет осуществляться доступ к динамической сборке.</param>
-        <param name="dir">Имя папки, в которой будет сохранена сборка. Если параметр <paramref name="dir" /> имеет значение <see langword="null" />, по умолчанию используется текущий каталог.</param>
+        <param name="dir">Имя папки, в которой будет сохранена сборка. Если значение параметра <paramref name="dir" /> равно <see langword="null" />, по умолчанию используется текущий каталог.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа и каталога хранения.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2938,10 +2971,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
-Свойство <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит прямую либо обратную косую черту.</exception>
+Значение свойства <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
       </Docs>
     </Member>
@@ -2983,7 +3016,7 @@
         <param name="assemblyAttributes">Перечислимый список атрибутов, которые будут применены к сборке, или значение <see langword="null" />, если атрибуты отсутствуют.</param>
         <param name="securityContextSource">Источник контекста безопасности.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа и настраиваемых атрибутов, а также используя заданный источник для контекста безопасности.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -2995,7 +3028,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
 Значение свойства <see langword="Name" /> объекта <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
@@ -3049,10 +3082,10 @@
       <Docs>
         <param name="name">Уникальный идентификатор динамической сборки.</param>
         <param name="access">Режим, в котором будет осуществляться доступ к динамической сборке.</param>
-        <param name="dir">Имя папки, в которой будет сохранена сборка. Если параметр <paramref name="dir" /> имеет значение <see langword="null" />, по умолчанию используется текущий каталог.</param>
+        <param name="dir">Имя папки, в которой будет сохранена сборка. Если значение параметра <paramref name="dir" /> равно <see langword="null" />, по умолчанию используется текущий каталог.</param>
         <param name="evidence">Свидетельство, предоставляемое для динамической сборки. Используемое свидетельство является постоянным, как конечный набор свидетельств, используемых для разрешения политики.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа, каталога хранения и свидетельства.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3080,10 +3113,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
-Свойство <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит прямую либо обратную косую черту.</exception>
+Значение свойства <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">на загрузку сборки со свидетельством. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlEvidence" />.</permission>
       </Docs>
@@ -3140,7 +3173,7 @@
         <param name="optionalPermissions">Запрос дополнительных разрешений.</param>
         <param name="refusedPermissions">Запрос разрешений, в которых отказано.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа и запросов разрешений.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3166,10 +3199,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
-Свойство <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит прямую либо обратную косую черту.</exception>
+Значение свойства <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
       </Docs>
     </Member>
@@ -3210,11 +3243,11 @@
       <Docs>
         <param name="name">Уникальный идентификатор динамической сборки.</param>
         <param name="access">Режим, в котором будет осуществляться доступ к динамической сборке.</param>
-        <param name="dir">Имя каталога, в котором будет сохранена динамическая сборка. Если параметр <paramref name="dir" /> имеет значение <see langword="null" />, используется текущий каталог.</param>
-        <param name="isSynchronized">Значение <see langword="true" />, чтобы синхронизировать создание модулей, типов и членов в динамической сборке, в противном случае — значение <see langword="false" />.</param>
+        <param name="dir">Имя каталога, в котором будет сохранена динамическая сборка. Если значением параметра <paramref name="dir" /> является <see langword="null" />, используется текущий каталог.</param>
+        <param name="isSynchronized"><see langword="true" />, чтобы синхронизировать создание модулей, типов и членов в динамической сборке, в противном случае — <see langword="false" />.</param>
         <param name="assemblyAttributes">Перечислимый список атрибутов, которые будут применены к сборке, или значение <see langword="null" />, если атрибуты отсутствуют.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа, каталога хранения и варианта синхронизации.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3226,7 +3259,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
 Значение свойства <see langword="Name" /> объекта <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
@@ -3287,7 +3320,7 @@
         <param name="optionalPermissions">Запрос дополнительных разрешений.</param>
         <param name="refusedPermissions">Запрос разрешений, в которых отказано.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа, свидетельства и запросов разрешений.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3317,10 +3350,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
-Свойство <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит прямую либо обратную косую черту.</exception>
+Значение свойства <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">на загрузку сборки со свидетельством. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlEvidence" />.</permission>
       </Docs>
@@ -3374,12 +3407,12 @@
       <Docs>
         <param name="name">Уникальный идентификатор динамической сборки.</param>
         <param name="access">Режим, в котором будет осуществляться доступ к динамической сборке.</param>
-        <param name="dir">Имя папки, в которой будет сохранена сборка. Если параметр <paramref name="dir" /> имеет значение <see langword="null" />, по умолчанию используется текущий каталог.</param>
+        <param name="dir">Имя папки, в которой будет сохранена сборка. Если значение параметра <paramref name="dir" /> равно <see langword="null" />, по умолчанию используется текущий каталог.</param>
         <param name="requiredPermissions">Запрос обязательных разрешений.</param>
         <param name="optionalPermissions">Запрос дополнительных разрешений.</param>
         <param name="refusedPermissions">Запрос разрешений, в которых отказано.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа, каталога хранения и запросов разрешений.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3405,10 +3438,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
-Свойство <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит прямую либо обратную косую черту.</exception>
+Значение свойства <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
       </Docs>
     </Member>
@@ -3461,13 +3494,13 @@
       <Docs>
         <param name="name">Уникальный идентификатор динамической сборки.</param>
         <param name="access">Режим, в котором будет осуществляться доступ к динамической сборке.</param>
-        <param name="dir">Имя папки, в которой будет сохранена сборка. Если параметр <paramref name="dir" /> имеет значение <see langword="null" />, по умолчанию используется текущий каталог.</param>
+        <param name="dir">Имя папки, в которой будет сохранена сборка. Если значение параметра <paramref name="dir" /> равно <see langword="null" />, по умолчанию используется текущий каталог.</param>
         <param name="evidence">Свидетельство, предоставляемое для динамической сборки. Используемое свидетельство является постоянным, как конечный набор свидетельств, используемых для разрешения политики.</param>
         <param name="requiredPermissions">Запрос обязательных разрешений.</param>
         <param name="optionalPermissions">Запрос дополнительных разрешений.</param>
         <param name="refusedPermissions">Запрос разрешений, в которых отказано.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа, каталога хранения, свидетельства и запросов разрешений.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3497,10 +3530,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
-Свойство <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит прямую либо обратную косую черту.</exception>
+Значение свойства <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">на загрузку сборки со свидетельством. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlEvidence" />.</permission>
       </Docs>
@@ -3555,14 +3588,14 @@
       <Docs>
         <param name="name">Уникальный идентификатор динамической сборки.</param>
         <param name="access">Режим, в котором будет осуществляться доступ к динамической сборке.</param>
-        <param name="dir">Имя каталога, в котором будет сохранена динамическая сборка. Если параметр <paramref name="dir" /> имеет значение <see langword="null" />, по умолчанию используется текущий каталог.</param>
+        <param name="dir">Имя каталога, в котором будет сохранена динамическая сборка. Если значение параметра <paramref name="dir" /> равно <see langword="null" />, по умолчанию используется текущий каталог.</param>
         <param name="evidence">Свидетельство, предоставляемое для динамической сборки. Используемое свидетельство является постоянным, как конечный набор свидетельств, используемых для разрешения политики.</param>
         <param name="requiredPermissions">Запрос обязательных разрешений.</param>
         <param name="optionalPermissions">Запрос дополнительных разрешений.</param>
         <param name="refusedPermissions">Запрос разрешений, в которых отказано.</param>
-        <param name="isSynchronized">Значение <see langword="true" />, чтобы синхронизировать создание модулей, типов и членов в динамической сборке, в противном случае — значение <see langword="false" />.</param>
+        <param name="isSynchronized"><see langword="true" />, чтобы синхронизировать создание модулей, типов и членов в динамической сборке, в противном случае — <see langword="false" />.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа, каталога хранения, свидетельства, запросов разрешений и параметра синхронизации.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3592,10 +3625,10 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
-Свойство <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит прямую либо обратную косую черту.</exception>
+Значение свойства <see langword="Name" /> параметра <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
         <permission cref="T:System.Security.Permissions.SecurityPermission">на загрузку сборки со свидетельством. Связанное перечисление: <see cref="F:System.Security.Permissions.SecurityPermissionFlag.ControlEvidence" />.</permission>
       </Docs>
@@ -3647,15 +3680,15 @@
       <Docs>
         <param name="name">Уникальный идентификатор динамической сборки.</param>
         <param name="access">Режим, в котором будет осуществляться доступ к динамической сборке.</param>
-        <param name="dir">Имя каталога, в котором будет сохранена динамическая сборка. Если параметр <paramref name="dir" /> имеет значение <see langword="null" />, используется текущий каталог.</param>
+        <param name="dir">Имя каталога, в котором будет сохранена динамическая сборка. Если значением параметра <paramref name="dir" /> является <see langword="null" />, используется текущий каталог.</param>
         <param name="evidence">Свидетельство, предоставленное для динамической сборки. Используемое свидетельство является постоянным, как конечный набор свидетельств, используемых для разрешения политики.</param>
         <param name="requiredPermissions">Запрос обязательных разрешений.</param>
         <param name="optionalPermissions">Запрос дополнительных разрешений.</param>
         <param name="refusedPermissions">Запрос разрешений, в которых отказано.</param>
-        <param name="isSynchronized">Значение <see langword="true" />, чтобы синхронизировать создание модулей, типов и членов в динамической сборке, в противном случае — значение <see langword="false" />.</param>
+        <param name="isSynchronized"><see langword="true" />, чтобы синхронизировать создание модулей, типов и членов в динамической сборке, в противном случае — <see langword="false" />.</param>
         <param name="assemblyAttributes">Перечислимый список атрибутов, которые будут применены к сборке, или значение <see langword="null" />, если атрибуты отсутствуют.</param>
         <summary>Определяет динамическую сборку с помощью указанного имени, режима доступа, каталога хранения, свидетельства, запросов разрешений, параметра синхронизации и настраиваемых атрибутов.</summary>
-        <returns>Динамическая сборка с указанным именем и возможностями.</returns>
+        <returns>Динамическая сборка с указанным именем и функциями.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -3678,7 +3711,7 @@
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="name" /> — <see langword="null" />.</exception>
-        <exception cref="T:System.ArgumentException">Свойство <see langword="Name" /> параметра <paramref name="name" /> равно <see langword="null" />.  
+        <exception cref="T:System.ArgumentException">Свойству <see langword="Name" /> объекта <paramref name="name" /> присвоено значение <see langword="null" />.  
   
 -или- 
 Значение свойства <see langword="Name" /> объекта <paramref name="name" /> начинается с пробела или содержит символ прямой (обратной) косой черты.</exception>
@@ -3889,7 +3922,7 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает каталог, в котором распознаватель сборок производит поиск динамически созданных сборок.</summary>
+        <summary>Получает каталог, в котором распознаватель сборок производит поиск динамически созданных сборок.</summary>
         <value>Каталог, в котором распознаватель сборок производит поиск динамически созданных сборок.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -3958,7 +3991,7 @@
         <ReturnType>System.Security.Policy.Evidence</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает свидетельство <see cref="T:System.Security.Policy.Evidence" />, связанное с этим доменом приложения.</summary>
+        <summary>Получает <see cref="T:System.Security.Policy.Evidence" />, связанное с этим доменом приложения.</summary>
         <value>Свидетельство, связанное с данным доменом приложений.</value>
         <remarks>To be added.</remarks>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
@@ -4336,8 +4369,8 @@
       <Docs>
         <param name="assemblyFile">Имя файла, содержащего сборку, которую необходимо выполнить.</param>
         <param name="args">Аргументы, передаваемые в точку входа сборки.</param>
-        <param name="hashValue">Представляет значение вычисляемого хэш-кода.</param>
-        <param name="hashAlgorithm">Представляет хэш-алгоритм, используемый манифестом сборки.</param>
+        <param name="hashValue">Представляет значение вычисленного хэш-кода.</param>
+        <param name="hashAlgorithm">Представляет алгоритм хэширования, используемый манифестом сборки.</param>
         <summary>Выполняет сборку, содержащуюся в указанном файле, с использованием заданных аргументов, хэш-значения и хэш-алгоритма.</summary>
         <returns>Значение, возвращаемое точкой входа сборки.</returns>
         <remarks>
@@ -4421,8 +4454,8 @@
         <param name="assemblyFile">Имя файла, содержащего сборку, которую необходимо выполнить.</param>
         <param name="assemblySecurity">Предоставленное свидетельство для сборки.</param>
         <param name="args">Аргументы, передаваемые в точку входа сборки.</param>
-        <param name="hashValue">Представляет значение вычисляемого хэш-кода.</param>
-        <param name="hashAlgorithm">Представляет хэш-алгоритм, используемый манифестом сборки.</param>
+        <param name="hashValue">Представляет значение вычисленного хэш-кода.</param>
+        <param name="hashAlgorithm">Представляет алгоритм хэширования, используемый манифестом сборки.</param>
         <summary>Выполняет сборку, содержащуюся в указанном файле, с использованием заданного свидетельства, аргументов, хэш-значения и хэш-алгоритма.</summary>
         <returns>Значение, возвращаемое точкой входа сборки.</returns>
         <remarks>
@@ -4582,7 +4615,7 @@
       <Docs>
         <param name="assemblyName">Объект <see cref="T:System.Reflection.AssemblyName" />, представляющий имя сборки.</param>
         <param name="args">Аргументы командной строки для передачи при запуске процесса.</param>
-        <summary>Выполняет сборку с заданным <see cref="T:System.Reflection.AssemblyName" />, используя указанные аргументы.</summary>
+        <summary>Выполняет сборку с заданным <see cref="T:System.Reflection.AssemblyName" /> с использованием заданных аргументов.</summary>
         <returns>Значение, возвращаемое точкой входа сборки.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -5135,13 +5168,16 @@
         <Attribute FrameworkAlternate="netcore-2.0;netcore-2.1;netframework-2.0;netframework-3.0;netframework-3.5;netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netstandard-2.0;netframework-4.8;netcore-2.2">
           <AttributeName>System.Obsolete("AppDomain.GetCurrentThreadId has been deprecated because it does not provide a stable Id when managed threads are running on fibers (aka lightweight threads). To get a stable identifier for a managed thread, use the ManagedThreadId property on Thread.  http://go.microsoft.com/fwlink/?linkid=14202", false)</AttributeName>
         </Attribute>
+        <Attribute FrameworkAlternate="netcore-3.0">
+          <AttributeName>System.Obsolete("AppDomain.GetCurrentThreadId has been deprecated because it does not provide a stable Id when managed threads are running on fibers (aka lightweight threads). To get a stable identifier for a managed thread, use the ManagedThreadId property on Thread.  https://go.microsoft.com/fwlink/?linkid=14202", false)</AttributeName>
+        </Attribute>
       </Attributes>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает текущий идентификатор потока.</summary>
+        <summary>Получает текущий идентификатор потока.</summary>
         <returns>32-битовое целое число со знаком, являющееся идентификатором текущего потока.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -5370,7 +5406,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Предоставляет объекту <see cref="T:System.AppDomain" /> бесконечное время существования, предотвращая создание аренды.</summary>
+        <summary>Предоставляет объекту <see cref="T:System.AppDomain" /> бесконечное время существования путем предотвращения ограничения времени его существования.</summary>
         <returns>Всегда <see langword="null" />.</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.AppDomainUnloadedException">Предпринята попытка выполнения операции с выгруженным доменом приложения.</exception>
@@ -5514,7 +5550,7 @@
       <Parameters />
       <Docs>
         <summary>Определяет, выгружен ли этот домен приложения, и были ли закрыты средой CLR объекты, которые он содержал.</summary>
-        <returns>Значение <see langword="true" />, если этот домен приложения выгружен, и среда CLR начала вызов методов завершения, в противном случае — значение <see langword="false" />.</returns>
+        <returns><see langword="true" />, если этот домен приложения выгружен, и среда CLR начала вызов методов завершения, в противном случае — <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -5569,8 +5605,8 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает значение, указывающее, выполняются ли сборки, загруженные в текущий домен приложения, с полным доверием.</summary>
-        <value>Значение <see langword="true" />, если сборки, загруженные в текущий домен приложения, выполняются с полным доверием; в противном случае — значение <see langword="false" />.</value>
+        <summary>Получает значение, указывающее, выполняются ли сборки, загруженные в текущий домен приложения, с полным доверием.</summary>
+        <value>Значение <see langword="true" />, если сборки, загруженные в текущий домен приложения, выполняются с полным доверием; в противном случае — значение <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -5619,7 +5655,7 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает значение, указывающее, имеет ли текущий домен приложения набор разрешений, которые предоставляются всем сборкам, загружаемым в домен приложения.</summary>
+        <summary>Получает значение, указывающее, имеет ли текущий домен приложения набор разрешений, которые предоставляются всем сборкам, загружаемым в домен приложения.</summary>
         <value>Значение <see langword="true" />, если текущий домен приложения имеет однородный набор разрешений; в противном случае — значение <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -5686,7 +5722,7 @@
       </Parameters>
       <Docs>
         <param name="rawAssembly">Массив типа <see langword="byte" />, который является образом в формате COFF, содержащим порожденную сборку.</param>
-        <summary>Загружает объект <see cref="T:System.Reflection.Assembly" /> с образом в формате COFF, содержащим порожденный объект <see cref="T:System.Reflection.Assembly" />.</summary>
+        <summary>Загружает объект <see cref="T:System.Reflection.Assembly" /> с образом в формате COFF, содержащим созданный объект <see cref="T:System.Reflection.Assembly" />.</summary>
         <returns>Загруженная сборка.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -5903,7 +5939,7 @@
       <Docs>
         <param name="rawAssembly">Массив типа <see langword="byte" />, который является образом в формате COFF, содержащим порожденную сборку.</param>
         <param name="rawSymbolStore">Массив типа <see langword="byte" />, содержащий необработанные байты, которые представляют символы для сборки.</param>
-        <summary>Загружает объект <see cref="T:System.Reflection.Assembly" /> с образом в формате COFF, содержащим порожденный объект <see cref="T:System.Reflection.Assembly" />. Загружаются также необработанные байты, представляющие символы для <see cref="T:System.Reflection.Assembly" />.</summary>
+        <summary>Загружает объект <see cref="T:System.Reflection.Assembly" /> с образом в формате COFF, содержащим созданный объект <see cref="T:System.Reflection.Assembly" />. Загружаются также необработанные байты, представляющие символы для <see cref="T:System.Reflection.Assembly" />.</summary>
         <returns>Загруженная сборка.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -6126,7 +6162,7 @@
         <param name="rawAssembly">Массив типа <see langword="byte" />, который является образом в формате COFF, содержащим порожденную сборку.</param>
         <param name="rawSymbolStore">Массив типа <see langword="byte" />, содержащий необработанные байты, которые представляют символы для сборки.</param>
         <param name="securityEvidence">Свидетельство для загрузки сборки.</param>
-        <summary>Загружает объект <see cref="T:System.Reflection.Assembly" /> с образом в формате COFF, содержащим порожденный объект <see cref="T:System.Reflection.Assembly" />. Загружаются также необработанные байты, представляющие символы для <see cref="T:System.Reflection.Assembly" />.</summary>
+        <summary>Загружает объект <see cref="T:System.Reflection.Assembly" /> с образом в формате COFF, содержащим созданный объект <see cref="T:System.Reflection.Assembly" />. Загружаются также необработанные байты, представляющие символы для <see cref="T:System.Reflection.Assembly" />.</summary>
         <returns>Загруженная сборка.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -6198,8 +6234,8 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает или задает значение, указывающее, включен ли мониторинг ЦП и памяти доменов приложений для текущего процесса. После того, как мониторинг для процесса включен, отключить его невозможно.</summary>
-        <value>Значение <see langword="true" />, если мониторинг включен; в противном случае — значение <see langword="false" />.</value>
+        <summary>Получает или задает значение, указывающее, включен ли мониторинг ЦП и памяти доменов приложений для текущего процесса. После того, как мониторинг для процесса включен, отключить его невозможно.</summary>
+        <value>Значение <see langword="true" />, если мониторинг включен; в противном случае — значение <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -6212,7 +6248,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.ArgumentException">Текущий процесс попытался присвоить значение <see langword="false" /> этому свойству.</exception>
+        <exception cref="T:System.ArgumentException">Текущий процесс предпринял попытку присвоить значение <see langword="false" /> этому свойству.</exception>
         <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
         <related type="Article" href="https://msdn.microsoft.com/library/318bedf8-7f35-4f00-b34a-2b7b8e3fa315">Отслеживание ресурсов домена приложения</related>
         <related type="Article" href="https://msdn.microsoft.com/library/02119ab6-1e91-448e-97ad-e7b2e5c4bbbd">&lt;appdomainResourceMonitoring&gt; элемент</related>
@@ -6249,7 +6285,7 @@
         <ReturnType>System.Int64</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает количество байтов, оставшихся после последнего сбора, и про которые известно, что на них ссылается текущий домен приложения.</summary>
+        <summary>Получает количество байтов, оставшихся после последнего сбора, и про которые известно, что на них ссылается текущий домен приложения.</summary>
         <value>Количество оставшихся байтов.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -6259,7 +6295,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">Для свойства <see langword="static" /> (<see langword="Shared" /> в Visual Basic) <see cref="P:System.AppDomain.MonitoringIsEnabled" /> задано значение <see langword="false" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Свойство <see langword="static" /> (<see langword="Shared" /> в Visual Basic) <see cref="P:System.AppDomain.MonitoringIsEnabled" /> установлено равным <see langword="false" />.</exception>
         <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
         <related type="Article" href="https://msdn.microsoft.com/library/318bedf8-7f35-4f00-b34a-2b7b8e3fa315">Отслеживание ресурсов домена приложения</related>
       </Docs>
@@ -6295,7 +6331,7 @@
         <ReturnType>System.Int64</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает общее количество байтов, оставшихся после последнего сбора для всех доменов приложений в процессе.</summary>
+        <summary>Получает общее количество байтов, оставшихся после последнего сбора для всех доменов приложений в процессе.</summary>
         <value>Общее количество оставшихся байтов для процесса.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -6305,7 +6341,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">Для свойства <see langword="static" /> (<see langword="Shared" /> в Visual Basic) <see cref="P:System.AppDomain.MonitoringIsEnabled" /> задано значение <see langword="false" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Свойство <see langword="static" /> (<see langword="Shared" /> в Visual Basic) <see cref="P:System.AppDomain.MonitoringIsEnabled" /> установлено равным <see langword="false" />.</exception>
         <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
         <related type="Article" href="https://msdn.microsoft.com/library/318bedf8-7f35-4f00-b34a-2b7b8e3fa315">Отслеживание ресурсов домена приложения</related>
       </Docs>
@@ -6341,10 +6377,10 @@
         <ReturnType>System.Int64</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает общий размер в байтах для всех операций выделения памяти, выполненных доменом приложения с момента его создания, без вычитания собранной памяти.</summary>
+        <summary>Получает общий размер в байтах для всех операций выделения памяти, выполненных доменом приложения с момента его создания, без вычитания собранной памяти.</summary>
         <value>Общий размер для всех операций выделения памяти.</value>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.InvalidOperationException">Для свойства <see langword="static" /> (<see langword="Shared" /> в Visual Basic) <see cref="P:System.AppDomain.MonitoringIsEnabled" /> задано значение <see langword="false" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Свойство <see langword="static" /> (<see langword="Shared" /> в Visual Basic) <see cref="P:System.AppDomain.MonitoringIsEnabled" /> установлено равным <see langword="false" />.</exception>
         <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
         <related type="Article" href="https://msdn.microsoft.com/library/318bedf8-7f35-4f00-b34a-2b7b8e3fa315">Отслеживание ресурсов домена приложения</related>
       </Docs>
@@ -6380,7 +6416,7 @@
         <ReturnType>System.TimeSpan</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает общее процессорное время, использованное всеми потоками при выполнении в текущем домене приложения с момента запуска процесса.</summary>
+        <summary>Получает общее процессорное время, использованное всеми потоками при выполнении в текущем домене приложения с момента запуска процесса.</summary>
         <value>Общее процессорное время для текущего домена приложения.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -6394,7 +6430,7 @@
   
  ]]></format>
         </remarks>
-        <exception cref="T:System.InvalidOperationException">Для свойства <see langword="static" /> (<see langword="Shared" /> в Visual Basic) <see cref="P:System.AppDomain.MonitoringIsEnabled" /> задано значение <see langword="false" />.</exception>
+        <exception cref="T:System.InvalidOperationException">Свойство <see langword="static" /> (<see langword="Shared" /> в Visual Basic) <see cref="P:System.AppDomain.MonitoringIsEnabled" /> установлено равным <see langword="false" />.</exception>
         <permission cref="T:System.Security.SecurityCriticalAttribute">Требует полного доверия для непосредственного вызывающего объекта. Этот член не может использоваться частично доверенным или прозрачным кодом.</permission>
         <related type="Article" href="https://msdn.microsoft.com/library/318bedf8-7f35-4f00-b34a-2b7b8e3fa315">Отслеживание ресурсов домена приложения</related>
       </Docs>
@@ -6414,6 +6450,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -6427,7 +6464,7 @@
         <ReturnType>System.Security.PermissionSet</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает набор разрешений изолированного домена приложения.</summary>
+        <summary>Получает набор разрешений изолированного домена приложения.</summary>
         <value>Набор разрешений изолированного домена приложения.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -6588,7 +6625,7 @@
       <Parameters />
       <Docs>
         <summary>Возвращает сборки, которые были загружены в контекст, поддерживающий только отражение, домена приложения.</summary>
-        <returns>Массив объектов <see cref="T:System.Reflection.Assembly" />, представляющих сборки, которые были загружены в контекст домена приложения, поддерживающий только отражение.</returns>
+        <returns>Массив объектов <see cref="T:System.Reflection.Assembly" />, представляющих сборки, которые были загружены в контекст, поддерживающий только отражение, домена приложения.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -6825,6 +6862,9 @@
         <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
+        <Attribute FrameworkAlternate="netcore-3.0">
+          <AttributeName>System.Obsolete("AppDomain.SetCachePath has been deprecated. Please investigate the use of AppDomainSetup.CachePath instead. https://go.microsoft.com/fwlink/?linkid=14202")</AttributeName>
+        </Attribute>
       </Attributes>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -6833,7 +6873,7 @@
         <Parameter Name="path" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="path">Полный путь к расположению теневых копий.</param>
+        <param name="path">Полный путь для размещения теневых копий.</param>
         <summary>Устанавливает заданный путь каталога в качестве места, куда копируются теневые сборки.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -6901,7 +6941,7 @@
         <Parameter Name="data" Type="System.Object" />
       </Parameters>
       <Docs>
-        <param name="name">Имя пользовательского свойства домена приложения, которое требуется создать или изменить.</param>
+        <param name="name">Имя пользовательского свойства домена приложения для создания или изменения.</param>
         <param name="data">Значение свойства.</param>
         <summary>Устанавливает заданное значение для свойства указанного домена приложения.</summary>
         <remarks>
@@ -6964,7 +7004,7 @@
         <Parameter Name="permission" Type="System.Security.IPermission" />
       </Parameters>
       <Docs>
-        <param name="name">Имя пользовательского свойства домена приложения, которое требуется создать или изменить.</param>
+        <param name="name">Имя пользовательского свойства домена приложения для создания или изменения.</param>
         <param name="data">Значение свойства.</param>
         <param name="permission">Разрешение, которое нужно запросить у вызывающего кода при извлечении свойства.</param>
         <summary>Присваивает заданное значение заданному свойству домена приложения с заданными разрешениями, которые нужно запросить у вызывающего кода при извлечении свойства.</summary>
@@ -7018,6 +7058,9 @@
         </Attribute>
         <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netcore-3.0">
+          <AttributeName>System.Obsolete("AppDomain.SetDynamicBase has been deprecated. Please investigate the use of AppDomainSetup.DynamicBase instead. https://go.microsoft.com/fwlink/?linkid=14202")</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -7087,7 +7130,7 @@
         <Parameter Name="policy" Type="System.Security.Principal.PrincipalPolicy" />
       </Parameters>
       <Docs>
-        <param name="policy">Одно из значений <see cref="T:System.Security.Principal.PrincipalPolicy" />, определяющее тип объекта-участника, который необходимо подключить к потоку.</param>
+        <param name="policy">Одно из значений <see cref="T:System.Security.Principal.PrincipalPolicy" />, определяющее тип объекта-участника для подключения к потоку.</param>
         <summary>Указывает, как участники и объекты удостоверений должны присоединяться к потоку, если поток пытается выполнить привязку к участнику при выполнении в этом домене приложения.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -7143,6 +7186,9 @@
         </Attribute>
         <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="netcore-3.0">
+          <AttributeName>System.Obsolete("AppDomain.SetShadowCopyFiles has been deprecated. Please investigate the use of AppDomainSetup.ShadowCopyFiles instead. https://go.microsoft.com/fwlink/?linkid=14202")</AttributeName>
         </Attribute>
       </Attributes>
       <ReturnValue>
@@ -7210,6 +7256,9 @@
         <Attribute FrameworkAlternate="netframework-4.0;netframework-4.5;netframework-4.5.1;netframework-4.5.2;netframework-4.6;netframework-4.6.1;netframework-4.6.2;netframework-4.7;netframework-4.7.1;netframework-4.7.2;netframework-4.8">
           <AttributeName>System.Security.SecurityCritical</AttributeName>
         </Attribute>
+        <Attribute FrameworkAlternate="netcore-3.0">
+          <AttributeName>System.Obsolete("AppDomain.SetShadowCopyPath has been deprecated. Please investigate the use of AppDomainSetup.ShadowCopyDirectories instead. https://go.microsoft.com/fwlink/?linkid=14202")</AttributeName>
+        </Attribute>
       </Attributes>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -7218,8 +7267,8 @@
         <Parameter Name="path" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="path">Список имен каталогов, разделенных точкой с запятой.</param>
-        <summary>Устанавливает заданный путь каталога в качестве места для теневого копирования сборок.</summary>
+        <param name="path">Список имен каталогов, разделенных знаком точки с запятой.</param>
+        <summary>Устанавливает заданный путь каталога в качестве места, куда копируются теневые сборки.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -7284,7 +7333,7 @@
         <Parameter Name="principal" Type="System.Security.Principal.IPrincipal" />
       </Parameters>
       <Docs>
-        <param name="principal">Объект-участник, который необходимо подключить к потоку.</param>
+        <param name="principal">Объект-участник, который необходимо присоединить к потоку.</param>
         <summary>Задает объект-участник по умолчанию, который необходимо присоединять к потокам, в случае если они пытаются выполнить привязку к объекту-участнику во время выполнения в этом домене приложения.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
@@ -7321,6 +7370,7 @@
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>System.Runtime.Extensions</AssemblyName>
+        <AssemblyVersion>4.2.1.0</AssemblyVersion>
       </AssemblyInfo>
       <AssemblyInfo>
         <AssemblyName>netstandard</AssemblyName>
@@ -7367,7 +7417,7 @@
       </ReturnValue>
       <Docs>
         <summary>Возвращает указание на то, настроен ли домен приложения для теневого копирования файлов.</summary>
-        <value>Значение <see langword="true" />, если домен приложения настроен для теневого копирования файлов; в противном случае — значение <see langword="false" />.</value>
+        <value><see langword="true" />, если домен приложения настроен для теневого копирования файлов; в противном случае — <see langword="false" />.</value>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -7613,7 +7663,7 @@
       <Parameters />
       <Docs>
         <summary>Получает строку, включающую понятное имя домена приложения и политики контекста.</summary>
-        <returns>Строка, полученная путем сцепления литеральной строки "Name:", понятного имени домена приложения и либо строкового представления политик контекста, либо строки "Политики контекста отсутствуют".</returns>
+        <returns>Строка, полученная путем сцепления литеральной строки "Имя:" с понятным именем домена приложения и либо строковые представления политик контекста, либо строка "Политики контекста отсутствуют".</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -7668,7 +7718,7 @@
         <ReturnType>System.ResolveEventHandler</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Происходит, когда разрешении типа завершается неудачей.</summary>
+        <summary>происходит, когда разрешении типа завершается неудачей.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -7741,7 +7791,7 @@
         <ReturnType>System.UnhandledExceptionEventHandler</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Происходит, если выброшенное исключение остается не перехваченным.</summary>
+        <summary>происходит, если выброшенное исключение остается не перехваченным.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
@@ -7833,7 +7883,7 @@
         <Parameter Name="domain" Type="System.AppDomain" />
       </Parameters>
       <Docs>
-        <param name="domain">Домен приложения, который нужно выгрузить.</param>
+        <param name="domain">Домен приложения, который подлежит выгрузке.</param>
         <summary>Выгружает заданный домен приложения.</summary>
         <remarks>
           <format type="text/markdown"><![CDATA[  
