@@ -1,5 +1,5 @@
 <Type Name="UTF8Encoding" FullName="System.Text.UTF8Encoding">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="400b66e629629ccfb67ffdfc76de6ad73fb9526b" /><Meta Name="ms.sourcegitcommit" Value="8e213bb5e6801f6e29861ba72664978ad00e34fa" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="02/18/2019" /><Meta Name="ms.locfileid" Value="56376151" /></Metadata><TypeSignature Language="C#" Value="public class UTF8Encoding : System.Text.Encoding" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="689dacf6a5a48331d9d798b67c9aac2a650f0236" /><Meta Name="ms.sourcegitcommit" Value="acde217947fa4e012449e7dea2d0f4ca44225462" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="03/01/2019" /><Meta Name="ms.locfileid" Value="57203851" /></Metadata><TypeSignature Language="C#" Value="public class UTF8Encoding : System.Text.Encoding" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable beforefieldinit UTF8Encoding extends System.Text.Encoding" />
   <TypeSignature Language="DocId" Value="T:System.Text.UTF8Encoding" />
   <TypeSignature Language="VB.NET" Value="Public Class UTF8Encoding&#xA;Inherits Encoding" />
@@ -64,7 +64,7 @@
   
  Если кодировщик настроен для поддержки Спецификации, его можно получить, вызвав <xref:System.Text.UTF8Encoding.GetPreamble%2A> метода; в противном случае метод возвращает пустой массив. Обратите внимание, что, даже если <xref:System.Text.UTF8Encoding> объект настроен для поддержки Спецификации, необходимо включить метки порядка БАЙТОВ в начале потока закодированных байтов в виде соответствующих; методов кодирования из <xref:System.Text.UTF8Encoding> класс делают это автоматически.  
   
-> [!NOTE]
+> [!CAUTION]
 >  Чтобы включить обнаружение ошибок и защищенности экземпляра класса следует вызывать <xref:System.Text.UTF8Encoding.%23ctor%28System.Boolean%2CSystem.Boolean%29> конструктора и задайте `throwOnInvalidBytes` параметр `true`. С помощью обнаружение ошибок включено, вызывает метод, который обнаруживает недопустимую последовательность символов или байтов <xref:System.ArgumentException> исключение. Без обнаружения ошибки исключение не создается, и Недопустимая последовательность обычно игнорируется.  
   
 > [!NOTE]
@@ -136,7 +136,7 @@
 ## Remarks  
  Этот конструктор создает экземпляр, который не поддерживает метки порядка байтов Юникода и не выдает исключение при обнаружении недопустимой кодировки.  
   
-> [!NOTE]
+> [!CAUTION]
 >  По соображениям безопасности рекомендуется включить обнаружение ошибок путем вызова конструктора с `throwOnInvalidBytes` параметр и присвоить ему значение `true`.  
   
    
@@ -191,7 +191,7 @@
 ## Remarks  
  Этот конструктор создает экземпляр, который не выдает исключение при обнаружении недопустимой кодировки.  
   
-> [!NOTE]
+> [!CAUTION]
 >  По соображениям безопасности следует включить обнаружение ошибок, вызвав конструктор, который включает в себя `throwOnInvalidBytes` параметр и присвоить ему значение `true`.  
   
  `encoderShouldEmitUTF8Identifier` Параметр управляет операциями <xref:System.Text.UTF8Encoding.GetPreamble%2A> метод. Если `true`, метод возвращает массив байтов, содержащий метку порядка байтов (BOM) Юникода в формате UTF-8.  Если `false`, он возвращает массив байтов нулевой длины. Однако можно присвоить `encoderShouldEmitUTF8Identifier` для `true` не приводит к <xref:System.Text.UTF8Encoding.GetBytes%2A> метод в качестве префикса метки порядка БАЙТОВ в начале байтового массива, привести к не <xref:System.Text.UTF8Encoding.GetByteCount%2A> метод включать число байтов в Спецификации в счетчик байтов.  
@@ -252,7 +252,7 @@
   
  Если `throwOnInvalidBytes` — `true`, вызывает метод, который обнаруживает недопустимые последовательности байтов <xref:System.ArgumentException?displayProperty=nameWithType> исключение. В противном случае этот метод создает исключение, и недопустимую последовательность учитывается.  
   
-> [!NOTE]
+> [!CAUTION]
 >  По соображениям безопасности следует включить обнаружение ошибок, вызвав конструктор, который включает в себя `throwOnInvalidBytes` параметр и установив для этого параметра `true`.  
   
    
@@ -1605,10 +1605,8 @@
   
  Дополнительные сведения о порядке байтов и отметки порядка байтов, см. в разделе стандарта Юникод на [домашней странице Юникода](https://go.microsoft.com/fwlink/?LinkId=37123).  
   
-> [!CAUTION]
->  Чтобы обеспечить правильное декодирование закодированных байтов когда они сохраняются в виде файла или потока, можно добавить префикс начало потока закодированных байтов с начальной части. Обратите внимание, что <xref:System.Text.UTF8Encoding.GetBytes%2A> метод не добавить в начало метки порядка БАЙТОВ в последовательность закодированных байтов; предоставление метки порядка БАЙТОВ в начале соответствующих байтового потока является обязанностью разработчика.  
-  
-   
+> [!IMPORTANT]
+>  Чтобы обеспечить правильное декодирование закодированных байтов когда они сохраняются в виде файла или потока, можно добавить префикс начало потока закодированных байтов с начальной части. Обратите внимание, что <xref:System.Text.UTF8Encoding.GetBytes%2A> метод не добавить в начало метки порядка БАЙТОВ в последовательность закодированных байтов; предоставление метки порядка БАЙТОВ в начале соответствующих байтового потока является обязанностью разработчика.
   
 ## Examples  
  В следующем примере используется <xref:System.Text.UTF8Encoding.GetPreamble%2A> метод для возврата байтов Юникода порядок следования, закодированную в формате UTF-8. Обратите внимание, что конструктор по умолчанию для <xref:System.Text.UTF8Encoding> преамбула не предоставляется.  
