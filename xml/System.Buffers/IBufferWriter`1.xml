@@ -1,5 +1,5 @@
 <Type Name="IBufferWriter&lt;T&gt;" FullName="System.Buffers.IBufferWriter&lt;T&gt;">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="cd890b9a02855189dbf57af223fa03cb5209e33a" /><Meta Name="ms.sourcegitcommit" Value="8e213bb5e6801f6e29861ba72664978ad00e34fa" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="02/18/2019" /><Meta Name="ms.locfileid" Value="56387465" /></Metadata><TypeSignature Language="C#" Value="public interface IBufferWriter&lt;T&gt;" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="674f0a0d53c9622f7a10d3a2b32626681056eef4" /><Meta Name="ms.sourcegitcommit" Value="9e7aa84070156026697d2898b5311e6c025a1e6a" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="02/28/2019" /><Meta Name="ms.locfileid" Value="56996724" /></Metadata><TypeSignature Language="C#" Value="public interface IBufferWriter&lt;T&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IBufferWriter`1&lt;T&gt;" />
   <TypeSignature Language="DocId" Value="T:System.Buffers.IBufferWriter`1" />
   <TypeSignature Language="VB.NET" Value="Public Interface IBufferWriter(Of T)" />
@@ -17,7 +17,7 @@
   <Interfaces />
   <Docs>
     <typeparam name="T">Тип элементов в <see cref="T:System.Buffers.IBufferWriter`1" />.</typeparam>
-    <summary>Представляет приемник <typeparamref name="T" />.</summary>
+    <summary>Представляет приемник выходных данных, в который можно записать данные <typeparamref name="T" />.</summary>
     <remarks>To be added.</remarks>
   </Docs>
   <Members>
@@ -43,8 +43,8 @@
       </Parameters>
       <Docs>
         <param name="count">Число элементов данных, записанных в <see cref="T:System.Span`1" /> или <see cref="T:System.Memory`1" />.</param>
-        <summary>Уведомляет <see cref="T:System.Buffers.IBufferWriter`1" /> о том, что элементы данных <paramref name="count" /> записаны в <see cref="T:System.Span`1" /> или <see cref="T:System.Memory`1" />.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Уведомляет <see cref="T:System.Buffers.IBufferWriter`1" /> о том, что элементы данных <paramref name="count" /> записаны в <see cref="T:System.Span`1" /> или <see cref="T:System.Memory`1" /> выходных данных.</summary>
+        <remarks>Необходимо запросить новый буфер после вызова Advance продолжать запись дополнительных данных; не удается записать в буфер, полученного ранее.</remarks>
       </Docs>
     </Member>
     <Member MemberName="GetMemory">
@@ -67,10 +67,21 @@
         <Parameter Name="sizeHint" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="sizeHint">Размер запрошенного <see cref="T:System.Memory`1" />. Если значение равно 0, запрашивает доступную память.</param>
-        <summary>Запрашивает <see cref="T:System.Memory`1" />, который составляет не менее <paramref name="sizeHint" />, если это возможно.</summary>
-        <returns><see cref="T:System.Memory`1" />, который составляет <paramref name="sizeHint" />, если это возможно; в противном случае — максимально возможный <see cref="T:System.Memory`1" /> памяти. Если значение <paramref name="sizeHint" /> равно 0, возвращает доступную память.</returns>
-        <remarks>To be added.</remarks>
+        <param name="sizeHint">Минимальная длина значения <see cref="T:System.Memory`1" />. Если значение равно 0, возвращается непустой буфер.</param>
+        <summary>Возвращает <see cref="T:System.Memory`1" /> для записи минимального запрошенного размера (определяется <paramref name="sizeHint" />).</summary>
+        <returns><see cref="T:System.Memory`1" /> с минимальным размером <paramref name="sizeHint" />. Если значение <paramref name="sizeHint" /> равно 0, возвращается непустой буфер.</returns>
+        <remarks>  
+          <format type="text/markdown"><![CDATA[  
+
+Нет никакой гарантии, что последующие вызовы будут возвращать этот же буфер или же размера буфера.
+
+Это никогда не должно возвращать <xref:System.Span%601.Empty?displayProperty=nameWithType>, но может возникнуть исключение, если размер запрошенный буфер недоступен.
+
+После вызова метода необходимо запросить новый буфер `Advance` продолжать запись дополнительных данных; нельзя записывать в буфер, полученного ранее.
+
+         ]]></format>
+         </remarks>
+         <exception cref="T:System.OutOfMemoryException">Запрошенный размер буфера недоступен.</exception>        
       </Docs>
     </Member>
     <Member MemberName="GetSpan">
@@ -93,10 +104,19 @@
         <Parameter Name="sizeHint" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="sizeHint">Размер запрошенного объема памяти. Если значение равно 0, запрашивает доступную память.</param>
-        <summary>Запрашивает объем, который составляет не менее <paramref name="sizeHint" />, если это возможно.</summary>
-        <returns>Объем, который составляет <paramref name="sizeHint" />, если это возможно; в противном случае — максимально возможный объем памяти. Если значение <paramref name="sizeHint" /> равно 0, возвращает доступную память.</returns>
-        <remarks>To be added.</remarks>
+        <param name="sizeHint">Минимальная длина возвращаемого значения <see cref="T:System.Span`1" />. Если значение равно 0, возвращается непустой буфер.</param>
+        <summary>Возвращает <see cref="T:System.Span`1" /> для записи минимального запрошенного размера (определяется <paramref name="sizeHint" />).</summary>
+        <returns><see cref="T:System.Span`1" /> с минимальным размером <paramref name="sizeHint" />. Если значение <paramref name="sizeHint" /> равно 0, возвращается непустой буфер.</returns>
+        <remarks>  
+          <format type="text/markdown"><![CDATA[
+  
+Нет никакой гарантии, что последующие вызовы будут возвращать этот же буфер или же размера буфера.
+
+Этот метод никогда не должен возвращать <xref:System.Span%601.Empty?displayProperty=nameWithType>, но может возникнуть исключение, если размер запрошенный буфер недоступен.
+
+После вызова метода необходимо запросить новый буфер `Advance` продолжать запись дополнительных данных; нельзя записывать в буфер, полученного ранее.
+         ]]></format>
+         </remarks>
       </Docs>
     </Member>
   </Members>
