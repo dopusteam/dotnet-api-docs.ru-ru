@@ -1,5 +1,5 @@
 <Type Name="StringLengthAttribute" FullName="System.ComponentModel.DataAnnotations.StringLengthAttribute">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="51d331bc16db945d74a534119894a67783c52523" /><Meta Name="ms.sourcegitcommit" Value="8e213bb5e6801f6e29861ba72664978ad00e34fa" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="02/18/2019" /><Meta Name="ms.locfileid" Value="56387773" /></Metadata><TypeSignature Language="C#" Value="public class StringLengthAttribute : System.ComponentModel.DataAnnotations.ValidationAttribute" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="c5702fa8b42a49316d32fa07f8c2ec6567d686d5" /><Meta Name="ms.sourcegitcommit" Value="bac13a81377b1c4ebf3990e3287a6f1700f73751" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="03/19/2019" /><Meta Name="ms.locfileid" Value="57936541" /></Metadata><TypeSignature Language="C#" Value="public class StringLengthAttribute : System.ComponentModel.DataAnnotations.ValidationAttribute" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit StringLengthAttribute extends System.ComponentModel.DataAnnotations.ValidationAttribute" />
   <TypeSignature Language="DocId" Value="T:System.ComponentModel.DataAnnotations.StringLengthAttribute" />
   <TypeSignature Language="VB.NET" Value="Public Class StringLengthAttribute&#xA;Inherits ValidationAttribute" />
@@ -38,9 +38,10 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- ASP.NET Dynamic Data позволяет операции CRUD (Create, Read, Update и Delete) в модель данных. Можно указать минимальное и максимальное количество символов для каждого поля данных при вставке или обновлении. Для символьных типов данных <xref:System.ComponentModel.DataAnnotations.StringLengthAttribute.MinimumLength%2A> и <xref:System.ComponentModel.DataAnnotations.StringLengthAttribute.MaximumLength%2A> свойства определяют наибольшее количество байтов, необходимых для хранения строки.  
-  
-   
+ ASP.NET Dynamic Data позволяет операции CRUD (Create, Read, Update и Delete) в модель данных. Можно указать минимальное и максимальное количество символов для каждого поля данных при вставке или обновлении. Для символьных типов данных <xref:System.ComponentModel.DataAnnotations.StringLengthAttribute.MinimumLength%2A> и <xref:System.ComponentModel.DataAnnotations.StringLengthAttribute.MaximumLength%2A> свойства определяют наибольшее количество байтов, необходимых для хранения строки.
+ 
+Можно использовать [составное форматирование](~/docs/standard/base-types/composite-formatting.md) заполнители в сообщении об ошибке: {0} — это имя свойства. {1} определяет его максимальную длину; и {2} Минимальная длина.
+Заполнители соответствуют аргументам, которые передаются <xref:System.String.Format%2A?displayProperty=nameWithType> метод во время выполнения.   
   
 ## Examples  
  Приведенный ниже показано, как ограничить число символов в поле. Этот пример работает с полем ThumbnailPhotoFileName в таблице Products в базе данных AdventureWorksLT. Поле имеет ограниченный 4 символа, применяя <xref:System.ComponentModel.DataAnnotations.StringLengthAttribute> атрибут в разделяемый класс, представляющий сущности Product.  
@@ -59,6 +60,10 @@ public class ProductMetadata
     [StringLength(4, ErrorMessage = "The ThumbnailPhotoFileName value cannot exceed 4 characters. ")]  
     public object ThumbnailPhotoFileName;  
   
+    [ScaffoldColumn(true)]  
+    [StringLength(4, ErrorMessage = "The {0} value cannot exceed {1} characters. ")]  
+    public object PhotoFileName;  
+
 }  
 ```  
   
@@ -73,6 +78,10 @@ Public Class ProductMetadata
     <ScaffoldColumn(True)> _   
     <StringLength(4, ErrorMessage := "The ThumbnailPhotoFileName value cannot exceed 4 characters. ")> _   
     Public ThumbnailPhotoFileName As Object   
+  
+    <ScaffoldColumn(True)> _   
+    <StringLength(4, ErrorMessage := "The {0} value cannot exceed {1} characters. ")> _   
+    Public PhotoFileName As Object   
   
 End Class  
 ```  
