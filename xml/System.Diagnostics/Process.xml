@@ -1,5 +1,5 @@
 <Type Name="Process" FullName="System.Diagnostics.Process">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="6b1dc611089c85302c9d21de8cb2fc5281ea5b4d" /><Meta Name="ms.sourcegitcommit" Value="bac13a81377b1c4ebf3990e3287a6f1700f73751" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="03/19/2019" /><Meta Name="ms.locfileid" Value="57937332" /></Metadata><TypeSignature Language="C#" Value="public class Process : System.ComponentModel.Component" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="4b6bf6f299cf0346642cea501b760e0bcc0f3a76" /><Meta Name="ms.sourcegitcommit" Value="c181255cb311fdd498458b3f12418f773c97254a" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="03/21/2019" /><Meta Name="ms.locfileid" Value="58320854" /></Metadata><TypeSignature Language="C#" Value="public class Process : System.ComponentModel.Component" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Process extends System.ComponentModel.Component" />
   <TypeSignature Language="DocId" Value="T:System.Diagnostics.Process" />
   <TypeSignature Language="VB.NET" Value="Public Class Process&#xA;Inherits Component" />
@@ -4281,44 +4281,22 @@ process.BeginOutputReadLine();
  Напротив <xref:System.Diagnostics.Process.BeginErrorReadLine%2A> начинается асинхронных операций чтения на <xref:System.Diagnostics.Process.StandardError%2A> потока. Этот метод включает назначенный обработчик событий для выходного потока и немедленно возвращает вызывающему объекту, который может выполнять другую работу, пока выходной поток направляется обработчику событий.  
   
  Синхронное чтение операций вводит зависимость между считыванием из вызывающего <xref:System.Diagnostics.Process.StandardError%2A> потока и дочерний процесс записи в поток. Эти зависимости можно привести в состоянии взаимоблокировки. Когда вызывающий объект считывает из перенаправленного потока дочернего процесса, он зависит от дочернего. Вызывающий объект ожидает операции считывания дочерние записывает в поток или закрывает поток. Когда дочерний процесс записывает достаточно данных для заполнения своего перенаправленного потока, он зависит от родительского. Дочерний процесс ожидает следующей операции записи до родительского считывает из полного потока или закрывает поток. Взаимоблокировка возникает, когда вызывающий объект и дочерний процесс ждут друг от друга, для завершения операции и не может продолжить работу. Взаимоблокировок можно избежать, оценивая зависимости между вызывающим и дочерний процесс.  
-  
- Следующий код C#, например, показано, как считывание из перенаправленного потока и ожидание завершения дочернего процесса.  
-  
-```csharp  
-// Start the child process.  
- Process p = new Process();  
- // Redirect the error stream of the child process.  
- p.StartInfo.UseShellExecute = false;  
- p.StartInfo.RedirectStandardError = true;  
- p.StartInfo.FileName = "Write500Lines.exe";  
- p.Start();  
- // Do not wait for the child process to exit before  
- // reading to the end of its redirected error stream.  
- // p.WaitForExit();  
- // Read the error stream first and then wait.  
- string error = p.StandardError.ReadToEnd();  
- p.WaitForExit();  
-```  
-  
- В примере кода позволяет избежать взаимоблокировки, вызвав `p.StandardError.ReadToEnd` перед `p.WaitForExit`. Если родительский обработки вызовов может привести к взаимоблокировки `p.WaitForExit` перед `p.StandardError.ReadToEnd` и дочерний процесс записывает достаточно текста для заполнения перенаправленного потока. Родительский процесс неограниченно долго будет ожидать завершения дочернего процесса. Дочерний процесс будет ожидать неопределенно долго родительским для чтения из полной <xref:System.Diagnostics.Process.StandardError%2A> потока.  
-  
- Есть аналогичная проблема возникает при считывании весь текст из стандартного вывода и потоков стандартной ошибки. Например, следующий код C#, выполняет операции чтения в обоих потоках.  
-  
-```csharp  
-// Do not perform a synchronous read to the end of both   
-// redirected streams.  
-// string output = p.StandardOutput.ReadToEnd();  
-// string error = p.StandardError.ReadToEnd();  
-// p.WaitForExit();  
-// Use asynchronous read operations on at least one of the streams.  
-p.BeginOutputReadLine();  
-string error = p.StandardError.ReadToEnd();  
-p.WaitForExit();  
-```  
-  
- В примере кода позволяет избежать взаимоблокировки, выполняя асинхронные операции чтения на <xref:System.Diagnostics.Process.StandardOutput%2A> потока. Взаимоблокировка возникает, если родительский обрабатывать вызовы `p.StandardOutput.ReadToEnd` следуют `p.StandardError.ReadToEnd` и дочерний процесс записывает достаточно текста для заполнения его поток сообщений об ошибках. Родительский процесс будет ожидать неопределенно долго дочерний процесс закрыть его <xref:System.Diagnostics.Process.StandardOutput%2A> потока. Дочерний процесс будет ожидать неопределенно долго родительским для чтения из полной <xref:System.Diagnostics.Process.StandardError%2A> потока.  
-  
- Чтобы избежать этих зависимостей и возможных взаимоблокировок можно использовать асинхронных операций чтения. Кроме того можно избежать этого состояния взаимоблокировки путем создания двух потоков и чтении выходных данных каждого потока в отдельном потоке.  
+
+В последних двух примерах этого раздела используется <xref:System.Diagnostics.Process.Start%2A> метод для запуска исполняемого файла с именем *Write500Lines.exe*. Следующий пример содержит его исходный код.
+
+[!code-csharp[Executable launched by Process.Start](~/samples/snippets/csharp/api/system.diagnostics/process/standardoutput/write500lines.cs)]
+[!code-vb[Executable launched by Process.Start](~/samples/snippets/visualbasic/api/system.diagnostics/process/standardoutput/write500lines.vb)]
+
+Приведенный ниже показано, как читать из потока перенаправленный ошибки и дождитесь завершения дочернего процесса. Это позволяет избежать взаимоблокировки, вызвав `p.StandardError.ReadToEnd` перед `p.WaitForExit`. Если родительский обработки вызовов может привести к взаимоблокировки `p.WaitForExit` перед `p.StandardError.ReadToEnd` и дочерний процесс записывает достаточно текста для заполнения перенаправленного потока. Родительский процесс неограниченно долго будет ожидать завершения дочернего процесса. Дочерний процесс будет ожидать неопределенно долго родительским для чтения из полной <xref:System.Diagnostics.Process.StandardError%2A> потока.   
+
+[!code-csharp[Reading from the error stream](~/samples/snippets/csharp/api/system.diagnostics/process/standarderror/stderror-sync.cs)]
+[!code-vb[Reading from the error stream](~/samples/snippets/visualbasic/api/system.diagnostics/process/standarderror/stderror-sync.vb)]  
+
+Есть аналогичная проблема возникает при считывании весь текст из стандартного вывода и потоков стандартной ошибки. В следующем примере выполняется операция считывания в обоих потоках. Это позволяет избежать взаимоблокировки, выполняя асинхронные операции чтения на <xref:System.Diagnostics.Process.StandardError%2A> потока. Взаимоблокировка возникает, если родительский обрабатывать вызовы `p.StandardOutput.ReadToEnd` следуют `p.StandardError.ReadToEnd` и дочерний процесс записывает достаточно текста для заполнения его поток сообщений об ошибках. Родительский процесс будет ожидать неопределенно долго дочерний процесс закрыть его <xref:System.Diagnostics.Process.StandardOutput%2A> потока. Дочерний процесс будет ожидать неопределенно долго родительским для чтения из полной <xref:System.Diagnostics.Process.StandardError%2A> потока.  
+[!code-csharp[Reading from both streams](~/samples/snippets/csharp/api/system.diagnostics/process/standardoutput/stdoutput-async.cs)]
+[!code-vb[Reading from both streams](~/samples/snippets/visualbasic/api/system.diagnostics/process/standardoutput/stdoutput-async.vb)]  
+
+Чтобы избежать этих зависимостей и возможных взаимоблокировок можно использовать асинхронных операций чтения. Кроме того можно избежать этого состояния взаимоблокировки путем создания двух потоков и чтении выходных данных каждого потока в отдельном потоке.  
   
 > [!NOTE]
 >  Нельзя смешивать асинхронные и синхронные операции чтения в перенаправленном потоке. Один раз перенаправленного потока <xref:System.Diagnostics.Process> открыт в режиме асинхронной или синхронной, все дополнительные чтения операции в этом потоке должен быть в одном режиме. Например, не выполняйте <xref:System.Diagnostics.Process.BeginErrorReadLine%2A> вызовом <xref:System.IO.StreamReader.ReadLine%2A> на <xref:System.Diagnostics.Process.StandardError%2A> потока, или наоборот. Тем не менее вы найдете в двух разных потоках в разных режимах. Например, можно вызвать <xref:System.Diagnostics.Process.BeginOutputReadLine%2A> , а затем вызвать <xref:System.IO.StreamReader.ReadLine%2A> для <xref:System.Diagnostics.Process.StandardError%2A> потока.  
@@ -4475,34 +4453,20 @@ p.WaitForExit();
  Напротив <xref:System.Diagnostics.Process.BeginOutputReadLine%2A> начинается асинхронных операций чтения на <xref:System.Diagnostics.Process.StandardOutput%2A> потока. Этот метод включает назначенный обработчик событий для выходного потока и немедленно возвращает вызывающему объекту, который может выполнять другую работу, пока выходной поток направляется обработчику событий.  
   
  Синхронное чтение операций вводит зависимость между считыванием из вызывающего <xref:System.Diagnostics.Process.StandardOutput%2A> потока и дочерний процесс записи в поток. Эти зависимости можно привести в состоянии взаимоблокировки. Когда вызывающий объект считывает из перенаправленного потока дочернего процесса, он зависит от дочернего. Вызывающий объект ожидает операции считывания дочерние записывает в поток или закрывает поток. Когда дочерний процесс записывает достаточно данных для заполнения своего перенаправленного потока, он зависит от родительского. Дочерний процесс ожидает следующей операции записи до родительского считывает из полного потока или закрывает поток. Взаимоблокировка возникает, когда вызывающий объект и дочерний процесс ждут друг от друга, для завершения операции и не может продолжить работу. Взаимоблокировок можно избежать, оценивая зависимости между вызывающим и дочерний процесс.  
-  
- Следующий код C#, например, показано, как считывание из перенаправленного потока и ожидание завершения дочернего процесса.  
-  
-```csharp  
-Process p = new Process();  
-p.StartInfo.UseShellExecute = false;  
-p.StartInfo.RedirectStandardOutput = true;  
-p.StartInfo.FileName = "Write500Lines.exe";  
-p.Start();  
-  
-// To avoid deadlocks, always read the output stream first and then wait.  
-string output = p.StandardOutput.ReadToEnd();  
-p.WaitForExit();  
-```  
-  
- В примере кода позволяет избежать взаимоблокировки, вызвав `p.StandardOutput.ReadToEnd` перед `p.WaitForExit`. Если родительский обработки вызовов может привести к взаимоблокировки `p.WaitForExit` перед `p.StandardOutput.ReadToEnd` и дочерний процесс записывает достаточно текста для заполнения перенаправленного потока. Родительский процесс неограниченно долго будет ожидать завершения дочернего процесса. Дочерний процесс будет ожидать неопределенно долго родительским для чтения из полной <xref:System.Diagnostics.Process.StandardOutput%2A> потока.  
-  
- Есть аналогичная проблема возникает при считывании весь текст из стандартного вывода и потоков стандартной ошибки. Например, следующий код C#, выполняет операции чтения в обоих потоках.  
-  
-```csharp  
-// To avoid deadlocks, use asynchronous read operations on at least one of the streams.  
-// Do not perform a synchronous read to the end of both redirected streams.  
-p.BeginOutputReadLine();  
-string error = p.StandardError.ReadToEnd();  
-p.WaitForExit();  
-```  
-  
- В примере кода позволяет избежать взаимоблокировки, выполняя асинхронные операции чтения на <xref:System.Diagnostics.Process.StandardOutput%2A> потока. Взаимоблокировка возникает, если родительский обрабатывать вызовы `p.StandardOutput.ReadToEnd` следуют `p.StandardError.ReadToEnd` и дочерний процесс записывает достаточно текста для заполнения его поток сообщений об ошибках. Родительский процесс будет ожидать неопределенно долго дочерний процесс закрыть его <xref:System.Diagnostics.Process.StandardOutput%2A> потока. Дочерний процесс будет ожидать неопределенно долго родительским для чтения из полной <xref:System.Diagnostics.Process.StandardError%2A> потока.  
+
+В последних двух примерах этого раздела используется <xref:System.Diagnostics.Process.Start%2A> метод для запуска исполняемого файла с именем *Write500Lines.exe*. Следующий пример содержит его исходный код.
+
+[!code-csharp[Executable launched by Process.Start](~/samples/snippets/csharp/api/system.diagnostics/process/standardoutput/write500lines.cs)]
+[!code-vb[Executable launched by Process.Start](~/samples/snippets/visualbasic/api/system.diagnostics/process/standardoutput/write500lines.vb)]
+
+В следующем примере показано, как считывание из перенаправленного потока и ожидание завершения дочернего процесса. Пример позволяет избежать взаимоблокировки, вызвав `p.StandardOutput.ReadToEnd` перед `p.WaitForExit`. Если родительский обработки вызовов может привести к взаимоблокировки `p.WaitForExit` перед `p.StandardOutput.ReadToEnd` и дочерний процесс записывает достаточно текста для заполнения перенаправленного потока. Родительский процесс неограниченно долго будет ожидать завершения дочернего процесса. Дочерний процесс будет ожидать неопределенно долго родительским для чтения из полной <xref:System.Diagnostics.Process.StandardOutput%2A> потока.  
+
+[!code-csharp[Reading synchronously from a redirected output stream](~/samples/snippets/csharp/api/system.diagnostics/process/standardoutput/stdoutput-sync.cs)]  
+[!code-vb[Reading synchronously from a redirected output stream](~/samples/snippets/visualbasic/api/system.diagnostics/process/standardoutput/stdoutput-sync.vb)]  
+
+Есть аналогичная проблема возникает при считывании весь текст из стандартного вывода и потоков стандартной ошибки. В следующем примере выполняется операция считывания в обоих потоках. Это позволяет избежать взаимоблокировки, выполняя асинхронные операции чтения на <xref:System.Diagnostics.Process.StandardError%2A> потока. Взаимоблокировка возникает, если родительский обрабатывать вызовы `p.StandardOutput.ReadToEnd` следуют `p.StandardError.ReadToEnd` и дочерний процесс записывает достаточно текста для заполнения его поток сообщений об ошибках. Родительский процесс будет ожидать неопределенно долго дочерний процесс закрыть его <xref:System.Diagnostics.Process.StandardOutput%2A> потока. Дочерний процесс будет ожидать неопределенно долго родительским для чтения из полной <xref:System.Diagnostics.Process.StandardError%2A> потока.   
+[!code-csharp[Reading from a redirected output and error stream](~/samples/snippets/csharp/api/system.diagnostics/process/standardoutput/stdoutput-async.cs)]  
+[!code-vb[Reading from a redirected output and error stream](~/samples/snippets/visualbasic/api/system.diagnostics/process/standardoutput/stdoutput-async.vb)]    
   
  Чтобы избежать этих зависимостей и возможных взаимоблокировок можно использовать асинхронных операций чтения. Кроме того можно избежать этого состояния взаимоблокировки путем создания двух потоков и чтении выходных данных каждого потока в отдельном потоке.  
   
