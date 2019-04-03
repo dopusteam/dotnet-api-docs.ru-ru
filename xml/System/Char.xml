@@ -54,88 +54,88 @@
     </Attribute>
   </Attributes>
   <Docs>
-    <summary>Представляет символ как элемент кода UTF-16.</summary>
+    <summary>Представляет символ как кодовую единицу UTF-16.</summary>
     <remarks>
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- [!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] Использует <xref:System.Char> структуры для представления символа Юникода. Стандарт Юникод определяет каждый символ Юникода с уникальным 21-Битовая скалярным числом, называемым кодовую точку, а также определяет кодировки UTF-16, указывающее кодовую точку разных способах кодировки в последовательность одного или нескольких 16-разрядных значений. Каждый 16-разрядное значение в диапазоне от шестнадцатеричных 0x0000 до 0xFFFF и хранится в <xref:System.Char> структуры.  Значение <xref:System.Char> объекта является его 16-разрядное числовое (порядковое) значение.  
+ [!INCLUDE[dnprdnshort](~/includes/dnprdnshort-md.md)] использует структуру <xref:System.Char> для представления символа Юникода. Стандарт Юникод связывает каждый символ Юникода с уникальным 21-битовым скалярным значением, называемым кодовой позицией, а также определяет кодировку UTF-16, которая задает способ кодирования кодовой позиции в виде последовательности одного или нескольких 16-разрядных значений. Каждое 16-разрядное значение находится в диапазоне от шестнадцатеричного 0x0000 до 0xFFFF и хранится в структуре <xref:System.Char>.  Значением объекта <xref:System.Char> является его 16-разрядное числовое (порядковое) значение.  
   
- Следующие разделы установить зависимость между <xref:System.Char> объекта и символ и рассматриваются некоторые общие задачи, выполняемые с <xref:System.Char> экземпляров.  
+ В следующих разделах рассматривается связь между объектами <xref:System.Char> и символами, а также некоторые общие задачи, выполняемые с экземплярами <xref:System.Char>.  
   
- [Объекты типа char, символов Юникода и строки](#Relationship)   
+ [Объекты типа char, символы Юникода и строки](#Relationship)   
  [Символы и категории символов](#Categories)   
- [Символы и текстовых элементов](#Elements)   
+ [Символы и текстовые элементы](#Elements)   
  [Стандартные операции](#Operations)   
- [Значения Char и взаимодействия](#Interop)  
+ [Значения Char и взаимодействие](#Interop)  
   
 <a name="Relationship"></a>   
-## <a name="char-objects-unicode-characters-and-strings"></a>Объекты типа char, символов Юникода и строки  
- Объект <xref:System.String> объект является упорядоченной коллекции <xref:System.Char> структур, представляющих строку текста. Большинство символов Юникода могут быть представлены одним <xref:System.Char> объекта, но знак, который кодируется как базовые символы, суррогатной пары и/или объединения последовательность символов представляется с помощью нескольких <xref:System.Char> объектов. По этой причине <xref:System.Char> структуре <xref:System.String> объекта не обязательно эквивалентен одного символа Юникода.  
+## <a name="char-objects-unicode-characters-and-strings"></a>Объекты типа char, символы Юникода и строки  
+ Объект <xref:System.String> является упорядоченной коллекцией структур <xref:System.Char>, представляющей строку текста. Большинство символов Юникода могут быть представлены одним объектом <xref:System.Char>, но знак, который кодируется как базовый символ, суррогатная пара и/или последовательность символов-объединителей представляется с помощью нескольких объектов <xref:System.Char>. Поэтому структура <xref:System.Char> в объекте <xref:System.String> не обязательно эквивалентна одному символу Юникода.  
   
- Несколько блоков 16-разрядного кода используются для представления одиночные символы Юникода в следующих случаях:  
+ Для представления одного символа Юникода используется несколько 16-разрядных кодовых единиц в следующих случаях:  
   
--   Глифы, которые может состоять из одного символа, или базового символа, за которыми следует один или несколько символов объединения. Например, символ д представлен объект <xref:System.Char> объекта, код которого единица измерения — U + 0061 следуют объект <xref:System.Char> объект которого единицы кода, U + 0308. (Знаку также определяются один объект <xref:System.Char> объект с единицы кода типа U + 00E4.) В следующем примере показано, что знаку состоит из двух <xref:System.Char> объектов.  
+-   Глифы, которые могут состоять из одного символа или базового символа со следующим за ним одним или несколькими символами-объединителями. Например, символ ä представлен объектом <xref:System.Char> с кодовой единицей U+0061, за которым следует объект <xref:System.Char> с кодовой единицей U+0308. (Символ ä также может быть представлен как один объект <xref:System.Char> с кодовой единицей U+00E4.) В следующем примере показано, что символ ä состоит из двух объектов <xref:System.Char>.  
   
      [!code-csharp[System.Char.Class#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.char.class/cs/grapheme1.cs#1)]
      [!code-vb[System.Char.Class#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.char.class/vb/grapheme1.vb#1)]  
   
--   Символы вне многоязыковую плоскость Юникода Basic (BMP). Юникод поддерживает шестнадцать плоскостей помимо BMP, который представляет плоскость 0. Кодовую точку Юникода в UTF-32 представляется значением 21-Битовая, которое содержит плоскость. Например U + 1D160 представляет символ НОТЫ ВОСЬМОЙ символ. Поскольку кодировка UTF-16 имеет только 16 бит, символы за пределами BMP, представляются суррогатные пары в кодировке UTF-16. В следующем примере показано, что U + D834 U + DD60 эквивалент U + 1D160, знак НОТЫ ВОСЬМОЙ символ UTF-32. U + D834 является старшим символом-заместителем; высокий уровень суррогаты в диапазоне от U + D800 до U + DBFF. U + DD60 является меньшим заменяющим значением; низкий суррогаты в диапазоне от U + DC00 до U + DFFF.  
+-   Символы вне основной многоязыковой плоскости Юникода (BMP). Юникод поддерживает шестнадцать плоскостей помимо BMP, который представляет плоскость 0. Кодовая позиция Юникода в UTF-32 представляется 21-битовым значением, которое содержит плоскость. Например U+1D160 представляет символ MUSICAL SYMBOL EIGHTH NOTE. Поскольку кодировка UTF-16 имеет только 16 бит, символы за пределами BMP в кодировке UTF-16 представляются суррогатными парами. В следующем примере показано, что U+D834 U+DD60 является эквивалентом U+1D160, символа MUSICAL SYMBOL EIGHTH NOTE, в UTF-32. U+D834 является старшим символом-заместителем; старшие символы-заместители находятся в диапазоне от U+D800 до U+DBFF. U+DD60 является младшим символом-заместителем; младшие символы-заместители находятся в диапазоне от U+DC00 до U+DFFF.  
   
      [!code-csharp[System.Char.Class#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.char.class/cs/surrogate1.cs#2)]
      [!code-vb[System.Char.Class#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.char.class/vb/surrogate1.vb#2)]  
   
 <a name="Categories"></a>   
 ## <a name="characters-and-character-categories"></a>Символы и категории символов  
- Каждый символ Юникода или допустимым суррогатная пара принадлежит к категории Юникода. В .NET Framework, категории Юникода, представляются членами <xref:System.Globalization.UnicodeCategory> перечисления и содержат значения, такие как <xref:System.Globalization.UnicodeCategory.CurrencySymbol?displayProperty=nameWithType>, <xref:System.Globalization.UnicodeCategory.LowercaseLetter?displayProperty=nameWithType>, и <xref:System.Globalization.UnicodeCategory.SpaceSeparator?displayProperty=nameWithType>, например.  
+ Каждый символ Юникода или допустимая суррогатная пара принадлежит к определенной категории Юникода. В .NET Framework категории Юникода представляются членами перечисления <xref:System.Globalization.UnicodeCategory> и включают, например, такие значения как <xref:System.Globalization.UnicodeCategory.CurrencySymbol?displayProperty=nameWithType>, <xref:System.Globalization.UnicodeCategory.LowercaseLetter?displayProperty=nameWithType> и <xref:System.Globalization.UnicodeCategory.SpaceSeparator?displayProperty=nameWithType>.  
   
- Чтобы определить категорию Юникода для символа, следует вызвать <xref:System.Char.GetUnicodeCategory%2A> метод. Например, в следующем примере вызывается <xref:System.Char.GetUnicodeCategory%2A> для отображения категорию Юникода каждого символа в строке.  
+ Чтобы определить категорию Юникода для символа, следует вызвать метод <xref:System.Char.GetUnicodeCategory%2A>. В следующем примере <xref:System.Char.GetUnicodeCategory%2A> используется для отображения категории Юникода каждого символа в строке.  
   
  [!code-csharp[System.Char.Class#6](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.char.class/cs/GetUnicodeCategory3.cs#6)]
  [!code-vb[System.Char.Class#6](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.char.class/vb/GetUnicodeCategory3.vb#6)]  
   
- На внутреннем уровне для символы вне диапазона ASCII (U + 0000 до U + 00FF) <xref:System.Char.GetUnicodeCategory%2A> метод зависит от категории Юникода, о которых сообщает <xref:System.Globalization.CharUnicodeInfo> класса. Начиная с [!INCLUDE[net_v462](~/includes/net-v462-md.md)], символы Юникода классифицируются на основе [The Unicode Standard, Version 8.0.0](https://www.unicode.org/versions/Unicode8.0.0/). В версиях .NET Framework с [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)] для [!INCLUDE[net_v461](~/includes/net-v461-md.md)], они классифицируются на основе [стандарте Юникода, версия 6.3.0](https://www.unicode.org/versions/Unicode6.3.0/).  
+ На внутреннем уровне для символов вне диапазона ASCII (от U+0000 до U+00FF) метод <xref:System.Char.GetUnicodeCategory%2A> зависит от категорий Юникода, сообщаемых классом <xref:System.Globalization.CharUnicodeInfo>. Начиная с [!INCLUDE[net_v462](~/includes/net-v462-md.md)], символы Юникода классифицируются на основе [The Unicode Standard, Version 8.0.0](https://www.unicode.org/versions/Unicode8.0.0/). В версиях .NET Framework с [!INCLUDE[net_v40_long](~/includes/net-v40-long-md.md)] по [!INCLUDE[net_v461](~/includes/net-v461-md.md)], они классифицируются на основе [The Unicode Standard, Version 6.3.0](https://www.unicode.org/versions/Unicode6.3.0/).  
   
 <a name="Elements"></a>   
-## <a name="characters-and-text-elements"></a>Символы и текстовых элементов  
- Так как один символ может быть представлена несколько <xref:System.Char> объекты, не всегда следует работать с отдельными <xref:System.Char> объектов. Например в следующем примере преобразуется кодовые позиции Юникода, представляющих Aegean цифры 0 – 9 для частей кода в кодировке UTF-16. Так как он ошибочно считается <xref:System.Char> объектов с символами, ошибочно сообщает, что результирующая строка содержит 20 символов.  
+## <a name="characters-and-text-elements"></a>Символы и текстовые элементы  
+ Так как один символ может быть представлен несколькими объектами <xref:System.Char>, не всегда имеет смысл работать с отдельными объектами <xref:System.Char>. Например, в следующем примере кодовые позиции Юникода, представляющие эгейские цифры 0 – 9, преобразуются в кодовые единицы в кодировке UTF-16. Так как в нем объекты <xref:System.Char> ошибочно приравниваются к символам, он неточно сообщает, что результирующая строка содержит 20 символов.  
   
  [!code-csharp[System.Char.Class#3](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.char.class/cs/textelements2.cs#3)]
  [!code-vb[System.Char.Class#3](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.char.class/vb/textelements2.vb#3)]  
   
- Можно сделать следующую команду, чтобы избежать предположение, <xref:System.Char> представляет один символ.  
+ Чтобы избежать предположения о том, что <xref:System.Char> представляет один символ, можно использовать один из следующих способов.  
   
--   Вы можете работать с <xref:System.String> объект целиком, а не для работы с отдельным ее символам, чтобы представлять и анализировать лингвистического содержимого.  
+-   Можно работать с объектом <xref:System.String> целиком, а не с отдельными ее символами, при представлении и анализе ее лингвистического содержимого.  
   
--   Можно использовать <xref:System.Globalization.StringInfo> класс для работы с элементами текста вместо отдельных <xref:System.Char> объектов. В следующем примере используется <xref:System.Globalization.StringInfo> объект для подсчета количества элементов текста в строку, состоящую эгейский номера от нуля до девяти. Так как он считает, что суррогатную пару один символ, он правильно возвращает, что строка содержит десять символов.  
+-   Можно использовать класс <xref:System.Globalization.StringInfo> для работы с элементами текста вместо отдельных объектов <xref:System.Char>. В следующем примере для подсчета количества элементов текста в строке, состоящей из эгейских цифр от нуля до девяти, используется объект <xref:System.Globalization.StringInfo>. Так как он считает суррогатную пару одним символом, он правильно сообщает, что строка содержит десять символов.  
   
      [!code-csharp[System.Char.Class#4](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.char.class/cs/textelements2a.cs#4)]
      [!code-vb[System.Char.Class#4](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.char.class/vb/textelements2a.vb#4)]  
   
--   Если строка содержит базовый символ, который имеет один или несколько несамостоятельных символов, можно вызвать <xref:System.String.Normalize%2A?displayProperty=nameWithType> метод преобразования подстроки в единый блок кода в кодировке UTF-16. В следующем примере вызывается <xref:System.String.Normalize%2A?displayProperty=nameWithType> метод для преобразования базового символа 0061 (латинскую букву A) и несамостоятельный знак U + 0308 (ОБЪЕДИНЕНИЕ DIAERESIS) U + 00E4 (LATIN НЕБОЛЬШОЙ буквы с DIAERESIS).  
+-   Если строка содержит базовый символ с одним или несколькими символами-объединителями, можно вызвать метод <xref:System.String.Normalize%2A?displayProperty=nameWithType> для преобразования подстроки в одиночную кодовую единицу в кодировке UTF-16. В следующем примере метод <xref:System.String.Normalize%2A?displayProperty=nameWithType> используется для преобразования базового символа U+0061 (LATIN SMALL LETTER A) и символа-объединителя U+0308 (COMBINING DIAERESIS) в U+00E4 (LATIN SMALL LETTER A WITH DIAERESIS).  
   
      [!code-csharp[System.Char.Class#5](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.char.class/cs/normalized.cs#5)]
      [!code-vb[System.Char.Class#5](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.char.class/vb/normalized.vb#5)]  
   
 <a name="Operations"></a>   
 ## <a name="common-operations"></a>Стандартные операции  
- <xref:System.Char> Структура предоставляет методы для сравнения <xref:System.Char> объектов, преобразуйте значение параметра текущего <xref:System.Char> объект в объект другого типа и определить категорию Юникода для <xref:System.Char> объекта:  
+ Структура <xref:System.Char> предоставляет методы для сравнения объектов <xref:System.Char>, преобразования значения заданного объекта <xref:System.Char> в объект другого типа и определения категории Юникода для объекта <xref:System.Char>:  
   
-|Действие|Используйте эти `System.Char` методы|  
+|Действие|Используйте эти методы `System.Char`|  
 |----------------|-------------------------------------|  
 |Сравнение <xref:System.Char> объектов|<xref:System.Char.CompareTo%2A> и <xref:System.Char.Equals%2A>|  
-|Преобразовать кодовую точку в строку|<xref:System.Char.ConvertFromUtf32%2A>|  
-|Преобразовать <xref:System.Char> объекта или суррогатной пары <xref:System.Char> объектов кодовую точку|Для одного символа: <xref:System.Convert.ToInt32%28System.Char%29?displayProperty=nameWithType><br /><br /> Для пары символов-заместителей или символ в строке: <xref:System.Char.ConvertToUtf32%2A?displayProperty=nameWithType>|  
+|Преобразовать кодовую позицию в строку|<xref:System.Char.ConvertFromUtf32%2A>|  
+|Преобразовать объект <xref:System.Char> или суррогатную пару объектов <xref:System.Char> в кодовую позицию|Для одного символа: <xref:System.Convert.ToInt32%28System.Char%29?displayProperty=nameWithType><br /><br /> Для суррогатной пары или символа в строке: <xref:System.Char.ConvertToUtf32%2A?displayProperty=nameWithType>|  
 |Получить категорию Юникода для символа|<xref:System.Char.GetUnicodeCategory%2A>|  
-|Определить, является ли символ в определенной категории Юникода, например цифры, буквы, знаки препинания, управляющий символ и т. д|<xref:System.Char.IsControl%2A>, <xref:System.Char.IsDigit%2A>, <xref:System.Char.IsHighSurrogate%2A>, <xref:System.Char.IsLetter%2A>, <xref:System.Char.IsLetterOrDigit%2A>, <xref:System.Char.IsLower%2A>, <xref:System.Char.IsLowSurrogate%2A>, <xref:System.Char.IsNumber%2A>, <xref:System.Char.IsPunctuation%2A>, <xref:System.Char.IsSeparator%2A>, <xref:System.Char.IsSurrogate%2A>, <xref:System.Char.IsSurrogatePair%2A>, <xref:System.Char.IsSymbol%2A>, <xref:System.Char.IsUpper%2A>, и <xref:System.Char.IsWhiteSpace%2A>|  
-|Преобразовать <xref:System.Char> объект, который представляет число с типом числового значения|<xref:System.Char.GetNumericValue%2A>|  
-|Преобразует символ в строке в <xref:System.Char> объекта|<xref:System.Char.Parse%2A> и <xref:System.Char.TryParse%2A>|  
-|Преобразовать <xref:System.Char> объект <xref:System.String> объекта|<xref:System.Char.ToString%2A>|  
-|Изменение регистра <xref:System.Char> объекта|<xref:System.Char.ToLower%2A>, <xref:System.Char.ToLowerInvariant%2A>, <xref:System.Char.ToUpper%2A> и <xref:System.Char.ToUpperInvariant%2A>|  
+|Определить, принадлежит ли символ определенной категории Юникода, например цифры, буквы, знаки препинания, управляющие символы и т. д|<xref:System.Char.IsControl%2A>, <xref:System.Char.IsDigit%2A>, <xref:System.Char.IsHighSurrogate%2A>, <xref:System.Char.IsLetter%2A>, <xref:System.Char.IsLetterOrDigit%2A>, <xref:System.Char.IsLower%2A>, <xref:System.Char.IsLowSurrogate%2A>, <xref:System.Char.IsNumber%2A>, <xref:System.Char.IsPunctuation%2A>, <xref:System.Char.IsSeparator%2A>, <xref:System.Char.IsSurrogate%2A>, <xref:System.Char.IsSurrogatePair%2A>, <xref:System.Char.IsSymbol%2A>, <xref:System.Char.IsUpper%2A>, и <xref:System.Char.IsWhiteSpace%2A>|  
+|Преобразовать объект <xref:System.Char>, который представляет число, в числовое значение|<xref:System.Char.GetNumericValue%2A>|  
+|Преобразует символ в строке в объект <xref:System.Char>|<xref:System.Char.Parse%2A> и <xref:System.Char.TryParse%2A>|  
+|Преобразовать объект <xref:System.Char> в объект <xref:System.String>|<xref:System.Char.ToString%2A>|  
+|Изменение регистра объекта <xref:System.Char>|<xref:System.Char.ToLower%2A>, <xref:System.Char.ToLowerInvariant%2A>, <xref:System.Char.ToUpper%2A> и <xref:System.Char.ToUpperInvariant%2A>|  
   
 <a name="Interop"></a>   
-## <a name="char-values-and-interop"></a>Значения Char и взаимодействия  
-Когда управляемый <xref:System.Char> тип, который представляется как единица кода в кодировке Юникода UTF-16, передается в неуправляемый код, упаковщик взаимодействия преобразует символ в кодировку ANSI по умолчанию. Можно применить <xref:System.Runtime.InteropServices.DllImportAttribute> атрибут платформу вызова неуправляемого кода и <xref:System.Runtime.InteropServices.StructLayoutAttribute> атрибут объявления COM-взаимодействия для элемента управления, какие кодировки маршалированного <xref:System.Char> типа.  
+## <a name="char-values-and-interop"></a>Значения Char и взаимодействие  
+Когда управляемый тип <xref:System.Char>, который представляется как кодовая единица в кодировке Юникода UTF-16, передается в неуправляемый код, упаковщик взаимодействия по умолчанию преобразует символы в кодировку ANSI. Можно применить атрибут <xref:System.Runtime.InteropServices.DllImportAttribute> к объявлениям вызова неуправляемого кода и атрибут <xref:System.Runtime.InteropServices.StructLayoutAttribute> к объявлениям COM-взаимодействия для управления набором символов, используемым при маршаллинге типа <xref:System.Char>.  
   
    
   
@@ -148,7 +148,7 @@
   
  ]]></format>
     </remarks>
-    <threadsafe>Все члены этого типа являются потокобезопасными. Члены, которые могут изменить состояние экземпляра, в действительности возвращают новый экземпляр инициализируется с новым значением. Как с любым другим типом, чтение и запись к общей переменной, которая содержит экземпляр этого типа должны быть защищены функцией блокировки для обеспечения потокобезопасности.</threadsafe>
+    <threadsafe>Все члены этого типа являются потокобезопасными. Члены, которые могут изменить состояние экземпляра, в действительности возвращают новый экземпляр, инициализированный новым значением. Как с любым другим типом, чтение и запись общей переменной, которая содержит экземпляр этого типа, должны быть защищены блокировкой для обеспечения потокобезопасности.</threadsafe>
     <altmember cref="T:System.IComparable" />
     <altmember cref="T:System.IConvertible" />
     <altmember cref="T:System.String" />
