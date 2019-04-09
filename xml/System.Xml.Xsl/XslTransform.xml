@@ -1,5 +1,5 @@
 <Type Name="XslTransform" FullName="System.Xml.Xsl.XslTransform">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="4afbddceffc87860ef4d77470b0756b765447efc" /><Meta Name="ms.sourcegitcommit" Value="a3e01ec36374fac54a55add0dcc1e754e394abeb" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="03/30/2019" /><Meta Name="ms.locfileid" Value="58736739" /></Metadata><TypeSignature Language="C#" Value="public sealed class XslTransform" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="56c2b4ff793499c653610da3b24ae254bfe9e9b3" /><Meta Name="ms.sourcegitcommit" Value="3efce15f3841385ee3ba24bd71ff0c0cf9a47815" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="04/03/2019" /><Meta Name="ms.locfileid" Value="58875376" /></Metadata><TypeSignature Language="C#" Value="public sealed class XslTransform" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit XslTransform extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Xml.Xsl.XslTransform" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class XslTransform" />
@@ -85,13 +85,52 @@
   
 -   `msxsl:script` Элемент должен включать `implements-prefix` атрибута, который содержит префикс, представляющий пространство имен, связанное с блоком скрипта. Это пространство имен должны быть определены в таблице стилей. Таблица стилей может содержать несколько блоков скриптов, сгруппированных по пространствам имен. Не может иметь блоки скриптов с несколькими языками, в то же пространство имен. Блоки скриптов можно вызывать функции, определенные в другом блоке, блоки скриптов, расположенных в одном пространстве имен. Содержимое блока скрипта анализируется в соответствии с правилами и синтаксис языка сценариев (предоставляемый `language` атрибут). Например, если блок скрипта C#, комментарии бы они были обозначены префиксом `//` символов. Комментарии должны быть допустимым XML-содержимое.  
   
- `Note` Рекомендуется заключать блоки сценариев в раздел CDATA.  
+> [!NOTE]
+> Рекомендуется заключать блоки сценариев в раздел CDATA.
   
-```  
-<msxsl:script implements-prefix='xy' language='C#'>  
-  <![CDATA[  
-  // Add code here.  
-  ]]]></format>
+ [!INCLUDE [xsltransform-script](~/includes/xsltransform-script.md)] 
+   
+ Функции можно объявлять внутри элемента `msxsl:script`. В следующей таблице показаны пространства имен, поддерживаемые по умолчанию.  
+  
+|Поддержка пространств имен|Описание|  
+|--------------------------|-----------------|  
+|`System`|Системные классы.|  
+|`System.Collection`|Классы коллекций.|  
+|`System.Text`|Классы для обработки текста.|  
+|`System.Xml`|Основные классы XML.|  
+|`System.Xml.Xsl`|Классы XSLT.|  
+|`System.Xml.XPath`|Классы языка XPath.|  
+  
+ Указанные аргументы и возвращаемые значения, определенные функциями скрипта должен быть один из перечисленных ниже типов World Wide Web Consortium (W3C). В приведенной ниже таблице представлены сопоставления типов W3C XPath или XSLT и соответствующие классы .NET Framework.  
+  
+|Тип W3C|Эквивалентный класс .NET|  
+|--------------|---------------------------|  
+|Строка (XPath)|`System.String`|  
+|Значение типа Boolean (XPath)|`System.Boolean`|  
+|Номер (XPath)|`System.Double`|  
+|Фрагмент дерева результатов (XSLT)|`System.Xml.XPath.XPathNavigator`|  
+|Набор узлов (XPath)|`System.Xml.XPath.XPathNodeIterator`|  
+  
+ Если функция скрипта использует один из следующих числовых типов: Int16, UInt16, Int32, UInt32, Int64, UInt64, одним или Decimal, эти типы приводятся к типу Double, который сопоставляется с числовым типом W3C XPath.  
+  
+ Исключение при вызове функции, не удается преобразовать аргумент результат в один из требуемых типов.  
+  
+> [!NOTE]
+>  `msxsl:script` и `msxsl:node-list` — единственные функции из `urn:schemas-microsoft-com:xslt` пространства имен, которые поддерживаются <xref:System.Xml.Xsl.XslTransform> класса.  
+  
+ <xref:System.Xml.Xsl.XslTransform> имеет возможность использования кода среды выполнения (CLR) как механизм расширения. Это достигается путем передачи экземпляра класса для <xref:System.Xml.Xsl.XslTransform> класса и вызове его открытых методов из таблицы стилей XSLT. Методы, определенные с помощью `params` ключевое слово, которое допускает неопределенное число параметров для передачи, не работают в этом сценарии. См. в разделе [params](~/docs/csharp/language-reference/keywords/params.md) для получения дополнительных сведений.  
+  
+ Дополнительные сведения см. в разделе [преобразования XSLT с помощью класса XslTransform](~/docs/standard/data/xml/xslt-transformations-with-the-xsltransform-class.md).  
+  
+   
+  
+## Examples  
+ Следующий пример преобразует указанного XML-документа и выводит результат на консоль.  
+  
+ [!code-csharp[Classic WebData XslTransform Example#1](~/samples/snippets/csharp/VS_Snippets_Data/Classic WebData XslTransform Example/CS/source.cs#1)]
+ [!code-vb[Classic WebData XslTransform Example#1](~/samples/snippets/visualbasic/VS_Snippets_Data/Classic WebData XslTransform Example/VB/source.vb#1)]  
+  
+ ]]></format>
     </remarks>
     <threadsafe><see cref="T:System.Xml.Xsl.XslTransform" /> объекты являются только поточно ориентированными для операций преобразования. Другие операции, не гарантируется потокобезопасность. Необходимо убедиться, что другие методы не вызываются для объекта во время операций загрузки.</threadsafe>
   </Docs>
