@@ -1,5 +1,5 @@
 <Type Name="DistributedTransactionPermission" FullName="System.Transactions.DistributedTransactionPermission">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="de93e21aa7eef86ae84d0950862ac8a721978349" /><Meta Name="ms.sourcegitcommit" Value="220917117f9d774aaa482439aa7324e39dc1f5b6" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="02/25/2019" /><Meta Name="ms.locfileid" Value="56775980" /></Metadata><TypeSignature Language="C#" Value="public sealed class DistributedTransactionPermission : System.Security.CodeAccessPermission, System.Security.Permissions.IUnrestrictedPermission" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="25733a68d2fb899dd3ee42da030ea9f18303ed22" /><Meta Name="ms.sourcegitcommit" Value="3efce15f3841385ee3ba24bd71ff0c0cf9a47815" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="04/03/2019" /><Meta Name="ms.locfileid" Value="58874752" /></Metadata><TypeSignature Language="C#" Value="public sealed class DistributedTransactionPermission : System.Security.CodeAccessPermission, System.Security.Permissions.IUnrestrictedPermission" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit DistributedTransactionPermission extends System.Security.CodeAccessPermission implements class System.Security.Permissions.IUnrestrictedPermission" />
   <TypeSignature Language="DocId" Value="T:System.Transactions.DistributedTransactionPermission" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class DistributedTransactionPermission&#xA;Inherits CodeAccessPermission&#xA;Implements IUnrestrictedPermission" />
@@ -35,7 +35,7 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Локальная транзакция потребляет только ресурсы из одиночного долговременного источника или множества переменных источников. Распределенные транзакции, с другой стороны, должно взаимодействовать с нескольких устойчивых ресурсов, потенциально по сети. При передаче управления транзакции MSDTC, проверки кода, инициировавшему эскалацию иметь это разрешение. Дополнительные сведения об уровнях безопасности, см. в разделе [уровни безопасности доверия в доступ к ресурсам](https://msdn.microsoft.com/library/8e45acbc-0d81-4f64-9da7-8f766aebff51). Дополнительные сведения о расширении управления транзакцией, см. в разделе [эскалации управления транзакцией](https://msdn.microsoft.com/library/5b87ae58-8ccf-4b9b-9715-41e4aade89b7). Требование безопасности влияет на код, который инициировал эскалации, не обязательно код, который первоначально создал локальную транзакцию.  
+ Локальная транзакция потребляет только ресурсы из одного источника устойчивых или нескольких источников volatile. Распределенные транзакции, с другой стороны, должно взаимодействовать с нескольких устойчивых ресурсов, потенциально по сети. При передаче управления транзакции MSDTC, проверки кода, инициировавшему эскалацию иметь это разрешение. Дополнительные сведения об уровнях безопасности, см. в разделе [уровни безопасности доверия в доступ к ресурсам](https://msdn.microsoft.com/library/8e45acbc-0d81-4f64-9da7-8f766aebff51). Дополнительные сведения о расширении управления транзакцией, см. в разделе [эскалации управления транзакцией](https://msdn.microsoft.com/library/5b87ae58-8ccf-4b9b-9715-41e4aade89b7). Требование безопасности влияет на код, который инициировал эскалации, не обязательно код, который первоначально создал локальную транзакцию.  
   
  ]]></format>
     </remarks>
@@ -126,7 +126,7 @@
       </Parameters>
       <Docs>
         <param name="securityElement">Кодировка XML, используемая для восстановления разрешения.</param>
-        <summary>Восстанавливает разрешение с определенным состоянием из кодировки XML.</summary>
+        <summary>Восстанавливает разрешение с указанным состоянием из кодировки XML.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -156,9 +156,9 @@
         <Parameter Name="target" Type="System.Security.IPermission" />
       </Parameters>
       <Docs>
-        <param name="target">Разрешение, которое должно пересекаться с текущим разрешением. Оно должно относиться к тому же типу, что и текущее разрешение.</param>
-        <summary>Создает и возвращает разрешение, представляющее собой пересечение текущего и заданного разрешений.</summary>
-        <returns>Новое разрешение, представляющее собой пересечение текущего и заданного разрешений. Если пересечение пусто, новое разрешение имеет значение <see langword="null" />.</returns>
+        <param name="target">Разрешение, пересекающееся с текущим разрешением. Его тип должен совпадать с типом текущего разрешения.</param>
+        <summary>Создает и возвращает разрешение, представляющее собой пересечение текущего и указанного разрешений.</summary>
+        <returns>Новое разрешение, представляющее собой пересечение текущего и указанного разрешений. Это новое разрешение равно <see langword="null" />, если пересечение является пустым.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -188,9 +188,9 @@
         <Parameter Name="target" Type="System.Security.IPermission" />
       </Parameters>
       <Docs>
-        <param name="target">Разрешение на проверку отношения подмножеств между собой. Данное разрешение должно относиться к тому же типу, что и текущее разрешение.</param>
+        <param name="target">Разрешение на проверку отношения подмножеств между собой. Его тип должен совпадать с типом текущего разрешения.</param>
         <summary>Возвращает значение, указывающее, является ли текущее разрешение подмножеством заданного разрешения.</summary>
-        <returns><see langword="true" />, если текущее разрешение <see cref="T:System.Security.IPermission" /> является подмножеством заданного разрешения <see cref="T:System.Security.IPermission" />; в противном случае — <see langword="false" />.</returns>
+        <returns><see langword="true" /> , если текущее разрешение <see cref="T:System.Security.IPermission" /> является подмножеством заданного разрешения <see cref="T:System.Security.IPermission" />; в противном случае — <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -222,7 +222,7 @@
       <Parameters />
       <Docs>
         <summary>Возвращает значение, указывающее, допустим ли неограниченный доступ к ресурсу, защищенному текущим разрешением.</summary>
-        <returns><see langword="true" />, если позволено неограниченное использование ресурса, защищенного разрешением; в противном случае — <see langword="false" />.</returns>
+        <returns><see langword="true" /> , если позволено неограниченное использование ресурса, защищенного разрешением; в противном случае — <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
