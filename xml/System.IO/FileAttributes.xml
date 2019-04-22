@@ -1,5 +1,5 @@
 <Type Name="FileAttributes" FullName="System.IO.FileAttributes">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="35b4199264ecbc920ff8cc871fdaa66557a8dff0" /><Meta Name="ms.sourcegitcommit" Value="a3e01ec36374fac54a55add0dcc1e754e394abeb" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="03/30/2019" /><Meta Name="ms.locfileid" Value="58713904" /></Metadata><TypeSignature Language="C#" Value="public enum FileAttributes" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="4fe767d223ee9761bb15692322415ccad0e3232f" /><Meta Name="ms.sourcegitcommit" Value="9fde55ecc35aa9df4967f3522d7e9ce113f5147c" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="04/16/2019" /><Meta Name="ms.locfileid" Value="59615004" /></Metadata><TypeSignature Language="C#" Value="public enum FileAttributes" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed FileAttributes extends System.Enum" />
   <TypeSignature Language="DocId" Value="T:System.IO.FileAttributes" />
   <TypeSignature Language="VB.NET" Value="Public Enum FileAttributes" />
@@ -47,18 +47,32 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Атрибуты для файлов и каталогов можно получить, вызвав <xref:System.IO.File.GetAttributes%2A> метод и можно задать их путем вызова <xref:System.IO.File.SetAttributes%2A> метод.  
+ Атрибуты для файлов и каталогов можно получить, вызвав <xref:System.IO.File.GetAttributes%2A?displayProperty=nameWithType> метод и можно задать их путем вызова <xref:System.IO.File.SetAttributes%2A?displayProperty=nameWithType> метод.  
   
- Это не невозможно изменить состояние сжатия <xref:System.IO.File> объекта с помощью <xref:System.IO.File.SetAttributes%2A> метод. Вместо этого необходимо фактически выполнить сжатие файла, используя средство сжатия или одного из классов в <xref:System.IO.Compression?displayProperty=nameWithType> пространства имен.  
+ Это не невозможно изменить состояние сжатия <xref:System.IO.File> объекта с помощью <xref:System.IO.File.SetAttributes%2A?displayProperty=nameWithType> метод. Вместо этого необходимо фактически выполнить сжатие файла, используя средство сжатия или одного из классов в <xref:System.IO.Compression?displayProperty=nameWithType> пространства имен.  
   
-   
-  
+.NET Core на macOS и Linux не поддерживаются следующие атрибуты:
+
+- <xref:System.IO.FileAttributes.Archive?displayProperty=nameWithType>
+- <xref:System.IO.FileAttributes.Compressed?displayProperty=nameWithType>
+- <xref:System.IO.FileAttributes.Device?displayProperty=nameWithType>
+- <xref:System.IO.FileAttributes.Encrypted?displayProperty=nameWithType>
+- <xref:System.IO.FileAttributes.IntegrityStream?displayProperty=nameWithType>
+- <xref:System.IO.FileAttributes.NoScrubData?displayProperty=nameWithType>
+- <xref:System.IO.FileAttributes.NotContentIndexed?displayProperty=nameWithType>
+- <xref:System.IO.FileAttributes.Offline?displayProperty=nameWithType>
+- <xref:System.IO.FileAttributes.SparseFile?displayProperty=nameWithType>
+- <xref:System.IO.FileAttributes.System?displayProperty=nameWithType>
+- <xref:System.IO.FileAttributes.Temporary?displayProperty=nameWithType>
+
+В системах Unix, значение, возвращаемое функцией <xref:System.IO.File.GetAttributes%2A?displayProperty=nameWithType> включает в себя `Hidden` для файла, имя которого начинается с точки (».»). В Mac OS вы можете получить или задать флагом hidden.
+
 ## Examples  
  В следующем примере показано, как получить атрибуты файла и проверять, является ли файл только для чтения.  
   
  [!code-csharp[System.IO.FileAttributes#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.io.fileattributes/cs/example.cs#1)]
- [!code-vb[System.IO.FileAttributes#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.io.fileattributes/vb/example.vb#1)]  
-  
+ [!code-vb[System.IO.FileAttributes#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.io.fileattributes/vb/example.vb#1)] 
+
  ]]></format>
     </remarks>
     <altmember cref="M:System.IO.File.GetAttributes(System.String)" />
@@ -100,7 +114,7 @@
       </ReturnValue>
       <MemberValue>32</MemberValue>
       <Docs>
-        <summary>Файл выбран для резервного копирования или удаления.</summary>
+        <summary>Этот файл помечается для включения в операцию добавочного резервного копирования. Windows устанавливает этот атрибут при каждом изменении файла, и программному обеспечению резервного копирования нужно снимать его при обработке файла в рамках добавочного резервного копирования.</summary>
       </Docs>
     </Member>
     <Member MemberName="Compressed">
@@ -214,7 +228,7 @@
       </ReturnValue>
       <MemberValue>16</MemberValue>
       <Docs>
-        <summary>Файл является каталогом.</summary>
+        <summary>Файл является каталогом. <see langword="Directory" /> поддерживается в Windows, Linux и macOS.</summary>
       </Docs>
     </Member>
     <Member MemberName="Encrypted">
@@ -290,7 +304,7 @@
       </ReturnValue>
       <MemberValue>2</MemberValue>
       <Docs>
-        <summary>Файл скрытый и, таким образом, не включается в обычный список каталога.</summary>
+        <summary>Файл скрытый и, таким образом, не включается в обычный список каталога. <see langword="Hidden" /> поддерживается в Windows, Linux и macOS.</summary>
       </Docs>
     </Member>
     <Member MemberName="IntegrityStream">
@@ -369,7 +383,7 @@
       </ReturnValue>
       <MemberValue>128</MemberValue>
       <Docs>
-        <summary>Файл является стандартным файлом без специальных атрибутов. Этот атрибут действителен, только если он используется отдельно.</summary>
+        <summary>Файл является стандартным файлом без специальных атрибутов. Этот атрибут действителен, только если он используется отдельно. <see langword="Normal" /> поддерживается в Windows, Linux и macOS.</summary>
       </Docs>
     </Member>
     <Member MemberName="NoScrubData">
@@ -524,7 +538,7 @@
       </ReturnValue>
       <MemberValue>1</MemberValue>
       <Docs>
-        <summary>Файл доступен только для чтения.</summary>
+        <summary>Файл доступен только для чтения. <see langword="ReadOnly" /> поддерживается в Windows, Linux и macOS. В Linux и macOS изменение флага <see langword="ReadOnly" /> — это операция с разрешениями.</summary>
       </Docs>
     </Member>
     <Member MemberName="ReparsePoint">
@@ -562,7 +576,7 @@
       </ReturnValue>
       <MemberValue>1024</MemberValue>
       <Docs>
-        <summary>Файл содержит точку повторной обработки, блокирующую определяемые пользователем данные, связанные с файлом или каталогом.</summary>
+        <summary>Файл содержит точку повторной обработки, блокирующую определяемые пользователем данные, связанные с файлом или каталогом. <see langword="ReparsePoint" /> поддерживается в Windows, Linux и macOS.</summary>
       </Docs>
     </Member>
     <Member MemberName="SparseFile">

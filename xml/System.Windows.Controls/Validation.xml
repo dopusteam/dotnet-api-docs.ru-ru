@@ -1,5 +1,5 @@
 <Type Name="Validation" FullName="System.Windows.Controls.Validation">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="3e91ed0e4a9df5cfc5080e52239803182ec500d5" /><Meta Name="ms.sourcegitcommit" Value="bac13a81377b1c4ebf3990e3287a6f1700f73751" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="03/19/2019" /><Meta Name="ms.locfileid" Value="57941741" /></Metadata><TypeSignature Language="C#" Value="public static class Validation" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="50f29749a92605ac0176c36c413225d47777d4ec" /><Meta Name="ms.sourcegitcommit" Value="2d0c7dc45e0d0cebcef58c1b1fb3d5c65bfaa866" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="04/11/2019" /><Meta Name="ms.locfileid" Value="59503558" /></Metadata><TypeSignature Language="C#" Value="public static class Validation" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Validation extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Windows.Controls.Validation" />
   <TypeSignature Language="VB.NET" Value="Public Class Validation" />
@@ -169,8 +169,44 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Получает коллекцию всех активных объектов <see cref="T:System.Windows.Controls.ValidationError" /> для элемента привязки.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+## Remarks  
+ Приложение не может изменять содержимое данной коллекции. См. в разделе "Пример" пример демонстрирует использование этого присоединенного свойства.  
+  
+ Модель привязки данных WPF позволяет связать <xref:System.Windows.Data.Binding.ValidationRules%2A> с вашей <xref:System.Windows.Data.Binding> объекта. Проверка происходит во время передачи значения источника привязки целевой для привязки, перед вызовом преобразователя. Ниже описан процесс проверки:  
+  
+1.  Когда значение передается от целевого свойства к свойству источника, механизм привязки данных сначала удаляет все <xref:System.Windows.Controls.ValidationError> , могут быть добавлены к <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=fullName> присоединенное свойство привязанного элемента. Затем он проверяет, есть ли любые пользовательские <xref:System.Windows.Controls.ValidationRule>s, определенным для этого <xref:System.Windows.Data.Binding>, в этом случае он вызывает <xref:System.Windows.Controls.ValidationRule.Validate%2A> метод на каждом из <xref:System.Windows.Controls.ValidationRule>s, пока один из них выполняется ошибку или пока не будут выполнены все из них.  
+  
+2.  Когда настраиваемое правило, не проходит, обработчик привязки создает <xref:System.Windows.Controls.ValidationError> и добавляет его к <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=fullName> коллекции привязанного элемента. Когда <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=fullName> не является пустым, <xref:System.Windows.Controls.Validation.HasError%2A?displayProperty=fullName> присоединенное свойство элемента имеет значение `true`. Кроме того Если <xref:System.Windows.Data.Binding.NotifyOnValidationError%2A> свойство <xref:System.Windows.Data.Binding> присваивается `true`, то обработчик привязки вызывает <xref:System.Windows.Controls.Validation.Error?displayProperty=fullName> присоединенного события в элементе.  
+  
+3.  Если все правила передачи, обработчик привязки вызывает преобразователь, если он существует.  
+  
+4.  Если преобразователь пройден, обработчик привязки вызывает метод задания свойства источника.  
+  
+5.  Если для привязки <xref:System.Windows.Controls.ExceptionValidationRule> связанные с ней и исключение во время выполнения шага 4, обработчик привязки проверяет, имеется ли <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A>. У вас есть возможность использовать <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A> обратного вызова, чтобы предоставить пользовательский обработчик для обработки исключений. Если <xref:System.Windows.Data.Binding.UpdateSourceExceptionFilter%2A> не указан в <xref:System.Windows.Data.Binding>, обработчик привязки создает <xref:System.Windows.Controls.ValidationError> с исключением и добавляет ее к <xref:System.Windows.Controls.Validation.Errors%2A?displayProperty=fullName> коллекции привязанного элемента.  
+  
+ Также Обратите внимание, что при передаче допустимого значения в любом направлении (целевой объект источник или источника к целевому объекту) очищается <xref:System.Windows.Controls.Validation>.<xref:System.Windows.Controls.Validation.Errors%2A> вложенное свойство.  
+  
+ Сведения о поведении этого свойства в <xref:System.Windows.Data.MultiBinding> сценариев, см. в разделе <xref:System.Windows.Data.MultiBindingExpression.ValidationError%2A>.  
+  
+ Дополнительные сведения см. в разделе «Проверка данных» в [Общие сведения о привязке данных](/dotnet/framework/wpf/data/data-binding-overview).  
+  
+<a name="xamlTextUsage_Errors"></a>   
+## <a name="xaml-text-usage"></a>Использование текста XAML  
+ См. заметки. <xref:System.Windows.Controls.Validation.Errors%2A> Сама коллекция не устанавливаются пользователем, но его можно использовать в определении шаблона элемента управления в XAML.  
+  
+<a name="dependencyPropertyInfo_Errors"></a>   
+## <a name="dependency-property-information"></a>Сведения о свойстве зависимостей  
+  
+|||  
+|-|-|  
+|Поле идентификатора|<xref:System.Windows.Controls.Validation.ErrorsProperty>|  
+|Значение свойства метаданных `true`|<xref:System.Windows.FrameworkPropertyMetadata.IsNotDataBindable%2A>|  
+  
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="ErrorsProperty">
@@ -411,8 +447,27 @@
         <AssemblyVersion>4.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Возвращает значение, показывающее, имеется ли ошибка <see cref="T:System.Windows.Controls.ValidationError" /> в какой-либо привязке конечного элемента привязки.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+ 
+## Remarks  
+ Сведения о поведении этого свойства в <xref:System.Windows.Data.MultiBinding> сценариев, см. в разделе <xref:System.Windows.Data.MultiBindingExpression.HasError%2A>.  
+  
+ Подробное описание проверки, см. в разделе проверки данных из [Общие сведения о привязке данных](/dotnet/framework/wpf/data/data-binding-overview).  
+  
+<a name="dependencyPropertyInfo_HasError"></a>   
+## <a name="dependency-property-information"></a>Сведения о свойстве зависимостей  
+  
+|||  
+|-|-|  
+|Поле идентификатора|<xref:System.Windows.Controls.Validation.HasErrorProperty>|  
+|Значение свойства метаданных `true`|<xref:System.Windows.FrameworkPropertyMetadata.IsNotDataBindable%2A>|  
+  
+ ]]></format>
+        </remarks>
+        <altmember cref="P:System.Windows.Data.Binding.ValidationRules" />
+        <altmember cref="P:System.Windows.Data.MultiBinding.ValidationRules" />
       </Docs>
     </Member>
     <Member MemberName="HasErrorProperty">
