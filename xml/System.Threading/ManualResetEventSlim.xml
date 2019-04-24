@@ -1,5 +1,5 @@
 <Type Name="ManualResetEventSlim" FullName="System.Threading.ManualResetEventSlim">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="b5248c3c063a15c2bc461ce02f6e57a727c1eff7" /><Meta Name="ms.sourcegitcommit" Value="3efce15f3841385ee3ba24bd71ff0c0cf9a47815" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="04/03/2019" /><Meta Name="ms.locfileid" Value="58874635" /></Metadata><TypeSignature Language="C#" Value="public class ManualResetEventSlim : IDisposable" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="b5248c3c063a15c2bc461ce02f6e57a727c1eff7" /><Meta Name="ms.sourcegitcommit" Value="2dd0eede6edd6dd3d2aa8f79010848658b967609" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="04/18/2019" /><Meta Name="ms.locfileid" Value="58874635" /></Metadata><TypeSignature Language="C#" Value="public class ManualResetEventSlim : IDisposable" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit ManualResetEventSlim extends System.Object implements class System.IDisposable" />
   <TypeSignature Language="DocId" Value="T:System.Threading.ManualResetEventSlim" />
   <TypeSignature Language="VB.NET" Value="Public Class ManualResetEventSlim&#xA;Implements IDisposable" />
@@ -44,7 +44,7 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Этот класс можно использовать для повышения производительности, чем <xref:System.Threading.ManualResetEvent> если периоды ожидания будут очень короткими, а если событие не выходит за рамки процесса. <xref:System.Threading.ManualResetEventSlim> использует занят вращаться в течение некоторого времени, пока ожидает перехода события в сигнальное. Если периоды ожидания короткие, цикличность может стоить гораздо дешевле, чем ожидание с использованием соответствующих дескрипторов. Однако, если состояние события не изменяется в течение заданного периода времени, <xref:System.Threading.ManualResetEventSlim> применяет обычный дескриптор ожидания событий.  
+ Этот класс можно использовать для повышения производительности, чем <xref:System.Threading.ManualResetEvent> если периоды ожидания будут очень короткими, а если событие не выходит за рамки процесса. <xref:System.Threading.ManualResetEventSlim> использует цикличную работу в режиме занятости в течение короткого промежутка времени, пока ожидает перехода события в сигнальное состояние. Если периоды ожидания короткие, цикличность может стоить гораздо дешевле, чем ожидание с использованием соответствующих дескрипторов. Однако, если состояние события не изменяется в течение заданного периода времени, <xref:System.Threading.ManualResetEventSlim> применяет обычный дескриптор ожидания событий.  
   
    
   
@@ -521,9 +521,9 @@
       <Docs>
         <param name="millisecondsTimeout">Время ожидания в миллисекундах или <see cref="F:System.Threading.Timeout.Infinite" /> (-1) для неограниченного времени ожидания.</param>
         <summary>Блокирует текущий поток до тех пор, пока не установлен текущий объект <see cref="T:System.Threading.ManualResetEventSlim" />, используя 32-разрядное знаковое целое число для измерения интервала времени.</summary>
-        <returns><see langword="true" /> , если был задан <see cref="T:System.Threading.ManualResetEventSlim" />; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если был задан <see cref="T:System.Threading.ManualResetEventSlim" />; в противном случае значение <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout" /> является отрицательным числом, отличным от –1, которое представляет неограниченное время ожидания.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="millisecondsTimeout" /> является отрицательным числом, отличным от –1, что означает бесконечное время ожидания.</exception>
         <exception cref="T:System.InvalidOperationException">Превышено максимально допустимое количество ожидающих.</exception>
         <exception cref="T:System.ObjectDisposedException">Объект уже удален.</exception>
         <related type="Article" href="~/docs/standard/threading/overview-of-synchronization-primitives.md">Общие сведения о примитивах синхронизации</related>
@@ -610,9 +610,9 @@
       <Docs>
         <param name="timeout">Период <see cref="T:System.TimeSpan" />, представляющий время ожидания в миллисекундах, или период <see cref="T:System.TimeSpan" />, представляющий -1 миллисекунду для неограниченного ожидания.</param>
         <summary>Блокирует текущий поток, пока не будет установлено текущее событие <see cref="T:System.Threading.ManualResetEventSlim" />, используя объект <see cref="T:System.TimeSpan" /> для измерения интервала времени.</summary>
-        <returns><see langword="true" /> , если был задан <see cref="T:System.Threading.ManualResetEventSlim" />; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если был задан <see cref="T:System.Threading.ManualResetEventSlim" />; в противном случае значение <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> является отрицательным числом, отличным от –1 миллисекунды, которое представляет неограниченное время ожидания. 
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> является отрицательным числом, отличным от -1 миллисекунды, которое представляет неограниченное время ожидания. 
 -или- 
 Количество миллисекунд в <paramref name="timeout" /> больше, чем значение <see cref="F:System.Int32.MaxValue" />.</exception>
         <exception cref="T:System.InvalidOperationException">Превышено максимально допустимое количество ожидающих.</exception>
@@ -655,10 +655,10 @@
         <param name="millisecondsTimeout">Время ожидания в миллисекундах или <see cref="F:System.Threading.Timeout.Infinite" /> (-1) для неограниченного времени ожидания.</param>
         <param name="cancellationToken">Токен отмены <see cref="T:System.Threading.CancellationToken" />, который следует контролировать.</param>
         <summary>Блокирует текущий поток до тех пор, пока не будет установлен текущий объект <see cref="T:System.Threading.ManualResetEventSlim" />, используя 32-разрядное знаковое целое число для измерения интервала времени. Кроме того, метод контролирует токен <see cref="T:System.Threading.CancellationToken" />.</summary>
-        <returns><see langword="true" /> , если был задан <see cref="T:System.Threading.ManualResetEventSlim" />; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если был задан <see cref="T:System.Threading.ManualResetEventSlim" />; в противном случае значение <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken" /> был отменен.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout" /> является отрицательным числом, отличным от –1, которое представляет неограниченное время ожидания.</exception>
+        <exception cref="T:System.ArgumentOutOfRangeException">Параметр <paramref name="millisecondsTimeout" /> является отрицательным числом, отличным от –1, что означает бесконечное время ожидания.</exception>
         <exception cref="T:System.InvalidOperationException">Превышено максимально допустимое количество ожидающих.</exception>
         <exception cref="T:System.ObjectDisposedException">Объект был удален или <see cref="T:System.Threading.CancellationTokenSource" />, создавший <paramref name="cancellationToken" />, был удален.</exception>
         <related type="Article" href="~/docs/standard/threading/overview-of-synchronization-primitives.md">Общие сведения о примитивах синхронизации</related>
@@ -699,10 +699,10 @@
         <param name="timeout">Период <see cref="T:System.TimeSpan" />, представляющий время ожидания в миллисекундах, или период <see cref="T:System.TimeSpan" />, представляющий -1 миллисекунду для неограниченного ожидания.</param>
         <param name="cancellationToken">Токен отмены <see cref="T:System.Threading.CancellationToken" />, который следует контролировать.</param>
         <summary>Блокирует текущий поток до тех пор, пока не будет установлен текущий объект <see cref="T:System.Threading.ManualResetEventSlim" />, используя значение <see cref="T:System.TimeSpan" /> для измерения интервала времени. Кроме того, метод контролирует токен <see cref="T:System.Threading.CancellationToken" />.</summary>
-        <returns><see langword="true" /> , если был задан <see cref="T:System.Threading.ManualResetEventSlim" />; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если был задан <see cref="T:System.Threading.ManualResetEventSlim" />; в противном случае значение <see langword="false" />.</returns>
         <remarks>To be added.</remarks>
         <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken" /> был отменен.</exception>
-        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> является отрицательным числом, отличным от –1 миллисекунды, которое представляет неограниченное время ожидания. 
+        <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout" /> является отрицательным числом, отличным от -1 миллисекунды, которое представляет неограниченное время ожидания. 
 -или- 
 Количество миллисекунд в <paramref name="timeout" /> больше, чем значение <see cref="F:System.Int32.MaxValue" />.</exception>
         <exception cref="T:System.InvalidOperationException">Превышено максимально допустимое количество ожидающих.</exception>
