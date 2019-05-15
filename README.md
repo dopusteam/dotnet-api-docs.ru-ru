@@ -1,9 +1,16 @@
-# .NET Docs
+---
+ms.openlocfilehash: d05c00f17da101e91e75be0555c488d0208bef33
+ms.sourcegitcommit: f1d16425528e237257ca3b58eb49217a514849ea
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 04/24/2019
+ms.locfileid: "65515479"
+---
+# <a name="net-api-reference-docs"></a><span data-ttu-id="d4560-101">Справочная документация по API .NET</span><span class="sxs-lookup"><span data-stu-id="d4560-101">.NET API Reference Docs</span></span>
 
-This repo contains work-in-progress documentation for .NET. To contribute, see the [Contributing Guide](https://github.com/dotnet/docs/blob/master/CONTRIBUTING.md) and the [issues list](https://github.com/dotnet/docs/issues). 
+<span data-ttu-id="d4560-102">Этот репозиторий содержит справочную документацию по API .NET.</span><span class="sxs-lookup"><span data-stu-id="d4560-102">This repo contains documentation for the .NET API Reference.</span></span>
 
-We welcome contributions to help us improve and complete the .NET docs. We anticipate that [Xamarin](http://developer.xamarin.com/api/root/classlib/), [Mono](http://docs.go-mono.com/?link=root%3a%2fclasslib) and [Unity](http://docs.unity3d.com/Manual/index.html) will also use this documentation.
+<span data-ttu-id="d4560-103">Основным репозиторием документации по .NET является [репозиторий документации по .NET](https://github.com/dotnet/docs).</span><span class="sxs-lookup"><span data-stu-id="d4560-103">The main repository for .NET documentation is the [.NET Docs repository](https://github.com/dotnet/docs).</span></span> <span data-ttu-id="d4560-104">Сведения об обновлении справочной документации по API .NET см. в [руководстве по участию в написании статей](https://github.com/dotnet/docs/blob/master/CONTRIBUTING.md).</span><span class="sxs-lookup"><span data-stu-id="d4560-104">See the [Contributing Guide](https://github.com/dotnet/docs/blob/master/CONTRIBUTING.md) for information on updating .NET API reference documentation.</span></span>
+<span data-ttu-id="d4560-105">Мы отслеживаем всю работу по наполнению этого репозитория с помощью [раздела проблем на GitHub](https://github.com/dotnet/dotnet-api-docs/issues).</span><span class="sxs-lookup"><span data-stu-id="d4560-105">We are tracking all work for this repository using [GitHub issues](https://github.com/dotnet/dotnet-api-docs/issues).</span></span> <span data-ttu-id="d4560-106">Документация по API формируется из материалов в этом репозитории и примеров в репозитории [dotnet/samples](https://github.com/dotnet/samples).</span><span class="sxs-lookup"><span data-stu-id="d4560-106">The documentation for APIs is built from the text in this repo, and the samples in the [dotnet/samples](https://github.com/dotnet/samples) repository.</span></span> <span data-ttu-id="d4560-107">Чтобы просмотреть проблемы, связанные с примерами кода, щелкните [Repo - samples](https://github.com/dotnet/docs/issues?q=is%3Aopen+is%3Aissue+label%3A%22%3Afile_folder%3A+Repo+-+samples%22) (Репозиторий — примеры).</span><span class="sxs-lookup"><span data-stu-id="d4560-107">You can select the [Repo - samples](https://github.com/dotnet/docs/issues?q=is%3Aopen+is%3Aissue+label%3A%22%3Afile_folder%3A+Repo+-+samples%22) label to see issues that concern sample code.</span></span>
 
-This project has adopted the code of conduct defined by the Contributor Covenant
-to clarify expected behavior in our community.
-For more information, see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
+<span data-ttu-id="d4560-108">Ожидаемое поведение в нашем сообществе определяется правилами поведения Contributor Covenant, принятыми в этом проекте.</span><span class="sxs-lookup"><span data-stu-id="d4560-108">This project has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community.</span></span> <span data-ttu-id="d4560-109">Дополнительные сведения см. в разделе [Правила поведения .NET Foundation](https://dotnetfoundation.org/code-of-conduct).</span><span class="sxs-lookup"><span data-stu-id="d4560-109">For more information, see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).</span></span>
