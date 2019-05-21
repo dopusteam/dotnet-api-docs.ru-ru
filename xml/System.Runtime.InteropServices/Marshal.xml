@@ -1,5 +1,5 @@
 <Type Name="Marshal" FullName="System.Runtime.InteropServices.Marshal">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="65175403b6ff654dc9b0bdba61783b88bdd4a657" /><Meta Name="ms.sourcegitcommit" Value="0b4deef443af9fe6334aa34b8a17190223bf0486" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="05/14/2019" /><Meta Name="ms.locfileid" Value="65609617" /></Metadata><TypeSignature Language="C#" Value="public static class Marshal" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="f50859363fd37688e070eaa6e1cd762332366c0e" /><Meta Name="ms.sourcegitcommit" Value="f61362e4134a78bac27d2c8136823a467216f4ab" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="05/15/2019" /><Meta Name="ms.locfileid" Value="65629401" /></Metadata><TypeSignature Language="C#" Value="public static class Marshal" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Marshal extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Runtime.InteropServices.Marshal" />
   <TypeSignature Language="VB.NET" Value="Public Class Marshal" />
@@ -4075,15 +4075,16 @@
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
-## Remarks  
- <xref:System.Runtime.InteropServices.Marshal.GetLastWin32Error%2A> предоставляет Win32 [GetLastError](https://go.microsoft.com/fwlink/?LinkId=148657) функции из Kernel32.DLL. Этот метод существует, так как это не безопасно выполнять прямой вызов неуправляемого `GetLastError` для получения этих сведений. Если вы хотите получить этот код ошибки, необходимо вызвать <xref:System.Runtime.InteropServices.Marshal.GetLastWin32Error%2A> вместо написания собственных определение вызова неуправляемого `GetLastError` и его вызов. Среда CLR может выполнять внутренние вызовы интерфейсов API, `GetLastError` поддерживается операционной системой.  
+## Remarks
+
+В системах Windows <xref:System.Runtime.InteropServices.Marshal.GetLastWin32Error%2A> предоставляет Win32 [GetLastError](/windows/desktop/ms679360) функции из Kernel32.DLL. Этот метод существует, поскольку он не является надежной, чтобы сделать прямой вызов неуправляемого `GetLastError` для получения этих сведений. Если вы хотите получить этот код ошибки, необходимо вызвать <xref:System.Runtime.InteropServices.Marshal.GetLastWin32Error%2A> вместо написания собственных определение вызова неуправляемого `GetLastError` и его вызов. Среда CLR может выполнять внутренние вызовы интерфейсов API, `GetLastError` поддерживается операционной системой.  
+
+Этот метод можно использовать для получения кодов ошибок, только в том случае, если применить <xref:System.Runtime.InteropServices.DllImportAttribute?displayProperty=nameWithType> в сигнатуру метода и задайте <xref:System.Runtime.InteropServices.DllImportAttribute.SetLastError?displayProperty=nameWithType> поле`true`. Эта процедура зависит от используемого исходного языка: C#а C++ — `false` по умолчанию, но `Declare` в Visual Basic — `true`.  
   
- Этот метод можно использовать для получения кодов ошибок, только в том случае, если применить <xref:System.Runtime.InteropServices.DllImportAttribute?displayProperty=nameWithType> в сигнатуру метода и задайте <xref:System.Runtime.InteropServices.DllImportAttribute.SetLastError> поле`true`. Эта процедура зависит от используемого исходного языка: C#а C++ — `false` по умолчанию, но `Declare` в Visual Basic — `true`.  
-  
-   
-  
+Есть различия в поведении `GetLastWin32Error` метод на .NET Core и .NET Framework при <xref:System.Runtime.InteropServices.DllImportAttribute.SetLastError?displayProperty=nameWithType> является `true`. На платформе .NET Framework `GetLastWin32Error` метод можно сохранить сведения об ошибке от одного вызова P/Invoke к следующему. В .NET Core, сведения об ошибке очищается до вызова P/Invoke и `GetLastWin32Error` представляет только сведения об ошибке из последнего вызова метода.
+
 ## Examples  
- В следующем примере демонстрируется вызов метода <xref:System.Runtime.InteropServices.Marshal.GetLastWin32Error%2A>. В примере сначала демонстрируется вызов метода без ошибок и затем демонстрируется вызов метода с ошибкой.  
+ В следующем примере вызывается `GetLastWin32Error` метод. В примере сначала демонстрируется вызов метода без ошибок и затем демонстрируется вызов метода с ошибкой.  
   
  [!code-csharp[Runtime.InteropServices.Marshal.GetLastWin32Error#1](~/samples/snippets/csharp/VS_Snippets_CLR/Runtime.InteropServices.Marshal.GetLastWin32Error/cs/example.cs#1)]
  [!code-vb[Runtime.InteropServices.Marshal.GetLastWin32Error#1](~/samples/snippets/visualbasic/VS_Snippets_CLR/Runtime.InteropServices.Marshal.GetLastWin32Error/vb/example.vb#1)]  
