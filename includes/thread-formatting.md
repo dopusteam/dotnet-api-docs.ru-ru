@@ -1,0 +1,10 @@
+---
+ms.openlocfilehash: aebc006f88ebcbe6520e51b8d7b85db18c595c9e
+ms.sourcegitcommit: 9a6da88bd5455e8274257ca7ad259b42f1de114f
+ms.translationtype: HT
+ms.contentlocale: ru-RU
+ms.lasthandoff: 05/22/2019
+ms.locfileid: "66008818"
+---
+
+<span data-ttu-id="3bcec-101">Дополнительные сведения о текущих языке и региональных параметрах потока см. в статьях о свойствах <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=nameWithType> и <xref:System.Threading.Thread.CurrentCulture%2A?displayProperty=nameWithType>.</span><span class="sxs-lookup"><span data-stu-id="3bcec-101">For more information about the current thread culture, see the <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=nameWithType> and <xref:System.Threading.Thread.CurrentCulture%2A?displayProperty=nameWithType> properties.</span></span> <span data-ttu-id="3bcec-102">Дополнительные сведения о символах и шаблонах формата, а также создаваемых ими выходных данных см. в статьях [Строки стандартных форматов даты и времени](~/docs/standard/base-types/standard-date-and-time-format-strings.md) и [Строки настраиваемых форматов даты и времени](~/docs/standard/base-types/custom-date-and-time-format-strings.md).</span><span class="sxs-lookup"><span data-stu-id="3bcec-102">For more information about format characters, format patterns, and the output they produce, see [Standard date and time format strings](~/docs/standard/base-types/standard-date-and-time-format-strings.md) and [Custom date and time format strings](~/docs/standard/base-types/custom-date-and-time-format-strings.md).</span></span> <span data-ttu-id="3bcec-103">Дополнительные сведения об изменении шаблона формата, связанного с символом формата, см. в статье о классе <xref:System.Globalization.DateTimeFormatInfo>.</span><span class="sxs-lookup"><span data-stu-id="3bcec-103">For more information about changing the format pattern associated with a format character, see the <xref:System.Globalization.DateTimeFormatInfo> class.</span></span>  
