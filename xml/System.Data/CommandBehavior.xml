@@ -1,5 +1,5 @@
 <Type Name="CommandBehavior" FullName="System.Data.CommandBehavior">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="06bf0e5f9cd0830b6df366d100746730876bffda" /><Meta Name="ms.sourcegitcommit" Value="a3e01ec36374fac54a55add0dcc1e754e394abeb" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="03/30/2019" /><Meta Name="ms.locfileid" Value="58692853" /></Metadata><TypeSignature Language="C#" Value="public enum CommandBehavior" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="8dc33ced8e52016db3b9d4d5cbce685de60f0ab5" /><Meta Name="ms.sourcegitcommit" Value="9a6da88bd5455e8274257ca7ad259b42f1de114f" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="05/22/2019" /><Meta Name="ms.locfileid" Value="66006813" /></Metadata><TypeSignature Language="C#" Value="public enum CommandBehavior" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed CommandBehavior extends System.Enum" />
   <TypeSignature Language="DocId" Value="T:System.Data.CommandBehavior" />
   <TypeSignature Language="VB.NET" Value="Public Enum CommandBehavior" />
@@ -38,15 +38,21 @@
       <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- <xref:System.Data.CommandBehavior> Значения используются <xref:System.Data.IDbCommand.ExecuteReader%2A> метод <xref:System.Data.IDbCommand> и любые классы, производные от него.  
+ `CommandBehavior` Значения используются <xref:System.Data.IDbCommand.ExecuteReader%2A> метод <xref:System.Data.IDbCommand> и любыми реализующими классами.  
   
  Побитовое сочетание этих значений могут использоваться.  
   
- <xref:System.Data.CommandBehavior> учитывается при использовании для определения <xref:System.Data.Sql.SqlNotificationRequest> или <xref:System.Data.SqlClient.SqlDependency> и поэтому не следует использовать. Используйте конструктор, который не требует `CommandBehavior` параметра в этих двух случаях.  
-  
+`CommandBehavior` учитывается при использовании для определения <xref:System.Data.Sql.SqlNotificationRequest> или <xref:System.Data.SqlClient.SqlDependency> и поэтому не следует использовать. Используйте конструктор, который не требует `CommandBehavior` параметра в этих двух случаях.  
+
+### <a name="notes-on-individual-enumeration-members"></a>Заметки на отдельных перечисление членов
+
+При использовании `KeyInfo`, поставщик данных .NET Framework для SQL Server предваряет оператор, выполняемый с `SET FMTONLY OFF` и `SET NO_BROWSETABLE ON`. Пользователь должен быть осведомлен о возможных побочных эффектах, например с использованием `SET FMTONLY ON` инструкций. Дополнительные сведения см. в разделе [SET FMTONLY (Transact-SQL)](/sql/t-sql/statements/set-fmtonly-transact-sql).
+
 > [!NOTE]
->  Используйте SequentialAccess для получения больших значений и двоичные данные. В противном случае <xref:System.OutOfMemoryException> могут возникнуть, и соединение будет закрыто.  
-  
+>  Используйте `SequentialAccess` для получения больших значений и двоичные данные. В противном случае <xref:System.OutOfMemoryException> могут возникнуть, и соединение будет закрыто.  
+
+При указании `SequentialAccess`, потребуется считать столбцы в порядке, они возвращаются, несмотря на то, что не требуется считывать каждый столбец. После считывания после положения в возвращенного потока данных данные во время или до указанного расположения больше не могут считываться из `DataReader`. При использовании <xref:System.Data.OleDb.OleDbDataReader>, повторное считывание текущее значение столбца до его чтения. При использовании <xref:System.Data.SqlClient.SqlDataReader>, значение столбца можно прочитать только один раз.  
+
  ]]></format>
     </remarks>
   </Docs>
@@ -153,17 +159,8 @@
       </ReturnValue>
       <MemberValue>4</MemberValue>
       <Docs>
-        <summary>Запрос возвращает информацию колонки и первичного ключа.</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- Когда KeyInfo используется для выполнения команды, поставщик, будут добавлены дополнительные столбцы в результирующем наборе для существующего первичного ключа и столбцов timestamp.  
-  
- При использовании KeyInfo, поставщик данных .NET Framework для SQL Server предваряет оператор, выполняемый с SET FMTONLY OFF и SET NO_BROWSETABLE ON. Пользователь должен быть осведомлен о возможных побочных эффектах, например о проблемах, возникающих при использовании операторов SET FMTONLY ON. Дополнительные сведения см. в разделе [SET FMTONLY (Transact-SQL)](/sql/t-sql/statements/set-fmtonly-transact-sql).
-  
- ]]></format>
-        </remarks>
+        <summary>Запрос возвращает информацию колонки и первичного ключа. Поставщик добавляет дополнительные столбцы в результирующий набор для существующего первичного ключа и столбцы меток времени.</summary>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="SchemaOnly">
@@ -234,14 +231,7 @@
       <MemberValue>16</MemberValue>
       <Docs>
         <summary>Содержит способ для <see langword="DataReader" /> для обработки строк, содержащих столбцы с большими двоичными значениями. Вместо загрузки всей строки, <see langword="SequentialAccess" /> позволяет <see langword="DataReader" /> загрузить данные как поток. Затем можно использовать метод <see langword="GetBytes" /> или метод <see langword="GetChars" />, чтобы указать положение байта для начала операции чтения и ограниченный размер буфера для возврата данных.</summary>
-        <remarks>
-          <format type="text/markdown"><![CDATA[  
-  
-## Remarks  
- При указании `SequentialAccess`, потребуется считать столбцы в порядке, они возвращаются, несмотря на то, что не требуется считывать каждый столбец. После считывания после положения в возвращенного потока данных данные во время или до указанного расположения больше не могут считываться из `DataReader`. При использовании <xref:System.Data.OleDb.OleDbDataReader>, повторное считывание текущее значение столбца до его чтения. При использовании <xref:System.Data.SqlClient.SqlDataReader>, значение столбца можно прочитать только один раз.  
-  
- ]]></format>
-        </remarks>
+        <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="SingleResult">

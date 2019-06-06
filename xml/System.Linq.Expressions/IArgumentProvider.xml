@@ -1,5 +1,5 @@
 <Type Name="IArgumentProvider" FullName="System.Linq.Expressions.IArgumentProvider">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="18b622ce78fe8295b4aac908d2b2687c5ed1f01f" /><Meta Name="ms.sourcegitcommit" Value="a3e01ec36374fac54a55add0dcc1e754e394abeb" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="03/30/2019" /><Meta Name="ms.locfileid" Value="58715512" /></Metadata><TypeSignature Language="C#" Value="public interface IArgumentProvider" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="4abd0b0508fdc62e37d2117e5823a54dfc7dfdce" /><Meta Name="ms.sourcegitcommit" Value="d3dcd8c426adcf1bbe5ff78a76dee13bd8ad6efd" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="05/28/2019" /><Meta Name="ms.locfileid" Value="66251525" /></Metadata><TypeSignature Language="C#" Value="public interface IArgumentProvider" />
   <TypeSignature Language="ILAsm" Value=".class public interface auto ansi abstract IArgumentProvider" />
   <TypeSignature Language="DocId" Value="T:System.Linq.Expressions.IArgumentProvider" />
   <TypeSignature Language="VB.NET" Value="Public Interface IArgumentProvider" />
@@ -24,18 +24,28 @@
   </AssemblyInfo>
   <Interfaces />
   <Docs>
-    <summary>Предоставляет внутренний интерфейс для доступа к аргументам нескольких узлов дерева (DynamicExpression, ElementInit, MethodCallExpression, InvocationExpression, NewExpression и IndexExpression).  Не следует использовать этот API.  Он является открытым только из-за рефакторинга DLL и существует только для внутренней оптимизации производительности.  
+    <summary>Предоставляет внутренний интерфейс для доступа к аргументам нескольких узлов дерева (DynamicExpression, ElementInit, MethodCallExpression, InvocationExpression, NewExpression и IndexExpression).  Этот интерфейс API предназначен только для внутреннего использования.</summary>
+    <remarks>
+      <format type="text/markdown"><![CDATA[
+      
+## Remarks
+
+Не следует использовать этот API.  Он является открытым только из-за рефакторинга сборки и существует только для внутренней оптимизации производительности. В результате два способа оптимизации, которые уменьшают размер деревьев:
   
-Благодаря этому доступны два способа оптимизации, которые уменьшают размер деревьев выражений.  Первый способ позволяет узлам дерева удерживаться в IList&lt;T&gt; вместо ReadOnlyCollection.  IList&lt;T&gt; экономит выделение ReadOnlyCollection для каждого узла.  Второй способ включает создание специализированных подклассов, которые могут захватывать определенное число аргументов (например, Block2, Block3, Block4).  Таким образом, для этих узлов не требуется выделять ReadOnlyCollection и массив для хранения их элементов, что экономит по 32 байта на каждый узел.  
+1. Он позволяет узлам держаться <xref:System.Collections.Generic.IList%601> вместо <xref:System.Collections.ObjectModel.ReadOnlyCollection%601>.  Это уменьшает затраты на выделение только для чтения коллекцию для каждого узла.
   
-Узлы дерева выражения по-прежнему предоставляют исходные свойства ReadOnlyCollections LINQ.  Это достигается повторным использованием поля для хранения массива или элемента, который обычно хранится в массиве.  
-  
-В случае массива коллекции типизируется в IList&lt;T&gt; вместо ReadOnlyCollection&lt;T&gt;.  Когда узел создается, изначально он является массивом.  Компилятор при доступе к членам использует этот интерфейс.  Доступ к элементам массива повышает уровень массива до ReadOnlyCollection.  
-  
-В случае объекта первый аргумент хранится в поле, типизированном в объект.  Когда узел создается, изначально это поле содержит выражение.  Компилятор обращается к аргументам через этот интерфейс, и метод доступа для первого аргумента использует Expression.ReturnObject для возврата объекта, который обрабатывает случай выражения (Expression) или ReadOnlyCollection.  Когда пользователь обращается к ReadOnlyCollection, поле объекта обновляется для хранения непосредственно в ReadOnlyCollection.  
-  
-Важно, чтобы выражение всегда возвращало один и тот же объект ReadOnlyCollection.  В противном случае обход дерева перезаписи будет нарушен.  Возврат разных объектов ReadOnlyCollection из одного узла Expression является критическим изменением в LINQ v1.  В настоящее время пользователи могут определять, изменился ли узел, по идентификатору объекта.  Хранение ReadOnlyCollection в перегруженном поле позволяет сократить использование памяти и обеспечивает совместимость для открытого API-интерфейса.</summary>
-    <remarks>To be added.</remarks>
+2. Он позволяет специализированных подклассов создаваемого удержанием на определенное число аргументов (например, `Block2`, `Block2`, `Block4`).  Таким образом, эти узлы не, требуется выделять оба <xref:System.Collections.ObjectModel.ReadOnlyCollection%601> и массив для хранения их элементов, что экономит 32 байта на каждый узел.  Этот прием используется в различных узлов, включая <xref:System.Linq.Expressions.BlockExpression>, <xref:System.Linq.Expressions.InvocationExpression>, и <xref:System.Linq.Expressions.MethodCallExpression>.
+            
+Узлы дерева выражения по-прежнему предоставляют исходные свойства LINQ <xref:System.Collections.ObjectModel.ReadOnlyCollection%601> объектов. Это делается путем повторного использования поля для хранения массива или элемент, который обычно хранятся в массиве.
+            
+В случае массива коллекции типизируется в <xref:System.Collections.Generic.IList%601> вместо <xref:System.Collections.ObjectModel.ReadOnlyCollection%601>. Когда узел изначально создается, он является массивом.  Компилятор или служебные программы в этой библиотеке доступа к элементам через этот интерфейс. Доступ к элементам массива повышает уровень массива для <xref:System.Collections.ObjectModel.ReadOnlyCollection%601>.
+            
+В случае объекта первый аргумент хранится в поле, типизированном в <xref:System.Object>. Когда узел изначально создается, это поле содержит <xref:System.Linq.Expressions.Expression> первого аргумента.  Когда компилятор и служебные программы в этой библиотеке доступа к аргументам, они снова использовать этот интерфейс и метод доступа для первого аргумента использует внутренний `Expression.ReturnObject<T>(System.Object)` вспомогательный метод для возврата объекта, который обрабатывает <xref:System.Linq.Expressions.Expression> или <xref:System.Collections.ObjectModel.ReadOnlyCollection%601> случая. Когда пользователь обращается к <xref:System.Collections.ObjectModel.ReadOnlyCollection%601>, поле объекта обновляется для хранения непосредственно на <xref:System.Collections.ObjectModel.ReadOnlyCollection%601>.
+            
+Очень важно, <xref:System.Linq.Expressions.Expression> свойства согласованно возвращает такой же <xref:System.Collections.ObjectModel.ReadOnlyCollection%601>. В противном случае произойдет останов обход дерева перезаписи, используемые посетителей-выражений. Это критическое изменение LINQ v1 для возврата различных <xref:System.Collections.ObjectModel.ReadOnlyCollection%601> с использованием того же <xref:System.Linq.Expressions.Expression> узла. В настоящее время пользователи могут использовать удостоверение объекта, чтобы определить, изменилась ли узел.  Хранение <xref:System.Collections.ObjectModel.ReadOnlyCollection%601> в перегруженном поле оба позволяет сократить использование памяти и обеспечивает совместимость для открытого API-интерфейса.
+
+      ]]></format>
+    </remarks>
   </Docs>
   <Members>
     <Member MemberName="ArgumentCount">
@@ -67,9 +77,9 @@
         <ReturnType>System.Int32</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Возвращает число аргументов для узла дерева выражения.  Не следует использовать этот тип.  Он является открытым только из-за рефакторинга сборки и используется внутренне для оптимизации производительности.</summary>
+        <summary>Возвращает число аргументов для узла дерева выражения. Этот интерфейс API предназначен только для внутреннего использования.</summary>
         <value>Число аргументов для узла дерева выражения в виде <see cref="T:System.Int32" />.</value>
-        <remarks>To be added.</remarks>
+        <remarks>Не следует использовать этот API. Он является открытым только из-за рефакторинга сборки, и он используется системой для оптимизации производительности.</remarks>
       </Docs>
     </Member>
     <Member MemberName="GetArgument">
@@ -105,9 +115,9 @@
       </Parameters>
       <Docs>
         <param name="index">Индекс аргумента.</param>
-        <summary>Возвращает аргумент в индексе, создавая исключение, если индекс вне допустимых границ.  Не следует использовать этот тип.  Он является открытым только из-за рефакторинга сборки и используется внутренне для оптимизации производительности.</summary>
-        <returns>Аргумент в индексе, вызываемый, если индекс находится вне допустимых границ, как <see cref="T:System.Linq.Expressions.Expression" />.</returns>
-        <remarks>To be added.</remarks>
+        <summary>Возвращает аргумент по индексу <paramref name="index" />, создавая исключение, если индекс <paramref name="index" /> находится вне допустимых границ. Этот интерфейс API предназначен только для внутреннего использования.</summary>
+        <returns>Аргумент по индексу.</returns>
+        <remarks>Не следует использовать этот API.  Он является открытым только из-за рефакторинга сборки и используется внутренне для оптимизации производительности.</remarks>
       </Docs>
     </Member>
   </Members>

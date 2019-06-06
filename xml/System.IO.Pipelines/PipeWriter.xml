@@ -1,5 +1,5 @@
 <Type Name="PipeWriter" FullName="System.IO.Pipelines.PipeWriter">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="e2f146380d236a95e84925bb8544a9b5b326c911" /><Meta Name="ms.sourcegitcommit" Value="2767b5903996fbd7e2b81eda1114dfc9d0d9db63" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="05/02/2019" /><Meta Name="ms.locfileid" Value="64996762" /></Metadata><TypeSignature Language="C#" Value="public abstract class PipeWriter : System.Buffers.IBufferWriter&lt;byte&gt;" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="0b622dc070ab36dcf6b941c734e30c03d2c0237d" /><Meta Name="ms.sourcegitcommit" Value="0de246131f8a87c71d008d055adec7bf72470c4f" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="05/29/2019" /><Meta Name="ms.locfileid" Value="66301882" /></Metadata><TypeSignature Language="C#" Value="public abstract class PipeWriter : System.Buffers.IBufferWriter&lt;byte&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit PipeWriter extends System.Object implements class System.Buffers.IBufferWriter`1&lt;unsigned int8&gt;" />
   <TypeSignature Language="DocId" Value="T:System.IO.Pipelines.PipeWriter" />
   <TypeSignature Language="VB.NET" Value="Public MustInherit Class PipeWriter&#xA;Implements IBufferWriter(Of Byte)" />
@@ -67,8 +67,8 @@
         <Parameter Name="bytes" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="bytes">Число байтов, записанных <see cref="T:System.Span`1" /> или <see cref="T:System.Memory`1" />.</param>
-        <summary>Уведомляет <see cref="T:System.IO.Pipelines.PipeWriter" /> , <paramref name="bytes" /> записанных байтов в выходные данные <see cref="T:System.Span`1" /> или <see cref="T:System.Memory`1" />. После вызова метода необходимо запросить новый буфер <see cref="M:System.IO.Pipelines.PipeWriter.Advance(System.Int32)" /> продолжать запись дополнительных данных; нельзя записывать в буфер, полученного ранее.</summary>
+        <param name="bytes">Количество байтов, записанных в <see cref="T:System.Span`1" /> или <see cref="T:System.Memory`1" />.</param>
+        <summary>Уведомляет <see cref="T:System.IO.Pipelines.PipeWriter" /> о том, что байты <paramref name="bytes" /> записаны в выходной объект <see cref="T:System.Span`1" /> или <see cref="T:System.Memory`1" />. Чтобы продолжить запись данных, после вызова <see cref="M:System.IO.Pipelines.PipeWriter.Advance(System.Int32)" /> нужно запросить новый буфер. Производить запись в ранее полученный буфер нельзя.</summary>
         <remarks>To be added.</remarks>
         <inheritdoc />
       </Docs>
@@ -90,7 +90,7 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Возвращает доступный только для записи <see cref="T:System.IO.Stream" /> , который служит оболочкой <see cref="T:System.IO.Pipelines.PipeWriter" />.</summary>
+        <summary>Возвращает доступный только для записи объект <see cref="T:System.IO.Stream" />, который служит оболочкой для <see cref="T:System.IO.Pipelines.PipeWriter" />.</summary>
         <returns><see cref="T:System.IO.Stream" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
@@ -185,10 +185,10 @@
         <Parameter Name="writerOptions" Type="System.IO.Pipelines.StreamPipeWriterOptions" Index="1" FrameworkAlternate="dotnet-plat-ext-3.0" />
       </Parameters>
       <Docs>
-        <param name="stream">To be added.</param>
-        <param name="writerOptions">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <param name="stream">Поток, оболочкой которого будет модуль записи канала.</param>
+        <param name="writerOptions">Параметры для настройки модуля записи канала.</param>
+        <summary>Создает объект <see cref="T:System.IO.Pipelines.PipeWriter" />, являющийся оболочкой для указанного потока <see cref="T:System.IO.Stream" />.</summary>
+        <returns>Объект <see cref="T:System.IO.Pipelines.PipeWriter" />, который служит оболочкой для <see cref="T:System.IO.Stream" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -240,9 +240,9 @@
         <Parameter Name="sizeHint" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="sizeHint">Минимальная длина возвращаемого значения <see cref="T:System.Memory`1" />. Если значение равно 0, возвращается буфер непустой памяти произвольного размера.</param>
-        <summary>Возвращает <see cref="T:System.Memory`1" /> для записи, не меньше запрошенного размера, согласно <paramref name="sizeHint" /> параметра.</summary>
-        <returns>Буфер памяти по крайней мере <paramref name="sizeHint" /> байт. Если <paramref name="sizeHint" /> равно 0, возвращает буфер непустой произвольного размера.</returns>
+        <param name="sizeHint">Минимальная длина возвращаемого значения <see cref="T:System.Memory`1" />. Если значение равно 0, возвращается непустой буфер памяти произвольного размера.</param>
+        <summary>Возвращает <see cref="T:System.Memory`1" /> для записи минимального запрошенного размера (определяется параметром <paramref name="sizeHint" />).</summary>
+        <returns>Буфер памяти размером не менее <paramref name="sizeHint" /> байтов. Если значение <paramref name="sizeHint" /> равно 0, возвращается непустой буфер произвольного размера.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[
 
@@ -281,9 +281,9 @@
         <Parameter Name="sizeHint" Type="System.Int32" />
       </Parameters>
       <Docs>
-        <param name="sizeHint">Минимальная длина возвращаемого значения <see cref="T:System.Span`1" />. Если значение равно 0, возвращается буфер непустой произвольного размера.</param>
-        <summary>Возвращает <see cref="T:System.Span`1" /> для записи, не меньше запрошенного размера, согласно <paramref name="sizeHint" /> параметра.</summary>
-        <returns>Буфер по крайней мере <paramref name="sizeHint" /> байт. Если <paramref name="sizeHint" /> равно 0, возвращает буфер непустой произвольного размера.</returns>
+        <param name="sizeHint">Минимальная длина возвращаемого значения <see cref="T:System.Span`1" />. Если значение равно 0, возвращается непустой буфер произвольного размера.</param>
+        <summary>Возвращает <see cref="T:System.Span`1" /> для записи минимального запрошенного размера (определяется параметром <paramref name="sizeHint" />).</summary>
+        <returns>Буфер размером не менее <paramref name="sizeHint" /> байтов. Если значение <paramref name="sizeHint" /> равно 0, возвращается непустой буфер произвольного размера.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[
 
