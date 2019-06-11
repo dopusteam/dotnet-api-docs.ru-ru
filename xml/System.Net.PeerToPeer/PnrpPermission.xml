@@ -1,5 +1,5 @@
 <Type Name="PnrpPermission" FullName="System.Net.PeerToPeer.PnrpPermission">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="7eb19c1a4766825699a4a0659d4cb7fec6503ba2" /><Meta Name="ms.sourcegitcommit" Value="220917117f9d774aaa482439aa7324e39dc1f5b6" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="02/25/2019" /><Meta Name="ms.locfileid" Value="56762915" /></Metadata><TypeSignature Language="C#" Value="public sealed class PnrpPermission : System.Security.CodeAccessPermission, System.Security.Permissions.IUnrestrictedPermission" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="35cc6e54bceafd19f471a8b506b673d622c5f5b6" /><Meta Name="ms.sourcegitcommit" Value="ddce15914650a504a7399d539ac1f7cfed3c2caa" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="06/07/2019" /><Meta Name="ms.locfileid" Value="66759927" /></Metadata><TypeSignature Language="C#" Value="public sealed class PnrpPermission : System.Security.CodeAccessPermission, System.Security.Permissions.IUnrestrictedPermission" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit PnrpPermission extends System.Security.CodeAccessPermission implements class System.Security.Permissions.IUnrestrictedPermission" />
   <TypeSignature Language="DocId" Value="T:System.Net.PeerToPeer.PnrpPermission" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class PnrpPermission&#xA;Inherits CodeAccessPermission&#xA;Implements IUnrestrictedPermission" />
@@ -37,7 +37,7 @@
 ## Remarks  
  Разрешения по умолчанию позволяют всем локальным приложениям и приложениям зоны интрасети для доступа к службам PNRP. Если разрешения по умолчанию не изменяются, всех локальных и локального сайта приложения имеют доступ к службам Peer-to-Peer, но глобальные приложения (Интернет) не имеют доступа.  
   
- Экземпляры этого типа имеют два состояния разрешений: либо у них нет доступа к ресурсу, защищенному разрешением, или они имеют неограниченный полный доступ к этим ресурсам.  
+ Экземпляры этого типа имеют два состояния разрешений: они либо не имеют доступа к ресурсам, защищенным с помощью разрешений, или они имеют неограниченный полный доступ к этим ресурсам.  
   
  ]]></format>
     </remarks>
@@ -266,19 +266,18 @@
           <format type="text/markdown"><![CDATA[  
   
 ## Remarks  
- Текущий <xref:System.Net.PeerToPeer.PnrpPermission> является подмножеством указанного разрешения, если текущее разрешение задает набор операций, полностью содержащихся в заданном разрешении. Например, разрешение, представляющее доступ к "*C:\example.txt*«— это подмножество разрешение, представляющее доступ к»*C:\\*«. Если этот метод возвращает `true`, текущее разрешение представляет уровень доступа к защищенному ресурсу, чем указанное разрешение.  
+
+Текущий <xref:System.Net.PeerToPeer.PnrpPermission> является подмножеством указанного разрешения, если текущее разрешение задает набор операций, полностью содержащихся в заданном разрешении. Например, разрешение, представляющее доступ к "*C:\example.txt*«— это подмножество разрешение, представляющее доступ к»*C:\\*«. Если этот метод возвращает `true`, текущее разрешение представляет уровень доступа к защищенному ресурсу, чем указанное разрешение.  
   
- Следующие инструкции, требуется ли `true` для всех реализаций метода IsSubsetOf. X, Y и Z представляют <xref:System.Security.IPermission> объекты, не являющиеся `null` ссылки (`Nothing` в Visual Basic).  
+Следующие инструкции, требуется ли `true` для всех реализаций метода IsSubsetOf. X, Y и Z представляют <xref:System.Security.IPermission> объекты, не являющиеся `null` ссылки (`Nothing` в Visual Basic).
+
+- `X.IsSubsetOf(X)` возвращает `true`.
+
+- `X.IsSubsetOf(Y)` Возвращает то же значение, что `Y.IsSubsetOf(X)` только в том случае, если X и Y представляют один и тот же набор разрешений.
+
+- Если `X.IsSubsetOf(Y)` и `Y.IsSubsetOf(Z)` обе эти функции возвращают `true`, `X.IsSubsetOf(Z)` возвращает `true`.
   
--   Возвращает X.IsSubsetOf(X) `true`.  
-  
--   X.IsSubsetOf(Y) возвращает то же значение, что Y.IsSubsetOf(X) только в том случае, если X и Y представляют один и тот же набор разрешений.  
-  
--   Если X.IsSubsetOf(Y) и Y.IsSubsetOf(Z) возвращают `true`, возвращает X.IsSubsetOf(Z) `true`.  
-  
--  
-  
- Если X представляет пустой объект IPermission с состоянием разрешения объекта *None* и Y представляет объект, являющийся IPermission `null` ссылки (`Nothing` в Visual Basic), X.IsSubsetOf(Y) возвращает `true`. Если Z также пустое разрешение, составная операция X.Union(Z). Также возвращает IsSubsetOf(Y) `true` поскольку <xref:System.Net.PeerToPeer.PnrpPermission.Union%2A> двух пустых разрешений является пустое разрешение.  
+Если X представляет пустой <xref:System.Security.IPermission> объект с состоянием разрешения объекта *None*, а Y — <xref:System.Security.IPermission> объекта, `null` ссылки (`Nothing` в Visual Basic), `X.IsSubsetOf(Y)` возвращает `true`. Если Z также является пустое разрешение, составная операция `X.Union(Z).IsSubsetOf(Y)` также возвращает `true` поскольку <xref:System.Net.PeerToPeer.PnrpPermission.Union%2A> двух пустых разрешений является пустое разрешение.
   
  ]]></format>
         </remarks>
@@ -316,7 +315,7 @@
       <Parameters />
       <Docs>
         <summary>Возвращает значение, определяющее, является ли текущее разрешение <see cref="T:System.Net.PeerToPeer.PnrpPermission" /> неограниченным.</summary>
-        <returns>Значение <see langword="true" />, если текущее разрешение неограниченно; в противном случае — значение <see langword="false" />.</returns>
+        <returns>Значение <see langword="true" />, если текущее разрешение является неограниченным. В противном случае — значение <see langword="false" />.</returns>
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
