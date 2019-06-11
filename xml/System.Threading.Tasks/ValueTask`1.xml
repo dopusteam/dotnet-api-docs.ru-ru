@@ -1,5 +1,5 @@
 <Type Name="ValueTask&lt;TResult&gt;" FullName="System.Threading.Tasks.ValueTask&lt;TResult&gt;">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="b8dcd3b18fa5f95c701d0a7288bc673f2bffac5f" /><Meta Name="ms.sourcegitcommit" Value="2dd0eede6edd6dd3d2aa8f79010848658b967609" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="04/18/2019" /><Meta Name="ms.locfileid" Value="58874284" /></Metadata><TypeSignature Language="C#" Value="public struct ValueTask&lt;TResult&gt; : IEquatable&lt;System.Threading.Tasks.ValueTask&lt;TResult&gt;&gt;" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="b7517ccc8093036f6b431d4f4fd4360879b7f348" /><Meta Name="ms.sourcegitcommit" Value="ddce15914650a504a7399d539ac1f7cfed3c2caa" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="06/07/2019" /><Meta Name="ms.locfileid" Value="66759872" /></Metadata><TypeSignature Language="C#" Value="public struct ValueTask&lt;TResult&gt; : IEquatable&lt;System.Threading.Tasks.ValueTask&lt;TResult&gt;&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public sequential ansi sealed beforefieldinit ValueTask`1&lt;TResult&gt; extends System.ValueType implements class System.IEquatable`1&lt;valuetype System.Threading.Tasks.ValueTask`1&lt;!TResult&gt;&gt;" />
   <TypeSignature Language="DocId" Value="T:System.Threading.Tasks.ValueTask`1" />
   <TypeSignature Language="VB.NET" Value="Public Structure ValueTask(Of TResult)&#xA;Implements IEquatable(Of ValueTask(Of TResult))" />
@@ -45,6 +45,17 @@
       <format type="text/markdown"><![CDATA[ 
 
 ## Remarks  
+Объект <xref:System.Threading.Tasks.ValueTask%601> экземпляр может быть ожидается или преобразовать <xref:System.Threading.Tasks.Task%601> с помощью <xref:System.Threading.Tasks.ValueTask%601.AsTask%2A>. Объект <xref:System.Threading.Tasks.ValueTask%601> экземпляр может ожидать только один раз, и потребители не может вызывать <xref:System.Threading.Tasks.ValueTask%601.GetAwaiter> до завершения экземпляра. Если эти ограничения неприемлемы, преобразуйте <xref:System.Threading.Tasks.ValueTask%601> для <xref:System.Threading.Tasks.Task%601> путем вызова <xref:System.Threading.Tasks.ValueTask%601.AsTask%2A>.
+
+Никогда не следует выполнять следующие операции на <xref:System.Threading.Tasks.ValueTask%601> экземпляр:
+
+  - Ожидается экземпляр несколько раз.
+  - Вызов <xref:System.Threading.Tasks.ValueTask%601.AsTask%2A> несколько раз.
+  - С помощью `.Result` или `.GetAwaiter().GetResult()` при операции еще не завершила или использовать их несколько раз.
+  - С помощью более чем в одной из этих методов для использования экземпляра.
+
+Если выполнять какие-либо из перечисленных выше, результаты будут неопределенными.
+
 Метод может возвращать экземпляр этого типа значения, где оно, вероятно, что результат его работы будут доступны синхронно, и когда он должно быть настолько часто, приводящее расходам на новый <xref:System.Threading.Tasks.Task%601> для каждого вызова будут чрезмерно высокой.   
 
 Есть и недостатки использования <xref:System.Threading.Tasks.ValueTask%601> вместо <xref:System.Threading.Tasks.Task%601>. Например, хотя <xref:System.Threading.Tasks.ValueTask%601> поможет избежать распределения в случае успешного результата где доступны синхронно, он также содержит два поля, тогда как <xref:System.Threading.Tasks.Task%601> как ссылку на тип состоит из одного поля. Это означает, что вызов метода возвращает два поля стоит данных вместо одного, это дополнительные данные для копирования. Это также означает, что если метод, возвращающий <xref:System.Threading.Tasks.ValueTask%601> оказывается внутри асинхронного метода, конечный автомат для этого асинхронного метода будет больше, так как должен сохраняться структуры, содержащий два поля, а не одна ссылка.   
@@ -652,11 +663,10 @@
         <remarks>
           <format type="text/markdown"><![CDATA[  
 ## Remarks  
- Если этот <xref:System.Threading.Tasks.ValueTask%601> оболочку успешный результат, это свойство возвращает его напрямую.
+Это свойство доступно только один раз и только после этого <xref:System.Threading.Tasks.ValueTask%601> завершения.
 
- При переносе <xref:System.Threading.Tasks.Task%601>, поведение <xref:System.Threading.Tasks.ValueTask%601.Result%2A> аналогично поведению доступа к <xref:System.Threading.Tasks.Task%601.Result%2A> на задачи оболочки: Если задача не завершена, обращение к свойству блокирует вызывающий поток до завершения; Если задача была завершена успешно свойство возвращает результат; Если задача была отменена или завершилась ошибкой, обращение к свойству вызывает исключение. Исключение не заключены в <xref:System.AggregateException>, который отличается от поведения <xref:System.Threading.Tasks.Task%601.Result%2A> в подобной ситуации.
-  
- ]]></format>
+Если этот <xref:System.Threading.Tasks.ValueTask%601> успешно завершена, это свойство возвращает результирующее значение. Если данный <xref:System.Threading.Tasks.ValueTask%601> имеет faulted, это свойство вызывает исключение. Исключение не заключены в <xref:System.AggregateException>.
+]]></format>
         </remarks>
       </Docs>
     </Member>

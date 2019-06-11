@@ -1,5 +1,5 @@
 <Type Name="String" FullName="System.String">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="6676ee0a2b52df9c1f9272c0a4aa8ee2724fd431" /><Meta Name="ms.sourcegitcommit" Value="9a6da88bd5455e8274257ca7ad259b42f1de114f" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="05/22/2019" /><Meta Name="ms.locfileid" Value="66008761" /></Metadata><TypeSignature Language="C#" Value="public sealed class String : ICloneable, IComparable, IComparable&lt;string&gt;, IConvertible, IEquatable&lt;string&gt;, System.Collections.Generic.IEnumerable&lt;char&gt;" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="70291a5c3c71f8edaa754b62b73f6524f4470030" /><Meta Name="ms.sourcegitcommit" Value="f55040f35c19a83c85beb55243330558f6e369be" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="06/10/2019" /><Meta Name="ms.locfileid" Value="66818651" /></Metadata><TypeSignature Language="C#" Value="public sealed class String : ICloneable, IComparable, IComparable&lt;string&gt;, IConvertible, IEquatable&lt;string&gt;, System.Collections.Generic.IEnumerable&lt;char&gt;" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi serializable sealed beforefieldinit string extends System.Object implements class System.Collections.Generic.IEnumerable`1&lt;char&gt;, class System.Collections.IEnumerable, class System.ICloneable, class System.IComparable, class System.IComparable`1&lt;string&gt;, class System.IConvertible, class System.IEquatable`1&lt;string&gt;" />
   <TypeSignature Language="DocId" Value="T:System.String" />
   <TypeSignature Language="VB.NET" Value="Public NotInheritable Class String&#xA;Implements ICloneable, IComparable, IComparable(Of String), IConvertible, IEnumerable(Of Char), IEquatable(Of String)" />
@@ -97,7 +97,7 @@
 -   Путем вызова <xref:System.String> конструктора класса. В следующем примере создается строк путем вызова несколько конструкторов класса. Обратите внимание, что некоторые конструкторы включают указатели на массивы символов или байт со знаком массивов в качестве параметров. Visual Basic не поддерживает вызовы этих конструкторов. Подробные сведения о <xref:System.String> конструкторы, см. в разделе <xref:System.String.%23ctor%2A> конструктор сводки.  
   
      [!code-cpp[System.String.Class.Instantiate#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.string.class.instantiate/cpp/string.instantiate2.cpp#2)]
-     [!code-csharp-interactive[System.String.Class.Instantiate#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.string.class.instantiate/cs/program.cs#2)]
+     [!code-csharp[System.String.Class.Instantiate#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.string.class.instantiate/cs/program.cs#2)]
      [!code-vb[System.String.Class.Instantiate#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.string.class.instantiate/vb/instantiate1.vb#2)]  
   
 -   С помощью оператора объединения строк (+ в C# и & или + в Visual Basic) для создания одной строки из любого сочетания <xref:System.String> экземпляров и строковые литералы. Следующий пример иллюстрирует использование оператора объединения строк.  
@@ -4099,17 +4099,31 @@
         <remarks>
           <format type="text/markdown"><![CDATA[  
   
-## Remarks  
- <xref:System.String.Copy%2A> Возвращает метод <xref:System.String> объект, который имеет то же значение, что исходная строка, но представляет ссылку на другой объект. Он отличается от операция присваивания, который назначает существующую ссылку на строку дополнительных объектной переменной. Пример демонстрирует различие.  
+## Remarks
+
+`Copy` Возвращает метод <xref:System.String> объект, который имеет то же значение, что исходная строка, но представляет ссылку на другой объект. Он отличается от операция присваивания, который назначает существующую ссылку на строку дополнительных объектной переменной.
+
+> [!IMPORTANT]
+>  Начиная с .NET Core 3.0, этот метод является устаревшим. Тем не менее его использование в любой реализации .NET, не рекомендуется. В частности, из-за изменения в интернирование строк в .NET Core 3.0, в некоторых случаях `Copy` метод не создает новую строку, но просто возвращает ссылку на существующей интернированные строки.   
+
+В зависимости от того, почему необходимо вызвать `Copy` метода, существует несколько вариантов:
+
+- Если вам нужен экземпляр другую строку для использования в операции, которая изменяет строку, используйте исходный экземпляр строки. Поскольку строки являются неизменяемыми, строка операция создает новый экземпляр строки и исходную строку, остается без изменений. В этом случае не следует присваивать новые строковая ссылка на исходную переменную строки. Ниже приведен пример.
+
+  [!code-csharp[Performing a string operation](~/samples/snippets/csharp/api/system/string/copy/program.cs#1)]
+  [!code-vb[Performing a string operation](~/samples/snippets/visualbasic/api/system/string/copy/program.vb#1)]  
   
-   
-  
-## Examples  
- В следующем примере создается два строковых объекта с разными значениями. При вызове метода <xref:System.String.Copy%2A> метод назначения первое значение вторая строка выходных данных указывает, что эти строки представляют различные ссылки на, несмотря на то, что теперь равны значения их. С другой стороны при назначении первая строка второй строкой, две строки имеют одинаковые значения, так как они представляют одну и ту же ссылку объекта.  
-  
- [!code-csharp[System.String.Copy#1](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.string.copy/cs/copy1.cs#1)]
- [!code-vb[System.String.Copy#1](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.string.copy/vb/copy1.vb#1)]  
-  
+   В этом случае вызов `Copy` метод, чтобы создать новую строку перед вызовом <xref:System.String.Substring%2A> метод без необходимости создает новый экземпляр строки. 
+
+- Если вы хотите создать изменяемые буфер с помощью того же содержимого исходную строку, вызовите <xref:System.String.ToCharArray%2A?displayProperty=nameWithType> или <xref:System.Text.StringBuilder.%23ctor(System.String)?displayProperty=nameWithType> конструктор. Например:
+
+  [!code-csharp[Performing a string operation](~/samples/snippets/csharp/api/system/string/copy/program.cs#2)]
+  [!code-vb[Performing a string operation](~/samples/snippets/visualbasic/api/system/string/copy/program.vb#2)]  
+
+- Если вы хотите создать копию строки, изменяемые, таким образом, можно использовать небезопасный код, чтобы изменение содержимого строки, используйте <xref:System.Runtime.InteropServices.Marshal.StringToHGlobalUni%2A?displayProperty=nameWithType> метод. В следующем примере используется <xref:System.Runtime.InteropServices.Marshal.StringToHGlobalUni%2A?displayProperty=nameWithType> способ получить указатель на расположение строки, скопированной в неуправляемой памяти, увеличивает на единицу кодовая точка Юникода каждого символа в строке и копирует результирующая строка управляемая строка.
+
+  [!code-csharp[Performing a string operation](~/samples/snippets/csharp/api/system/string/copy/program.cs#3)]
+
  ]]></format>
         </remarks>
         <exception cref="T:System.ArgumentNullException"><paramref name="str" /> — <see langword="null" />.</exception>
@@ -4951,7 +4965,7 @@
  И вы можете управлять форматированием это значение:  
   
  [!code-cpp[System.String.Format#36](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.String.Format/cpp/starting2.cpp#36)]
- [!code-csharp-interactive[System.String.Format#36](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/starting2.cs#36)]
+ [!code-csharp[System.String.Format#36](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/starting2.cs#36)]
  [!code-vb[System.String.Format#36](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.String.Format/vb/starting2.vb#36)]  
   
  Помимо форматирование, можно также управлять интервал и выравнивание.  
@@ -4989,7 +5003,7 @@
  В следующем примере определяется 6-символьное поле для хранения строки «Год» и некоторые строки год, а также 15-символьного поля для хранения строки «Заполнение» и некоторые данные о населении. Обратите внимание на то, что символы являются по правому краю поля.  
   
  [!code-cpp[System.String.Format#33](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.String.Format/cpp/starting1.cpp#33)]
- [!code-csharp-interactive[System.String.Format#33](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/starting3.cs)]
+ [!code-csharp-interactive[System.String.Format#33](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/starting3.cs#33)]
  [!code-vb[System.String.Format#33](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.String.Format/vb/starting1.vb#33)]  
   
  ### <a name="controlling-alignment"></a>Управление выравнивания  
@@ -5034,7 +5048,7 @@
  Например элемент форматирования для форматирования значения валюты может отображаться следующим образом:  
   
  [!code-cpp[System.String.Format#12](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.String.Format/cpp/formatsyntax1.cpp#12)]
- [!code-csharp-interactive[System.String.Format#12](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/formatsyntax1.cs#12)]  
+ [!code-csharp[System.String.Format#12](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/formatsyntax1.cs#12)]  
  [!code-vb[System.String.Format#12](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.String.Format/vb/formatsyntax1.vb#12)]  
 
  Элемент форматирования имеет следующие элементы:  
@@ -5114,7 +5128,7 @@
  В этом примере определяется поставщик формата, который форматирует целочисленное значение в виде номера счета заказчика в форме x-xxxxx-xx.  
   
  [!code-cpp[System.String.Format#2](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.String.Format/cpp/formatexample2.cpp#2)]
- [!code-csharp-interactive[System.String.Format#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/FormatExample2.cs#2)]
+ [!code-csharp[System.String.Format#2](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/FormatExample2.cs#2)]
  [!code-vb[System.String.Format#2](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.String.Format/vb/FormatExample2.vb#2)]  
   
 <a name="Format7_Example"></a>   
@@ -5126,7 +5140,7 @@
 -   Если объект форматируемое значение типа byte без знака, необходимо отформатировать с помощью строки стандартного формата «R», пользовательский модуль форматирования форматирует числовое значение в виде римские цифры.  
   
  [!code-cpp[System.String.Format#11](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.String.Format/cpp/interceptor2.cpp#11)]
- [!code-csharp-interactive[System.String.Format#11](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/interceptor2.cs#11)]
+ [!code-csharp[System.String.Format#11](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/interceptor2.cs#11)]
  [!code-vb[System.String.Format#11](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.String.Format/vb/interceptor2.vb#11)]  
   
 <a name="QA"></a>   
@@ -5142,12 +5156,12 @@
 
 Сравнение в следующих двух примерах кода показано superiority интерполированные строки через объединение строк и вызовы методов составного форматирования. Использование нескольких операций объединения строк, в следующем примере создается код verbose и трудный для чтения.
 
-[!code-csharp-interactive[non-interpolated string operations](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/qa-interpolated1.cs)]
+[!code-csharp-interactive[non-interpolated string operations](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/qa-interpolated1.cs#QAInterpolated)]
 [!code-vb[non-interpolated string operations](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.String.Format/vb/qa-interpolated1.vb)]  
 
 С другой стороны, использование интерполированные строки в следующем примере создают намного яснее и более понятного кода, чем оператор объединения строки и вызов <xref:System.String.Format%2A> метод в предыдущем примере.
 
-[!code-csharp-interactive[interpolated string operations](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/qa-interpolated2.cs)]
+[!code-csharp-interactive[interpolated string operations](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/qa-interpolated2.cs#QAInterpolated2)]
 [!code-vb[interpolated string operations](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.String.Format/vb/qa-interpolated2.vb)]  
 
 ### <a name="where-can-i-find-a-list-of-the-predefined-format-strings-that-can-be-used-with-format-items"></a>Где можно найти список стандартных строк форматирования, которые могут использоваться с элементами форматирования?  
@@ -5421,7 +5435,7 @@
  Можно также передать объекты отформатирован в виде массива, а не как список аргументов.  
   
  [!code-cpp[System.String.Format#10](~/samples/snippets/cpp/VS_Snippets_CLR_System/system.String.Format/cpp/format_paramarray1.cpp#10)]
- [!code-csharp-interactive[System.String.Format#10](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/format_paramarray1.cs#10)]
+ [!code-csharp[System.String.Format#10](~/samples/snippets/csharp/VS_Snippets_CLR_System/system.String.Format/cs/format_paramarray1.cs#10)]
  [!code-vb[System.String.Format#10](~/samples/snippets/visualbasic/VS_Snippets_CLR_System/system.String.Format/vb/format_paramarray1.vb#10)]  
 
  ]]></format>
@@ -11496,7 +11510,7 @@ String 'This is a string.' in domain 'NewDomain': 75CC8236
       <Docs>
         <summary>Извлекает подстроку из данного экземпляра.  
   
-Этот член перегружен. Для получения полной информации о данном члене, включая синтаксис, использование и примеры, щелкните имя в списке перегрузок.</summary>
+ Этот член перегружен. Для получения полной информации о данном члене, включая синтаксис, использование и примеры, щелкните имя в списке перегрузок.</summary>
       </Docs>
     </MemberGroup>
     <Member MemberName="Substring">
