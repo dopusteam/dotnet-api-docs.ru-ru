@@ -1,5 +1,5 @@
 <Type Name="AssemblyLoadContext" FullName="System.Runtime.Loader.AssemblyLoadContext">
-  <Metadata><Meta Name="ms.openlocfilehash" Value="1fe12898361e808786693310aaf210145e2d3f9a" /><Meta Name="ms.sourcegitcommit" Value="9a6da88bd5455e8274257ca7ad259b42f1de114f" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="05/22/2019" /><Meta Name="ms.locfileid" Value="66007911" /></Metadata><TypeSignature Language="C#" Value="public abstract class AssemblyLoadContext" />
+  <Metadata><Meta Name="ms.openlocfilehash" Value="756de86d1257118d19b330ce89f8113cfda20a94" /><Meta Name="ms.sourcegitcommit" Value="f55040f35c19a83c85beb55243330558f6e369be" /><Meta Name="ms.translationtype" Value="MT" /><Meta Name="ms.contentlocale" Value="ru-RU" /><Meta Name="ms.lasthandoff" Value="06/10/2019" /><Meta Name="ms.locfileid" Value="66818905" /></Metadata><TypeSignature Language="C#" Value="public abstract class AssemblyLoadContext" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit AssemblyLoadContext extends System.Object" />
   <TypeSignature Language="DocId" Value="T:System.Runtime.Loader.AssemblyLoadContext" />
   <TypeSignature Language="VB.NET" Value="Public MustInherit Class AssemblyLoadContext" />
@@ -123,9 +123,17 @@
         <Parameter Name="isCollectible" Type="System.Boolean" Index="0" FrameworkAlternate="netcore-3.0" />
       </Parameters>
       <Docs>
-        <param name="isCollectible"><see langword="true" /> — включение сборки мусора; в противном случае — значение <see langword="false" />.</param>
-        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> со значением, определяющим включение сборки мусора.</summary>
-        <remarks>To be added.</remarks>
+        <param name="isCollectible"><see langword="true" />, чтобы включить <see cref="M:System.Runtime.Loader.AssemblyLoadContext.Unload" />; в противном случае — <see langword="false" />. Значение по умолчанию — <see langword="false" />, так как включение выгрузки снижает производительность.</param>
+        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> со значением, указывающим, включена ли выгрузка.</summary>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+
+Данный конструктор является защищенным. Может вызываться только из <xref:System.Runtime.Loader.AssemblyLoadContext> класса или его производных классов.
+
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -144,9 +152,9 @@
         <Parameter Name="isCollectible" Type="System.Boolean" Index="1" FrameworkAlternate="netcore-3.0" />
       </Parameters>
       <Docs>
-        <param name="name">To be added.</param>
-        <param name="isCollectible">To be added.</param>
-        <summary>To be added.</summary>
+        <param name="name">Значение для <see cref="P:System.Runtime.Loader.AssemblyLoadContext.Name" /> в новом экземпляре. Это значение может быть равно <see langword="null" />.</param>
+        <param name="isCollectible"><see langword="true" />, чтобы включить <see cref="M:System.Runtime.Loader.AssemblyLoadContext.Unload" />; в противном случае — <see langword="false" />. Значение по умолчанию — <see langword="false" />, так как включение выгрузки снижает производительность.</param>
+        <summary>Инициализирует новый экземпляр класса <see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> с именем и значением, указывающим, включена ли выгрузка.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -166,8 +174,8 @@
         <ReturnType>System.Collections.Generic.IEnumerable&lt;System.Runtime.Loader.AssemblyLoadContext&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>Возвращает коллекцию всех экземпляров класса <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />.</summary>
+        <value>Коллекция всех <see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> экземпляров.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -187,8 +195,8 @@
         <ReturnType>System.Collections.Generic.IEnumerable&lt;System.Reflection.Assembly&gt;</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>Возвращает коллекцию экземпляров <see cref="T:System.Reflection.Assembly" />, загруженных в <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />.</summary>
+        <value>Коллекция <see cref="T:System.Reflection.Assembly" /> загружено экземпляров в <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -208,9 +216,16 @@
         <ReturnType>System.Runtime.Loader.AssemblyLoadContext</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>Получает <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />, заданный последним вызовов к <see cref="M:System.Runtime.Loader.AssemblyLoadContext.EnterContextualReflection" />.</summary>
+        <value><see cref="T:System.Runtime.Loader.AssemblyLoadContext" /> Задается последний вызов <see cref="M:System.Runtime.Loader.AssemblyLoadContext.EnterContextualReflection" />. Это значение может быть равно <see langword="null" />. Значение хранится в <see cref="T:System.Threading.AsyncLocal`1" />, поэтому значение является уникальным для каждого асинхронного контекста.</value>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+Дополнительные сведения см. в разделе [AssemblyLoadContext.CurrentContextualReflectionContext проектный документ в .NET Core](https://github.com/dotnet/coreclr/blob/master/Documentation/design-docs/AssemblyLoadContext.ContextualReflection.md).
+
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="Default">
@@ -258,9 +273,16 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>Задает для <see cref="P:System.Runtime.Loader.AssemblyLoadContext.CurrentContextualReflectionContext" /> значение <see langword="this" /> <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />.</summary>
+        <returns>Объект для восстановления предыдущего значения <see cref="P:System.Runtime.Loader.AssemblyLoadContext.CurrentContextualReflectionContext" />. Предназначен для использования в качестве <see cref="T:System.IDisposable" /> в блоке <see langword="using" />.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+Дополнительные сведения см. в разделе [AssemblyLoadContext.CurrentContextualReflectionContext проектный документ в .NET Core](https://github.com/dotnet/coreclr/blob/master/Documentation/design-docs/AssemblyLoadContext.ContextualReflection.md).
+
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="EnterContextualReflection">
@@ -282,10 +304,17 @@
         <Parameter Name="activating" Type="System.Reflection.Assembly" Index="0" FrameworkAlternate="netcore-3.0" />
       </Parameters>
       <Docs>
-        <param name="activating">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="activating">Сборка, которая используется для определения запрошенного экземпляра <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />.</param>
+        <summary>Задает для <see cref="P:System.Runtime.Loader.AssemblyLoadContext.CurrentContextualReflectionContext" /> значение <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />, которое загрузило сборку.</summary>
+        <returns>Объект для восстановления предыдущего значения <see cref="P:System.Runtime.Loader.AssemblyLoadContext.CurrentContextualReflectionContext" />. Предназначен для использования в качестве <see cref="T:System.IDisposable" /> в блоке <see langword="using" />.</returns>
+        <remarks>
+          <format type="text/markdown"><![CDATA[
+
+## Remarks
+Дополнительные сведения см. в разделе [AssemblyLoadContext.CurrentContextualReflectionContext проектный документ в .NET Core](https://github.com/dotnet/coreclr/blob/master/Documentation/design-docs/AssemblyLoadContext.ContextualReflection.md).
+
+ ]]></format>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="GetAssemblyName">
@@ -456,17 +485,24 @@
           <format type="text/markdown"><![CDATA[
 
 ## Remarks
- <xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName%2A> Загружает сборку, разрешая <xref:System.Reflection.AssemblyName>. Это активирует полным разрешением. Последовательность резервных разрешение продолжает этот процесс: 1. Этот метод вызывает <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)>.
-         > [!IMPORTANT]
-         > <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)> must not call this method to prevent recursive stack overflow.
-     2. Unless the assembly is loaded or an exception is thrown, the method attempts to load the assembly in the default <xref:System.Runtime.Loader.AssemblyLoadContext>.
-     3. Unless the assembly is loaded or an exception is thrown, the method fires the <xref:System.Runtime.Loader.AssemblyLoadContext.Resolving> event.
-     4. Unless the assembly is loaded or an exception is thrown, the method fires the <xref:System.AppDomain.AssemblyResolve> event.
+
+<xref:System.Runtime.Loader.AssemblyLoadContext.LoadFromAssemblyName%2A> Загружает сборку, разрешая <xref:System.Reflection.AssemblyName>. Это активирует полным разрешением. Последовательность резервных разрешение продолжает этот процесс:
+
+1. Этот метод вызывает <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)>.
+
+   > [!IMPORTANT]
+   > <xref:System.Runtime.Loader.AssemblyLoadContext.Load(System.Reflection.AssemblyName)> не должны вызывать этот метод, чтобы предотвратить переполнение стека рекурсивной.
+
+2. Если сборка загружается или возникает исключение, метод пытается загрузить сборку в значение по умолчанию <xref:System.Runtime.Loader.AssemblyLoadContext>.
+3. Если сборка загружается или возникает исключение, вызывается метод <xref:System.Runtime.Loader.AssemblyLoadContext.Resolving> событий.
+4. Если сборка загружается или возникает исключение, вызывается метод <xref:System.AppDomain.AssemblyResolve> событий.
  
- > [!NOTE]
- > <xref:System.IO.FileLoadException> возникает, если `assemblyRef` указывает полное имя сборки и первой сборки, которая соответствует простое имя имеет несовместимую версию или языка и региональных параметров. Загрузчик не производит поиск других сборок, которые соответствуют простым именем.
+> [!NOTE]
+> <xref:System.IO.FileLoadException> возникает, если `assemblyRef` указывает полное имя сборки и первой сборки, которая соответствует простое имя имеет несовместимую версию или языка и региональных параметров. Загрузчик не производит поиск других сборок, которые соответствуют простым именем.
  
- Каждый <xref:System.Runtime.Loader.AssemblyLoadContext> можно загрузить только: * одну версию исполняемого файла сборки.
+Каждый <xref:System.Runtime.Loader.AssemblyLoadContext> можно загрузить только:
+ 
+* Одна версия исполняемую сборку.
 * Одну версию вспомогательной сборки для каждого языка и региональных параметров.
  
  ]]></format>
@@ -723,8 +759,8 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>Возвращает имя <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />.</summary>
+        <value>Имя <see cref="T:System.Runtime.Loader.AssemblyLoadContext" />. Это значение может быть равно <see langword="null" />.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
